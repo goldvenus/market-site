@@ -1,0 +1,74 @@
+
+@font-face {
+	font-family: 'GothamPro';
+	src: url('GothamPro.eot?') format('eot'), 
+	     url('GothamPro.otf')  format('opentype'),
+	     url('GothamPro.woff') format('woff'), 
+	     url('GothamPro.ttf')  format('truetype'),
+	     url('GothamPro.svg#GothamPro') format('svg');
+}
+
+@font-face {
+	font-family: 'GothamPro-Black';
+	src: url('GothamPro-Black.eot?') format('eot'), 
+	     url('GothamPro-Black.otf')  format('opentype'),
+	     url('GothamPro-Black.woff') format('woff'), 
+	     url('GothamPro-Black.ttf')  format('truetype'),
+	     url('GothamPro-Black.svg#GothamPro-Black') format('svg');
+}
+
+
+@font-face {
+	font-family: 'GothamPro-Bold';
+	src: url('GothamPro-Bold.eot?') format('eot'), 
+	     url('GothamPro-Bold.otf')  format('opentype'),
+	     url('GothamPro-Bold.woff') format('woff'), 
+	     url('GothamPro-Bold.ttf')  format('truetype'),
+	     url('GothamPro-Bold.svg#GothamPro-Bold') format('svg');
+}
+
+
+h1{
+  font-family: 'GothamPro-Black';
+  font-size: 3.0625rem;
+}
+h2{
+  font-family: 'GothamPro-Black';
+  font-size: 2.6875rem;
+}
+h3{
+  font-family: 'GothamPro-Black';
+  font-size: 2rem;
+}
+h4{
+  font-family: 'GothamPro-Bold';
+  font-size: 1.25rem;
+}
+h5{
+  font-family: 'GothamPro-Bold';
+  font-size: 1.125rem;
+  letter-spacing: 9%;
+}
+h6{
+  font-family: 'GothamPro-Bold';
+  font-size: 1rem;
+  letter-spacing: 9%;
+}
+/*
+* default font is set in body ,html tag
+* default font is "Helvetica Neue"
+*/
+.text-small{
+  font-size : 0.75rem;
+  line-height: 126%;
+}
+.text-bold{
+  font-size:1rem;
+  line-height: 144%;
+  font-weight: bold;
+}
+.text-small-bold{
+  font-size:0.75rem;
+  line-height: 126%;
+  font-weight: bold;
+}

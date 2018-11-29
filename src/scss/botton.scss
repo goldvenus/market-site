@@ -1,0 +1,64 @@
+// NOTE : bttn to avoid confilct with bootstrap 4 classes
+.bttn{
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.bttn-primary{
+  background-color: $primary-color; 
+  color :$white; 
+  
+  &:hover{
+    background-color: primary-light-color;
+    color :$white; 
+  }
+}
+.bttn-secondery{
+  border:1px solid $secondary-color;  
+  color :$secondary-color;
+  
+  &:hover{
+    background-color: $secondary-color;
+    color :$white;
+  }
+}
+.bttn-outline-white{
+  border:1px solid $white;
+  color :$white;
+  
+  &:hover{
+    background-color: $white;
+    color :$primary-color;
+    
+  }
+}
+.bttn-filled-white{
+  background-color: $white;
+  color :$primary-color;
+  
+  &:hover{
+    background-color: $white;
+    opacity: 0.8;
+  }
+}
+.bttn-outline-pink{
+  background-color: $primary-color
+  color :$white;
+  
+  &:hover{
+    background-color: $white;
+    color :$primary-color;
+    
+  }
+}
