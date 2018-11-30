@@ -9,7 +9,7 @@ class Layout extends Component {
   render() {
     return (
       <BrowserRouter>
-        <div className="container">
+        <div>
           <Header />
           { routes }
           <Footer />  

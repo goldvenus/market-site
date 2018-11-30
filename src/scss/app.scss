@@ -1,7 +1,13 @@
-$primary-color: #225F80;
-$black: #333;
-$lightgray: lightgray;
-$white: white;
+$primary-color: #F82462;
+$primary-light-color: #FA6691;
+$secondary-color: #252525;
+$secondary-light-color: #3A3A3A;
+$white: #ffffff;
+$gray-light: #f4f5f6;
+$gray-lighten: #f8f8f8;
+
+
+
 
 html, body, .container {
   height: 100%;
@@ -9,10 +15,44 @@ html, body, .container {
 
 body {
   margin: 0;
-  font-family: Roboto,sans-serif;
+  padding :0;
+  box-sizing: border-box;
+  font-family: 'Helvetica Neue',sans-serif !important;
+  color:$secondary-color;
+  font-size: 100%;
+  line-height: 144%;
 }
-
+.bg-gray-light{
+  background-color: $gray-light;
+}
+input::-webkit-input-placeholder {
+    font-size: 12px;
+    line-height: 3;
+}
 .app-content {
   display: flex;
   margin-top: 10px;
 }
+.theme-form-group{
+  display: flex;
+  padding-right:4rem;
+ 
+}
+.theme-form-control{
+  display: block;
+  width: 100%;
+  padding: .3rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-image: none;
+  background-clip: padding-box;
+  border:none;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  &:focus{
+    outline: none;
+  }  
+}
+
+
