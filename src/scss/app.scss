@@ -17,11 +17,42 @@ body {
   margin: 0;
   padding :0;
   box-sizing: border-box;
-  font-family: 'Helvetica Neue',sans-serif;
+  font-family: 'Helvetica Neue',sans-serif !important;
+  color:$secondary-color;
   font-size: 100%;
   line-height: 144%;
+}
+.bg-gray-light{
+  background-color: $gray-light;
+}
+input::-webkit-input-placeholder {
+    font-size: 12px;
+    line-height: 3;
 }
 .app-content {
   display: flex;
   margin-top: 10px;
 }
+.theme-form-group{
+  display: flex;
+  padding-right:4rem;
+ 
+}
+.theme-form-control{
+  display: block;
+  width: 100%;
+  padding: .3rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-image: none;
+  background-clip: padding-box;
+  border:none;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  &:focus{
+    outline: none;
+  }  
+}
+
+

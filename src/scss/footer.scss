@@ -1,3 +1,41 @@
-footer {
-  
+footer{
+  .footer-bottom{
+    p , a{
+      font-size : 0.75rem;
+      line-height: 126%;
+      color:#999 !important;
+      margin-bottom: 0;
+    }
+    .copyright{
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+  }
+  .footer-nav{
+    .nav{
+      justify-content: center;
+      a{
+       font-size : 0.75rem;
+       line-height: 126%;
+       color: $secondary-light-color;
+     }
+    }
+  }
+  .hr-light{
+    color:$gray-light;
+  }
+  .Social-contects{
+    .email , .phone{
+      display: flex;
+      justify-content:flex-end;
+      p{
+        line-height: 1.7em;
+      }
+    }
+    .fa-envelope-o , .fa-phone{
+      font-size: 2rem;
+      color: $secondary-light-color;
+    }
+  }
 }
