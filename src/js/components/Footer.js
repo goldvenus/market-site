@@ -55,7 +55,7 @@ class Footer extends Component {
                   </li>
                 </ul>
               </Col>
-              <Col sm="4" className="text-right">
+              <Col sm="4" className="text-right d-flex align-items-center justify-content-end">
                 <button className="theme-btn theme-btn-secondery">Login</button> &nbsp;
                 <button className="theme-btn theme-btn-primary">Register</button>
               </Col>
@@ -79,7 +79,7 @@ class Footer extends Component {
               </Col>
               <Col sm="3">
                 <div className="email">
-                  <span className="fa fa-envelope-o"></span>&nbsp;
+                  <span className="fa fa-envelope-o"></span>&nbsp;&nbsp;
                   <p className="theme-text-small">
                     support@creativemarket.com
                     <br />
@@ -89,7 +89,7 @@ class Footer extends Component {
               </Col>
               <Col sm="3">
                 <div className="phone">
-                  <span className="fa fa-phone"></span>
+                  <span className="fa fa-phone"></span>&nbsp;&nbsp;
                   <p className="theme-text-small">
                     +1 3456 7890<br/>
                     +1 3427 7670

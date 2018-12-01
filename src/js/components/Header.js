@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import Navbar from "./Navbar/Navbar";
 
 class Header extends Component {
   render() {
     return (
       <header>
-        <h1>Header</h1>
+        <Navbar/>
       </header>
     );
   }
