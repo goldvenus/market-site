@@ -1,0 +1,75 @@
+.theme-navbar{
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  .button-toggle{
+    border:none;
+    background-color: transparent;
+    cursor: pointer;
+    &:focus{
+      outline: none;
+    }
+    .fa-bars{
+      font-size: 25px;
+      color:$white;
+    }
+  }
+  .collapse{
+    display: none;
+  }
+  .uncollapse{
+    display: block;
+    background-color: #F82462;
+    position: absolute;
+    top: 55px;
+    left:0;
+    z-index: 888;
+    width: 100%;
+    padding: 5rem ;
+    -webkit-transition:height 0.5s linear 2s;
+    -moz-transition:height 0.5s linear 2s;
+    -o-transition:height 0.5s linear 2s;
+    transition:height 0.5s linear 2s;
+    ul{
+      list-style: none;
+      margin: 0;
+      li{
+        a{
+          font-size: 2rem;
+          font-weight: 700;
+          text-decoration: none;
+          color: $white;
+        }
+      }
+    }
+    p{
+      color: $white;
+    }
+    .fa{
+      font-size: 2rem;
+      margin-right: 20px;
+    }
+  }
+  .theme-nav-right{
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    margin-left: auto;
+    padding: 0.5rem 1rem;
+    li{
+      a{
+        display: block;
+        padding: .55rem 1rem;
+        font-size: 0.9rem;
+        color:$white;
+        text-decoration: none;
+      }
+    }
+  }
+}
