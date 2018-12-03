@@ -1,11 +1,15 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
-
+import logo from '../../../assets/images/logo-2.png';
 
 const CollapseMenu = props => {
   const className = props.isOpen ? "uncollapse" : "collapse";
-  return <div className={className}>{props.children}</div>
+  return <div className={className}>
+    <div className="wrraper">
+      {props.children}
+    </div>  
+  </div>
 };
 
 const NavbarToggler = props =>{
@@ -14,6 +18,9 @@ const NavbarToggler = props =>{
     {/* <span className="fa fa-window-close"></span>*/}
   </button>
 
+}
+const NavbarBrand = props =>{
+  return <img src={props.src}  alt={props.alt}/> 
 }
 export default class NavbarLeft extends React.Component {
   constructor(props) {
@@ -32,7 +39,8 @@ export default class NavbarLeft extends React.Component {
     const {collapsed} =this.state;
     return (
       <div>
-        <NavbarToggler onClick={this.toggleNavbar} className="ml-2" /> 
+        <NavbarToggler onClick={this.toggleNavbar} className="ml-2" />
+        <NavbarBrand src={logo} />
         <CollapseMenu isOpen={!collapsed}>
           <Container>
             <Row>
