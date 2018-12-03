@@ -10,7 +10,7 @@ class Footer extends Component {
       <footer >
         <div className="news-letter bg-gray-light mb-5 py-5">
           <Container>
-            <Row >
+            <Row className="align-items-center">
               <Col sm="6">
                 <h5>EMAIL NEWSLETTERS</h5>
                 <p className="theme-text-small">Keep me up to date with content ,updates ,and offers from Athena</p>
@@ -91,7 +91,7 @@ class Footer extends Component {
                 <div className="phone">
                   <span className="fa fa-phone"></span>&nbsp;&nbsp;
                   <p className="theme-text-small">
-                    +1 3456 7890<br/>
+                    +1 3456 7890<br />
                     +1 3427 7670
                   </p>
                 </div>
@@ -108,7 +108,7 @@ class Footer extends Component {
                 </div>
               </Col>
               <Col>
-               <ul className="nav justify-content-end">
+                <ul className="nav justify-content-end">
                   <li className="nav-item">
                     <a className="nav-link" href="#">Privacy Policy</a>
                   </li>

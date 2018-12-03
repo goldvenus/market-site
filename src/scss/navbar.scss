@@ -4,7 +4,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1.5rem;
+  padding: 1rem 1.5rem;
   .button-toggle{
     border:none;
     background-color: transparent;
@@ -22,8 +22,11 @@
   }
   .uncollapse{
     display: block;
-    background-color: #F82462;
     position: absolute;
+    background-color: $primary-color;
+    // border-left:1000px solid $primary-color;
+    // border-bottom:100px solid transparent;
+    // border-right:100px solid transparent;
     top: 55px;
     left:0;
     z-index: 888;
@@ -33,24 +36,28 @@
     -moz-transition:height 0.5s linear 2s;
     -o-transition:height 0.5s linear 2s;
     transition:height 0.5s linear 2s;
-    ul{
-      list-style: none;
-      margin: 0;
-      li{
-        a{
-          font-size: 2rem;
-          font-weight: 700;
-          text-decoration: none;
-          color: $white;
+    .wrraper{
+      width:100%;
+      ul{
+        list-style: none;
+        margin: 0;
+        li{
+          a{
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: $white;
+            line-height: 150%;
+          }
         }
       }
-    }
-    p{
-      color: $white;
-    }
-    .fa{
-      font-size: 2rem;
-      margin-right: 20px;
+      p{
+        color: $white;
+      }
+      .fa{
+        font-size: 2rem;
+        margin-right: 20px;
+      }
     }
   }
   .theme-nav-right{

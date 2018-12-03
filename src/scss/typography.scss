@@ -30,12 +30,12 @@
 
 h1{
   font-family: 'GothamPro-Black';
-   color:$secondary-color;
+  color:$secondary-color;
   font-size: 3.0625rem;
 }
 h2{
   font-family: 'GothamPro-Black';
-   color:$secondary-color;
+  color:$secondary-color;
   font-size: 2.6875rem;
 }
 h3{
@@ -64,6 +64,15 @@ h6{
 * default font is set in body ,html tag
 * default font is "Helvetica Neue"
 */
+.theme-big-text{
+    font-size: 9rem !important;
+    color: #f4f5f6 !important;
+    padding: 4rem 0 0 !important;
+    opacity: 0.6;
+    margin-bottom: -15px;
+    font-weight: bold;
+    text-align: center;
+}
 .theme-text-small{
   font-size : 0.75rem;
   line-height: 126%;
@@ -84,4 +93,11 @@ h6{
 }
 .text-gray{
   color:#999;
+}
+@media (max-width : 676px){
+  .theme-big-text{
+    font-size: 5rem !important;
+    line-height: 120%;
+    display: none;
+  }
 }
