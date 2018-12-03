@@ -45,7 +45,7 @@ input::-webkit-input-placeholder {
 .theme-form-group{
   display: flex;
   padding-right:4rem;
- 
+
 }
 .theme-form-control{
   display: block;
@@ -61,7 +61,21 @@ input::-webkit-input-placeholder {
   transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
   &:focus{
     outline: none;
-  }  
+  }
 }
 
+.social-buttons {
+  display: flex;
 
+  .btn-social {
+    margin-right: 10px;
+  }
+}
+
+.flex-row {
+  display: flex;
+}
+
+.btn-link, .btn-link:hover {
+  color: $primary-color;
+}

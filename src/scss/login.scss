@@ -1,0 +1,36 @@
+.auth-sidemenu {
+  background: $primary-color;
+  width: 30%;
+
+  .button-toggle {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+  }
+
+  .app-nav-logo {
+    position: absolute;
+    left: 15px;
+    bottom: 15px;
+  }
+}
+
+.auth-container {
+  display: flex;
+  width: 100%;
+  padding: 0;
+  height: 100vh;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+.login {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  .login-or-divider {
+    margin-top: 15px;
+  }
+}
