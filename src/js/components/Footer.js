@@ -67,15 +67,17 @@ class Footer extends Component {
           <Container>
             <Row>
               <Col sm="6">
-                <button className="theme-btn btn-social btn-fb">
-                  <span className="fa fa-facebook"></span>
-                  Facebook</button> &nbsp;
-                <button className="theme-btn btn-social btn-vimeo">
-                  <span className="fa fa-vimeo"></span>
-                  Vimeo</button> &nbsp;
-                <button className="theme-btn btn-social btn-insta">
-                  <span className="fa fa-instagram"></span>
-                  Instagram</button>
+                <div className="social-buttons">
+                  <button className="theme-btn btn-social btn-fb">
+                    <span className="fa fa-facebook"></span>
+                    Facebook</button> &nbsp;
+                  <button className="theme-btn btn-social btn-vimeo">
+                    <span className="fa fa-vimeo"></span>
+                    Vimeo</button> &nbsp;
+                  <button className="theme-btn btn-social btn-insta">
+                    <span className="fa fa-instagram"></span>
+                    Instagram</button>
+                </div>
               </Col>
               <Col sm="3">
                 <div className="email">

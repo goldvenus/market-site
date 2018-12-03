@@ -1,25 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { BrowserRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import routes from "../config/routes";
 import Header from './Header';
 import Footer from './Footer';
 
 class Layout extends Component {
   render() {
+    const { match, location, history, selectedView } = this.props;
+    let hideHeader = ['/login'].indexOf(location.pathname) > -1;
+
     return (
-      <BrowserRouter>
-        <div>
-          <Header />
-          { routes }
-          <Footer />  
-        </div>
-      </BrowserRouter>
+      <div>
+        {
+          hideHeader ? null : <Header />
+        }
+        { routes }
+        {
+          hideHeader ? null : <Footer />
+        }
+      </div>
     );
   }
 }
 
-export default connect((store) => {
+export default withRouter(connect((store) => {
   return {
   };
-})(Layout);
+})(Layout));

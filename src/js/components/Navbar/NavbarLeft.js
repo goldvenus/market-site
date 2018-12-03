@@ -8,19 +8,19 @@ const CollapseMenu = props => {
   return <div className={className}>
     <div className="wrraper">
       {props.children}
-    </div>  
+    </div>
   </div>
 };
 
 const NavbarToggler = props =>{
   return <button className="button-toggle" onClick={props.onClick}>
-    <span className="fa fa-bars"></span> 
+    <span className="fa fa-bars"></span>
     {/* <span className="fa fa-window-close"></span>*/}
   </button>
 
 }
 const NavbarBrand = props =>{
-  return <img src={props.src}  alt={props.alt}/> 
+  return <img className="app-nav-logo" src={props.src}  alt={props.alt}/> 
 }
 export default class NavbarLeft extends React.Component {
   constructor(props) {

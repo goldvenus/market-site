@@ -21,19 +21,19 @@
     }
 }
 .theme-btn-primary{
-  background-color: $primary-color; 
-  color :$white; 
-  
+  background-color: $primary-color;
+  color :$white;
+
   &:hover{
     background-color: $primary-light-color;
-    color :$white; 
+    color :$white;
   }
 }
 .theme-btn-secondery{
-  border:1px solid #666;  
+  border:1px solid #666;
   background-color: $white;
   color :$secondary-light-color;
-  
+
   &:hover{
     background-color: $secondary-color;
     color :$white;
@@ -43,17 +43,18 @@
   border:1px solid $white;
   background-color: transparent;
   color :$white;
-  
+
   &:hover{
     background-color: $white;
     color :$primary-color;
-    
+
   }
 }
 .theme-btn-filled-white{
+  border: 1px solid $primary-color; 
   background-color: $white;
   color :$primary-color;
-  
+
   &:hover{
     background-color: $white;
     opacity: 0.8;
@@ -62,36 +63,46 @@
 .theme-btn-outline-pink{
   background-color: $primary-color;
   color :$white;
-  
+
   &:hover{
     background-color: $white;
     color :$primary-color;
-    
+
   }
 }
 
-.btn-social{
+.theme-btn-submit {
+  @extend .theme-btn;
+  @extend .theme-btn-primary;
+
+  width: 300px;
+}
+
+.btn-social {
   color:$white;
-  width:165px;
-  position: relative;
-  span{
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 25%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(255,255,255,0.2);
+  display: flex;
+  width: 160px;
+  justify-content: center;
+
+  span {
+    font-size: 20px;
+    margin-right: 10px;
   }
 }
 .btn-fb{
   background-color: #3b5998;
 }
 .btn-vimeo{
-  background-color: #1ab7ea; 
+  background-color: #1ab7ea;
 }
 .btn-insta{
   background-color: #e1306c;
+}
+
+.btn-twitter {
+  background-color: #4287F6;
+}
+
+.btn-google-plus {
+  background-color: #E03B1A;
 }
