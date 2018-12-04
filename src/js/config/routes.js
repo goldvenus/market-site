@@ -5,6 +5,7 @@ import About from "../components/Abouts";
 import Login from "../components/Login";
 import Register from "../components/Register";
 import Dashboard from "../components/Dashboard";
+import ForgotPassword from "../components/ForgotPassword";
 
 export default (
   <div className="app-content">
@@ -14,5 +15,6 @@ export default (
     <Route path="/login" component={Login} />
     <Route path="/register" component={Register} />
     <Route path="/dashboard" component={Dashboard} />
+    <Route path="/forgotpassword" component={ForgotPassword} />
   </div>
 );
