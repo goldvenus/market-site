@@ -21,7 +21,7 @@ class Footer extends Component {
               </Col>
               <Col sm="3" className="text-center">
                 <h3 className="theme-text-primary">12233</h3>
-                <p>Community Memmbers</p>
+                <p>Community Members</p>
               </Col>
               <Col sm="3" className="text-center">
                 <h3 className="theme-text-primary">2143</h3>
@@ -48,10 +48,10 @@ class Footer extends Component {
                     <Link className="nav-link" to="#">Blog</Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link " to="#">Contects</Link>
+                    <Link className="nav-link " to="#">Contacts</Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link " to="#">FQAs</Link>
+                    <Link className="nav-link " to="#">FAQs</Link>
                   </li>
                 </ul>
               </Col>
