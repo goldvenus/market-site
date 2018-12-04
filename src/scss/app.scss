@@ -39,6 +39,20 @@ input::-webkit-input-placeholder {
   top:50%;
   transform: translateY(-50%);
 }
+.v-center{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.h-center{
+  display:flex;
+  justify-content: center;
+}
+.center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .theme-form-group{
   display: flex;
   padding-right:4rem;

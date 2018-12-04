@@ -12,16 +12,16 @@ const team = [
   { name: "Tomass Sola", job_title: "Lead Sales Manager", img: '../../assets/images/team/5.jpg' },
 ]
 // Functional Component
-const TeamMember = ({ member ,src }, ...props) => {
+const TeamMember = ({ member: { name , job_title} ,src }, ...props) => {
   return (
     <Col>
       <Card inverse>
         {/* { member.img } */}
         <CardImg width="100%" src={src} alt="Card image cap" />
         <CardImgOverlay>
-          <CardTitle className="X-center">{member.name}</CardTitle>
+          <CardTitle className="X-center">{name}</CardTitle>
           <CardText className="X-center">
-            <small className="text-muted">{member.job_title}</small>
+            <small className="text-muted">{job_title}</small>
           </CardText>
         </CardImgOverlay>
       </Card>
@@ -39,10 +39,10 @@ class About extends Component {
               <Col sm="6">
                 <p className="theme-text-small bread-crums">Home Page / About Us</p>
                 <h1>About Us</h1>
-                <p>
-                  <span className="theme-text-bold">Creative Market</span>&nbsp;
+                <h4 className="intro">
+                  <span className="bold">Creative Market</span>&nbsp;
                   <span>Introduction</span>
-                </p>
+                </h4>
                 <p className="theme-text-small about-desc">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, consequuntur vitae ipsum doloribus repellendus dolorum aliquid odio aspernatur at labore voluptatem laudantium ducimus libero inventore eos odit magni! Nesciunt, quos.dolorum aliquid odio aspernatur at labore voluptatem laudantium ducimus libero inventore eos odit magni! Nesciunt, quos.
                 </p>
