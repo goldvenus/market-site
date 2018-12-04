@@ -8,7 +8,7 @@ import Footer from './Footer';
 class Layout extends Component {
   render() {
     const { match, location, history, selectedView } = this.props;
-    let hideHeader = ['/login'].indexOf(location.pathname) > -1;
+    let hideHeader = ['/login', '/register'].indexOf(location.pathname) > -1;
 
     return (
       <div>

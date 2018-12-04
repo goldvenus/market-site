@@ -20,7 +20,7 @@ const NavbarToggler = props =>{
 
 }
 const NavbarBrand = props =>{
-  return <img className="app-nav-logo" src={props.src}  alt={props.alt}/> 
+  return <img className="app-nav-logo" src={props.src}  alt={props.alt}/>
 }
 export default class NavbarLeft extends React.Component {
   constructor(props) {
@@ -47,7 +47,7 @@ export default class NavbarLeft extends React.Component {
               <Col sm={{size: 4, offset: 2}}>
                 <ul>
                   <li>
-                    <Link to="/AboutUs">About Us</Link>
+                    <Link to="/aboutus">About Us</Link>
                   </li>
                   <li>
                     <Link to="/Stories">Stories</Link>

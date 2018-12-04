@@ -51,7 +51,7 @@
   }
 }
 .theme-btn-filled-white{
-  border: 1px solid $primary-color; 
+  border: 1px solid $primary-color;
   background-color: $white;
   color :$primary-color;
 
@@ -76,6 +76,16 @@
   @extend .theme-btn-primary;
 
   width: 300px;
+}
+
+.theme-btn-link {
+  padding: 0;
+  display: flex;
+  a {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
 }
 
 .btn-social {

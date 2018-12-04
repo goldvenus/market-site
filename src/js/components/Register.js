@@ -5,13 +5,14 @@ import { Link } from 'react-router-dom';
 import CustomInput from './CustomInput';
 import AuthSideMenu from './AuthSideMenu';
 
-class Login extends Component {
+class Register extends Component {
   render() {
     return (
       <div className="auth-container theme-navbar">
         <AuthSideMenu />
-        <div className="login">
-          <h1>Login</h1>
+        <div className="login register">
+          <h1>Register</h1>
+          <div>Register via social networks</div>
           <div className="social-buttons">
             <button className="theme-btn btn-social btn-fb">
               <span className="fa fa-facebook"></span>
@@ -29,25 +30,30 @@ class Login extends Component {
           <div className="login-or-divider">Or</div>
           <Form className="theme-form">
             <div className="theme-form-field">
+              <CustomInput placeholder='Name' type="text"/>
+            </div>
+            <div className="theme-form-field">
               <CustomInput placeholder='Email' type="email"/>
+            </div>
+            <div className="theme-form-field">
+              <CustomInput placeholder='Password' type="Password" />
+            </div>
+            <div className="theme-form-field">
+              <CustomInput placeholder='Confirm Password' type="Password" />
             </div>
             <div className="flex-row">
               <div className="theme-form-field">
-                <CustomInput placeholder='Password' type="Password" />
+                <CustomInput placeholder='Photo' disabled type="text"/>
               </div>
-              <Button color="link">Forgot password? </Button>
-            </div>
-            <div className="theme-form-field">
-              <Input type="checkbox" id="login-remember"/>
-              <Label for="login-remember">Remember me on this device</Label>
+              <button className="theme-btn theme-btn-filled-white btn-photo-upload">Upload</button>
             </div>
 
-            <button className="theme-btn-submit">Sign In</button>
+            <button className="theme-btn-submit">Sign up</button>
           </Form>
           <div className="login-or-divider"></div>
           <div className="flex-row">
-            <div>Don't have an account?</div>
-            <button className="theme-btn theme-btn-filled-white theme-btn-link"><Link to="/">Get Started <span className="fa fa-angle-right" /></Link></button>
+            <div>Already have an account?</div>
+            <button className="theme-btn theme-btn-filled-white theme-btn-link"><Link to="/login">Login <span className="fa fa-angle-right" /></Link></button>
           </div>
         </div>
       </div>
@@ -58,4 +64,4 @@ class Login extends Component {
 export default connect((store) => {
   return {
   };
-})(Login);
+})(Register);
