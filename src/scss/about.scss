@@ -12,8 +12,11 @@
       color:$white;
       margin-bottom: 2rem;
     }
-    p{
+    h4.intro ,p{
       color:$white;
+      .bold{
+        font-weight: 700;
+      }
     }
     p.bread-crums {
       padding-top:4rem;
