@@ -37,3 +37,13 @@
     margin-left: 10px;
   }
 }
+
+.login.success-message {
+  .theme-btn-link {
+    margin: 10px 0 0 0;
+
+    &:nth-child(n + 2) {
+      margin-left: 10px;
+    }
+  }
+}

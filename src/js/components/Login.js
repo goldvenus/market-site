@@ -35,7 +35,7 @@ class Login extends Component {
               <div className="theme-form-field">
                 <CustomInput placeholder='Password' type="Password" />
               </div>
-              <Button color="link">Forgot password? </Button>
+              <Button color="link"><Link to="/forgotpassword">Forgot password?</Link></Button>
             </div>
             <div className="theme-form-field">
               <Input type="checkbox" id="login-remember"/>
