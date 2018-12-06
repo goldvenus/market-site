@@ -12,18 +12,21 @@ h2{
 }
 h3{
   font-family: 'GothamPro';
-   color:$secondary-color;
+  color:$secondary-color;
   font-size: 32px;
+  font-weight: bold;
 }
 h4{
   font-family: 'GothamPro-Bold';
-   color:$secondary-color;
+  color:$secondary-color;
   font-size: 20px;
+  font-weight: bold;
 }
 h5{
   font-family: 'GothamPro-Bold';
-   color:$secondary-color;
+  color:$secondary-color;
   font-size: 18px;
+  font-weight: bold;
   letter-spacing: 9%;
 }
 h6{
@@ -50,7 +53,7 @@ h6{
   line-height: 126%;
 }
 .theme-text-bold{
-  font-size: 16px;
+  font-size: 14px;
   line-height: 144%;
   font-weight: bold;
 }

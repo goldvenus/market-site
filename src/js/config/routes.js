@@ -4,9 +4,9 @@ import Home from "../components/Home";
 import About from "../components/Abouts";
 import Login from "../components/Login";
 import Register from "../components/Register";
-import Dashboard from "../components/Dashboard";
 import ForgotPassword from "../components/ForgotPassword";
 import AddGear from "../components/AddGear";
+import Dashboard from "../components/Dashboard/Dashboard";
 
 export default (
   <div className="app-content">
