@@ -16,7 +16,7 @@ body {
   box-sizing: border-box;
   font-family: 'Helvetica Neue',sans-serif;
   color:$secondary-color;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 144%;
 }
 
@@ -104,4 +104,5 @@ a, a:hover {
 
 .breadcrumb {
   background: transparent;
+  margin: 0;
 }

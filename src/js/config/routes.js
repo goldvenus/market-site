@@ -6,6 +6,7 @@ import Login from "../components/Login";
 import Register from "../components/Register";
 import ForgotPassword from "../components/ForgotPassword";
 import AddGear from "../components/AddGear";
+import ViewGear from "../components/ViewGear";
 import Dashboard from "../components/Dashboard/Dashboard";
 
 export default (
@@ -18,5 +19,6 @@ export default (
     <Route path="/dashboard" component={Dashboard} />
     <Route path="/forgotpassword" component={ForgotPassword} />
     <Route path="/addgear" component={AddGear} />
+    <Route path="/gear/:id" component={ViewGear} />
   </div>
 );
