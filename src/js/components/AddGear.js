@@ -29,9 +29,11 @@ class AddGear extends Component {
 
     this.progressSteps = ["Info", "Photo", "Address", "Price"];
     this.state = {
-      progressStep: 3,
+      progressStep: 0,
       dropdownOpen: false,
-      activeIndex: 0
+      activeIndex: 0,
+      selectedType: 'new',
+      isGearAdded: false
     }
 
     this.toggle = this.toggle.bind(this);
@@ -40,6 +42,7 @@ class AddGear extends Component {
     this.goToIndex = this.goToIndex.bind(this);
     this.onExiting = this.onExiting.bind(this);
     this.onExited = this.onExited.bind(this);
+    this.onTypeChange = this.onTypeChange.bind(this);
   }
 
   toggle() {
@@ -71,7 +74,14 @@ class AddGear extends Component {
     ));
   }
 
+  onTypeChange(e) {
+    this.setState({
+      selectedType: e.target.value
+    })
+  }
+
   renderInfo() {
+    const {selectedType} = this.state;
     return (
       <Form className="theme-form add-gear-info">
         <div className="flex-row">
@@ -96,14 +106,14 @@ class AddGear extends Component {
           </div>
           <div className="info-right-container">
             <div className="type-tabs">
-              <input id="new" type="radio" value="new"/>
-              <label htmlFor="new">New</label>
-              <input id="like-new" type="radio" value="like_new"/>
-              <label htmlFor="like-new">Like New</label>
-              <input id="slightly-worn" type="radio" value="slightly_worn"/>
-              <label htmlFor="slightly-worn">Slightly Worn</label>
-              <input id="worn" type="radio" value="worn"/>
-              <label htmlFor="worn">Worn</label>
+              <input name="type" id="new" type="radio" value="new" onChange={this.onTypeChange}/>
+              <label className={selectedType === "new" ? 'active' : ''} htmlFor="new">New</label>
+              <input name="type" id="like-new" type="radio" value="like_new" onChange={this.onTypeChange}/>
+              <label className={selectedType === "like_new" ? 'active' : ''} htmlFor="like-new">Like New</label>
+              <input name="type" id="slightly-worn" type="radio" value="slightly_worn" onChange={this.onTypeChange}/>
+              <label className={selectedType === "slightly_worn" ? 'active' : ''} htmlFor="slightly-worn">Slightly Worn</label>
+              <input name="type" id="worn" type="radio" value="worn" onChange={this.onTypeChange}/>
+              <label className={selectedType === "worn" ? 'active' : ''} htmlFor="worn">Worn</label>
             </div>
             <div className="theme-form-field">
               <Input type="checkbox" id="is-kit"/>
@@ -172,8 +182,14 @@ class AddGear extends Component {
     this.setState({ activeIndex: newIndex });
   }
 
+  addGearDetails() {
+    this.setState({
+      isGearAdded: true
+    })
+  }
+
   renderPrice() {
-    const {activeIndex} = this.state;
+    const {activeIndex, selectedType} = this.state;
 
     const slides = items.map((item) => {
       return (
@@ -195,13 +211,13 @@ class AddGear extends Component {
 
         <div className="price-type-tabs">
           <input id="new" type="radio" value="new"/>
-          <label htmlFor="new">New</label>
+          <label className={selectedType === "new" ? 'active' : ''} htmlFor="new">New</label>
           <input id="like-new" type="radio" value="like_new"/>
-          <label htmlFor="like-new">Like New</label>
+          <label className={selectedType === "like_new" ? 'active' : ''} htmlFor="like-new">Like New</label>
           <input id="slightly-worn" type="radio" value="slightly_worn"/>
-          <label htmlFor="slightly-worn">Slightly Worn</label>
+          <label className={selectedType === "slightly_worn" ? 'active' : ''} htmlFor="slightly-worn">Slightly Worn</label>
           <input id="worn" type="radio" value="worn"/>
-          <label htmlFor="worn">Worn</label>
+          <label className={selectedType === "worn" ? 'active' : ''} htmlFor="worn">Worn</label>
         </div>
 
         <div className="gear-carousel">
@@ -251,7 +267,7 @@ class AddGear extends Component {
 
         <div className="buttons-container">
           <button className="theme-btn theme-btn-secondery" onClick={this.previousStep.bind(this)}><span className="fa fa-angle-left" /></button>
-          <button className="theme-btn theme-btn-primary" >Submit <span className="fa fa-angle-right" /></button>
+          <button className="theme-btn theme-btn-primary" onClick={this.addGearDetails.bind(this)} >Submit <span className="fa fa-angle-right" /></button>
         </div>
       </div>
     </div>
@@ -289,6 +305,36 @@ class AddGear extends Component {
   }
 
   render() {
+    const { isGearAdded } = this.state;
+
+    if(isGearAdded) {
+      return <div className="add-gear">
+        <h1><i className="fa fa-check-circle primary-color"></i></h1>
+        <h3>Gear Added Successfully</h3>
+
+        <div className="success-message">
+          <div className="theme-text-small">Cameras</div>
+          <h6>Panasonic LUMIX GH4</h6>
+
+          <div className="flex-row">
+            <div>
+              <div className="theme-text-small">Replacement Value</div>
+              <div>$1640</div>
+            </div>
+            <div>
+              <div className="theme-text-small">Price per day</div>
+              <div>$36</div>
+            </div>
+          </div>
+
+          <div className="flex-row buttons-container">
+            <button className="theme-btn theme-btn-secondery">List Gear</button>
+            <button className="theme-btn theme-btn-primary">View Gear</button>
+          </div>
+        </div>
+      </div>
+    }
+
     return (
       <div className="add-gear">
         <Breadcrumb>
@@ -319,8 +365,7 @@ class AddGear extends Component {
             </div>
           </div>) : null
         }
-      </div>
-    );
+      </div>);
   }
 }
 
