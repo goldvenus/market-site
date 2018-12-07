@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
 import moment from 'moment';
 import dataSet from './Dashboard/dataSet';
@@ -10,8 +11,8 @@ class Cart extends Component {
   renderCartItems() {
     const items = dataSet.slice(0,5);
     return (
-      items.map((listItem) => (
-        <tr>
+      items.map((listItem, index) => (
+        <tr key={`cart-item-${index}`}>
           <td width="15%">{<img src={listItem.gear_img} className="gear-img"/>}</td>
           <td className="gear" width="20%">
             <p >{listItem.gear_name}</p>
@@ -40,10 +41,10 @@ class Cart extends Component {
           <BreadcrumbItem active>Cart</BreadcrumbItem>
         </Breadcrumb>
         <div className="cart-header">
-          <h3>Cart</h3>
+          <div className="theme-page-title">Cart</div>
           <div className="flex-row">
             <button className="theme-btn theme-btn-secondery">Favourites</button>
-            <button className="theme-btn theme-btn-primary">Continue</button>
+            <button className="theme-btn theme-btn-primary theme-btn-link"><Link to="/checkout">Continue</Link></button>
           </div>
         </div>
 

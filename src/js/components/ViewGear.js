@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import Rating from 'react-rating';
 import DatePicker from "react-datepicker";
@@ -73,7 +74,7 @@ class ViewGear extends Component {
                 </div>
 
                 <div className="flex-row bottom-buttons">
-                  <button className="theme-btn theme-btn-primary">Add to Cart</button>
+                  <button className="theme-btn theme-btn-primary theme-btn-link"><Link to="/cart">Add to Cart</Link></button>
                   <button className="theme-btn theme-btn-secondery"><i className="fa fa-heart primary-color" /></button>
                 </div>
               </div>
