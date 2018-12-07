@@ -8,6 +8,7 @@ import ForgotPassword from "../components/ForgotPassword";
 import AddGear from "../components/AddGear";
 import ViewGear from "../components/ViewGear";
 import Dashboard from "../components/Dashboard/Dashboard";
+import Cart from "../components/Cart";
 
 export default (
   <div className="app-content">
@@ -20,5 +21,6 @@ export default (
     <Route path="/forgotpassword" component={ForgotPassword} />
     <Route path="/addgear" component={AddGear} />
     <Route path="/gear/:id" component={ViewGear} />
+    <Route path="/cart" component={Cart} />
   </div>
 );

@@ -33,6 +33,12 @@ input::-webkit-input-placeholder {
 }
 .app-content {
   display: flex;
+  width: 100%;
+  max-width: 1000px;
+  margin: 10px auto;
+  & > * {
+    width: 100%;
+  }
 }
 .X-center{
   position: absolute;
@@ -105,4 +111,34 @@ a, a:hover {
 .breadcrumb {
   background: transparent;
   margin: 0;
+  padding: 0;
+  font-size: 12px;
+}
+
+.theme-table {
+  background-color: $white !important;
+  text-align: left;
+  border: 20px solid #f4f5f6;
+  margin-top: 15px;
+  
+  th {
+    font-weight: lighter;
+    color: #6c757d !important;
+  }
+  .gear, .rental-period {
+    p {
+      margin: 0.25rem;
+      text-align: left;
+    }
+  }
+  td {
+    vertical-align: middle;
+    .gear-img {
+      width:70%;
+    }
+    .landrord-img {
+      width :25%;
+      border-radius:50%;
+    }
+  }
 }
