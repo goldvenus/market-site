@@ -1,7 +1,7 @@
 import React from 'react';
 import VMC from '../../../assets/images/VMC.jpg';
-import {Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
-import { Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
+import {Card, Button, CardTitle, Row, Col } from 'reactstrap';
+import { Form, FormGroup, Label, Input, FormFeedback,} from 'reactstrap';
 
 export default function(){
   return (
@@ -68,7 +68,7 @@ export default function(){
                 <div className="card-text">
                   <Row>
                     <Col sm="6">
-                      <img src={VMC} />
+                      <img src={VMC} alt="" />
                     </Col>
                     <Col sm="6">
                       <div className="add-payment-method center">

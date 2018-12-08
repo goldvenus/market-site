@@ -34,8 +34,8 @@ input::-webkit-input-placeholder {
 .app-content {
   display: flex;
   width: 100%;
-  max-width: 1000px;
-  margin: 10px auto;
+  // max-width: 1000px;
+  // margin: 10px auto;
   & > * {
     width: 100%;
   }
@@ -173,3 +173,11 @@ a, a:hover {
     top: 50%;
   }
 }
+
+@mixin placeholder {
+::-webkit-input-placeholder {@content}
+::-moz-placeholder {@content}
+::-moz-placeholder {@content}
+::-ms-input-placeholder {@content}  
+}
+

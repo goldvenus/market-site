@@ -13,10 +13,16 @@ class CustomInput extends Component {
   }
 
   render() {
-    const { placeholder, type } = this.props;
+    const { placeholder, type ,label } = this.props;
     return (
-      <div className="custom-input">
-        <Input placeholder={ placeholder } type={type} onChange={ this.onInputChange.bind(this) } />
+      <div className="custom-input mr-2">
+        <label htmlFor={label} className="theme-text-small label">{label}</label>
+        <Input 
+          placeholder={ placeholder } 
+          type={type} 
+          onChange={ this.onInputChange.bind(this) }
+          
+          />
       </div>
     );
   }

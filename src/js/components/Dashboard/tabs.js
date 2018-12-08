@@ -1,7 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
 import {Nav, NavItem, NavLink, } from 'reactstrap';
-import {Row, Col} from 'reactstrap';
 
 export default function (props) {
   const {activeTab , toggle} = props;

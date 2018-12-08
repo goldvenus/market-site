@@ -2,22 +2,20 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import aboutCM from '../../assets/images/01.png';
 import press from '../../assets/images/press.jpg';
-import pic from '../../assets/images/team/1.jpg';
 import { Card, CardTitle, CardText, CardImg, CardImgOverlay } from 'reactstrap';
 
 const team = [
-  { name: "Joe Stapleton", job_title: "Co-founder", img: '../../assets/images/team/1.jpg' },
-  { name: "Jakob Storm", job_title: "Co-founder", img: '../../assets/images/team/2.jpg' },
-  { name: "Josh Kocaurek", job_title: "CEO", img: '../../assets/images/team/3.jpg' },
-  { name: "Tomass Sola", job_title: "Lead Sales Manager", img: '../../assets/images/team/5.jpg' },
+  { name: "Joe Stapleton", job_title: "Co-founder", img: '/images/team/1.jpg' },
+  { name: "Jakob Storm", job_title: "Co-founder", img: '/images/team/2.jpg' },
+  { name: "Josh Kocaurek", job_title: "CEO", img: '/images/team/3.jpg' },
+  { name: "Tomass Sola", job_title: "Lead Sales Manager", img: '/images/team/5.jpg' },
 ]
 // Functional Component
-const TeamMember = ({ member: { name , job_title} ,src }, ...props) => {
+const TeamMember = ({ member: { name , job_title , img} ,src }, ...props) => {
   return (
     <Col>
       <Card inverse>
-        {/* { member.img } */}
-        <CardImg width="100%" src={src} alt="Card image cap" />
+        <CardImg width="100%" src={img} alt="Card image cap" />
         <CardImgOverlay>
           <CardTitle className="X-center">{name}</CardTitle>
           <CardText className="X-center">
@@ -67,7 +65,7 @@ class About extends Component {
               <Row>
                 {
                   team.map((member, index) => {
-                    return <TeamMember member={member} key={index} src={pic} />
+                    return <TeamMember member={member} key={index}/>
                   })
                 }
               </Row>
@@ -80,7 +78,7 @@ class About extends Component {
                   <h2 className="press-title">Press</h2>
                 </Col>
                 <Col className="text-center">
-                  <img src={press}/>
+                  <img src={press} alt=""/>
                 </Col>
               </Row>
             </Container>

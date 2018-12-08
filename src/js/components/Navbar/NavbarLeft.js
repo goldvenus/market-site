@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
+import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import logo from '../../../assets/images/logo-2.png';
 
@@ -22,7 +23,7 @@ const NavbarToggler = props =>{
 const NavbarBrand = props =>{
   return <img className="app-nav-logo" src={props.src}  alt={props.alt}/>
 }
-export default class NavbarLeft extends React.Component {
+class NavbarLeft extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,11 +37,14 @@ export default class NavbarLeft extends React.Component {
   }
 
   render() {
+    const { location} = this.props;
+    let hideLogo = ['/','/home',].indexOf(location.pathname) > -1;
+    
     const {collapsed} =this.state;
     return (
       <div>
         <NavbarToggler onClick={this.toggleNavbar} className="ml-2" />
-        <NavbarBrand src={logo} />
+        {hideLogo ? "" : <NavbarBrand src={logo} />}
         <CollapseMenu isOpen={!collapsed}>
           <Container>
             <Row>
@@ -88,3 +92,5 @@ export default class NavbarLeft extends React.Component {
     )
   }
 }
+
+export default withRouter(NavbarLeft);
