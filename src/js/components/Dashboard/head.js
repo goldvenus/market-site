@@ -6,7 +6,7 @@ export default function(props){
   return(
     <Row className="user-detail">
       <Col sm="2">
-        <img src={profile_pic} />
+        <img src={profile_pic} alt=""/>
       </Col>
       <Col sm="10" className="v-center">
         <h3 className="user-name">Markus Griffiths</h3>

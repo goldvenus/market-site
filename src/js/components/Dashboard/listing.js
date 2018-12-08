@@ -70,7 +70,7 @@ export default class MyListings extends React.Component {
                     <th></th>
                     <th>Name & Category</th>
                     <th>Rental Period</th>
-                    <th>Landrord</th>
+                    <th>Client</th>
                     <th>Price Per day</th>
                     <th>A Month</th>
                   </tr>

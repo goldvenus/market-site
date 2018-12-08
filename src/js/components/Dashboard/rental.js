@@ -1,12 +1,122 @@
 import React from 'react';
-import {Row, Col} from 'reactstrap';
+import { Row, Col } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import { Pagination, PaginationItem, PaginationLink, Table } from 'reactstrap';
+import moment from 'moment';
+import dataSet from './dataSet';
 
-export default function () {
-  return (
-    <Row className="my-rentals">
-      <Col sm="6">
+const MyRentalItem = ({ rentItem }) => (
+  <tr>
+    <td width="15%">{<img src={rentItem.gear_img} className="gear-img"/>}</td>
+    <td className="gear" width="20%">
+      <p >{rentItem.gear_name}</p>
+      <p className ="theme-text-small text-muted">{rentItem.gear_category}</p>
+    </td>
+    <td className="rental-period" width="20%">
+      <p>
+        {`${rentItem.rental_period_start_date} to ${rentItem.rental_period_end_date} `}
+      </p>
+      <p className="theme-text-small text-muted">
+        {` ${days(rentItem.rental_period_start_date, rentItem.rental_period_end_date)} days`}
+      </p>
+    </td>
+    <td width="20%">
+      <img src={rentItem.landrord_img} class="landrord-img" />
+      <span className="ml-1 "> {rentItem.landrord_name} </span>
+    </td>
+    <td width="15%">{rentItem.price_per_day}</td>
+    <td width="15%">{rentItem.price_per_month}</td>
+  </tr>
+)
+const days = (d1, d2) => { return moment(d2).diff(moment(d1) , 'days')};
 
-      </Col>
-    </Row>
-  )
+export default class MyRentals extends React.Component {
+  constructor() {
+
+    super();
+    // Data set of random length
+    this.pageSize = 3;
+    this.pagesCount = Math.ceil(dataSet.length / this.pageSize);
+
+    this.state = {
+      currentPage: 0
+    };
+
+  }
+  handleClick(e, index) {
+
+    e.preventDefault();
+
+    this.setState({
+      currentPage: index
+    });
+
+  }
+  render() {
+    const { currentPage } = this.state;
+
+    return (
+      <Row className="my-listing">
+        <Col sm="12">
+          <div className="d-flex align-items-center">
+            <h4 className="tab-title">My Rentals</h4>
+            <Link to='/listGear' className="theme-btn theme-btn-primary ml-auto mb-3">Rent Gear</Link>
+          </div>
+          <div className="wrraper">
+            <React.Fragment>
+              <Table className="listing-data-slice" >
+                <thead>
+                  <tr className="text-muted theme-text-bold">
+                    <th></th>
+                    <th>Name & Category</th>
+                    <th>Rental Period</th>
+                    <th>Landlord</th>
+                    <th>Price Per day</th>
+                    <th>A Month</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dataSet
+                    .slice(
+                      currentPage * this.pageSize,
+                      (currentPage + 1) * this.pageSize
+                    )
+                    .map((data, i) =>
+                      <MyRentalItem rentItem={data} key={i} />
+                    )}
+                </tbody>
+              </Table>
+              <Pagination aria-label="Page navigation example">
+
+                <PaginationItem disabled={currentPage <= 0}>
+                  <PaginationLink
+                    onClick={e => this.handleClick(e, currentPage - 1)}
+                    previous
+                    href="#"
+                  />
+                </PaginationItem>
+
+                {[...Array(this.pagesCount)].map((page, i) =>
+                  <PaginationItem active={i === currentPage} key={i}>
+                    <PaginationLink onClick={e => this.handleClick(e, i)} href="#">
+                      {i + 1}
+                    </PaginationLink>
+                  </PaginationItem>
+                )}
+
+                <PaginationItem disabled={currentPage >= this.pagesCount - 1}>
+                  <PaginationLink
+                    onClick={e => this.handleClick(e, currentPage + 1)}
+                    next
+                    href="#"
+                  />
+                </PaginationItem>
+
+              </Pagination>
+            </React.Fragment>
+          </div>
+        </Col>
+      </Row >
+    )
+  }
 }
