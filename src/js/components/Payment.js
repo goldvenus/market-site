@@ -17,8 +17,17 @@ class Payment extends Component {
       cardHolder: 'John Doe',
       expirationMonth: '09',
       expirationYear: '23',
-      cvv: '032'
+      cvv: '032',
+      isPaymentDone: false
     }
+
+    this.pay = this.pay.bind(this);
+  }
+
+  pay() {
+    this.setState({
+      isPaymentDone: true
+    })
   }
 
   renderCheckoutItems() {
@@ -39,12 +48,57 @@ class Payment extends Component {
 
   render() {
     const { cardNumber, expirationYear, expirationMonth, cvv, cardHolder} = this.state;
+
+    const { isPaymentDone } = this.state;
+
+    if(isPaymentDone) {
+      return (
+        <div className="payment payment-success-message centered-content">
+          <h1><i className="fa fa-check-circle primary-color"></i></h1>
+          <div className="theme-page-title">Payment was successful</div>
+
+          <div className="payment-success-info theme-text-small">
+            <div>
+              <div className="checkout-total">
+                <div><span className="text-gray">Total </span> $1180.00</div>
+                <div><span className="text-gray">Tax (21%) </span> $247.80</div>
+                <div><span className="text-gray">Fee </span> $0</div>
+              </div>
+              <div className="checkout-amount">
+                <div><span className="text-gray">Amount </span> <b>$1427.80</b></div>
+              </div>
+            </div>
+            <div>
+              <div className="payment-card">
+                <div><span className="text-gray">Paid with</span></div>
+                <div className="flex-row">
+                  <img src="images/master-card.png" />
+                  <div className="payment-card-number">{cardNumber}</div>
+                </div>
+                <div className="flex-row payment-card-other">
+                  <div>{expirationMonth} / {expirationYear}</div>
+                  <div>{cardHolder}</div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div className="text-gray">Payment status</div>
+              <div className="payment-status">COMPLETED</div>
+            </div>
+          </div>
+          <div className="flex-row bottom-buttons">
+            <button className="theme-btn theme-btn-secondery theme-btn-link"><Link to="/">Go to Home</Link></button>
+            <button className="theme-btn theme-btn-primary theme-btn-link"><Link to="/rentgear">My Rentals</Link></button>
+          </div>
+        </div>)
+      }
+
     return (
       <div className="payment checkout centered-content">
         <Breadcrumb>
           <BreadcrumbItem>Home </BreadcrumbItem>
-          <BreadcrumbItem active>Cart</BreadcrumbItem>
-          <BreadcrumbItem active>Checkout</BreadcrumbItem>
+          <BreadcrumbItem>Cart</BreadcrumbItem>
+          <BreadcrumbItem>Checkout</BreadcrumbItem>
           <BreadcrumbItem active>Payment</BreadcrumbItem>
         </Breadcrumb>
 
@@ -121,7 +175,7 @@ class Payment extends Component {
 
         <div className="flex-row bottom-buttons">
           <button className="theme-btn theme-btn-secondery theme-btn-link"><Link to="/cart">Edit Order</Link></button>
-          <button className="theme-btn theme-btn-primary">Pay ($1427.80)</button>
+          <button className="theme-btn theme-btn-primary" onClick={this.pay}>Pay ($1427.80)</button>
         </div>
       </div>
     );

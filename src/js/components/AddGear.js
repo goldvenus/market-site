@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Dropdown, Form, DropdownToggle, DropdownMenu,
   DropdownItem, Input, Label, Carousel, CarouselItem, CarouselControl,
   CarouselIndicators, CarouselCaption, InputGroup, InputGroupAddon } from 'reactstrap';
@@ -328,8 +329,8 @@ class AddGear extends Component {
           </div>
 
           <div className="flex-row buttons-container">
-            <button className="theme-btn theme-btn-secondery">List Gear</button>
-            <button className="theme-btn theme-btn-primary">View Gear</button>
+            <button className="theme-btn theme-btn-secondery theme-btn-link"><Link to="/listgear">List Gear</Link></button>
+            <button className="theme-btn theme-btn-primary theme-btn-link"><Link to="/gear/1">View Gear</Link></button>
           </div>
         </div>
       </div>
