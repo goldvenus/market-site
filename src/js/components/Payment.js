@@ -8,7 +8,19 @@ import dataSet from './Dashboard/dataSet';
 
 const days = (d1, d2) => { return moment(d2).diff(moment(d1) , 'days')};
 
-class Checkout extends Component {
+class Payment extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      cardNumber: '5300 1251 2150 3291',
+      cardHolder: 'John Doe',
+      expirationMonth: '09',
+      expirationYear: '23',
+      cvv: '032'
+    }
+  }
+
   renderCheckoutItems() {
     const items = dataSet.slice(0,5);
     return (
@@ -26,49 +38,61 @@ class Checkout extends Component {
   }
 
   render() {
+    const { cardNumber, expirationYear, expirationMonth, cvv, cardHolder} = this.state;
     return (
-      <div className="checkout centered-content">
+      <div className="payment checkout centered-content">
         <Breadcrumb>
           <BreadcrumbItem>Home </BreadcrumbItem>
           <BreadcrumbItem active>Cart</BreadcrumbItem>
           <BreadcrumbItem active>Checkout</BreadcrumbItem>
+          <BreadcrumbItem active>Payment</BreadcrumbItem>
         </Breadcrumb>
 
-        <div className="theme-page-title">Checkout</div>
+        <div className="theme-page-title">Payment</div>
 
         <div className="flex-row flex-align-stretch">
           <div className="billing-address">
             <div className="checkout-header">
-              <div className="text-gray">BILLING ADDRESS</div>
+              <div className="text-gray">PAYMENT METHODS</div>
             </div>
             <div className="theme-form">
               <Dropdown className="theme-form-field">
                 <DropdownToggle caret>
-                  Saved Address
+                  Saved Cards
                 </DropdownToggle>
               </Dropdown>
-              <div className="theme-form-field">
-                <CustomInput placeholder='Full Name' type="text"/>
-              </div>
-              <div className="flex-row">
-                <div className="theme-form-field">
-                  <CustomInput placeholder='Address' type="text"/>
-                </div>
-                <div className="theme-form-field">
-                  <CustomInput placeholder='City' type="text"/>
+              <div className="payment-card">
+                <img src="images/master-card.png" />
+                <div className="payment-card-number">{cardNumber}</div>
+                <div className="flex-row payment-card-other">
+                  <div>{expirationMonth} / {expirationYear}</div>
+                  <div>{cardHolder}</div>
                 </div>
               </div>
               <div className="flex-row">
                 <div className="theme-form-field">
-                  <CustomInput placeholder='Region' type="text"/>
+                  <CustomInput placeholder='Card Number' type="text" value={cardNumber}/>
                 </div>
                 <div className="theme-form-field">
-                  <CustomInput placeholder='Zip' type="text"/>
+                  <CustomInput placeholder='Card Holder' type="text" value={cardHolder}/>
+                </div>
+              </div>
+              <div className="flex-row">
+                <div className="flex-row">
+                  <div className="theme-form-field">
+                    <CustomInput placeholder='Month' type="text" value={expirationMonth}/>
+                  </div>
+                  <div className="theme-form-field">
+                    <CustomInput placeholder='Year' type="text" value={expirationYear}/>
+                  </div>
+                </div>
+                <div className="theme-form-field">
+                  <CustomInput placeholder='CVV' type="text" value={cvv}/>
                 </div>
               </div>
               <div className="theme-form-field">
                 <Input type="checkbox" id="save-address"/>
-                <Label for="save-address">Save this address</Label>
+                <Label for="save-address">Save this payment method</Label>
               </div>
             </div>
           </div>
@@ -97,7 +121,7 @@ class Checkout extends Component {
 
         <div className="flex-row bottom-buttons">
           <button className="theme-btn theme-btn-secondery theme-btn-link"><Link to="/cart">Edit Order</Link></button>
-          <button className="theme-btn theme-btn-primary theme-btn-link"><Link to="/payment">Payment</Link></button>
+          <button className="theme-btn theme-btn-primary">Pay ($1427.80)</button>
         </div>
       </div>
     );
@@ -107,4 +131,4 @@ class Checkout extends Component {
 export default connect((store) => {
   return {
   };
-})(Checkout);
+})(Payment);

@@ -1,0 +1,17 @@
+.payment {
+  .payment-card {
+    border: 1px solid lightgray;
+    padding: 10px;
+    width: 300px;
+
+    .payment-card-number {
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .payment-card-other {
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+  }
+}
