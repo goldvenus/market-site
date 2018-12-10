@@ -35,7 +35,7 @@ class Cart extends Component {
 
   render() {
     return (
-      <div className="cart">
+      <div className="cart centered-content">
         <Breadcrumb>
           <BreadcrumbItem>Home </BreadcrumbItem>
           <BreadcrumbItem active>Cart</BreadcrumbItem>

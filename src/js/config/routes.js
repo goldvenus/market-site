@@ -10,6 +10,7 @@ import ViewGear from "../components/ViewGear";
 import Dashboard from "../components/Dashboard/Dashboard";
 import Cart from "../components/Cart";
 import Checkout from "../components/Checkout";
+import Payment from "../components/Payment";
 
 export default (
   <div className="app-content">
@@ -24,5 +25,6 @@ export default (
     <Route path="/gear/:id" component={ViewGear} />
     <Route path="/cart" component={Cart} />
     <Route path="/checkout" component={Checkout} />
+    <Route path="/payment" component={Payment} />
   </div>
 );

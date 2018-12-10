@@ -39,6 +39,13 @@ input::-webkit-input-placeholder {
   & > * {
     width: 100%;
   }
+
+  .centered-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 10px;
+    box-sizing: border-box;
+  }
 }
 .X-center{
   position: absolute;
@@ -178,6 +185,5 @@ a, a:hover {
 ::-webkit-input-placeholder {@content}
 ::-moz-placeholder {@content}
 ::-moz-placeholder {@content}
-::-ms-input-placeholder {@content}  
+::-ms-input-placeholder {@content}
 }
-
