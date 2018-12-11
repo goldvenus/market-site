@@ -181,6 +181,11 @@ a, a:hover {
     top: 50%;
   }
 }
+.breadcrumb{
+  .active{
+    font-weight: bold;
+  }
+}
 
 @mixin placeholder {
 ::-webkit-input-placeholder {@content}

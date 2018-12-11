@@ -56,3 +56,46 @@ stories:[
 }
 
 export default data;
+
+export const gearListdata =[
+  {
+    gear_name: "Panasonic LUMIX GH4",
+    gear_category: "Cameras",
+    gear_img: "/images/1.jpg",
+    status:'Available',
+    price_per_day: "$59",
+    price_per_month: "$259",
+  },
+  {
+    gear_name: "Panasonic LUMIX GH4",
+    gear_category: "Cameras",
+    gear_img: "/images/1.jpg",
+    status: 'For Rent',
+    price_per_day: "$59",
+    price_per_month: "$259",
+  },
+  {
+    gear_name: "Panasonic LUMIX GH4",
+    gear_category: "Cameras",
+    gear_img: "/images/1.jpg",
+    status: 'Available',
+    price_per_day: "$59",
+    price_per_month: "$259",
+  },
+  {
+    gear_name: "Panasonic LUMIX GH4",
+    gear_category: "Cameras",
+    gear_img: "/images/1.jpg",
+    status: 'For Rent',
+    price_per_day: "$59",
+    price_per_month: "$259",
+  },
+  {
+    gear_name: "Panasonic LUMIX GH4",
+    gear_category: "Cameras",
+    gear_img: "/images/1.jpg",
+    status: 'For Rent',
+    price_per_day: "$59",
+    price_per_month: "$259",
+  },
+]

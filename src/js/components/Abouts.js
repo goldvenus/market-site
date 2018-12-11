@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import aboutCM from '../../assets/images/01.png';
 import press from '../../assets/images/press.jpg';
 import { Card, CardTitle, CardText, CardImg, CardImgOverlay } from 'reactstrap';
@@ -35,7 +35,10 @@ class About extends Component {
           <Container>
             <Row>
               <Col sm="6">
-                <p className="theme-text-small bread-crums">Home Page / About Us</p>
+                <Breadcrumb className="theme-text-small">
+                  <BreadcrumbItem>Home </BreadcrumbItem>
+                  <BreadcrumbItem active>About Us</BreadcrumbItem>
+                </Breadcrumb>
                 <h1>About Us</h1>
                 <h4 className="intro">
                   <span className="bold">Creative Market</span>&nbsp;

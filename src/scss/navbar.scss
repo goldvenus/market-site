@@ -88,6 +88,9 @@
         height: 32px;
         border-radius: 50%;
       }
+      &:focus{
+        box-shadow: none;
+      }
     }
     .dropdown-menu {
       padding: 0;
