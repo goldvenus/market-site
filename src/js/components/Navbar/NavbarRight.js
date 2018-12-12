@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 class NavbarRight extends Component {
@@ -19,6 +20,8 @@ class NavbarRight extends Component {
   }
 
   render() {
+    const { location } = this.props;
+    let hideUser = ['/', '/home',].indexOf(location.pathname) > -1;
     return (
       <ul className="theme-nav-right">
         <li>
@@ -37,7 +40,7 @@ class NavbarRight extends Component {
             <Link to="/register">Register</Link>
           </button>
         </li>
-        <li>
+        {hideUser ? "" : <li>
           <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
             <DropdownToggle caret>
               <div className="flex-row">
@@ -50,12 +53,10 @@ class NavbarRight extends Component {
               <DropdownItem>Logout</DropdownItem>
             </DropdownMenu>
           </ButtonDropdown>
-        </li>
-        <li>
-        </li>
+        </li>}
       </ul>
     );
   }
 }
 
-export default NavbarRight;
+export default withRouter(NavbarRight);

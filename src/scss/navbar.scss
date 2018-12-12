@@ -23,19 +23,38 @@
   .uncollapse{
     display: block;
     position: absolute;
-    background-color: $primary-color;
-    // border-left:1000px solid $primary-color;
-    // border-bottom:100px solid transparent;
-    // border-right:100px solid transparent;
+    background-color: $primary-color;    
     top: 55px;
     left:0;
     z-index: 888;
     width: 100%;
-    padding: 5rem ;
+    // border:1px solid green;
+    padding: 10rem 5rem ;
     -webkit-transition:height 0.5s linear 2s;
     -moz-transition:height 0.5s linear 2s;
     -o-transition:height 0.5s linear 2s;
     transition:height 0.5s linear 2s;
+    &::after{
+      position: absolute;
+      z-index: 555;
+      content: '';
+      right: 0px;
+      top: 0px;
+      border-style: solid;
+      border-color: transparent transparent #0809086e transparent;
+      border-width: 0px 0px 600px 129px;
+    }
+    &::before{
+      position: absolute;
+      z-index: 555;
+      content: '';
+      bottom: 0px;
+      left:0;
+      border-style: solid;
+      border-width: 50px 1231px 50px 0px;
+      border-color: transparent #0809086e #0809086e #0809086e;
+      transform: skewX(-12deg);
+    }
     .wrraper{
       width:100%;
       ul{
@@ -64,11 +83,10 @@
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    padding-left: 0;
     margin-bottom: 0;
     list-style: none;
     margin-left: auto;
-    padding: 0.5rem 0;
+    padding: 0.5rem 1rem;
     li{
       & > a{
         display: block;

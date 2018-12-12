@@ -68,35 +68,67 @@ class Home extends Component {
         </div>
         <div className="home-body">
           <Container>
-            {/* There will be an array of Catagories objects */}
+            <div class="block-el">
+              <div class="block-content">
+                <h2>Block Title</h2>
+                <p>Block content. Block content. Block content. Block content. Block content. Block content. Block content. Block content. Block content. </p>
+              </div>
+              <div class="block-bg"></div>
+            </div>
+
+            <div class="block-el">
+              <div class="block-content">
+                <h2>Block Title</h2>
+                <p>Block content. Block content. Block content. Block content. Block content. Block content. Block content. Block content. Block content. </p>
+              </div>
+              <div class="block-bg"></div>
+            </div>
+
+            <div class="block-el">
+              <div class="block-content">
+                <h2>Block Title</h2>
+                <p>Block content. Block content. Block content. Block content. Block content. Block content. Block content. Block content. Block content. </p>
+              </div>
+              <div class="block-bg"></div>
+            </div>
+          </Container>
+          <div className="clearfix mb-4"></div>
+          <Container>            
             <Row className="theme-row">
-              <Col sm="4" className="theme-col">
-                <p id="camera"></p>
-                <div>
-                  <span>Camera</span>
-                  <button className="theme-btn theme-btn-outline-white">
-                    <Link to="/cameras" >View</Link>
-                  </button>
+              <div sm="4" className="theme-col theme-col-1">
+                <div className="wrapper">
+                  <p id="camera"></p>
+                  <div className="desc">
+                    <span>Camera</span>
+                    <button className="theme-btn theme-btn-outline-white">
+                      <Link to="/cameras" >View</Link>
+                    </button>
+                  </div>
                 </div>
-              </Col>
-              <Col sm="4" className="theme-col">
-                <p id="computer_electronic"></p>
-                <div>
-                  <span>Computer & Electronics</span>
-                  <button className="theme-btn theme-btn-outline-white">
-                    <Link to="/computer&electronics" >View</Link>
-                  </button>
+              </div>
+              <div sm="4" className="theme-col theme-col-2">
+                <div className="wrapper">
+
+                  <p id="computer_electronic"></p>
+                  <div className="desc">
+                    <span>Computer & Electronics</span>
+                    <button className="theme-btn theme-btn-outline-white">
+                      <Link to="/computer&electronics" >View</Link>
+                    </button>
+                  </div>
                 </div>
-              </Col>
-              <Col sm="4" className="theme-col">
-                <p id="drones"></p>
-                <div>
-                  <span>Drones</span>
-                  <button className="theme-btn theme-btn-outline-white">
-                    <Link to="/drones" >View</Link>
-                  </button>
+              </div>
+              <div sm="4" className="theme-col theme-col-3">
+                <div className="wrapper">
+                  <p id="drones"></p>
+                  <div className="desc">
+                    <span>Drones</span>
+                    <button className="theme-btn theme-btn-outline-white">
+                      <Link to="/drones" >View</Link>
+                    </button>
+                  </div>
                 </div>
-              </Col>
+              </div>
             </Row>
             <Row className="theme-row">
               <Col sm="4" className="theme-col">
@@ -184,7 +216,7 @@ class Home extends Component {
                 <Row>
                   <Col sm="3" className="align-self-center">
                     <h3 className="mb-4">New Arrivals</h3>
-                    <img src={'/images/calander.jpg'} alt="" className="w-100"/>
+                    <img src={'/images/calander.jpg'} alt="" className="w-100" />
                     <button className="theme-btn theme-btn-primary w-100">
                       <Link to="/listGear">
                         <span></span>
@@ -233,7 +265,7 @@ class Home extends Component {
             </Container>
           </div>
           <div className="payments">
-            <img src="/images/temp.jpg" alt=""/>
+            <img src="/images/temp.jpg" alt="" />
           </div>
         </div>
       </div>
