@@ -1,8 +1,21 @@
 .custom-input {
   width: 100%;
+  position: relative;
+  .placeholder-label {
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    opacity: .5;
+    font-size: 10px;
+    text-transform: uppercase;
+  }
   .label{
     color:$white;
     display: none;
+  }
+  ::placeholder {
+    color: inherit;
+    opacity: 0.5;
   }
   .form-control{
     border: none;
@@ -16,6 +29,22 @@
     &:focus{
       outline: none;
       box-shadow:none;
+    }
+  }
+
+  &.custom-input-with-icon {
+    .fa {
+      position: absolute;
+      font-size: 12px;
+      bottom: 12px;
+      left: 5px;
+      opacity: 0.5;
+    }
+    .placeholder-label {
+      left: 20px;
+    }
+    input {
+      padding-left: 20px;
     }
   }
 }

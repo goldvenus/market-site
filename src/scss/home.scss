@@ -1,11 +1,19 @@
 .home {
   height: 100%;
   width: 100%;
+  .rent-categories {
+    button {
+      padding: 0px;
+      &:not(:first-child) {
+        margin-left: 10px;
+      }
+    }
+  }
   .home-head{
     background-color: $primary-color;
-    padding :5rem 0;
-    margin-bottom: 3rem;
+    margin-bottom: 15px;
     color:$white;
+    height: calc(100vh - 70px);
     // .cameras{
     //   height:20px;  
     //   background-image: url('/images/Icons/Tags/Photo/Default.svg');
@@ -22,22 +30,35 @@
     //   background-repeat: no-repeat;
     // }
     .title{
-      color:$white;      
+      color: #ffffff;
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 15px;
     }
     .bold{
       font-weight: bold;
     }
     .logo{
-      margin-bottom: 4rem;
+      margin: 60px 0;
     }
     .theme-btn{
       img{
-        margin-top: -5px;
+        height: 32px;
+        margin-right: 5px;
       }
     }
     .theme-form{
       display: flex;
-      margin-top:4rem;
+      margin-top: 30px;
+      align-items: flex-end;
+
+      .custom-input {
+        margin-right: 15px;
+      }
+    }
+
+    input {
+      color: white;
     }
   }
   .home-body{

@@ -14,50 +14,50 @@ class Home extends Component {
     return (
       <div className="home">
         <div className="home-head">
-          <Container>
+          <Container className="centered-content">
             <Row>
               <Col>
                 <div className="logo" >
-                  <img src={'/images/Logo.png'} alt="" />
+                  <img src={'/images/Logo.svg'} alt="" />
                 </div>
 
-                <h2 className="title">Find Creative Tools Around You</h2>
+                <div className="title">Find Creative Tools Around You</div>
 
                 <p className="">
                   <span >Creative market is a community </span>&nbsp;
                   <span className="bold">for creators, by creators.</span>
                 </p>
 
-                <p className="theme-text-small">
+                <p className="theme-text-small rent-categories">
                   Rent &nbsp;
-                  <button className="theme-btn theme-btn-primary-light ml-1">
+                  <button className="theme-btn theme-btn-primary-light">
 
                     <img src={'/images/Icons/Tags/Photo/Default.svg'} alt="drone" />
                     <Link to="/">Cameras</Link>
 
                   </button>
-                  <button className="theme-btn theme-btn-primary-light ml-1">
+                  <button className="theme-btn theme-btn-primary-light">
 
                     <img src={'/images/Icons/Tags/Drone/Default.svg '} alt="drone" />
                     <Link to="/">Drones</Link>
 
                   </button>
-                  <button className="theme-btn theme-btn-primary-light ml-1">
+                  <button className="theme-btn theme-btn-primary-light">
 
                     <img src={'/images/Icons/Tags/Lights/Default.svg '} alt="drone" />
                     <Link to="/"> Lights </Link>
 
                   </button> &nbsp;
-                  and more from People around you
+                  and more from people around you
 
                 </p>
               </Col>
             </Row>
             <Row>
-              <Col sm="6">
+              <Col sm="8">
                 <Form className="theme-form">
-                  <CustomInput placeholder="search" type="text" label="search" />
-                  <CustomInput placeholder="location" type="text" label="location" />
+                  <CustomInput icon="fa-search" placeholder="Search" type="text" label="Search" />
+                  <CustomInput icon="fa-map-marker" placeholder="Location" type="text" label="Location" />
                   <button className="theme-btn theme-btn-filled-white">
                     <span className="fa fa-search"></span>
                   </button>

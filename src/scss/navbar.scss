@@ -86,12 +86,12 @@
     margin-bottom: 0;
     list-style: none;
     margin-left: auto;
-    padding: 0.5rem 1rem;
+    align-items: center;
+    padding: 20px;
     li{
       & > a{
         display: block;
         padding: .55rem 1rem;
-        font-size: 0.9rem;
         color:$white;
         text-decoration: none;
       }

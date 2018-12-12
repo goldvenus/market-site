@@ -23,7 +23,7 @@ class NavbarRight extends Component {
     const { location } = this.props;
     let hideUser = ['/', '/home',].indexOf(location.pathname) > -1;
     return (
-      <ul className="theme-nav-right">
+      <ul className="theme-nav-right theme-text-small">
         <li>
           <Link to="/listgear" >List Gear</Link>
         </li>
@@ -31,7 +31,7 @@ class NavbarRight extends Component {
           <Link to="/rentgear" >Rent Gear</Link>
         </li>
         <li>
-          <button className="theme-btn theme-btn-outline-white ml-3 theme-btn-link">
+          <button className="theme-btn theme-btn-outline-pink ml-3 theme-btn-link">
             <Link to="/login">Login</Link>
           </button>
         </li>
