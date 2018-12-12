@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Container, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Form} from 'reactstrap';
+import { Form } from 'reactstrap';
 import CustomInput from './CustomInput';
-import ThemeRow from './ThemeRow.js';
 import ThemeCardOne from './Theme-Cards/ThemeCardOne';
+import ThemeCardTwo from './Theme-Cards/ThemeCardTwo';
 import data from './dummydata';
 
 
@@ -31,36 +31,36 @@ class Home extends Component {
                 <p className="theme-text-small">
                   Rent &nbsp;
                   <button className="theme-btn theme-btn-primary-light ml-1">
-                    
-                      <img src={'/images/Icons/Tags/Photo/Default.svg'} alt="drone"/>
-                      <Link to="/">Cameras</Link>
-                    
+
+                    <img src={'/images/Icons/Tags/Photo/Default.svg'} alt="drone" />
+                    <Link to="/">Cameras</Link>
+
                   </button>
                   <button className="theme-btn theme-btn-primary-light ml-1">
-                    
-                      <img src={'/images/Icons/Tags/Drone/Default.svg '} alt="drone"/>
-                      <Link to="/">Drones</Link>
-                    
+
+                    <img src={'/images/Icons/Tags/Drone/Default.svg '} alt="drone" />
+                    <Link to="/">Drones</Link>
+
                   </button>
                   <button className="theme-btn theme-btn-primary-light ml-1">
-                                         
-                      <img src={'/images/Icons/Tags/Lights/Default.svg '} alt="drone"/>
-                      <Link to="/"> Lights </Link>  
-                    
+
+                    <img src={'/images/Icons/Tags/Lights/Default.svg '} alt="drone" />
+                    <Link to="/"> Lights </Link>
+
                   </button> &nbsp;
                   and more from People around you
-                  
+
                 </p>
               </Col>
-              </Row>
-              <Row>                
+            </Row>
+            <Row>
               <Col sm="6">
                 <Form className="theme-form">
                   <CustomInput placeholder="search" type="text" label="search" />
-                  <CustomInput placeholder="location" type="text" label="location" />  
+                  <CustomInput placeholder="location" type="text" label="location" />
                   <button className="theme-btn theme-btn-filled-white">
                     <span className="fa fa-search"></span>
-                  </button>              
+                  </button>
                 </Form>
               </Col>
             </Row>
@@ -68,35 +68,67 @@ class Home extends Component {
         </div>
         <div className="home-body">
           <Container>
-            {/* There will be an array of Catagories objects */}
+            <div class="block-el">
+              <div class="block-content">
+                <h2>Block Title</h2>
+                <p>Block content. Block content. Block content. Block content. Block content. Block content. Block content. Block content. Block content. </p>
+              </div>
+              <div class="block-bg"></div>
+            </div>
+
+            <div class="block-el">
+              <div class="block-content">
+                <h2>Block Title</h2>
+                <p>Block content. Block content. Block content. Block content. Block content. Block content. Block content. Block content. Block content. </p>
+              </div>
+              <div class="block-bg"></div>
+            </div>
+
+            <div class="block-el">
+              <div class="block-content">
+                <h2>Block Title</h2>
+                <p>Block content. Block content. Block content. Block content. Block content. Block content. Block content. Block content. Block content. </p>
+              </div>
+              <div class="block-bg"></div>
+            </div>
+          </Container>
+          <div className="clearfix mb-4"></div>
+          <Container>            
             <Row className="theme-row">
-              <Col sm="4" className="theme-col">
-                <p id="camera"></p>
-                <div>
-                  <span>Camera</span>
-                  <button className="theme-btn theme-btn-outline-white">
-                    <Link to ="/cameras" >View</Link>
-                  </button>
+              <div sm="4" className="theme-col theme-col-1">
+                <div className="wrapper">
+                  <p id="camera"></p>
+                  <div className="desc">
+                    <span>Camera</span>
+                    <button className="theme-btn theme-btn-outline-white">
+                      <Link to="/cameras" >View</Link>
+                    </button>
+                  </div>
                 </div>
-              </Col>
-              <Col sm="4" className="theme-col">
-                <p id="computer_electronic"></p>
-                <div>
-                  <span>Computer & Electronics</span>
-                  <button className="theme-btn theme-btn-outline-white">
-                    <Link to="/computer&electronics" >View</Link>
-                  </button>
+              </div>
+              <div sm="4" className="theme-col theme-col-2">
+                <div className="wrapper">
+
+                  <p id="computer_electronic"></p>
+                  <div className="desc">
+                    <span>Computer & Electronics</span>
+                    <button className="theme-btn theme-btn-outline-white">
+                      <Link to="/computer&electronics" >View</Link>
+                    </button>
+                  </div>
                 </div>
-              </Col>
-              <Col sm="4" className="theme-col">
-                <p id="drones"></p>
-                <div>
-                  <span>Drones</span>
-                  <button className="theme-btn theme-btn-outline-white">
-                    <Link to="/drones" >View</Link>
-                  </button>
+              </div>
+              <div sm="4" className="theme-col theme-col-3">
+                <div className="wrapper">
+                  <p id="drones"></p>
+                  <div className="desc">
+                    <span>Drones</span>
+                    <button className="theme-btn theme-btn-outline-white">
+                      <Link to="/drones" >View</Link>
+                    </button>
+                  </div>
                 </div>
-              </Col>
+              </div>
             </Row>
             <Row className="theme-row">
               <Col sm="4" className="theme-col">
@@ -177,27 +209,63 @@ class Home extends Component {
               </Col>
             </Row>
           </Container>
-          
+
           <div className="new_arrival">
+            <div className="section-overlay">
+              <Container>
+                <Row>
+                  <Col sm="3" className="align-self-center">
+                    <h3 className="mb-4">New Arrivals</h3>
+                    <img src={'/images/calander.jpg'} alt="" className="w-100" />
+                    <button className="theme-btn theme-btn-primary w-100">
+                      <Link to="/listGear">
+                        <span></span>
+                        Find Gear
+                      </Link>
+                    </button>
+                  </Col>
+                  <Col sm={{ size: 8, offset: 1 }}>
+                    <Row >
+                      {
+                        data.Gear.map((item, index) => {
+                          return <Col sm="6" key={index}>
+                            <ThemeCardOne Gear={item} />
+                          </Col>
+                        })
+                      }
+                    </Row>
+                  </Col>
+                </Row>
+              </Container>
+            </div>
+          </div>
+          <div className="stories">
             <Container>
               <Row>
-                <Col sm="4" className="align-self-center">
-                  <h3>New Arrivals</h3>
-                  <img src={'/images/calander.jpg'} alt=""/>
+                <Col>
+                  <h2 className="text-center mb-5">Stories</h2>
                 </Col>
-                <Col sm="8">
-                  <Row >
-                    {
-                    data.map((item , index)=>{
-                        return <Col sm="6" key={index}>
-                        <ThemeCardOne Gear = {item} />
-                      </Col>
-                    })
-                    }
-                  </Row>
+              </Row>
+              <Row>
+                {
+                  data.stories.map((item, index) => {
+                    return <Col sm="4" key={index}>
+                      <ThemeCardTwo story={item} />
+                    </Col>
+                  })
+                }
+              </Row>
+              <Row>
+                <Col className="text-center">
+                  <button className="theme-btn theme-btn-primary mt-5">
+                    View All
+                  </button>
                 </Col>
               </Row>
             </Container>
+          </div>
+          <div className="payments">
+            <img src="/images/temp.jpg" alt="" />
           </div>
         </div>
       </div>

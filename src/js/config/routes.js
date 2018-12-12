@@ -11,6 +11,7 @@ import Dashboard from "../components/Dashboard/Dashboard";
 import Cart from "../components/Cart";
 import Checkout from "../components/Checkout";
 import Payment from "../components/Payment";
+import ListGear from "../components/ListGear";
 
 export default (
   <div className="app-content">
@@ -26,5 +27,6 @@ export default (
     <Route path="/cart" component={Cart} />
     <Route path="/checkout" component={Checkout} />
     <Route path="/payment" component={Payment} />
+    <Route path='/listgear' component={ListGear} />
   </div>
 );

@@ -21,7 +21,7 @@ const MyListingItem = ({ listItem }) => (
       </p>
     </td>
     <td width="20%">
-      <img src={listItem.landrord_img} class="landrord-img" />
+      <img src={listItem.landrord_img} className="landrord-img" />
       <span className="ml-1 "> {listItem.landrord_name} </span>
     </td>
     <td width="15%">{listItem.price_per_day}</td>

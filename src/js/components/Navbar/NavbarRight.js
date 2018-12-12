@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 class NavbarRight extends Component {
@@ -19,13 +20,15 @@ class NavbarRight extends Component {
   }
 
   render() {
+    const { location } = this.props;
+    let hideUser = ['/', '/home',].indexOf(location.pathname) > -1;
     return (
       <ul className="theme-nav-right">
         <li>
-          <Link to="/ListGear" >List Gear</Link>
+          <Link to="/listgear" >List Gear</Link>
         </li>
         <li>
-          <Link to="/RentGear" >Rent Gear</Link>
+          <Link to="/rentgear" >Rent Gear</Link>
         </li>
         <li>
           <button className="theme-btn theme-btn-outline-white ml-3 theme-btn-link">
@@ -33,11 +36,11 @@ class NavbarRight extends Component {
           </button>
         </li>
         <li>
-          <button className="theme-btn theme-btn-outline-white ml-3 theme-btn-link">
+          <button className="theme-btn theme-btn-filled-white ml-3 theme-btn-link">
             <Link to="/register">Register</Link>
           </button>
         </li>
-        <li>
+        {hideUser ? "" : <li>
           <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
             <DropdownToggle caret>
               <div className="flex-row">
@@ -50,12 +53,10 @@ class NavbarRight extends Component {
               <DropdownItem>Logout</DropdownItem>
             </DropdownMenu>
           </ButtonDropdown>
-        </li>
-        <li>
-        </li>
+        </li>}
       </ul>
     );
   }
 }
 
-export default NavbarRight;
+export default withRouter(NavbarRight);

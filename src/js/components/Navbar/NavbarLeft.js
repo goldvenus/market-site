@@ -42,10 +42,10 @@ class NavbarLeft extends React.Component {
     
     const {collapsed} =this.state;
     return (
-      <div>
+      <div className="theme-nav-left">
         <NavbarToggler onClick={this.toggleNavbar} className="ml-2" />
         {hideLogo ? "" : <NavbarBrand src={logo} />}
-        <CollapseMenu isOpen={!collapsed}>
+        <CollapseMenu isOpen={!collapsed} >
           <Container>
             <Row>
               <Col sm={{size: 4, offset: 2}}>

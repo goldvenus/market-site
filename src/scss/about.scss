@@ -4,9 +4,20 @@
     background-color: $primary-color;
     padding :2.6rem 0;
     margin-bottom: 3rem;
-    .theme-text-small{
+    .breadcrumb{
       margin: 0;
       padding-left:0.5rem;
+      margin-bottom: 4rem;
+      color:$white;
+      .breadcrumb-item{
+        &::before{
+          color:$white;
+        }
+      }
+      .active{
+        color:$white;
+        font-weight: 800;
+      }
     }
     h1{
       color:$white;
