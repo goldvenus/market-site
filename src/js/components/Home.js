@@ -167,7 +167,6 @@ class Home extends Component {
             <div class="block-el">
               <div class="block-content">
                 <h2>Block Title</h2>
-                <p>Block content. Block content. Block content. Block content. Block content. Block content. Block content. Block content. Block content. </p>
               </div>
               <div class="block-bg"></div>
             </div>
@@ -175,7 +174,6 @@ class Home extends Component {
             <div class="block-el">
               <div class="block-content">
                 <h2>Block Title</h2>
-                <p>Block content. Block content. Block content. Block content. Block content. Block content. Block content. Block content. Block content. </p>
               </div>
               <div class="block-bg"></div>
             </div>
@@ -183,7 +181,6 @@ class Home extends Component {
             <div class="block-el">
               <div class="block-content">
                 <h2>Block Title</h2>
-                <p>Block content. Block content. Block content. Block content. Block content. Block content. Block content. Block content. Block content. </p>
               </div>
               <div class="block-bg"></div>
             </div>

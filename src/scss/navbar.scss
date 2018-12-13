@@ -20,41 +20,77 @@
   .collapse{
     display: none;
   }
-  .uncollapse{
+  .theme-menu.uncollapse{
+    overflow: hidden;
+    position: relative;
+    width: 100%;
     display: block;
     position: absolute;
-    background-color: $primary-color;    
-    top: 55px;
-    left:0;
-    z-index: 888;
-    width: 100%;
+    top: 60px;
+    left: 0;
+    z-index: 333;
+    background-color: #0809086e;
+    padding: 10rem 5rem;
+    .theme-menu-content{
+      position: relative;
+      z-index: 555;
+    }
+    .theme-menu-bg{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      background-color: #f82462;
+      -webkit-transform: skewX(-10deg) translateX(-52px) skewY(-10deg);
+      transform: skewX(-10deg) translateX(-52px) skewY(-3deg) translateY(-40px);
+      border-radius: 2px;
+    //   &::before{
+    //   position: absolute;
+    //   z-index: 555;
+    //   content: '';
+    //   bottom: 0px;
+    //   left:0;
+    //   border-style: solid;
+    //   border-width: 50px 1231px 50px 0px;
+    //   border-color: transparent #0809086e #0809086e #0809086e;
+    //   transform: skewX(-12deg);
+    }
+  }
+  .uncollapse{
+    // display: block;
+    // position: absolute;   
+    // top: 55px;
+    // left:0;
+    // z-index: 333;
+    // width: 100%;
     // border:1px solid green;
-    padding: 10rem 5rem ;
-    -webkit-transition:height 0.5s linear 2s;
-    -moz-transition:height 0.5s linear 2s;
-    -o-transition:height 0.5s linear 2s;
-    transition:height 0.5s linear 2s;
-    &::after{
-      position: absolute;
-      z-index: 555;
-      content: '';
-      right: 0px;
-      top: 0px;
-      border-style: solid;
-      border-color: transparent transparent #0809086e transparent;
-      border-width: 0px 0px 600px 129px;
-    }
-    &::before{
-      position: absolute;
-      z-index: 555;
-      content: '';
-      bottom: 0px;
-      left:0;
-      border-style: solid;
-      border-width: 50px 1231px 50px 0px;
-      border-color: transparent #0809086e #0809086e #0809086e;
-      transform: skewX(-12deg);
-    }
+    // padding: 10rem 5rem ;
+    // -webkit-transition:height 0.5s linear 2s;
+    // -moz-transition:height 0.5s linear 2s;
+    // -o-transition:height 0.5s linear 2s;
+    // transition:height 0.5s linear 2s;
+    // &::after{
+    //   position: absolute;
+    //   z-index: 555;
+    //   content: '';
+    //   right: 0px;
+    //   top: 0px;
+    //   border-style: solid;
+    //   border-color: transparent transparent #0809086e transparent;
+    //   border-width: 0px 0px 600px 129px;
+    // }
+    // &::before{
+    //   position: absolute;
+    //   z-index: 555;
+    //   content: '';
+    //   bottom: 0px;
+    //   left:0;
+    //   border-style: solid;
+    //   border-width: 50px 1231px 50px 0px;
+    //   border-color: transparent #0809086e #0809086e #0809086e;
+    //   transform: skewX(-12deg);
+    // }
     .wrraper{
       width:100%;
       ul{
@@ -80,6 +116,8 @@
     }
   }
   .theme-nav-right{
+    position: relative;
+    z-index: 444;
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;

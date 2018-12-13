@@ -6,10 +6,11 @@ import logo from '../../../assets/images/logo-2.png';
 
 const CollapseMenu = props => {
   const className = props.isOpen ? "uncollapse" : "collapse";
-  return <div className={className}>
-    <div className="wrraper">
+  return <div className={`${className} theme-menu `}>
+    <div className="wrraper theme-menu-content">
       {props.children}
     </div>
+    <div className="theme-menu-bg"></div>
   </div>
 };
 
