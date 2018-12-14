@@ -12,6 +12,9 @@ class Layout extends Component {
 
     return (
       <div>
+        <div className="fixed">
+          
+        </div>
         {
           hideHeader ? null : <Header />
         }

@@ -13,7 +13,7 @@
     background-color: $primary-color;
     margin-bottom: 15px;
     color:$white;
-    height: calc(100vh - 70px);
+    height: calc(100vh - 76px);
     // .cameras{
     //   height:20px;
     //   background-image: url('/images/Icons/Tags/Photo/Default.svg');
@@ -331,6 +331,10 @@
   margin: 10px;
   float: left;
 }
+.block-content{
+    position: relative;
+    z-index: 3333;
+}
 .block-el > .block-bg {
   position: absolute;
   width: 100%;
@@ -341,16 +345,16 @@
   transform: skewX(-25deg);
   box-shadow: 0 0 10px #aaa;
   border-radius: 2px;
-  &:hover{
-    background-color: $primary-color;
-  }
-  &::before{
-    content: '';
-    position: absolute;
-    z-index: 333;
-    border-style: solid;
-    border:#fff;
-    transform: skewX(20deg) translateX(-35px);
-    border-width:200px 50px 0 30px;
-  }
+  // &:hover{
+  //   background-color: $primary-color;
+  // }
+  // &::before{
+  //   content: '';
+  //   position: absolute;
+  //   z-index: 333;
+  //   border-style: solid;
+  //   border:#fff;
+  //   transform: skewX(20deg) translateX(-35px);
+  //   border-width:200px 50px 0 30px;
+  // }
 }
