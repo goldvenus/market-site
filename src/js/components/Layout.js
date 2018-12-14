@@ -13,7 +13,14 @@ class Layout extends Component {
     return (
       <div>
         <div className="fixed">
-          
+          <div className="cart">
+            <span className="cart-icon"></span>
+            <span>CART</span>
+          </div>
+          <div className="fav">
+            <span className="fav-icon"></span>
+            <span>FAVORITES</span>
+          </div>
         </div>
         {
           hideHeader ? null : <Header />

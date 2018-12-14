@@ -52,7 +52,7 @@
       left: 0;
       top: 0;
       background-color: $primary-color;
-      transform: skewX(-8deg) translateX(-47px) skewY(-2deg) translateY(-68px);
+      transform: skewX(-8deg) translateX(-52px) skewY(-2deg) translateY(-68px);
       border-radius: 2px;
     //   &::before{
     //   position: absolute;
@@ -117,8 +117,15 @@
       }
       p{
         color: $white;
+        font-size: 12px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        .theme-text-small{
+          opacity: 0.8;
+          text-transform: capitalize;
+        }
       }
-      .fa{
+      .fab{
         font-size: 2rem;
         margin-right: 20px;
       }
