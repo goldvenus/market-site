@@ -17,7 +17,7 @@ const CollapseMenu = props => {
 
 const NavbarToggler = props =>{
   return <button className="button-toggle" onClick={props.onClick}>
-    {props.isOpen ? <span class="fa fa-times"> Close</span> :<span className="fa fa-bars"></span>   } 
+    {props.isOpen ? <span class="fa fa-times "> Close</span> : <span className="fa fa-bars"></span>   } 
   </button>
 
 }
@@ -67,23 +67,23 @@ class NavbarLeft extends React.Component {
               </Col>
               <Col sm="4">
                 <p>
-                  <span className="theme-text-small text-gray">Address</span><br />
+                  <span className="theme-text-small">Address</span><br />
                   Spring Store London Oxford
                   </p>
                 <p>
-                  <span className="theme-text-small text-gray">Phone</span><br />
+                  <span className="theme-text-small">Phone</span><br />
                   +1 3456 7890 <br />
                   +1 3427 7670
                   </p>
                 <p>
-                  <span className="theme-text-small text-gray">Email</span><br />
+                  <span className="theme-text-small">Email</span><br />
                   support@creativemarket.com
                   info@creativemarket.com
                   </p>
                 <p>
-                  <span className="fa fa-facebook"></span>
-                  <span className="fa fa-vimeo"></span>
-                  <span className="fa fa-instagram"></span>
+                  <span className="fab fa-facebook-f"></span>
+                  <span className="fab fa-vimeo-v"></span>
+                  <span className="fab fa-instagram"></span>
                 </p>
               </Col>
             </Row>

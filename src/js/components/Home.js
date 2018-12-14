@@ -163,30 +163,48 @@ class Home extends Component {
           </Container>
         </div>
         <div className="home-body">
-          {/* <Container>
+          <Container>
             <div class="block-el">
               <div class="block-content">
-                <h2>Block Title</h2>
+                <p id="camera"></p>
+                <div className="desc">
+                  <span>Camera</span>
+                  <button className="theme-btn theme-btn-outline-white">
+                    <Link to="/cameras" >View</Link>
+                  </button>
+                </div>
               </div>
               <div class="block-bg"></div>
             </div>
 
             <div class="block-el">
               <div class="block-content">
-                <h2>Block Title</h2>
+                <p id="computer_electronic"></p>
+                <div className="desc">
+                  <span>Computer & Electronics</span>
+                  <button className="theme-btn theme-btn-outline-white">
+                    <Link to="/cameras" >View</Link>
+                  </button>
+                </div>
               </div>
               <div class="block-bg"></div>
             </div>
 
             <div class="block-el">
               <div class="block-content">
-                <h2>Block Title</h2>
+                <p id="drones"></p>
+                <div className="desc">
+                  <span>Drones</span>
+                  <button className="theme-btn theme-btn-outline-white">
+                    <Link to="/cameras" >View</Link>
+                  </button>
+                </div>
               </div>
               <div class="block-bg"></div>
             </div>
           </Container>
-          <div className="clearfix mb-4"></div> */}
-          <Container>
+          <div className="clearfix mb-4"></div>
+          {/* <Container>
             <Row className="theme-row">
               <div sm="4" className="theme-col theme-col-1">
                 <div className="wrapper">
@@ -301,7 +319,7 @@ class Home extends Component {
                 </div>
               </Col>
             </Row>
-          </Container>
+          </Container> */}
 
           <div className="new_arrival">
             <div className="section-overlay">
