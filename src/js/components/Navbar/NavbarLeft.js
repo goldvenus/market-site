@@ -11,13 +11,13 @@ const CollapseMenu = props => {
       {props.children}
     </div>
     <div className="theme-menu-bg"></div>
+    <i class="fa fa-arrow-right"></i>
   </div>
 };
 
 const NavbarToggler = props =>{
   return <button className="button-toggle" onClick={props.onClick}>
-    <span className="fa fa-bars"></span>
-    {/* <span className="fa fa-window-close"></span>*/}
+    {props.isOpen ? <span class="fa fa-times"> Close</span> :<span className="fa fa-bars"></span>   } 
   </button>
 
 }
@@ -44,7 +44,7 @@ class NavbarLeft extends React.Component {
     const {collapsed} =this.state;
     return (
       <div className="theme-nav-left">
-        <NavbarToggler onClick={this.toggleNavbar} className="ml-2" />
+        <NavbarToggler onClick={this.toggleNavbar} className="ml-2" isOpen={!collapsed}/>
         {hideLogo ? "" : <NavbarBrand src={logo} />}
         <CollapseMenu isOpen={!collapsed} >
           <Container>
