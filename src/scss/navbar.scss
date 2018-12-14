@@ -8,6 +8,8 @@
   .button-toggle{
     border:none;
     background-color: transparent;
+    position: relative;
+    z-index:555;
     cursor: pointer;
     &:focus{
       outline: none;
@@ -22,15 +24,15 @@
   }
   .theme-menu.uncollapse{
     overflow: hidden;
-    position: relative;
     width: 100%;
     display: block;
     position: absolute;
-    top: 60px;
+    top: 0;
     left: 0;
     z-index: 333;
     background-color: #0809086e;
-    padding: 10.35rem 5rem;
+    padding: 10rem 5rem;
+    height: 100vh;
     .fa-arrow-right{
       position: absolute;
       z-index: 555;
@@ -50,7 +52,7 @@
       left: 0;
       top: 0;
       background-color: $primary-color;
-      transform: skewX(-8deg) translateX(-52px) skewY(-2deg) translateY(-68px);
+      transform: skewX(-8deg) translateX(-47px) skewY(-2deg) translateY(-68px);
       border-radius: 2px;
     //   &::before{
     //   position: absolute;
