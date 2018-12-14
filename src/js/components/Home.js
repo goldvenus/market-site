@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Container, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Form } from 'reactstrap';
+import { Form, ListGroup, ListGroupItem } from 'reactstrap';
 import CustomInput from './CustomInput';
 import ThemeCardOne from './Theme-Cards/ThemeCardOne';
 import ThemeCardTwo from './Theme-Cards/ThemeCardTwo';
@@ -10,7 +10,89 @@ import data from './dummydata';
 
 
 class Home extends Component {
+  constructor() {
+    super();
+
+    this.suggestions = [
+      "Canon EOS 6D",
+      "Canon EOS 2000D Kit 18-55mm IS II",
+      "Canon EOS 5D Mark III",
+      "Canon EOS 80D",
+      "Canon EOS 3000D Kit 18-55mm IS II"
+    ]
+
+    this.locationSuggestions = [
+      'United State',
+      'United Kingdom',
+      'Pakistan',
+      'India'
+    ];
+
+    this.state = {
+      searchText: '',
+      locationText: '',
+      searchTextSuggestions: [],
+      locationTextSuggestions: [],
+    }
+
+    this.onSearchTextChange = this.onSearchTextChange.bind(this);
+    this.onLocationChange = this.onLocationChange.bind(this);
+  }
+
+  onSearchTextChange(value) {
+    if(value) {
+      let pattern = new RegExp(value, 'ig')
+      let searchTextSuggestions = this.suggestions.filter((s) => s.search(pattern) > -1);
+
+      this.setState({
+        searchText: value,
+        searchTextSuggestions
+      });
+    } else {
+      this.setState({
+        searchText: '',
+        searchTextSuggestions: []
+      });
+    }
+  }
+
+  onLocationChange(value) {
+    if(value) {
+      let pattern = new RegExp(value, 'ig')
+      let locationTextSuggestions = this.locationSuggestions.filter((s) => s.search(pattern) > -1);
+
+      this.setState({
+        locationText: value,
+        locationTextSuggestions
+      });
+    } else {
+      this.setState({
+        locationText: '',
+        locationTextSuggestions: []
+      });
+    }
+  }
+
+  selectSearchSuggestion(suggestion) {
+    this.setState({
+      searchText: suggestion,
+      searchTextSuggestions: []
+    })
+  }
+
+  selectLocationSuggestion(suggestion) {
+    this.setState({
+      locationText: suggestion,
+      locationTextSuggestions: []
+    })
+  }
+
   render() {
+    const { searchTextSuggestions, locationTextSuggestions, searchText, locationText } = this.state;
+
+    const searchSuggestions = searchTextSuggestions.map((suggestion) => <ListGroupItem onClick={() => this.selectSearchSuggestion(suggestion)}>{suggestion}</ListGroupItem>);
+    const locationSuggestions = locationTextSuggestions.map((suggestion) => <ListGroupItem onClick={() => this.selectLocationSuggestion(suggestion)}>{suggestion}</ListGroupItem>);
+
     return (
       <div className="home">
         <div className="home-head">
@@ -54,10 +136,24 @@ class Home extends Component {
               </Col>
             </Row>
             <Row>
-              <Col sm="8">
+              <Col>
                 <Form className="theme-form">
-                  <CustomInput icon="fa-search" placeholder="Search" type="text" label="Search" />
-                  <CustomInput icon="fa-map-marker" placeholder="Location" type="text" label="Location" />
+                  <div className="search-input">
+                    <CustomInput icon="fa-search" placeholder="Search" type="text" label="Search" onChange={this.onSearchTextChange} value={searchText}/>
+                    <ListGroup className="search-suggestions">
+                      {
+                        searchSuggestions
+                      }
+                    </ListGroup>
+                  </div>
+                  <div className="location-input">
+                    <CustomInput icon="fa-map-marker" placeholder="Location" type="text" label="Location" onChange={this.onLocationChange} value={locationText}/>
+                    <ListGroup className="search-suggestions">
+                      {
+                        locationSuggestions
+                      }
+                    </ListGroup>
+                  </div>
                   <button className="theme-btn theme-btn-filled-white">
                     <span className="fa fa-search"></span>
                   </button>
@@ -93,7 +189,7 @@ class Home extends Component {
             </div>
           </Container>
           <div className="clearfix mb-4"></div>
-          <Container>            
+          <Container>
             <Row className="theme-row">
               <div sm="4" className="theme-col theme-col-1">
                 <div className="wrapper">
