@@ -1,8 +1,104 @@
 .rent-gear{
   .rent-gear-head{
-
+    padding-top : 3rem;
+    margin-bottom: 2rem;
+    .theme-page-title{
+      margin-bottom: 0;
+    }
   }
   .rent-gear-body{
-    
+    .sidebar{
+      padding: 10px 0;
+      background-color: $gray-lighten;
+      .sidebar-title{
+        position: relative;
+        display: block;
+        padding: .85rem 1.25rem;
+      }
+      .sidebar-wrapper{
+        .list-group{
+          .list-group-item{
+            background-color: transparent;
+            border: none;
+            padding: 0;
+            div{
+              position: relative;
+              padding: .8rem 1.25rem;
+            }
+            &:hover{
+              background-color: $gray-light;
+            }
+          }
+
+          .list-group-item > .item-active{
+            background-color: $primary-color;
+            color: $white;
+            &::after{
+              content: "";
+              position: absolute;
+              right: -17px;
+              top: 7px;
+              z-index: 444;
+              border: 17px solid;
+              border-color:$primary-color $primary-color transparent transparent;
+              transform: rotate(45deg);
+            }
+          }
+        }
+      }
+    }
+    .main-wrapper{
+      display: flex;
+      padding: 10px 0;
+      padding-left: 30px;
+      .search{
+        flex:3;
+        .theme-form{
+          display: flex;
+          align-items: flex-end;
+          height: 100%;
+          margin-top: 0;
+          align-items: flex-end;
+          max-width: 800px;
+          .location-input {
+            flex: 1;
+            margin-right: 15px;
+            position: relative;
+          }
+          .search-input {
+            flex: 1.5;
+            position: relative;
+            margin-right: 15px;
+          }
+        }
+      }
+      .views{
+        flex:1;
+        display: flex;
+        justify-content: center;
+        .card-view , .list-view , .table-view{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-left: 10px;
+          width:50px;
+          height: 50px;
+          background-color: $primary-color;
+          color :$white;
+          .fa{
+            font-size: 1.3rem;
+          }
+        }
+        .table-view{
+          display: flex;
+          flex-direction: column;
+          
+          .fa:first-child{
+            padding-top:8px;
+            line-height: 0;
+          }
+        }
+      }
+    }
   }
 }

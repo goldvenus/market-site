@@ -12,6 +12,7 @@ import Cart from "../components/Cart";
 import Checkout from "../components/Checkout";
 import Payment from "../components/Payment";
 import ListGear from "../components/ListGear";
+import RentGear from "../components/RentGear";
 
 export default (
   <div className="app-content">
@@ -28,5 +29,6 @@ export default (
     <Route path="/checkout" component={Checkout} />
     <Route path="/payment" component={Payment} />
     <Route path='/listgear' component={ListGear} />
+    <Route path='/rentgear' component={RentGear} />
   </div>
 );

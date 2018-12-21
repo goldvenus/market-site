@@ -4,7 +4,7 @@ $primary-color-alpha: #f82462b8;
 $secondary-color: #252525;
 $secondary-light-color: #3A3A3A;
 $white: #ffffff;
-$gray-light: #f4f5f6;
+$gray-light: #f3f3f3;
 $gray-lighten: #f8f8f8;
 
 html, body, .container {
@@ -20,7 +20,11 @@ body {
   font-size: 16px;
   line-height: 144%;
 }
-
+ul{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
 .primary-color {
   color: $primary-color;
 }

@@ -56,7 +56,7 @@ class ListGear extends Component {
             <Row>
               <Col>
                 <Breadcrumb>
-                  <BreadcrumbItem>Home </BreadcrumbItem>
+                  <BreadcrumbItem>Home Page</BreadcrumbItem>
                   <BreadcrumbItem active>List Gear</BreadcrumbItem>
                 </Breadcrumb>
 
