@@ -4,24 +4,49 @@ import { Form } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import CustomInput from './CustomInput';
 import AuthSideMenu from './AuthSideMenu';
+import { register } from '../actions/app.actions';
 
 class Register extends Component {
   constructor() {
     super();
 
     this.state = {
-      isRegistered: false
+      isRegistered: false,
+      password: "",
+      confirmPassword: "",
+    	username: "",
+    	phoneNumber: "",
+    	fullName: "",
+  	  gender: "",
+  	  address: "",
+  	  picture: ""
     }
   }
 
-  submit() {
-    this.setState({
-      isRegistered: true
-    })
+  async submit(e) {
+    e.preventDefault();
+
+    const { password, confirmPassword, username, phoneNumber, fullName, gender, address, picture } = this.state;
+
+    await register({
+      fullName,
+      username,
+      password,
+      phoneNumber,
+      gender,
+      address,
+      picture
+    });
+
+    // if(response) {
+    //   this.setState({
+    //     isRegistered: true
+    //   });
+    // }
   }
 
   render() {
-    const { isRegistered } = this.state;
+    const { isRegistered, password, confirmPassword, username, fullName } = this.state;
     return (
       <div className="auth-container theme-navbar">
         <AuthSideMenu />
@@ -55,16 +80,16 @@ class Register extends Component {
             <div className="login-or-divider">Or</div>
             <Form className="theme-form">
               <div className="theme-form-field">
-                <CustomInput placeholder='Name' type="text"/>
+                <CustomInput placeholder='Name' type="text" value={fullName} onChange={(value) => this.setState({ fullName: value })}/>
               </div>
               <div className="theme-form-field">
-                <CustomInput placeholder='Email' type="email"/>
+                <CustomInput placeholder='Email' type="email" value={username} onChange={(value) => this.setState({ username: value })} />
               </div>
               <div className="theme-form-field">
-                <CustomInput placeholder='Password' type="Password" />
+                <CustomInput placeholder='Password' type="Password" value={password} onChange={(value) => this.setState({ password: value })} />
               </div>
               <div className="theme-form-field">
-                <CustomInput placeholder='Confirm Password' type="Password" />
+                <CustomInput placeholder='Confirm Password' type="Password" value={confirmPassword} onChange={(value) => this.setState({ confirmPassword: value })}  />
               </div>
               <div className="flex-row">
                 <div className="theme-form-field">
