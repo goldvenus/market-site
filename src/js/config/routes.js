@@ -12,7 +12,7 @@ import Cart from "../components/Cart";
 import Checkout from "../components/Checkout";
 import Payment from "../components/Payment";
 import ListGear from "../components/ListGear";
-import RentGear from "../components/RentGear";
+import RentGear from "../components/Rent Gear/RentGear";
 
 export default (
   <div className="app-content">
