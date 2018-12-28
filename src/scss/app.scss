@@ -197,3 +197,22 @@ a, a:hover {
 ::-moz-placeholder {@content}
 ::-ms-input-placeholder {@content}
 }
+
+.app-error {
+  position: fixed;
+  top: 10px;
+  right: 0;
+  width: 500px;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+}
+
+.app-error-text {
+  flex: 1;
+}
+
+.app-error-close {
+  margin-left: 15px;
+  cursor: pointer;
+}

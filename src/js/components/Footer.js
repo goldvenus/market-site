@@ -69,13 +69,13 @@ class Footer extends Component {
               <Col sm="6">
                 <div className="social-buttons">
                   <button className="theme-btn btn-social btn-fb">
-                    <span className="fa fa-facebook"></span>
+                    <span className="fab fa-facebook-f"></span>
                     Facebook</button> &nbsp;
                   <button className="theme-btn btn-social btn-vimeo">
-                    <span className="fa fa-vimeo"></span>
+                    <span className="fab fa-vimeo-v"></span>
                     Vimeo</button> &nbsp;
                   <button className="theme-btn btn-social btn-insta">
-                    <span className="fa fa-instagram"></span>
+                    <span className="fab fa-instagram"></span>
                     Instagram</button>
                 </div>
               </Col>

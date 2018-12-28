@@ -4,9 +4,32 @@ import { Button, Form ,Label, Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import CustomInput from './CustomInput';
 import AuthSideMenu from './AuthSideMenu';
+import { login } from '../actions/app.actions';
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      password: '',
+      username: ''
+    }
+  }
+
+  async submit(e) {
+    e.preventDefault();
+
+    const { username, password } = this.state;
+
+    await login({
+      username,
+      password
+    });
+
+  }
+
   render() {
+    const {username, password} = this.state;
     return (
       <div className="auth-container theme-navbar">
         <AuthSideMenu />
@@ -14,26 +37,26 @@ class Login extends Component {
           <h1>Login</h1>
           <div className="social-buttons">
             <button className="theme-btn btn-social btn-fb">
-              <span className="fa fa-facebook"></span>
+              <span className="fab fa-facebook-f"></span>
               Facebook
             </button>
             <button className="theme-btn btn-social btn-twitter">
-              <span className="fa fa-twitter"></span>
+              <span className="fab fa-twitter"></span>
               Twitter
             </button>
             <button className="theme-btn btn-social btn-google-plus">
-              <span className="fa fa-google-plus"></span>
+              <span className="fab fa-google-plus-g"></span>
               Google +
             </button>
           </div>
           <div className="login-or-divider">Or</div>
           <Form className="theme-form">
             <div className="theme-form-field">
-              <CustomInput placeholder='Email' type="email"/>
+              <CustomInput placeholder='Email' type="email" value={username} onChange={(value) => this.setState({ username: value })}/>
             </div>
             <div className="flex-row">
               <div className="theme-form-field">
-                <CustomInput placeholder='Password' type="Password" />
+                <CustomInput placeholder='Password' type="Password" value={password} onChange={(value) => this.setState({ password: value })} />
               </div>
               <Button color="link"><Link to="/forgotpassword">Forgot password?</Link></Button>
             </div>
@@ -42,7 +65,7 @@ class Login extends Component {
               <Label for="login-remember">Remember me on this device</Label>
             </div>
 
-            <button className="theme-btn-submit">Sign In</button>
+            <button className="theme-btn-submit" onClick={this.submit.bind(this)}>Sign In</button>
           </Form>
           <div className="login-or-divider"></div>
           <div className="flex-row">
