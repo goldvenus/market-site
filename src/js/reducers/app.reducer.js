@@ -3,7 +3,9 @@ import { ACTIONS } from '../constants';
 
 const initialState = {
   categories: [],
-  error: null
+  error: null,
+  user: null,
+  isAuthenticated: false
 }
 
 export default (state = initialState, action) => {
@@ -17,6 +19,14 @@ export default (state = initialState, action) => {
         break;
       case ACTIONS.REMOVE_ERROR:
         draft.error = null;
+        break;
+      case ACTIONS.LOGGED_IN:
+        draft.user = action.payload;
+        draft.isAuthenticated = true;
+        break;
+      case ACTIONS.LOGGED_OUT:
+        draft.user = null;
+        draft.isAuthenticated = false;
         break;
       default:
         break;

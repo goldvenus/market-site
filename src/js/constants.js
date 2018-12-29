@@ -3,6 +3,8 @@ const ACTIONS = {
   USER: 'user',
   ERROR: 'error',
   REMOVE_ERROR: 'removeError',
+  LOGGED_IN: 'loggedIn',
+  LOGGED_OUT: 'loggedOut',
 }
 
 export { API_URL, ACTIONS }

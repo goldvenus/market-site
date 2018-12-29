@@ -10,22 +10,30 @@ class Login extends Component {
   constructor(props) {
     super(props);
 
+    if(props.isAuthenticated) {
+      this.props.history.push("/");
+    }
+
     this.state = {
       password: '',
       username: ''
     }
+
   }
 
   async submit(e) {
-    e.preventDefault();
 
     const { username, password } = this.state;
 
-    await login({
-      username,
-      password
-    });
+    if(username && password) {
+      e.preventDefault();
+      await login({
+        username,
+        password
+      });
 
+      this.props.history.push("/");
+    }
   }
 
   render() {
@@ -52,11 +60,11 @@ class Login extends Component {
           <div className="login-or-divider">Or</div>
           <Form className="theme-form">
             <div className="theme-form-field">
-              <CustomInput placeholder='Email' type="email" value={username} onChange={(value) => this.setState({ username: value })}/>
+              <CustomInput placeholder='Email' type="email" required="required" value={username} onChange={(value) => this.setState({ username: value })}/>
             </div>
             <div className="flex-row">
               <div className="theme-form-field">
-                <CustomInput placeholder='Password' type="Password" value={password} onChange={(value) => this.setState({ password: value })} />
+                <CustomInput placeholder='Password' type="Password" required="required" value={password} onChange={(value) => this.setState({ password: value })} />
               </div>
               <Button color="link"><Link to="/forgotpassword">Forgot password?</Link></Button>
             </div>
@@ -80,5 +88,6 @@ class Login extends Component {
 
 export default connect((store) => {
   return {
+    isAuthenticated: store.app.isAuthenticated
   };
 })(Login);

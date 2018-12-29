@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from "react-redux";
 import { withRouter } from 'react-router-dom';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
@@ -20,8 +21,7 @@ class NavbarRight extends Component {
   }
 
   render() {
-    const { location } = this.props;
-    let hideUser = ['/', '/home',].indexOf(location.pathname) > -1;
+    const { location, isAuthenticated, user } = this.props;
     return (
       <ul className="theme-nav-right theme-text-small">
         <li>
@@ -30,22 +30,12 @@ class NavbarRight extends Component {
         <li>
           <Link to="/rentgear" >Rent Gear</Link>
         </li>
-        <li>
-          <button className="theme-btn theme-btn-outline-pink ml-3 theme-btn-link">
-            <Link to="/login">Login</Link>
-          </button>
-        </li>
-        <li>
-          <button className="theme-btn theme-btn-filled-white ml-3 theme-btn-link">
-            <Link to="/register">Register</Link>
-          </button>
-        </li>
-        {hideUser ? "" : <li>
+        {isAuthenticated ? <li>
           <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
             <DropdownToggle caret>
               <div className="flex-row">
-                <img src="/static/media/profile-pic.41adcd33.jpg"/>
-                <div>Hello Markus</div>
+                <img src={user.picture}/>
+                <div>{user.given_name}</div>
               </div>
             </DropdownToggle>
             <DropdownMenu>
@@ -53,10 +43,22 @@ class NavbarRight extends Component {
               <DropdownItem>Logout</DropdownItem>
             </DropdownMenu>
           </ButtonDropdown>
+        </li> : <li>
+          <button className="theme-btn theme-btn-outline-pink ml-3 theme-btn-link">
+            <Link to="/login">Login</Link>
+          </button>
+          <button className="theme-btn theme-btn-filled-white ml-3 theme-btn-link">
+            <Link to="/register">Register</Link>
+          </button>
         </li>}
       </ul>
     );
   }
 }
 
-export default withRouter(NavbarRight);
+export default withRouter(connect((store) => {
+  return {
+    isAuthenticated: store.app.isAuthenticated,
+    user: store.app.user,
+  };
+})(NavbarRight));
