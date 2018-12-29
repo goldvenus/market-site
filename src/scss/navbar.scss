@@ -68,7 +68,7 @@
   }
   .uncollapse{
     // display: block;
-    // position: absolute;   
+    // position: absolute;
     // top: 55px;
     // left:0;
     // z-index: 333;
@@ -143,6 +143,7 @@
     align-items: center;
     padding: 20px;
     li{
+      display: flex;
       & > a{
         display: block;
         padding: .55rem 1rem;

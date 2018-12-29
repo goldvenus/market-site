@@ -27,13 +27,13 @@ const clearError = () => {
     payload: null
   });
 }
-const post = async (url, data) => {
 
+const post = async (url, data) => {
   try {
     let response = await axios.post(getAPIUrl(url), data, axiosConfig());
     return response;
   } catch (error) {
-    handleError(error.response.data);
+    handleError(error && error.message);
   }
 }
 
@@ -57,10 +57,21 @@ const register = async (data) => {
 const login = async (data) => {
   try {
     let response = await post('signin', data);
-    dispatch({
-      type: ACTIONS.USER,
-      payload: response
-    });
+
+    // retrieve user data
+    if(response) {
+      const user = {
+        userid: response.data.userAttributeData[0].userid,
+        email: response.data.userAttributeData[0].email,
+        given_name: response.data.userAttributeData[0].cognitoPool.userAttributes.given_name,
+        picture: response.data.userAttributeData[0].cognitoPool.userAttributes.picture,
+      };
+
+      dispatch({
+        type: ACTIONS.LOGGED_IN,
+        payload: user
+      });
+    }
   } catch (error) {
     handleError(error);
   }

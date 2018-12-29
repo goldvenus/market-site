@@ -1,5 +1,5 @@
 // NOTE : theme-btn to avoid confilct with bootstrap 4 classes
-.theme-btn{    
+.theme-btn{
     font-weight: 400;
     text-align: center;
     white-space: nowrap;
@@ -11,7 +11,7 @@
     border: 1px solid transparent;
     padding: 8px 15px;
     line-height: 1.5;
-    width: 100px;
+    min-width: 100px;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     &:focus{
       outline: none;
