@@ -25,6 +25,10 @@ ul{
   padding: 0;
   list-style: none;
 }
+button:focus , button:active{
+  box-shadow: none !important;
+  outline: none !important;
+}
 .primary-color {
   color: $primary-color;
 }

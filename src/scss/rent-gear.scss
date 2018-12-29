@@ -121,7 +121,7 @@
         }
       }
       
-      .card_view{
+      .gear_card_view{
         border: none;
         background-color: $gray-light;
         margin-bottom: 1.5rem;
@@ -142,6 +142,7 @@
             font-size: 0.7rem;
             padding: 15px 10px 10px;
             font-weight: 100;
+            color:#666;
             .stars{
               color:$primary-color;
             }
@@ -185,6 +186,191 @@
           .buttons{
             display:block;
           }
+        }
+      }
+
+      .gear_list_view{
+        border: none;
+        background-color: $gray-light;
+        margin-bottom: 1.5rem;
+        position: relative;
+        transition: all 0.6s ease-in-out;
+        flex-direction: row;
+        .card-img{
+          flex-basis: 25%;
+          display: flex;
+          align-items: center;
+          .card-img-top{
+            padding: 10px;
+          }
+        }
+        .card-body{
+          flex-basis: 75%;
+          padding: 0;
+          text-align: left;
+          display: flex;
+          .card-center{
+            flex:2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            .card-title{
+              text-transform: uppercase;
+              font-size: 0.9rem;
+              margin-bottom: 12px;
+            }
+            .card-subtitle{
+              font-size: 0.7rem;
+              font-weight: 100;
+              margin-bottom: 15px;
+              color:#666;
+              .stars{
+                color:$primary-color;
+              }
+              .fa-map-marker{
+                color:$primary-color;
+              }
+            }
+            .card-text{
+              font-size: 0.8rem;
+              letter-spacing: 0.5px;
+              color:#666;
+            }
+          }
+          .card-right{
+            flex:1;
+            border-left: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            .card-text{
+              margin: 0;
+              margin-bottom: 0.8rem;
+              .price{
+                font-size: 1.5rem;
+                font-weight: bold;
+              }
+            }
+            .buttons{
+              width:100%;
+              text-align: center;
+              .cart{
+                width:60%;
+                border-radius: 0;
+                background-color: $primary-color;
+                border: none;
+                color:$white;
+                margin-right: 10px;
+              }
+              .fav{
+                width:20%;
+                border: 1px solid $primary-light-color;
+                background-color: #fff;
+                border-radius: 0;
+                color: $primary-color;
+              }
+            }
+          }
+        }
+        &:hover{
+          transition: all 0.6s ease-in-out;
+        }
+      }
+
+      .gear_table_view{
+        border: none;
+        background-color: $gray-light;
+        margin-bottom: 1.5rem;
+        position: relative;
+        transition: all 0.6s ease-in-out;
+        flex-direction: row;
+        .card-img{
+          flex-basis: 15%;
+          display: flex;
+          align-items: center;
+          .card-img-top{
+            padding: 10px;
+          }
+        }
+        .card-body{
+          flex-basis: 85%;
+          padding: 0;
+          text-align: left;
+          display: flex;
+          .card-center{
+            flex:3;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 10px;
+            .card-title{
+              text-transform: uppercase;
+              font-size: 0.9rem;
+              margin-bottom: 15px;
+            }
+            .card-subtitle{
+              font-size: 0.7rem;
+              font-weight: 100;
+              color:#666;
+              .stars{
+                color:$primary-color;
+              }
+              .fa-map-marker{
+                color:$primary-color;
+              }
+            }
+          }
+          .card-right{
+            flex:2;
+            border-left: 1px solid #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            .card-text{
+              text-align: center;
+              margin: 0;
+              flex:1;
+              .price{
+                font-size: 1.5rem;
+                font-weight: bold;
+              }
+            }
+            .buttons{
+              width:100%;
+              text-align: center;
+              flex:1;
+              box-sizing: border-box;
+              .cart{
+                width:35%;
+                border-radius: 0;
+                border: 1px solid $primary-light-color;
+                background-color: transparent;
+                color: $primary-color;
+                margin-right: 10px;
+                &:hover{
+                  background-color: $primary-color;
+                  color: $white;
+                }
+              }
+              .fav{
+                width:35%;
+                border: 1px solid $primary-light-color;
+                background-color: transparent;
+                border-radius: 0;
+                color: $primary-color;
+                &:hover{
+                  background-color: $primary-color;
+                  color: $white;
+                }
+              }
+            }
+          }
+        }
+        &:hover{
+          transition: all 0.6s ease-in-out;
         }
       }
     }

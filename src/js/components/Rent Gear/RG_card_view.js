@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Col, Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button
@@ -7,7 +7,7 @@ import {
 const CardView = ({ gear_detail: { gear_img, gear_name, total_rating, location, rating, price_per_day}}) => {
   return (
     <Col sm="4">
-      <Card className="card_view">
+      <Card className="gear_card_view">
         <CardImg top width="100%" src={gear_img} alt="Card image cap" />
         <CardBody>
           <CardTitle>{gear_name}</CardTitle>
