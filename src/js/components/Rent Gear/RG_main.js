@@ -159,19 +159,27 @@ class Main extends Component {
             <Row>
               {
                 gearListdata.map((gear , index) =>{
-                  return <CardView gear_detail={gear}/>
+                  return <CardView gear_detail={gear} key={index} />
                 })
               }
             </Row>
           </TabPane>
           <TabPane tabId="2">
             <Row>
-              <ListView />
+              {
+                gearListdata.map((gear, index) => {
+                  return <ListView gear_detail={gear} key={index} />
+                })
+              }
             </Row>
           </TabPane>
           <TabPane tabId="3">
             <Row>
-              <TableView />
+              {
+                gearListdata.map((gear, index) => {
+                  return <TableView gear_detail={gear} key={index} />
+                })
+              }
             </Row>
           </TabPane>
         </TabContent>
