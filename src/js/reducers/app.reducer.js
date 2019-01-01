@@ -28,6 +28,8 @@ export default (state = initialState, action) => {
         draft.user = null;
         draft.isAuthenticated = false;
         break;
+      case ACTIONS.FETCH_CATEGORIES :
+        draft.categories = action.payload.data;
       default:
         break;
     }

@@ -37,6 +37,29 @@ const post = async (url, data) => {
   }
 }
 
+const get = async (url, data) => {
+  try {
+    let response = await axios.get(getAPIUrl(url), data, axiosConfig());
+    return response;
+  } catch (error) {
+    handleError(error && error.message);
+  }
+}
+
+
+const fetchCategories = () => {
+  try {
+    let response = axios.get(API_URL + 'getAllProductsCategory');
+    dispatch({
+      type: ACTIONS.FETCH_CATEGORIES,
+      payload: response
+    })
+  }
+  catch (error) {
+    handleError(error);
+  }
+}
+
 const register = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -59,7 +82,7 @@ const login = async (data) => {
     let response = await post('signin', data);
 
     // retrieve user data
-    if(response) {
+    if (response) {
       const user = {
         userid: response.data.userAttributeData[0].userid,
         email: response.data.userAttributeData[0].email,
@@ -76,5 +99,4 @@ const login = async (data) => {
     handleError(error);
   }
 }
-
-export { register, login, clearError, handleError }
+export { register, login, clearError, handleError, fetchCategories }

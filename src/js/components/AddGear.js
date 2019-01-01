@@ -5,6 +5,8 @@ import { Breadcrumb, BreadcrumbItem, Dropdown, Form, DropdownToggle, DropdownMen
   DropdownItem, Input, Label, Carousel, CarouselItem, CarouselControl,
   CarouselIndicators, CarouselCaption, InputGroup, InputGroupAddon } from 'reactstrap';
 import CustomInput from './CustomInput';
+import { fetchCategories } from '../actions/app.actions';
+import { element } from 'prop-types';
 
 const items = [
   {
@@ -46,6 +48,10 @@ class AddGear extends Component {
     this.onTypeChange = this.onTypeChange.bind(this);
   }
 
+  componentDidMount() {
+    fetchCategories();
+  }
+
   toggle() {
     this.setState(prevState => ({
       dropdownOpen: !prevState.dropdownOpen
@@ -83,6 +89,7 @@ class AddGear extends Component {
 
   renderInfo() {
     const {selectedType} = this.state;
+    const { categories } = this.props.app;
     return (
       <Form className="theme-form add-gear-info">
         <div className="flex-row">
@@ -92,7 +99,12 @@ class AddGear extends Component {
                 Categories
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem>Camera</DropdownItem>
+                {
+                  categories.map((ele , index)=>{
+                    return <DropdownItem key={index}>{ele.categoryName}</DropdownItem>
+
+                  })
+                }
               </DropdownMenu>
             </Dropdown>
             <div className="theme-form-field">
@@ -370,7 +382,8 @@ class AddGear extends Component {
   }
 }
 
-export default connect((store) => {
+export default connect(({app}) => {
   return {
+    app
   };
 })(AddGear);
