@@ -4,27 +4,12 @@ import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Dropdown, Form, DropdownToggle, DropdownMenu,
   DropdownItem, Input, Label, Carousel, CarouselItem, CarouselControl,
   CarouselIndicators, CarouselCaption, InputGroup, InputGroupAddon } from 'reactstrap';
+  // import Chips, { Chip } from 'react-chips';
+// import Chips from './Chips';
 import CustomInput from './CustomInput';
-import { fetchCategories } from '../actions/app.actions';
 import { element } from 'prop-types';
-
-const items = [
-  {
-    src: 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa1d%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa1d%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285.921875%22%20y%3D%22218.3%22%3EFirst%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
-    altText: 'Slide 1',
-    caption: 'Slide 1'
-  },
-  {
-    src: 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa20%20text%20%7B%20fill%3A%23444%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa20%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23666%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22247.3203125%22%20y%3D%22218.3%22%3ESecond%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
-    altText: 'Slide 2',
-    caption: 'Slide 2'
-  },
-  {
-    src: 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa21%20text%20%7B%20fill%3A%23333%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa21%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23555%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22277%22%20y%3D%22218.3%22%3EThird%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
-    altText: 'Slide 3',
-    caption: 'Slide 3'
-  }
-];
+import CustomCarousel from './CustomCarousel';
+import { handleError, readFileData, addGear, fetchCategories } from '../actions/app.actions';
 
 class AddGear extends Component {
   constructor() {
@@ -34,17 +19,25 @@ class AddGear extends Component {
     this.state = {
       progressStep: 0,
       dropdownOpen: false,
-      activeIndex: 0,
       selectedType: 'new',
-      isGearAdded: false
+      isGearAdded: false,
+
+      categoryName: 'Camera',
+      brand: '',
+      model: '',
+      description: '',
+      isKit: '',
+      accessories: [],
+      numberOfUserImage: [],
+      city: '',
+      region: '',
+      address: '',
+      postalCode: '',
+      replacementValue: '',
+      pricePerDay: ''
     }
 
     this.toggle = this.toggle.bind(this);
-    this.next = this.next.bind(this);
-    this.previous = this.previous.bind(this);
-    this.goToIndex = this.goToIndex.bind(this);
-    this.onExiting = this.onExiting.bind(this);
-    this.onExited = this.onExited.bind(this);
     this.onTypeChange = this.onTypeChange.bind(this);
   }
 
@@ -67,11 +60,11 @@ class AddGear extends Component {
           function() {
             if(index === progressStep) {
               isDone = false;
-              return <i className='fa fa-dot-circle-o'aria-hidden="true"></i>
+              return <i className='fa fa-dot-circle-o' aria-hidden="true"></i>
             } else if(isDone) {
-              return <i className='fa fa-check-circle'aria-hidden="true"></i>
+              return <i className='fa fa-check-circle' aria-hidden="true"></i>
             } else {
-              return <i className='fa fa-circle-o'aria-hidden="true"></i>
+              return <i className='fa fa-circle-o' aria-hidden="true"></i>
             }
           }()
         }
@@ -88,8 +81,9 @@ class AddGear extends Component {
   }
 
   renderInfo() {
-    const {selectedType} = this.state;
+    const {selectedType, brand, model, description, isKit} = this.state;
     const { categories } = this.props.app;
+
     return (
       <Form className="theme-form add-gear-info">
         <div className="flex-row">
@@ -108,13 +102,13 @@ class AddGear extends Component {
               </DropdownMenu>
             </Dropdown>
             <div className="theme-form-field">
-              <CustomInput placeholder='Brand' type="text"/>
+              <CustomInput required="required" value={brand} onChange={(value) => this.setState({brand: value})} placeholder='Brand' type="text"/>
             </div>
             <div className="theme-form-field">
-              <CustomInput placeholder='Model' type="text"/>
+              <CustomInput placeholder='Model' value={model} onChange={(value) => this.setState({model: value})} type="text"/>
             </div>
             <div className="theme-form-field">
-              <CustomInput placeholder='Description' type="text"/>
+              <CustomInput placeholder='Description' value={description} onChange={(value) => this.setState({description: value})} type="text"/>
             </div>
           </div>
           <div className="info-right-container">
@@ -129,12 +123,11 @@ class AddGear extends Component {
               <label className={selectedType === "worn" ? 'active' : ''} htmlFor="worn">Worn</label>
             </div>
             <div className="theme-form-field">
-              <Input type="checkbox" id="is-kit"/>
+              <Input type="checkbox" id="is-kit" checked={isKit} onChange={(e) => this.setState({isKit: e.target.checked})}/>
               <Label for="is-kit">Is this a Kit?</Label>
             </div>
             <div>
               <div className="theme-text-small">Accessories</div>
-              <button className="theme-btn theme-btn-secondery"><span className="fa fa-plus" /> Add</button>
             </div>
           </div>
         </div>
@@ -142,85 +135,100 @@ class AddGear extends Component {
   }
 
   renderPhotos() {
+    const mappedImages = this.state.numberOfUserImage.map((image, index) => (
+      <div className="add-gear-image" key={'gear-image-' + index}>
+        <img src={image} />
+      </div>
+    ))
     return (<div className="add-gear-photos">
-      <Label><b>Drag and Drop</b></Label>
-      <Label className="theme-text-small">Upload only png, jpg or jpeg</Label>
-      <div>
-        <button className="theme-btn theme-btn-primary">Upload</button>
+      <div className="add-gear-images">
+        { mappedImages }
+        <div className="add-gear-addimage file-input-container">
+          <i className="fas fa-plus-circle"></i>
+          <input type="file" onChange={this.addImage.bind(this)}/>
+        </div>
       </div>
     </div>)
   }
 
+  async addImage(event) {
+    try {
+      let image = await readFileData(event);
+      let { numberOfUserImage } = this.state;
+
+      numberOfUserImage.push(image);
+
+      this.setState({
+        numberOfUserImage
+      });
+
+    } catch {
+      handleError('Please upload a valid image');
+    }
+  }
+
   renderAddress() {
+    const { city, region, address, postalCode } = this.state;
+
     return (
       <Form className="theme-form add-gear-address">
         <div className="theme-form-field">
-          <CustomInput placeholder='City' type="text"/>
+          <CustomInput placeholder='City' type="text" value={city} onChange={(value) => this.setState({city: value})}/>
         </div>
         <div className="theme-form-field">
-          <CustomInput placeholder='Region' type="text"/>
+          <CustomInput placeholder='Region' type="text" value={region} onChange={(value) => this.setState({region: value})}/>
         </div>
         <div className="theme-form-field">
-          <CustomInput placeholder='Address' type="text"/>
+          <CustomInput placeholder='Address' type="text" value={address} onChange={(value) => this.setState({address: value})}/>
         </div>
         <div className="theme-form-field">
-          <CustomInput placeholder='Postal Code' type="text"/>
+          <CustomInput placeholder='Postal Code' type="text" value={postalCode} onChange={(value) => this.setState({postalCode: value})}/>
         </div>
       </Form>
     )
   }
 
-  onExiting() {
-    this.animating = true;
-  }
+  async addGearDetails() {
+    try {
+      const { categoryName, brand, model, description, selectedType, isKit, accessories, numberOfUserImage, city, region, address, postalCode, replacementValue, pricePerDay } = this.state;
 
-  onExited() {
-    this.animating = false;
-  }
+      const data = {
+        categoryName,
+        brand,
+        model,
+        description,
+        type: selectedType,
+        isKit,
+        accessories,
+        numberOfUserImage,
+        city,
+        region,
+        address,
+        postalCode,
+        replacementValue,
+        pricePerDay
+      }
 
-  next() {
-    if (this.animating) return;
-    const nextIndex = this.state.activeIndex === items.length - 1 ? 0 : this.state.activeIndex + 1;
-    this.setState({ activeIndex: nextIndex });
-  }
+      await addGear(data);
 
-  previous() {
-    if (this.animating) return;
-    const nextIndex = this.state.activeIndex === 0 ? items.length - 1 : this.state.activeIndex - 1;
-    this.setState({ activeIndex: nextIndex });
-  }
+      this.setState({
+        isGearAdded: true
+      })
+    } catch (e) {
 
-  goToIndex(newIndex) {
-    if (this.animating) return;
-    this.setState({ activeIndex: newIndex });
-  }
-
-  addGearDetails() {
-    this.setState({
-      isGearAdded: true
-    })
+    }
   }
 
   renderPrice() {
-    const {activeIndex, selectedType} = this.state;
+    const { selectedType, accessories, numberOfUserImage, categoryName, brand, model, address, city, description, replacementValue, pricePerDay } = this.state;
 
-    const slides = items.map((item) => {
-      return (
-        <CarouselItem
-          onExiting={this.onExiting}
-          onExited={this.onExited}
-          key={item.src}
-        >
-          <img src={item.src} alt={item.altText} />
-          <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
-        </CarouselItem>
-      );
-    });
-
+    let mappedAccessories = accessories.map((accessory, index) => (
+      <div key={'accessory-' + index} className="">accessory</div>
+    ));
     return <div className="add-gear-price">
       <div>
-        <div className="theme-text-small text-gray">Cameras</div>
-        <h4>Panasonic Lumix GH4</h4>
+        <div className="theme-text-small text-gray">{categoryName}</div>
+        <h4>{ brand + ' ' + model }</h4>
 
         <div className="price-type-tabs">
           <input id="new" type="radio" value="new"/>
@@ -234,35 +242,27 @@ class AddGear extends Component {
         </div>
 
         <div className="gear-carousel">
-          <Carousel
-             activeIndex={activeIndex}
-             next={this.next}
-             previous={this.previous}
-           >
-           <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
-           {slides}
-           <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
-           <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
-          </Carousel>
+          <CustomCarousel items={ numberOfUserImage } />
         </div>
       </div>
       <div className="gear-middle-container">
         <div className="flex-row gear-accessories-address">
           <div>
             <div className="theme-text-small text-gray">Accessories</div>
-            <div className="">Tripod</div>
-            <div className="">Anti-glare lenses</div>
+            {
+              mappedAccessories
+            }
           </div>
           <div>
             <div className="theme-text-small text-gray">Address</div>
-            <div className="">Area</div>
-            <div className="">City</div>
+            <div className="">{address}</div>
+            <div className="">{city}</div>
           </div>
         </div>
         <div>
           <div className="theme-text-small text-gray">Description</div>
           <p>
-            Lumix is Panasonic brand of digital cameras, ranging from pocket point-and-shoot models to digital SLRs.
+            { description }
           </p>
         </div>
       </div>
@@ -270,12 +270,12 @@ class AddGear extends Component {
         <div>Replacement Value</div>
         <InputGroup>
           <InputGroupAddon addonType="prepend">$</InputGroupAddon>
-          <Input placeholder="Amount" type="text" />
+          <CustomInput placeholder='Amount' type="text" value={replacementValue} onChange={(value) => this.setState({replacementValue: value})}/>
         </InputGroup>
         <div>Price per day</div>
         <InputGroup>
           <InputGroupAddon addonType="prepend">$</InputGroupAddon>
-          <Input placeholder="Amount" type="text" />
+          <CustomInput placeholder='Amount' type="text" value={pricePerDay} onChange={(value) => this.setState({pricePerDay: value})}/>
         </InputGroup>
 
         <div className="buttons-container">
@@ -312,13 +312,50 @@ class AddGear extends Component {
   }
 
   nextStep() {
-    this.setState({
-      progressStep: ++this.state.progressStep
-    });
+    if(this.validate()) {
+      this.setState({
+        progressStep: ++this.state.progressStep
+      });
+    }
+  }
+
+  validate() {
+    switch (this.state.progressStep) {
+      case 0:
+        const { categoryName, brand, model, description, selectedType } = this.state;
+        if (categoryName && brand && model && description && selectedType) {
+          return true;
+        }
+        break;
+
+      case 1:
+        const { numberOfUserImage } = this.state;
+
+        if(numberOfUserImage && numberOfUserImage.length > 0) {
+          return true;
+        }
+        break;
+      case 2:
+        const { city, region, address, postalCode } = this.state;
+        if (city && region && address && postalCode) {
+          return true;
+        }
+        break;
+      case 3:
+        const { replacementValue, pricePerDay } = this.state;
+        if (replacementValue && pricePerDay) {
+          return true;
+        }
+        break;
+      default:
+    }
+
+    handleError("Please provide the required details")
+    return false;
   }
 
   render() {
-    const { isGearAdded } = this.state;
+    const { isGearAdded, replacementValue, pricePerDay, brand, model, categoryName } = this.state;
 
     if(isGearAdded) {
       return <div className="add-gear">
@@ -326,17 +363,17 @@ class AddGear extends Component {
         <h3>Gear Added Successfully</h3>
 
         <div className="success-message">
-          <div className="theme-text-small">Cameras</div>
-          <h6>Panasonic LUMIX GH4</h6>
+          <div className="theme-text-small">{ categoryName }</div>
+          <h6>{ brand + ' ' + model}</h6>
 
           <div className="flex-row">
             <div>
               <div className="theme-text-small">Replacement Value</div>
-              <div>$1640</div>
+              <div>${replacementValue}</div>
             </div>
             <div>
               <div className="theme-text-small">Price per day</div>
-              <div>$36</div>
+              <div>${pricePerDay}</div>
             </div>
           </div>
 
