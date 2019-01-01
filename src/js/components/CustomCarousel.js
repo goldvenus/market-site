@@ -49,15 +49,14 @@ class CustomCarousel extends Component {
     const {activeIndex, selectedType} = this.state;
     const { items } = this.props;
 
-    const slides = items.map((item) => {
+    const slides = items.map((item, index) => {
       return (
         <CarouselItem
           onExiting={this.onExiting}
           onExited={this.onExited}
-          key={item.src}
+          key={index}
         >
-          <img src={item.src} alt={item.altText} />
-          <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
+          <img src={item} alt="Image" />
         </CarouselItem>
       );
     });
