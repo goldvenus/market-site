@@ -7,6 +7,7 @@ import CustomInput from './CustomInput';
 import ThemeCardOne from './Theme-Cards/ThemeCardOne';
 import ThemeCardTwo from './Theme-Cards/ThemeCardTwo';
 import data from './dummydata';
+import { fetchCategories } from '../actions/app.actions';
 
 
 class Home extends Component {
@@ -33,10 +34,15 @@ class Home extends Component {
       locationText: '',
       searchTextSuggestions: [],
       locationTextSuggestions: [],
+      categories : []
     }
 
     this.onSearchTextChange = this.onSearchTextChange.bind(this);
     this.onLocationChange = this.onLocationChange.bind(this);
+  }
+
+  componentDidMount(){
+    fetchCategories();
   }
 
   onSearchTextChange(value) {
@@ -88,11 +94,12 @@ class Home extends Component {
   }
 
   render() {
+    let cat = this.props.app;
+
     const { searchTextSuggestions, locationTextSuggestions, searchText, locationText } = this.state;
 
     const searchSuggestions = searchTextSuggestions.map((suggestion) => <ListGroupItem onClick={() => this.selectSearchSuggestion(suggestion)}>{suggestion}</ListGroupItem>);
     const locationSuggestions = locationTextSuggestions.map((suggestion) => <ListGroupItem onClick={() => this.selectLocationSuggestion(suggestion)}>{suggestion}</ListGroupItem>);
-
     return (
       <div className="home">
         <div className="home-head">
@@ -164,8 +171,8 @@ class Home extends Component {
         </div>
         <div className="home-body">
           <Container>
-            <div class="block-el">
-              <div class="block-content">
+            <div className="block-el">
+              <div className="block-content">
                 <p id="camera"></p>
                 <div className="desc">
                   <span>Camera</span>
@@ -174,11 +181,11 @@ class Home extends Component {
                   </button>
                 </div>
               </div>
-              <div class="block-bg"></div>
+              <div className="block-bg"></div>
             </div>
 
-            <div class="block-el">
-              <div class="block-content">
+            <div className="block-el">
+              <div className="block-content">
                 <p id="computer_electronic"></p>
                 <div className="desc">
                   <span>Computer & Electronics</span>
@@ -187,11 +194,11 @@ class Home extends Component {
                   </button>
                 </div>
               </div>
-              <div class="block-bg"></div>
+              <div className="block-bg"></div>
             </div>
 
-            <div class="block-el">
-              <div class="block-content">
+            <div className="block-el">
+              <div className="block-content">
                 <p id="drones"></p>
                 <div className="desc">
                   <span>Drones</span>
@@ -200,7 +207,7 @@ class Home extends Component {
                   </button>
                 </div>
               </div>
-              <div class="block-bg"></div>
+              <div className="block-bg"></div>
             </div>
           </Container>
           <div className="clearfix mb-4"></div>
@@ -383,8 +390,9 @@ class Home extends Component {
     );
   }
 }
-
-export default connect((store) => {
+const mapStateToProps = ({ app }) => {
   return {
-  };
-})(Home);
+    app
+  }
+}
+export default connect(mapStateToProps )(Home);

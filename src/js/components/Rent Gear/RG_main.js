@@ -126,7 +126,7 @@ class Main extends Component {
                   onClick={() => { this.toggle('1'); }}
                 >
                   <div className="card-view">
-                    <i class="fa fa-th"></i>
+                    <i className="fa fa-th"></i>
                   </div>
                 </NavLink>
               </NavItem>
@@ -136,7 +136,7 @@ class Main extends Component {
                   onClick={() => { this.toggle('2'); }}
                 >
                   <div className="list-view">
-                    <i class="fa fa-list"></i>
+                    <i className="fa fa-list"></i>
                   </div>
                 </NavLink>
               </NavItem>
@@ -146,8 +146,8 @@ class Main extends Component {
                   onClick={() => { this.toggle('3'); }}
                 >
                   <div className="table-view ">
-                    <i class="fa fa-grip-lines"></i>
-                    <i class="fa fa-grip-lines"></i>
+                    <i className="fa fa-grip-lines"></i>
+                    <i className="fa fa-grip-lines"></i>
                   </div>
                 </NavLink>
               </NavItem>

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import {
   Container, Row, Col, Breadcrumb, Table, Form, ListGroup, ListGroupItem,
 } from 'reactstrap';
+import { fetchCategories } from '../../actions/app.actions';
 
 class Sidebar extends Component {
   constructor(props) {
@@ -10,18 +11,9 @@ class Sidebar extends Component {
     this.state = {
       activeIndex: 0
     }
-    this.categories = [
-      "Cameras",
-      "Lenses",
-      "Audio Equipments",
-      "Computer & Electronic",
-      "Tipods, Stabilization & Rigs",
-      "Drones",
-      "Camera Accessories",
-      "Studio Spaces",
-      "Office Spaces",
-      "Others"
-    ];
+  }
+  componentDidMount(){
+    fetchCategories();
   }
 
   handleClick(index) {
@@ -30,6 +22,8 @@ class Sidebar extends Component {
   }
   
   render() {
+    const {categories} = this.props.app;
+    
     return (
       <aside className="sidebar">
         <div className="sidebar-title">
@@ -37,11 +31,11 @@ class Sidebar extends Component {
         </div>
         <div className="sidebar-wrapper">
           <ListGroup>
-            {this.categories.map((element, index) =>
+            {categories.map((element, index) =>
               <ListGroupItem onClick={this.handleClick.bind(this, index)} value={element}
                 key={index}>
                 <div className={`${this.state.activeIndex === index && 'item-active'}`}>
-                  {element}
+                  {element.categoryName}
                 </div>
               </ListGroupItem>
             )}
@@ -52,7 +46,8 @@ class Sidebar extends Component {
   }
 }
 
-export default connect((store) => {
+export default connect(({ app }) => {
   return {
+    app
   };
 })(Sidebar);

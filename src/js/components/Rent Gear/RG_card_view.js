@@ -14,8 +14,8 @@ const CardView = ({ gear_detail: { gear_img, gear_name, total_rating, location, 
           <CardSubtitle>
             <span className="stars">
               {
-                [1,2,3,4,5].map(()=>{
-                  return <i className="fa fa-star"></i>
+                [1,2,3,4,5].map((i)=>{
+                  return <i className="fa fa-star" key={i}></i>
                 })
               }
               
@@ -27,7 +27,7 @@ const CardView = ({ gear_detail: { gear_img, gear_name, total_rating, location, 
               {`(${total_rating})`}
             </span>&nbsp;  &nbsp;
             <span className="address">
-              <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;
+              <i className="fa fa-map-marker" aria-hidden="true"></i>&nbsp;
               {location}
             </span>
           </CardSubtitle>
