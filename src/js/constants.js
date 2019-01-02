@@ -5,7 +5,8 @@ const ACTIONS = {
   REMOVE_ERROR: 'removeError',
   LOGGED_IN: 'loggedIn',
   LOGGED_OUT: 'loggedOut',
-  FETCH_CATEGORIES: 'fetCategories'
+  FETCH_CATEGORIES: 'fetCategories',
+  LIST_GEARS: 'listGears'
 }
 
 export { API_URL, ACTIONS }

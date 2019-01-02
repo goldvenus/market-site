@@ -4,7 +4,7 @@ import { Form } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import CustomInput from './CustomInput';
 import AuthSideMenu from './AuthSideMenu';
-import { register, handleError } from '../actions/app.actions';
+import { register, handleError, readFileData } from '../actions/app.actions';
 
 class Register extends Component {
   constructor() {
@@ -20,6 +20,19 @@ class Register extends Component {
   	  gender: "",
   	  address: "",
   	  picture: ""
+    }
+  }
+
+  async addImage(event) {
+    try {
+      let image = await readFileData(event);
+      let { picture } = this.state;
+
+      this.setState({
+        picture: image
+      });
+    } catch {
+      handleError('Please upload a valid image');
     }
   }
 
@@ -101,7 +114,10 @@ class Register extends Component {
                 <div className="theme-form-field">
                   <CustomInput placeholder='Photo' required="required" disabled type="text"/>
                 </div>
-                <button className="theme-btn theme-btn-filled-white btn-photo-upload">Upload</button>
+                <div className="file-input-container">
+                  <button className="theme-btn theme-btn-filled-white btn-photo-upload">Upload</button>
+                  <input type="file" onChange={this.addImage.bind(this)}/>
+                </div>
               </div>
 
               <button className="theme-btn-submit" onClick={this.submit.bind(this)}>Sign up</button>

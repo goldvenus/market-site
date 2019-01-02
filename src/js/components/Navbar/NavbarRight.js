@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 import { withRouter } from 'react-router-dom';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import {logout} from '../../actions/app.actions';
 
 class NavbarRight extends Component {
   constructor(props) {
@@ -40,7 +41,7 @@ class NavbarRight extends Component {
             </DropdownToggle>
             <DropdownMenu>
               <DropdownItem><Link to="/dashboard">My Account</Link></DropdownItem>
-              <DropdownItem>Logout</DropdownItem>
+              <DropdownItem onClick={logout}>Logout</DropdownItem>
             </DropdownMenu>
           </ButtonDropdown>
         </li> : <li>

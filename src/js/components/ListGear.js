@@ -5,27 +5,28 @@ import {
   BreadcrumbItem, Pagination, PaginationItem, PaginationLink
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { gearListdata } from './dummydata';
 import classNames from 'classnames';
+import { getListGears } from '../actions/app.actions';
 
 const ListGearItem =
-  ({ listItem: { gear_img, gear_name, gear_category, status, price_per_day, price_per_month } }) => {
+  ({ listItem: { gearid, model = '', brand = '', categoryName = '', numberOfUserImage, pricePerDay, status = 'Available' } }) => {
 
     let btnClass = classNames({
       'theme-btn': true,
       [`btn-${status}`.replace(' ' , '-')]: true
     });
+
     return <tr>
-      <td width="15%">{<img src={gear_img} className="gear-img" />}</td>
+      <td width="15%">{<img src={numberOfUserImage[0]} className="gear-img" />}</td>
       <td className="gear" width="25%">
-        <p >{gear_name}</p>
-        <p className="theme-text-small text-muted">{gear_category}</p>
+        <p ><Link to={`/gear/${gearid}`}>{ model + ' ' + brand }</Link></p>
+        <p className="theme-text-small text-muted">{categoryName}</p>
       </td>
       <td width="20%">
-        <button className={btnClass}>{status}</button>
+        <button className={btnClass}>{ status }</button>
       </td>
-      <td width="15%">{price_per_day}</td>
-      <td width="15%">{price_per_month}</td>
+      <td width="15%">{ pricePerDay }</td>
+      <td width="15%">{ pricePerDay }</td>
       <td width="10%">
         <span className="edit" ></span>
         <span className="close" ></span>
@@ -34,21 +35,23 @@ const ListGearItem =
   }
 
 class ListGear extends Component {
-  constructor() {
+  constructor(props) {
 
-    super();
+    super(props);
     // Data set of random length
     this.pageSize = 4;
-    this.pagesCount = Math.ceil(gearListdata.length / this.pageSize);
+    this.pagesCount = Math.ceil(props.listGears.length / this.pageSize);
 
     this.state = {
       currentPage: 0
     };
 
+    // get list get gears
+    getListGears();
   }
   render() {
     const { currentPage } = this.state;
-
+    const { listGears } = this.props;
     return (
       <div className="list-gear">
         <div className="list-gear-head">
@@ -80,12 +83,12 @@ class ListGear extends Component {
                     <th>Name & Category</th>
                     <th>Status</th>
                     <th>Price Per day</th>
-                    <th>A Month</th>
+                    <th>Amount</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  {gearListdata.slice(
+                  {listGears.slice(
                     currentPage * this.pageSize,
                     (currentPage + 1) * this.pageSize
                   ).map((data, i) => {
@@ -128,5 +131,6 @@ class ListGear extends Component {
 
 export default connect((store) => {
   return {
+    listGears: store.app.listGears
   };
 })(ListGear);
