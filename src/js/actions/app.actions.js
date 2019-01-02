@@ -143,9 +143,35 @@ const readFileData = (event) => {
 const addGear = async (data) => {
   try {
     let response = await post('addGearItem', data);
+    return response.data.status;
   } catch (error) {
     handleError(error);
   }
 }
 
-export { register, login, clearError, handleError, getUser, readFileData, addGear, fetchCategories }
+const getListGears = async () => {
+  try {
+    let response = await get('viewUserGearList');
+    if(response && response.data) {
+      dispatch({
+        type: ACTIONS.LIST_GEARS,
+        payload: response.data
+      });
+    }
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+const logout = () => {
+  delete localStorage.accessToken;
+  delete localStorage.idToken;
+  delete localStorage.refreshToken;
+
+  dispatch({
+    type: ACTIONS.LOGGED_OUT,
+    payload: null
+  });
+}
+
+export { register, login, logout, clearError, handleError, getUser, readFileData, addGear, fetchCategories, getListGears }

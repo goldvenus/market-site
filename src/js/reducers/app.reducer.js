@@ -3,6 +3,7 @@ import { ACTIONS } from '../constants';
 
 const initialState = {
   categories: [],
+  listGears: [],
   error: null,
   user: null,
   isAuthenticated: false
@@ -30,6 +31,10 @@ export default (state = initialState, action) => {
         break;
       case ACTIONS.FETCH_CATEGORIES :
         draft.categories = action.payload.data;
+        break;
+      case ACTIONS.LIST_GEARS:
+        draft.listGears = action.payload;
+        break;
       default:
         break;
     }

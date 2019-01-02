@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Dropdown, Form, DropdownToggle, DropdownMenu,
   DropdownItem, Input, Label, Carousel, CarouselItem, CarouselControl,
   CarouselIndicators, CarouselCaption, InputGroup, InputGroupAddon } from 'reactstrap';
-  // import Chips, { Chip } from 'react-chips';
-// import Chips from './Chips';
+import Chips, { Chip } from 'react-chips';
 import CustomInput from './CustomInput';
 import { element } from 'prop-types';
 import CustomCarousel from './CustomCarousel';
@@ -21,8 +20,9 @@ class AddGear extends Component {
       dropdownOpen: false,
       selectedType: 'new',
       isGearAdded: false,
+      gearId: '',
 
-      categoryName: 'Camera',
+      categoryName: 'Category',
       brand: '',
       model: '',
       description: '',
@@ -60,11 +60,11 @@ class AddGear extends Component {
           function() {
             if(index === progressStep) {
               isDone = false;
-              return <i className='fa fa-dot-circle-o' aria-hidden="true"></i>
+              return <i className='far fa-dot-circle' aria-hidden="true"></i>
             } else if(isDone) {
               return <i className='fa fa-check-circle' aria-hidden="true"></i>
             } else {
-              return <i className='fa fa-circle-o' aria-hidden="true"></i>
+              return <i className='far fa-circle' aria-hidden="true"></i>
             }
           }()
         }
@@ -80,8 +80,12 @@ class AddGear extends Component {
     })
   }
 
+  changeCategory(e) {
+    this.setState({categoryName: e.target.textContent})
+  }
+
   renderInfo() {
-    const {selectedType, brand, model, description, isKit} = this.state;
+    const {selectedType, brand, model, description, isKit, categoryName, accessories} = this.state;
     const { categories } = this.props.app;
 
     return (
@@ -90,13 +94,12 @@ class AddGear extends Component {
           <div>
             <Dropdown className="theme-form-field" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
               <DropdownToggle caret>
-                Categories
+                { categoryName }
               </DropdownToggle>
               <DropdownMenu right>
                 {
-                  categories.map((ele , index)=>{
-                    return <DropdownItem key={index}>{ele.categoryName}</DropdownItem>
-
+                  categories.map((ele, index)=>{
+                    return <DropdownItem key={index} onClick={this.changeCategory.bind(this)}>{ele.categoryName}</DropdownItem>
                   })
                 }
               </DropdownMenu>
@@ -128,6 +131,13 @@ class AddGear extends Component {
             </div>
             <div>
               <div className="theme-text-small">Accessories</div>
+              <div className="theme-form-field">
+                <Chips
+                  value={accessories}
+                  onChange={(accessories) => this.setState({accessories})}
+                  fromSuggestionsOnly={false}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -209,11 +219,14 @@ class AddGear extends Component {
         pricePerDay
       }
 
-      await addGear(data);
+      let gearId = await addGear(data);
 
-      this.setState({
-        isGearAdded: true
-      })
+      if (gearId) {
+        this.setState({
+          isGearAdded: true,
+          gearId
+        });
+      }
     } catch (e) {
 
     }
@@ -223,7 +236,7 @@ class AddGear extends Component {
     const { selectedType, accessories, numberOfUserImage, categoryName, brand, model, address, city, description, replacementValue, pricePerDay } = this.state;
 
     let mappedAccessories = accessories.map((accessory, index) => (
-      <div key={'accessory-' + index} className="">accessory</div>
+      <div key={'accessory-' + index} className="">{ accessory }</div>
     ));
     return <div className="add-gear-price">
       <div>
@@ -355,7 +368,7 @@ class AddGear extends Component {
   }
 
   render() {
-    const { isGearAdded, replacementValue, pricePerDay, brand, model, categoryName } = this.state;
+    const { isGearAdded, replacementValue, pricePerDay, brand, model, categoryName, gearId } = this.state;
 
     if(isGearAdded) {
       return <div className="add-gear">
@@ -379,7 +392,7 @@ class AddGear extends Component {
 
           <div className="flex-row buttons-container">
             <button className="theme-btn theme-btn-secondery theme-btn-link"><Link to="/listgear">List Gear</Link></button>
-            <button className="theme-btn theme-btn-primary theme-btn-link"><Link to="/gear/1">View Gear</Link></button>
+            <button className="theme-btn theme-btn-primary theme-btn-link"><Link to={`/gear/${gearId}`}>View Gear</Link></button>
           </div>
         </div>
       </div>
