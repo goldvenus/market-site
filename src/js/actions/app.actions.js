@@ -174,4 +174,16 @@ const logout = () => {
   });
 }
 
-export { register, login, logout, clearError, handleError, getUser, readFileData, addGear, fetchCategories, getListGears }
+const getGear = async (gearid) => {
+  try {
+    let response = await post('viewAddedGearItem', { gearid });
+    dispatch({
+      type: ACTIONS.GEAR,
+      payload: response.data[0]
+    });
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+export { register, login, logout, clearError, handleError, getUser, readFileData, addGear, fetchCategories, getListGears, getGear }
