@@ -56,7 +56,9 @@ class CustomCarousel extends Component {
           onExited={this.onExited}
           key={index}
         >
-          <img src={item} alt="Image" />
+          <div className="carousel-image-container">
+            <img src={item} alt="Image" />
+          </div>
         </CarouselItem>
       );
     });

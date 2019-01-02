@@ -6,7 +6,8 @@ const ACTIONS = {
   LOGGED_IN: 'loggedIn',
   LOGGED_OUT: 'loggedOut',
   FETCH_CATEGORIES: 'fetCategories',
-  LIST_GEARS: 'listGears'
+  LIST_GEARS: 'listGears',
+  GEAR: 'gear'
 }
 
 export { API_URL, ACTIONS }

@@ -6,7 +6,8 @@ const initialState = {
   listGears: [],
   error: null,
   user: null,
-  isAuthenticated: false
+  isAuthenticated: false,
+  gear: null
 }
 
 export default (state = initialState, action) => {
@@ -34,6 +35,9 @@ export default (state = initialState, action) => {
         break;
       case ACTIONS.LIST_GEARS:
         draft.listGears = action.payload;
+        break;
+      case ACTIONS.GEAR:
+        draft.gear = action.payload;
         break;
       default:
         break;
