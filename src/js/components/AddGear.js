@@ -212,7 +212,7 @@ class AddGear extends Component {
         accessories,
         numberOfUserImage,
         city,
-        region,
+        product_region: region,
         address,
         postalCode,
         replacementValue,
