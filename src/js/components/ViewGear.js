@@ -5,7 +5,7 @@ import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import Rating from 'react-rating';
 import DatePicker from "react-datepicker";
 import CustomCarousel from './CustomCarousel';
-import { getGear } from '../actions/app.actions';
+import { getGear, addCart, handleError, formatDate } from '../actions/app.actions';
 
 class ViewGear extends Component {
   constructor(props) {
@@ -14,10 +14,39 @@ class ViewGear extends Component {
     this.gearid = props.match.params.id;
 
     getGear(this.gearid);
+
+    this.state = {
+      startDate: new Date(),
+      endDate: new Date()
+    }
+
+    this.addToCart = this.addToCart.bind(this);
+  }
+
+  async addToCart() {
+    try {
+      const { startDate, endDate } = this.state;
+      const { gear } = this.props;
+
+      if (startDate && endDate) {
+        let res = await addCart({
+            gearid: gear.gearid,
+            userid: gear.userid,
+            startDate: formatDate(startDate),
+            endDate: formatDate(endDate)
+        });
+
+        if (res) {
+          this.props.history.push('/cart')
+        }
+      }
+    } catch {
+      handleError("Gear is not added to cart");
+    }
   }
 
   render() {
-    const { gear } = this.props;
+    const { gear, user } = this.props;
 
     if(!gear) {
       return <div className="centered-content">Loading...</div>
@@ -65,17 +94,26 @@ class ViewGear extends Component {
                 <div>
                   <div>${gear.pricePerDay} / day</div>
                 </div>
-                <div>
-                  <DatePicker placeholderText="Pickup Date" />
-                </div>
-                <div>
-                  <DatePicker placeholderText="Return Date" />
-                </div>
+                {
+                  user && user.userid !== gear.userid ?
+                  <div>
+                  <div>
+                    <DatePicker placeholderText="Pickup Date" selected={this.state.startDate}
+                      onChange={(date) => this.setState( {startDate: date })}/>
+                  </div>
+                  <div>
+                    <DatePicker placeholderText="Return Date"  selected={this.state.endDate}
+                      onChange={(date) => this.setState( {endDate: date })}/>
+                  </div>
 
-                <div className="flex-row bottom-buttons">
-                  <button className="theme-btn theme-btn-primary theme-btn-link"><Link to="/cart">Add to Cart</Link></button>
-                  <button className="theme-btn theme-btn-secondery"><i className="fa fa-heart primary-color" /></button>
-                </div>
+                  <div className="flex-row bottom-buttons">
+                    <button className="theme-btn theme-btn-primary" onClick={this.addToCart}>Add to Cart</button>
+                    <button className="theme-btn theme-btn-secondery"><i className="fa fa-heart primary-color" /></button>
+                    </div>
+                  </div>
+                  : null
+                }
+
               </div>
             </div>
           </div>
@@ -87,6 +125,7 @@ class ViewGear extends Component {
 
 export default connect((store) => {
   return {
-    gear: store.app.gear
+    gear: store.app.gear,
+    user: store.app.user
   };
 })(ViewGear);

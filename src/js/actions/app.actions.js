@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { API_URL, ACTIONS } from '../constants';
 import store from '../store';
+import moment from 'moment';
 
 const dispatch = store.dispatch;
 
@@ -186,4 +187,33 @@ const getGear = async (gearid) => {
   }
 }
 
-export { register, login, logout, clearError, handleError, getUser, readFileData, addGear, fetchCategories, getListGears, getGear }
+const addCart = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let response = await post('addGearIntoCart', data);
+      resolve(response);
+    } catch (error) {
+      handleError(error);
+      reject(error);
+    }
+  });
+}
+
+const getCarts = async () => {
+  try {
+    let response = await get('viewUserCart');
+
+    dispatch({
+      type: ACTIONS.CARTS,
+      payload: response.data
+    });
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+const formatDate = (date) => {
+  return date && moment(date).format('YYYY-MM-DD');
+}
+
+export { register, login, logout, clearError, handleError, getUser, readFileData, addGear, fetchCategories, getListGears, getGear, addCart, getCarts, formatDate }

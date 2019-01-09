@@ -3,37 +3,51 @@ import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
 import moment from 'moment';
-import dataSet from './Dashboard/dataSet';
+import { handleError, getCarts, formatDate } from '../actions/app.actions';
 
-const days = (d1, d2) => { return moment(d2).diff(moment(d1) , 'days')};
+const days = (d1, d2) => { return moment(d2).diff(moment(d1) , 'days') + 1};
 
 class Cart extends Component {
+  constructor() {
+    super();
+
+    getCarts();
+  }
+
   renderCartItems() {
-    const items = dataSet.slice(0,5);
+
+    const { carts } = this.props;
+    const items = carts.slice(0,5);
+
     return (
       items.map((listItem, index) => (
         <tr key={`cart-item-${index}`}>
           <td width="15%">{<img src={listItem.gear_img} className="gear-img"/>}</td>
           <td className="gear" width="20%">
-            <p >{listItem.gear_name}</p>
-            <p className ="theme-text-small text-muted">{listItem.gear_category}</p>
+            <p >{listItem.brand + ' ' + listItem.model }</p>
+            <p className ="theme-text-small text-muted">{listItem.categoryName}</p>
           </td>
           <td className="rental-period" width="20%">
             <p>
-              {`${listItem.rental_period_start_date} to ${listItem.rental_period_end_date} `}
+              {`${formatDate(listItem.startDate)} to ${formatDate(listItem.endDate)} `}
             </p>
             <p className="theme-text-small text-muted">
-              {` ${days(listItem.rental_period_start_date, listItem.rental_period_end_date)} days`}
+              {` ${days(listItem.startDate, listItem.endDate)} days`}
             </p>
           </td>
-          <td width="15%">{listItem.price_per_day}</td>
-          <td width="15%">{listItem.price_per_month}</td>
+          <td width="15%">{listItem.pricePerDay}</td>
+          <td width="15%">{listItem.pricePerDay * days(listItem.startDate, listItem.endDate)}</td>
         </tr>
       ))
     )
   }
 
   render() {
+    const { carts } = this.props;
+
+    if(!carts) {
+      return <div> Loading... </div>
+    }
     return (
       <div className="cart centered-content">
         <Breadcrumb>
@@ -73,5 +87,6 @@ class Cart extends Component {
 
 export default connect((store) => {
   return {
+    carts: store.app.carts
   };
 })(Cart);

@@ -39,6 +39,9 @@ export default (state = initialState, action) => {
       case ACTIONS.GEAR:
         draft.gear = action.payload;
         break;
+      case ACTIONS.CARTS:
+        draft.carts = action.payload;
+        break;
       default:
         break;
     }
