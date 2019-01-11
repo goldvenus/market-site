@@ -5,27 +5,86 @@ import { Breadcrumb, BreadcrumbItem, Dropdown, DropdownToggle, Input, Label } fr
 import CustomInput from './CustomInput';
 import moment from 'moment';
 import dataSet from './Dashboard/dataSet';
+import { getCarts, days, checkout, handleError } from '../actions/app.actions';
 
-const days = (d1, d2) => { return moment(d2).diff(moment(d1) , 'days')};
 
 class Checkout extends Component {
+  constructor() {
+    super();
+
+    // getCarts();
+
+    this.state = {
+      fullName: '',
+      address: '',
+      city: '',
+      product_region: '',
+      zip: '',
+      saveAddress: false,
+    }
+  }
+
   renderCheckoutItems() {
-    const items = dataSet.slice(0,5);
+    const { carts } = this.props;
+
+    const mappedCarts = carts.map((listItem, index) => {
+      const d = days(listItem.startDate, listItem.endDate);
+
+      return <div key={`cart-item-${index}`} className="checkout-item theme-text-small">
+        <div>{listItem.brand + ' ' + listItem.model }</div>
+        <div><b>${ listItem.pricePerDay * d }</b> for <b>{d}</b> days</div>
+      </div>
+    });
+
     return (
       <div className="checkout-items">
         {
-          items.map((listItem, index) => {
-            return <div key={`cart-item-${index}`} className="checkout-item theme-text-small">
-              <div>{listItem.gear_name}</div>
-              <div><b>{listItem.price_per_month}</b> for <b>{days(listItem.rental_period_start_date, listItem.rental_period_end_date)}</b> days</div>
-            </div>
-          })
+          mappedCarts
         }
       </div>
     )
   }
 
+  async onCheckout() {
+    const { fullName, address, city, zip, saveAddress, product_region } = this.state;
+    const { carts } = this.props;
+
+    if( !fullName && !address && !city && !zip && !product_region ) {
+      handleError('Please provide required information');
+      return false;
+    }
+    let response = await checkout({
+        fullName,
+        address,
+        city,
+        zip,
+        product_region,
+        saveAddress
+    });
+
+    if (response) {
+      this.props.history.push("/payment");
+    }
+  }
+
   render() {
+    const { carts } = this.props;
+
+    if (!carts) {
+      return <div className="centered-content">Loading...</div>
+    }
+
+    let total = 0;
+
+    carts.forEach((listItem, index) => {
+      const d = days(listItem.startDate, listItem.endDate);
+      total += d * listItem.pricePerDay;
+    });
+
+    const tax = total * 0.21;
+
+    const amount = total + tax;
+
     return (
       <div className="checkout centered-content">
         <Breadcrumb>
@@ -48,26 +107,26 @@ class Checkout extends Component {
                 </DropdownToggle>
               </Dropdown>
               <div className="theme-form-field">
-                <CustomInput placeholder='Full Name' type="text"/>
+                <CustomInput placeholder='Full Name' type="text" onChange={(value) => this.setState({fullName: value})}/>
               </div>
               <div className="flex-row">
                 <div className="theme-form-field">
-                  <CustomInput placeholder='Address' type="text"/>
+                  <CustomInput placeholder='Address' type="text" onChange={(value) => this.setState({address: value})}/>
                 </div>
                 <div className="theme-form-field">
-                  <CustomInput placeholder='City' type="text"/>
+                  <CustomInput placeholder='City' type="text" onChange={(value) => this.setState({city: value})}/>
                 </div>
               </div>
               <div className="flex-row">
                 <div className="theme-form-field">
-                  <CustomInput placeholder='Region' type="text"/>
+                  <CustomInput placeholder='Region' type="text" onChange={(value) => this.setState({product_region: value})}/>
                 </div>
                 <div className="theme-form-field">
-                  <CustomInput placeholder='Zip' type="text"/>
+                  <CustomInput placeholder='Zip' type="text" onChange={(value) => this.setState({zip: value})}/>
                 </div>
               </div>
               <div className="theme-form-field">
-                <Input type="checkbox" id="save-address"/>
+                <Input type="checkbox" id="save-address" checked={this.state.saveAddress} onChange={(e) => this.setState({saveAddress: e.target.checked})}/>
                 <Label for="save-address">Save this address</Label>
               </div>
             </div>
@@ -84,20 +143,20 @@ class Checkout extends Component {
             }
 
             <div className="checkout-total">
-              <div><span className="text-gray">Total </span> <b>$1180.00</b></div>
-              <div><span className="text-gray">Tax (21%) </span> <b>$247.80</b></div>
+              <div><span className="text-gray">Total </span> <b>${total}</b></div>
+              <div><span className="text-gray">Tax (21%) </span> <b>${tax}</b></div>
               <div><span className="text-gray">Fee </span> <b>$0</b></div>
             </div>
 
             <div className="checkout-amount">
-              <div><span className="text-gray">Amount </span> <b>$1427.80</b></div>
+              <div><span className="text-gray">Amount </span> <b>${amount}</b></div>
             </div>
           </div>
         </div>
 
         <div className="flex-row bottom-buttons">
           <button className="theme-btn theme-btn-secondery theme-btn-link"><Link to="/cart">Edit Order</Link></button>
-          <button className="theme-btn theme-btn-primary theme-btn-link"><Link to="/payment">Payment</Link></button>
+          <button className="theme-btn theme-btn-primary" onClick={ this.onCheckout.bind(this)}>Payment</button>
         </div>
       </div>
     );
@@ -106,5 +165,6 @@ class Checkout extends Component {
 
 export default connect((store) => {
   return {
+    carts: store.app.carts
   };
 })(Checkout);

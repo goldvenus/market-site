@@ -3,26 +3,23 @@ import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
 import moment from 'moment';
-import { handleError, getCarts, formatDate } from '../actions/app.actions';
-
-const days = (d1, d2) => { return moment(d2).diff(moment(d1) , 'days') + 1};
+import { handleError, getCarts, formatDate, days } from '../actions/app.actions';
 
 class Cart extends Component {
   constructor() {
     super();
 
-    getCarts();
+    // getCarts();
   }
 
   renderCartItems() {
 
     const { carts } = this.props;
-    const items = carts.slice(0,5);
 
     return (
-      items.map((listItem, index) => (
+      carts.map((listItem, index) => (
         <tr key={`cart-item-${index}`}>
-          <td width="15%">{<img src={listItem.gear_img} className="gear-img"/>}</td>
+          <td width="15%">{ listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img src={listItem.numberOfUserImage[0]} className="gear-img"/> : null }</td>
           <td className="gear" width="20%">
             <p >{listItem.brand + ' ' + listItem.model }</p>
             <p className ="theme-text-small text-muted">{listItem.categoryName}</p>
@@ -46,7 +43,7 @@ class Cart extends Component {
     const { carts } = this.props;
 
     if(!carts) {
-      return <div> Loading... </div>
+      return <div className="centered-content"> Loading... </div>
     }
     return (
       <div className="cart centered-content">

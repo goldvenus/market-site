@@ -118,6 +118,8 @@ const getUser = async () => {
           type: ACTIONS.LOGGED_IN,
           payload: response.data.userAttributes
         });
+
+        getCarts();
       }
     }
   } catch (error) {
@@ -199,6 +201,30 @@ const addCart = (data) => {
   });
 }
 
+const checkout = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let response = await post('checkOut', data);
+      resolve(response);
+    } catch (error) {
+      handleError(error);
+      reject(error);
+    }
+  });
+}
+
+const payment = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let response = await post('payment', data);
+      resolve(response);
+    } catch (error) {
+      handleError(error);
+      reject(error);
+    }
+  });
+}
+
 const getCarts = async () => {
   try {
     let response = await get('viewUserCart');
@@ -216,4 +242,6 @@ const formatDate = (date) => {
   return date && moment(date).format('YYYY-MM-DD');
 }
 
-export { register, login, logout, clearError, handleError, getUser, readFileData, addGear, fetchCategories, getListGears, getGear, addCart, getCarts, formatDate }
+const days = (d1, d2) => { return moment(d2).diff(moment(d1) , 'days') + 1};
+
+export { register, login, logout, clearError, handleError, getUser, readFileData, addGear, fetchCategories, getListGears, getGear, addCart, getCarts, formatDate, days, checkout, payment }

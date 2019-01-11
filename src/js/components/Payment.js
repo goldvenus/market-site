@@ -3,42 +3,55 @@ import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Dropdown, DropdownToggle, Input, Label } from 'reactstrap';
 import CustomInput from './CustomInput';
-import moment from 'moment';
-import dataSet from './Dashboard/dataSet';
-
-const days = (d1, d2) => { return moment(d2).diff(moment(d1) , 'days')};
+import { handleError, getCarts, formatDate, days, payment } from '../actions/app.actions';
 
 class Payment extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      cardNumber: '5300 1251 2150 3291',
-      cardHolder: 'John Doe',
-      expirationMonth: '09',
-      expirationYear: '23',
-      cvv: '032',
-      isPaymentDone: false
+      cardNumber: '',
+      cardHolder: '',
+      expirationMonth: '',
+      expirationYear: '',
+      cvv: '',
+      isPaymentDone: false,
+      saveCard: false
     }
 
     this.pay = this.pay.bind(this);
+
+    // getCarts();
   }
 
-  pay() {
-    this.setState({
-      isPaymentDone: true
-    })
+  async pay() {
+    const { cardNumber, cardHolder, expirationMonth, expirationYear, cvv, saveCard } = this.state;
+
+    let data = {
+      cardNumber, cardHolder, expirationYear, expirationMonth, cvv, saveCard
+    }
+
+    let response = await payment(data);
+    if(response){
+      this.setState({
+        isPaymentDone: true,
+        total: response.total,
+        tax: response.tax,
+        fee: response.fee
+      })
+    }
   }
 
   renderCheckoutItems() {
-    const items = dataSet.slice(0,5);
+    const {carts} = this.props;
     return (
       <div className="checkout-items">
         {
-          items.map((listItem, index) => {
+          carts.map((listItem, index) => {
+            const d = days(listItem.startDate, listItem.endDate);
             return <div key={`cart-item-${index}`} className="checkout-item theme-text-small">
-              <div>{listItem.gear_name}</div>
-              <div><b>{listItem.price_per_month}</b> for <b>{days(listItem.rental_period_start_date, listItem.rental_period_end_date)}</b> days</div>
+              <div>{listItem.brand + ' ' + listItem.model}</div>
+              <div><b>{listItem.pricePerDay * d}</b> for <b>{days(listItem.startDate, listItem.endDate)}</b> days</div>
             </div>
           })
         }
@@ -47,7 +60,7 @@ class Payment extends Component {
   }
 
   render() {
-    const { cardNumber, expirationYear, expirationMonth, cvv, cardHolder} = this.state;
+    const { cardNumber, expirationYear, expirationMonth, cvv, cardHolder, saveCard} = this.state;
 
     const { isPaymentDone } = this.state;
 
@@ -60,12 +73,12 @@ class Payment extends Component {
           <div className="payment-success-info theme-text-small">
             <div>
               <div className="checkout-total">
-                <div><span className="text-gray">Total </span> $1180.00</div>
-                <div><span className="text-gray">Tax (21%) </span> $247.80</div>
-                <div><span className="text-gray">Fee </span> $0</div>
+                <div><span className="text-gray">Total </span> ${this.state.total}</div>
+                <div><span className="text-gray">Tax (21%) </span> ${this.state.tax}</div>
+                <div><span className="text-gray">Fee </span> ${this.state.fee}</div>
               </div>
               <div className="checkout-amount">
-                <div><span className="text-gray">Amount </span> <b>$1427.80</b></div>
+                <div><span className="text-gray">Amount </span> <b>${this.state.total + this.state.tax + this.state.fee}</b></div>
               </div>
             </div>
             <div>
@@ -92,6 +105,23 @@ class Payment extends Component {
           </div>
         </div>)
       }
+
+    const { carts } = this.props;
+
+    if (!carts) {
+      return <div className="centered-content">Loading...</div>
+    }
+
+    let total = 0;
+
+    carts.forEach((listItem, index) => {
+      const d = days(listItem.startDate, listItem.endDate);
+      total += d * listItem.pricePerDay;
+    });
+
+    const tax = total * 0.21;
+
+    const amount = total + tax;
 
     return (
       <div className="payment checkout centered-content">
@@ -125,27 +155,27 @@ class Payment extends Component {
               </div>
               <div className="flex-row">
                 <div className="theme-form-field">
-                  <CustomInput placeholder='Card Number' type="text" value={cardNumber}/>
+                  <CustomInput placeholder='Card Number' type="text" value={cardNumber} onChange={(value) => this.setState({cardNumber: value})}/>
                 </div>
                 <div className="theme-form-field">
-                  <CustomInput placeholder='Card Holder' type="text" value={cardHolder}/>
+                  <CustomInput placeholder='Card Holder' type="text" value={cardHolder} onChange={(value) => this.setState({cardHolder: value})}/>
                 </div>
               </div>
               <div className="flex-row">
                 <div className="flex-row">
                   <div className="theme-form-field">
-                    <CustomInput placeholder='Month' type="text" value={expirationMonth}/>
+                    <CustomInput placeholder='Month' type="text" value={expirationMonth} onChange={(value) => this.setState({expirationMonth: value})}/>
                   </div>
                   <div className="theme-form-field">
-                    <CustomInput placeholder='Year' type="text" value={expirationYear}/>
+                    <CustomInput placeholder='Year' type="text" value={expirationYear} onChange={(value) => this.setState({expirationYear: value})}/>
                   </div>
                 </div>
                 <div className="theme-form-field">
-                  <CustomInput placeholder='CVV' type="text" value={cvv}/>
+                  <CustomInput placeholder='CVV' type="text" value={cvv} onChange={(value) => this.setState({cvv: value})}/>
                 </div>
               </div>
               <div className="theme-form-field">
-                <Input type="checkbox" id="save-address"/>
+                <Input type="checkbox" id="save-address" checked={saveCard} onChange={ (e) => this.setState({saveCard: e.target.checked})}/>
                 <Label for="save-address">Save this payment method</Label>
               </div>
             </div>
@@ -162,20 +192,20 @@ class Payment extends Component {
             }
 
             <div className="checkout-total">
-              <div><span className="text-gray">Total </span> <b>$1180.00</b></div>
-              <div><span className="text-gray">Tax (21%) </span> <b>$247.80</b></div>
+              <div><span className="text-gray">Total </span> <b>${total}</b></div>
+              <div><span className="text-gray">Tax (21%) </span> <b>${tax}</b></div>
               <div><span className="text-gray">Fee </span> <b>$0</b></div>
             </div>
 
             <div className="checkout-amount">
-              <div><span className="text-gray">Amount </span> <b>$1427.80</b></div>
+              <div><span className="text-gray">Amount </span> <b>${amount}</b></div>
             </div>
           </div>
         </div>
 
         <div className="flex-row bottom-buttons">
           <button className="theme-btn theme-btn-secondery theme-btn-link"><Link to="/cart">Edit Order</Link></button>
-          <button className="theme-btn theme-btn-primary" onClick={this.pay}>Pay ($1427.80)</button>
+          <button className="theme-btn theme-btn-primary" onClick={this.pay}>Pay (${amount})</button>
         </div>
       </div>
     );
@@ -184,5 +214,6 @@ class Payment extends Component {
 
 export default connect((store) => {
   return {
+    carts: store.app.carts
   };
 })(Payment);
