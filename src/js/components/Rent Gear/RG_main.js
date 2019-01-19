@@ -7,6 +7,7 @@ import CardView from './RG_card_view';
 import ListView from './RG_list_view';
 import TableView from './RG_table_view';
 import { gearListdata } from '../dummydata.js';
+import { rentGearProductList } from '../../actions/app.actions';
 
 class Main extends Component {
   constructor(props) {
@@ -34,6 +35,15 @@ class Main extends Component {
       activeTab: '1'
     }
   }
+
+  componentDidMount(){
+    rentGearProductList({
+      categoryName: "Cameras",
+      product_region: "",
+      brand: ""
+    });
+  }
+
   toggle = (tab) => {
     if (this.state.activeTab !== tab) {
       this.setState({
@@ -93,6 +103,8 @@ class Main extends Component {
     const searchSuggestions = searchTextSuggestions.map((suggestion) => <ListGroupItem onClick={() => this.selectSearchSuggestion(suggestion)}>{suggestion}</ListGroupItem>);
     const locationSuggestions = locationTextSuggestions.map((suggestion) => <ListGroupItem onClick={() => this.selectLocationSuggestion(suggestion)}>{suggestion}</ListGroupItem>);
 
+    const { productList} = this.props;
+    console.log( productList );
     return (
       <div className="main-wrapper">
         <Row className="main_head">
@@ -158,7 +170,7 @@ class Main extends Component {
           <TabPane tabId="1">
             <Row>
               {
-                gearListdata.map((gear , index) =>{
+                productList.map((gear , index) =>{
                   return <CardView gear_detail={gear} key={index} />
                 })
               }
@@ -167,7 +179,7 @@ class Main extends Component {
           <TabPane tabId="2">
             <Row>
               {
-                gearListdata.map((gear, index) => {
+                productList.map((gear, index) => {
                   return <ListView gear_detail={gear} key={index} />
                 })
               }
@@ -176,7 +188,7 @@ class Main extends Component {
           <TabPane tabId="3">
             <Row>
               {
-                gearListdata.map((gear, index) => {
+                productList.map((gear, index) => {
                   return <TableView gear_detail={gear} key={index} />
                 })
               }
@@ -188,7 +200,8 @@ class Main extends Component {
   }
 }
 
-export default connect((store) => {
+export default connect(({ app : {productList} }) => {
   return {
+    productList
   };
 })(Main);

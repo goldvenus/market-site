@@ -4,17 +4,17 @@ import {
   CardTitle, CardSubtitle, Button
 } from 'reactstrap';
 
-const ListView = ({ gear_detail: { gear_img, gear_name, total_rating, location, rating, price_per_day } }) => {
+const ListView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city, rating, pricePerDay } }) => {
 
   return (
     <Col sm="12">
       <Card className="gear_list_view">
         <div className="card-img">
-          <CardImg top width="100%" src={gear_img} alt="Card image cap" />
+          <CardImg top width="100%" src={numberOfUserImage[0]} alt="Card image cap" />
         </div>
         <CardBody>
           <div className="card-center">
-            <CardTitle>{gear_name}</CardTitle>
+            <CardTitle>{brand}</CardTitle>
             <CardSubtitle>
               <span className="stars">
                 {
@@ -32,7 +32,7 @@ const ListView = ({ gear_detail: { gear_img, gear_name, total_rating, location, 
               </span>&nbsp;  &nbsp;
               <span className="address">
                 <i className="fa fa-map-marker" aria-hidden="true"></i>&nbsp;
-                {location}
+                {city}
               </span>
             </CardSubtitle>
             <CardText>
@@ -41,7 +41,7 @@ const ListView = ({ gear_detail: { gear_img, gear_name, total_rating, location, 
           </div>
           <div className="card-right">
             <CardText>
-              <span className="price">{price_per_day}</span>
+              <span className="price">{pricePerDay}</span>
               <span className="theme-text-small text-gray">/per day</span>
             </CardText>
             <div className="buttons">
