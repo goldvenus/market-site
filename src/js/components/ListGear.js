@@ -17,7 +17,7 @@ const ListGearItem =
     });
 
     return <tr>
-      <td width="15%">{<img src={numberOfUserImage[0]} className="gear-img" />}</td>
+      <td width="15%">{numberOfUserImage && numberOfUserImage.length > 0 ? <img src={numberOfUserImage[0]} className="gear-img" /> : null}</td>
       <td className="gear" width="25%">
         <p ><Link to={`/gear/${gearid}`}>{ model + ' ' + brand }</Link></p>
         <p className="theme-text-small text-muted">{categoryName}</p>

@@ -12,7 +12,7 @@ class Checkout extends Component {
   constructor() {
     super();
 
-    // getCarts();
+    getCarts();
 
     this.state = {
       fullName: '',

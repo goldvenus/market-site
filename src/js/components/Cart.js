@@ -9,7 +9,7 @@ class Cart extends Component {
   constructor() {
     super();
 
-    // getCarts();
+    getCarts();
   }
 
   renderCartItems() {

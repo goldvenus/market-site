@@ -21,7 +21,7 @@ class Payment extends Component {
 
     this.pay = this.pay.bind(this);
 
-    // getCarts();
+    getCarts();
   }
 
   async pay() {

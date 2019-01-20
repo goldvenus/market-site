@@ -17,7 +17,9 @@ class Layout extends Component {
         <div className="fixed">
           <Link to="/cart">
           <div className="cart">
-             <Badge color="light">{carts && carts.length ? carts.length : '0'}</Badge>
+            {
+              carts && carts.length ? <Badge color="light"> {carts.length} </Badge> : null
+            }
             <span className="cart-icon"></span>
             <span>CART</span>
           </div>

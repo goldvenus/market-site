@@ -158,7 +158,7 @@ const getListGears = async () => {
     if(response && response.data) {
       dispatch({
         type: ACTIONS.LIST_GEARS,
-        payload: response.data
+        payload: response.data.Items
       });
     }
   } catch (error) {
