@@ -129,19 +129,21 @@
 .btn-google-plus {
   background-color: #E03B1A;
 }
-.btn-Available{
+.btn-available{
   background-color: $white;
   border:1px solid rgb(6, 99, 6);
   color: rgb(6, 99, 6);
   padding: 0;
   width: 100px;
   height: 30px;
+  text-transform: capitalize;
 }
-.btn-For-Rent{
+.btn-rented{
   background-color: $white;
   border:1px solid orange;
   color: orange;
   padding: 0;
   width: 100px;
   height: 30px;
+  text-transform: capitalize;
 }

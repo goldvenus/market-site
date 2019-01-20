@@ -9,7 +9,7 @@ import classNames from 'classnames';
 import { getListGears } from '../actions/app.actions';
 
 const ListGearItem =
-  ({ listItem: { gearid, model = '', brand = '', categoryName = '', numberOfUserImage, pricePerDay, status = 'Available' } }) => {
+  ({ listItem: { gearid, model = '', brand = '', categoryName = '', numberOfUserImage, pricePerDay, orderStatus: status } }) => {
 
     let btnClass = classNames({
       'theme-btn': true,
