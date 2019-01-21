@@ -7,7 +7,8 @@ const initialState = {
   error: null,
   user: null,
   isAuthenticated: false,
-  gear: null
+  gear: null,
+  productList :[]
 }
 
 export default (state = initialState, action) => {
@@ -39,9 +40,14 @@ export default (state = initialState, action) => {
       case ACTIONS.GEAR:
         draft.gear = action.payload;
         break;
+
       case ACTIONS.CARTS:
         draft.carts = action.payload;
         break;
+
+      case ACTIONS.GEAR_PRODUCT_LIST :
+        draft.productList = action.payload;
+
       default:
         break;
     }

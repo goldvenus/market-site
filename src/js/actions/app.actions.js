@@ -13,7 +13,7 @@ const axiosConfig = () => {
   };
 
   if (localStorage.accessToken) {
-    config['headers']['AccessToken'] = localStorage.accessToken;
+    config['headers']['accessToken'] = localStorage.accessToken;
   }
 
   if (localStorage.idToken) {
@@ -189,6 +189,7 @@ const getGear = async (gearid) => {
   }
 }
 
+
 const addCart = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -233,7 +234,24 @@ const getCarts = async () => {
       type: ACTIONS.CARTS,
       payload: response.data
     });
-  } catch (error) {
+  }
+  catch (error) {
+    handleError(error);
+  }
+}
+
+const rentGearProductList = async (catDetail) => {
+  try{
+    let response = await post('showRentGearProductsList' , catDetail )
+
+    dispatch({
+      type : ACTIONS.GEAR_PRODUCT_LIST,
+      payload: response.data
+    })
+
+  }
+  catch (error) {
+
     handleError(error);
   }
 }
@@ -244,4 +262,4 @@ const formatDate = (date) => {
 
 const days = (d1, d2) => { return moment(d2).diff(moment(d1) , 'days') + 1};
 
-export { register, login, logout, clearError, handleError, getUser, readFileData, addGear, fetchCategories, getListGears, getGear, addCart, getCarts, formatDate, days, checkout, payment }
+export { register, login, logout, clearError, handleError, getUser, readFileData, addGear, fetchCategories, getListGears, getGear, addCart, getCarts, formatDate, days, checkout, payment, rentGearProductList}

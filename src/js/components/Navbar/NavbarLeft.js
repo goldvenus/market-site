@@ -17,7 +17,7 @@ const CollapseMenu = props => {
 
 const NavbarToggler = props =>{
   return <button className="button-toggle" onClick={props.onClick}>
-    {props.isOpen ? <span class="fa fa-times "> Close</span> : <span className="fa fa-bars"></span>   }
+    {props.isOpen ? <span className="fa fa-times "> Close</span> : <span className="fa fa-bars"></span>   }
   </button>
 
 }

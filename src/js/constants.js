@@ -8,7 +8,7 @@ const ACTIONS = {
   FETCH_CATEGORIES: 'fetCategories',
   LIST_GEARS: 'listGears',
   GEAR: 'gear',
-  CARTS: 'carts'
+  CARTS: 'carts',
+  GEAR_PRODUCT_LIST : 'gearProductList'
 }
-
 export { API_URL, ACTIONS }
