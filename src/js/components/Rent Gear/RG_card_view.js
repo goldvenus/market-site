@@ -5,10 +5,11 @@ import {
 } from 'reactstrap';
 
 const CardView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city, rating, pricePerDay}}) => {
+  
   return (
     <Col sm="4">
       <Card className="gear_card_view">
-        <CardImg top width="100%" src={numberOfUserImage[0]} alt="Card image cap" />
+        <CardImg top width="100%" src={numberOfUserImage ? numberOfUserImage[0] :[]} alt="Card image cap" />
         <CardBody>
           <CardTitle>{brand}</CardTitle>
           <CardSubtitle>

@@ -1,37 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import CustomInput from '../CustomInput';
-import { Container, Row, Col, Form, ListGroup, ListGroupItem, TabContent, TabPane, Nav, NavItem, NavLink, } from 'reactstrap';
+import {Row, Col, Form, ListGroup, ListGroupItem, TabContent, TabPane, Nav, NavItem, NavLink, } from 'reactstrap';
 import classnames from 'classnames';
 import CardView from './RG_card_view';
 import ListView from './RG_list_view';
 import TableView from './RG_table_view';
-import { gearListdata } from '../dummydata.js';
 import { rentGearProductList } from '../../actions/app.actions';
 
 class Main extends Component {
   constructor(props) {
     super(props);
-    this.suggestions = [
-      "Canon EOS 6D",
-      "Canon EOS 2000D Kit 18-55mm IS II",
-      "Canon EOS 5D Mark III",
-      "Canon EOS 80D",
-      "Canon EOS 3000D Kit 18-55mm IS II"
-    ]
-
-    this.locationSuggestions = [
-      'United State',
-      'United Kingdom',
-      'Pakistan',
-      'India'
-    ];
 
     this.state = {
       searchText: '',
       locationText: '',
-      searchTextSuggestions: [],
-      locationTextSuggestions: [],
       activeTab: '1'
     }
   }
@@ -39,8 +22,8 @@ class Main extends Component {
   componentDidMount(){
     rentGearProductList({
       categoryName: "Cameras",
-      product_region: "",
-      brand: ""
+      product_region: this.state.locationText,
+      brand: this.state.searchText
     });
   }
 
@@ -51,60 +34,10 @@ class Main extends Component {
       });
     }
   }
-  onSearchTextChange = (value) => {
-    if (value) {
-      let pattern = new RegExp(value, 'ig')
-      let searchTextSuggestions = this.suggestions.filter((s) => s.search(pattern) > -1);
 
-      this.setState({
-        searchText: value,
-        searchTextSuggestions
-      });
-    } else {
-      this.setState({
-        searchText: '',
-        searchTextSuggestions: []
-      });
-    }
-  }
-
-  onLocationChange = (value) => {
-    if (value) {
-      let pattern = new RegExp(value, 'ig')
-      let locationTextSuggestions = this.locationSuggestions.filter((s) => s.search(pattern) > -1);
-
-      this.setState({
-        locationText: value,
-        locationTextSuggestions
-      });
-    } else {
-      this.setState({
-        locationText: '',
-        locationTextSuggestions: []
-      });
-    }
-  }
-
-  selectSearchSuggestion(suggestion) {
-    this.setState({
-      searchText: suggestion,
-      searchTextSuggestions: []
-    })
-  }
-
-  selectLocationSuggestion(suggestion) {
-    this.setState({
-      locationText: suggestion,
-      locationTextSuggestions: []
-    })
-  }
   render() {
-    const { searchTextSuggestions, locationTextSuggestions, searchText, locationText } = this.state;
-    const searchSuggestions = searchTextSuggestions.map((suggestion) => <ListGroupItem onClick={() => this.selectSearchSuggestion(suggestion)}>{suggestion}</ListGroupItem>);
-    const locationSuggestions = locationTextSuggestions.map((suggestion) => <ListGroupItem onClick={() => this.selectLocationSuggestion(suggestion)}>{suggestion}</ListGroupItem>);
+    const { productList, catagory} = this.props;
 
-    const { productList} = this.props;
-    console.log( productList );
     return (
       <div className="main-wrapper">
         <Row className="main_head">
@@ -112,20 +45,29 @@ class Main extends Component {
             <div className="search">
               <Form className="theme-form">
                 <div className="search-input">
-                  <CustomInput icon="fa-search" placeholder="Search" type="text" label="Search" onChange={this.onSearchTextChange} value={searchText} />
-                  <ListGroup className="search-suggestions">
-                    {
-                      searchSuggestions
-                    }
-                  </ListGroup>
+                  <CustomInput icon="fa-search" placeholder="Search" type="text" label="Search" onChange={
+                    (value) => {
+                      this.setState({ searchText: value } , ()=>{
+                        rentGearProductList({
+                          categoryName: catagory,
+                          product_region: this.state.locationText,
+                          brand: this.state.searchText
+                        });
+                      })}} 
+                    value={this.state.searchText} />
                 </div>
                 <div className="location-input">
-                  <CustomInput icon="fa-map-marker" placeholder="Location" type="text" label="Location" onChange={this.onLocationChange} value={locationText} />
-                  <ListGroup className="search-suggestions">
-                    {
-                      locationSuggestions
-                    }
-                  </ListGroup>
+                  <CustomInput icon="fa-map-marker" placeholder="Location" type="text" label="Location" 
+                  onChange={
+                    (value) => {
+                      this.setState({ locationText: value } , ()=>{
+                        rentGearProductList({
+                          categoryName: catagory,
+                          product_region: this.state.locationText,
+                          brand: this.state.searchText
+                        });
+                      })}} 
+                  value={this.state.locationText} />
                 </div>
               </Form>
             </div>

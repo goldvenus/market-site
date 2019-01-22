@@ -10,7 +10,7 @@ const TableView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city
     <Col sm="12">
       <Card className="gear_table_view">
         <div className="card-img">
-          <CardImg top width="100%" src={numberOfUserImage[0]} alt="Card image cap" />
+          <CardImg top width="100%" src={numberOfUserImage ? numberOfUserImage[0] : []} alt="Card image cap" />
         </div>
         <CardBody>
           <div className="card-center">

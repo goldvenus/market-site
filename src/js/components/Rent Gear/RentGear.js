@@ -10,6 +10,15 @@ import Main from './RG_main';
 class RentGear extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      catagory: ""
+    }
+  }
+
+  selectedCategory = (value) => {
+    this.setState({
+      catagory: value
+    })
   }
 
   render() {
@@ -34,10 +43,10 @@ class RentGear extends Component {
           <Container>
             <Row>
               <Col sm="3">
-                <Sidebar />
+                <Sidebar callback={this.selectedCategory}/>
               </Col>
               <Col sm="9">
-                <Main />
+                <Main catagory={this.state.catagory}/>
               </Col>
             </Row>
           </Container>
