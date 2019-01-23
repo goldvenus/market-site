@@ -6,6 +6,7 @@ import {
 } from 'reactstrap';
 import Sidebar from './RG_sidebar';
 import Main from './RG_main';
+import { rentGearProductList } from '../../actions/app.actions';
 
 class RentGear extends Component {
   constructor(props) {
@@ -19,6 +20,12 @@ class RentGear extends Component {
     this.setState({
       catagory: value
     })
+
+    rentGearProductList({
+      categoryName: value,
+      product_region: "",
+      brand: ""
+    });
   }
 
   render() {

@@ -39,7 +39,7 @@ class Layout extends Component {
         {
           error ?
           <div className="alert alert-danger app-error" role="alert">
-            <div className="app-error-text">{ error }</div>
+            <div className="app-error-text">{ String(error) }</div>
             <div className="app-error-close" onClick={ clearError }>X</div>
           </div> : null
         }

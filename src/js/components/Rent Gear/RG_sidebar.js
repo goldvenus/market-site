@@ -16,7 +16,7 @@ class Sidebar extends Component {
   componentDidMount() {
     fetchCategories();
   }
-  
+
   handleClick(index, name) {
     let activeIndex = this.state.activeIndex === index ? null : index;
     this.setState({

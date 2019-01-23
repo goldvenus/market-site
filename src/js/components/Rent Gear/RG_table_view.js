@@ -3,8 +3,9 @@ import {
   Col, Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
-const TableView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city, rating, pricePerDay} }) => {
+const TableView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city, rating, pricePerDay, gearid} }) => {
 
   return (
     <Col sm="12">
@@ -42,7 +43,7 @@ const TableView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city
               <span className="theme-text-small text-gray">/per day</span>
             </CardText>
             <div className="buttons">
-              <Button className="cart"><i className="fa fa-shopping-cart"></i></Button>
+              <Button className="cart"><Link to={`/gear/${gearid}`}><i className="fa fa-shopping-cart"></i></Link></Button>
               <Button className="fav"><i className="fa fa-heart"></i></Button>
             </div>
           </div>

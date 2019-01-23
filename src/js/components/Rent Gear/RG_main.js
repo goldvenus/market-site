@@ -53,11 +53,11 @@ class Main extends Component {
                           product_region: this.state.locationText,
                           brand: this.state.searchText
                         });
-                      })}} 
+                      })}}
                     value={this.state.searchText} />
                 </div>
                 <div className="location-input">
-                  <CustomInput icon="fa-map-marker" placeholder="Location" type="text" label="Location" 
+                  <CustomInput icon="fa-map-marker" placeholder="Location" type="text" label="Location"
                   onChange={
                     (value) => {
                       this.setState({ locationText: value } , ()=>{
@@ -66,7 +66,7 @@ class Main extends Component {
                           product_region: this.state.locationText,
                           brand: this.state.searchText
                         });
-                      })}} 
+                      })}}
                   value={this.state.locationText} />
                 </div>
               </Form>

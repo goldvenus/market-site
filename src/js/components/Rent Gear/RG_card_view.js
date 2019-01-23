@@ -3,9 +3,10 @@ import {
   Col, Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
-const CardView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city, rating, pricePerDay}}) => {
-  
+const CardView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city, rating, pricePerDay, gearid}}) => {
+
   return (
     <Col sm="4">
       <Card className="gear_card_view">
@@ -19,11 +20,11 @@ const CardView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city,
                   return <i className="fa fa-star" key={i}></i>
                 })
               }
-              
+
             </span> &nbsp;
             <span>
               {rating}
-            </span> 
+            </span>
             <span className="total">
               {`(${total_rating})`}
             </span>&nbsp;  &nbsp;
@@ -37,7 +38,7 @@ const CardView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city,
             <span className="theme-text-small text-gray">/per day</span>
           </CardText>
           <div className="buttons">
-            <Button className="cart">Add to cart</Button>
+            <Button className="cart"><Link to={`/gear/${gearid}`}>Add to cart</Link></Button>
             <Button className="fav"><i className="fa fa-heart"></i></Button>
           </div>
         </CardBody>
