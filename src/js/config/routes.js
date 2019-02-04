@@ -13,6 +13,7 @@ import Checkout from "../components/Checkout";
 import Payment from "../components/Payment";
 import ListGear from "../components/ListGear";
 import RentGear from "../components/Rent Gear/RentGear";
+import RegisterConfirm from "../components/RegisterConfirm";
 
 export default (
   <div className="app-content">
@@ -30,5 +31,6 @@ export default (
     <Route path="/payment" component={Payment} />
     <Route path='/listgear' component={ListGear} />
     <Route path='/rentgear' component={RentGear} />
+    <Route path='/confirm' component={RegisterConfirm} />
   </div>
 );

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { Button, Form ,Label, Input } from 'reactstrap';
+import { Button, Form, Label, Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import CustomInput from './CustomInput';
 import AuthSideMenu from './AuthSideMenu';
@@ -10,7 +10,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
 
-    if(props.isAuthenticated) {
+    if (props.isAuthenticated) {
       this.props.history.push("/");
     }
 
@@ -25,19 +25,21 @@ class Login extends Component {
 
     const { username, password } = this.state;
 
-    if(username && password) {
+    if (username && password) {
       e.preventDefault();
-      await login({
+      let res = await login({
         username,
         password
       });
 
-      this.props.history.push("/");
+      if (res) {
+        this.props.history.push("/");
+      }
     }
   }
 
   render() {
-    const {username, password} = this.state;
+    const { username, password } = this.state;
     return (
       <div className="auth-container theme-navbar">
         <AuthSideMenu />
@@ -60,7 +62,7 @@ class Login extends Component {
           <div className="login-or-divider">Or</div>
           <Form className="theme-form">
             <div className="theme-form-field">
-              <CustomInput placeholder='Email' type="email" required="required" value={username} onChange={(value) => this.setState({ username: value })}/>
+              <CustomInput placeholder='Email' type="email" required="required" value={username} onChange={(value) => this.setState({ username: value })} />
             </div>
             <div className="flex-row">
               <div className="theme-form-field">
@@ -69,7 +71,7 @@ class Login extends Component {
               <Button color="link"><Link to="/forgotpassword">Forgot password?</Link></Button>
             </div>
             <div className="theme-form-field">
-              <Input type="checkbox" id="login-remember"/>
+              <Input type="checkbox" id="login-remember" />
               <Label for="login-remember">Remember me on this device</Label>
             </div>
 

@@ -56,7 +56,7 @@ export default (state = initialState, action) => {
       case ACTIONS.DASHBOARD_MY_LISTINGS:
         draft.userListings = action.payload;
         break;
-        
+
       case ACTIONS.DASHBOARD_MY_RENTALS:
         draft.userRentals = action.payload;
         break;

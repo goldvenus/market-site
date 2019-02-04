@@ -19,18 +19,20 @@ class Register extends Component {
     	fullName: "",
   	  gender: "",
   	  address: "",
-  	  picture: ""
+  	  picture: "",
+      fileName: ""
     }
   }
 
   async addImage(event) {
     try {
-      let image = await readFileData(event);
-      let { picture } = this.state;
+        const fileName = event.target.files && event.target.files.length > 0 && event.target.files[0].name;
+        let image = await readFileData(event);
 
-      this.setState({
-        picture: image
-      });
+        this.setState({
+          picture: image,
+          fileName
+        });
     } catch {
       handleError('Please upload a valid image');
     }
@@ -40,7 +42,7 @@ class Register extends Component {
 
     const { password, confirmPassword, username, phoneNumber, fullName, gender, address, picture } = this.state;
 
-    if (fullName && username && password && confirmPassword) {
+    if (fullName && username && password && confirmPassword && picture) {
       if (password !== confirmPassword) {
         handleError("Password and confirm password do not match");
       } else {
@@ -61,11 +63,13 @@ class Register extends Component {
           });
         }
       }
+    } else {
+      handleError('Please provide all details');
     }
   }
 
   render() {
-    const { isRegistered, password, confirmPassword, username, fullName } = this.state;
+    const { isRegistered, password, confirmPassword, username, fullName, fileName } = this.state;
     return (
       <div className="auth-container theme-navbar">
         <AuthSideMenu />
@@ -73,10 +77,10 @@ class Register extends Component {
           isRegistered ? (
           <div className="login success-message">
             <h1><i className="fa fa-check-circle primary-color"></i> Successfully</h1>
-            <div>To confirm your account, click on the link sent to you by email</div>
+            <div>Please confirm your email id</div>
             <div className="flex-row">
               <button className="theme-btn theme-btn-secondery theme-btn-link"><Link to="/">Home Page</Link></button>
-              <button className="theme-btn theme-btn-primary theme-btn-link"><Link to="/login">Sign In</Link></button>
+              <button className="theme-btn theme-btn-primary theme-btn-link"><Link to={{ pathname: '/confirm', state: { email: username} }}>Confirm</Link></button>
             </div>
           </div>): (
           <div className="login register">
@@ -112,7 +116,7 @@ class Register extends Component {
               </div>
               <div className="flex-row">
                 <div className="theme-form-field">
-                  <CustomInput placeholder='Photo' required="required" disabled type="text"/>
+                  <label>{ fileName || "Please upload profile picture"}</label>
                 </div>
                 <div className="file-input-container">
                   <button className="theme-btn theme-btn-filled-white btn-photo-upload">Upload</button>

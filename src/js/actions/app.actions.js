@@ -28,7 +28,7 @@ const getAPIUrl = (url) => API_URL + url;
 const handleError = (error) => {
   dispatch({
     type: ACTIONS.ERROR,
-    payload: error
+    payload: error || "Something went wrong"
   });
 }
 
@@ -40,21 +40,17 @@ const clearError = () => {
 }
 
 const get = async (url) => {
-  try {
-    let response = await axios.get(getAPIUrl(url), axiosConfig());
-    return response;
-  } catch (error) {
-    handleError(error && error.message);
-  }
+  return await axios.get(getAPIUrl(url), axiosConfig()).then((res) => res)
+    .catch(err => {
+      handleError(err.response && err.response.data.errorMessage)
+    });
 }
 
 const post = async (url, data) => {
-  try {
-    let response = await axios.post(getAPIUrl(url), data, axiosConfig());
-    return response;
-  } catch (error) {
-    handleError(error && error.message);
-  }
+  return axios.post(getAPIUrl(url), data, axiosConfig()).then((res) => res)
+    .catch(err => {
+      handleError(err.response.data.errorMessage)
+    });
 }
 
 const fetchCategories = () => {
@@ -90,8 +86,7 @@ const register = async (data) => {
 const login = async (data) => {
   try {
     let response = await post('signin', data);
-
-    if(response && response.data) {
+    if (response && response.data) {
       dispatch({
         type: ACTIONS.LOGGED_IN,
         payload: response.data.userAttributes
@@ -102,6 +97,8 @@ const login = async (data) => {
       localStorage.accessToken = accessToken;
       localStorage.idToken = idToken;
       localStorage.refreshToken = refreshToken;
+
+      return response;
     }
   } catch (error) {
     handleError(error);
@@ -113,7 +110,7 @@ const getUser = async () => {
     if (localStorage.accessToken) {
       let response = await get('getUserInfo');
 
-      if(response && response.data) {
+      if (response && response.data) {
         dispatch({
           type: ACTIONS.LOGGED_IN,
           payload: response.data.userAttributes
@@ -155,7 +152,7 @@ const addGear = async (data) => {
 const getListGears = async () => {
   try {
     let response = await get('viewUserGearList');
-    if(response && response.data) {
+    if (response && response.data) {
       dispatch({
         type: ACTIONS.LIST_GEARS,
         payload: response.data.Items
@@ -241,11 +238,11 @@ const getCarts = async () => {
 }
 
 const rentGearProductList = async (catDetail) => {
-  try{
-    let response = await post('showRentGearProductsList' , catDetail )
+  try {
+    let response = await post('showRentGearProductsList', catDetail)
 
     dispatch({
-      type : ACTIONS.GEAR_PRODUCT_LIST,
+      type: ACTIONS.GEAR_PRODUCT_LIST,
       payload: response.data
     })
 
@@ -286,6 +283,16 @@ const formatDate = (date) => {
   return date && moment(date).format('YYYY-MM-DD');
 }
 
-const days = (d1, d2) => { return moment(d2).diff(moment(d1) , 'days') + 1};
+const days = (d1, d2) => { return moment(d2).diff(moment(d1), 'days') + 1 };
 
-export { register, login, logout, clearError, handleError, getUser, readFileData, addGear, fetchCategories, getListGears, getGear, addCart, getCarts, formatDate, days, checkout, payment, rentGearProductList, dashboardMyListing, dashboardMyRentals }
+const confirmUser = async (username, confirmationCode) => {
+  try {
+    let response = await post('confirmUser', {username, confirmationCode});
+    return response;
+  }
+  catch (error) {
+    handleError(error);
+  }
+}
+
+export { register, confirmUser, login, logout, clearError, handleError, getUser, readFileData, addGear, fetchCategories, getListGears, getGear, addCart, getCarts, formatDate, days, checkout, payment, rentGearProductList, dashboardMyListing, dashboardMyRentals }

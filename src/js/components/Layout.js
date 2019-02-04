@@ -10,7 +10,7 @@ import { clearError } from '../actions/app.actions';
 class Layout extends Component {
   render() {
     const { match, location, history, selectedView, error, carts } = this.props;
-    let hideHeader = ['/login', '/register', '/forgotpassword'].indexOf(location.pathname) > -1;
+    let hideHeader = ['/login', '/register', '/forgotpassword', '/confirm'].indexOf(location.pathname) > -1;
 
     return (
       <div>
