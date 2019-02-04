@@ -5,28 +5,29 @@ import { Pagination, PaginationItem, PaginationLink, Table } from 'reactstrap';
 import moment from 'moment';
 import dataSet from './dataSet';
 
+
 const MyRentalItem = ({ rentItem }) => (
-  <tr>
-    <td width="15%">{<img src={rentItem.gear_img} className="gear-img"/>}</td>
-    <td className="gear" width="20%">
-      <p >{rentItem.gear_name}</p>
-      <p className ="theme-text-small text-muted">{rentItem.gear_category}</p>
-    </td>
-    <td className="rental-period" width="20%">
-      <p>
-        {`${rentItem.rental_period_start_date} to ${rentItem.rental_period_end_date} `}
-      </p>
-      <p className="theme-text-small text-muted">
-        {` ${days(rentItem.rental_period_start_date, rentItem.rental_period_end_date)} days`}
-      </p>
-    </td>
-    <td width="20%">
-      <img src={rentItem.landrord_img} class="landrord-img" />
-      <span className="ml-1 "> {rentItem.landrord_name} </span>
-    </td>
-    <td width="15%">{rentItem.price_per_day}</td>
-    <td width="15%">{rentItem.price_per_month}</td>
-  </tr>
+    <tr>
+      <td width="15%">{<img src={rentItem.numberOfUserImage[0]} className="gear-img" />}</td>
+      <td className="gear" width="20%">
+        <p >{rentItem.brand}</p>
+        <p className="theme-text-small text-muted">{rentItem.categoryName}</p>
+      </td>
+      <td className="rental-period" width="20%">
+        <p>
+        {`${rentItem.orderDate.split(' ')[0]} to ${rentItem.endDate.split(' ')[0]} `}
+        </p>
+        <p className="theme-text-small text-muted">
+          {` ${days(rentItem.orderDate, rentItem.endDate)} days`}
+        </p>
+      </td>
+      <td width="20%">
+        <img src={rentItem.landrord_img} className="landrord-img" />
+        <span className="ml-1 "> {rentItem.landrord_name} </span>
+      </td>
+      <td width="15%">{`${rentItem.pricePerDay} $`}</td>
+      <td width="15%">{`${rentItem.replacementValue} $`}</td>
+    </tr>
 )
 const days = (d1, d2) => { return moment(d2).diff(moment(d1) , 'days')};
 
@@ -36,7 +37,7 @@ export default class MyRentals extends React.Component {
     super();
     // Data set of random length
     this.pageSize = 3;
-    this.pagesCount = Math.ceil(dataSet.length / this.pageSize);
+    this.pagesCount = "";
 
     this.state = {
       currentPage: 0
@@ -53,8 +54,10 @@ export default class MyRentals extends React.Component {
 
   }
   render() {
+    const { list } = this.props;
     const { currentPage } = this.state;
 
+    this.pagesCount = Math.ceil(list ? list.length / this.pageSize : "");
     return (
       <Row className="my-listing">
         <Col sm="12">
@@ -76,14 +79,14 @@ export default class MyRentals extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {dataSet
+                  {list ? list
                     .slice(
                       currentPage * this.pageSize,
                       (currentPage + 1) * this.pageSize
                     )
                     .map((data, i) =>
                       <MyRentalItem rentItem={data} key={i} />
-                    )}
+                    ) : ""}
                 </tbody>
               </Table>
               <Pagination aria-label="Page navigation example">

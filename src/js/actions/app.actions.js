@@ -256,10 +256,36 @@ const rentGearProductList = async (catDetail) => {
   }
 }
 
+const dashboardMyListing = async () =>{
+  try{
+    let response = await get('userDashboardProductList');
+    dispatch({
+      type : ACTIONS.DASHBOARD_MY_LISTINGS,
+      payload : response.data
+    })
+  }
+  catch(error){
+    handleError(error);
+  }
+}
+
+const dashboardMyRentals = async () => {
+  try {
+    let response = await get('userDashboardRentalProductList');
+    dispatch({
+      type: ACTIONS.DASHBOARD_MY_RENTALS,
+      payload: response.data
+    })
+  }
+  catch (error) {
+    handleError(error);
+  }
+}
+
 const formatDate = (date) => {
   return date && moment(date).format('YYYY-MM-DD');
 }
 
 const days = (d1, d2) => { return moment(d2).diff(moment(d1) , 'days') + 1};
 
-export { register, login, logout, clearError, handleError, getUser, readFileData, addGear, fetchCategories, getListGears, getGear, addCart, getCarts, formatDate, days, checkout, payment, rentGearProductList}
+export { register, login, logout, clearError, handleError, getUser, readFileData, addGear, fetchCategories, getListGears, getGear, addCart, getCarts, formatDate, days, checkout, payment, rentGearProductList, dashboardMyListing, dashboardMyRentals }

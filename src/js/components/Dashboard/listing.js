@@ -4,28 +4,48 @@ import { Link } from 'react-router-dom';
 import { Pagination, PaginationItem, PaginationLink, Table } from 'reactstrap';
 import moment from 'moment';
 import dataSet from './dataSet';
-
+{/* <tr>
+  <td width="15%">{<img src={rentItem.numberOfUserImage[0]} className="gear-img" />}</td>
+  <td className="gear" width="20%">
+    <p >{rentItem.brand}</p>
+    <p className="theme-text-small text-muted">{rentItem.categoryName}</p>
+  </td>
+  <td className="rental-period" width="20%">
+    <p>
+      {`${rentItem.orderDate} to ${rentItem.endDate} `}
+    </p>
+    <p className="theme-text-small text-muted">
+      {` ${days(rentItem.orderDate, rentItem.endDate)} days`}
+    </p>
+  </td>
+  <td width="20%">
+    <img src={rentItem.landrord_img} className="landrord-img" />
+    <span className="ml-1 "> {rentItem.landrord_name} </span>
+  </td>
+  <td width="15%">{rentItem.pricePerDay}</td>
+  <td width="15%">{rentItem.replacementValue}</td>
+</tr> */}
 const MyListingItem = ({ listItem }) => (
   <tr>
-    <td width="15%">{<img src={listItem.gear_img} className="gear-img"/>}</td>
+    <td width="15%">{<img src={listItem.numberOfUserImage[0]} className="gear-img"/>}</td>
     <td className="gear" width="20%">
-      <p >{listItem.gear_name}</p>
-      <p className ="theme-text-small text-muted">{listItem.gear_category}</p>
+      <p >{listItem.brand}</p>
+      <p className="theme-text-small text-muted">{listItem.categoryName}</p>
     </td>
     <td className="rental-period" width="20%">
       <p>
-        {`${listItem.rental_period_start_date} to ${listItem.rental_period_end_date} `}
+        {`${listItem.orderDate.split(' ')[0]} to ${listItem.endDate.split(' ')[0]} `}
       </p>
       <p className="theme-text-small text-muted">
-        {` ${days(listItem.rental_period_start_date, listItem.rental_period_end_date)} days`}
+        {` ${days(listItem.orderDate, listItem.endDate)} days`}
       </p>
     </td>
     <td width="20%">
-      <img src={listItem.landrord_img} className="landrord-img" />
-      <span className="ml-1 "> {listItem.landrord_name} </span>
+      <img src={listItem.clients_img} className="landrord-img" />
+      <span className="ml-1 "> {listItem.clients_name} </span>
     </td>
-    <td width="15%">{listItem.price_per_day}</td>
-    <td width="15%">{listItem.price_per_month}</td>
+    <td width="15%">{`${listItem.pricePerDay} $`} </td>
+    <td width="15%">{`${listItem.replacementValue} $`}</td>
   </tr>
 )
 const days = (d1, d2) => { return moment(d2).diff(moment(d1) , 'days')};
@@ -36,7 +56,7 @@ export default class MyListings extends React.Component {
     super();
     // Data set of random length
     this.pageSize = 3;
-    this.pagesCount = Math.ceil(dataSet.length / this.pageSize);
+    this.pagesCount = 0;
 
     this.state = {
       currentPage: 0
@@ -53,8 +73,11 @@ export default class MyListings extends React.Component {
 
   }
   render() {
-    const { currentPage } = this.state;
+    const { currentPage} = this.state;
+    const { list} = this.props;
+    // console.log(list);
 
+    this.pagesCount = Math.ceil(list ? list.length / this.pageSize : "");
     return (
       <Row className="my-listing">
         <Col sm="12">
@@ -76,14 +99,14 @@ export default class MyListings extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {dataSet
+                  {list ? list
                     .slice(
                       currentPage * this.pageSize,
                       (currentPage + 1) * this.pageSize
                     )
                     .map((data, i) =>
                       <MyListingItem listItem={data} key={i} />
-                    )}
+                  ) : ""}
                 </tbody>
               </Table>
               <Pagination aria-label="Page navigation example">

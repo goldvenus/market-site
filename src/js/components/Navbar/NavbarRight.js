@@ -35,7 +35,7 @@ class NavbarRight extends Component {
           <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
             <DropdownToggle caret>
               <div className="flex-row">
-                <img src={user.picture}/>
+                {user.picture ? <img src={user.picture} /> : <img src={'/images/avatar.png'} /> }
                 <div>{user.given_name}</div>
               </div>
             </DropdownToggle>

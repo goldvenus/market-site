@@ -1,5 +1,6 @@
 import producer from 'immer'; //Immutability Library
 import { ACTIONS } from '../constants';
+import { Action } from 'rxjs/internal/scheduler/Action';
 
 const initialState = {
   categories: [],
@@ -8,7 +9,10 @@ const initialState = {
   user: null,
   isAuthenticated: false,
   gear: null,
-  productList :[]
+  productList :[],
+  userListings :[],
+  userRentals :[]
+
 }
 
 export default (state = initialState, action) => {
@@ -47,6 +51,15 @@ export default (state = initialState, action) => {
 
       case ACTIONS.GEAR_PRODUCT_LIST :
         draft.productList = action.payload;
+        break;
+
+      case ACTIONS.DASHBOARD_MY_LISTINGS:
+        draft.userListings = action.payload;
+        break;
+        
+      case ACTIONS.DASHBOARD_MY_RENTALS:
+        draft.userRentals = action.payload;
+        break;
 
       default:
         break;
