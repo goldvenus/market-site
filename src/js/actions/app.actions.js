@@ -109,7 +109,10 @@ const getUser = async () => {
   try {
     if (localStorage.accessToken) {
       let response = await get('getUserInfo');
-
+      dispatch({
+        type: ACTIONS.ERROR,
+        payload: ""
+      });
       if (response && response.data) {
         dispatch({
           type: ACTIONS.LOGGED_IN,
@@ -120,7 +123,7 @@ const getUser = async () => {
       }
     }
   } catch (error) {
-    handleError(error);
+    // handleError(error);
   }
 }
 
