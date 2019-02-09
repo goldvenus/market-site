@@ -4,6 +4,7 @@ import {
   CardTitle, CardSubtitle, Button
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { addFavourites } from '../../actions/app.actions';
 
 const TableView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city, rating, pricePerDay, gearid} }) => {
 
@@ -44,7 +45,7 @@ const TableView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city
             </CardText>
             <div className="buttons">
               <Button className="cart"><Link to={`/gear/${gearid}`}><i className="fa fa-shopping-cart"></i></Link></Button>
-              <Button className="fav"><i className="fa fa-heart"></i></Button>
+              <Button className="fav"><i onClick={() => addFavourites({ gearid })} className="fa fa-heart"></i></Button>
             </div>
           </div>
         </CardBody>

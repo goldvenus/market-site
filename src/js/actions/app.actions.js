@@ -134,7 +134,7 @@ const getUser = async () => {
         });
 
         getCarts();
-        getFavourites();
+        getFavourites()
       }
     }
   } catch (error) {
@@ -333,16 +333,13 @@ const search = async (brand, product_region) => {
   }
 }
 
-const addFavourites = (data) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      let response = await post_new('addUserFavouriteGear', data);
-      resolve(response);
-    } catch (error) {
-      handleError(error);
-      reject(error);
-    }
-  });
+const addFavourites = async (data) => {
+  try {
+    let response = await post_new('addUserFavouriteGear', data);
+    return response;
+  } catch (error) {
+    handleError(error);
+  }
 }
 
 const getFavourites = async () => {
@@ -360,7 +357,17 @@ const getFavourites = async () => {
     handleError(error);
   }
 }
+
+const deleteFavourite = async (data) => {
+  try {
+    let response = await post_new('deleteUserFavouriteGear', data);
+    return response;
+  } catch (error) {
+    handleError(error);
+  }
+}
+
 export { register, confirmUser, login, logout, clearError, handleError, getUser,
     readFileData, addGear, fetchCategories, getListGears, getGear, addCart, getCarts,
     formatDate, days, checkout, payment, rentGearProductList, dashboardMyListing,
-    dashboardMyRentals, search, addFavourites, getFavourites}
+    dashboardMyRentals, search, addFavourites, getFavourites, deleteFavourite}

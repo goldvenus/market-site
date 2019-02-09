@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
 import moment from 'moment';
-import { handleError, getFavourites, formatDate, days } from '../actions/app.actions';
+import { handleError, getFavourites, formatDate, days, deleteFavourite } from '../actions/app.actions';
 
 class Favourites extends Component {
   constructor() {
@@ -27,6 +27,7 @@ class Favourites extends Component {
           <td width="15%">{listItem.pricePerDay}</td>
           <td width="15%">{listItem.pricePerDay * days(listItem.startDate, listItem.endDate)}</td>
           <td><button className="theme-btn theme-btn-primary theme-btn-link"><Link to={`/gear/${listItem.gearid}`}>Add to cart</Link></button></td>
+          <td><i className="fa fa-times" aria-hidden="true" onClick={async () => { await deleteFavourite({gearid: listItem.gearid}); getFavourites();}}></i></td>
         </tr>
       ))
     )
@@ -60,6 +61,7 @@ class Favourites extends Component {
                 <th>Name & Category</th>
                 <th>Price Per Day</th>
                 <th>Amount</th>
+                <th></th>
                 <th></th>
               </tr>
             </thead>
