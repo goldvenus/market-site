@@ -9,9 +9,9 @@ class LineChart extends Component {
   }
 
   componentDidUpdate() {
-    const { series, minYear, maxYear } = this.props;
+    const { series } = this.props;
 
-    if(series && series.length > 0) {
+    if(series) {
       const COLORS = [
       	'#4dc9f6',
       	'#f67019',
@@ -28,30 +28,29 @@ class LineChart extends Component {
 
       const datasets = [];
 
-      series.forEach((serie) => {
-        serie.data.sort((a, b) => a.year - b.year);
+      for (var serie in series) {
+        if (series.hasOwnProperty(serie)) {
+          	const newColor = COLORS[datasets.length % COLORS.length];
 
-  			const newColor = COLORS[datasets.length % COLORS.length];
+            const dataset = {
+              label: serie,
+              borderColor: newColor,
+          	  backgroundColor: newColor,
+              data: series[serie].map(d => {
+                return {
+                  x: d.label,
+                  y: d.value
+                }
+              }),
+              fill: false,
+            };
 
-        const dataset = {
-          label: serie.name,
-          borderColor: newColor,
-				  backgroundColor: newColor,
-          data: serie.data.map(d => {
-            return {
-              x: d.year,
-              y: d.score
-            }
-          }),
-          fill: false,
-          lineTension: 0
-        };
+            datasets.push(dataset);
+        }
+      }
 
-        datasets.push(dataset);
-      })
-
-      for (let year = minYear; year <= maxYear; year++) {
-        labels.push(year);
+      for (let index = 0; index < series['totalEarnings'].length; index++) {
+        labels.push(series['totalEarnings'][index].label);
       }
 
       this.lineChart = new Chart(this.ctx, {
@@ -74,14 +73,14 @@ class LineChart extends Component {
     					display: true,
     					scaleLabel: {
     						display: true,
-    						labelString: 'Year'
+    						labelString: 'Months'
     					}
     				}],
     				yAxes: [{
     					display: true,
     					scaleLabel: {
     						display: true,
-    						labelString: 'Score'
+    						labelString: 'Earnings'
     					}
     				}]
     			}

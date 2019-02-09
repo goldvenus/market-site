@@ -3,36 +3,67 @@ import chart from '../../../assets/images/chart-1.jpg';
 import {Row, Col} from 'reactstrap';
 import LineChart from './LineChart';
 
-export default function () {
-  const series = [{
-    data: [{
-      year: 2011,
-      score: 500
-    },
-    {
-      year: 2013,
-      score: 1000
-    },
-    {
-      year: 2015,
-      score: 100
-    },
-    ]
+const series = {
+  totalEarnings: [{
+    label: "SEP 2018",
+    value: 2000
   }, {
-    data: [{
-      year: 2014,
-      score: 2200
-    },
-    {
-      year: 2010,
-      score: 100
-    },
-    {
-      year: 2095,
-      score: 8000
-    },
-    ]
-  }]
+    label: "OCT 2018",
+    value: 2500
+  }, {
+    label: "NOV 2018",
+    value: 2500
+  }, {
+    label: "DEC 2018",
+    value: 2800
+  }, {
+    label: "JAN 2019",
+    value: 2500
+  }, {
+    label: "FEB 2019",
+    value: 2800
+  }],
+  monthlyAverage: [{
+    label: "SEP 2018",
+    value: 500
+  }, {
+    label: "OCT 2018",
+    value: 1000
+  }, {
+    label: "NOV 2018",
+    value: 1200
+  }, {
+    label: "DEC 2018",
+    value: 1500
+  }, {
+    label: "JAN 2019",
+    value: 500
+  }, {
+    label: "FEB 2019",
+    value: 2000
+  }],
+  inventory: [{
+    label: "SEP 2018",
+    value: 4000
+  }, {
+    label: "OCT 2018",
+    value: 4500
+  }, {
+    label: "NOV 2018",
+    value: 4800
+  }, {
+    label: "DEC 2018",
+    value: 4500
+  }, {
+    label: "JAN 2019",
+    value: 3800
+  }, {
+    label: "FEB 2019",
+    value: 5000
+  }],
+}
+
+export default function () {
   return (
     <Row className="chart">
       <Col sm="12">
@@ -40,10 +71,7 @@ export default function () {
         <div className="wrraper">
           <Row>
             <Col>
-              {/* This image is temporary.... we are going to have actual chart
-                              Component here */}
-              <img src={chart} />
-              <LineChart series={series} minYear="1950" maxYear="2080" />
+              <LineChart series={series} />
             </Col>
           </Row>
           <Row>

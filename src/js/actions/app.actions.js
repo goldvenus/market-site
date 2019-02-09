@@ -313,14 +313,14 @@ const search = async (brand, product_region) => {
       product_region
     })
 
-    dispatch({
-      type: ACTIONS.SEARCH_RESULTS,
-      payload: response.data
-    })
-
+    if(response) {
+      dispatch({
+        type: ACTIONS.SEARCH_RESULTS,
+        payload: response.data
+      })
+    }
   }
   catch (error) {
-
     handleError(error);
   }
 }
