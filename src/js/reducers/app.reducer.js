@@ -11,8 +11,8 @@ const initialState = {
   gear: null,
   productList :[],
   userListings :[],
-  userRentals :[]
-
+  userRentals :[],
+  searchResults: []
 }
 
 export default (state = initialState, action) => {
@@ -59,6 +59,10 @@ export default (state = initialState, action) => {
 
       case ACTIONS.DASHBOARD_MY_RENTALS:
         draft.userRentals = action.payload;
+        break;
+
+      case ACTIONS.SEARCH_RESULTS:
+        draft.searchResults = action.payload;
         break;
 
       default:

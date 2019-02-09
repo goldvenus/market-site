@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_URL, ACTIONS } from '../constants';
+import { API_URL, API_URL_NEW, ACTIONS } from '../constants';
 import store from '../store';
 import moment from 'moment';
 
@@ -48,6 +48,13 @@ const get = async (url) => {
 
 const post = async (url, data) => {
   return axios.post(getAPIUrl(url), data, axiosConfig()).then((res) => res)
+    .catch(err => {
+      handleError(err.response.data.errorMessage)
+    });
+}
+
+const post_new = async (url, data) => {
+  return axios.post(API_URL_NEW + url, data, axiosConfig()).then((res) => res)
     .catch(err => {
       handleError(err.response.data.errorMessage)
     });
@@ -298,4 +305,24 @@ const confirmUser = async (username, confirmationCode) => {
   }
 }
 
-export { register, confirmUser, login, logout, clearError, handleError, getUser, readFileData, addGear, fetchCategories, getListGears, getGear, addCart, getCarts, formatDate, days, checkout, payment, rentGearProductList, dashboardMyListing, dashboardMyRentals }
+
+const search = async (brand, product_region) => {
+  try {
+    let response = await post_new('showHomePageSearch', {
+      brand,
+      product_region
+    })
+
+    dispatch({
+      type: ACTIONS.SEARCH_RESULTS,
+      payload: response.data
+    })
+
+  }
+  catch (error) {
+
+    handleError(error);
+  }
+}
+
+export { register, confirmUser, login, logout, clearError, handleError, getUser, readFileData, addGear, fetchCategories, getListGears, getGear, addCart, getCarts, formatDate, days, checkout, payment, rentGearProductList, dashboardMyListing, dashboardMyRentals, search}

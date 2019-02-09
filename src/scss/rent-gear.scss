@@ -100,7 +100,7 @@
         .table-view{
           display: flex;
           flex-direction: column;
-          
+
           .fa:first-child{
             padding-top:8px;
             line-height: 0;
@@ -117,78 +117,6 @@
             .fa{
               color: $white;
             }
-          }
-        }
-      }
-      
-      .gear_card_view{
-        border: none;
-        background-color: $gray-light;
-        margin-bottom: 1.5rem;
-        position: relative;
-        transition: all 0.6s ease-in-out;
-        .card-img-top{
-          padding: 10px;
-          height: 200px;
-        }
-        .card-body{
-          padding: 0;
-          text-align: center;
-          .card-title{
-            border-bottom:0.5px solid #ddd;
-            padding: 10px;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            margin: 0;
-          }
-          .card-subtitle{
-            border-bottom:0.5px solid #ddd;
-            font-size: 0.7rem;
-            padding: 15px 10px 10px;
-            font-weight: 100;
-            color:#666;
-            .stars{
-              color:$primary-color;
-            }
-            .fa-map-marker{
-              color:$primary-color;
-            }
-          }
-          .card-text{
-            margin: 0;
-            padding: 15px;
-            .price{
-              font-size: 1.5rem;
-              font-weight: bold;
-            }
-          }
-          .buttons{
-            display: none;
-            position: absolute;
-            bottom: -35px;
-            z-index: 444;
-            left: 0;
-            width:100%;
-            .cart{
-              width:80%;
-              border-radius: 0;
-              background-color: $primary-color;
-              border: none;
-              color:$white;
-            }
-            .fav{
-              width:20%;
-              border: none;
-              border-radius: 0;
-              background-color: #f9ebf0;
-              color: $primary-color;
-            }
-          }
-        }
-        &:hover{
-          transition: all 0.6s ease-in-out;
-          .buttons{
-            display:block;
           }
         }
       }
@@ -379,6 +307,79 @@
           transition: all 0.6s ease-in-out;
         }
       }
+    }
+  }
+}
+
+
+.gear_card_view{
+  border: none;
+  background-color: $gray-light;
+  margin-bottom: 1.5rem;
+  position: relative;
+  transition: all 0.6s ease-in-out;
+  .card-img-top{
+    padding: 10px;
+    height: 200px;
+  }
+  .card-body{
+    padding: 0;
+    text-align: center;
+    .card-title{
+      border-bottom:0.5px solid #ddd;
+      padding: 10px;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+    .card-subtitle{
+      border-bottom:0.5px solid #ddd;
+      font-size: 0.7rem;
+      padding: 15px 10px 10px;
+      font-weight: 100;
+      color:#666;
+      .stars{
+        color:$primary-color;
+      }
+      .fa-map-marker{
+        color:$primary-color;
+      }
+    }
+    .card-text{
+      margin: 0;
+      padding: 15px;
+      .price{
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+    }
+    .buttons{
+      display: none;
+      position: absolute;
+      bottom: -35px;
+      z-index: 444;
+      left: 0;
+      width:100%;
+      .cart{
+        width:80%;
+        border-radius: 0;
+        background-color: $primary-color;
+        border: none;
+        color:$white;
+      }
+      .fav{
+        width:20%;
+        border: none;
+        border-radius: 0;
+        background-color: #f9ebf0;
+        color: $primary-color;
+      }
+    }
+  }
+  &:hover{
+    transition: all 0.6s ease-in-out;
+    .buttons{
+      display:block;
     }
   }
 }

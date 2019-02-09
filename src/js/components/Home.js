@@ -7,7 +7,7 @@ import CustomInput from './CustomInput';
 import ThemeCardOne from './Theme-Cards/ThemeCardOne';
 import ThemeCardTwo from './Theme-Cards/ThemeCardTwo';
 import data from './dummydata';
-import { fetchCategories } from '../actions/app.actions';
+import { fetchCategories, search } from '../actions/app.actions';
 
 
 class Home extends Component {
@@ -39,6 +39,7 @@ class Home extends Component {
 
     this.onSearchTextChange = this.onSearchTextChange.bind(this);
     this.onLocationChange = this.onLocationChange.bind(this);
+    this.onSearch = this.onSearch.bind(this);
   }
 
   componentDidMount(){
@@ -91,6 +92,21 @@ class Home extends Component {
       locationText: suggestion,
       locationTextSuggestions: []
     })
+  }
+
+  onSearch(event) {
+    event.preventDefault();
+    const {searchText, locationText} = this.state;
+
+    if(searchText && locationText) {
+      const res = search(searchText, locationText);
+
+      if(res) {
+        this.props.history.push("/search");
+      }
+    }
+
+    return false;
   }
 
   render() {
@@ -161,7 +177,7 @@ class Home extends Component {
                       }
                     </ListGroup>
                   </div>
-                  <button className="theme-btn theme-btn-filled-white">
+                  <button className="theme-btn theme-btn-filled-white" onClick={this.onSearch }>
                     <span className="fa fa-search"></span>
                   </button>
                 </Form>
