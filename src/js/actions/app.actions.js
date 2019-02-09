@@ -134,6 +134,7 @@ const getUser = async () => {
         });
 
         getCarts();
+        getFavourites();
       }
     }
   } catch (error) {

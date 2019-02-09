@@ -9,9 +9,8 @@ import { clearError } from '../actions/app.actions';
 
 class Layout extends Component {
   render() {
-    const { match, location, history, selectedView, error, carts } = this.props;
+    const { match, location, history, selectedView, error, carts, favourites } = this.props;
     let hideHeader = ['/login', '/register', '/forgotpassword', '/confirm'].indexOf(location.pathname) > -1;
-
     return (
       <div>
         <div className="fixed">
@@ -24,10 +23,15 @@ class Layout extends Component {
             <span>CART</span>
           </div>
           </Link>
+          <Link to="/favourites">
           <div className="fav">
+          {
+            favourites && favourites.Items.length ? <Badge color="light"> {favourites.Items.length} </Badge> : null
+          }
             <span className="fav-icon"></span>
             <span>FAVORITES</span>
           </div>
+          </Link>
         </div>
         {
           hideHeader ? null : <Header />
@@ -51,6 +55,7 @@ class Layout extends Component {
 export default withRouter(connect((store) => {
   return {
     error: store.app.error,
-    carts: store.app.carts
+    carts: store.app.carts,
+    favourites: store.app.favourites,
   };
 })(Layout));

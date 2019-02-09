@@ -65,6 +65,9 @@ export default (state = initialState, action) => {
         draft.searchResults = action.payload;
         break;
 
+      case ACTIONS.FAVOURITES:
+        draft.favourites = action.payload;
+        break;
       default:
         break;
     }

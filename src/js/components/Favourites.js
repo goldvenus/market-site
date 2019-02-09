@@ -17,23 +17,16 @@ class Favourites extends Component {
     const { favourites } = this.props;
 
     return (
-      favourites.map((listItem, index) => (
+      favourites.Items.map((listItem, index) => (
         <tr key={`cart-item-${index}`}>
           <td width="15%">{ listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img src={listItem.numberOfUserImage[0]} className="gear-img"/> : null }</td>
           <td className="gear" width="20%">
             <p >{listItem.brand + ' ' + listItem.model }</p>
             <p className ="theme-text-small text-muted">{listItem.categoryName}</p>
           </td>
-          <td className="rental-period" width="20%">
-            <p>
-              {`${formatDate(listItem.startDate)} to ${formatDate(listItem.endDate)} `}
-            </p>
-            <p className="theme-text-small text-muted">
-              {` ${days(listItem.startDate, listItem.endDate)} days`}
-            </p>
-          </td>
           <td width="15%">{listItem.pricePerDay}</td>
           <td width="15%">{listItem.pricePerDay * days(listItem.startDate, listItem.endDate)}</td>
+          <td><button className="theme-btn theme-btn-primary theme-btn-link"><Link to={`/gear/${listItem.gearid}`}>Add to cart</Link></button></td>
         </tr>
       ))
     )
@@ -54,8 +47,8 @@ class Favourites extends Component {
         <div className="cart-header">
           <div className="theme-page-title">Favourites</div>
           <div className="flex-row">
-            <button className="theme-btn theme-btn-secondery">Favourites</button>
-            <button className="theme-btn theme-btn-primary theme-btn-link"><Link to="/checkout">Continue</Link></button>
+            <button className="theme-btn theme-btn-secondery"><Link to="/">Continue Shopping</Link></button>
+            <button className="theme-btn theme-btn-primary theme-btn-link"><Link to="/cart">Cart</Link></button>
           </div>
         </div>
 
@@ -65,9 +58,9 @@ class Favourites extends Component {
               <tr>
                 <th></th>
                 <th>Name & Category</th>
-                <th>Rental Period</th>
                 <th>Price Per Day</th>
                 <th>Amount</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
