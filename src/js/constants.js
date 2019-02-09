@@ -14,6 +14,7 @@ const ACTIONS = {
   DASHBOARD_MY_LISTINGS :'dashboardMyListing',
   DASHBOARD_MY_RENTALS :'dashboardMyRentals',
   SEARCH_RESULTS :'searchResults',
-  FAVOURITES: 'favourites'
+  FAVOURITES: 'favourites',
+  NEW_ARRIVALS: 'newArrivals'
 }
 export { API_URL, ACTIONS, API_URL_NEW }

@@ -12,7 +12,8 @@ const initialState = {
   productList :[],
   userListings :[],
   userRentals :[],
-  searchResults: []
+  searchResults: [],
+  newArrivals: []
 }
 
 export default (state = initialState, action) => {
@@ -67,6 +68,9 @@ export default (state = initialState, action) => {
 
       case ACTIONS.FAVOURITES:
         draft.favourites = action.payload;
+        break;
+      case ACTIONS.NEW_ARRIVALS:
+        draft.newArrivals = action.payload;
         break;
       default:
         break;

@@ -7,7 +7,7 @@ import CustomInput from './CustomInput';
 import ThemeCardOne from './Theme-Cards/ThemeCardOne';
 import ThemeCardTwo from './Theme-Cards/ThemeCardTwo';
 import data from './dummydata';
-import { fetchCategories, search } from '../actions/app.actions';
+import { fetchCategories, search, newArrivals } from '../actions/app.actions';
 
 
 class Home extends Component {
@@ -44,6 +44,7 @@ class Home extends Component {
 
   componentDidMount(){
     fetchCategories();
+    newArrivals();
   }
 
   onSearchTextChange(value) {
@@ -344,6 +345,7 @@ class Home extends Component {
             </Row>
           </Container> */}
 
+          { cat.newArrivals && cat.newArrivals.Items ?
           <div className="new_arrival">
             <div className="section-overlay">
               <Container>
@@ -361,7 +363,7 @@ class Home extends Component {
                   <Col sm={{ size: 8, offset: 1 }}>
                     <Row >
                       {
-                        data.Gear.map((item, index) => {
+                        cat.newArrivals.Items.map((item, index) => {
                           return <Col sm="6" key={index}>
                             <ThemeCardOne Gear={item} />
                           </Col>
@@ -372,7 +374,8 @@ class Home extends Component {
                 </Row>
               </Container>
             </div>
-          </div>
+          </div> : null
+        }
           <div className="stories">
             <Container>
               <Row>

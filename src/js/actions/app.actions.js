@@ -367,7 +367,24 @@ const deleteFavourite = async (data) => {
   }
 }
 
+
+const newArrivals = async () => {
+  try {
+    let response = await get_new('viewNewArrivalGears');
+
+    if(response) {
+      dispatch({
+        type: ACTIONS.NEW_ARRIVALS,
+        payload: response.data
+      });
+    }
+  }
+  catch (error) {
+    handleError(error);
+  }
+}
+
 export { register, confirmUser, login, logout, clearError, handleError, getUser,
     readFileData, addGear, fetchCategories, getListGears, getGear, addCart, getCarts,
     formatDate, days, checkout, payment, rentGearProductList, dashboardMyListing,
-    dashboardMyRentals, search, addFavourites, getFavourites, deleteFavourite}
+    dashboardMyRentals, search, addFavourites, getFavourites, deleteFavourite, newArrivals}
