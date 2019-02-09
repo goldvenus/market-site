@@ -15,6 +15,7 @@ import ListGear from "../components/ListGear";
 import RentGear from "../components/Rent Gear/RentGear";
 import RegisterConfirm from "../components/RegisterConfirm";
 import SearchResults from "../components/SearchResults";
+import Favourites from "../components/Favourites";
 
 export default (
   <div className="app-content">
@@ -34,5 +35,6 @@ export default (
     <Route path='/rentgear' component={RentGear} />
     <Route path='/confirm' component={RegisterConfirm} />
     <Route path='/search' component={SearchResults} />
+    <Route path='/favourites' component={Favourites} />
   </div>
 );

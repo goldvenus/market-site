@@ -46,6 +46,13 @@ const get = async (url) => {
     });
 }
 
+const get_new = async (url) => {
+  return await axios.get(API_URL_NEW + url, axiosConfig()).then((res) => res)
+    .catch(err => {
+      handleError(err.response && err.response.data.errorMessage)
+    });
+}
+
 const post = async (url, data) => {
   return axios.post(getAPIUrl(url), data, axiosConfig()).then((res) => res)
     .catch(err => {
@@ -325,4 +332,34 @@ const search = async (brand, product_region) => {
   }
 }
 
-export { register, confirmUser, login, logout, clearError, handleError, getUser, readFileData, addGear, fetchCategories, getListGears, getGear, addCart, getCarts, formatDate, days, checkout, payment, rentGearProductList, dashboardMyListing, dashboardMyRentals, search}
+const addFavourites = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let response = await post_new('addUserFavouriteGear', data);
+      resolve(response);
+    } catch (error) {
+      handleError(error);
+      reject(error);
+    }
+  });
+}
+
+const getFavourites = async () => {
+  try {
+    let response = await get_new('viewUserFavouriteGear');
+
+    if(response) {
+      dispatch({
+        type: ACTIONS.FAVOURITES,
+        payload: response.data
+      });
+    }
+  }
+  catch (error) {
+    handleError(error);
+  }
+}
+export { register, confirmUser, login, logout, clearError, handleError, getUser,
+    readFileData, addGear, fetchCategories, getListGears, getGear, addCart, getCarts,
+    formatDate, days, checkout, payment, rentGearProductList, dashboardMyListing,
+    dashboardMyRentals, search, addFavourites, getFavourites}
