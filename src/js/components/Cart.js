@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
 import moment from 'moment';
-import { handleError, getCarts, formatDate, days } from '../actions/app.actions';
+import { handleError, getCarts, formatDate, days, deleteCartItem } from '../actions/app.actions';
 
 class Cart extends Component {
   constructor() {
@@ -34,6 +34,8 @@ class Cart extends Component {
           </td>
           <td width="15%">{listItem.pricePerDay}</td>
           <td width="15%">{listItem.pricePerDay * days(listItem.startDate, listItem.endDate)}</td>
+          <td><i className="fa fa-times" aria-hidden="true" onClick={async () => { await deleteCartItem({gearid: listItem.gearid, orderid: listItem.orderid}); getCarts();}}></i></td>
+
         </tr>
       ))
     )
@@ -68,6 +70,7 @@ class Cart extends Component {
                 <th>Rental Period</th>
                 <th>Price Per Day</th>
                 <th>Amount</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>

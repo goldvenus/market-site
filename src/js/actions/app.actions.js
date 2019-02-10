@@ -384,7 +384,17 @@ const newArrivals = async () => {
   }
 }
 
+
+const deleteCartItem = async (data) => {
+  try {
+    let response = await post('deleteGearFromCart', data);
+  }
+  catch (error) {
+    handleError(error);
+  }
+}
+
 export { register, confirmUser, login, logout, clearError, handleError, getUser,
     readFileData, addGear, fetchCategories, getListGears, getGear, addCart, getCarts,
     formatDate, days, checkout, payment, rentGearProductList, dashboardMyListing,
-    dashboardMyRentals, search, addFavourites, getFavourites, deleteFavourite, newArrivals}
+    dashboardMyRentals, search, addFavourites, getFavourites, deleteFavourite, newArrivals, deleteCartItem}
