@@ -19,11 +19,11 @@ class Footer extends Component {
                   <button className="theme-btn theme-btn-primary">Subscribe</button>
                 </div>
               </Col>
-              <Col sm="3" className="text-center">
+              <Col sm="3" className="text-xs-center mt-xs">
                 <h3 className="theme-text-primary">12233</h3>
                 <p>Community Members</p>
               </Col>
-              <Col sm="3" className="text-center">
+              <Col sm="3" className="text-xs-center">
                 <h3 className="theme-text-primary">2143</h3>
                 <p>Products</p>
               </Col>
@@ -34,10 +34,10 @@ class Footer extends Component {
           <Container>
             <Row>
               <Col sm="3">
-                <img src={logo} alt="logo"></img>
+                <img src={logo} alt="logo" className="logo"></img>
               </Col>
               <Col sm="5">
-                <ul className="nav">
+                <ul className="nav text-xs-right">
                   <li className="nav-item">
                     <Link className="nav-link" to="#">About us</Link>
                   </li>

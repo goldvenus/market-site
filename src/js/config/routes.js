@@ -16,6 +16,9 @@ import RentGear from "../components/Rent Gear/RentGear";
 import RegisterConfirm from "../components/RegisterConfirm";
 import SearchResults from "../components/SearchResults";
 import Favourites from "../components/Favourites";
+import Partner from "../components/partners";
+import FAQ from "../components/FAQ";
+
 
 export default (
   <div className="app-content">
@@ -36,5 +39,8 @@ export default (
     <Route path='/confirm' component={RegisterConfirm} />
     <Route path='/search' component={SearchResults} />
     <Route path='/favourites' component={Favourites} />
+    <Route path='/partners' component={Partner}/>
+    <Route path='/FAQ' component={FAQ}/>
+
   </div>
 );

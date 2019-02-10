@@ -41,8 +41,8 @@ const MyListingItem = ({ listItem }) => (
       </p>
     </td>
     <td width="20%">
-      <img src={listItem.clients_img} className="landrord-img" />
-      <span className="ml-1 "> {listItem.clients_name} </span>
+      <img src={listItem.clientDP} className="landrord-img" />
+      <span className="ml-1 "> {listItem.clientName} </span>
     </td>
     <td width="15%">{`${listItem.pricePerDay} $`} </td>
     <td width="15%">{`${listItem.replacementValue} $`}</td>
@@ -52,30 +52,29 @@ const days = (d1, d2) => { return moment(d2).diff(moment(d1) , 'days')};
 
 export default class MyListings extends React.Component {
   constructor() {
-
+    
     super();
     // Data set of random length
     this.pageSize = 3;
     this.pagesCount = 0;
-
+    
     this.state = {
       currentPage: 0
     };
-
+    
   }
   handleClick(e, index) {
-
+    
     e.preventDefault();
-
+    
     this.setState({
       currentPage: index
     });
-
+    
   }
   render() {
     const { currentPage} = this.state;
     const { list} = this.props;
-    // console.log(list);
 
     this.pagesCount = Math.ceil(list ? list.length / this.pageSize : "");
     return (

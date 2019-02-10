@@ -178,3 +178,25 @@
     }
   }
 }
+
+@media(max-width :500px){
+  .theme-navbar{
+    padding-top :10px;
+    padding-left: 0;
+  }
+  .theme-navbar .theme-nav-left {
+    // padding-left:20px;
+  }
+  .theme-navbar .theme-nav-right {
+    flex-wrap: nowrap;
+    justify-content: right;
+    margin :0 auto;
+    padding :0;
+    padding-top :10px;
+    // padding-bottom :20px;
+    border-top: 1px solid #FA6691;
+    li a{
+      padding: .3rem;  
+    }
+  }
+}

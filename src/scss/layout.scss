@@ -33,3 +33,9 @@
     background-repeat: no-repeat;
   }
 }
+
+@media(max-width : 500px){
+  .fixed{
+    display: none;
+  }
+}

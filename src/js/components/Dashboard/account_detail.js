@@ -21,12 +21,11 @@ export default function(){
                       <Input />
                       <FormFeedback></FormFeedback>
                     </FormGroup>
-                    <FormGroup>
+                    {/* <FormGroup>
                       <Label for="Email" className="text-muted theme-text-small">Email</Label>
-                      {/*  pass valid/invalid prop  */}
                       <Input/>
                       <FormFeedback></FormFeedback>
-                    </FormGroup>
+                    </FormGroup> */}
                     <FormGroup>
                       <Label for="phone" className="text-muted theme-text-small">Phone</Label>
                       <Input />

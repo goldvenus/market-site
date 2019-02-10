@@ -41,4 +41,9 @@ footer{
       color: $secondary-light-color;
     }
   }
+  @media(max-width: 500px){
+    .logo{
+      display: none;
+    }
+  }
 }

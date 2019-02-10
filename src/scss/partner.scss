@@ -1,0 +1,14 @@
+.partner{
+  .partner-head{
+    margin: 30px 0 30px;
+    text-align: center;
+    nav{
+      display: inline-flex;
+    }
+  }
+  .partner-body{
+    .card{
+      background-color: $gray-light;
+    }
+  }
+}

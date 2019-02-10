@@ -3,7 +3,7 @@ import { Card, CardTitle, CardText, CardImg, CardImgOverlay, CardFooter } from '
 
 const ThemeCardTwo = ({ story: { story_img, auth_name, auth_img, views, story_title, story_desc } }) => {
   return (
-    <div>
+    <div className="mb-3">
       <Card inverse className="theme-2">
         <div className="wrraper">
           <CardImg width="100%" src={story_img} alt="Card image cap" />

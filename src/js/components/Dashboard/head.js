@@ -4,7 +4,6 @@ import {Row, Col} from 'reactstrap';
 // import { getMaxListeners } from 'cluster';
 
 export default function(props){
-  console.log(props.user);
   return(
     props.user ?
       <Row className="user-detail">

@@ -22,8 +22,8 @@ const MyRentalItem = ({ rentItem }) => (
         </p>
       </td>
       <td width="20%">
-        <img src={rentItem.landrord_img} className="landrord-img" />
-        <span className="ml-1 "> {rentItem.landrord_name} </span>
+      <img src={rentItem.clientDP} className="landrord-img" />
+      <span className="ml-1 "> {rentItem.clientName} </span>
       </td>
       <td width="15%">{`${rentItem.pricePerDay} $`}</td>
       <td width="15%">{`${rentItem.replacementValue} $`}</td>
@@ -43,11 +43,10 @@ export default class MyRentals extends React.Component {
       currentPage: 0
     };
 
+    
   }
   handleClick(e, index) {
-
     e.preventDefault();
-
     this.setState({
       currentPage: index
     });
@@ -55,8 +54,9 @@ export default class MyRentals extends React.Component {
   }
   render() {
     const { list } = this.props;
+    console.log(list);
     const { currentPage } = this.state;
-
+    
     this.pagesCount = Math.ceil(list ? list.length / this.pageSize : "");
     return (
       <Row className="my-listing">
