@@ -394,7 +394,17 @@ const deleteCartItem = async (data) => {
   }
 }
 
+const deleteGear = async (data) => {
+  try {
+    let response = await post_new('deleteUserGear', data);
+  }
+  catch (error) {
+    handleError(error);
+  }
+}
+
 export { register, confirmUser, login, logout, clearError, handleError, getUser,
     readFileData, addGear, fetchCategories, getListGears, getGear, addCart, getCarts,
     formatDate, days, checkout, payment, rentGearProductList, dashboardMyListing,
-    dashboardMyRentals, search, addFavourites, getFavourites, deleteFavourite, newArrivals, deleteCartItem}
+    dashboardMyRentals, search, addFavourites, getFavourites, deleteFavourite, newArrivals,
+    deleteCartItem, deleteGear}

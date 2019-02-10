@@ -6,7 +6,7 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import { getListGears } from '../actions/app.actions';
+import { getListGears, deleteGear } from '../actions/app.actions';
 
 const ListGearItem =
   ({ listItem: { gearid, model = '', brand = '', categoryName = '', numberOfUserImage, pricePerDay, orderStatus: status } }) => {
@@ -28,8 +28,8 @@ const ListGearItem =
       <td width="15%">{ pricePerDay }</td>
       <td width="15%">{ pricePerDay }</td>
       <td width="10%">
-        <span className="edit" ></span>
-        <span className="close" ></span>
+        { /* <span className="edit" ></span> */ }
+        <span className="close" onClick={async () => { await deleteGear({gearid }); getListGears();}}></span>
       </td>
     </tr>
   }
