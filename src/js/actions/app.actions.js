@@ -23,6 +23,28 @@ const axiosConfig = () => {
   return config;
 }
 
+const tokenAxiosConfig = () => {
+  let config = {
+    'headers': {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  if (localStorage.accessToken) {
+    config['headers']['AccessToken'] = localStorage.accessToken;
+  }
+
+  if (localStorage.refreshToken) {
+    config['headers']['RefreshToken'] = localStorage.refreshToken;
+  }
+
+  if (localStorage.idToken) {
+    config['headers']['Authorization'] = localStorage.idToken;
+  }
+
+  return config;
+}
+
 const getAPIUrl = (url) => API_URL + url;
 
 const handleError = (error) => {
@@ -119,22 +141,43 @@ const login = async (data) => {
   }
 }
 
+const refreshToken = async () => {
+  try {
+    let response = await axios.get(getAPIUrl('getUserRefreshTokens'), tokenAxiosConfig());
+
+    if (response && response.data) {
+      const { accessToken, idToken, refreshToken } = response.data;
+      localStorage.accessToken = accessToken.jwtToken;
+      localStorage.idToken = idToken.jwtToken;
+      localStorage.refreshToken = refreshToken.token;
+
+      return response;
+    }
+  }
+  catch (error) {
+    // handleError(error);
+  }
+}
+
 const getUser = async () => {
   try {
     if (localStorage.accessToken) {
-      let response = await get('getUserInfo');
-      dispatch({
-        type: ACTIONS.ERROR,
-        payload: ""
-      });
-      if (response && response.data) {
+      const token = await refreshToken();
+      if(token) {
+        let response = await get('getUserInfo');
         dispatch({
-          type: ACTIONS.LOGGED_IN,
-          payload: response.data.userAttributes
+          type: ACTIONS.ERROR,
+          payload: ""
         });
+        if (response && response.data) {
+          dispatch({
+            type: ACTIONS.LOGGED_IN,
+            payload: response.data.userAttributes
+          });
 
-        getCarts();
-        getFavourites()
+          getCarts();
+          getFavourites()
+        }
       }
     }
   } catch (error) {

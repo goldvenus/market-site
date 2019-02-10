@@ -80,7 +80,7 @@ class LineChart extends Component {
     					display: true,
     					scaleLabel: {
     						display: true,
-    						labelString: 'Earnings'
+    						labelString: 'Money'
     					}
     				}]
     			}

@@ -39,6 +39,9 @@
         background-color: $gray-light;
         padding:3rem;
         text-align: center;
+        .line-chart {
+          background-color: $white;
+        }
         img{
           width:100%;
         }

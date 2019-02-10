@@ -69,7 +69,7 @@ export default function () {
       <Col sm="12">
         <h4 className="tab-title">Dashboard</h4>
         <div className="wrraper">
-          <Row>
+          <Row className="line-chart">
             <Col>
               <LineChart series={series} />
             </Col>
