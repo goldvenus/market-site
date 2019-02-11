@@ -55,7 +55,7 @@ class Login extends Component {
               <span className="fab fa-twitter"></span>
               Twitter
             </button> */}
-            <button className="theme-btn btn-social btn-google-plus">
+            <button className="theme-btn btn-social btn-google-plus" onClick={() => { window.location.href = FACEBOOK_LOGIN_URL }}>
               <span className="fab fa-google-plus-g"></span>
               Google +
             </button>
