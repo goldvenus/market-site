@@ -55,7 +55,7 @@ class Footer extends Component {
                   </li>
                 </ul>
               </Col>
-              <Col sm="4" className="text-right d-flex align-items-center justify-content-end">
+              <Col sm="4" className="d-flex align-items-center justify-content-center justify-content-sm-end">
                 <button className="theme-btn theme-btn-secondery">Login</button> &nbsp;
                 <button className="theme-btn theme-btn-primary">Register</button>
               </Col>

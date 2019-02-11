@@ -226,125 +226,101 @@ class Home extends Component {
               </div>
               <div className="block-bg"></div>
             </div>
-          </Container>
-          <div className="clearfix mb-4"></div>
-          {/* <Container>
-            <Row className="theme-row">
-              <div sm="4" className="theme-col theme-col-1">
-                <div className="wrapper">
-                  <p id="camera"></p>
-                  <div className="desc">
-                    <span>Camera</span>
-                    <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/cameras" >View</Link>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div sm="4" className="theme-col theme-col-2">
-                <div className="wrapper">
 
-                  <p id="computer_electronic"></p>
-                  <div className="desc">
-                    <span>Computer & Electronics</span>
-                    <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/computer&electronics" >View</Link>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div sm="4" className="theme-col theme-col-3">
-                <div className="wrapper">
-                  <p id="drones"></p>
-                  <div className="desc">
-                    <span>Drones</span>
-                    <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/drones" >View</Link>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </Row>
-            <Row className="theme-row">
-              <Col sm="4" className="theme-col">
+            <div className="block-el">
+              <div className="block-content">
                 <p id="lenses"></p>
-                <div>
-                  <span>Lenses</span>
+                <div className="desc">
+                  <span>lenses</span>
                   <button className="theme-btn theme-btn-outline-white">
-                    <Link to="/Lenses" >View</Link>
+                    <Link to="/lenses" >View</Link>
                   </button>
                 </div>
-              </Col>
-              <Col sm="4" className="theme-col">
+              </div>
+              <div className="block-bg"></div>
+            </div>
+
+            <div className="block-el">
+              <div className="block-content">
                 <p id="lighting"></p>
-                <div>
-                  <span>Lighting</span>
+                <div className="desc">
+                  <span>lighting</span>
                   <button className="theme-btn theme-btn-outline-white">
-                    <Link to="/Lighting" >View</Link>
+                    <Link to="/lighting" >View</Link>
                   </button>
                 </div>
-              </Col>
-              <Col sm="4" className="theme-col">
+              </div>
+              <div className="block-bg"></div>
+            </div>
+
+            <div className="block-el">
+              <div className="block-content">
                 <p id="audio"></p>
-                <div>
+                <div className="desc">
                   <span>Audio</span>
                   <button className="theme-btn theme-btn-outline-white">
-                    <Link to="/Audio" >View</Link>
+                    <Link to="/audio" >View</Link>
                   </button>
                 </div>
-              </Col>
-            </Row>
-            <Row className="theme-row">
-              <Col sm="4" className="theme-col">
+              </div>
+              <div className="block-bg"></div>
+            </div>
+
+            <div className="block-el">
+              <div className="block-content">
                 <p id="tripods_stabilization_rigs"></p>
-                <div>
+                <div className="desc">
                   <span>Tripods Stabilization & Rigs</span>
                   <button className="theme-btn theme-btn-outline-white">
                     <Link to="/TS&R" >View</Link>
                   </button>
                 </div>
-              </Col>
-              <Col sm="4" className="theme-col">
+              </div>
+              <div className="block-bg"></div>
+            </div>
+
+            <div className="block-el">
+              <div className="block-content">
                 <p id="camera_accessories"></p>
-                <div>
+                <div className="desc">
                   <span>Camera Accessories</span>
                   <button className="theme-btn theme-btn-outline-white">
-                    <Link to="/camera_accessories">View</Link>
+                    <Link to="/camera_accessories" >View</Link>
                   </button>
                 </div>
-              </Col>
-              <Col sm="4" className="theme-col">
+              </div>
+              <div className="block-bg"></div>
+            </div>
+
+            <div className="block-el">
+              <div className="block-content">
                 <p id="studio_spaces"></p>
-                <div>
+                <div className="desc">
                   <span>Studio Spaces</span>
                   <button className="theme-btn theme-btn-outline-white">
                     <Link to="/studio_spaces" >View</Link>
                   </button>
                 </div>
-              </Col>
-            </Row>
-            <Row className="theme-row">
-              <Col sm="4" className="theme-col">
+              </div>
+              <div className="block-bg"></div>
+            </div>
+
+            <div className="block-el">
+              <div className="block-content">
                 <p id="office_spaces"></p>
-                <div>
+                <div className="desc">
                   <span>Office Spaces</span>
                   <button className="theme-btn theme-btn-outline-white">
                     <Link to="/office_spaces" >View</Link>
                   </button>
                 </div>
-              </Col>
-              <Col sm="4" className="theme-col">
-                <p id="others"></p>
-                <div>
-                  <span>others</span>
-                  <button className="theme-btn theme-btn-outline-white">
-                    <Link to="/others" >View</Link>
-                  </button>
-                </div>
-              </Col>
-            </Row>
-          </Container> */}
+              </div>
+              <div className="block-bg"></div>
+            </div>
+          <div className="clearfix mb-4"></div>
 
+          </Container>
+          
           { cat.newArrivals && cat.newArrivals.Items ?
           <div className="new_arrival">
             <div className="section-overlay">

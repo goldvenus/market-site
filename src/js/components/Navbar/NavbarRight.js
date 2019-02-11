@@ -41,7 +41,12 @@ class NavbarRight extends Component {
             </DropdownToggle>
             <DropdownMenu>
               <DropdownItem><Link to="/dashboard">My Account</Link></DropdownItem>
-              <DropdownItem onClick={logout}>Logout</DropdownItem>
+              <DropdownItem onClick={
+                ()=>{
+                  logout();
+                  this.props.history.push("/");
+                }
+                }>Logout</DropdownItem>
             </DropdownMenu>
           </ButtonDropdown>
         </li> : <li>

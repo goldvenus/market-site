@@ -86,28 +86,30 @@ export default class MyListings extends React.Component {
           </div>
           <div className="wrraper">
             <React.Fragment>
-              <Table className="listing-data-slice" >
-                <thead>
-                  <tr className="text-muted theme-text-bold">
-                    <th></th>
-                    <th>Name & Category</th>
-                    <th>Rental Period</th>
-                    <th>Client</th>
-                    <th>Price Per day</th>
-                    <th>A Month</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {list ? list
-                    .slice(
-                      currentPage * this.pageSize,
-                      (currentPage + 1) * this.pageSize
-                    )
-                    .map((data, i) =>
-                      <MyListingItem listItem={data} key={i} />
-                  ) : ""}
-                </tbody>
-              </Table>
+              <div className="table-responsive">              
+                <Table className="listing-data-slice" >
+                  <thead>
+                    <tr className="text-muted theme-text-bold">
+                      <th></th>
+                      <th>Name & Category</th>
+                      <th>Rental Period</th>
+                      <th>Client</th>
+                      <th>Price Per day</th>
+                      <th>A Month</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {list ? list
+                      .slice(
+                        currentPage * this.pageSize,
+                        (currentPage + 1) * this.pageSize
+                      )
+                      .map((data, i) =>
+                        <MyListingItem listItem={data} key={i} />
+                    ) : ""}
+                  </tbody>
+                </Table>
+              </div>
               <Pagination aria-label="Page navigation example">
 
                 <PaginationItem disabled={currentPage <= 0}>

@@ -45,5 +45,9 @@ footer{
     .logo{
       display: none;
     }
+    .email , .phone{
+      justify-content : center  !important;
+      margin-top: 10px;
+    }
   }
 }
