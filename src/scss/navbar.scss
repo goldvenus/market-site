@@ -184,9 +184,6 @@
     padding-top :10px;
     padding-left: 0;
   }
-  .theme-navbar .theme-nav-left {
-    // padding-left:20px;
-  }
   .theme-navbar .theme-nav-right {
     flex-wrap: nowrap;
     justify-content: right;
@@ -197,6 +194,21 @@
     border-top: 1px solid #FA6691;
     li a{
       padding: .3rem;  
+    }
+  }
+  @media(max-width: 500px){
+    .theme-nav-right {
+      z-index: 0 !important;
+    }
+    .theme-menu {
+    overflow: none;
+    background-color: #f82462;
+    height : 0 !important;
+    min-height : 100vh;
+    padding :4rem 1rem 0 !important;
+    }
+    .theme-menu-bg{
+      transform: none !important;
     }
   }
 }
