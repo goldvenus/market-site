@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import CustomInput from './CustomInput';
 import AuthSideMenu from './AuthSideMenu';
 import { login } from '../actions/app.actions';
+import {FACEBOOK_LOGIN_URL } from '../constants';
 
 class Login extends Component {
   constructor(props) {
@@ -46,15 +47,15 @@ class Login extends Component {
         <div className="login">
           <h1>Login</h1>
           <div className="social-buttons">
-            <button className="theme-btn btn-social btn-fb">
+            <button className="theme-btn btn-social btn-fb" onClick={() => { window.location.href = FACEBOOK_LOGIN_URL }}>
               <span className="fab fa-facebook-f"></span>
               Facebook
             </button>
-            <button className="theme-btn btn-social btn-twitter">
+            {/*<button className="theme-btn btn-social btn-twitter">
               <span className="fab fa-twitter"></span>
               Twitter
-            </button>
-            <button className="theme-btn btn-social btn-google-plus">
+            </button> */}
+            <button className="theme-btn btn-social btn-google-plus" onClick={() => { window.location.href = FACEBOOK_LOGIN_URL }}>
               <span className="fab fa-google-plus-g"></span>
               Google +
             </button>

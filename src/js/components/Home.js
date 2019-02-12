@@ -7,7 +7,7 @@ import CustomInput from './CustomInput';
 import ThemeCardOne from './Theme-Cards/ThemeCardOne';
 import ThemeCardTwo from './Theme-Cards/ThemeCardTwo';
 import data from './dummydata';
-import { fetchCategories, search, newArrivals } from '../actions/app.actions';
+import { fetchCategories, search, newArrivals, socialLogin } from '../actions/app.actions';
 
 
 class Home extends Component {
@@ -45,6 +45,23 @@ class Home extends Component {
   componentDidMount(){
     fetchCategories();
     newArrivals();
+
+    //facebook login
+    let href = window.location.href;
+    if(href.indexOf("id_token") > 0) {
+      let token1 = href.split("#")[1].split("&")[0];
+      let token2 = href.split("#")[1].split("&")[1];
+      let idToken, accessToken;
+      if(token1.indexOf("id_token") > 0) {
+        idToken = token1.replace("id_token=", "");
+        accessToken = token2.replace("access_token=", "");
+      } else {
+        accessToken = token1.replace("access_token=", "");
+        idToken = token2.replace("id_token=", "");
+      }
+
+      socialLogin(idToken, accessToken);
+    }
   }
 
   onSearchTextChange(value) {
@@ -320,7 +337,7 @@ class Home extends Component {
           <div className="clearfix mb-4"></div>
 
           </Container>
-          
+
           { cat.newArrivals && cat.newArrivals.Items ?
           <div className="new_arrival">
             <div className="section-overlay">

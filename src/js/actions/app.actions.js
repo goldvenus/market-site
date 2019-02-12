@@ -446,8 +446,35 @@ const deleteGear = async (data) => {
   }
 }
 
+const socialLogin = async (idToken, accessToken) => {
+  try {
+    localStorage.idToken = idToken;
+    localStorage.accessToken = accessToken;
+
+    let response = await get_new('socialProviderTokenExchange');
+
+    if (response && response.data) {
+      dispatch({
+        type: ACTIONS.LOGGED_IN,
+        payload: response.data.userAttributes
+      });
+
+      // store the token
+      const { accessToken, idToken, refreshToken } = response.data.tokens;
+      localStorage.accessToken = accessToken;
+      localStorage.idToken = idToken;
+      localStorage.refreshToken = refreshToken;
+
+      return response;
+    }
+  }
+  catch (error) {
+    handleError(error);
+  }
+}
+
 export { register, confirmUser, login, logout, clearError, handleError, getUser,
     readFileData, addGear, fetchCategories, getListGears, getGear, addCart, getCarts,
     formatDate, days, checkout, payment, rentGearProductList, dashboardMyListing,
     dashboardMyRentals, search, addFavourites, getFavourites, deleteFavourite, newArrivals,
-    deleteCartItem, deleteGear}
+    deleteCartItem, deleteGear, socialLogin}
