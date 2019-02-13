@@ -21,6 +21,7 @@ const ACTIONS = {
   DASHBOARD_MY_RENTALS :'dashboardMyRentals',
   SEARCH_RESULTS :'searchResults',
   FAVOURITES: 'favourites',
-  NEW_ARRIVALS: 'newArrivals'
+  NEW_ARRIVALS: 'newArrivals',
+  DASHBOARD: 'dashboard',
 }
 export { API_URL, ACTIONS, API_URL_NEW, FACEBOOK_LOGIN_URL }

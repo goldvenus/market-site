@@ -34,10 +34,10 @@ const MyListingItem = ({ listItem }) => (
     </td>
     <td className="rental-period" width="20%">
       <p>
-        {`${listItem.orderDate.split(' ')[0]} to ${listItem.endDate.split(' ')[0]} `}
+        {`${listItem.startDate.split(' ')[0]} to ${listItem.endDate.split(' ')[0]} `}
       </p>
       <p className="theme-text-small text-muted">
-        {` ${days(listItem.orderDate, listItem.endDate)} days`}
+        {` ${listItem.totalRentedNumerOfDay} days`}
       </p>
     </td>
     <td width="20%">
@@ -45,32 +45,32 @@ const MyListingItem = ({ listItem }) => (
       <span className="ml-1 "> {listItem.clientName} </span>
     </td>
     <td width="15%">{`${listItem.pricePerDay} $`} </td>
-    <td width="15%">{`${listItem.replacementValue} $`}</td>
+    <td width="15%">{`${listItem.totalRentedNumerOfDay * listItem.pricePerDay} $`}</td>
   </tr>
 )
 const days = (d1, d2) => { return moment(d2).diff(moment(d1) , 'days')};
 
 export default class MyListings extends React.Component {
   constructor() {
-    
+
     super();
     // Data set of random length
     this.pageSize = 3;
     this.pagesCount = 0;
-    
+
     this.state = {
       currentPage: 0
     };
-    
+
   }
   handleClick(e, index) {
-    
+
     e.preventDefault();
-    
+
     this.setState({
       currentPage: index
     });
-    
+
   }
   render() {
     const { currentPage} = this.state;
@@ -86,7 +86,7 @@ export default class MyListings extends React.Component {
           </div>
           <div className="wrraper">
             <React.Fragment>
-              <div className="table-responsive">              
+              <div className="table-responsive">
                 <Table className="listing-data-slice" >
                   <thead>
                     <tr className="text-muted theme-text-bold">
@@ -95,7 +95,7 @@ export default class MyListings extends React.Component {
                       <th>Rental Period</th>
                       <th>Client</th>
                       <th>Price Per day</th>
-                      <th>A Month</th>
+                      <th>Amount</th>
                     </tr>
                   </thead>
                   <tbody>

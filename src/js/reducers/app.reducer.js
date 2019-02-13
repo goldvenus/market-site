@@ -13,7 +13,8 @@ const initialState = {
   userListings :[],
   userRentals :[],
   searchResults: [],
-  newArrivals: []
+  newArrivals: [],
+  dashboard: {},
 }
 
 export default (state = initialState, action) => {
@@ -71,6 +72,9 @@ export default (state = initialState, action) => {
         break;
       case ACTIONS.NEW_ARRIVALS:
         draft.newArrivals = action.payload;
+        break;
+      case ACTIONS.DASHBOARD:
+        draft.dashboard = action.payload;
         break;
       default:
         break;

@@ -7,7 +7,7 @@ import Chart from './chart';
 import AccountDetail from './account_detail';
 import MyListings from './listing';
 import MyRental from './rental';
-import { dashboardMyListing, dashboardMyRentals} from '../../actions/app.actions';
+import { dashboardMyListing, dashboardMyRentals, viewUserDashboard} from '../../actions/app.actions';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -21,6 +21,7 @@ class Dashboard extends Component {
   componentDidMount(){
     dashboardMyListing();
     dashboardMyRentals();
+    viewUserDashboard();
   }
 
   toggle(tab) {
@@ -33,7 +34,17 @@ class Dashboard extends Component {
   render() {
     const Rental_Items = this.props.userRentals.Items;
     const Listing_Items = this.props.userListings.Items;
-    const { user, isAuthenticated} = this.props;
+    const { user, isAuthenticated, dashboard } = this.props;
+    let series;
+
+    if(dashboard && dashboard.monthlyTotalEarning) {
+      series = {
+        totalEarnings: dashboard.monthlyTotalEarning,
+        monthlyAverage: dashboard.monthlyTotalAvarageEarning,
+        inventory: dashboard.monthlyProductsValue
+      }
+    }
+
     return (
       <div className="dashboard">
         <div className="dashboard-head">
@@ -46,7 +57,7 @@ class Dashboard extends Component {
           <Container>
             <TabContent activeTab={this.state.activeTab}>
               <TabPane tabId="1">
-                <Chart  />
+                <Chart series ={ series } />
               </TabPane>
               <TabPane tabId="2">
                 <AccountDetail  />
@@ -65,11 +76,12 @@ class Dashboard extends Component {
   }
 }
 
-export default connect(({ app: { userListings, userRentals, user, isAuthenticated}}) => {
+export default connect(({ app: { userListings, userRentals, user, isAuthenticated, dashboard}}) => {
   return {
     userListings ,
     userRentals,
     user,
-    isAuthenticated
+    isAuthenticated,
+    dashboard
   };
 })(Dashboard);

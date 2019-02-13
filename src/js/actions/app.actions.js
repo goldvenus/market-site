@@ -30,17 +30,17 @@ const tokenAxiosConfig = () => {
     }
   };
 
-  if (localStorage.accessToken) {
-    config['headers']['AccessToken'] = localStorage.accessToken;
-  }
+  // if (localStorage.accessToken) {
+  //   config['headers']['AccessToken'] = localStorage.accessToken;
+  // }
 
   if (localStorage.refreshToken) {
-    config['headers']['RefreshToken'] = localStorage.refreshToken;
+    config['headers']['refreshToken'] = localStorage.refreshToken;
   }
 
-  if (localStorage.idToken) {
-    config['headers']['Authorization'] = localStorage.idToken;
-  }
+  // if (localStorage.idToken) {
+  //   config['headers']['Authorization'] = localStorage.idToken;
+  // }
 
   return config;
 }
@@ -64,14 +64,14 @@ const clearError = () => {
 const get = async (url) => {
   return await axios.get(getAPIUrl(url), axiosConfig()).then((res) => res)
     .catch(err => {
-      handleError(err.response && err.response.data.errorMessage)
+      //handleError(err.response && err.response.data.errorMessage)
     });
 }
 
 const get_new = async (url) => {
   return await axios.get(API_URL_NEW + url, axiosConfig()).then((res) => res)
     .catch(err => {
-      handleError(err.response && err.response.data.errorMessage)
+      //handleError(err.response && err.response.data.errorMessage)
     });
 }
 
@@ -133,6 +133,7 @@ const login = async (data) => {
       localStorage.accessToken = accessToken;
       localStorage.idToken = idToken;
       localStorage.refreshToken = refreshToken;
+      localStorage.userId = response.data.userAttributes.userid;
 
       return response;
     }
@@ -143,7 +144,7 @@ const login = async (data) => {
 
 const refreshToken = async () => {
   try {
-    let response = await axios.get(getAPIUrl('getUserRefreshTokens'), tokenAxiosConfig());
+    let response = await axios.post(getAPIUrl('getUserRefreshTokens'), {username: localStorage.userId}, tokenAxiosConfig());
 
     if (response && response.data) {
       const { accessToken, idToken, refreshToken } = response.data;
@@ -228,6 +229,7 @@ const logout = () => {
   delete localStorage.accessToken;
   delete localStorage.idToken;
   delete localStorage.refreshToken;
+  delete localStorage.userid;
 
   dispatch({
     type: ACTIONS.LOGGED_OUT,
@@ -401,6 +403,22 @@ const getFavourites = async () => {
   }
 }
 
+const viewUserDashboard = async () => {
+  try {
+    let response = await get('viewUserDashboard');
+
+    if(response) {
+      dispatch({
+        type: ACTIONS.DASHBOARD,
+        payload: response.data
+      });
+    }
+  }
+  catch (error) {
+    //handleError(error);
+  }
+}
+
 const deleteFavourite = async (data) => {
   try {
     let response = await post_new('deleteUserFavouriteGear', data);
@@ -477,4 +495,4 @@ export { register, confirmUser, login, logout, clearError, handleError, getUser,
     readFileData, addGear, fetchCategories, getListGears, getGear, addCart, getCarts,
     formatDate, days, checkout, payment, rentGearProductList, dashboardMyListing,
     dashboardMyRentals, search, addFavourites, getFavourites, deleteFavourite, newArrivals,
-    deleteCartItem, deleteGear, socialLogin}
+    deleteCartItem, deleteGear, socialLogin, viewUserDashboard}

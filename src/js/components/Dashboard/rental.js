@@ -15,10 +15,10 @@ const MyRentalItem = ({ rentItem }) => (
       </td>
       <td className="rental-period" width="20%">
         <p>
-        {`${rentItem.orderDate.split(' ')[0]} to ${rentItem.endDate.split(' ')[0]} `}
+        {`${rentItem.startDate.split(' ')[0]} to ${rentItem.endDate.split(' ')[0]} `}
         </p>
         <p className="theme-text-small text-muted">
-          {` ${days(rentItem.orderDate, rentItem.endDate)} days`}
+          {` ${rentItem.totalRentedNumerOfDay} days`}
         </p>
       </td>
       <td width="20%">
@@ -26,7 +26,7 @@ const MyRentalItem = ({ rentItem }) => (
       <span className="ml-1 "> {rentItem.clientName} </span>
       </td>
       <td width="15%">{`${rentItem.pricePerDay} $`}</td>
-      <td width="15%">{`${rentItem.replacementValue} $`}</td>
+      <td width="15%">{`${rentItem.totalRentedNumerOfDay * rentItem.pricePerDay} $`}</td>
     </tr>
 )
 const days = (d1, d2) => { return moment(d2).diff(moment(d1) , 'days')};
@@ -43,7 +43,7 @@ export default class MyRentals extends React.Component {
       currentPage: 0
     };
 
-    
+
   }
   handleClick(e, index) {
     e.preventDefault();
@@ -56,7 +56,7 @@ export default class MyRentals extends React.Component {
     const { list } = this.props;
     console.log(list);
     const { currentPage } = this.state;
-    
+
     this.pagesCount = Math.ceil(list ? list.length / this.pageSize : "");
     return (
       <Row className="my-listing">
@@ -75,7 +75,7 @@ export default class MyRentals extends React.Component {
                     <th>Rental Period</th>
                     <th>Landlord</th>
                     <th>Price Per day</th>
-                    <th>A Month</th>
+                    <th>Amount</th>
                   </tr>
                 </thead>
                 <tbody>

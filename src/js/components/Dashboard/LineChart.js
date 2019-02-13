@@ -10,7 +10,6 @@ class LineChart extends Component {
 
   componentDidUpdate() {
     const { series } = this.props;
-
     if(series) {
       const COLORS = [
       	'#4dc9f6',
@@ -38,8 +37,8 @@ class LineChart extends Component {
           	  backgroundColor: newColor,
               data: series[serie].map(d => {
                 return {
-                  x: d.label,
-                  y: d.value
+                  x: d.Name,
+                  y: d.Value
                 }
               }),
               fill: false,
@@ -50,7 +49,7 @@ class LineChart extends Component {
       }
 
       for (let index = 0; index < series['totalEarnings'].length; index++) {
-        labels.push(series['totalEarnings'][index].label);
+        labels.push(series['totalEarnings'][index].Name);
       }
 
       this.lineChart = new Chart(this.ctx, {
