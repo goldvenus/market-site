@@ -14,20 +14,8 @@ class Home extends Component {
   constructor() {
     super();
 
-    this.suggestions = [
-      "Canon EOS 6D",
-      "Canon EOS 2000D Kit 18-55mm IS II",
-      "Canon EOS 5D Mark III",
-      "Canon EOS 80D",
-      "Canon EOS 3000D Kit 18-55mm IS II"
-    ]
-
-    this.locationSuggestions = [
-      'United State',
-      'United Kingdom',
-      'Pakistan',
-      'India'
-    ];
+    this.suggestions = []
+    this.locationSuggestions = [];
 
     this.state = {
       searchText: '',
@@ -67,7 +55,8 @@ class Home extends Component {
   onSearchTextChange(value) {
     if(value) {
       let pattern = new RegExp(value, 'ig')
-      let searchTextSuggestions = this.suggestions.filter((s) => s.search(pattern) > -1);
+      const suggestions = (this.props.app.categories || []).map(cat => cat.categoryName);
+      let searchTextSuggestions = suggestions.filter((s) => s.search(pattern) > -1);
 
       this.setState({
         searchText: value,
@@ -116,7 +105,7 @@ class Home extends Component {
     event.preventDefault();
     const {searchText, locationText} = this.state;
 
-    if(searchText && locationText) {
+    if(searchText) {
       const res = search(searchText, locationText);
 
       if(res) {
