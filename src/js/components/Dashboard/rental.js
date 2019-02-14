@@ -3,7 +3,6 @@ import { Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Pagination, PaginationItem, PaginationLink, Table } from 'reactstrap';
 import moment from 'moment';
-import dataSet from './dataSet';
 
 
 const MyRentalItem = ({ rentItem }) => (
@@ -29,7 +28,7 @@ const MyRentalItem = ({ rentItem }) => (
       <td width="15%">{`${rentItem.totalRentedNumerOfDay * rentItem.pricePerDay} $`}</td>
     </tr>
 )
-const days = (d1, d2) => { return moment(d2).diff(moment(d1) , 'days')};
+const days = (d1, d2) => { return moment(d2).diff(moment(d1), 'days') };
 
 export default class MyRentals extends React.Component {
   constructor() {
@@ -67,6 +66,7 @@ export default class MyRentals extends React.Component {
           </div>
           <div className="wrraper">
             <React.Fragment>
+<<<<<<< Updated upstream
               <Table className="listing-data-slice" >
                 <thead>
                   <tr className="text-muted theme-text-bold">
@@ -98,24 +98,59 @@ export default class MyRentals extends React.Component {
                     href="#"
                   />
                 </PaginationItem>
+=======
+              <div className="table-responsive">
+                <Table className="listing-data-slice" >
+                  <thead>
+                    <tr className="text-muted theme-text-bold">
+                      <th></th>
+                      <th>Name & Category</th>
+                      <th>Rental Period</th>
+                      <th>Landlord</th>
+                      <th>Price Per day</th>
+                      <th>A Month</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {list ? list
+                      .slice(
+                        currentPage * this.pageSize,
+                        (currentPage + 1) * this.pageSize
+                      )
+                      .map((data, i) =>
+                        <MyRentalItem rentItem={data} key={i} />
+                      ) : ""}
+                  </tbody>
+                </Table>
+                <Pagination aria-label="Page navigation example">
+>>>>>>> Stashed changes
 
-                {[...Array(this.pagesCount)].map((page, i) =>
-                  <PaginationItem active={i === currentPage} key={i}>
-                    <PaginationLink onClick={e => this.handleClick(e, i)} href="#">
-                      {i + 1}
-                    </PaginationLink>
+                  <PaginationItem disabled={currentPage <= 0}>
+                    <PaginationLink
+                      onClick={e => this.handleClick(e, currentPage - 1)}
+                      previous
+                      href="#"
+                    />
                   </PaginationItem>
-                )}
 
-                <PaginationItem disabled={currentPage >= this.pagesCount - 1}>
-                  <PaginationLink
-                    onClick={e => this.handleClick(e, currentPage + 1)}
-                    next
-                    href="#"
-                  />
-                </PaginationItem>
+                  {[...Array(this.pagesCount)].map((page, i) =>
+                    <PaginationItem active={i === currentPage} key={i}>
+                      <PaginationLink onClick={e => this.handleClick(e, i)} href="#">
+                        {i + 1}
+                      </PaginationLink>
+                    </PaginationItem>
+                  )}
 
-              </Pagination>
+                  <PaginationItem disabled={currentPage >= this.pagesCount - 1}>
+                    <PaginationLink
+                      onClick={e => this.handleClick(e, currentPage + 1)}
+                      next
+                      href="#"
+                    />
+                  </PaginationItem>
+
+                </Pagination>
+              </div>
             </React.Fragment>
           </div>
         </Col>

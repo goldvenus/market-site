@@ -6,7 +6,7 @@ import {
 import { Link } from 'react-router-dom';
 import { addFavourites } from '../../actions/app.actions';
 
-const ListView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city, rating, pricePerDay, gearid } }) => {
+const ListView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city, rating, pricePerDay, gearid, description } }) => {
 
   return (
     <Col sm="12">
@@ -38,7 +38,7 @@ const ListView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city,
               </span>
             </CardSubtitle>
             <CardText>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, et. Eos, sequi laboriosam? Molestias, quasi perferendis minima nisi sed temporibus non provident.
+              {description}
             </CardText>
           </div>
           <div className="card-right">

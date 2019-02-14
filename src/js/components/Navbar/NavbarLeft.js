@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import logo from '../../../assets/images/logo-2.png';
 
+
 const CollapseMenu = props => {
   const className = props.isOpen ? "uncollapse" : "collapse";
   return <div className={`${className} theme-menu `}>
@@ -39,13 +40,13 @@ class NavbarLeft extends React.Component {
 
   render() {
     const { location} = this.props;
-    let hideLogo = ['/','/home',].indexOf(location.pathname) > -1;
+    let hideLogo = ""; //['/','/home',].indexOf(location.pathname) > -1;
 
     const {collapsed} =this.state;
     return (
       <div className="theme-nav-left">
         <NavbarToggler onClick={this.toggleNavbar} className="ml-2" isOpen={!collapsed}/>
-        {hideLogo ? "" : <NavbarBrand src={logo} />}
+        {hideLogo ? "" : <NavbarBrand src={logo} onClick={() => { this.props.history.push('/') }}></NavbarBrand>}
         <CollapseMenu isOpen={!collapsed} >
           <Container>
             <Row>

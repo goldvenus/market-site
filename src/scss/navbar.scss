@@ -5,6 +5,9 @@
   align-items: center;
   justify-content: space-between;
   padding-left: 15px;
+  .app-nav-logo{
+    margin: -10px 0 0 15px;
+  }
   .button-toggle{
     border:none;
     background-color: transparent;
@@ -197,6 +200,9 @@
     }
   }
   @media(max-width: 500px){
+    .theme-nav-left{
+      padding-left: 10px;
+    }
     .theme-nav-right {
       z-index: 0 !important;
     }

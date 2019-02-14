@@ -13,7 +13,7 @@ const team = [
 // Functional Component
 const TeamMember = ({ member: { name , job_title , img} ,src }, ...props) => {
   return (
-    <Col>
+    <Col sm="4">
       <Card inverse>
         <CardImg width="100%" src={img} alt="Card image cap" />
         <CardImgOverlay>

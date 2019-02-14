@@ -19,6 +19,7 @@
     }
     .nav-tabs {
       border:none;
+      cursor: pointer;
       .nav-link{
         background-color: #f4f5f6;
         border:none;
@@ -177,5 +178,10 @@
       }
     }
   }
+  }
+}
+@media(max-width :500px){
+  .wrraper{
+    padding: 5px !important;
   }
 }
