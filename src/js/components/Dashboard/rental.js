@@ -66,39 +66,6 @@ export default class MyRentals extends React.Component {
           </div>
           <div className="wrraper">
             <React.Fragment>
-<<<<<<< Updated upstream
-              <Table className="listing-data-slice" >
-                <thead>
-                  <tr className="text-muted theme-text-bold">
-                    <th></th>
-                    <th>Name & Category</th>
-                    <th>Rental Period</th>
-                    <th>Landlord</th>
-                    <th>Price Per day</th>
-                    <th>Amount</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {list ? list
-                    .slice(
-                      currentPage * this.pageSize,
-                      (currentPage + 1) * this.pageSize
-                    )
-                    .map((data, i) =>
-                      <MyRentalItem rentItem={data} key={i} />
-                    ) : ""}
-                </tbody>
-              </Table>
-              <Pagination aria-label="Page navigation example">
-
-                <PaginationItem disabled={currentPage <= 0}>
-                  <PaginationLink
-                    onClick={e => this.handleClick(e, currentPage - 1)}
-                    previous
-                    href="#"
-                  />
-                </PaginationItem>
-=======
               <div className="table-responsive">
                 <Table className="listing-data-slice" >
                   <thead>
@@ -123,7 +90,6 @@ export default class MyRentals extends React.Component {
                   </tbody>
                 </Table>
                 <Pagination aria-label="Page navigation example">
->>>>>>> Stashed changes
 
                   <PaginationItem disabled={currentPage <= 0}>
                     <PaginationLink
