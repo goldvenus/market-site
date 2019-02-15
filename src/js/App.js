@@ -9,7 +9,6 @@ import { getUser } from './actions/app.actions';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-
     getUser();
   }
 
