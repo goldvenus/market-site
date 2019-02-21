@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { Input} from 'reactstrap';
+import { Input } from 'reactstrap';
 
 class CustomInput extends Component {
   constructor(props) {
@@ -19,30 +19,30 @@ class CustomInput extends Component {
       showPlaceholder: value.length > 0
     });
 
-    if(onChange) {
+    if (onChange) {
       onChange(value);
     }
   }
 
   render() {
-    const {showPlaceholder} = this.state;
-    const { placeholder, type ,label, value, icon, required } = this.props;
+    const { showPlaceholder } = this.state;
+    const { placeholder, type, label, value, icon, required } = this.props;
     return (
-      <div className= {icon ? "custom-input custom-input-with-icon" : "custom-input"}>
+      <div className={icon ? label === 'Location' ? "custom-input location-input custom-input-with-icon" : label === "Search" ? " custom-input search-input custom-input-with-icon" : "custom-input custom-input-with-icon" : "custom-input"}>
         <label htmlFor={label} className="theme-text-small label">{label}</label>
-        { showPlaceholder ?
+        {showPlaceholder ?
           <label className="placeholder-label">{placeholder}</label> : null
         }
         {
-          icon ? <i className={"fa " + icon } /> : null
+          icon ? <i className={"fa " + icon} /> : null
         }
         <Input
-          placeholder={ placeholder }
-          type = {type}
-          required = { required || false }
-          onChange={ this.onInputChange.bind(this) }
+          placeholder={placeholder}
+          type={type}
+          required={required || false}
+          onChange={this.onInputChange.bind(this)}
           value={value}
-          />
+        />
       </div>
     );
   }

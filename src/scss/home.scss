@@ -41,6 +41,8 @@
     }
     .logo{
       margin: 60px 0;
+      width:290px;
+      height: 59px;
     }
     .theme-btn{
       img{
@@ -55,7 +57,8 @@
       max-width: 800px;
 
       button {
-        width: auto;
+        width: 80px;
+        height:52px
       }
     }
 
@@ -86,14 +89,16 @@
       flex: 1.5;
       position: relative;
       margin-right: 15px;
+      width: 372px;
     }
 
     .search-suggestions {
-      width: 100%;
+      width: 372px;
       position: absolute;
     }
   }
   .home-body{
+   
     .theme-row{
       justify-content: space-between;
       .wrapper{
@@ -107,36 +112,41 @@
       }
     }
     .new_arrival{
-      background-image: url('/images/1(1).jpg');
-      background-repeat : no-repeat;
-      background-size:cover;
-      background-position: center left;
+      background-image: url('/images/New-arrivals_bg.png');
+      background-repeat : round;
+      background-size: contain;
+      background-repeat-x: no-repeat;
+      background-repeat-y: no-repeat;
       margin: 4rem 0 0;
       text-align: center;
       .section-overlay{
         padding: 2rem 0;
-        background-color: rgba(255,255,255,0.95);
+        //background-color: rgba(255,255,255,0.95);
       }
     }
     .stories{
-      background-color: $gray-light;
+      background-color:  #FAF8F9;
       padding: 3rem 0;
     }
-    .payments{
-      img{
-        width:100%;
-      }
-    }
+
   }
+}
+.block-e1-size{
+  width: 30%!important;
+  height: 200px!important;
+}
+.block-e3-adjustment{
+  margin-left: -40px!important;
+}
+.block-e2-size{
+  width: 20.8%!important;
+  height: 170px!important;
 }
 .block-el {
   position: relative;
-  width: 30%;
-  height: 200px;
   padding: 30px;
   margin: 10px;
   float: left;
-
 }
 .block-el:hover .block-bg{
   background-color: $primary-color;
@@ -295,6 +305,27 @@
     transform: skewX(15deg) translateX(-35px);
     background-color: #ffff;
 }
+.paySection{
+  display:flex;
+  flex-direction: 'row';
+  height: 600px;
+}
+.calendarSection{
+  display:flex;
+  flex-direction: 'row';
+  width: 86px;
+  margin-left: 15px;
+}
+.paySection1{
+  background-image: url('/images/fast_bg.png');
+  background-color: rgba(189, 189, 189, 0.05);
+}
+
+.paySection2{
+  display: flex;
+  flex-direction: 'row'
+}
+
 
 .search-results-container {
   display: flex;
@@ -307,9 +338,9 @@
     text-align: center;
   
   .home-head .title{
-    font-size: 36px;
-    font-weight: 500;
-    line-height: 30px;
+    font-size: 49px;
+    //font-weight: 500;
+    line-height: normal;
   }
   .home-head .desc{
     width: 75%;
@@ -322,6 +353,10 @@
     width :75%;
     margin :0 auto;
     display: block!important;
+  }
+  .search-button{
+    width: 80px!important;
+    height:52px!important
   }
   .theme-btn{
     display:block;

@@ -9,7 +9,9 @@ import ThemeCardTwo from './Theme-Cards/ThemeCardTwo';
 import data from './dummydata';
 import { fetchCategories, search, newArrivals, socialLogin } from '../actions/app.actions';
 
-
+const locationInputStyle = {
+  width: '224px'
+}
 class Home extends Component {
   constructor() {
     super();
@@ -22,7 +24,7 @@ class Home extends Component {
       locationText: '',
       searchTextSuggestions: [],
       locationTextSuggestions: [],
-      categories : []
+      categories: []
     }
 
     this.onSearchTextChange = this.onSearchTextChange.bind(this);
@@ -30,17 +32,17 @@ class Home extends Component {
     this.onSearch = this.onSearch.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     fetchCategories();
     newArrivals();
 
     //facebook login
     let href = window.location.href;
-    if(href.indexOf("id_token") > 0) {
+    if (href.indexOf("id_token") > 0) {
       let token1 = href.split("#")[1].split("&")[0];
       let token2 = href.split("#")[1].split("&")[1];
       let idToken, accessToken;
-      if(token1.indexOf("id_token") > 0) {
+      if (token1.indexOf("id_token") > 0) {
         idToken = token1.replace("id_token=", "");
         accessToken = token2.replace("access_token=", "");
       } else {
@@ -53,7 +55,7 @@ class Home extends Component {
   }
 
   onSearchTextChange(value) {
-    if(value) {
+    if (value) {
       let pattern = new RegExp(value, 'ig')
       const suggestions = (this.props.app.categories || []).map(cat => cat.categoryName);
       let searchTextSuggestions = suggestions.filter((s) => s.search(pattern) > -1);
@@ -71,7 +73,7 @@ class Home extends Component {
   }
 
   onLocationChange(value) {
-    if(value) {
+    if (value) {
       let pattern = new RegExp(value, 'ig')
       let locationTextSuggestions = this.locationSuggestions.filter((s) => s.search(pattern) > -1);
 
@@ -103,12 +105,12 @@ class Home extends Component {
 
   onSearch(event) {
     event.preventDefault();
-    const {searchText, locationText} = this.state;
+    const { searchText, locationText } = this.state;
 
-    if(searchText) {
+    if (searchText) {
       const res = search(searchText, locationText);
 
-      if(res) {
+      if (res) {
         this.props.history.push("/search");
       }
     }
@@ -142,21 +144,24 @@ class Home extends Component {
 
                 <p className="theme-text-small rent-categories">
                   Rent &nbsp;
-                  <button className="theme-btn theme-btn-primary-light">
+                  <button className="theme-btn theme-btn-primary-light expand-link">
 
-                    <img src={'/images/Icons/Tags/Photo/Default.svg'} alt="drone" />
+                    <img class="icon icon-expand" src={'/images/Icons/Tags/Photo/Default.svg'} alt="drone" />
+                    <img class="icon icon-contract" src={'/images/Icons/Tags/Photo/Hover.svg'} alt="drone" />
                     <Link to="/">Cameras</Link>
 
                   </button>
-                  <button className="theme-btn theme-btn-primary-light">
+                  <button className="theme-btn theme-btn-primary-light expand-link">
 
-                    <img src={'/images/Icons/Tags/Drone/Default.svg '} alt="drone" />
+                    <img class="icon icon-expand" src={'/images/Icons/Tags/Drone/Default.svg '} alt="drone" />
+                    <img class="icon icon-contract" src={'/images/Icons/Tags/Drone/Hover.svg '} alt="drone" />
                     <Link to="/">Drones</Link>
 
                   </button>
-                  <button className="theme-btn theme-btn-primary-light">
+                  <button className="theme-btn theme-btn-primary-light expand-link">
 
-                    <img src={'/images/Icons/Tags/Lights/Default.svg '} alt="drone" />
+                    <img class="icon icon-expand" src={'/images/Icons/Tags/Lights/Default.svg '} alt="drone" />
+                    <img class="icon icon-contract" src={'/images/Icons/Tags/Lights/Hover.svg '} alt="drone" />
                     <Link to="/"> Lights </Link>
 
                   </button> &nbsp;
@@ -169,7 +174,7 @@ class Home extends Component {
               <Col>
                 <Form className="theme-form">
                   <div className="search-input">
-                    <CustomInput icon="fa-search" placeholder="Search" type="text" label="Search" onChange={this.onSearchTextChange} value={searchText}/>
+                    <CustomInput icon="fa-search" placeholder="Search" type="text" label="Search" onChange={this.onSearchTextChange} value={searchText} />
                     <ListGroup className="search-suggestions">
                       {
                         searchSuggestions
@@ -177,14 +182,14 @@ class Home extends Component {
                     </ListGroup>
                   </div>
                   <div className="location-input">
-                    <CustomInput icon="fa-map-marker" placeholder="Location" type="text" label="Location" onChange={this.onLocationChange} value={locationText}/>
+                    <CustomInput icon="fa-map-marker" placeholder="Location" type="text" label="Location" onChange={this.onLocationChange} value={locationText} />
                     <ListGroup className="search-suggestions">
                       {
                         locationSuggestions
                       }
                     </ListGroup>
                   </div>
-                  <button className="theme-btn theme-btn-filled-white" onClick={this.onSearch }>
+                  <button className="theme-btn search-button theme-btn-filled-white" onClick={this.onSearch}>
                     <span className="fa fa-search"></span>
                   </button>
                 </Form>
@@ -194,11 +199,11 @@ class Home extends Component {
         </div>
         <div className="home-body">
           <Container>
-            <div className="block-el">
+            <div className="block-el block-e1-size col-xs-6 .col-sm-4">
               <div className="block-content">
                 <p id="camera"></p>
                 <div className="desc">
-                  <span>Camera</span>
+                  <span style={{ fontWeight: 'bold' }}>Camera</span>
                   <button className="theme-btn theme-btn-outline-white">
                     <Link to="/cameras" >View</Link>
                   </button>
@@ -207,11 +212,11 @@ class Home extends Component {
               <div className="block-bg"></div>
             </div>
 
-            <div className="block-el">
+            <div className="block-el block-e1-size col-xs-6 .col-sm-4">
               <div className="block-content">
                 <p id="computer_electronic"></p>
                 <div className="desc">
-                  <span>Computer & Electronics</span>
+                  <span style={{ fontWeight: 'bold' }}>Computer & Electronics</span>
                   <button className="theme-btn theme-btn-outline-white">
                     <Link to="/cameras" >View</Link>
                   </button>
@@ -220,11 +225,11 @@ class Home extends Component {
               <div className="block-bg"></div>
             </div>
 
-            <div className="block-el">
-              <div className="block-content">
+            <div className="block-el block-e1-size col-xs-6 .col-sm-4">
+              <div className="block-content ">
                 <p id="drones"></p>
                 <div className="desc">
-                  <span>Drones</span>
+                  <span style={{ fontWeight: 'bold' }}>Drones</span>
                   <button className="theme-btn theme-btn-outline-white">
                     <Link to="/cameras" >View</Link>
                   </button>
@@ -233,11 +238,11 @@ class Home extends Component {
               <div className="block-bg"></div>
             </div>
 
-            <div className="block-el">
+            <div className="block-el block-e2-size col-xs-6 .col-sm-4">
               <div className="block-content">
                 <p id="lenses"></p>
                 <div className="desc">
-                  <span>lenses</span>
+                  <span style={{fontWeight:'bold'}}>lenses</span>
                   <button className="theme-btn theme-btn-outline-white">
                     <Link to="/lenses" >View</Link>
                   </button>
@@ -246,11 +251,11 @@ class Home extends Component {
               <div className="block-bg"></div>
             </div>
 
-            <div className="block-el">
+            <div className="block-el block-e2-size col-xs-6 .col-sm-4">
               <div className="block-content">
                 <p id="lighting"></p>
                 <div className="desc">
-                  <span>lighting</span>
+                  <span style={{ fontWeight: 'bold' }}>lighting</span>
                   <button className="theme-btn theme-btn-outline-white">
                     <Link to="/lighting" >View</Link>
                   </button>
@@ -259,11 +264,11 @@ class Home extends Component {
               <div className="block-bg"></div>
             </div>
 
-            <div className="block-el">
+            <div className="block-el block-e2-size col-xs-6 .col-sm-4">
               <div className="block-content">
                 <p id="audio"></p>
                 <div className="desc">
-                  <span>Audio</span>
+                  <span style={{fontWeight:'bold'}}>Audio</span>
                   <button className="theme-btn theme-btn-outline-white">
                     <Link to="/audio" >View</Link>
                   </button>
@@ -272,11 +277,11 @@ class Home extends Component {
               <div className="block-bg"></div>
             </div>
 
-            <div className="block-el">
+            <div className="block-el block-e2-size col-xs-6 .col-sm-4">
               <div className="block-content">
                 <p id="tripods_stabilization_rigs"></p>
                 <div className="desc">
-                  <span>Tripods Stabilization & Rigs</span>
+                  <span style={{ fontWeight: 'bold' }}>Tripods Stabilization & Rigs</span>
                   <button className="theme-btn theme-btn-outline-white">
                     <Link to="/TS&R" >View</Link>
                   </button>
@@ -285,11 +290,11 @@ class Home extends Component {
               <div className="block-bg"></div>
             </div>
 
-            <div className="block-el">
+            <div className="block-el block-e2-size block-e3-adjustment col-xs-6 .col-sm-4">
               <div className="block-content">
                 <p id="camera_accessories"></p>
                 <div className="desc">
-                  <span>Camera Accessories</span>
+                  <span style={{ fontWeight: 'bold' }}>Camera Accessories</span>
                   <button className="theme-btn theme-btn-outline-white">
                     <Link to="/camera_accessories" >View</Link>
                   </button>
@@ -298,11 +303,11 @@ class Home extends Component {
               <div className="block-bg"></div>
             </div>
 
-            <div className="block-el">
+            <div className="block-el block-e2-size col-xs-6 .col-sm-4">
               <div className="block-content">
                 <p id="studio_spaces"></p>
                 <div className="desc">
-                  <span>Studio Spaces</span>
+                  <span style={{ fontWeight: 'bold' }}>Studio Spaces</span>
                   <button className="theme-btn theme-btn-outline-white">
                     <Link to="/studio_spaces" >View</Link>
                   </button>
@@ -311,11 +316,11 @@ class Home extends Component {
               <div className="block-bg"></div>
             </div>
 
-            <div className="block-el">
+            <div className="block-el block-e2-size col-xs-6 .col-sm-4">
               <div className="block-content">
                 <p id="office_spaces"></p>
                 <div className="desc">
-                  <span>Office Spaces</span>
+                  <span style={{fontWeight:'bold'}}>Office Spaces</span>
                   <button className="theme-btn theme-btn-outline-white">
                     <Link to="/office_spaces" >View</Link>
                   </button>
@@ -323,41 +328,93 @@ class Home extends Component {
               </div>
               <div className="block-bg"></div>
             </div>
-          <div className="clearfix mb-4"></div>
+            <div className="block-el block-e2-size col-xs-6 .col-sm-4">
+              <div className="block-content">
+                <p id="others"></p>
+                <div className="desc">
+                  <span style={{ fontWeight: 'bold' }}>OTHER</span>
+                  <button className="theme-btn theme-btn-outline-white">
+                    <Link to="/office_spaces" >View</Link>
+                  </button>
+                </div>
+              </div>
+              <div className="block-bg"></div>
+            </div>
+            <div className="clearfix mb-4"></div>
 
           </Container>
 
-          { cat.newArrivals && cat.newArrivals.Items ?
-          <div className="new_arrival">
-            <div className="section-overlay">
-              <Container>
-                <Row>
-                  <Col sm="3" className="align-self-center">
-                    <h3 className="mb-4">New Arrivals</h3>
-                    <img src={'/images/calander.jpg'} alt="" className="w-100" />
-                    <button className="theme-btn theme-btn-primary w-100">
-                      <Link to="/listGear">
-                        <span></span>
-                        Find Gear
+          {cat.newArrivals && cat.newArrivals.Items ?
+            <div className="new_arrival">
+              <div className="section-overlay">
+                <Container>
+                  <Row>
+                    <Col sm="3" className="align-self-center">
+                      <h3 className="mb-4">New Arrivals</h3>
+                      <div className="calendarSection">
+                        <Col>
+                          <div style={{ width: 90, height: 85, backgroundColor: 'rgba(255, 254, 254, 0.8)' }}>
+                            <div style={{ paddingTop: 16 }}>
+                              <text style={{ fontSize: 13 }}>Daily</text>
+                            </div>
+                            <div>
+                              <text style={{ fontSize: 25, fontWeight: 'bold' }}>11</text>
+                            </div>
+                          </div>
+                          <div style={{ width: 90, height: 85, marginTop: 5, backgroundColor: 'rgba(255, 254, 254, 0.8)' }}>
+                            <div style={{ paddingTop: 16 }}>
+                              <text style={{ fontSize: 13 }}>Weekly</text>
+                            </div>
+                            <div>
+                              <text style={{ fontSize: 25, fontWeight: 'bold' }}>41</text>
+                            </div>
+                          </div>
+                        </Col>
+                        <Col>
+                          <div style={{ width: 90, height: 85, marginLeft: 7, backgroundColor: 'rgba(255, 254, 254, 0.8)' }}>
+                            <div style={{ paddingTop: 16 }}>
+                              <text style={{ fontSize: 13 }}>Monthly</text>
+                            </div>
+                            <div>
+                              <text style={{ fontSize: 25, fontWeight: 'bold' }}>220</text>
+                            </div>
+                          </div>
+                          <div style={{ width: 90, height: 85, marginLeft: 7, marginTop: 5, backgroundColor: 'rgba(255, 254, 254, 0.8)' }}>
+                            <div style={{ paddingTop: 16 }}>
+                              <text style={{ fontSize: 13 }}>Yearly</text>
+                            </div>
+                            <div>
+                              <text style={{ fontSize: 25, fontWeight: 'bold' }}>1400</text>
+                            </div>
+                          </div>
+                        </Col>
+                      </div>
+                      <button className="theme-btn theme-btn-primary" style={{
+                        width: 183,
+                        marginLeft: -12
+                      }}>
+                        <Link to="/listGear">
+                          <span></span>
+                          Find Gear
                       </Link>
-                    </button>
-                  </Col>
-                  <Col sm={{ size: 8, offset: 1 }}>
-                    <Row >
-                      {
-                        cat.newArrivals.Items.map((item, index) => {
-                          return <Col sm="6" key={index}>
-                            <ThemeCardOne Gear={item} />
-                          </Col>
-                        })
-                      }
-                    </Row>
-                  </Col>
-                </Row>
-              </Container>
-            </div>
-          </div> : null
-        }
+                      </button>
+                    </Col>
+                    <Col sm={{ size: 8, offset: 1 }}>
+                      <Row >
+                        {
+                          cat.newArrivals.Items.map((item, index) => {
+                            return <Col sm="6" key={index}>
+                              <ThemeCardOne Gear={item} />
+                            </Col>
+                          })
+                        }
+                      </Row>
+                    </Col>
+                  </Row>
+                </Container>
+              </div>
+            </div> : null
+          }
           <div className="stories">
             <Container>
               <Row>
@@ -383,10 +440,76 @@ class Home extends Component {
               </Row>
             </Container>
           </div>
-          <div className="payments">
-            <img src="/images/temp.jpg" alt="" />
+          <div className="paySection">
+            <Col className="paySection1">
+              <div className="paySection2" style={{ marginTop: 90, marginLeft: 74 }}>
+                <div style={{ alignSelf: 'center' }}>
+                  <div>
+                    <text style={{ fontWeight: 'bold', fontSize: 40, }}>Fast, safe and secure</text>
+                  </div>
+                  <div style={{ marginTop: 15 }}>
+                    <text style={{ fontWeight: 'bold', fontSize: 37 }}>Two-way inscurance included</text>
+                  </div>
+                </div>
+
+              </div>
+              <div className="paySection2" style={{ marginLeft: 74 }}>
+                <div style={{ alignSelf: 'center', width: 370, marginTop: 80 }}>
+                  <div>
+                    <text style={{ fontSize: 16, }}>Creative Market’s photo verification system verifies the condition of items when picked up and returned. Both by owner and renter. </text>
+                  </div>
+                </div>
+              </div>
+              <Row>
+                <Col style={{ marginLeft: 74, marginTop: 66 }}>
+                  <button style={{ width: 189, height: 50, backgroundColor: '#F82462' }}>
+                    <text style={{ color: 'white' }}>FAQ</text>
+                  </button>
+                </Col>
+              </Row>
+            </Col>
+
+
+            <Col>
+              <div style={{ marginTop: 54 }}>
+                <div className="paySection2">
+                  <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Choose-Gear.svg'} alt="drone" />
+                  <div style={{ alignSelf: 'center' }}>
+                    <div>
+                      <text style={{ fontWeight: 'bold' }}>CHOOSE GEAR</text>
+                    </div>
+                    <div>
+                      <text style={{ fontSize: 16 }}>Find the gear you need and add to cart.</text>
+                    </div>
+                  </div>
+                </div>
+                <div className="paySection2" style={{ marginTop: 40 }}>
+                  <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Pay.svg'} alt="drone" />
+                  <div style={{ alignSelf: 'center' }}>
+                    <div>
+                      <text style={{ fontWeight: 'bold' }}>PAY</text>
+                    </div>
+                    <div>
+                      <text style={{ fontSize: 16 }}>Complete secure payment via 2checkout</text>
+                    </div>
+                  </div>
+                </div>
+                <div className="paySection2" style={{ marginTop: 46 }}>
+                  <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Enjoy.svg'} alt="drone" />
+                  <div style={{ alignSelf: 'center' }}>
+                    <div>
+                      <text style={{ fontWeight: 'bold' }}>ENJOY</text>
+                    </div>
+                    <div>
+                      <text style={{ fontSize: 16 }}>Pick up the gear and start creating!</text>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Col>
           </div>
         </div>
+
       </div>
     );
   }
@@ -396,4 +519,4 @@ const mapStateToProps = ({ app }) => {
     app
   }
 }
-export default connect(mapStateToProps )(Home);
+export default connect(mapStateToProps)(Home);

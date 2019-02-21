@@ -82,6 +82,22 @@
     color :$primary-color;
   }
 }
+.icon{
+  width:25px;
+  height:21px;
+}
+.expand-link .icon-contract {
+  display: none;
+}
+.expand-link:hover .icon-expand,
+.expand-link:active .icon-expand{
+  display: none;
+}
+.expand-link:hover .icon-contract,
+.expand-link:active .icon-contract{
+  display: inline-block;
+ 
+}
 
 .theme-btn-submit {
   @extend .theme-btn;

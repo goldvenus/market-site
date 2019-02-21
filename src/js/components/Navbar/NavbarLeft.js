@@ -46,7 +46,7 @@ class NavbarLeft extends React.Component {
     return (
       <div className="theme-nav-left">
         <NavbarToggler onClick={this.toggleNavbar} className="ml-2" isOpen={!collapsed}/>
-        {hideLogo ? "" : <NavbarBrand src={logo} onClick={() => { this.props.history.push('/') }}></NavbarBrand>}
+        {hideLogo ? "" : ""}
         <CollapseMenu isOpen={!collapsed} >
           <Container>
             <Row>
