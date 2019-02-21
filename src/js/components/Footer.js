@@ -32,11 +32,11 @@ class Footer extends Component {
         </div>
         <div className="footer-nav">
           <Container style={{    marginTop: -35}}>
-            <Row>
-              <Col sm="3">
+            <div className="row">
+              <div className="col">
                 <img src={logo} alt="logo" className="logo"></img>
-              </Col>
-              <Col sm="5">
+              </div>
+              <div className="row">
                 <ul className="nav text-xs-right">
                   <li className="nav-item">
                     <Link className="nav-link" to="#"><text style={{ fontSize: 16, color: '#252525' }}>About us</text></Link>
@@ -54,19 +54,19 @@ class Footer extends Component {
                     <Link className="nav-link " to="#"><text style={{ fontSize: 16, color: '#252525' }}>FAQs</text></Link>
                   </li>
                 </ul>
-              </Col>
-              <Col sm="4" className="d-flex align-items-center justify-content-center justify-content-sm-end">
+              </div>
+              <div  className=" col d-flex align-items-center justify-content-center justify-content-sm-end">
                 <button className="theme-btn theme-btn-secondery">Login</button> &nbsp;
                 <button className="theme-btn theme-btn-primary">Register</button>
-              </Col>
-            </Row>
+              </div>
+            </div>
           </Container>
         </div>
         <hr className="hr-light mb-5" />
         <div className="Social-contects mb-3">
           <Container>
-            <Row>
-              <Col sm="6">
+            <div className="row">
+              <div className="col">
                 <div className="social-buttons">
                 <button className="theme-btn btn-social btn-fb">
                     <span style={{marginRight:41}} className="fab fa-facebook-f"></span>
@@ -78,8 +78,8 @@ class Footer extends Component {
                     <span style={{marginRight:33}} className="fab fa-instagram"></span>
                     Instagram</button>
                 </div>
-              </Col>
-              <Col sm="3">
+              </div>
+              <div className="col">
                 <div className="email" style={{ marginRight: -80 }}>
                   <img src={'/images/email_icon.png'} style={{ width: 44, height: 33, marginTop: 4 }} alt="" />&nbsp;&nbsp;
                   <p className="theme-text-small">
@@ -88,8 +88,8 @@ class Footer extends Component {
                     info@creativemarket.com
                   </p>
                 </div>
-              </Col>
-              <Col sm="3">
+              </div>
+              <div className="col">
                 <div className="phone">
                   <img src={'/images/phone_icon.png'} style={{ width: 39, height: 38, marginTop: 4 }} alt="" />&nbsp;&nbsp;&nbsp;&nbsp;
                   <p className="theme-text-small">
@@ -97,8 +97,8 @@ class Footer extends Component {
                     +1 3427 7670
                   </p>
                 </div>
-              </Col>
-            </Row>
+              </div>
+            </div>
           </Container>
         </div>
         <div className="footer-bottom bg-gray-light">

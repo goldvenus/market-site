@@ -7,9 +7,12 @@ const ThemeCardTwo = ({ story: { story_img, auth_name, auth_img, views, story_ti
       <Card inverse className="theme-2">
         <div className="wrraper">
           <CardImg width="100%" src={story_img} alt="Card image cap" />
-          <button className="btn">
-            <Link to="/office_spaces" >View Details</Link>
-          </button>
+          <div className="animation">
+            <button className="btn">
+              <Link to="/office_spaces" >View Details</Link>
+            </button>
+          </div>
+
           <div className="overlay">
             <img src={auth_img} alt="auther Img" />
             <CardText className="theme-text-small">

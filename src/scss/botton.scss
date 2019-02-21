@@ -122,18 +122,34 @@
   display: flex;
   width: 160px;
 
+  
   span {
     font-size: 20px;
     margin-right: 10px;
   }
 }
 .btn-fb{
+  &:hover{
+    background:rgba(117, 132, 187, 0.644)
+  }
   background-color: #3b5998;
 }
+.faq-button{
+  background-color: #F82462;
+  &:hover{
+    background: rgba(248, 36, 100, 0.527);
+  }
+}
 .btn-vimeo{
+  &:hover{
+    background:#70c9e76b;
+  }
   background-color: #1ab7ea;
 }
 .btn-insta{
+  &:hover{
+    background:#db5783e3;
+  }
   background-color: #e1306c;
 }
 

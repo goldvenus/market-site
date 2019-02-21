@@ -34,31 +34,31 @@ class Home extends Component {
 
   componentDidMount() {
     var $animation_elements = $('.animation-element');
-var $window = $(window);
+    var $window = $(window);
 
-function check_if_in_view() {
-  var window_height = $window.height();
-  var window_top_position = $window.scrollTop();
-  var window_bottom_position = (window_top_position + window_height);
- 
-  $.each($animation_elements, function() {
-    var $element = $(this);
-    var element_height = $element.outerHeight();
-    var element_top_position = $element.offset().top;
-    var element_bottom_position = (element_top_position + element_height);
- 
-    //check to see if this current container is within viewport
-    if ((element_bottom_position >= window_top_position) &&
-        (element_top_position <= window_bottom_position)) {
-      $element.addClass('in-view');
-    } else {
-      $element.removeClass('in-view');
+    function check_if_in_view() {
+      var window_height = $window.height();
+      var window_top_position = $window.scrollTop();
+      var window_bottom_position = (window_top_position + window_height);
+
+      $.each($animation_elements, function () {
+        var $element = $(this);
+        var element_height = $element.outerHeight();
+        var element_top_position = $element.offset().top;
+        var element_bottom_position = (element_top_position + element_height);
+
+        //check to see if this current container is within viewport
+        if ((element_bottom_position >= window_top_position) &&
+          (element_top_position <= window_bottom_position)) {
+          $element.addClass('in-view');
+        } else {
+          $element.removeClass('in-view');
+        }
+      });
     }
-  });
-}
 
-$window.on('scroll resize', check_if_in_view);
-$window.trigger('scroll');
+    $window.on('scroll resize', check_if_in_view);
+    $window.trigger('scroll');
     fetchCategories();
     newArrivals();
 
@@ -225,146 +225,149 @@ $window.trigger('scroll');
         </div>
         <div className="home-body">
           <Container>
-            <div className="block-el block-e1-size col-xs-6 .col-sm-4 animation-element slide-left testimonial">
-              <div className="block-content">
-                <p id="camera"></p>
-                <div className="desc">
-                  <span style={{ fontWeight: 'bold' }}>Camera</span>
-                  <button className="theme-btn theme-btn-outline-white">
-                    <Link to="/cameras" >View</Link>
-                  </button>
+            <div className="row">
+              <div className="block-el block-e1-size col animation-element slide-left testimonial">
+                <div className="block-content">
+                  <p id="camera"></p>
+                  <div className="desc">
+                    <span style={{ fontWeight: 'bold' }}>Camera</span>
+                    <button className="theme-btn theme-btn-outline-white">
+                      <Link to="/cameras" >View</Link>
+                    </button>
+                  </div>
                 </div>
+                <div className="block-bg"></div>
               </div>
-              <div className="block-bg"></div>
-            </div>
 
-            <div className="block-el block-e1-size col-xs-6 .col-sm-4 animation-element slide-left testimonial">
-              <div className="block-content">
-                <p id="computer_electronic"></p>
-                <div className="desc">
-                  <span style={{ fontWeight: 'bold' }}>Computer & Electronics</span>
-                  <button className="theme-btn theme-btn-outline-white">
-                    <Link to="/cameras" >View</Link>
-                  </button>
+              <div className="block-el block-e1-size col animation-element slide-left testimonial">
+                <div className="block-content">
+                  <p id="computer_electronic"></p>
+                  <div className="desc">
+                    <span style={{ fontWeight: 'bold' }}>Computer & Electronics</span>
+                    <button className="theme-btn theme-btn-outline-white">
+                      <Link to="/cameras" >View</Link>
+                    </button>
+                  </div>
                 </div>
+                <div className="block-bg"></div>
               </div>
-              <div className="block-bg"></div>
-            </div>
 
-            <div className="block-el block-e1-size col-xs-6 .col-sm-4 animation-element slide-left testimonial">
-              <div className="block-content ">
-                <p id="drones"></p>
-                <div className="desc">
-                  <span style={{ fontWeight: 'bold' }}>Drones</span>
-                  <button className="theme-btn theme-btn-outline-white">
-                    <Link to="/cameras" >View</Link>
-                  </button>
+              <div className="block-el block-e1-size col animation-element slide-left testimonial">
+                <div className="block-content ">
+                  <p id="drones"></p>
+                  <div className="desc">
+                    <span style={{ fontWeight: 'bold' }}>Drones</span>
+                    <button className="theme-btn theme-btn-outline-white">
+                      <Link to="/cameras" >View</Link>
+                    </button>
+                  </div>
                 </div>
+                <div className="block-bg"></div>
               </div>
-              <div className="block-bg"></div>
             </div>
+            <div className="row">
+              <div className="block-el block-e2-size col animation-element slide-left testimonial">
+                <div className="block-content">
+                  <p id="lenses"></p>
+                  <div className="desc">
+                    <span style={{ fontWeight: 'bold' }}>lenses</span>
+                    <button className="theme-btn theme-btn-outline-white">
+                      <Link to="/lenses" >View</Link>
+                    </button>
+                  </div>
+                </div>
+                <div className="block-bg"></div>
+              </div>
 
-            <div className="block-el block-e2-size col-xs-6 .col-sm-4 animation-element slide-left testimonial">
-              <div className="block-content">
-                <p id="lenses"></p>
-                <div className="desc">
-                  <span style={{ fontWeight: 'bold' }}>lenses</span>
-                  <button className="theme-btn theme-btn-outline-white">
-                    <Link to="/lenses" >View</Link>
-                  </button>
+              <div className="block-el block-e2-size col animation-element slide-left testimonial">
+                <div className="block-content">
+                  <p id="lighting"></p>
+                  <div className="desc">
+                    <span style={{ fontWeight: 'bold' }}>lighting</span>
+                    <button className="theme-btn theme-btn-outline-white">
+                      <Link to="/lighting" >View</Link>
+                    </button>
+                  </div>
                 </div>
+                <div className="block-bg"></div>
               </div>
-              <div className="block-bg"></div>
-            </div>
+              <div className="block-el block-e2-size col animation-element slide-left testimonial">
+                <div className="block-content">
+                  <p id="audio"></p>
+                  <div className="desc">
+                    <span style={{ fontWeight: 'bold' }}>Audio</span>
+                    <button className="theme-btn theme-btn-outline-white">
+                      <Link to="/audio" >View</Link>
+                    </button>
+                  </div>
+                </div>
+                <div className="block-bg"></div>
+              </div>
 
-            <div className="block-el block-e2-size col-xs-6 .col-sm-4 animation-element slide-left testimonial">
-              <div className="block-content">
-                <p id="lighting"></p>
-                <div className="desc">
-                  <span style={{ fontWeight: 'bold' }}>lighting</span>
-                  <button className="theme-btn theme-btn-outline-white">
-                    <Link to="/lighting" >View</Link>
-                  </button>
+              <div className="block-el block-e2-size col animation-element slide-left testimonial">
+                <div className="block-content">
+                  <p id="tripods_stabilization_rigs"></p>
+                  <div className="desc">
+                    <span style={{ fontWeight: 'bold' }}>Tripods Stabilization & Rigs</span>
+                    <button className="theme-btn theme-btn-outline-white">
+                      <Link to="/TS&R" >View</Link>
+                    </button>
+                  </div>
                 </div>
+                <div className="block-bg"></div>
               </div>
-              <div className="block-bg"></div>
             </div>
+            <div className="row">
+              <div className="block-el block-e2-size block-e3-adjustment col animation-element slide-left testimonial">
+                <div className="block-content">
+                  <p id="camera_accessories"></p>
+                  <div className="desc">
+                    <span style={{ fontWeight: 'bold' }}>Camera Accessories</span>
+                    <button className="theme-btn theme-btn-outline-white">
+                      <Link to="/camera_accessories" >View</Link>
+                    </button>
+                  </div>
+                </div>
+                <div className="block-bg"></div>
+              </div>
 
-            <div className="block-el block-e2-size col-xs-6 .col-sm-4 animation-element slide-left testimonial">
-              <div className="block-content">
-                <p id="audio"></p>
-                <div className="desc">
-                  <span style={{ fontWeight: 'bold' }}>Audio</span>
-                  <button className="theme-btn theme-btn-outline-white">
-                    <Link to="/audio" >View</Link>
-                  </button>
+              <div className="block-el block-e2-size col animation-element slide-left testimonial">
+                <div className="block-content">
+                  <p id="studio_spaces"></p>
+                  <div className="desc">
+                    <span style={{ fontWeight: 'bold' }}>Studio Spaces</span>
+                    <button className="theme-btn theme-btn-outline-white">
+                      <Link to="/studio_spaces" >View</Link>
+                    </button>
+                  </div>
                 </div>
+                <div className="block-bg"></div>
               </div>
-              <div className="block-bg"></div>
-            </div>
 
-            <div className="block-el block-e2-size col-xs-6 .col-sm-4 animation-element slide-left testimonial">
-              <div className="block-content">
-                <p id="tripods_stabilization_rigs"></p>
-                <div className="desc">
-                  <span style={{ fontWeight: 'bold' }}>Tripods Stabilization & Rigs</span>
-                  <button className="theme-btn theme-btn-outline-white">
-                    <Link to="/TS&R" >View</Link>
-                  </button>
+              <div className="block-el block-e2-size col animation-element slide-left testimonial">
+                <div className="block-content">
+                  <p id="office_spaces"></p>
+                  <div className="desc">
+                    <span style={{ fontWeight: 'bold' }}>Office Spaces</span>
+                    <button className="theme-btn theme-btn-outline-white">
+                      <Link to="/office_spaces" >View</Link>
+                    </button>
+                  </div>
                 </div>
+                <div className="block-bg"></div>
               </div>
-              <div className="block-bg"></div>
-            </div>
-
-            <div className="block-el block-e2-size block-e3-adjustment col-xs-6 .col-sm-4 animation-element slide-left testimonial">
-              <div className="block-content">
-                <p id="camera_accessories"></p>
-                <div className="desc">
-                  <span style={{ fontWeight: 'bold' }}>Camera Accessories</span>
-                  <button className="theme-btn theme-btn-outline-white">
-                    <Link to="/camera_accessories" >View</Link>
-                  </button>
+              <div className="block-el block-e2-size col animation-element slide-left testimonial">
+                <div className="block-content">
+                  <p id="others"></p>
+                  <div className="desc">
+                    <span style={{ fontWeight: 'bold' }}>OTHER</span>
+                    <button className="theme-btn theme-btn-outline-white">
+                      <Link to="/office_spaces" >View</Link>
+                    </button>
+                  </div>
                 </div>
+                <div className="block-bg"></div>
               </div>
-              <div className="block-bg"></div>
-            </div>
-
-            <div className="block-el block-e2-size col-xs-6 .col-sm-4 animation-element slide-left testimonial">
-              <div className="block-content">
-                <p id="studio_spaces"></p>
-                <div className="desc">
-                  <span style={{ fontWeight: 'bold' }}>Studio Spaces</span>
-                  <button className="theme-btn theme-btn-outline-white">
-                    <Link to="/studio_spaces" >View</Link>
-                  </button>
-                </div>
-              </div>
-              <div className="block-bg"></div>
-            </div>
-
-            <div className="block-el block-e2-size col-xs-6 .col-sm-4 animation-element slide-left testimonial">
-              <div className="block-content">
-                <p id="office_spaces"></p>
-                <div className="desc">
-                  <span style={{ fontWeight: 'bold' }}>Office Spaces</span>
-                  <button className="theme-btn theme-btn-outline-white">
-                    <Link to="/office_spaces" >View</Link>
-                  </button>
-                </div>
-              </div>
-              <div className="block-bg"></div>
-            </div>
-            <div className="block-el block-e2-size col-xs-6 .col-sm-4 animation-element slide-left testimonial">
-              <div className="block-content">
-                <p id="others"></p>
-                <div className="desc">
-                  <span style={{ fontWeight: 'bold' }}>OTHER</span>
-                  <button className="theme-btn theme-btn-outline-white">
-                    <Link to="/office_spaces" >View</Link>
-                  </button>
-                </div>
-              </div>
-              <div className="block-bg"></div>
             </div>
             <div className="clearfix mb-4"></div>
 
@@ -415,7 +418,7 @@ $window.trigger('scroll');
                           </div>
                         </Col>
                       </div>
-                      <button className="theme-btn theme-btn-primary" style={{
+                      <button className="theme-btn theme-btn-primary button" style={{
                         width: 244,
                         marginLeft: 30
                       }}>
@@ -488,7 +491,7 @@ $window.trigger('scroll');
               </div>
               <Row>
                 <Col style={{ marginLeft: 180, marginTop: 95 }}>
-                  <button style={{ width: 189, height: 50, border: 0, backgroundColor: '#F82462' }}>
+                  <button className="faq-button" style={{ width: 189, height: 50, border: 0 }}>
                     <text style={{ color: 'white' }}>FAQ</text>
                   </button>
                 </Col>

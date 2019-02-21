@@ -38,41 +38,26 @@
 }
 
 .animation-element.slide-left.testimonial:nth-of-type(even) {
-  width: 48.5%;
-  margin: 0% 0% 3.0% 1.5%;
+ 
 }
 
 .animation-element.slide-left.testimonial .header{
   float: left;
-  width: 100%;
   margin-bottom: 10px;
 }
 .animation-element.slide-left.testimonial .left{
   float: left;
-  margin-right: 15px;
 }
 .animation-element.slide-left.testimonial .right{
   float: left;
 }
 
-.animation-element.slide-left.testimonial img {
-  width: 65px;
-  height: 65px;
-  border-radius: 50%;
-}
 
-.animation-element.slide-left.testimonial h3 {
-  margin: 0px 0px 5px 0px;
-}
 
-.animation-element.slide-left.testimonial h4 {
-  margin: 0px 0px 5px 0px;
-}
+
 
 .animation-element.slide-left.testimonial .content {
   float: left;
-  width:100%;
-  margin-bottom: 10px;
 }
 
 
@@ -438,7 +423,26 @@
   width: 100%;
   flex-wrap: wrap;
 }
+@media(max-width:1203px){
+  .calendarSection{
+    margin-left: -19px;
+  }
+  .button{
+    margin-left: -4px!important;
+  }
+}
 
+@media(max-width:1092px){
+  .calendarSection{
+    margin-left: -81px;
+  }
+  .button{
+    margin-left: -66px!important;
+  }
+  .arrivalText{
+    margin-left: -81px;
+  }
+}
 @media(max-width:500px){
   .home{
     text-align: center;
