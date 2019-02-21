@@ -31,7 +31,7 @@ class Footer extends Component {
           </Container>
         </div>
         <div className="footer-nav">
-          <Container>
+          <Container style={{    marginTop: -35}}>
             <Row>
               <Col sm="3">
                 <img src={logo} alt="logo" className="logo"></img>
@@ -39,19 +39,19 @@ class Footer extends Component {
               <Col sm="5">
                 <ul className="nav text-xs-right">
                   <li className="nav-item">
-                    <Link className="nav-link" to="#">About us</Link>
+                    <Link className="nav-link" to="#"><text style={{ fontSize: 16, color: '#252525' }}>About us</text></Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="#">Stories</Link>
+                    <Link className="nav-link" to="#"><text style={{ fontSize: 16, color: '#252525' }}>Stories</text></Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="#">Blog</Link>
+                    <Link className="nav-link" to="#"><text style={{ fontSize: 16, color: '#252525' }}>Blog</text></Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link " to="#">Contacts</Link>
+                    <Link className="nav-link " to="#"><text style={{ fontSize: 16, color: '#252525' }}>Contacts</text></Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link " to="#">FAQs</Link>
+                    <Link className="nav-link " to="#"><text style={{ fontSize: 16, color: '#252525' }}>FAQs</text></Link>
                   </li>
                 </ul>
               </Col>
@@ -68,20 +68,20 @@ class Footer extends Component {
             <Row>
               <Col sm="6">
                 <div className="social-buttons">
-                  <button className="theme-btn btn-social btn-fb">
-                    <span className="fab fa-facebook-f"></span>
+                <button className="theme-btn btn-social btn-fb">
+                    <span style={{marginRight:41}} className="fab fa-facebook-f"></span>
                     Facebook</button> &nbsp;
-                  <button className="theme-btn btn-social btn-vimeo">
-                    <span className="fab fa-vimeo-v"></span>
+                    <button className="theme-btn btn-social btn-vimeo">
+                    <span style={{marginRight:56}} className="fab fa-vimeo-v"></span>
                     Vimeo</button> &nbsp;
-                  <button className="theme-btn btn-social btn-insta">
-                    <span className="fab fa-instagram"></span>
+                    <button className="theme-btn btn-social btn-insta">
+                    <span style={{marginRight:33}} className="fab fa-instagram"></span>
                     Instagram</button>
                 </div>
               </Col>
               <Col sm="3">
-                <div className="email">
-                  <span className="fa fa-envelope-o"></span>&nbsp;&nbsp;
+                <div className="email" style={{ marginRight: -80 }}>
+                  <img src={'/images/email_icon.png'} style={{ width: 44, height: 33, marginTop: 4 }} alt="" />&nbsp;&nbsp;
                   <p className="theme-text-small">
                     support@creativemarket.com
                     <br />
@@ -91,7 +91,7 @@ class Footer extends Component {
               </Col>
               <Col sm="3">
                 <div className="phone">
-                  <span className="fa fa-phone"></span>&nbsp;&nbsp;
+                  <img src={'/images/phone_icon.png'} style={{ width: 39, height: 38, marginTop: 4 }} alt="" />&nbsp;&nbsp;&nbsp;&nbsp;
                   <p className="theme-text-small">
                     +1 3456 7890<br />
                     +1 3427 7670

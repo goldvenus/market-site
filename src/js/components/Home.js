@@ -8,7 +8,7 @@ import ThemeCardOne from './Theme-Cards/ThemeCardOne';
 import ThemeCardTwo from './Theme-Cards/ThemeCardTwo';
 import data from './dummydata';
 import { fetchCategories, search, newArrivals, socialLogin } from '../actions/app.actions';
-
+import $ from 'jquery';
 const locationInputStyle = {
   width: '224px'
 }
@@ -33,6 +33,32 @@ class Home extends Component {
   }
 
   componentDidMount() {
+    var $animation_elements = $('.animation-element');
+var $window = $(window);
+
+function check_if_in_view() {
+  var window_height = $window.height();
+  var window_top_position = $window.scrollTop();
+  var window_bottom_position = (window_top_position + window_height);
+ 
+  $.each($animation_elements, function() {
+    var $element = $(this);
+    var element_height = $element.outerHeight();
+    var element_top_position = $element.offset().top;
+    var element_bottom_position = (element_top_position + element_height);
+ 
+    //check to see if this current container is within viewport
+    if ((element_bottom_position >= window_top_position) &&
+        (element_top_position <= window_bottom_position)) {
+      $element.addClass('in-view');
+    } else {
+      $element.removeClass('in-view');
+    }
+  });
+}
+
+$window.on('scroll resize', check_if_in_view);
+$window.trigger('scroll');
     fetchCategories();
     newArrivals();
 
@@ -199,7 +225,7 @@ class Home extends Component {
         </div>
         <div className="home-body">
           <Container>
-            <div className="block-el block-e1-size col-xs-6 .col-sm-4">
+            <div className="block-el block-e1-size col-xs-6 .col-sm-4 animation-element slide-left testimonial">
               <div className="block-content">
                 <p id="camera"></p>
                 <div className="desc">
@@ -212,7 +238,7 @@ class Home extends Component {
               <div className="block-bg"></div>
             </div>
 
-            <div className="block-el block-e1-size col-xs-6 .col-sm-4">
+            <div className="block-el block-e1-size col-xs-6 .col-sm-4 animation-element slide-left testimonial">
               <div className="block-content">
                 <p id="computer_electronic"></p>
                 <div className="desc">
@@ -225,7 +251,7 @@ class Home extends Component {
               <div className="block-bg"></div>
             </div>
 
-            <div className="block-el block-e1-size col-xs-6 .col-sm-4">
+            <div className="block-el block-e1-size col-xs-6 .col-sm-4 animation-element slide-left testimonial">
               <div className="block-content ">
                 <p id="drones"></p>
                 <div className="desc">
@@ -238,11 +264,11 @@ class Home extends Component {
               <div className="block-bg"></div>
             </div>
 
-            <div className="block-el block-e2-size col-xs-6 .col-sm-4">
+            <div className="block-el block-e2-size col-xs-6 .col-sm-4 animation-element slide-left testimonial">
               <div className="block-content">
                 <p id="lenses"></p>
                 <div className="desc">
-                  <span style={{fontWeight:'bold'}}>lenses</span>
+                  <span style={{ fontWeight: 'bold' }}>lenses</span>
                   <button className="theme-btn theme-btn-outline-white">
                     <Link to="/lenses" >View</Link>
                   </button>
@@ -251,7 +277,7 @@ class Home extends Component {
               <div className="block-bg"></div>
             </div>
 
-            <div className="block-el block-e2-size col-xs-6 .col-sm-4">
+            <div className="block-el block-e2-size col-xs-6 .col-sm-4 animation-element slide-left testimonial">
               <div className="block-content">
                 <p id="lighting"></p>
                 <div className="desc">
@@ -264,11 +290,11 @@ class Home extends Component {
               <div className="block-bg"></div>
             </div>
 
-            <div className="block-el block-e2-size col-xs-6 .col-sm-4">
+            <div className="block-el block-e2-size col-xs-6 .col-sm-4 animation-element slide-left testimonial">
               <div className="block-content">
                 <p id="audio"></p>
                 <div className="desc">
-                  <span style={{fontWeight:'bold'}}>Audio</span>
+                  <span style={{ fontWeight: 'bold' }}>Audio</span>
                   <button className="theme-btn theme-btn-outline-white">
                     <Link to="/audio" >View</Link>
                   </button>
@@ -277,7 +303,7 @@ class Home extends Component {
               <div className="block-bg"></div>
             </div>
 
-            <div className="block-el block-e2-size col-xs-6 .col-sm-4">
+            <div className="block-el block-e2-size col-xs-6 .col-sm-4 animation-element slide-left testimonial">
               <div className="block-content">
                 <p id="tripods_stabilization_rigs"></p>
                 <div className="desc">
@@ -290,7 +316,7 @@ class Home extends Component {
               <div className="block-bg"></div>
             </div>
 
-            <div className="block-el block-e2-size block-e3-adjustment col-xs-6 .col-sm-4">
+            <div className="block-el block-e2-size block-e3-adjustment col-xs-6 .col-sm-4 animation-element slide-left testimonial">
               <div className="block-content">
                 <p id="camera_accessories"></p>
                 <div className="desc">
@@ -303,7 +329,7 @@ class Home extends Component {
               <div className="block-bg"></div>
             </div>
 
-            <div className="block-el block-e2-size col-xs-6 .col-sm-4">
+            <div className="block-el block-e2-size col-xs-6 .col-sm-4 animation-element slide-left testimonial">
               <div className="block-content">
                 <p id="studio_spaces"></p>
                 <div className="desc">
@@ -316,11 +342,11 @@ class Home extends Component {
               <div className="block-bg"></div>
             </div>
 
-            <div className="block-el block-e2-size col-xs-6 .col-sm-4">
+            <div className="block-el block-e2-size col-xs-6 .col-sm-4 animation-element slide-left testimonial">
               <div className="block-content">
                 <p id="office_spaces"></p>
                 <div className="desc">
-                  <span style={{fontWeight:'bold'}}>Office Spaces</span>
+                  <span style={{ fontWeight: 'bold' }}>Office Spaces</span>
                   <button className="theme-btn theme-btn-outline-white">
                     <Link to="/office_spaces" >View</Link>
                   </button>
@@ -328,7 +354,7 @@ class Home extends Component {
               </div>
               <div className="block-bg"></div>
             </div>
-            <div className="block-el block-e2-size col-xs-6 .col-sm-4">
+            <div className="block-el block-e2-size col-xs-6 .col-sm-4 animation-element slide-left testimonial">
               <div className="block-content">
                 <p id="others"></p>
                 <div className="desc">
@@ -353,16 +379,16 @@ class Home extends Component {
                       <h3 className="mb-4">New Arrivals</h3>
                       <div className="calendarSection">
                         <Col>
-                          <div style={{ width: 90, height: 85, backgroundColor: 'rgba(255, 254, 254, 0.8)' }}>
-                            <div style={{ paddingTop: 16 }}>
+                          <div style={{ width: 120, height: 115, backgroundColor: 'rgba(255, 254, 254, 0.8)' }}>
+                            <div style={{ paddingTop: 31 }}>
                               <text style={{ fontSize: 13 }}>Daily</text>
                             </div>
                             <div>
                               <text style={{ fontSize: 25, fontWeight: 'bold' }}>11</text>
                             </div>
                           </div>
-                          <div style={{ width: 90, height: 85, marginTop: 5, backgroundColor: 'rgba(255, 254, 254, 0.8)' }}>
-                            <div style={{ paddingTop: 16 }}>
+                          <div style={{ width: 120, height: 115, marginTop: 5, backgroundColor: 'rgba(255, 254, 254, 0.8)' }}>
+                            <div style={{ paddingTop: 31 }}>
                               <text style={{ fontSize: 13 }}>Weekly</text>
                             </div>
                             <div>
@@ -371,16 +397,16 @@ class Home extends Component {
                           </div>
                         </Col>
                         <Col>
-                          <div style={{ width: 90, height: 85, marginLeft: 7, backgroundColor: 'rgba(255, 254, 254, 0.8)' }}>
-                            <div style={{ paddingTop: 16 }}>
+                          <div style={{ width: 120, height: 115, marginLeft: 38, backgroundColor: 'rgba(255, 254, 254, 0.8)' }}>
+                            <div style={{ paddingTop: 31 }}>
                               <text style={{ fontSize: 13 }}>Monthly</text>
                             </div>
                             <div>
                               <text style={{ fontSize: 25, fontWeight: 'bold' }}>220</text>
                             </div>
                           </div>
-                          <div style={{ width: 90, height: 85, marginLeft: 7, marginTop: 5, backgroundColor: 'rgba(255, 254, 254, 0.8)' }}>
-                            <div style={{ paddingTop: 16 }}>
+                          <div style={{ width: 120, height: 115, marginLeft: 38, marginTop: 5, backgroundColor: 'rgba(255, 254, 254, 0.8)' }}>
+                            <div style={{ paddingTop: 31 }}>
                               <text style={{ fontSize: 13 }}>Yearly</text>
                             </div>
                             <div>
@@ -390,11 +416,11 @@ class Home extends Component {
                         </Col>
                       </div>
                       <button className="theme-btn theme-btn-primary" style={{
-                        width: 183,
-                        marginLeft: -12
+                        width: 244,
+                        marginLeft: 30
                       }}>
                         <Link to="/listGear">
-                          <span></span>
+                          <i className="fa fa-search" style={{ color: 'rgba(255, 255, 255, 0.6);', marginRight: 6 }} />
                           Find Gear
                       </Link>
                       </button>
@@ -442,18 +468,18 @@ class Home extends Component {
           </div>
           <div className="paySection">
             <Col className="paySection1">
-              <div className="paySection2" style={{ marginTop: 90, marginLeft: 74 }}>
-                <div style={{ alignSelf: 'center' }}>
+              <div className="paySection2" style={{ marginTop: 105, marginLeft: 180 }}>
+                <div style={{ alignSelf: 'center', width: 524 }}>
                   <div>
-                    <text style={{ fontWeight: 'bold', fontSize: 40, }}>Fast, safe and secure</text>
+                    <text style={{ fontWeight: 'bold', fontSize: 30, color: '#252525' }}>Fast, safe and secure</text>
                   </div>
                   <div style={{ marginTop: 15 }}>
-                    <text style={{ fontWeight: 'bold', fontSize: 37 }}>Two-way inscurance included</text>
+                    <text style={{ fontWeight: 'bold', fontSize: 30, color: '#252525' }}>Two-way inscurance included</text>
                   </div>
                 </div>
 
               </div>
-              <div className="paySection2" style={{ marginLeft: 74 }}>
+              <div className="paySection2" style={{ marginLeft: 180 }}>
                 <div style={{ alignSelf: 'center', width: 370, marginTop: 80 }}>
                   <div>
                     <text style={{ fontSize: 16, }}>Creative Market’s photo verification system verifies the condition of items when picked up and returned. Both by owner and renter. </text>
@@ -461,8 +487,8 @@ class Home extends Component {
                 </div>
               </div>
               <Row>
-                <Col style={{ marginLeft: 74, marginTop: 66 }}>
-                  <button style={{ width: 189, height: 50, backgroundColor: '#F82462' }}>
+                <Col style={{ marginLeft: 180, marginTop: 95 }}>
+                  <button style={{ width: 189, height: 50, border: 0, backgroundColor: '#F82462' }}>
                     <text style={{ color: 'white' }}>FAQ</text>
                   </button>
                 </Col>

@@ -1,3 +1,28 @@
+/* Container needed to position the button. Adjust the width as needed */
+
+
+/* Make the image responsive */
+
+
+/* Style the button and place it in the middle of the container/image */
+.btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: transparent;
+  font-size: 16px;
+  padding: 12px 24px;
+  background-color: transparent;
+  border-radius: 5px;
+}
+
+.btn:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+  color :white;
+}
+
 .theme-2{
     width: auto;
     height: 270px;
@@ -5,7 +30,16 @@
       background-color: $primary-color-alpha;
       height: 100%;
     img{
+      -moz-transition: all 0.3s;
+      -webkit-transition: all 0.3s;
+      transition: all 0.3s;
       height: 100%;
+     
+      &:hover{
+        -moz-transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+      }
     }
     .overlay{
       position: absolute;

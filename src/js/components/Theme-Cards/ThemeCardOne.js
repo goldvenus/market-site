@@ -14,9 +14,10 @@ const ThemeCardOne = ({ Gear: { numberOfUserImage, model,  catagory, brand, tota
           </CardTitle>
           <CardText>
             <span>
-              <span className="price">{pricePerDay}</span>{' '}
+              <span className="price">${pricePerDay}</span>{' '}
               <small className="">per day</small>
             </span>
+            
             <span className="arrow"></span>
           </CardText>
         </div>
