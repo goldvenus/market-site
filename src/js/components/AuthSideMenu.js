@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
 import NavbarLeft from './Navbar/NavbarLeft';
 
 class AuthSideMenu extends Component {
@@ -12,7 +11,4 @@ class AuthSideMenu extends Component {
   }
 }
 
-export default connect((store) => {
-  return {
-  };
-})(AuthSideMenu);
+export default AuthSideMenu;

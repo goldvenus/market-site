@@ -13,19 +13,27 @@
   }
 
   .button-toggle {
-    border: none;
-    background-color: transparent;
     position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    border: none;
+    padding: 0 45px;
+    height: 127px;
+    background-color: transparent;
     z-index: 555;
     cursor: pointer;
+    outline: none !important;
 
-    &:focus {
-      outline: none;
-    }
-
-    .fa-bars, .fa-times {
-      font-size: 25px;
+    span {
+      margin-left: 25px;
       color: $white;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1em;
+      letter-spacing: .1em;
     }
   }
 
