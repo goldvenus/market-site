@@ -1,0 +1,229 @@
+.dashboard {
+  width: 100%;
+
+  .dashboard-head {
+    padding: 2.5rem 0 0;
+    background-color: $gray-light;
+
+    .user-detail {
+      padding-bottom: 2rem;
+
+      .user-name {
+        margin-bottom: 1.5rem;
+      }
+
+      img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+      }
+
+      p {
+        margin-bottom: 0.25rem;
+      }
+    }
+
+    .nav-tabs {
+      border: none;
+      cursor: pointer;
+
+      .nav-link {
+        background-color: #f4f5f6;
+        border: none;
+        color: $secondary-light-color;
+        font-size: 0.85rem;
+        font-weight: bold;
+      }
+
+      .active {
+        border-bottom: 2px solid #f82462;
+      }
+
+    }
+  }
+
+  .dashboard-body {
+    padding: 2rem 0;
+
+    .chart {
+      .wrraper {
+        background-color: $gray-light;
+        padding: 3rem;
+        text-align: center;
+
+        .line-chart {
+          background-color: $white;
+        }
+
+        img {
+          width: 100%;
+        }
+
+        .totel-listing, .totel-rental, .avaiable {
+          background-color: $white;
+          margin-top: 1rem;
+          padding: 2rem 1.5rem;
+          text-align: left;
+        }
+      }
+    }
+
+    .account-detail {
+      .wrraper {
+        background-color: $gray-light;
+        padding: 3rem;
+        text-align: center;
+
+        img {
+          width: 100%;
+        }
+
+        .card-body {
+          border: none;
+          margin-bottom: 1.5rem;
+          padding: 0 0 1.5rem;
+
+          .card-title {
+            text-align: left;
+            padding: 1rem 1.5rem;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            border-bottom: 1px solid $gray-lighten;
+          }
+
+          .card-text {
+            padding: 0 1.5rem;
+            margin-bottom: 1rem;
+            text-align: left;
+
+            label {
+              margin: 0;
+            }
+
+            .form-control {
+              border: none;
+              border-bottom: 2px solid $gray-light;
+              border-radius: 0;
+              height: calc(2rem + 2px);
+
+              &:focus {
+                outline: none;
+                box-shadow: none;
+              }
+            }
+
+            .add-payment-method {
+              border: 2px solid $gray-light;
+              height: 100%;
+
+              .add {
+                width: 30px;
+                height: 30px;
+                background-color: $primary-color;
+                border-radius: 50%;
+
+                .fa {
+                  color: $white;
+                }
+              }
+
+              &:hover {
+                background-color: $primary-color;
+
+                .add {
+                  background-color: $white;
+
+                  .fa {
+                    color: $primary-color;
+                  }
+                }
+              }
+            }
+          }
+
+          button {
+            background-color: $primary-color;
+            margin: 0 2rem;
+            border: none;
+            border-radius: 0;
+          }
+        }
+      }
+    }
+
+    .my-listing {
+      a.theme-btn-primary {
+        padding-top: 9px !important;
+      }
+
+      .wrraper {
+        background-color: $gray-light;
+        padding: 3rem;
+        text-align: center;
+
+        .listing-data-slice {
+          background-color: $white !important;
+          text-align: left;
+
+          th {
+            font-weight: lighter;
+          }
+
+          .gear, .rental-period {
+            p {
+              margin: 0.25rem;
+              text-align: left;
+            }
+          }
+
+          td {
+            vertical-align: middle;
+
+            .gear-img {
+              width: 70%;
+            }
+
+            .landrord-img {
+              width: 25%;
+              border-radius: 50%;
+            }
+          }
+        }
+
+        .pagination {
+          justify-content: center;
+
+          .page-link {
+            color: $secondary-light-color;
+            background-color: transparent;
+            border: none;
+
+            &:focus {
+              box-shadow: none;
+            }
+          }
+
+          .page-item.active .page-link {
+            color: $primary-color;
+            border: none;
+            border-bottom: 2px solid $primary-color;
+          }
+        }
+      }
+
+      .my-rental {
+        .wrraper {
+          background-color: $gray-light;
+          padding: 3rem;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+@media(max-width: 500px) {
+  .wrraper {
+    padding: 5px !important;
+  }
+}

@@ -1,0 +1,48 @@
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  margin: 0;
+  border: none;
+  padding: 0;
+  width: 100%;
+  height: min-content;
+  min-height: 100vh;
+}
+
+.app-content {
+  flex: 1;
+  display: flex;
+  width: 100%;
+
+  & > * {
+    width: 100%;
+  }
+
+  .centered-content {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+}
+
+.app-error {
+  position: fixed;
+  top: 10px;
+  right: 0;
+  width: 500px;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+}
+
+.app-error-text {
+  flex: 1;
+}
+
+.app-error-close {
+  margin-left: 15px;
+  cursor: pointer;
+}

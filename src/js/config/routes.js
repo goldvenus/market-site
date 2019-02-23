@@ -1,46 +1,48 @@
-import React from "react";
-import { Route } from 'react-router-dom';
-import Home from "../components/Home";
-import About from "../components/Abouts";
-import Login from "../components/Login";
-import Register from "../components/Register";
-import ForgotPassword from "../components/ForgotPassword";
-import AddGear from "../components/AddGear";
-import ViewGear from "../components/ViewGear";
-import Dashboard from "../components/Dashboard/Dashboard";
-import Cart from "../components/Cart";
-import Checkout from "../components/Checkout";
-import Payment from "../components/Payment";
-import ListGear from "../components/ListGear";
-import RentGear from "../components/Rent Gear/RentGear";
-import RegisterConfirm from "../components/RegisterConfirm";
-import SearchResults from "../components/SearchResults";
-import Favourites from "../components/Favourites";
-import Partner from "../components/partners";
-import FAQ from "../components/FAQ";
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 
+import Home from '../components/Pages/Home';
+import About from '../components/Pages/Abouts';
+import Login from '../components/Pages/Login';
+import Register from '../components/Pages/Register';
+import RegisterConfirm from '../components/Pages/RegisterConfirm';
+import ForgotPassword from '../components/Pages/ForgotPassword';
+import Dashboard from '../components/Pages/Dashboard';
+import AddGear from '../components/Pages/AddGear';
+import ViewGear from '../components/Pages/ViewGear';
+import Cart from '../components/Pages/Cart';
+import Checkout from '../components/Pages/Checkout';
+import Payment from '../components/Pages/Payment';
+import ListGear from '../components/Pages/ListGear';
+import RentGear from '../components/Pages/RentGear';
+import SearchResults from '../components/Pages/SearchResults';
+import Favourites from '../components/Pages/Favourites';
+import Partner from '../components/Pages/Partner';
+
+import FAQ from '../components/Pages/FAQ';
 
 export default (
   <div className="app-content">
-    <Route exact path="/" component={Home} />
-    <Route path="/home" component={Home} />
-    <Route path="/aboutus" component={About} />
-    <Route path="/login" component={Login} />
-    <Route path="/register" component={Register} />
-    <Route path="/dashboard" component={Dashboard} />
-    <Route path="/forgotpassword" component={ForgotPassword} />
-    <Route path="/addgear" component={AddGear} />
-    <Route path="/gear/:id" component={ViewGear} />
-    <Route path="/cart" component={Cart} />
-    <Route path="/checkout" component={Checkout} />
-    <Route path="/payment" component={Payment} />
-    <Route path='/listgear' component={ListGear} />
-    <Route path='/rentgear' component={RentGear} />
-    <Route path='/confirm' component={RegisterConfirm} />
-    <Route path='/search' component={SearchResults} />
-    <Route path='/favourites' component={Favourites} />
-    <Route path='/partners' component={Partner}/>
-    <Route path='/FAQ' component={FAQ}/>
-
+    <Switch>
+      <Route exact path="/" component={Home}/>
+      <Route exact path="/home" component={Home}/>
+      <Route exact path="/aboutus" component={About}/>
+      <Route exact path="/login" component={Login}/>
+      <Route exact path="/register" component={Register}/>
+      <Route exact path='/confirm' component={RegisterConfirm}/>
+      <Route exact path="/forgotpassword" component={ForgotPassword}/>
+      <Route exact path="/dashboard" component={Dashboard}/>
+      <Route exact path="/addgear" component={AddGear}/>
+      <Route exact path="/gear/:id" component={ViewGear}/>
+      <Route exact path="/cart" component={Cart}/>
+      <Route exact path="/checkout" component={Checkout}/>
+      <Route exact path="/payment" component={Payment}/>
+      <Route exact path='/listgear' component={ListGear}/>
+      <Route exact path='/rentgear' component={RentGear}/>
+      <Route exact path='/search' component={SearchResults}/>
+      <Route exact path='/favourites' component={Favourites}/>
+      <Route exact path='/partners' component={Partner}/>
+      <Route exact path='/FAQ' component={FAQ}/>
+    </Switch>
   </div>
 );

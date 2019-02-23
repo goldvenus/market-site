@@ -1,0 +1,168 @@
+html, body, .container {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Helvetica Neue', sans-serif;
+  color: $secondary-color;
+  font-size: 16px;
+}
+
+a, a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+button:focus, button:active {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+input::-webkit-input-placeholder {
+  font-size: 12px;
+  line-height: 3;
+}
+
+/**
+ Color classes
+  */
+.primary-color {
+  color: $primary-color;
+}
+
+.bg-gray-light {
+  background-color: $gray-light;
+}
+
+/**
+ Placement classes
+  */
+.X-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.Y-center {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.v-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.h-center {
+  display: flex;
+  justify-content: center;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-row {
+  display: flex;
+  align-items: center;
+
+  & > *:nth-child(n+2) {
+    margin-left: 15px !important;
+  }
+}
+
+.flex-align-start {
+  align-items: flex-start;
+}
+
+.flex-align-stretch {
+  align-items: stretch;
+}
+
+/**
+  Common classes
+ */
+
+
+.social-buttons {
+  display: flex;
+
+  .btn-social {
+    margin-right: 10px;
+  }
+}
+
+.breadcrumb {
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  margin-bottom: 10px;
+
+  .active {
+    font-weight: bold;
+  }
+}
+
+.dropdown-toggle {
+  background: white;
+  color: black;
+  border: 1px solid lightgray;
+  width: 100%;
+  text-align: left;
+
+  &::after {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+  }
+}
+
+.file-input-container {
+  position: relative;
+
+  input[type="file"] {
+    opacity: 0;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+  }
+}
+
+img {
+  object-fit: cover;
+}
+
+@media(max-width: 500px) {
+  .mt-xs {
+    margin-top: 10px;
+  }
+
+  .centered-content {
+    margin: 0;
+    padding: 15px !important;
+  }
+
+  .social-buttons .btn-social {
+    font-size: 12px;
+
+    span {
+      font-size: 14px;
+    }
+  }
+}

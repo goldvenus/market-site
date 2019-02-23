@@ -21,7 +21,7 @@ const axiosConfig = () => {
   }
 
   return config;
-}
+};
 
 const tokenAxiosConfig = () => {
   let config = {
@@ -43,51 +43,51 @@ const tokenAxiosConfig = () => {
   // }
 
   return config;
-}
+};
 
 const getAPIUrl = (url) => API_URL + url;
 
 const handleError = (error) => {
   dispatch({
     type: ACTIONS.ERROR,
-    payload: error || "Something went wrong"
+    payload: error || 'Something went wrong'
   });
-}
+};
 
 const clearError = () => {
   dispatch({
     type: ACTIONS.REMOVE_ERROR,
     payload: null
   });
-}
+};
 
 const get = async (url) => {
   return await axios.get(getAPIUrl(url), axiosConfig()).then((res) => res)
     .catch(err => {
       //handleError(err.response && err.response.data.errorMessage)
     });
-}
+};
 
 const get_new = async (url) => {
   return await axios.get(API_URL_NEW + url, axiosConfig()).then((res) => res)
     .catch(err => {
       //handleError(err.response && err.response.data.errorMessage)
     });
-}
+};
 
 const post = async (url, data) => {
   return axios.post(getAPIUrl(url), data, axiosConfig()).then((res) => res)
     .catch(err => {
-      handleError(err.response.data.errorMessage)
+      handleError(err.response.data.errorMessage);
     });
-}
+};
 
 const post_new = async (url, data) => {
   return axios.post(API_URL_NEW + url, data, axiosConfig()).then((res) => res)
     .catch(err => {
-      handleError(err.response.data.errorMessage)
+      handleError(err.response.data.errorMessage);
     });
-}
+};
 
 const fetchCategories = () => {
   try {
@@ -95,12 +95,11 @@ const fetchCategories = () => {
     dispatch({
       type: ACTIONS.FETCH_CATEGORIES,
       payload: response
-    })
-  }
-  catch (error) {
+    });
+  } catch (error) {
     handleError(error);
   }
-}
+};
 
 const register = async (data) => {
   return new Promise(async (resolve, reject) => {
@@ -117,7 +116,7 @@ const register = async (data) => {
       reject(error);
     }
   });
-}
+};
 
 const login = async (data) => {
   try {
@@ -140,11 +139,11 @@ const login = async (data) => {
   } catch (error) {
     handleError(error);
   }
-}
+};
 
 const refreshToken = async () => {
   try {
-    let response = await axios.post(getAPIUrl('getUserRefreshTokens'), {username: localStorage.userId}, tokenAxiosConfig());
+    let response = await axios.post(getAPIUrl('getUserRefreshTokens'), { username: localStorage.userId }, tokenAxiosConfig());
 
     if (response && response.data) {
       const { accessToken, idToken, refreshToken } = response.data;
@@ -154,21 +153,20 @@ const refreshToken = async () => {
 
       return response;
     }
-  }
-  catch (error) {
+  } catch (error) {
     // handleError(error);
   }
-}
+};
 
 const getUser = async () => {
   try {
     if (localStorage.accessToken) {
       const token = await refreshToken();
-      if(token) {
+      if (token) {
         let response = await get('getUserInfo');
         dispatch({
           type: ACTIONS.ERROR,
-          payload: ""
+          payload: ''
         });
         if (response && response.data) {
           dispatch({
@@ -177,14 +175,14 @@ const getUser = async () => {
           });
 
           getCarts();
-          getFavourites()
+          getFavourites();
         }
       }
     }
   } catch (error) {
     // handleError(error);
   }
-}
+};
 
 const readFileData = (event) => {
   return new Promise((resolve, reject) => {
@@ -194,13 +192,13 @@ const readFileData = (event) => {
       let fileReader = new FileReader();
       fileReader.onload = (event) => {
         resolve(event.target.result);
-      }
+      };
 
-      fileReader.onerror = (e) => reject("error");
+      fileReader.onerror = (e) => reject('error');
       fileReader.readAsDataURL(input.files[0]);
     }
   });
-}
+};
 
 const addGear = async (data) => {
   try {
@@ -209,7 +207,7 @@ const addGear = async (data) => {
   } catch (error) {
     handleError(error);
   }
-}
+};
 
 const getListGears = async () => {
   try {
@@ -223,7 +221,7 @@ const getListGears = async () => {
   } catch (error) {
     handleError(error);
   }
-}
+};
 
 const logout = () => {
   delete localStorage.accessToken;
@@ -235,7 +233,7 @@ const logout = () => {
     type: ACTIONS.LOGGED_OUT,
     payload: null
   });
-}
+};
 
 const getGear = async (gearid) => {
   try {
@@ -247,8 +245,7 @@ const getGear = async (gearid) => {
   } catch (error) {
     handleError(error);
   }
-}
-
+};
 
 const addCart = (data) => {
   return new Promise(async (resolve, reject) => {
@@ -260,7 +257,7 @@ const addCart = (data) => {
       reject(error);
     }
   });
-}
+};
 
 const checkout = (data) => {
   return new Promise(async (resolve, reject) => {
@@ -272,7 +269,7 @@ const checkout = (data) => {
       reject(error);
     }
   });
-}
+};
 
 const payment = (data) => {
   return new Promise(async (resolve, reject) => {
@@ -284,7 +281,7 @@ const payment = (data) => {
       reject(error);
     }
   });
-}
+};
 
 const getCarts = async () => {
   try {
@@ -294,40 +291,37 @@ const getCarts = async () => {
       type: ACTIONS.CARTS,
       payload: response.data
     });
-  }
-  catch (error) {
+  } catch (error) {
     handleError(error);
   }
-}
+};
 
 const rentGearProductList = async (catDetail) => {
   try {
-    let response = await post('showRentGearProductsList', catDetail)
+    let response = await post('showRentGearProductsList', catDetail);
 
     dispatch({
       type: ACTIONS.GEAR_PRODUCT_LIST,
       payload: response.data
-    })
+    });
 
-  }
-  catch (error) {
+  } catch (error) {
 
     handleError(error);
   }
-}
+};
 
-const dashboardMyListing = async () =>{
-  try{
+const dashboardMyListing = async () => {
+  try {
     let response = await get('userDashboardProductList');
     dispatch({
-      type : ACTIONS.DASHBOARD_MY_LISTINGS,
-      payload : response.data
-    })
-  }
-  catch(error){
+      type: ACTIONS.DASHBOARD_MY_LISTINGS,
+      payload: response.data
+    });
+  } catch (error) {
     handleError(error);
   }
-}
+};
 
 const dashboardMyRentals = async () => {
   try {
@@ -335,48 +329,44 @@ const dashboardMyRentals = async () => {
     dispatch({
       type: ACTIONS.DASHBOARD_MY_RENTALS,
       payload: response.data
-    })
-  }
-  catch (error) {
+    });
+  } catch (error) {
     handleError(error);
   }
-}
+};
 
 const formatDate = (date) => {
   return date && moment(date).format('YYYY-MM-DD');
-}
+};
 
-const days = (d1, d2) => { return moment(d2).diff(moment(d1), 'days') + 1 };
+const days = (d1, d2) => { return moment(d2).diff(moment(d1), 'days') + 1; };
 
 const confirmUser = async (username, confirmationCode) => {
   try {
-    let response = await post('confirmUser', {username, confirmationCode});
+    let response = await post('confirmUser', { username, confirmationCode });
     return response;
-  }
-  catch (error) {
+  } catch (error) {
     handleError(error);
   }
-}
-
+};
 
 const search = async (brand, product_region) => {
   try {
     let response = await post_new('showHomePageSearch', {
       brand,
       product_region
-    })
+    });
 
-    if(response) {
+    if (response) {
       dispatch({
         type: ACTIONS.SEARCH_RESULTS,
         payload: response.data
-      })
+      });
     }
-  }
-  catch (error) {
+  } catch (error) {
     handleError(error);
   }
-}
+};
 
 const addFavourites = async (data) => {
   try {
@@ -385,39 +375,37 @@ const addFavourites = async (data) => {
   } catch (error) {
     handleError(error);
   }
-}
+};
 
 const getFavourites = async () => {
   try {
     let response = await get_new('viewUserFavouriteGear');
 
-    if(response) {
+    if (response) {
       dispatch({
         type: ACTIONS.FAVOURITES,
         payload: response.data
       });
     }
-  }
-  catch (error) {
+  } catch (error) {
     handleError(error);
   }
-}
+};
 
 const viewUserDashboard = async () => {
   try {
     let response = await get('viewUserDashboard');
 
-    if(response) {
+    if (response) {
       dispatch({
         type: ACTIONS.DASHBOARD,
         payload: response.data
       });
     }
-  }
-  catch (error) {
+  } catch (error) {
     //handleError(error);
   }
-}
+};
 
 const deleteFavourite = async (data) => {
   try {
@@ -426,43 +414,38 @@ const deleteFavourite = async (data) => {
   } catch (error) {
     handleError(error);
   }
-}
-
+};
 
 const newArrivals = async () => {
   try {
     let response = await get_new('viewNewArrivalGears');
 
-    if(response) {
+    if (response) {
       dispatch({
         type: ACTIONS.NEW_ARRIVALS,
         payload: response.data
       });
     }
-  }
-  catch (error) {
+  } catch (error) {
     handleError(error);
   }
-}
-
+};
 
 const deleteCartItem = async (data) => {
   try {
     let response = await post('deleteGearFromCart', data);
-  }
-  catch (error) {
+  } catch (error) {
     handleError(error);
   }
-}
+};
 
 const deleteGear = async (data) => {
   try {
     let response = await post_new('deleteUserGear', data);
-  }
-  catch (error) {
+  } catch (error) {
     handleError(error);
   }
-}
+};
 
 const socialLogin = async (idToken, accessToken) => {
   try {
@@ -485,14 +468,15 @@ const socialLogin = async (idToken, accessToken) => {
 
       return response;
     }
-  }
-  catch (error) {
+  } catch (error) {
     handleError(error);
   }
-}
+};
 
-export { register, confirmUser, login, logout, clearError, handleError, getUser,
-    readFileData, addGear, fetchCategories, getListGears, getGear, addCart, getCarts,
-    formatDate, days, checkout, payment, rentGearProductList, dashboardMyListing,
-    dashboardMyRentals, search, addFavourites, getFavourites, deleteFavourite, newArrivals,
-    deleteCartItem, deleteGear, socialLogin, viewUserDashboard}
+export {
+  register, confirmUser, login, logout, clearError, handleError, getUser,
+  readFileData, addGear, fetchCategories, getListGears, getGear, addCart, getCarts,
+  formatDate, days, checkout, payment, rentGearProductList, dashboardMyListing,
+  dashboardMyRentals, search, addFavourites, getFavourites, deleteFavourite, newArrivals,
+  deleteCartItem, deleteGear, socialLogin, viewUserDashboard
+};
