@@ -157,10 +157,10 @@ class Home extends Component {
 
                 <h1 className="title">Find Creative Tools Around You</h1>
 
-                <p className="desc">
-                  <span>Creative market is a community </span>&nbsp;
+                <div className="sub-title">
+                  <span>Creative market is a community </span>
                   <span className="bold">for creators, by creators.</span>
-                </p>
+                </div>
 
                 <p className="theme-text-small rent-categories">
                   Rent &nbsp;
