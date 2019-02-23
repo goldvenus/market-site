@@ -92,8 +92,16 @@
   width: 100%;
 
   .rent-categories {
+    line-height: 1em;
+
     button {
-      padding: 0px;
+      height: 44px;
+      width: auto;
+      padding: 5px 20px;
+
+      &:first-child {
+        margin-left: 14px;
+      }
 
       &:not(:first-child) {
         margin-left: 10px;
@@ -192,16 +200,20 @@
     }
 
     .location-input {
-      flex: 1;
       margin-right: 15px;
       position: relative;
     }
 
     .search-input {
-      flex: 1.5;
       position: relative;
       margin-right: 15px;
       width: 372px;
+    }
+
+    .search-button {
+      width: 80px !important;
+      min-width: 80px !important;
+      height: 52px !important;
     }
 
     .search-suggestions {
@@ -538,11 +550,6 @@
       width: 75%;
       margin: 0 auto;
       display: block !important;
-    }
-
-    .search-button {
-      width: 80px !important;
-      height: 52px !important
     }
 
     .theme-btn {

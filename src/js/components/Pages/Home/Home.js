@@ -162,35 +162,29 @@ class Home extends Component {
                   <span className="bold">for creators, by creators.</span>
                 </div>
 
-                <p className="theme-text-small rent-categories">
-                  Rent &nbsp;
+                <p className="rent-categories">
+                  Rent
                   <button className="theme-btn theme-btn-primary-light expand-link">
-
                     <img className="icon icon-expand" src={'/images/Icons/Tags/Photo/Default.svg'} alt="drone"/>
                     <img className="icon icon-contract" src={'/images/Icons/Tags/Photo/Hover.svg'} alt="drone"/>
                     <Link to="/">Cameras</Link>
-
                   </button>
                   <button className="theme-btn theme-btn-primary-light expand-link">
-
                     <img className="icon icon-expand" src={'/images/Icons/Tags/Drone/Default.svg '} alt="drone"/>
                     <img className="icon icon-contract" src={'/images/Icons/Tags/Drone/Hover.svg '} alt="drone"/>
                     <Link to="/">Drones</Link>
-
                   </button>
                   <button className="theme-btn theme-btn-primary-light expand-link">
-
                     <img className="icon icon-expand" src={'/images/Icons/Tags/Lights/Default.svg '} alt="drone"/>
                     <img className="icon icon-contract" src={'/images/Icons/Tags/Lights/Hover.svg '} alt="drone"/>
                     <Link to="/"> Lights </Link>
-
                   </button>
                   &nbsp;
-                  and more from people around you
-
+                  and more from people around you.
                 </p>
               </Col>
             </Row>
+
             <Row>
               <Col>
                 <Form className="theme-form">
@@ -235,7 +229,7 @@ class Home extends Component {
             <div className="row">
               <div className="block-el block-e1-size col animation-element slide-left testimonial">
                 <div className="block-content">
-                  <p id="camera"></p>
+                  <p id="camera"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>Camera</span>
                     <button className="theme-btn theme-btn-outline-white">
@@ -243,12 +237,12 @@ class Home extends Component {
                     </button>
                   </div>
                 </div>
-                <div className="block-bg"></div>
+                <div className="block-bg"/>
               </div>
 
               <div className="block-el block-e1-size col animation-element slide-left testimonial">
                 <div className="block-content">
-                  <p id="computer_electronic"></p>
+                  <p id="computer_electronic"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>Computer & Electronics</span>
                     <button className="theme-btn theme-btn-outline-white">
@@ -256,12 +250,12 @@ class Home extends Component {
                     </button>
                   </div>
                 </div>
-                <div className="block-bg"></div>
+                <div className="block-bg"/>
               </div>
 
               <div className="block-el block-e1-size col animation-element slide-left testimonial">
                 <div className="block-content ">
-                  <p id="drones"></p>
+                  <p id="drones"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>Drones</span>
                     <button className="theme-btn theme-btn-outline-white">
@@ -269,13 +263,13 @@ class Home extends Component {
                     </button>
                   </div>
                 </div>
-                <div className="block-bg"></div>
+                <div className="block-bg"/>
               </div>
             </div>
             <div className="row">
               <div className="block-el block-e2-size col animation-element slide-left testimonial">
                 <div className="block-content">
-                  <p id="lenses"></p>
+                  <p id="lenses"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>lenses</span>
                     <button className="theme-btn theme-btn-outline-white">
@@ -283,12 +277,12 @@ class Home extends Component {
                     </button>
                   </div>
                 </div>
-                <div className="block-bg"></div>
+                <div className="block-bg"/>
               </div>
 
               <div className="block-el block-e2-size col animation-element slide-left testimonial">
                 <div className="block-content">
-                  <p id="lighting"></p>
+                  <p id="lighting"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>lighting</span>
                     <button className="theme-btn theme-btn-outline-white">
@@ -296,11 +290,11 @@ class Home extends Component {
                     </button>
                   </div>
                 </div>
-                <div className="block-bg"></div>
+                <div className="block-bg"/>
               </div>
               <div className="block-el block-e2-size col animation-element slide-left testimonial">
                 <div className="block-content">
-                  <p id="audio"></p>
+                  <p id="audio"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>Audio</span>
                     <button className="theme-btn theme-btn-outline-white">
@@ -308,12 +302,12 @@ class Home extends Component {
                     </button>
                   </div>
                 </div>
-                <div className="block-bg"></div>
+                <div className="block-bg"/>
               </div>
 
               <div className="block-el block-e2-size col animation-element slide-left testimonial">
                 <div className="block-content">
-                  <p id="tripods_stabilization_rigs"></p>
+                  <p id="tripods_stabilization_rigs"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>Tripods Stabilization & Rigs</span>
                     <button className="theme-btn theme-btn-outline-white">
@@ -321,13 +315,13 @@ class Home extends Component {
                     </button>
                   </div>
                 </div>
-                <div className="block-bg"></div>
+                <div className="block-bg"/>
               </div>
             </div>
             <div className="row">
               <div className="block-el block-e2-size block-e3-adjustment col animation-element slide-left testimonial">
                 <div className="block-content">
-                  <p id="camera_accessories"></p>
+                  <p id="camera_accessories"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>Camera Accessories</span>
                     <button className="theme-btn theme-btn-outline-white">
@@ -335,12 +329,12 @@ class Home extends Component {
                     </button>
                   </div>
                 </div>
-                <div className="block-bg"></div>
+                <div className="block-bg"/>
               </div>
 
               <div className="block-el block-e2-size col animation-element slide-left testimonial">
                 <div className="block-content">
-                  <p id="studio_spaces"></p>
+                  <p id="studio_spaces"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>Studio Spaces</span>
                     <button className="theme-btn theme-btn-outline-white">
@@ -348,12 +342,12 @@ class Home extends Component {
                     </button>
                   </div>
                 </div>
-                <div className="block-bg"></div>
+                <div className="block-bg"/>
               </div>
 
               <div className="block-el block-e2-size col animation-element slide-left testimonial">
                 <div className="block-content">
-                  <p id="office_spaces"></p>
+                  <p id="office_spaces"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>Office Spaces</span>
                     <button className="theme-btn theme-btn-outline-white">
@@ -361,11 +355,11 @@ class Home extends Component {
                     </button>
                   </div>
                 </div>
-                <div className="block-bg"></div>
+                <div className="block-bg"/>
               </div>
               <div className="block-el block-e2-size col animation-element slide-left testimonial">
                 <div className="block-content">
-                  <p id="others"></p>
+                  <p id="others"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>OTHER</span>
                     <button className="theme-btn theme-btn-outline-white">
@@ -373,10 +367,10 @@ class Home extends Component {
                     </button>
                   </div>
                 </div>
-                <div className="block-bg"></div>
+                <div className="block-bg"/>
               </div>
             </div>
-            <div className="clearfix mb-4"></div>
+            <div className="clearfix mb-4"/>
 
           </Container>
 
