@@ -102,11 +102,15 @@
   }
 
   .home-head {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: $primary-color;
     margin-bottom: 15px;
     color: $white;
-    height: calc(100vh - 76px);
+    height: calc(100vh - 127px);
     min-height: min-content;
+    max-height: 837px;
     // .cameras{
     //   height:20px;
     //   background-image: url('/images/Icons/Tags/Photo/Default.svg');
