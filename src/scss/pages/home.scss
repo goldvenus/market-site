@@ -122,21 +122,23 @@
     //   background-image: url('/images/Icons/Tags/lights/Default.svg');
     //   background-repeat: no-repeat;
     // }
-    .title {
-      color: #ffffff;
-      font-size: 52px;
-      font-weight: 800;
-      margin-bottom: 15px;
-    }
 
     .bold {
       font-weight: bold;
     }
 
     .logo {
-      margin: 90px 0;
+      margin: 65px 0 83px;
       width: 290px;
       height: 59px;
+    }
+
+    .title {
+      color: $white;
+      font-size: 49px;
+      font-weight: bold;
+      line-height: 1em;
+      margin-bottom: 15px;
     }
 
     .theme-btn {

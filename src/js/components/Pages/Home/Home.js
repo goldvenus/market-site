@@ -155,7 +155,7 @@ class Home extends Component {
               <Col>
                 <img className="logo" src={'/images/Logo.png'} alt=""/>
 
-                <div className="title">Find Creative Tools Around You</div>
+                <h1 className="title">Find Creative Tools Around You</h1>
 
                 <p className="desc">
                   <span>Creative market is a community </span>&nbsp;
