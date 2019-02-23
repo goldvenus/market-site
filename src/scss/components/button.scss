@@ -12,6 +12,7 @@
   padding: 8px 15px;
   line-height: 1.5;
   min-width: 100px;
+  min-height: 45px;
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 
   &:focus {

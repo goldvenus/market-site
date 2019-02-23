@@ -22,7 +22,7 @@ class NavbarRight extends Component {
   }
 
   render() {
-    const { location, isAuthenticated, user } = this.props;
+    const { isAuthenticated, user } = this.props;
     return (
       <ul className="theme-nav-right theme-text-small">
         <li>
@@ -50,10 +50,10 @@ class NavbarRight extends Component {
             </DropdownMenu>
           </ButtonDropdown>
         </li> : <li>
-          <button className="theme-btn theme-btn-outline-pink ml-3 theme-btn-link">
+          <button className="theme-btn theme-btn-outline-pink ml-3 theme-btn-link theme-nav__btn">
             <Link to="/login">Login</Link>
           </button>
-          <button className="theme-btn theme-btn-filled-white ml-3 theme-btn-link">
+          <button className="theme-btn theme-btn-filled-white ml-3 theme-btn-link theme-nav__btn">
             <Link to="/register">Register</Link>
           </button>
         </li>}

@@ -52,14 +52,13 @@ class NavbarLeft extends React.Component {
   };
 
   render() {
-    const { location } = this.props;
-    let hideLogo = ''; //['/','/home',].indexOf(location.pathname) > -1;
+    // const { location } = this.props;
+    // let hideLogo = ''; //['/','/home',].indexOf(location.pathname) > -1;
 
     const { collapsed } = this.state;
     return (
       <div className="theme-nav-left">
         <NavbarToggler onClick={this.toggleNavbar} className="ml-2" isOpen={!collapsed}/>
-        {hideLogo ? '' : ''}
         <CollapseMenu isOpen={!collapsed}>
           <Container>
             <Row>
@@ -95,9 +94,9 @@ class NavbarLeft extends React.Component {
                   info@creativemarket.com
                 </p>
                 <p>
-                  <span className="fab fa-facebook-f"></span>
-                  <span className="fab fa-vimeo-v"></span>
-                  <span className="fab fa-instagram"></span>
+                  <span className="fab fa-facebook-f"/>
+                  <span className="fab fa-vimeo-v"/>
+                  <span className="fab fa-instagram"/>
                 </p>
               </Col>
             </Row>
