@@ -106,6 +106,7 @@
     margin-bottom: 15px;
     color: $white;
     height: calc(100vh - 76px);
+    min-height: min-content;
     // .cameras{
     //   height:20px;
     //   background-image: url('/images/Icons/Tags/Photo/Default.svg');
@@ -134,10 +135,8 @@
 
     .logo {
       margin: 90px 0;
-
-      img {
-        height: 59px;
-      }
+      width: 290px;
+      height: 59px;
     }
 
     .theme-btn {

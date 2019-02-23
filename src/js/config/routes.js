@@ -1,25 +1,25 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import Home from '../components/Pages/Home';
-import About from '../components/Pages/Abouts';
-import Login from '../components/Pages/Login';
-import Register from '../components/Pages/Register';
-import RegisterConfirm from '../components/Pages/RegisterConfirm';
-import ForgotPassword from '../components/Pages/ForgotPassword';
-import Dashboard from '../components/Pages/Dashboard';
-import AddGear from '../components/Pages/AddGear';
-import ViewGear from '../components/Pages/ViewGear';
-import Cart from '../components/Pages/Cart';
-import Checkout from '../components/Pages/Checkout';
-import Payment from '../components/Pages/Payment';
-import ListGear from '../components/Pages/ListGear';
-import RentGear from '../components/Pages/RentGear';
-import SearchResults from '../components/Pages/SearchResults';
-import Favourites from '../components/Pages/Favourites';
-import Partner from '../components/Pages/Partner';
+import Home from '../components/Pages/Home/Home';
+import About from '../components/Pages/Abouts/Abouts';
+import Login from '../components/Pages/Login/Login';
+import Register from '../components/Pages/Register/Register';
+import RegisterConfirm from '../components/Pages/RegisterConfirm/RegisterConfirm';
+import ForgotPassword from '../components/Pages/ForgotPassword/ForgotPassword';
+import Dashboard from '../components/Pages/Dashboard/Dashboard';
+import AddGear from '../components/Pages/AddGear/AddGear';
+import ViewGear from '../components/Pages/ViewGear/ViewGear';
+import Cart from '../components/Pages/Cart/Cart';
+import Checkout from '../components/Pages/Checkout/Checkout';
+import Payment from '../components/Pages/Payment/Payment';
+import ListGear from '../components/Pages/ListGear/ListGear';
+import RentGear from '../components/Pages/RentGear/RentGear';
+import SearchResults from '../components/Pages/SearchResults/SearchResults';
+import Favourites from '../components/Pages/Favourites/Favourites';
+import Partner from '../components/Pages/Partner/Partner';
 
-import FAQ from '../components/Pages/FAQ';
+import FAQ from '../components/Pages/FAQ/FAQ';
 
 export default (
   <div className="app-content">

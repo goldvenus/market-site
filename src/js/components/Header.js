@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
-import Navbar from "./Navbar/Navbar";
+import Navbar from './Navbar/Navbar';
 
 class Header extends Component {
   render() {
@@ -12,7 +11,4 @@ class Header extends Component {
   }
 }
 
-export default connect((store) => {
-  return {
-  };
-})(Header);
+export default Header;

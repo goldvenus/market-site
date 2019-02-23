@@ -153,9 +153,7 @@ class Home extends Component {
           <Container className="centered-content">
             <Row>
               <Col>
-                <div className="logo">
-                  <img src={'/images/Logo.svg'} alt=""/>
-                </div>
+                <img className="logo" src={'/images/Logo.png'} alt=""/>
 
                 <div className="title">Find Creative Tools Around You</div>
 
@@ -168,22 +166,22 @@ class Home extends Component {
                   Rent &nbsp;
                   <button className="theme-btn theme-btn-primary-light expand-link">
 
-                    <img class="icon icon-expand" src={'/images/Icons/Tags/Photo/Default.svg'} alt="drone"/>
-                    <img class="icon icon-contract" src={'/images/Icons/Tags/Photo/Hover.svg'} alt="drone"/>
+                    <img className="icon icon-expand" src={'/images/Icons/Tags/Photo/Default.svg'} alt="drone"/>
+                    <img className="icon icon-contract" src={'/images/Icons/Tags/Photo/Hover.svg'} alt="drone"/>
                     <Link to="/">Cameras</Link>
 
                   </button>
                   <button className="theme-btn theme-btn-primary-light expand-link">
 
-                    <img class="icon icon-expand" src={'/images/Icons/Tags/Drone/Default.svg '} alt="drone"/>
-                    <img class="icon icon-contract" src={'/images/Icons/Tags/Drone/Hover.svg '} alt="drone"/>
+                    <img className="icon icon-expand" src={'/images/Icons/Tags/Drone/Default.svg '} alt="drone"/>
+                    <img className="icon icon-contract" src={'/images/Icons/Tags/Drone/Hover.svg '} alt="drone"/>
                     <Link to="/">Drones</Link>
 
                   </button>
                   <button className="theme-btn theme-btn-primary-light expand-link">
 
-                    <img class="icon icon-expand" src={'/images/Icons/Tags/Lights/Default.svg '} alt="drone"/>
-                    <img class="icon icon-contract" src={'/images/Icons/Tags/Lights/Hover.svg '} alt="drone"/>
+                    <img className="icon icon-expand" src={'/images/Icons/Tags/Lights/Default.svg '} alt="drone"/>
+                    <img className="icon icon-contract" src={'/images/Icons/Tags/Lights/Hover.svg '} alt="drone"/>
                     <Link to="/"> Lights </Link>
 
                   </button>
