@@ -8,7 +8,7 @@ class Footer extends Component {
   render() {
     return (
       <footer >
-        <div className="news-letter bg-gray-light mb-5 py-5">
+        <div className="news-letter mb-5 py-5">
           <Container>
             <Row className="align-items-center">
               <Col sm="6">
@@ -34,24 +34,24 @@ class Footer extends Component {
           <Container style={{    marginTop: -35}}>
             <div className="row">
               <div className="col">
-                <img src={logo} alt="logo" className="logo"></img>
+                <img src={logo} alt="logo" className="logo"/>
               </div>
               <div className="row">
                 <ul className="nav text-xs-right">
                   <li className="nav-item">
-                    <Link className="nav-link" to="#"><text style={{ fontSize: 16, color: '#252525' }}>About us</text></Link>
+                    <Link className="nav-link" to="#"><span style={{ fontSize: 16, color: '#252525' }}>About us</span></Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="#"><text style={{ fontSize: 16, color: '#252525' }}>Stories</text></Link>
+                    <Link className="nav-link" to="#"><span style={{ fontSize: 16, color: '#252525' }}>Stories</span></Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="#"><text style={{ fontSize: 16, color: '#252525' }}>Blog</text></Link>
+                    <Link className="nav-link" to="#"><span style={{ fontSize: 16, color: '#252525' }}>Blog</span></Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link " to="#"><text style={{ fontSize: 16, color: '#252525' }}>Contacts</text></Link>
+                    <Link className="nav-link " to="#"><span style={{ fontSize: 16, color: '#252525' }}>Contacts</span></Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link " to="#"><text style={{ fontSize: 16, color: '#252525' }}>FAQs</text></Link>
+                    <Link className="nav-link " to="#"><span style={{ fontSize: 16, color: '#252525' }}>FAQs</span></Link>
                   </li>
                 </ul>
               </div>
@@ -69,13 +69,13 @@ class Footer extends Component {
               <div className="col">
                 <div className="social-buttons">
                 <button className="theme-btn btn-social btn-fb">
-                    <span style={{marginRight:41}} className="fab fa-facebook-f"></span>
+                    <span style={{marginRight:41}} className="fab fa-facebook-f"/>
                     Facebook</button> &nbsp;
                     <button className="theme-btn btn-social btn-vimeo">
-                    <span style={{marginRight:56}} className="fab fa-vimeo-v"></span>
+                    <span style={{marginRight:56}} className="fab fa-vimeo-v"/>
                     Vimeo</button> &nbsp;
                     <button className="theme-btn btn-social btn-insta">
-                    <span style={{marginRight:33}} className="fab fa-instagram"></span>
+                    <span style={{marginRight:33}} className="fab fa-instagram"/>
                     Instagram</button>
                 </div>
               </div>

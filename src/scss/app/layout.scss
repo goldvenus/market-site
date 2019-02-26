@@ -1,41 +1,95 @@
-.fixed {
+.fixed-sidebar {
   position: fixed !important;
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: visible;
+  z-index: 99;
 
-  .cart, .fav {
-    background: $white;
-    margin-bottom: 1rem;
-    padding: 6px 10px;
-    text-align: center;
-    transform: skewX(-8deg) translateX(5px);
-    box-shadow: 2px 2px 14px 0px #1413141f;
-    border-radius: 2px;
+  .sidebar-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 22px;
+    border: none;
+    padding: 0 0 0 6px;
+    width: 121px;
+    height: 90px;
+    overflow: visible;
 
-    span {
-      font-size: 11px;
-      font-weight: 800;
-      color: $primary-color;
-      margin: 0 auto;
+    .sidebar-item__icon {
+      margin: 0 0 7px;
+      z-index: 2;
+
+      .icon-cart {
+        width: 35px;
+        height: 27px;
+
+        &, & * {
+          stroke: $primary-color;
+        }
+      }
+
+      .icon-heart {
+        width: 32px;
+        height: 27px;
+
+        &, & * {
+          fill: $primary-color;
+        }
+      }
     }
-  }
 
-  .cart-icon {
-    background-image: url('/images/Icons/cart/cart.svg');
-  }
+    .sidebar-item__title {
+      font-weight: bold;
+      line-height: 1em;
+      font-size: 16px;
+      text-align: center;
+      color: $primary-color;
+      z-index: 2;
+    }
 
-  .fav-icon {
-    background-image: url('/images/Icons/cart/fav.svg');
-  }
+    .sidebar-item__bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: $white;
+      box-shadow: 0 14px 34px rgba(37, 37, 37, 0.05);
+      transform-origin: bottom left;
+      transform: skewX(-6.5deg);
+      z-index: 0;
+    }
 
-  .cart-icon, .fav-icon {
-    display: block;
-    width: 30px;
-    height: 30px;
-    background-position: center;
-    background-repeat: no-repeat;
+    .sidebar-item__badge {
+      position: absolute;
+      top: 0;
+      left: 10px;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px;
+      min-width: 29px;
+      min-height: 29px;
+      background-color: $primary-color;
+      border-radius: 100px;
+      box-shadow: 0 0 10px 1px rgba(255, 255, 255, .5);
+
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      color: $white;
+      line-height: 1em;
+      z-index: 5;
+    }
   }
 }
 

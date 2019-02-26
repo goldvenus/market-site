@@ -7,14 +7,16 @@ import imgMenuIcon from './menu-icon.svg';
 import imgMenuClose from './menu-close.svg';
 
 const CollapseMenu = ({ isOpen, children }) => {
-  const className = isOpen ? 'uncollapse' : 'collapse';
+  const className = isOpen ? 'open' : 'closed';
 
-  return <div className={`${className} theme-menu `}>
-    <div className="wrraper theme-menu-content">
-      {children}
+  return <div className={`${className} theme-menu`}>
+    <div className="theme-menu-inner-wrapper">
+      <div className="wrraper theme-menu-content">
+        {children}
+      </div>
+      <div className="theme-menu-bg"/>
+      <i className="fa fa-arrow-right"/>
     </div>
-    <div className="theme-menu-bg"/>
-    <i className="fa fa-arrow-right"/>
   </div>;
 };
 

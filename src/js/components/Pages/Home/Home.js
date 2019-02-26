@@ -12,6 +12,38 @@ import ThemeCardTwo from '../../Theme-Cards/ThemeCardTwo';
 import data from '../../dummydata';
 import $ from 'jquery';
 
+const ArrowIcon = () => (
+  <svg width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg">
+    <path d="M1 1L5.5 5.5L1 10" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const ArrivalItem = ({ category, title, price, priceTime, photo, link }) => (
+  <div className="arrival-item" style={{ backgroundImage: `url(${photo})` }}>
+
+    <div className="arrival-item-info-middle">
+                    <span className="info-category">
+                      {category}
+                    </span>
+      <h2 className="info-title">{title}</h2>
+    </div>
+
+    <div className="arrival-item-info-separator"/>
+
+    <div className="arrival-item-info-bottom">
+      <div className="info-price-wrapper">
+        <h2 className="info-price">${price}</h2>
+        <span className="info-unit">{priceTime}</span>
+      </div>
+      <a className="info-bottom-go-btn" href={link} target="_blank" rel="noopener noreferrer">
+        <ArrowIcon/>
+      </a>
+    </div>
+
+    <div className="arrival-item-info-bg"/>
+  </div>
+);
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -192,7 +224,7 @@ class Home extends Component {
                     <CustomInput icon="fa-search" placeholder="Search" type="text" label="Search"
                                  onChange={this.handleSearchTextChange} value={searchText}/>
                     <ListGroup className="search-suggestions">
-                      {searchTextSuggestions.map((key, value) => (
+                      {searchTextSuggestions.map((value, key) => (
                         <ListGroupItem
                           key={key}
                           onClick={() => this.handleSelectSearchSuggestion(value)}
@@ -224,14 +256,16 @@ class Home extends Component {
             </Row>
           </Container>
         </div>
+
         <div className="home-body">
           <Container>
+
             <div className="row">
               <div className="block-el block-e1-size col animation-element slide-left testimonial">
                 <div className="block-content">
                   <p id="camera"/>
                   <div className="desc">
-                    <span style={{ fontWeight: 'bold' }}>Camera</span>
+                    <span style={{ fontWeight: 'bold' }}>CAMERA</span>
                     <button className="theme-btn theme-btn-outline-white">
                       <Link to="/cameras">View</Link>
                     </button>
@@ -244,7 +278,7 @@ class Home extends Component {
                 <div className="block-content">
                   <p id="computer_electronic"/>
                   <div className="desc">
-                    <span style={{ fontWeight: 'bold' }}>Computer & Electronics</span>
+                    <span style={{ fontWeight: 'bold' }}>COMPUTER & ELECTRONICS</span>
                     <button className="theme-btn theme-btn-outline-white">
                       <Link to="/cameras">View</Link>
                     </button>
@@ -257,7 +291,7 @@ class Home extends Component {
                 <div className="block-content ">
                   <p id="drones"/>
                   <div className="desc">
-                    <span style={{ fontWeight: 'bold' }}>Drones</span>
+                    <span style={{ fontWeight: 'bold' }}>DRONES</span>
                     <button className="theme-btn theme-btn-outline-white">
                       <Link to="/cameras">View</Link>
                     </button>
@@ -266,12 +300,13 @@ class Home extends Component {
                 <div className="block-bg"/>
               </div>
             </div>
+
             <div className="row">
               <div className="block-el block-e2-size col animation-element slide-left testimonial">
                 <div className="block-content">
                   <p id="lenses"/>
                   <div className="desc">
-                    <span style={{ fontWeight: 'bold' }}>lenses</span>
+                    <span style={{ fontWeight: 'bold' }}>LENSES</span>
                     <button className="theme-btn theme-btn-outline-white">
                       <Link to="/lenses">View</Link>
                     </button>
@@ -284,7 +319,7 @@ class Home extends Component {
                 <div className="block-content">
                   <p id="lighting"/>
                   <div className="desc">
-                    <span style={{ fontWeight: 'bold' }}>lighting</span>
+                    <span style={{ fontWeight: 'bold' }}>LIGHTING</span>
                     <button className="theme-btn theme-btn-outline-white">
                       <Link to="/lighting">View</Link>
                     </button>
@@ -296,7 +331,7 @@ class Home extends Component {
                 <div className="block-content">
                   <p id="audio"/>
                   <div className="desc">
-                    <span style={{ fontWeight: 'bold' }}>Audio</span>
+                    <span style={{ fontWeight: 'bold' }}>AUDIO</span>
                     <button className="theme-btn theme-btn-outline-white">
                       <Link to="/audio">View</Link>
                     </button>
@@ -309,7 +344,7 @@ class Home extends Component {
                 <div className="block-content">
                   <p id="tripods_stabilization_rigs"/>
                   <div className="desc">
-                    <span style={{ fontWeight: 'bold' }}>Tripods Stabilization & Rigs</span>
+                    <span style={{ fontWeight: 'bold' }}>TRIPODS STABILIZATION & RIGS</span>
                     <button className="theme-btn theme-btn-outline-white">
                       <Link to="/TS&R">View</Link>
                     </button>
@@ -318,12 +353,13 @@ class Home extends Component {
                 <div className="block-bg"/>
               </div>
             </div>
+
             <div className="row">
-              <div className="block-el block-e2-size block-e3-adjustment col animation-element slide-left testimonial">
+              <div className="block-el block-e2-size col animation-element slide-left testimonial">
                 <div className="block-content">
                   <p id="camera_accessories"/>
                   <div className="desc">
-                    <span style={{ fontWeight: 'bold' }}>Camera Accessories</span>
+                    <span style={{ fontWeight: 'bold' }}>CAMERA ACCESSORIES</span>
                     <button className="theme-btn theme-btn-outline-white">
                       <Link to="/camera_accessories">View</Link>
                     </button>
@@ -336,7 +372,7 @@ class Home extends Component {
                 <div className="block-content">
                   <p id="studio_spaces"/>
                   <div className="desc">
-                    <span style={{ fontWeight: 'bold' }}>Studio Spaces</span>
+                    <span style={{ fontWeight: 'bold' }}>STUDIO SPACES</span>
                     <button className="theme-btn theme-btn-outline-white">
                       <Link to="/studio_spaces">View</Link>
                     </button>
@@ -349,7 +385,7 @@ class Home extends Component {
                 <div className="block-content">
                   <p id="office_spaces"/>
                   <div className="desc">
-                    <span style={{ fontWeight: 'bold' }}>Office Spaces</span>
+                    <span style={{ fontWeight: 'bold' }}>OFFICE SPACES</span>
                     <button className="theme-btn theme-btn-outline-white">
                       <Link to="/office_spaces">View</Link>
                     </button>
@@ -370,10 +406,12 @@ class Home extends Component {
                 <div className="block-bg"/>
               </div>
             </div>
+
             <div className="clearfix mb-4"/>
 
           </Container>
 
+          {/*
           {cat.newArrivals && cat.newArrivals.Items ?
             <div className="new_arrival">
               <div className="section-overlay">
@@ -385,10 +423,10 @@ class Home extends Component {
                         <Col>
                           <div style={{ width: 120, height: 115, backgroundColor: 'rgba(255, 254, 254, 0.8)' }}>
                             <div style={{ paddingTop: 31 }}>
-                              <text style={{ fontSize: 13 }}>Daily</text>
+                              <span style={{ fontSize: 13 }}>Daily</span>
                             </div>
                             <div>
-                              <text style={{ fontSize: 25, fontWeight: 'bold' }}>11</text>
+                              <span style={{ fontSize: 25, fontWeight: 'bold' }}>11</span>
                             </div>
                           </div>
                           <div style={{
@@ -398,10 +436,10 @@ class Home extends Component {
                             backgroundColor: 'rgba(255, 254, 254, 0.8)'
                           }}>
                             <div style={{ paddingTop: 31 }}>
-                              <text style={{ fontSize: 13 }}>Weekly</text>
+                              <span style={{ fontSize: 13 }}>Weekly</span>
                             </div>
                             <div>
-                              <text style={{ fontSize: 25, fontWeight: 'bold' }}>41</text>
+                              <span style={{ fontSize: 25, fontWeight: 'bold' }}>41</span>
                             </div>
                           </div>
                         </Col>
@@ -413,10 +451,10 @@ class Home extends Component {
                             backgroundColor: 'rgba(255, 254, 254, 0.8)'
                           }}>
                             <div style={{ paddingTop: 31 }}>
-                              <text style={{ fontSize: 13 }}>Monthly</text>
+                              <span style={{ fontSize: 13 }}>Monthly</span>
                             </div>
                             <div>
-                              <text style={{ fontSize: 25, fontWeight: 'bold' }}>220</text>
+                              <span style={{ fontSize: 25, fontWeight: 'bold' }}>220</span>
                             </div>
                           </div>
                           <div style={{
@@ -427,10 +465,10 @@ class Home extends Component {
                             backgroundColor: 'rgba(255, 254, 254, 0.8)'
                           }}>
                             <div style={{ paddingTop: 31 }}>
-                              <text style={{ fontSize: 13 }}>Yearly</text>
+                              <span style={{ fontSize: 13 }}>Yearly</span>
                             </div>
                             <div>
-                              <text style={{ fontSize: 25, fontWeight: 'bold' }}>1400</text>
+                              <span style={{ fontSize: 25, fontWeight: 'bold' }}>1400</span>
                             </div>
                           </div>
                         </Col>
@@ -461,6 +499,49 @@ class Home extends Component {
               </div>
             </div> : null
           }
+          */}
+
+          <div className="home-new-arrival">
+            <div className="arrival-timer">
+              <h2 className="arrival-timer-title">
+                New arrivals
+              </h2>
+
+              <div className="arrival-timer-frame">
+                <div className="arrival-timer-slot-row">
+                  <div className="arrival-timer-slot">
+                    <span className="slot-heading">Daily</span>
+                    <span className="slot-value">11</span>
+                  </div>
+                  <div className="arrival-timer-slot">
+                    <span className="slot-heading">Weekly</span>
+                    <span className="slot-value">40</span>
+                  </div>
+                </div>
+                <div className="arrival-timer-slot-row">
+                  <div className="arrival-timer-slot">
+                    <span className="slot-heading">Monthly</span>
+                    <span className="slot-value">221</span>
+                  </div>
+                  <div className="arrival-timer-slot">
+                    <span className="slot-heading">Yearly</span>
+                    <span className="slot-value">1405</span>
+                  </div>
+                </div>
+                <div className="arrival-timer-find-btn">Find Gear</div>
+              </div>
+            </div>
+
+            <div className="arrival-items">
+              <div className="arrival-items-inner-wrapper">
+                {data.arrivals.map((val, key) => (
+                  <ArrivalItem key={key} {...val}/>
+                ))}
+              </div>
+              <div className="arrival-items-glow"/>
+            </div>
+          </div>
+
           <div className="stories">
             <Container>
               <Row>
@@ -486,16 +567,13 @@ class Home extends Component {
               </Row>
             </Container>
           </div>
+
           <div className="paySection">
             <Col className="paySection1">
               <div className="paySection2" style={{ marginTop: 105, marginLeft: 180 }}>
-                <div style={{ alignSelf: 'center', width: 524 }}>
+                <div style={{ alignSelf: 'center' }}>
                   <div>
-                    <text style={{ fontWeight: 'bold', fontSize: 30, color: '#252525' }}>Fast, safe and secure</text>
-                  </div>
-                  <div style={{ marginTop: 15 }}>
-                    <text style={{ fontWeight: 'bold', fontSize: 30, color: '#252525' }}>Two-way inscurance included
-                    </text>
+                    <h2>Fast, safe and secure<br/>Two-way inscurance included</h2>
                   </div>
                 </div>
 
@@ -503,16 +581,16 @@ class Home extends Component {
               <div className="paySection2" style={{ marginLeft: 180 }}>
                 <div style={{ alignSelf: 'center', width: 370, marginTop: 80 }}>
                   <div>
-                    <text style={{ fontSize: 16, }}>Creative Market’s photo verification system verifies the condition
+                    <span style={{ fontSize: 16, }}>Creative Market’s photo verification system verifies the condition
                       of items when picked up and returned. Both by owner and renter.
-                    </text>
+                    </span>
                   </div>
                 </div>
               </div>
               <Row>
                 <Col style={{ marginLeft: 180, marginTop: 95 }}>
                   <button className="faq-button" style={{ width: 189, height: 50, border: 0 }}>
-                    <text style={{ color: 'white' }}>FAQ</text>
+                    <span style={{ color: 'white' }}>FAQ</span>
                   </button>
                 </Col>
               </Row>
@@ -520,15 +598,15 @@ class Home extends Component {
 
 
             <Col>
-              <div style={{ marginTop: 54 }}>
+              <div style={{ marginTop: 54, paddingLeft: 50, }}>
                 <div className="paySection2">
                   <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Choose-Gear.svg'} alt="drone"/>
                   <div style={{ alignSelf: 'center' }}>
                     <div>
-                      <text style={{ fontWeight: 'bold' }}>CHOOSE GEAR</text>
+                      <span style={{ fontWeight: 'bold' }}>CHOOSE GEAR</span>
                     </div>
                     <div>
-                      <text style={{ fontSize: 16 }}>Find the gear you need and add to cart.</text>
+                      <span style={{ fontSize: 16 }}>Find the gear you need and add to cart.</span>
                     </div>
                   </div>
                 </div>
@@ -536,10 +614,10 @@ class Home extends Component {
                   <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Pay.svg'} alt="drone"/>
                   <div style={{ alignSelf: 'center' }}>
                     <div>
-                      <text style={{ fontWeight: 'bold' }}>PAY</text>
+                      <span style={{ fontWeight: 'bold' }}>PAY</span>
                     </div>
                     <div>
-                      <text style={{ fontSize: 16 }}>Complete secure payment via 2checkout</text>
+                      <span style={{ fontSize: 16 }}>Complete secure payment via 2checkout</span>
                     </div>
                   </div>
                 </div>
@@ -547,10 +625,10 @@ class Home extends Component {
                   <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Enjoy.svg'} alt="drone"/>
                   <div style={{ alignSelf: 'center' }}>
                     <div>
-                      <text style={{ fontWeight: 'bold' }}>ENJOY</text>
+                      <span style={{ fontWeight: 'bold' }}>ENJOY</span>
                     </div>
                     <div>
-                      <text style={{ fontSize: 16 }}>Pick up the gear and start creating!</text>
+                      <span style={{ fontSize: 16 }}>Pick up the gear and start creating!</span>
                     </div>
                   </div>
                 </div>
