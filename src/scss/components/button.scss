@@ -152,7 +152,14 @@
 }
 
 .faq-button {
+  width: 189px;
+  height: 50px;
+  border: none;
   background-color: #F82462;
+
+  span {
+    color: white;
+  }
 
   &:hover {
     background: rgba(248, 36, 100, 0.527);

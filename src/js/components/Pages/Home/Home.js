@@ -568,36 +568,25 @@ class Home extends Component {
             </Container>
           </div>
 
-          <div className="paySection">
-            <Col className="paySection1">
-              <div className="paySection2" style={{ marginTop: 105, marginLeft: 180 }}>
-                <div style={{ alignSelf: 'center' }}>
-                  <div>
-                    <h2>Fast, safe and secure<br/>Two-way inscurance included</h2>
-                  </div>
-                </div>
+          <Row className="paySection">
+            <Col xs={12} sm={12} md={6} className="paySection1">
+              <h2 className="pay-section1__title">
+                Fast, safe and secure<br/>Two-way inscurance included
+              </h2>
 
+              <span className="pay-section1__desc">
+                Creative Market’s photo verification system verifies the condition of items when picked up and returned. Both by owner and renter.
+              </span>
+
+              <div className="pay-section1__cta">
+                <button className="faq-button">
+                  <span>FAQ</span>
+                </button>
               </div>
-              <div className="paySection2" style={{ marginLeft: 180 }}>
-                <div style={{ alignSelf: 'center', width: 370, marginTop: 80 }}>
-                  <div>
-                    <span style={{ fontSize: 16, }}>Creative Market’s photo verification system verifies the condition
-                      of items when picked up and returned. Both by owner and renter.
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <Row>
-                <Col style={{ marginLeft: 180, marginTop: 95 }}>
-                  <button className="faq-button" style={{ width: 189, height: 50, border: 0 }}>
-                    <span style={{ color: 'white' }}>FAQ</span>
-                  </button>
-                </Col>
-              </Row>
             </Col>
 
 
-            <Col>
+            <Col xs={12} sm={12} md={6}>
               <div style={{ marginTop: 54, paddingLeft: 50, }}>
                 <div className="paySection2">
                   <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Choose-Gear.svg'} alt="drone"/>
@@ -634,7 +623,7 @@ class Home extends Component {
                 </div>
               </div>
             </Col>
-          </div>
+          </Row>
         </div>
 
       </div>
