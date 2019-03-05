@@ -22,6 +22,31 @@
     width: 121px;
     height: 90px;
     overflow: visible;
+    cursor: pointer;
+
+    &:hover {
+      .sidebar-item__icon {
+        .icon-cart {
+          &, & * {
+            stroke: $white;
+          }
+        }
+
+        .icon-heart {
+          &, & * {
+            fill: $white;
+          }
+        }
+      }
+
+      .sidebar-item__title {
+        color: $white;
+      }
+
+      .sidebar-item__bg {
+        background: $primary-color;
+      }
+    }
 
     .sidebar-item__icon {
       margin: 0 0 7px;
@@ -31,6 +56,11 @@
         width: 35px;
         height: 27px;
 
+        path, circle {
+          transition: .5s !important;
+          transition-delay: unset;
+        }
+
         &, & * {
           stroke: $primary-color;
         }
@@ -39,6 +69,11 @@
       .icon-heart {
         width: 32px;
         height: 27px;
+
+        path, circle {
+          transition: .5s !important;
+          transition-delay: unset;
+        }
 
         &, & * {
           fill: $primary-color;
@@ -53,12 +88,16 @@
       text-align: center;
       color: $primary-color;
       z-index: 2;
+      transition: .5s !important;
+      transition-delay: unset;
     }
 
     .sidebar-item__bg {
       position: absolute;
       top: 0;
       left: 0;
+      border: 1px solid $white;
+      border-right: none;
       width: 100%;
       height: 100%;
       background: $white;
@@ -66,6 +105,8 @@
       transform-origin: bottom left;
       transform: skewX(-6.5deg);
       z-index: 0;
+      transition: .5s !important;
+      transition-delay: unset;
     }
 
     .sidebar-item__badge {
