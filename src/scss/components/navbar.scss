@@ -50,25 +50,27 @@
     height: 100vh;
 
     overflow: hidden;
-    opacity: 0;
     transition: .3s;
     z-index: 333;
     background-color: #0809086e;
-    pointer-events: none;
+    opacity: 1;
+    pointer-events: all;
+    // opacity: 0;
+    // pointer-events: none;
 
-    &.open {
-      opacity: 1;
-      pointer-events: all;
-
-      .theme-menu-inner-wrapper {
-        transform: rotate3d(1, -1, 0, 0deg);
-      }
-    }
+    //  &.open {
+    //    opacity: 1;
+    //    pointer-events: all;
+    //
+    //    .theme-menu-inner-wrapper {
+    //      transform: rotate3d(1, -1, 0, 0deg);
+    //    }
+    //  }
 
     .theme-menu-inner-wrapper {
       width: 100%;
       height: 100%;
-      transform: rotate3d(1, -1, 0, 90deg);
+      // transform: rotate3d(1, -1, 0, 90deg);
       transition: .5s;
       overflow: visible;
       transform-style: flat;
@@ -94,6 +96,16 @@
     .theme-menu-content {
       position: relative;
       z-index: 555;
+    }
+
+    .animated-bg {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
     }
 
     .theme-menu-bg {
