@@ -1,5 +1,5 @@
 export const ANIMAITON_DURATION_1 = 200;
-export const ANIMAITON_DURATION_2 = 100;
+export const ANIMAITON_DURATION_2 = 300;
 export const ANIMATION_DONE_EVENT = 'animation::done';
 
 export const triggerAnimationDoneEvent = node =>
