@@ -9,7 +9,7 @@ import { addFavourites } from '../../actions/app.actions';
 const ListView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city, rating, pricePerDay, gearid, description } }) => {
 
   return (
-    <Col sm="12">
+    <Col sm="24">
       <Card className="gear_list_view">
         <div className="card-img">
           <CardImg top width="100%" src={numberOfUserImage ? numberOfUserImage[0] : []} alt="Card image cap" />

@@ -11,7 +11,7 @@ class Footer extends Component {
         <div className="news-letter mb-5 py-5">
           <Container>
             <Row className="align-items-center">
-              <Col sm="6">
+              <Col sm="12">
                 <h5>EMAIL NEWSLETTERS</h5>
                 <p className="theme-text-small">Keep me up to date with content ,updates ,and offers from Athena</p>
                 <div className="theme-form-group">
@@ -19,11 +19,11 @@ class Footer extends Component {
                   <button className="theme-btn theme-btn-primary">Subscribe</button>
                 </div>
               </Col>
-              <Col sm="3" className="text-xs-center mt-xs">
+              <Col sm="6" className="text-xs-center mt-xs">
                 <h3 className="theme-text-primary">12233</h3>
                 <p>Community Members</p>
               </Col>
-              <Col sm="3" className="text-xs-center">
+              <Col sm="6" className="text-xs-center">
                 <h3 className="theme-text-primary">2143</h3>
                 <p>Products</p>
               </Col>

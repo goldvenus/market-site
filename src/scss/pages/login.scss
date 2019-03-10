@@ -2,20 +2,21 @@
   background: $primary-color;
   width: 30%;
 
-  .button-toggle {
-    position: absolute;
-    left: 15px;
-    top: 15px;
-  }
-
   .app-nav-logo {
     position: absolute;
     left: 15px;
     bottom: 15px;
   }
+
+  header {
+    background: transparent;
+  }
 }
 
 .auth-container {
+  position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
   width: 100%;
   padding: 0;

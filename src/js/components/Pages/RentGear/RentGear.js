@@ -46,10 +46,10 @@ class RentGear extends Component {
         <div className="rent-gear-body">
           <Container>
             <Row>
-              <Col md="3">
+              <Col md="6">
                 <Sidebar callback={this.selectedCategory}/>
               </Col>
-              <Col md="9">
+              <Col md="18">
                 <Main catagory={this.state.catagory}/>
               </Col>
             </Row>

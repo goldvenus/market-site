@@ -22,7 +22,7 @@ class Partner extends Component {
         <div className="partner-body">
           <Container>
             <Row>
-              <Col sm="6">
+              <Col sm="12">
                 <Card className="text-center p-5 mb-5">
                   {/* <CardImg width="100%" src="" alt="Card image cap" />                   */}
                   <CardTitle>CORSPIN CORP. </CardTitle>
@@ -36,7 +36,7 @@ class Partner extends Component {
                   </CardText>
                 </Card>
               </Col>
-              <Col sm="6">
+              <Col sm="12">
                 <Card className="text-center p-5 mb-5">
                   {/* <CardImg width="100%" src="" alt="Card image cap" /> */}
                   <CardTitle>CORSPIN CORP. </CardTitle>
@@ -50,7 +50,7 @@ class Partner extends Component {
                   </CardText>
                 </Card>
               </Col>
-              <Col sm="6">
+              <Col sm="12">
                 <Card className="text-center p-5 mb-5">
                   {/* <CardImg width="100%" src="" alt="Card image cap" /> */}
                   <CardTitle>CORSPIN CORP. </CardTitle>
@@ -64,7 +64,7 @@ class Partner extends Component {
                   </CardText>
                 </Card>
               </Col>
-              <Col sm="6">
+              <Col sm="12">
                 <Card className="text-center p-5 mb-5">
                   {/* <CardImg width="100%" src="" alt="Card image cap" /> */}
                   <CardTitle>CORSPIN CORP. </CardTitle>

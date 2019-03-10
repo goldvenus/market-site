@@ -79,7 +79,7 @@ export default class MyListings extends React.Component {
     this.pagesCount = Math.ceil(list ? list.length / this.pageSize : "");
     return (
       <Row className="my-listing">
-        <Col sm="12">
+        <Col sm="24">
           <div className="d-flex align-items-center">
             <h4 className="tab-title">My Listings</h4>
             <Link to='/listGear' className="theme-btn theme-btn-primary ml-auto mb-3">List Gear</Link>

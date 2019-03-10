@@ -42,7 +42,7 @@ class Login extends Component {
   render() {
     const { username, password } = this.state;
     return (
-      <div className="auth-container theme-navbar">
+      <div className="auth-container">
         <AuthSideMenu/>
         <div className="login">
           <h1>Login</h1>

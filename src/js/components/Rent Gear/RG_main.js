@@ -41,7 +41,7 @@ class Main extends Component {
     return (
       <div className="main-wrapper">
         <Row className="main_head">
-          <Col md="9">
+          <Col md="18">
             <div className="search">
               <Form className="theme-form">
                 <div className="search-input">
@@ -72,7 +72,7 @@ class Main extends Component {
               </Form>
             </div>
           </Col>
-          <Col md="3">
+          <Col md="6">
             <Nav tabs className="views">
               <NavItem>
                 <NavLink

@@ -1,10 +1,13 @@
 import React from 'react';
 import NavbarRight from './NavbarRight';
-import NavbarLeft from './NavbarLeft';
-const ThemeNavbar = ()=> (
-  <div className="theme-navbar">
-    <NavbarLeft/>
-    <NavbarRight/>
-  </div>
+import NavbarMenu from './NavbarMenu';
+
+const Navbar = () => (
+  <React.Fragment>
+    <div className="navbar-wrapper">
+      <NavbarMenu/>
+      <NavbarRight/>
+    </div>
+  </React.Fragment>
 );
-export default ThemeNavbar;
+export default Navbar;

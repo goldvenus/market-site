@@ -33,53 +33,32 @@ const Layout = ({ location, error, carts, favourites }) => {
 
   return (
     <React.Fragment>
-      {/*
-      <div className="fixed">
+      <div className="fixed-sidebar">
         <Link to="/cart">
-          <div className="cart">
-            {carts && carts.length
-              ? <Badge color="light"> {carts.length} </Badge>
-              : null
+          <div className="sidebar-item">
+            <div className="sidebar-item__icon">
+              <CartIcon/>
+            </div>
+            <span className="sidebar-item__title">CART</span>
+            {!!(carts && carts.length > 0) &&
+            <span className="sidebar-item__badge">{carts.length}</span>
             }
-            <span className="cart-icon"/>
-            <span>CART</span>
+            <div className="sidebar-item__bg"/>
           </div>
         </Link>
 
         <Link to="/favourites">
-          <div className="fav">
-            {!!(favourites && favourites.Items && favourites.Items.length) &&
-            <Badge color="light"> {favourites.Items.length} </Badge>
+          <div className="sidebar-item">
+            <div className="sidebar-item__icon">
+              <HeartIcon/>
+            </div>
+            <span className="sidebar-item__title">FAVORITES</span>
+            {!!(favourites && favourites.Items && favourites.Items.length > 0) &&
+            <span className="sidebar-item__badge">{favourites.Items.length}</span>
             }
-            <span className="fav-icon"/>
-            <span>FAVORITES</span>
+            <div className="sidebar-item__bg"/>
           </div>
         </Link>
-      </div>
-      */}
-
-      <div className="fixed-sidebar">
-        <div className="sidebar-item">
-          <div className="sidebar-item__icon">
-            <CartIcon/>
-          </div>
-          <span className="sidebar-item__title">CART</span>
-          {!!(carts && carts.length > 0) &&
-          <span className="sidebar-item__badge">{carts.length}</span>
-          }
-          <div className="sidebar-item__bg"/>
-        </div>
-
-        <div className="sidebar-item">
-          <div className="sidebar-item__icon">
-            <HeartIcon/>
-          </div>
-          <span className="sidebar-item__title">FAVORITES</span>
-          {!!(favourites && favourites.Items && favourites.Items.length > 0) &&
-          <span className="sidebar-item__badge">{favourites.Items.length}</span>
-          }
-          <div className="sidebar-item__bg"/>
-        </div>
       </div>
 
       {showHeader && <Header/>}

@@ -14,7 +14,7 @@ const team = [
 // Functional Component
 const TeamMember = ({ member: { name, job_title, img }, src }, ...props) => {
   return (
-    <Col sm="4">
+    <Col sm="8">
       <Card inverse>
         <CardImg width="100%" src={img} alt="Card image cap"/>
         <CardImgOverlay>
@@ -35,7 +35,7 @@ class About extends Component {
         <div className="about-us-head">
           <Container>
             <Row>
-              <Col sm="6">
+              <Col sm="12">
                 <Breadcrumb className="theme-text-small">
                   <BreadcrumbItem>Home </BreadcrumbItem>
                   <BreadcrumbItem active>About Us</BreadcrumbItem>
@@ -52,7 +52,7 @@ class About extends Component {
                   libero inventore eos odit magni! Nesciunt, quos.
                 </p>
               </Col>
-              <Col sm="6">
+              <Col sm="12">
                 <img src={aboutCM} alt="About Us" className="about-cm"/>
               </Col>
             </Row>

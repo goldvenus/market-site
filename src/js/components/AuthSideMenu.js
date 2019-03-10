@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import NavbarLeft from './Navbar/NavbarLeft';
+import Navbar from './Navbar/Navbar';
 
 class AuthSideMenu extends Component {
   render() {
     return (
       <div className="auth-sidemenu">
-        <NavbarLeft />
+        <header>
+            <Navbar/>
+        </header>
       </div>
     );
   }

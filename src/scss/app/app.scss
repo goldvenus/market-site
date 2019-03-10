@@ -13,12 +13,34 @@
 
 .app-content {
   flex: 1;
+  flex-shrink: 0;
   display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  margin: $navbar-height-lg 0 0;
   width: 100%;
 
   & > * {
     width: 100%;
   }
+
+  @include media-breakpoint-down(md) {
+    margin: $navbar-height-md 0 0;
+  }
+
+  @include media-breakpoint-down(sm) {
+    margin: $navbar-height-sm 0 0;
+  }
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  width: 100%;
+  min-height: 100px;
 }
 
 .app-error {

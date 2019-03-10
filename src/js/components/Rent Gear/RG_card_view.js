@@ -9,7 +9,7 @@ import { addFavourites } from '../../actions/app.actions';
 const CardView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city, rating, pricePerDay, gearid}}) => {
 
   return (
-    <Col md="4">
+    <Col md="8">
       <Card className="gear_card_view">
         <CardImg top width="100%" src={numberOfUserImage ? numberOfUserImage[0] :[]} alt="Card image cap" />
         <CardBody>

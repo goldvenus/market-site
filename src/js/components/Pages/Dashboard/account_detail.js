@@ -6,11 +6,11 @@ import { Form, FormGroup, Label, Input, FormFeedback,} from 'reactstrap';
 export default function(){
   return (
     <Row className="account-detail">
-      <Col sm="12">
+      <Col sm="24">
         <h4 className="tab-title">Account Details</h4>
         <div className="wrraper">
           <Row>
-            <Col sm="6">
+            <Col sm="12">
               <Card body>
                 <CardTitle className="text-muted" >INFO</CardTitle>
                 <div className="card-text">                              
@@ -61,15 +61,15 @@ export default function(){
                 <Button>Change Password</Button>
               </Card>
             </Col>
-            <Col sm="6">
+            <Col sm="12">
               <Card body>
                 <CardTitle className="text-muted">PAYMENT METHOD</CardTitle>
                 <div className="card-text">
                   <Row>
-                    <Col sm="6">
+                    <Col sm="12">
                       <img src={VMC} alt="" />
                     </Col>
-                    <Col sm="6">
+                    <Col sm="12">
                       <div className="add-payment-method center">
                         <div className="add center">
                           <span className="fa fa-plus"></span>

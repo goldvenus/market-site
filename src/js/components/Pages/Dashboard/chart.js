@@ -6,7 +6,7 @@ import LineChart from './LineChart';
 export default function ( props) {
   return (
     <Row className="chart">
-      <Col sm="12">
+      <Col sm="24">
         <h4 className="tab-title">Dashboard</h4>
         <div className="wrraper">
           <Row className="line-chart">
