@@ -7,7 +7,7 @@
 @import 'typography';
 // App
 @import 'app/app';
-@import 'app/layout';
+@import 'app/fixed-sidebar';
 @import 'components/button';
 @import 'components/form';
 @import 'components/custom-input';
@@ -16,6 +16,7 @@
 @import 'components/theme-card-one';
 @import 'components/theme-card-two';
 @import 'components/footer';
+@import 'components/material-input';
 // Pages
 @import 'pages/home';
 @import 'pages/home.animation';

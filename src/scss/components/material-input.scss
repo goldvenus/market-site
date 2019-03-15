@@ -1,0 +1,238 @@
+@import "../variables";
+
+$secondary-font-family: inherit;
+
+// VARIABLES // ============================== //
+$bar-color: rgba(255, 255, 255, .3);
+$trans-time: 300ms;
+$width: 100%;
+
+$main-font-family: $secondary-font-family;
+$main-font-size: 16px;
+$main-color: $white;
+
+$label-font-family: $secondary-font-family;
+$label-font-size: 11px;
+$label-color: rgba(255, 255, 255, .6);
+$label-hl-color: rgba(255, 255, 255, .6);
+
+$error-color: #d0021b;
+
+$p-h: 8px;
+$p-v: 11px;
+
+.material-input {
+  position: relative;
+  margin: 10px 0 0;
+
+  textarea {
+    resize: none;
+  }
+
+  input,
+  textarea {
+    background: none;
+    color: $main-color;
+    font-family: $main-font-family;
+    font-size: $main-font-size;
+    font-weight: normal;
+    line-height: 1.2em;
+    padding: $p-v $p-h;
+    display: block;
+    width: $width;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid $main-color;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:focus ~ label,
+    &:valid ~ label {
+      top: -14px;
+      left: 0;
+      font-size: $label-font-size;
+      color: $label-hl-color;
+    }
+
+    &:focus ~ .bar:before {
+      width: $width;
+    }
+  }
+
+  input[type=number]::-webkit-outer-spin-button,
+  input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
+  input[type="password"] {
+    letter-spacing: 0.3em;
+  }
+
+  label {
+    color: $label-color;
+    font-family: $label-font-family;
+    font-size: $main-font-size;
+    font-weight: 400;
+    position: absolute;
+    pointer-events: none;
+    left: $p-h;
+    top: $p-v;
+    transition: $trans-time ease all;
+  }
+
+  .bar {
+    position: relative;
+    display: block;
+    width: $width;
+
+    &:before {
+      content: '';
+      height: 2px;
+      width: 0;
+      bottom: 0;
+      position: absolute;
+      background: $bar-color;
+      transition: $trans-time ease all;
+      left: 0%;
+    }
+  }
+
+  .help {
+    display: block;
+    padding: $p-v 0 0;
+    width: $width;
+    text-align: right;
+    font-family: $label-font-family;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1em;
+    min-height: 30px;
+  }
+
+  &.error {
+    input,
+    textarea {
+      border-bottom: 1px solid $error-color;
+
+      &:focus ~ label,
+      &:valid ~ label {
+        color: $error-color;
+      }
+    }
+
+    label {
+      color: $error-color;
+    }
+
+    .help {
+      color: $error-color;
+    }
+  }
+
+  .toggle-password {
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    background: none;
+    border: none;
+    outline: none;
+    opacity: .5;
+  }
+}
+
+.material-input-addon {
+  position: absolute;
+  top: 15px;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.input-addon__button {
+  position: relative;
+  height: 100%;
+  border: 1px solid grey;
+  background: transparent;
+  font-size: 10px;
+
+  &:hover {
+    background: white;
+  }
+
+  &:active {
+    background: grey;
+  }
+}
+
+.material-input-with-dropdown {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  width: 100%;
+
+  .material-input {
+    width: 100%;
+  }
+
+  .material-input-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    border: none;
+    padding: 0;
+    width: 100%;
+    min-height: 10px;
+    max-height: 215px;
+    overflow: auto;
+    background: white;
+    z-index: $zindex-popover;
+
+    .material-input-dropdown-addon{
+      flex: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: stretch;
+      border-bottom: 1px solid $bar-color;
+    }
+
+    .material-input-dropdown-list {
+      flex: 1;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      margin: 0;
+      padding: $p-v 0;
+      width: 100%;
+
+      .material-input-dropdown-item {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin: 0;
+        border: none;
+        padding: 5px 23px;
+        min-height: 35px;
+        width: 100%;
+        cursor: pointer;
+      }
+    }
+  }
+}

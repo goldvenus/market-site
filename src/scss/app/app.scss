@@ -34,13 +34,32 @@
   }
 }
 
+.container {
+  min-height: min-content;
+}
+
 .page {
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
+  margin: 0;
+  border: none;
+  padding: 0;
   width: 100%;
   min-height: 100px;
+}
+
+.section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  margin: 0;
+  border: none;
+  padding: 0;
+  width: 100%;
 }
 
 .app-error {

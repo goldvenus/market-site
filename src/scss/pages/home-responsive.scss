@@ -1,2 +1,290 @@
 .home-page {
+  .section-hero {
+    height: calc(100vh - #{$navbar-height-lg});
+    min-height: min-content;
+    background: $primary-color;
+
+    @include media-breakpoint-down(md) {
+      height: calc(100vh - #{$navbar-height-md});
+    }
+
+    @include media-breakpoint-down(sm) {
+      height: calc(100vh - #{$navbar-height-sm});
+    }
+
+    .hero-logo {
+      margin: 75px 0 90px;
+      border: none;
+      padding: 0;
+      width: 290px;
+      height: 59px;
+
+      @include media-breakpoint-down(md) {
+        margin: 130px 0 85px;
+        width: 251px;
+        height: 50px;
+      }
+
+      @include media-breakpoint-down(sm) {
+        display: none;
+      }
+    }
+
+    .hero-title {
+      margin: 0 0 25px;
+      border: none;
+      padding: 0;
+      font-size: 44px;
+      line-height: 1.3em;
+      color: $white;
+
+      @include media-breakpoint-down(sm) {
+        margin: 60px 0 33px;
+        font-size: 42px;
+        line-height: 50px;
+      }
+    }
+
+    .hero-subtitle {
+      margin: 0 0 35px;
+      border: none;
+      padding: 0;
+      font-size: 18px;
+      font-weight: lighter;
+      letter-spacing: 1px;
+      line-height: 1em;
+      color: $white;
+
+      @include media-breakpoint-down(md) {
+        margin: 0 0 40px;
+      }
+
+      @include media-breakpoint-down(sm) {
+        margin: 0 0 50px;
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
+
+    .hero-categories {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin: 0 0 95px;
+      font-size: 14px;
+      font-weight: lighter;
+      letter-spacing: 1px;
+      color: $white;
+      vertical-align: middle;
+
+      @include media-breakpoint-down(md) {
+        margin: 0 0 55px;
+      }
+
+      .hero-categories__btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 10px 0 0;
+        border: none !important;
+        width: 141px;
+        height: 44px;
+        font-size: 14px;
+        background: rgba(255, 255, 255, 0.07);
+        color: white;
+        transition: .3s;
+        cursor: pointer;
+
+        .btn__icon {
+          margin-right: 15px;
+        }
+
+        .svg-fill {
+          fill: $white !important;
+          transition: .3s;
+        }
+
+        .svg-stroke {
+          stroke: $white !important;
+          transition: .3s;
+        }
+
+        &:hover {
+          background: $white;
+          color: $primary-color;
+
+          .svg-fill {
+            fill: $primary-color !important;
+          }
+
+          .svg-stroke {
+            stroke: $primary-color !important;
+          }
+        }
+
+        &:first-child {
+          margin-left: 10px;
+        }
+      }
+
+      span {
+        display: inline-block;
+      }
+    }
+
+    .hero-searches {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: stretch;
+      margin: 0 0 290px;
+      width: 100%;
+      max-width: 727px;
+
+      @include media-breakpoint-down(md) {
+        flex-direction: column;
+        align-items: stretch;
+        margin: 0 0 226px;
+      }
+
+      @include media-breakpoint-down(sm) {
+        margin: 0 0 120px;
+      }
+
+      .search-inputs-group {
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: stretch;
+        margin: 0 27px 22px 0;
+
+        @include media-breakpoint-down(md) {
+          margin: 0 0 41px;
+        }
+
+        @include media-breakpoint-down(sm) {
+          flex-direction: column;
+          margin: 0;
+        }
+
+        .search-wrapper {
+          position: relative;
+          flex: 372;
+          display: flex;
+          align-items: stretch;
+          justify-content: stretch;
+          margin: 0 22px 0 0;
+          width: 100%;
+
+          @include media-breakpoint-down(sm) {
+            flex: 1;
+            margin: 0 0 22px;
+          }
+
+          .material-input-with-dropdown {
+            width: 100%;
+          }
+
+          .search-addon {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            overflow: auto;
+
+            .search-addon-item {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin: 0;
+              border: none;
+              padding: 10px 22px;
+              height: 50px;
+
+              span {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0;
+                border: none;
+                border-bottom: 1px solid $primary-light-color;
+                padding: 2px;
+                color: $primary-color;
+                font-size: 16px;
+              }
+            }
+          }
+        }
+
+        .location-search-wrapper {
+          position: relative;
+          flex: 224;
+          display: flex;
+          align-items: stretch;
+          justify-content: stretch;
+          margin: 0;
+          width: 100%;
+
+          @include media-breakpoint-down(sm) {
+            flex: 1;
+            margin: 0 0 22px;
+          }
+
+          .material-input-with-dropdown {
+            width: 100%;
+          }
+        }
+      }
+
+      .search-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 0 22px;
+        border: none;
+        padding: 0;
+        width: 80px;
+        height: 52px;
+        background: $white;
+        color: $primary-color;
+        transition: .3s;
+        cursor: pointer;
+
+        @include media-breakpoint-down(md) {
+          width: 100%;
+        }
+
+        .svg-fill {
+          fill: $primary-color !important;
+          transition: .3s;
+        }
+
+        .svg-stroke {
+          stroke: $primary-color !important;
+          transition: .3s;
+        }
+
+        &:hover {
+          color: $primary-light-color !important;
+        }
+
+        &:active {
+          background: $primary-light-color !important;
+          color: $white;
+
+          .svg-fill {
+            fill: $white !important;
+          }
+
+          .svg-stroke {
+            stroke: $white !important;
+          }
+        }
+      }
+    }
+
+  }
+
 }
