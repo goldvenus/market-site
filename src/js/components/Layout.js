@@ -65,7 +65,7 @@ const Layout = ({ location, error, carts, favourites }) => {
 
       {routes}
 
-      {/* {showHeader && <Footer/>} */}
+      {showHeader && <Footer/>}
 
       {!!error && (
         <div className="alert alert-danger app-error" role="alert">
