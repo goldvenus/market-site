@@ -141,6 +141,52 @@ const login = async (data) => {
   }
 };
 
+const sendResetPasswordEmail = async (data) => {
+  try {
+
+    let response = await post('sendCodeForgotPaswordUser', data)
+    if(response && response.status == 200) {
+      return true
+    }
+
+    dispatch({
+      type: ACTIONS.ERROR,
+      payload: 'Something went wrong'
+    });
+
+    return false
+
+  } catch (error) {
+    handleError(error);
+    return false
+  }
+}
+
+const confirmResetPassword = async (data) => {
+  try {
+
+    if(data.password != data.password_new) {
+      handleError('Passwords don\'t match');
+      return
+    }
+
+    let response = await post('confirmForgotPasswordUser', data)
+    if(response && response.status == 200) {
+      return true
+    }
+
+    dispatch({
+      type: ACTIONS.ERROR,
+      payload: 'Something went wrong'
+    });
+
+    return false
+  } catch(error) {
+    handleError(error);
+    return false
+  }
+}
+
 const refreshToken = async () => {
   try {
     let response = await axios.post(getAPIUrl('getUserRefreshTokens'), { username: localStorage.userId }, tokenAxiosConfig());
@@ -478,5 +524,5 @@ export {
   readFileData, addGear, fetchCategories, getListGears, getGear, addCart, getCarts,
   formatDate, days, checkout, payment, rentGearProductList, dashboardMyListing,
   dashboardMyRentals, search, addFavourites, getFavourites, deleteFavourite, newArrivals,
-  deleteCartItem, deleteGear, socialLogin, viewUserDashboard
+  deleteCartItem, deleteGear, socialLogin, viewUserDashboard, sendResetPasswordEmail, confirmResetPassword
 };

@@ -9,17 +9,22 @@ class Footer extends Component {
     return (
       <footer >
         <div className="news-letter mb-5 py-5">
-          <Container>
+          <Container className="news-letter-container">
             <Row className="align-items-center">
               <Col sm="12">
                 <h5>EMAIL NEWSLETTERS</h5>
                 <p className="theme-text-small">Keep me up to date with content ,updates ,and offers from Athena</p>
-                <div className="theme-form-group">
+                <div className="theme-form-group d-none d-md-flex">
                   <input placeholder="Your email..." className="theme-form-control" />
-                  <button className="theme-btn theme-btn-primary">Subscribe</button>
+                  <button className="theme-btn theme-btn-primary subscribe-btn">Subscribe</button> 
+                </div>
+                <div className="theme-form-group d-flex d-sm-none">
+                  <input placeholder="Your email..." className="theme-form-control" />
+                  <button className="theme-btn theme-btn-primary subscribe-btn"><i class="fas fa-arrow-right"></i></button> 
                 </div>
               </Col>
               <Col sm="6" className="text-xs-center mt-xs">
+              <hr className="hr-light mb-5 d-block d-sm-none"/>
                 <h3 className="theme-text-primary">12233</h3>
                 <p>Community Members</p>
               </Col>
@@ -30,7 +35,7 @@ class Footer extends Component {
             </Row>
           </Container>
         </div>
-        <div className="footer-nav">
+        <div className="footer-nav d-none d-lg-block">
           <Container style={{    marginTop: -35}}>
             <div className="row">
               <div className="col">
@@ -62,7 +67,7 @@ class Footer extends Component {
             </div>
           </Container>
         </div>
-        <hr className="hr-light mb-5" />
+        <hr className="hr-light mb-5"/>
         <div className="Social-contects mb-3">
           <Container>
             <div className="row">
@@ -79,7 +84,7 @@ class Footer extends Component {
                     Instagram</button>
                 </div>
               </div>
-              <div className="col">
+              <div className="col d-none d-lg-flex">
                 <div className="email" style={{ marginRight: -80 }}>
                   <img src={'/images/email_icon.png'} style={{ width: 44, height: 33, marginTop: 4 }} alt="" />&nbsp;&nbsp;
                   <p className="theme-text-small">
@@ -89,7 +94,7 @@ class Footer extends Component {
                   </p>
                 </div>
               </div>
-              <div className="col">
+              <div className="col d-none d-lg-flex">
                 <div className="phone">
                   <img src={'/images/phone_icon.png'} style={{ width: 39, height: 38, marginTop: 4 }} alt="" />&nbsp;&nbsp;&nbsp;&nbsp;
                   <p className="theme-text-small">
@@ -109,8 +114,8 @@ class Footer extends Component {
                   <p>© 2018 Creative Market - All Rights Reserved. Made by Ketchup Creative</p>
                 </div>
               </Col>
-              <Col>
-                <ul className="nav justify-content-end">
+              <Col className="footer-privaci-policy">
+                <ul className="nav justify-content-end d-none d-md-flex">
                   <li className="nav-item">
                     <a className="nav-link" href="#">Privacy Policy</a>
                   </li>

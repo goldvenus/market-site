@@ -32,12 +32,19 @@
   justify-content: center;
   flex: 1;
 
-  .login-or-divider {
-    margin-top: 15px;
+  .custom-input {
+    width: 100%;
   }
 
-  .theme-btn-link {
-    margin-left: 10px;
+  .login-or-divider {
+    margin-top: 15px;
+    text-transform: lowercase;
+    color: lightgrey
+  }
+
+  .theme-form-link {
+    color: #F74377;
+    font-size: 13px
   }
 }
 

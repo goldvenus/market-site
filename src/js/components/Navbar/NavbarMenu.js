@@ -146,14 +146,14 @@ class NavbarMenu extends React.Component {
               <Col xs={24} lg={12}>
                 <ul className="menu-links-wrapper">
                   {/* sm only menu */}
-                  <li className="animated-menu-item menu-item-sm">
+                  <li className="animated-menu-item menu-item-sm link">
                     <Link to="/listgear">
                       <h2>
                         Rent Gear
                       </h2>
                     </Link>
                   </li>
-                  <li className="animated-menu-item menu-item-sm with-mb">
+                  <li className="animated-menu-item menu-item-sm with-mb link">
                     <Link to="/rentgear">
                       <h2>
                         List Gear

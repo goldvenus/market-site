@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Col, Container, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
-
+import Flickity from 'react-flickity-component'
 import { fetchCategories, newArrivals, socialLogin } from '../../../actions/app.actions';
 
 import MaterialInputWithDropdown from '../../MaterialInputWithDropdown';
@@ -21,8 +21,6 @@ import ThemeCardTwo from '../../Theme-Cards/ThemeCardTwo';
 import ArrivalItem from './ArrivalItem';
 import $ from 'jquery';
 
-const locations = [];
-
 
 class Home extends React.Component {
   state = {
@@ -31,7 +29,8 @@ class Home extends React.Component {
     searchLocationValue: '',
     searchLocationResult: [],
   };
-
+  
+ 
   handleChangeSearchValue = e => {
     this.setState({
       searchValue: (e && e.target && e.target.value) || '',
@@ -68,7 +67,7 @@ class Home extends React.Component {
         }
       });
     }
-
+ 
     $window.on('scroll resize', check_if_in_view);
     $window.trigger('scroll');
 
@@ -93,6 +92,7 @@ class Home extends React.Component {
       socialLogin(idToken, accessToken);
     }
   }
+  
 
   render() {
     const {
@@ -110,8 +110,24 @@ class Home extends React.Component {
       const suggestions = (this.props.categories || []).map(cat => cat.categoryName);
       searchResult = suggestions.filter((s) => s.search(pattern) > -1);
     }
+    const flickityOptions = {
+      contain: true,
+      // disable previous & next buttons and dots
+      prevNextButtons: false,
+      pageDots: false
+  }
+  const flickityOptions2 = {
+    contain: true,
+    // able previous & next buttons and dots
+    prevNextButtons: true,
+    pageDots: true,
+    draggable: false
+
+
+}
 
     return (
+      
       <div className="page home-page home">
         <div className="section section-hero">
           <div className="container">
@@ -191,8 +207,8 @@ class Home extends React.Component {
 
 
         <div className="home-body">
-          <Container>
-
+          {/* cards container for the large screen */}
+          <Container className="d-none d-lg-block">
             <div className="row">
               <div className="block-el block-e1-size col animation-element slide-left testimonial">
                 <div className="block-content">
@@ -343,6 +359,96 @@ class Home extends React.Component {
             <div className="clearfix mb-4"/>
 
           </Container>
+          {/* slider container for the tablet and mobile screen */}
+          <Container className="d-block d-lg-none slider-1">
+            <Flickity
+              className={'carousel'} // default ''
+              elementType={'div'} // default 'div'
+              options={flickityOptions} // takes flickity options {}
+              disableImagesLoaded={false} // default false
+              reloadOnUpdate // default false
+            >
+              <div className="am"> 
+                <div className="block-content">
+                <p id="camera"/>
+                  <div className="desc">
+                    <span style={{ fontWeight: 'bold' }}>CAMERA</span>
+                    <button className="theme-btn theme-btn-outline-white">
+                      <Link to="/cameras"><i class="fa fa-chevron-right"></i></Link>
+                      </button>
+                    </div>
+                  </div>
+              </div>
+              <div className="am">       
+               <div className="block-content">
+                    <p id="computer_electronic"/>
+                    <div className="desc">
+                      <span style={{ fontWeight: 'bold' }}>COMPUTER & ELECTRONICS</span>
+                      <button className="theme-btn theme-btn-outline-white">
+                        <Link to="/cameras"><i class="fa fa-chevron-right"></i></Link>
+                      </button>
+                    </div>
+                  </div>
+                  </div>
+                  <div className="am">       
+                    <div className="block-content">
+                    <p id="drones"/>
+                    <div className="desc">
+                      <span style={{ fontWeight: 'bold' }}>DRONES</span>
+                      <button className="theme-btn theme-btn-outline-white">
+                        <Link to="/cameras"><i class="fa fa-chevron-right"></i></Link>
+                      </button>
+                    </div>
+                  </div>
+                  </div>
+                  <div className="am">       
+                    <div className="block-content">
+                    <p id="lenses"/>
+                    <div className="desc">
+                      <span style={{ fontWeight: 'bold' }}>LENSES</span>
+                      <button className="theme-btn theme-btn-outline-white">
+                        <Link to="/lenses"><i class="fa fa-chevron-right"></i></Link>
+                      </button>
+                    </div>
+                  </div>
+                  </div>                  
+                  <div className="am">       
+                    <div className="block-content">
+                    <p id="camera_accessories"/>
+                    <div className="desc">
+                      <span style={{ fontWeight: 'bold' }}>CAMERA ACCESSORIES</span>
+                      <button className="theme-btn theme-btn-outline-white">
+                        <Link to="/camera_accessories"><i class="fa fa-chevron-right"></i></Link>
+                      </button>
+                    </div>
+                  </div>
+                  </div>                  
+                  <div className="am">       
+                    <div className="block-content">
+                    <p id="office_spaces"/>
+                    <div className="desc">
+                      <span style={{ fontWeight: 'bold' }}>OFFICE SPACES</span>
+                      <button className="theme-btn theme-btn-outline-white">
+                        <Link to="/office_spaces"><i class="fa fa-chevron-right"></i></Link>
+                      </button>
+                    </div>
+                  </div>
+                  </div>
+                  <div className="am">       
+                    <div className="block-content">
+                    <p id="others"/>
+                    <div className="desc">
+                      <span style={{ fontWeight: 'bold' }}>OTHER</span>
+                      <button className="theme-btn theme-btn-outline-white">
+                        <Link to="/office_spaces"><i class="fa fa-chevron-right"></i></Link>
+                      </button>
+                    </div>
+                  </div>
+                  </div>
+
+            </Flickity>
+            <div className="clearfix mb-4"/>
+          </Container>
 
           {/*
           {cat.newArrivals && cat.newArrivals.Items ?
@@ -434,7 +540,7 @@ class Home extends React.Component {
           }
           */}
 
-          <div className="home-new-arrival">
+          <div className="home-new-arrival d-none d-lg-flex">
             <div className="arrival-timer">
               <h2 className="arrival-timer-title">
                 New arrivals
@@ -474,8 +580,24 @@ class Home extends React.Component {
               <div className="arrival-items-glow"/>
             </div>
           </div>
+          
+          <div className="home-new-arrival d-inline d-lg-none slider-2">
+          <Flickity
+              className={'carousel'} // default ''
+              elementType={'div'} // default 'div'
+              options={flickityOptions} // takes flickity options {}
+              disableImagesLoaded={false} // default false
+              reloadOnUpdate // default false
+            >
+                {data.arrivals.map((val, key) => (
+                  <div className="arrival-items arrival-items-inner-wrapper"><ArrivalItem key={key} {...val}/></div>
+                ))}
 
-          <div className="stories">
+            </Flickity>
+            <div className="arrival-timer-frame arrival-timer-find-btn custom-button-find"><i className="fa fa-search" ></i> Find Gear</div>
+          </div>
+
+          <div className="stories d-none d-lg-block">
             <Container>
               <Row>
                 <Col>
@@ -494,6 +616,39 @@ class Home extends React.Component {
               <Row>
                 <Col className="text-center">
                   <button className="theme-btn theme-btn-primary mt-5">
+                    View All
+                  </button>
+                </Col>
+              </Row>
+            </Container>
+          </div>
+          <div className="stories d-bloke d-lg-none slider-3">
+            <Container>
+              <Row>
+                <Col>
+                  <h2 className="text-center mb-5">Stories</h2>
+                </Col>
+              </Row>
+              <Flickity
+              className={'carousel'} // default ''
+              elementType={'div'} // default 'div'
+              options={flickityOptions2} // takes flickity options {}
+              disableImagesLoaded={false} // default false
+              reloadOnUpdate // default false
+            >
+              
+                {
+                  data.stories.map((item, index) => {
+                    return <div className="slide"><Row sm="8" key={index}>
+                      <ThemeCardTwo story={item}/>
+                    </Row></div>;
+                  })
+                }
+            
+              </Flickity>
+              <Row>
+                <Col className="text-center">
+                  <button className="mt-5 custom-button-find">
                     View All
                   </button>
                 </Col>
@@ -520,12 +675,12 @@ class Home extends React.Component {
 
 
             <Col xs={24} sm={24} md={12}>
-              <div style={{ marginTop: 54, paddingLeft: 50, }}>
+              <div style={{ marginTop: 54, width: "90%", marginBottom:40 }}>
                 <div className="paySection2">
                   <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Choose-Gear.svg'} alt="drone"/>
                   <div style={{ alignSelf: 'center' }}>
                     <div>
-                      <span style={{ fontWeight: 'bold' }}>CHOOSE GEAR</span>
+                      <span style={{ fontWeight: 'bold',fontSize:18 }}>CHOOSE GEAR</span>
                     </div>
                     <div>
                       <span style={{ fontSize: 16 }}>Find the gear you need and add to cart.</span>
@@ -536,7 +691,7 @@ class Home extends React.Component {
                   <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Pay.svg'} alt="drone"/>
                   <div style={{ alignSelf: 'center' }}>
                     <div>
-                      <span style={{ fontWeight: 'bold' }}>PAY</span>
+                      <span style={{ fontWeight: 'bold',fontSize:18 }}>PAY</span>
                     </div>
                     <div>
                       <span style={{ fontSize: 16 }}>Complete secure payment via 2checkout</span>
@@ -547,7 +702,7 @@ class Home extends React.Component {
                   <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Enjoy.svg'} alt="drone"/>
                   <div style={{ alignSelf: 'center' }}>
                     <div>
-                      <span style={{ fontWeight: 'bold' }}>ENJOY</span>
+                      <span style={{ fontWeight: 'bold',fontSize:18 }}>ENJOY</span>
                     </div>
                     <div>
                       <span style={{ fontSize: 16 }}>Pick up the gear and start creating!</span>

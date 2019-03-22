@@ -86,6 +86,7 @@ input::-webkit-input-placeholder {
 .flex-row {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 
   & > *:nth-child(n+2) {
     margin-left: 15px !important;

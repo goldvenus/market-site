@@ -73,7 +73,7 @@ class Login extends Component {
                 <CustomInput placeholder='Password' type="Password" required="required" value={password}
                              onChange={(value) => this.setState({ password: value })}/>
               </div>
-              <Button color="link"><Link to="/forgotpassword">Forgot password?</Link></Button>
+              <Link className="theme-form-link" to="/forgotpassword">Forgot password?</Link>
             </div>
             <div className="theme-form-field">
               <Input type="checkbox" id="login-remember"/>
