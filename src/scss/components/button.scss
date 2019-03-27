@@ -12,8 +12,9 @@
   padding: 8px 15px;
   line-height: 1.5;
   min-width: 100px;
-  min-height: 45px;
+  min-height: 35px;
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  cursor: pointer;
 
   &:focus {
     outline: none;
@@ -116,7 +117,7 @@
   @extend .theme-btn;
   @extend .theme-btn-primary;
 
-  width: 300px;
+  width: 330px;
 }
 
 .theme-btn-link {
@@ -135,11 +136,18 @@
   color: $white;
   display: flex;
   width: 160px;
-
+  padding-top: 8px;
+  cursor: pointer;
 
   span {
-    font-size: 20px;
-    margin-right: 10px;
+    font-size: 13px;
+    text-align: center;
+    width: 100%;
+
+    i {
+      font-size: 18px;
+      margin-right: 15px
+    }
   }
 }
 
@@ -184,10 +192,18 @@
 
 .btn-twitter {
   background-color: #4287F6;
+
+  &:hover {
+    background: rgba(117, 132, 187, 0.644)
+  }
 }
 
 .btn-google-plus {
   background-color: #E03B1A;
+
+  &:hover {
+    background: rgba(248, 36, 100, 0.527);
+  }
 }
 
 .btn-available {

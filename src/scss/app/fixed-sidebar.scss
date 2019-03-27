@@ -10,9 +10,6 @@
   overflow: visible;
   z-index: $zindex-fixed;
 
-  @include media-breakpoint-down(md) {
-    top: 40%;
-  }
 
   @include media-breakpoint-down(sm) {
     display: none;
@@ -150,3 +147,9 @@
     }
   }
 }
+@media(max-width: 1050px){
+  .fixed-sidebar {
+    top:19%;
+  }
+}
+

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import Sidebar from '../../Rent Gear/RG_sidebar';
 import Main from '../../Rent Gear/RG_main';
+
 import { rentGearProductList } from '../../../actions/app.actions';
 
 class RentGear extends Component {
@@ -31,13 +32,13 @@ class RentGear extends Component {
         <div className="rent-gear-head">
           <Container>
             <Row>
-              <Col>
-                <Breadcrumb>
-                  <BreadcrumbItem>Home Page</BreadcrumbItem>
+              <Col >
+                <Breadcrumb >
+                <BreadcrumbItem>Home Page</BreadcrumbItem>
                   <BreadcrumbItem active>Rent Gear</BreadcrumbItem>
                 </Breadcrumb>
                 <div className="d-flex align-items-center">
-                  <h2 className="theme-page-title">Rent Gear</h2>
+                  <h2 className="theme-page-title rent-gear-title">Rent Gear</h2>
                 </div>
               </Col>
             </Row>
@@ -46,12 +47,16 @@ class RentGear extends Component {
         <div className="rent-gear-body">
           <Container>
             <Row>
-              <Col md="6">
+              <Col md="6 d-none d-lg-flex">
                 <Sidebar callback={this.selectedCategory}/>
               </Col>
-              <Col md="18">
+              <Col md="18" className="cardz-2">
                 <Main catagory={this.state.catagory}/>
               </Col>
+              <Row className="d-flex d-lg-none down-sidbar">
+                <Sidebar callback={this.selectedCategory}/>
+                
+              </Row>
             </Row>
           </Container>
         </div>

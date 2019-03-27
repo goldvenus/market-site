@@ -45,21 +45,27 @@ class Login extends Component {
       <div className="auth-container">
         <AuthSideMenu/>
         <div className="login">
-          <h1>Login</h1>
+          <h2 className="header">Login</h2>
           <div className="social-buttons">
-            <button className="theme-btn btn-social btn-fb"
+            <button className="theme-btn btn-social btn-fb text-center"
                     onClick={() => { window.location.href = FACEBOOK_LOGIN_URL; }}>
-              <span className="fab fa-facebook-f"></span>
-              Facebook
+              <span>
+                <i className="fab fa-facebook-f"></i>
+                Facebook
+              </span>
             </button>
-            {/*<button className="theme-btn btn-social btn-twitter">
-              <span className="fab fa-twitter"></span>
-              Twitter
-            </button> */}
-            <button className="theme-btn btn-social btn-google-plus"
+            <button className="theme-btn btn-social btn-twitter">
+              <span>
+                <i className="fab fa-twitter"></i>
+                Twitter
+              </span>
+            </button>
+            <button className="theme-btn btn-social btn-google-plus text-center"
                     onClick={() => { window.location.href = FACEBOOK_LOGIN_URL; }}>
-              <span className="fab fa-google-plus-g"></span>
-              Google +
+              <span>
+                <i className="fab fa-google-plus-g"></i>
+                Google +
+              </span>
             </button>
           </div>
           <div className="login-or-divider">Or</div>
@@ -83,9 +89,9 @@ class Login extends Component {
             <button className="theme-btn-submit" onClick={this.submit.bind(this)}>Sign In</button>
           </Form>
           <div className="login-or-divider"></div>
-          <div className="flex-row">
-            <div>Don't have an account?</div>
-            <button className="theme-btn theme-btn-filled-white theme-btn-link"><Link to="/">Get Started <span
+          <div className="flex-row signup-link">
+            <span>Don't have an account?</span>
+            <button className="theme-btn theme-btn-filled-white theme-btn-link"><Link to="/">Get Started <i
               className="fa fa-angle-right"/></Link></button>
           </div>
         </div>

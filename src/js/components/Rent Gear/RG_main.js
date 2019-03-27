@@ -41,7 +41,7 @@ class Main extends Component {
     return (
       <div className="main-wrapper">
         <Row className="main_head">
-          <Col md="18">
+          <Col md="18 d-none d-md-flex" >
             <div className="search">
               <Form className="theme-form">
                 <div className="search-input">
@@ -56,7 +56,7 @@ class Main extends Component {
                       })}}
                     value={this.state.searchText} />
                 </div>
-                <div className="location-input">
+                <div className="location-input d-none d-md-flex">
                   <CustomInput icon="fa-map-marker" placeholder="Location" type="text" label="Location"
                   onChange={
                     (value) => {
@@ -72,7 +72,7 @@ class Main extends Component {
               </Form>
             </div>
           </Col>
-          <Col md="6">
+          <Col md="6" className="d-none d-lg-flex">
             <Nav tabs className="views">
               <NavItem>
                 <NavLink

@@ -1,6 +1,6 @@
 .auth-sidemenu {
   background: $primary-color;
-  width: 30%;
+  width: 24%;
 
   .app-nav-logo {
     position: absolute;
@@ -26,11 +26,18 @@
 }
 
 .login {
-  margin-left: 20px;
+  margin-left: 60px;
+  padding-top: 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   flex: 1;
+
+  .header {
+    font-size: 35px !important;
+    margin-bottom: 25px;
+    font-weight: 800;
+  }
 
   .custom-input {
     width: 100%;
@@ -44,7 +51,28 @@
 
   .theme-form-link {
     color: #F74377;
-    font-size: 13px
+    font-size: 13px;
+    text-decoration-color: lightgray !important;
+    text-decoration: underline;
+  }
+
+  .signup-link {
+    position: absolute;
+    bottom: 20px;
+
+    span {
+      color: #a09e9e;
+      margin-right: 15px;
+      font-size: 13px
+    }
+
+    a {
+      font-size: 13px;
+
+      i {
+        margin-left: 10px
+      }
+    }
   }
 }
 
@@ -55,6 +83,13 @@
     &:nth-child(n + 2) {
       margin-left: 10px;
     }
+  }
+}
+
+@media(max-width: 769px) {
+  .login {
+    padding-top: 0;
+    margin-left: 5px
   }
 }
 

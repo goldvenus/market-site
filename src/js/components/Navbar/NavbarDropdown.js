@@ -78,10 +78,10 @@ class NavbarDropdown extends React.PureComponent {
             </li>
           ) : (
             <li className="navbar-drop-menu">
-              <button className="theme-btn theme-btn-outline-pink ml-3 theme-btn-link theme-nav__btn">
+              <button className="theme-btn theme-btn-filled-white ml-3 theme-btn-link theme-nav__btn">
                 <Link to="/login">Login</Link>
               </button>
-              <button className="theme-btn theme-btn-filled-white ml-3 theme-btn-link theme-nav__btn">
+              <button className="theme-btn theme-btn-outline-pink ml-3 theme-btn-link theme-nav__btn">
                 <Link to="/register">Register</Link>
               </button>
             </li>

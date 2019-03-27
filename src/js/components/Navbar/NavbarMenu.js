@@ -90,10 +90,40 @@ class NavbarMenu extends React.Component {
   render() {
     const { collapsed } = this.state;
 
+    console.log(collapsed)
+
     const {
       carts,
       favourites,
     } = this.props;
+
+    let output = null
+
+    if(this.props.isAuthenticated === true) {
+      output = <React.Fragment>
+      <li className="navbar-sm__sidebar-item ml-auto">
+        <Link to="/cart">
+          <div className="sidebar-item__icon">
+            <CartIcon/>
+            {!!(carts && carts.length > 0) &&
+            <span className="sidebar-item__badge">{carts.length}</span>
+            }
+          </div>
+        </Link>
+      </li>
+
+      <li className="navbar-sm__sidebar-item">
+        <Link to="/favourites">
+          <div className="sidebar-item__icon">
+            <HeartIcon/>
+            {!!(favourites && favourites.Items && favourites.Items.length > 0) &&
+            <span className="sidebar-item__badge">{favourites.Items.length}</span>
+            }
+          </div>
+        </Link>
+      </li>
+      </React.Fragment>
+    }
 
     return (
       <div className="navbar-menu">
@@ -106,27 +136,7 @@ class NavbarMenu extends React.Component {
                   <img className="navbar-sm__logo" src={imgLogoSm} alt="CreativeMarket"/>
                 </li>
 
-                <li className="navbar-sm__sidebar-item ml-auto">
-                  <Link to="/cart">
-                    <div className="sidebar-item__icon">
-                      <CartIcon/>
-                      {!!(carts && carts.length > 0) &&
-                      <span className="sidebar-item__badge">{carts.length}</span>
-                      }
-                    </div>
-                  </Link>
-                </li>
-
-                <li className="navbar-sm__sidebar-item">
-                  <Link to="/favourites">
-                    <div className="sidebar-item__icon">
-                      <HeartIcon/>
-                      {!!(favourites && favourites.Items && favourites.Items.length > 0) &&
-                      <span className="sidebar-item__badge">{favourites.Items.length}</span>
-                      }
-                    </div>
-                  </Link>
-                </li>
+                {output}
               </React.Fragment>
             )
             : (
@@ -143,18 +153,18 @@ class NavbarMenu extends React.Component {
         <CollapseMenu isOpen={!collapsed}>
           <Container>
             <Row>
-              <Col xs={24} lg={12}>
+              <Col xs={24} lg={12}>  
                 <ul className="menu-links-wrapper">
                   {/* sm only menu */}
-                  <li className="animated-menu-item menu-item-sm link">
-                    <Link to="/listgear">
+                  <li className="animated-menu-item menu-item-sm">
+                    <Link to="/rentgear">
                       <h2>
                         Rent Gear
                       </h2>
                     </Link>
                   </li>
-                  <li className="animated-menu-item menu-item-sm with-mb link">
-                    <Link to="/rentgear">
+                  <li className="animated-menu-item menu-item-sm with-mb">
+                    <Link to="/listgear">
                       <h2>
                         List Gear
                       </h2>
@@ -228,6 +238,7 @@ const mapStateToProps = store => ({
   error: store.app.error,
   carts: store.app.carts,
   favourites: store.app.favourites,
+  isAuthenticated: store.app.isAuthenticated
 });
 
 export default withRouter(connect(mapStateToProps)(NavbarMenu));

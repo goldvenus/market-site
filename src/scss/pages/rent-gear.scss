@@ -94,6 +94,7 @@
           }
         }
       }
+      
 
       .views {
         flex: 1;
@@ -515,7 +516,91 @@
   .gear_table_view .card-img .card-img-top {
     padding: 0 !important;
   }
+  .rent-gear-title {
+    margin: 0 auto;
+  }
+  .breadcrumb {
+    justify-content: center;
+  }
 }
 
-@media(max-width: 500px) {
+
+
+
+
+@media (min-width: 576px) and (max-width: 1050.98px) { 
+  .cardz-2 {
+    -webkit-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .breadcrumb {
+    justify-content: center;
+  }
+
+.cardz {
+  flex: 0 50% !important;
+  max-width: fit-content;
 }
+
+.rent-gear-title{
+    margin: 0 auto;
+}
+
+
+
+ }
+
+ @media (max-width:1050px){
+  .category-mobile {
+    position: fixed;
+    bottom: -490px;
+    background: #fff;
+    width: 100%;
+    left: 0;
+    z-index: 100000;
+    &.active{
+      bottom: 0
+    }
+  }
+  .catagory-header {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    padding: 10px;
+    
+    .search{
+      position: absolute;
+      bottom:100%;
+      width: 100%;
+      background:#ddd;
+      display: none;
+      padding: 0px 10px;
+      right: 0;
+      &.s-active{
+        display: block;
+      }
+      
+    }
+    .search-action-btn{
+      color: #fff;
+      width: 47px;
+      height: 47px;
+      border-radius: 50%;
+      background: #f82462;
+      display: flex;justify-content: center;align-items: center;
+      font-size: 16px;
+      border: none;
+      padding: 0 !important
+    }
+    .category-action-btn{
+      background: none;
+      border:none;
+      font-size: 20px;
+      i{
+        color: #ccc;
+        margin-left: 5px;
+      }
+    }
+  }
+ }
