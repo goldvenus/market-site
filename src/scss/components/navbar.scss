@@ -33,6 +33,12 @@ header {
   width: 100%;
   height: 100%;
 
+
+
+
+  }
+
+
   .navbar-menu {
     @include media-breakpoint-down(sm) {
       display: flex;
@@ -44,7 +50,7 @@ header {
     ul.navbar-menu__navbar-sm {
       flex: 1 1;
       position: relative;
-      display: none;
+      display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: flex-start;
@@ -587,4 +593,4 @@ header {
       }
     }
   }
-}
+

@@ -6,6 +6,7 @@ import Transition from 'react-transition-group/Transition';
 import { Container, Row, Col } from 'reactstrap';
 
 import { addEndListener } from '../../utils/animation';
+import imgLogo from './logo-sm.png';
 import {
   animateMenuIn,
   animateMenuOut,
@@ -128,13 +129,15 @@ class NavbarMenu extends React.Component {
     return (
       <div className="navbar-menu">
         {/* sm only navbar */}
+
         <ul className="navbar-menu__navbar-sm">
+
           {collapsed
             ? (
               <React.Fragment>
-                <li>
+                <Link to='/home'><li>
                   <img className="navbar-sm__logo" src={imgLogoSm} alt="CreativeMarket"/>
-                </li>
+                </li></Link>
 
                 {output}
               </React.Fragment>

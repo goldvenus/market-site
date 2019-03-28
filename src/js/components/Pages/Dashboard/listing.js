@@ -7,6 +7,8 @@ import "react-tabs/style/react-tabs.css";
 import moment from 'moment';
 import dataSet from './dataSet';
 import EmpetyList from './Empety_list'
+import { getListGears } from '../../../actions/app.actions';
+import connect from "react-redux/es/connect/connect";
 {/* <tr>
   <td width="15%">{<img src={rentItem.numberOfUserImage[0]} className="gear-img" />}</td>
   <td className="gear" width="20%">
@@ -51,7 +53,7 @@ const MyListingItem = ({ listItem }) => (
     <td width="15%">{`${listItem.totalRentedNumerOfDay * listItem.pricePerDay} $`}</td>
   </tr>
 )
-const listNotEmpty = (currentPage,list)=> 
+const listNotEmpty = (currentPage,list)=>
  (
     <React.Fragment>
             <div className="table-responsive">
@@ -75,7 +77,7 @@ const listNotEmpty = (currentPage,list)=>
                     .map((data, i) =>
                       <MyListingItem listItem={data} key={i} />
                   ) : ""}
-                  
+
                 </tbody>
               </Table>
             </div>
@@ -108,10 +110,10 @@ const listNotEmpty = (currentPage,list)=>
             </Pagination>
           </React.Fragment>
   )
- 
+
 const days = (d1, d2) => { return moment(d2).diff(moment(d1) , 'days')};
 
-export default class MyListings extends React.Component {
+class MyListings extends React.Component {
   constructor() {
 
     super();
@@ -122,6 +124,9 @@ export default class MyListings extends React.Component {
     this.state = {
       currentPage: 0
     };
+
+    // get list get gears
+    getListGears();
 
   }
   handleClick(e, index) {
@@ -135,10 +140,10 @@ export default class MyListings extends React.Component {
   }
 
 
- 
-  
- 
- 
+
+
+
+
   render() {
     const { currentPage} = this.state;
     const { list} = this.props;
@@ -151,28 +156,30 @@ export default class MyListings extends React.Component {
             <h4 className="tab-title">My Listings</h4>
             <Link to='/listGear' className="theme-btn theme-btn-primary ml-auto mb-3">List Gear</Link>
           </div>
-         
-         <Tabs>
-         
-    <TabList>
-      <Tab><i className="fa fa-list"></i>
- My Listing</Tab>
-      <Tab><i className="fa fa-calendar"></i> Calender</Tab>
-    </TabList>
-    <div className="wrraper">
 
-    <TabPanel>
-    { (currentPage <= 0) ?<EmpetyList/> : <listNotEmpty currentPage={currentPage} list={list}/>}
-    </TabPanel>
-    <TabPanel>
-      <h2>Any content 2</h2>
-    </TabPanel>
-    </div>
-  </Tabs>
-         
-          
+         <Tabs>
+
+          <TabList>
+            <Tab><i className="fa fa-list"></i>My Listing</Tab>
+            <Tab><i className="fa fa-calendar"></i> Calender</Tab>
+          </TabList>
+          <div className="wrraper">
+            <TabPanel>
+            { (currentPage <= 0) ? <EmpetyList/> : <listNotEmpty currentPage={currentPage} list={list}/>}
+            </TabPanel>
+            <TabPanel>
+              <h2>Any content 2</h2>
+            </TabPanel>
+          </div>
+        </Tabs>
         </Col>
       </Row >
     )
   }
 }
+
+const mapStateToProps = state => ({
+  list: state.app.listGears
+});
+
+export default connect(mapStateToProps)(MyListings);
