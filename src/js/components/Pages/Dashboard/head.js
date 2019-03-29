@@ -6,11 +6,11 @@ import {Row, Col} from 'reactstrap';
 export default function(props){
   return(
     props.user ?
-      <Row className="user-detail">
-        <Col sm="4">
+      <div className="user-detail">
+        <div className="user-avatar" >
           <img src={props.user.picture} alt="" />
-        </Col>
-        <Col sm="20" className="v-center">
+        </div>
+        <div  className=" user-info">
           <h3 className="user-name">{props.user.given_name}</h3>
           <Row>
             <Col sm="8">
@@ -22,14 +22,14 @@ export default function(props){
               <p>{props.user.phone_number} </p>
             </Col>
           </Row>
-        </Col>
-      </Row> 
+        </div>
+      </div> 
        :
       <Row className="user-detail">
-        <Col sm="4">
+        <Col >
           <img src={'/images/avatar.png'} alt="" />
         </Col>
-        <Col sm="20" className="v-center">
+        <Col className="user-avatar">
           <h3 className="user-name">Name placeholder</h3>
           <Row>
             <Col sm="8">

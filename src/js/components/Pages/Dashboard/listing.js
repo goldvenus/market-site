@@ -30,6 +30,7 @@ import connect from "react-redux/es/connect/connect";
   <td width="15%">{rentItem.pricePerDay}</td>
   <td width="15%">{rentItem.replacementValue}</td>
 </tr> */}
+
 const MyListingItem = ({ listItem }) => (
   <tr>
     <td width="15%">{<img src={listItem.numberOfUserImage[0]} className="gear-img"/>}</td>
@@ -39,7 +40,7 @@ const MyListingItem = ({ listItem }) => (
     </td>
     <td className="rental-period" width="20%">
       <p>
-        {`${listItem.startDate.split(' ')[0]} to ${listItem.endDate.split(' ')[0]} `}
+        {/* {`${listItem.startDate.split(' ')[0]} to ${listItem.endDate.split(' ')[0]} `} */}
       </p>
       <p className="theme-text-small text-muted">
         {` ${listItem.totalRentedNumerOfDay} days`}
@@ -53,63 +54,6 @@ const MyListingItem = ({ listItem }) => (
     <td width="15%">{`${listItem.totalRentedNumerOfDay * listItem.pricePerDay} $`}</td>
   </tr>
 )
-const listNotEmpty = (currentPage,list)=>
- (
-    <React.Fragment>
-            <div className="table-responsive">
-              <Table className="listing-data-slice" >
-                <thead>
-                  <tr className="text-muted theme-text-bold">
-                    <th></th>
-                    <th>Name & Category</th>
-                    <th>Rental Period</th>
-                    <th>Client</th>
-                    <th>Price Per day</th>
-                    <th>Amount</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {list ? list
-                    .slice(
-                      currentPage * this.pageSize,
-                      (currentPage + 1) * this.pageSize
-                    )
-                    .map((data, i) =>
-                      <MyListingItem listItem={data} key={i} />
-                  ) : ""}
-
-                </tbody>
-              </Table>
-            </div>
-            <Pagination aria-label="Page navigation example">
-
-              <PaginationItem disabled={currentPage <= 0}>
-                <PaginationLink
-                  onClick={e => this.handleClick(e, currentPage - 1)}
-                  previous
-                  href="#"
-                />
-              </PaginationItem>
-
-              {[...Array(this.pagesCount)].map((page, i) =>
-                <PaginationItem active={i === currentPage} key={i}>
-                  <PaginationLink onClick={e => this.handleClick(e, i)} href="#">
-                    {i + 1}
-                  </PaginationLink>
-                </PaginationItem>
-              )}
-
-              <PaginationItem disabled={currentPage >= this.pagesCount - 1}>
-                <PaginationLink
-                  onClick={e => this.handleClick(e, currentPage + 1)}
-                  next
-                  href="#"
-                />
-              </PaginationItem>
-
-            </Pagination>
-          </React.Fragment>
-  )
 
 const days = (d1, d2) => { return moment(d2).diff(moment(d1) , 'days')};
 
@@ -147,7 +91,8 @@ class MyListings extends React.Component {
   render() {
     const { currentPage} = this.state;
     const { list} = this.props;
-
+    console.log(list);
+    
       this.pagesCount = Math.ceil(list ? list.length / this.pageSize : "");
     return (
       <Row className="my-listing my-listing-tabs">
@@ -165,10 +110,69 @@ class MyListings extends React.Component {
           </TabList>
           <div className="wrraper">
             <TabPanel>
-            { (currentPage <= 0) ? <EmpetyList/> : <listNotEmpty currentPage={currentPage} list={list}/>}
+            { (list.length <= 0) ? <EmpetyList/> : 
+             (
+              <React.Fragment>
+                      <div className="table-responsive">
+                        <Table className="listing-data-slice" >
+                          <thead>
+                            <tr className="text-muted theme-text-bold">
+                              <th></th>
+                              <th>Name & Category</th>
+                              <th>Rental Period</th>
+                              <th>Client</th>
+                              <th>Price Per day</th>
+                              <th>Amount</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {list ? list
+                              .slice(
+                                currentPage * this.pageSize,
+                                (currentPage + 1) * this.pageSize
+                              )
+                              .map((data, i) =>
+                                <MyListingItem listItem={data} key={i} />
+                            ) : ""}
+          
+                          </tbody>
+                        </Table>
+                      </div>
+                      <Pagination aria-label="Page navigation example">
+          
+                        <PaginationItem disabled={currentPage <= 0}>
+                          <PaginationLink
+                            onClick={e => this.handleClick(e, currentPage - 1)}
+                            previous
+                            href="#"
+                          />
+                        </PaginationItem>
+          
+                        {[...Array(this.pagesCount)].map((page, i) =>
+                          <PaginationItem active={i === currentPage} key={i}>
+                            <PaginationLink onClick={e => this.handleClick(e, i)} href="#">
+                              {i + 1}
+                            </PaginationLink>
+                          </PaginationItem>
+                        )}
+          
+                        <PaginationItem disabled={currentPage >= this.pagesCount - 1}>
+                          <PaginationLink
+                            onClick={e => this.handleClick(e, currentPage + 1)}
+                            next
+                            href="#"
+                          />
+                        </PaginationItem>
+          
+                      </Pagination>
+                    </React.Fragment>
+            )
+          }
             </TabPanel>
             <TabPanel>
-              <h2>Any content 2</h2>
+              <h2>
+                calendar
+              </h2>
             </TabPanel>
           </div>
         </Tabs>

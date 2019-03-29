@@ -7,9 +7,17 @@
 
     .user-detail {
       padding-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      .user-avatar{
+        margin-right: 30px;
+      }
+      .user-info{
 
+      }
       .user-name {
         margin-bottom: 1.5rem;
+        padding: 0 15px;
       }
 
       img {
@@ -235,7 +243,9 @@
         border-radius: 30px;
         display: flex;
         overflow: hidden;
-        margin-bottom: 30px;
+        margin: 0px auto 30px auto;
+        max-width: 269px;
+        height: 40px;
         li{
           width: 50%;
           padding-top: 10px;
@@ -269,13 +279,17 @@ color: #fff
   }
 }
 
-@media(min-width: 500px) {
+@media(min-width: 500px)  {
   .navbar-wrapper{
     flex-wrap: nowrap;
     .navbar-menu{
       width: 35%;
       display: flex;
       flex-direction: row-reverse;
+      .logged-in ,
+      .navbar-sm__sidebar-item{
+        display: none !important;
+      }
     }
   
     .navbar-right{
@@ -288,4 +302,17 @@ color: #fff
     }
   }
 
+}
+
+@media (max-width:567px){
+  .dashboard .dashboard-head .user-detail img{
+    width: 100px;
+    height: 100px;
+  }
+  .dashboard .dashboard-head .user-detail .user-avatar{
+margin-right: 10px;
+  }
+  .dashboard .dashboard-head .user-detail .user-name{
+    margin-bottom: 1rem;
+  }
 }

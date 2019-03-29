@@ -359,11 +359,13 @@ const rentGearProductList = async (catDetail) => {
 
 const dashboardMyListing = async () => {
   try {
-    let response = await get('userDashboardProductList');
-    dispatch({
-      type: ACTIONS.DASHBOARD_MY_LISTINGS,
-      payload: response.data
-    });
+    let response = await get('viewUserGearList');
+    if (response && response.data) {
+      dispatch({
+        type:ACTIONS.DASHBOARD_MY_LISTINGS,
+        payload: response.data.Items
+      });
+    }
   } catch (error) {
     handleError(error);
   }

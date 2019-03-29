@@ -161,40 +161,44 @@ class NavbarMenu extends React.Component {
                   {/* sm only menu */}
                   <li className="animated-menu-item menu-item-sm">
                     <Link to="/rentgear">
-                      <h2>
+                    
+                      <h2 onClick={this.toggleNavbar} >
                         Rent Gear
                       </h2>
+                      
                     </Link>
                   </li>
                   <li className="animated-menu-item menu-item-sm with-mb">
                     <Link to="/listgear">
-                      <h2>
-                        List Gear
+                      <h2 onClick={this.toggleNavbar} >
+                        List Gear 
+                        
                       </h2>
                     </Link>
+                    
                   </li>
                   {/* sm only menu end */}
 
                   <li className="animated-menu-item">
-                    <Link to="/aboutus">
+                    <Link to="/aboutus" onClick={this.toggleNavbar} >
                       <span className="dash"/>
                       About Us
                     </Link>
                   </li>
                   <li className="animated-menu-item">
-                    <Link to="/Stories">
+                    <Link to="/Stories" onClick={this.toggleNavbar} >
                       <span className="dash"/>
                       Stories
                     </Link>
                   </li>
                   <li className="animated-menu-item">
-                    <Link to="/Partners">
+                    <Link to="/Partners" onClick={this.toggleNavbar} >
                       <span className="dash"/>
                       Partners
                     </Link>
                   </li>
                   <li className="animated-menu-item">
-                    <Link to="/FAQ">
+                    <Link to="/FAQ" onClick={this.toggleNavbar} >
                       <span className="dash"/>
                       FAQ
                     </Link>

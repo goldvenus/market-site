@@ -51,37 +51,37 @@ class Login extends Component {
                     onClick={() => { window.location.href = FACEBOOK_LOGIN_URL; }}>
               <span>
                 <i className="fab fa-facebook-f"></i>
-                Facebook
+                <span>Facebook</span>
               </span>
             </button>
             <button className="theme-btn btn-social btn-twitter">
               <span>
                 <i className="fab fa-twitter"></i>
-                Twitter
+                <span>Twitter</span>
               </span>
             </button>
             <button className="theme-btn btn-social btn-google-plus text-center"
                     onClick={() => { window.location.href = FACEBOOK_LOGIN_URL; }}>
               <span>
                 <i className="fab fa-google-plus-g"></i>
-                Google +
+                <span>Google +</span>
               </span>
             </button>
           </div>
           <div className="login-or-divider">Or</div>
           <Form className="theme-form">
             <div className="theme-form-field">
-              <CustomInput placeholder='Email' type="email" required="required" value={username}
+              <CustomInput placeholder='EMAIL' type="email" required="required" value={username}
                            onChange={(value) => this.setState({ username: value })}/>
             </div>
             <div className="flex-row">
               <div className="theme-form-field">
-                <CustomInput placeholder='Password' type="Password" required="required" value={password}
+                <CustomInput placeholder='PASSWORD' type="Password" required="required" value={password}
                              onChange={(value) => this.setState({ password: value })}/>
               </div>
               <Link className="theme-form-link" to="/forgotpassword">Forgot password?</Link>
             </div>
-            <div className="theme-form-field">
+            <div className="theme-form-field login-remember-input">
               <Input type="checkbox" id="login-remember"/>
               <Label for="login-remember">Remember me on this device</Label>
             </div>
@@ -91,7 +91,7 @@ class Login extends Component {
           <div className="login-or-divider"></div>
           <div className="flex-row signup-link">
             <span>Don't have an account?</span>
-            <button className="theme-btn theme-btn-filled-white theme-btn-link"><Link to="/">Get Started <i
+            <button className="theme-btn theme-btn-filled-white theme-btn-link"><Link to="/register">Get Started <i
               className="fa fa-angle-right"/></Link></button>
           </div>
         </div>

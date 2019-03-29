@@ -85,20 +85,26 @@ class Register extends Component {
               </div>
             </div>) : (
             <div className="login register">
-              <h1>Register</h1>
-              <div>Register via social networks</div>
+              <h1 className="header">Register</h1>
+              <div className="subheader">Register via social networks</div>
               <div className="social-buttons">
                 <button className="theme-btn btn-social btn-fb">
-                  <span className="fab fa-facebook-f"></span>
-                  Facebook
+                  <span>
+                  <i className="fab fa-facebook-f"></i>
+                  <span>Facebook</span>
+                  </span>
                 </button>
                 <button className="theme-btn btn-social btn-twitter">
-                  <span className="fab fa-twitter"></span>
-                  Twitter
+                  <span>
+                    <i className="fab fa-twitter"></i>
+                    <span>Twitter</span>
+                  </span>
                 </button>
                 <button className="theme-btn btn-social btn-google-plus">
-                  <span className="fab fa-google-plus-g"></span>
-                  Google +
+                  <span>
+                    <i className="fab fa-google-plus-g"></i>
+                    <span>Google +</span>
+                  </span>
                 </button>
               </div>
               <div className="login-or-divider">Or</div>
@@ -119,9 +125,9 @@ class Register extends Component {
                   <CustomInput placeholder='Confirm Password' type="Password" required="required"
                                value={confirmPassword} onChange={(value) => this.setState({ confirmPassword: value })}/>
                 </div>
-                <div className="flex-row">
+                <div className="flex-row  upload-photo-row">
                   <div className="theme-form-field">
-                    <label>{fileName || 'Please upload profile picture'}</label>
+                    <label>{fileName || 'Photo'}</label>
                   </div>
                   <div className="file-input-container">
                     <button className="theme-btn theme-btn-filled-white btn-photo-upload">Upload</button>
@@ -132,9 +138,9 @@ class Register extends Component {
                 <button className="theme-btn-submit" onClick={this.submit.bind(this)}>Sign up</button>
               </Form>
               <div className="login-or-divider"></div>
-              <div className="flex-row">
-                <div>Already have an account?</div>
-                <button className="theme-btn theme-btn-filled-white theme-btn-link"><Link to="/login">Login <span
+              <div className="flex-row signin-link ">
+                <span>Already have an account?</span>
+                <button className="theme-btn theme-btn-filled-white theme-btn-link"><Link to="/login">Sign in<i
                   className="fa fa-angle-right"/></Link></button>
               </div>
             </div>)
