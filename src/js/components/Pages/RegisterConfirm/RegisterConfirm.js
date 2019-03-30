@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Form } from 'reactstrap';
 import CustomInput from '../../CustomInput';
 import AuthSideMenu from '../../AuthSideMenu';
 import { handleError, confirmUser } from '../../../actions/app.actions';
@@ -16,7 +17,9 @@ class RegisterConfirm extends Component {
     };
   }
 
-  async confirm() {
+  async confirm(e) {
+    e.preventDefault()
+
     const { code, email: aEmail } = this.state;
     const oEmail = this.email;
 
@@ -40,9 +43,8 @@ class RegisterConfirm extends Component {
         {this.state.isConfirmed
           ? (
             <div className="login success-message">
-              <h1><i className="fa fa-check-circle primary-color"/> Successfully</h1>
-              <div>Your account has been verified</div>
-              <div className="flex-row">
+              <h1 class="header"><i className="fa fa-check-circle primary-color"/> Account successfully activated!</h1>
+              <div className="flex-row navigation-buttons">
                 <button className="theme-btn theme-btn-secondery theme-btn-link"><Link to="/">Home Page</Link></button>
                 <button className="theme-btn theme-btn-primary theme-btn-link"><Link to="/login">Login</Link></button>
               </div>
@@ -50,37 +52,37 @@ class RegisterConfirm extends Component {
           )
           : (
             <div className="login success-message">
-              <h1>Confirm</h1>
-              {this.email
-                ? null
-                : (
-                  <div>
-                    <div>Please enter email</div>
-                    <div className="verification-code">
-                      <CustomInput
-                        placeholder="Email"
-                        type="text"
-                        required="required"
-                        value={this.state.email}
-                        onChange={(value) => this.setState({ email: value })}
-                      />
+              <h1 className="header">Confirm</h1>
+              <Form className="theme-form">
+                {this.email
+                  ? null
+                  : (
+                    <div>
+                      <div className="theme-form-field">
+                        <CustomInput
+                          placeholder="Email"
+                          type="text"
+                          required="required"
+                          value={this.state.email}
+                          onChange={(value) => this.setState({ email: value })}
+                        />
+                      </div>
                     </div>
-                  </div>
-                )
-              }
-              <div className="verification-code">Please enter verification code</div>
-              <div className="verification-code">
-                <CustomInput
-                  placeholder="Verification Code"
-                  type="text"
-                  required="required"
-                  value={this.state.code}
-                  onChange={(value) => this.setState({ code: value })}
-                />
-              </div>
-              <div className="flex-row verification-code">
-                <button className="theme-btn-submit" onClick={this.confirm.bind(this)}>Confirm</button>
-              </div>
+                  )
+                }
+                <div className="theme-form-field">
+                  <CustomInput
+                    placeholder="Verification Code"
+                    type="text"
+                    required="required"
+                    value={this.state.code}
+                    onChange={(value) => this.setState({ code: value })}
+                  />
+                </div>
+                <div className="flex-row verification-code">
+                  <button className="theme-btn-submit" onClick={this.confirm.bind(this)}>Confirm</button>
+                </div>
+              </Form>
             </div>
           )
         }

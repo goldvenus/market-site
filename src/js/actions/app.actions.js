@@ -269,6 +269,20 @@ const getListGears = async () => {
   }
 };
 
+const getAllGears = async () => {
+  try {
+    let response = await get('viewAllGearList');
+    if (response && response.data) {
+      dispatch({
+        type: ACTIONS.ALL_GEARS,
+        payload: response.data.Items
+      });
+    }
+  } catch (error) {
+    handleError(error);
+  }
+};
+
 const logout = () => {
   delete localStorage.accessToken;
   delete localStorage.idToken;
@@ -523,7 +537,7 @@ const socialLogin = async (idToken, accessToken) => {
 
 export {
   register, confirmUser, login, logout, clearError, handleError, getUser,
-  readFileData, addGear, fetchCategories, getListGears, getGear, addCart, getCarts,
+  readFileData, addGear, fetchCategories, getListGears, getAllGears, getGear, addCart, getCarts,
   formatDate, days, checkout, payment, rentGearProductList, dashboardMyListing,
   dashboardMyRentals, search, addFavourites, getFavourites, deleteFavourite, newArrivals,
   deleteCartItem, deleteGear, socialLogin, viewUserDashboard, sendResetPasswordEmail, confirmResetPassword

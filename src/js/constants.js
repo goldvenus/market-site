@@ -1,3 +1,4 @@
+//const API_URL = 'http://localhost:3000/'
 const API_URL = 'https://cors-anywhere.herokuapp.com/https://7qalj7pu52.execute-api.us-east-1.amazonaws.com/dev/';
 // const API_URL = 'http://localhost:3001/';
 const API_URL_NEW = 'https://cors-anywhere.herokuapp.com/https://2rj9lw7ja3.execute-api.us-east-1.amazonaws.com/dev/';
@@ -16,6 +17,7 @@ const ACTIONS = {
   LOGGED_OUT: 'loggedOut',
   FETCH_CATEGORIES: 'fetCategories',
   LIST_GEARS: 'listGears',
+  ALL_GEARS: 'allGears',
   GEAR: 'gear',
   CARTS: 'carts',
   GEAR_PRODUCT_LIST: 'gearProductList',

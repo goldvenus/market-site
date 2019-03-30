@@ -5,6 +5,7 @@ import { Action } from 'rxjs/internal/scheduler/Action';
 const initialState = {
   categories: [],
   listGears: [],
+  allGears: [],
   error: null,
   user: null,
   isAuthenticated: false,
@@ -42,6 +43,9 @@ export default (state = initialState, action) => {
         break;
       case ACTIONS.LIST_GEARS:
         draft.listGears = action.payload;
+        break;
+      case ACTIONS.ALL_GEARS:
+        draft.allGears = action.payload;
         break;
       case ACTIONS.GEAR:
         draft.gear = action.payload;

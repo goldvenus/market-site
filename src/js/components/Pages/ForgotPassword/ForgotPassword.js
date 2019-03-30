@@ -62,8 +62,8 @@ class ForgotPassword extends Component {
     if(isConfirmed) {
       content = (
         <div className="login success-message">
-          <h1><i className="fa fa-check-circle primary-color"/> Successfully</h1>
-          <div>Your password has been set!</div>
+          <h1 class="header"><i className="fa fa-check-circle primary-color"/> Successfully</h1>
+          <div class="subheader">Your password has been set!</div>
           <button className="theme-btn theme-btn-primary theme-btn-submit theme-btn-link">
             <Link to="/login">Sign In</Link>
           </button>
@@ -71,10 +71,12 @@ class ForgotPassword extends Component {
       )
     } else if(isEmailSent){
       content = (
-        <div className="login">
-          <h1>Confirm your password</h1>
+        <div className="login forgot-password">
+          <h1 className="header">Confirm your password</h1>
           <div className="login-or-divider">
-            Enter the verification code and type your new password.
+            <span>
+              Enter the verification code and type your new password.
+            </span>
           </div>
           <Form className="theme-form">
             <div className="theme-form-field">
@@ -95,10 +97,12 @@ class ForgotPassword extends Component {
       )
     } else {
       content = (
-        <div className="login">
-          <h1>Forgot Password?</h1>
+        <div className="login forgot-password">
+          <h1 class="header">Forgot Password?</h1>
           <div className="login-or-divider">
-            Enter your email, the instruction will be sent for password recovery
+            <span>
+              Enter your email, the instruction will be <br/>sent for password recovery
+            </span>
           </div>
           <Form className="theme-form">
             <div className="theme-form-field">
@@ -108,11 +112,11 @@ class ForgotPassword extends Component {
             <button className="theme-btn-submit" onClick={this.submit.bind(this)}>Submit</button>
           </Form>
           <div className="login-or-divider"/>
-          <div className="flex-row">
-            <div>Remember your password?</div>
+          <div className="flex-row signup-link">
+            <span>Remember your password?</span>
             <button className="theme-btn theme-btn-filled-white theme-btn-link">
               <Link to="/login">
-                Sign In <span className="fa fa-angle-right"/>
+                Sign In <i className="fa fa-angle-right"/>
               </Link>
             </button>
           </div>

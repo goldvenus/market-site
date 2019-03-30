@@ -74,14 +74,14 @@ class Footer extends Component {
               <div className="col">
                 <div className="social-buttons">
                 <button className="theme-btn btn-social btn-fb">
-                    <span style={{marginRight:41}} className="fab fa-facebook-f"/>
-                    Facebook</button> &nbsp;
+                    <i className="fab fa-facebook-f"/>
+                    <span>Facebook</span></button> &nbsp;
                     <button className="theme-btn btn-social btn-vimeo">
-                    <span style={{marginRight:56}} className="fab fa-vimeo-v"/>
-                    Vimeo</button> &nbsp;
+                    <i className="fab fa-vimeo-v"/>
+                    <span>Vimeo</span></button> &nbsp;
                     <button className="theme-btn btn-social btn-insta">
-                    <span style={{marginRight:33}} className="fab fa-instagram"/>
-                    Instagram</button>
+                    <i className="fab fa-instagram"/>
+                    <span>Instagram</span></button>
                 </div>
               </div>
               <div className="col d-none d-lg-flex">

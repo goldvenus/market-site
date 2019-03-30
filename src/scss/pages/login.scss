@@ -25,6 +25,28 @@
   justify-content: flex-start;
 }
 
+.forgot-password {
+
+  .header {
+    font-size: 35px !important;
+    margin-bottom: 25px;
+    font-weight: 800;
+  }
+
+  .login-or-divider {
+    text-transform: none !important;
+    max-width: 100%;
+
+    span {
+      max-width: 300px
+    }
+  }
+
+  .theme-btn-submit {
+    padding: 7px !important
+  }
+}
+
 .login {
   margin-left: 60px;
   padding-top: 60px;
@@ -36,7 +58,7 @@
   .header {
     font-size: 35px !important;
     margin-bottom: 25px;
-    font-weight: 800;
+    font-weight: 900;
   }
 
   .custom-input {
@@ -97,6 +119,19 @@
   .auth-sidemenu {
     width: 100%;
     display: none
+  }
+
+  .forgot-password {
+    .login-or-divider {
+      display: block !important;
+      text-align: center;
+      margin: 20px;
+    }
+
+    .theme-btn-submit {
+      width: 90% !important;
+      margin-left: 5% !important;
+    }
   }
 
   .login {

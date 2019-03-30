@@ -62,9 +62,9 @@ class AddGear extends Component {
           function () {
             if (index === progressStep) {
               isDone = false;
-              return <i className='far fa-dot-circle' aria-hidden="true"/>;
+              return <i className='fas fa-dot-circle' aria-hidden="true"/>;
             } else if (isDone) {
-              return <i className='fa fa-check-circle' aria-hidden="true"/>;
+              return <i className='fas fa-check-circle' aria-hidden="true"/>;
             } else {
               return <i className='far fa-circle' aria-hidden="true"/>;
             }
@@ -93,8 +93,8 @@ class AddGear extends Component {
     return (
       <Form className="theme-form add-gear-info">
         <div className="flex-row">
-          <div>
-            <Dropdown className="theme-form-field" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+          <div className="theme-column">
+            <Dropdown className="theme-form-field theme-form-dropdown" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
               <DropdownToggle caret>
                 {categoryName}
               </DropdownToggle>
@@ -116,11 +116,11 @@ class AddGear extends Component {
                            type="text"/>
             </div>
             <div className="theme-form-field">
-              <CustomInput placeholder='Description' value={description}
+              <CustomInput placeholder='Description' type="textarea" value={description}
                            onChange={(value) => this.setState({ description: value })} type="text"/>
             </div>
           </div>
-          <div className="info-right-container">
+          <div className="theme-column info-right-container">
             <div className="type-tabs">
               <input name="type" id="new" type="radio" value="new" onChange={this.onTypeChange}/>
               <label className={selectedType === 'new' ? 'active' : ''} htmlFor="new">New</label>
@@ -143,6 +143,7 @@ class AddGear extends Component {
                 <Chips
                   value={accessories}
                   onChange={(accessories) => this.setState({ accessories })}
+                  className="theme-combo"
                   fromSuggestionsOnly={false}
                 />
               </div>
@@ -424,7 +425,7 @@ class AddGear extends Component {
           <BreadcrumbItem>Home</BreadcrumbItem>
           <BreadcrumbItem active>Add Gear</BreadcrumbItem>
         </Breadcrumb>
-        <h3>Add Gear</h3>
+        <h3 class="header">Add Gear</h3>
         <div className="add-gear-progress">
           {
             this.renderProgress()
@@ -440,12 +441,12 @@ class AddGear extends Component {
               <div className="flex-row buttons-container">
                 {
                   this.state.progressStep !== 0 ?
-                    <button className="theme-btn theme-btn-secondery" onClick={this.previousStep.bind(this)}><span
+                    <button className="theme-btn theme-btn-secondary theme-back-btn" onClick={this.previousStep.bind(this)}><span
                       className="fa fa-angle-left"/> Back</button> :
                     null
                 }
 
-                <button className="theme-btn theme-btn-primary" onClick={this.nextStep.bind(this)}>Continue <span
+                <button className="theme-btn theme-btn-primary theme-continue-btn" onClick={this.nextStep.bind(this)}>Continue <span
                   className="fa fa-angle-right"/></button>
               </div>
             </div>) : null
