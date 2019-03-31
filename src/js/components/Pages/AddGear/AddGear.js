@@ -254,7 +254,7 @@ class AddGear extends Component {
     return <div className="add-gear-price">
       <div>
         <div className="theme-text-small text-gray">{categoryName}</div>
-        <h4>{brand + ' ' + model}</h4>
+        <h4 className="header">{brand + ' ' + model}</h4>
 
         <div className="price-type-tabs">
           <input id="new" type="radio" value="new"/>
@@ -294,22 +294,27 @@ class AddGear extends Component {
         </div>
       </div>
       <div className="gear-right-container">
-        <div>Replacement Value</div>
-        <InputGroup>
-          <InputGroupAddon addonType="prepend">$</InputGroupAddon>
-          <CustomInput placeholder='Amount' type="text" value={replacementValue}
-                       onChange={(value) => this.setState({ replacementValue: value })}/>
-        </InputGroup>
-        <div>Price per day</div>
-        <InputGroup>
-          <InputGroupAddon addonType="prepend">$</InputGroupAddon>
-          <CustomInput placeholder='Amount' type="text" value={pricePerDay}
-                       onChange={(value) => this.setState({ pricePerDay: value })}/>
-        </InputGroup>
-
+        <div className="custom-theme-row">
+          <div class="custom-theme-col">
+            <div>Replacement Value</div>
+            <InputGroup>
+              <InputGroupAddon addonType="prepend">$</InputGroupAddon>
+              <CustomInput placeholder='Amount' type="text" value={replacementValue}
+                           onChange={(value) => this.setState({ replacementValue: value })}/>
+            </InputGroup>
+          </div>
+          <div class="custom-theme-col">
+            <div>Price per day</div>
+            <InputGroup>
+              <InputGroupAddon addonType="prepend">$</InputGroupAddon>
+              <CustomInput placeholder='Amount' type="text" value={pricePerDay}
+                           onChange={(value) => this.setState({ pricePerDay: value })}/>
+            </InputGroup>
+          </div>
+        </div>
         <div className="buttons-container">
           <button className="theme-btn theme-btn-secondery" onClick={this.previousStep.bind(this)}><span
-            className="fa fa-angle-left"/></button>
+            className="fa fa-angle-left"/><span class="hide-bigscreen">Back</span></button>
           <button className="theme-btn theme-btn-primary" onClick={this.addGearDetails.bind(this)}>Submit <span
             className="fa fa-angle-right"/></button>
         </div>

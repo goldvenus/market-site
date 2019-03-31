@@ -12,6 +12,7 @@ const CardView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city,
     <Col md="8" className="cardz">
       <Card className="gear_card_view">
         <CardImg top width="100%" src={numberOfUserImage ? numberOfUserImage[0] :[]} alt="Card image cap" />
+          <div className="card-checked"><i class="fas fa-check-circle"></i></div>
         <CardBody>
           <CardTitle>{brand}</CardTitle>
           <CardSubtitle>
@@ -40,7 +41,7 @@ const CardView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city,
           </CardText>
           <div className="buttons">
             <Button className="cart"><Link to={`/gear/${gearid}`}>Add to cart</Link></Button>
-            <Button className="fav" onClick={() => addFavourites({ gearid })}><i className="fa fa-heart"></i></Button>
+            <Button className="fav" onClick={() => addFavourites({ gearid })}><i className="far fa-heart"></i></Button>
           </div>
         </CardBody>
       </Card>
