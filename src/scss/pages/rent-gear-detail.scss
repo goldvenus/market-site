@@ -1,0 +1,284 @@
+.detail-container {
+  width: 100%;
+  padding: 33px 0 0 0;
+
+  .view-gear-detail {
+    margin-bottom: 60px;
+
+    .breadcrumb {
+      padding: 0 0 15px 0;
+      border-bottom: solid 1px #f4f4f4;
+    }
+
+    .left-container {
+      padding: 0 10px;
+      overflow: hidden;
+
+      .carousel-top-container {
+        border: 1px solid #f7f7f7;
+        height: 80%;
+        overflow: hidden;
+
+        .gear-carousel {
+          .carousel-inner {
+            height: 413px;
+
+            .carousel-item {
+              height: 100%;
+              img {
+              }
+            }
+          }
+          a {
+            cursor: pointer;
+            top: 30%;
+            i {
+              font-size: 30px;
+              padding: 8px 15px;
+              border-radius: 50%;
+              background-color: black;
+            }
+          }
+        }
+      }
+      .carousel-bottom-container {
+        padding: 10px 0;
+        height: 81px;
+
+        img {
+          width: 100%;
+        }
+        .kFgaDu {
+          cursor: pointer;
+          width: 10%;
+          font-size: 25px;
+          font-weight: 800;
+          background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 1%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 1) 100%);
+        }
+        .hFlKJf {
+          cursor: pointer;
+          width: 10%;
+          font-size: 25px;
+          font-weight: 800;
+          background: linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 1%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 1) 100%);
+        }
+        .sc-EHOje {
+          margin: 0 25px 0 0;
+          width: 85px;
+        }
+        .carousel-image-container {
+        }
+      }
+    }
+
+    .right-container {
+      padding: 0 33px;
+
+      .right-container1 {
+        width: 100%;
+      }
+
+      .gear-container {
+        width: 100%;
+        .gear-info {
+          float: left;
+          .category-name {
+            color: #B1B1B1;
+            font-size: 17px;
+          }
+          i {
+            font-size: 18px;
+            margin: -2px 0 0 5px;
+            position: absolute;
+            color: red;
+          }
+          .type-tabs {
+            input {
+              display: none;
+            }
+
+            .type-tab {
+              background-color: #fef1e8;
+              color: #1cdb74;
+              font-size: 13px;
+              padding: 3px 18px;
+              border-radius: 0 4px 4px 0;
+              margin-left: -5px;
+              &.active {
+                background-color: #1cdb74;
+                color: #FAF5EC;
+                z-index: 1000;
+                border-radius: 4px;
+              }
+              &.type-tab2 {
+                background-color: #f8f1e8;
+                color: #F2C893;
+                z-index: 999;
+              }
+              &.type-tab3 {
+                background-color: #fbe3d9;
+                color: #F5BCA4;
+                z-index: 998;
+              }
+              &.type-tab4 {
+                background-color: #f9dada;
+                color: #F6B3B3;
+                z-index: 997;
+              }
+            }
+          }
+          .accessories {
+            margin-top: 10px;
+            color: #B1B1B1;
+            font-size: 15px;
+          }
+          .accessories-content {
+            font-size: 20px;
+          }
+          .description {
+            margin-top: 10px;
+            color: #B1B1B1;
+            font-size: 15px;
+          }
+          .description-content {
+            font-size: 20px;
+          }
+          .view-more {
+            color: #F82462;
+            cursor: pointer;
+            font-size: 1.2em;
+
+            &:hover {
+              text-decoration: underline;
+              text-decoration-color: #FDBED0;
+            }
+          }
+        }
+
+        .gear-purchase {
+          float: right;
+          border: 10px solid #f8f8f9;
+          text-align: center;
+          padding: 10px 0 0;
+
+          & > div:not(:last-child) {
+            padding: 10px 0;
+            border-bottom: 1px solid lightgray;
+          }
+
+          .star-selected {
+            color: red;
+          }
+          .gear-address {
+            color: #B1B1B1;
+            i {
+              color: red;
+            }
+          }
+
+          .text-gray {
+            color: #B1B1B1;
+          }
+
+          .replacement-content {
+            font-size: 20px;
+          }
+
+          .price-per-day {
+            font-size: 22px;
+            color: #4F4F4F;
+          }
+
+          .price-per-day-text {
+            font-size: 15px;
+            color: #B1B1B1;
+          }
+
+          .pickup-date {
+            padding: 21px;
+          }
+
+          .bottom-buttons {
+            padding: 18px;
+
+            & > * {
+              width: auto;
+              min-width: auto;
+            }
+
+            .disabled {
+              background-color: $primary-color-disabled;
+              cursor: not-allowed;
+              color: $white;
+              width: 70%;
+            }
+
+            .btn-cart {
+              width: calc(100% - 58px);
+              margin-right: 10px;
+            }
+            .btn-favor {
+              width: 48px;
+              border: solid 1px #fff6fb;
+              color: $primary-color;
+              &:hover {
+                background-color: $primary-color;
+                color: $white;
+              }
+            }
+          }
+
+          .total-cost {
+            text-align: center;
+            .cost-value {
+              font-size: 23px;
+              font-weight: 400;
+              color: #4f4f4f;
+              .cost-day {
+                font-size: 18px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+  .recommend-container {
+    .recommend-heading {
+      font-size: 20px;
+      color: #646464;
+    }
+    .recommend-body {
+      img {
+        padding: 0;
+      }
+    }
+  }
+}
+
+.styles_modal__gNwvD {
+  width: 630px;
+  padding: 0;
+  border-radius: 6px;
+  .modal-header {
+    background-image: url('/images/added-to-cart-modal-header.png');
+    height: 158px;
+  }
+  .styles_closeButton__20ID4 {
+    top: 0;
+    right: -45px;
+  }
+}
+
+@media(max-width: 767px) {
+  .left-container {
+    flex: none;
+    max-width: 100%;
+  }
+  .right-container {
+    flex: none;
+    max-width: 100%;
+  }
+}

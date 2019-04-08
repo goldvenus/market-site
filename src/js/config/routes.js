@@ -15,6 +15,7 @@ import Checkout from '../components/Pages/Checkout/Checkout';
 import Payment from '../components/Pages/Payment/Payment';
 import ListGear from '../components/Pages/ListGear/ListGear';
 import RentGear from '../components/Pages/RentGear/RentGear';
+import RentGearDetail from '../components/Pages/RentGearDetail/RentGearDetail';
 import SearchResults from '../components/Pages/SearchResults/SearchResults';
 import Favourites from '../components/Pages/Favourites/Favourites';
 import Partner from '../components/Pages/Partner/Partner';
@@ -34,6 +35,7 @@ export default (
       <Route exact path="/dashboard" component={Dashboard}/>
       <Route exact path="/addgear" component={AddGear}/>
       <Route exact path="/gear/:id" component={ViewGear}/>
+      <Route exact path="/gear/detail/:id" component={RentGearDetail}/>
       <Route exact path="/cart" component={Cart}/>
       <Route exact path="/checkout" component={Checkout}/>
       <Route exact path="/payment" component={Payment}/>

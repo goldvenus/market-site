@@ -1,22 +1,35 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import {
   Col, Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
-import { addFavourites } from '../../actions/app.actions';
+import {Link, withRouter} from 'react-router-dom';
+import {addFavourites, deleteFavourite} from '../../actions/app.actions';
 
-const TableView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city, rating, pricePerDay, gearid} }) => {
+const TableView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city, rating, pricePerDay, gearid},
+                       history, favourites, carts}) => {
+
+  const favored = gearid && favourites && favourites.Count > 0 ?
+    favourites.Items.filter(item => item.gearid === gearid).length : 0;
+  const carted = gearid && carts && carts.length > 0 ?
+    carts.filter(item => item.gearid === gearid).length : 0;
 
   return (
     <Col sm="24">
       <Card className="gear_table_view">
         <div className="card-img">
-          <CardImg top width="100%" src={numberOfUserImage ? numberOfUserImage[0] : []} alt="Card image cap" />
+          <CardImg top width="100%" src={numberOfUserImage ? numberOfUserImage[0] : []} alt="Card image cap" onClick={() => {
+              history.push(`/gear/detail/${gearid}`);}} />
         </div>
         <CardBody>
           <div className="card-center">
-            <CardTitle>{brand}</CardTitle>
+            <CardTitle>
+              {brand}&nbsp;
+              {
+                  carted ? <i className="fas fa-check-circle"></i> : null
+              }
+            </CardTitle>
             <CardSubtitle>
               <span className="stars">
                 {
@@ -40,12 +53,19 @@ const TableView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city
           </div>
           <div className="card-right">
             <CardText>
-              <span className="price">{pricePerDay}</span>
-              <span className="theme-text-small text-gray">/per day</span>
+              <span className="price">${pricePerDay}</span>
+              <span className="theme-text-small text-gray"> / per day</span>
             </CardText>
             <div className="buttons">
-              <Button className="cart"><Link to={`/gear/${gearid}`}><i className="fa fa-shopping-cart"></i></Link></Button>
-              <Button className="fav"><i onClick={() => addFavourites({ gearid })} className="fa fa-heart"></i></Button>
+              <div className={`cart ${carted ? 'disabled' : ''}`}>
+                {
+                  carted ? <i className="fa fa-shopping-cart"></i> :
+                    <Link to={`/gear/detail/${gearid}`}><i className="fa fa-shopping-cart"></i></Link>
+                }
+              </div>
+              <div className="fav" onClick={() => {
+                  favored>0 ? deleteFavourite({ gearid }) : addFavourites({ gearid })
+                }}><i className={favored>0 ? "fas fa-heart" : "far fa-heart"}></i></div>
             </div>
           </div>
         </CardBody>
@@ -54,4 +74,10 @@ const TableView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city
   );
 }
 
-export default TableView;
+const mapStateToProps = store => ({
+  carts: store.app.carts,
+  favourites: store.app.favourites,
+  isAuthenticated: store.app.isAuthenticated
+});
+
+export default connect(mapStateToProps)(withRouter(TableView));

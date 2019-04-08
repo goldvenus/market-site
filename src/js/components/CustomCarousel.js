@@ -69,10 +69,15 @@ class CustomCarousel extends Component {
          next={this.next}
          previous={this.previous}
        >
-       <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
        {slides}
-       <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
-       <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
+        <a className="carousel-control-prev" role="button" tabIndex="0" onClick={this.previous}>
+          <i className="fa fa-angle-left"></i>
+          <span className="sr-only">Previous</span>
+        </a>
+        <a className="carousel-control-next" role="button" tabIndex="0" onClick={this.next}>
+          <i className="fa fa-angle-right"></i>
+          <span className="sr-only">Next</span>
+        </a>
       </Carousel>
     </div>
   }

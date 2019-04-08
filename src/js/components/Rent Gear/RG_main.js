@@ -37,7 +37,6 @@ class Main extends Component {
 
   render() {
     const { productList, catagory} = this.props;
-    console.log(productList);
     return (
       <div className="main-wrapper">
         <Row className="main_head">

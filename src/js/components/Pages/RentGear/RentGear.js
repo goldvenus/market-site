@@ -55,7 +55,6 @@ class RentGear extends Component {
               </Col>
               <Row className="d-flex d-lg-none down-sidbar">
                 <Sidebar callback={this.selectedCategory}/>
-                
               </Row>
             </Row>
           </Container>

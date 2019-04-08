@@ -94,7 +94,7 @@
           }
         }
       }
-      
+
 
       .views {
         flex: 1;
@@ -160,9 +160,10 @@
           .card-img-top {
             padding: 10px;
             height: 180px;
+            cursor: pointer;
           }
         }
-     
+
         .card-body {
           flex-basis: 75%;
           padding: 0;
@@ -179,6 +180,9 @@
               text-transform: uppercase;
               font-size: 0.9rem;
               margin-bottom: 12px;
+              .fa-check-circle {
+                color: $primary-color;
+              }
             }
 
             .card-subtitle {
@@ -210,37 +214,72 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 10px;
+            padding: 18px;
 
             .card-text {
               margin: 0;
               margin-bottom: 0.8rem;
 
               .price {
-                font-size: 1.5rem;
-                font-weight: bold;
+                font-family: Gotham Pro;
+                font-size: 27px;
+                line-height: 39px;
+                color: #4F4F4F;
+              }
+              .text-gray {
+                font-family: Helvetica Neue;
+                font-size: 12px;
+                line-height: 18px;
+                letter-spacing: 0.03em;
+
+                color: #787878;
               }
             }
 
             .buttons {
               width: 100%;
               text-align: center;
+              div {
+                padding: 9px 0px;
+                cursor: pointer;
+                font-family: Helvetica Neue;
+                font-size: 16px;
+                line-height: normal;
+                text-align: center;
+              }
 
               .cart {
+                float: left;
+                opacity: 1;
                 width: 60%;
                 border-radius: 0;
                 background-color: $primary-color;
                 border: none;
                 color: $white;
-                margin-right: 10px;
+                margin: 0 10px 0 10px;
+                &:hover {
+                  background-color: $white;
+                  color: $primary-color;
+                }
+                &.disabled {
+                  background-color: $primary-color-disabled;
+                  cursor: not-allowed;
+                  color: $white;
+                }
               }
 
               .fav {
+                float: right;
+                opacity: 1;
                 width: 20%;
                 border: 1px solid $primary-light-color;
                 background-color: #fff;
                 border-radius: 0;
                 color: $primary-color;
+                &:hover {
+                  background-color: $primary-color;
+                  color: $white;
+                }
               }
             }
           }
@@ -267,6 +306,7 @@
           .card-img-top {
             padding: 10px;
             height: 100px;
+            cursor: pointer;
           }
         }
 
@@ -287,6 +327,9 @@
               text-transform: uppercase;
               font-size: 0.9rem;
               margin-bottom: 15px;
+              .fa-check-circle {
+                color: $primary-color;
+              }
             }
 
             .card-subtitle {
@@ -310,7 +353,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px;
+            padding: 18px;
 
             .card-text {
               text-align: center;
@@ -318,8 +361,17 @@
               flex: 1;
 
               .price {
-                font-size: 1.5rem;
-                font-weight: bold;
+                font-family: Gotham Pro;
+                font-size: 27px;
+                line-height: 39px;
+
+                color: #4F4F4F;
+              }
+              .text-gray {
+                font-family: Helvetica Neue;
+                font-size: 12px;
+                line-height: 18px;
+                letter-spacing: 0.03em;
               }
             }
 
@@ -328,23 +380,35 @@
               text-align: center;
               flex: 1;
               box-sizing: border-box;
-
-              .cart {
+              div {
+                opacity: 1;
                 width: 35%;
+                padding: 9px 0px;
+                font-size: 14px;
+                cursor: pointer;
+              }
+              .cart {
+                float: left;
                 border-radius: 0;
                 border: 1px solid $primary-light-color;
                 background-color: transparent;
                 color: $primary-color;
-                margin-right: 10px;
+                margin: 0 10px 0 29px;
 
                 &:hover {
                   background-color: $primary-color;
                   color: $white;
                 }
+                &.disabled {
+                  background-color: $primary-color-disabled;
+                  cursor: not-allowed;
+                  color: $white;
+                  border: none;
+                }
               }
 
               .fav {
-                width: 35%;
+                float: right;
                 border: 1px solid $primary-light-color;
                 background-color: transparent;
                 border-radius: 0;
@@ -367,7 +431,6 @@
   }
 }
 
-
 .gear_card_view {
   border: none;
   background-color: $gray-light;
@@ -382,13 +445,14 @@
     color: $primary-color;
     width: 18px;
     height: 18px;
-  background: #ffffff;
-  border-radius: 50%;
-  line-height: 0
+    background: #ffffff;
+    border-radius: 50%;
+    line-height: 0;
   }
   .card-img-top {
     padding: 10px;
     height: 200px;
+    cursor: pointer;
   }
 
   .card-body {
@@ -424,6 +488,7 @@
       padding: 15px;
 
       .price {
+        color: #4f4f4f;
         font-size: 1.5rem;
         font-weight: bold;
       }
@@ -454,17 +519,24 @@
         border: none;
         color: $white;
 
+        &.disabled {
+          background-color: $primary-color-disabled;
+          cursor: not-allowed;
+        }
       }
-
+      .cart-disabled {
+        width: calc(100% - 40px);
+        border-radius: 0;
+        border: none;
+        color: $white;
+        background-color: $btn-link-disabled-color;
+      }
       .fav {
         width: 40px;
         border: none;
         border-radius: 0;
         background-color: #f9ebf0;
         color: $primary-color;
-    
-        
-
       }
     }
   }
@@ -521,10 +593,9 @@
   }
   .main-wrapper .gear_list_view {
     flex-direction: column !important;
-
     .card-body {
       padding: 1rem !important;
-
+      .card
       .card-right {
         padding: 0 !important;
 
@@ -543,6 +614,7 @@
   }
   .gear_table_view .card-img .card-img-top {
     padding: 0 !important;
+    cursor: pointer;
   }
   .rent-gear-title {
     margin: 0 auto;
@@ -556,7 +628,7 @@
 
 
 
-@media (min-width: 576px) and (max-width: 1050.98px) { 
+@media (min-width: 576px) and (max-width: 1050.98px) {
   .cardz-2 {
     -webkit-flex: 0 0 100%;
     flex: 0 0 100%;
@@ -596,7 +668,7 @@
     justify-content: space-between;
     position: relative;
     padding: 10px;
-    
+
     .search{
       position: absolute;
       bottom:100%;
@@ -608,7 +680,7 @@
       &.s-active{
         display: block;
       }
-      
+
     }
     .search-action-btn{
       color: #fff;

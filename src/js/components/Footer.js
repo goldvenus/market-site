@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 class Footer extends Component {
   render() {
+    const { isAuthenticated } = this.props;
     return (
       <footer >
         <div className="news-letter mb-5 py-5">
@@ -60,10 +61,15 @@ class Footer extends Component {
                   </li>
                 </ul>
               </div>
-              <div  className=" col d-flex align-items-center justify-content-center justify-content-sm-end">
-                <button className="theme-btn theme-btn-secondery">Login</button> &nbsp;
-                <button className="theme-btn theme-btn-primary">Register</button>
-              </div>
+              {
+                !isAuthenticated ?
+                <div  className=" col d-flex align-items-center justify-content-center justify-content-sm-end">
+                  <button className="theme-btn theme-btn-secondery">Login</button> &nbsp;
+                  <button className="theme-btn theme-btn-primary">Register</button>
+                </div>
+                :
+                ""
+              }
             </div>
           </Container>
         </div>
@@ -140,5 +146,6 @@ class Footer extends Component {
 
 export default connect((store) => {
   return {
+    isAuthenticated: store.app.isAuthenticated
   };
 })(Footer);
