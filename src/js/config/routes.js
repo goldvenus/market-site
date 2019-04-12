@@ -9,7 +9,6 @@ import RegisterConfirm from '../components/Pages/RegisterConfirm/RegisterConfirm
 import ForgotPassword from '../components/Pages/ForgotPassword/ForgotPassword';
 import Dashboard from '../components/Pages/Dashboard/Dashboard';
 import AddGear from '../components/Pages/AddGear/AddGear';
-import ViewGear from '../components/Pages/ViewGear/ViewGear';
 import Cart from '../components/Pages/Cart/Cart';
 import Checkout from '../components/Pages/Checkout/Checkout';
 import Payment from '../components/Pages/Payment/Payment';
@@ -34,7 +33,6 @@ export default (
       <Route exact path="/forgotpassword" component={ForgotPassword}/>
       <Route exact path="/dashboard" component={Dashboard}/>
       <Route exact path="/addgear" component={AddGear}/>
-      <Route exact path="/gear/:id" component={ViewGear}/>
       <Route exact path="/editgear/:id" component={EditGear}/>
       <Route exact path="/gear/detail/:id" component={RentGearDetail}/>
       <Route exact path="/cart" component={Cart}/>

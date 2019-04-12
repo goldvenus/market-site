@@ -8,6 +8,7 @@ import {
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { getListGears, deleteGear, getAllGears } from '../../../actions/app.actions';
+import BarLoader from "react-bar-loader";
 
 const ListGearItem =
   ({ listItem: { gearid, model = '', brand = '', categoryName = '', numberOfUserImage, pricePerDay, orderStatus: status } }) => {
@@ -120,6 +121,9 @@ class ListGear extends Component {
   render() {
     const { currentPage } = this.state;
     const { listGears } = this.props;
+    if (!listGears){
+        return <BarLoader color="#F82462" height="5" />;
+    }
     return (
       <div className="list-gear">
         <div className="list-gear-head">
@@ -222,7 +226,8 @@ class ListGear extends Component {
 }
 
 const mapStateToProps = state => ({
-  listGears: state.app.listGears
+  listGears: state.app.listGears,
+    categories: state.app.categories
 });
 
 export default connect(mapStateToProps)(ListGear);

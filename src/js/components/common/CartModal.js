@@ -1,15 +1,18 @@
 import Modal from "react-responsive-modal";
 import React from "react";
 import { withRouter } from 'react-router-dom';
+import { calcDaysDiff, getDateStr } from "./Functions";
 
 /*
     Modal Interface for CART_CONFIRM and CART_DONE (Rend Gear Detail Page)
  */
-/////////////jostar/////////////////////
-const CartModal = ({gear, carted, open, onClose, addToCart, history}) => {
-    const {brand, model, duration, start_date_str, end_date_str, pricePerDay, total_price} = gear;
+const CartModal = ({ gear, carted, start_date, end_date, open, onClose, addToCart, history }) => {
+    const { brand, model, pricePerDay } = gear;
+    const duration = calcDaysDiff(start_date, end_date) + 1;
+    const start_date_str = getDateStr(start_date);
+    const end_date_str = getDateStr(end_date);
+    const total_price = pricePerDay * duration;
     let dlg_heading = 'Add to Cart';
-    let aasdfasdf = "asdf";
     let btn_label1 = '';
     let btn_label2 = '';
     if (!carted) {
@@ -46,11 +49,11 @@ const CartModal = ({gear, carted, open, onClose, addToCart, history}) => {
                     </div>
                 </div>
                 <div className='modal-cart-control row'>
-                    <button className='cart-confirm-button theme-btn theme-btn-primary' onClick={() => {
+                    <button className='cart-control-left-button theme-btn theme-btn-primary' onClick={() => {
                         !carted ? onClose() : history.push('/cart');
                     }}>{btn_label1}</button>
                     <div className='cart-button-space'></div>
-                    <button className='cart-continue-button theme-btn theme-btn-primary' onClick={() => {
+                    <button className='cart-control-right-button theme-btn theme-btn-primary' onClick={() => {
                         !carted ? addToCart() : history.push('/rentgear');
                     }}>{btn_label2}</button>
                 </div>

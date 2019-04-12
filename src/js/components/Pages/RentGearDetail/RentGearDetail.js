@@ -20,11 +20,10 @@ import {
     handleError,
     formatDate,
     deleteFavourite,
-    addFavourites,
-    getAllGears
+    addFavourites
 } from '../../../actions/app.actions';
 import CartModal from '../../common/CartModal'
-import { calcDaysDiff } from "../../common/Functions";
+import { calcDaysDiff, getDateStr } from "../../common/Functions";
 
 const flickityOptions = {
     contain: true,
@@ -32,7 +31,7 @@ const flickityOptions = {
     pageDots: false
 }
 
-class ViewGear extends Component {
+class RentGearDetail extends Component {
     constructor(props) {
         super(props);
 
@@ -50,8 +49,13 @@ class ViewGear extends Component {
         };
 
         getGear(this.gearid);
-
         this.addToCart = this.addToCart.bind(this);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.location !== prevProps.location) {
+          getGear(this.gearid);
+        }
     }
 
     async addToCart() {
@@ -86,6 +90,7 @@ class ViewGear extends Component {
                     <Card className="gear_card_view">
                         <CardImg top width="100%" src={numberOfUserImage ? numberOfUserImage[0] : []} alt="Card image cap"
                             onClick={() => {
+                                this.gearid = gearid;
                                 this.props.history.push(`/gear/detail/${gearid}`);
                             }}
                         />
@@ -120,7 +125,7 @@ class ViewGear extends Component {
                             <div className="buttons">
                                 <button className={`cart ${carted ? 'disabled' : ''}`}>
                                     {
-                                        carted ? 'Added to cart' : <Link to={`/gear/${gearid}`}>Add to cart</Link>
+                                        carted ? 'Added to cart' : <Link to={`/gear/detail/${gearid}`}>Add to cart</Link>
                                     }
                                 </button>
                                 <button className="fav" onClick={() => {
@@ -133,19 +138,25 @@ class ViewGear extends Component {
         });
     }
 
+    // carousel
     changeActiveItem = (activeItemIndex) => this.setState({ activeItemIndex });
 
+    // modal
     onOpenModal = () => {
-        console.log('open modal');
         this.setState({ open: true });
     };
-
     onCloseModal = () => {
-        console.log('close modal');
         this.setState({ open: false });
     };
+    setOpenState = (ost1, ost2) => {
+        this.setState({
+            open_date_picker1: ost1,
+            open_date_picker2: ost2
+        })
+    }
 
-    handleSelect = (ranges) => {
+    // date-range-picker
+    handleSelect = ranges => {
         let t_start_date = ranges.selection.startDate;
         let t_end_date = ranges.selection.endDate;
 
@@ -183,30 +194,19 @@ class ViewGear extends Component {
         }
     }
 
-    getDateStr = date_obj => {
-        return date_obj === null ? '' : date_obj.getMonth() + '.' + date_obj.getDate() + '.' + date_obj.getFullYear();
-    }
+    renderContent = () => {
+        const { gear, user, carts, favourites } = this.props;
 
-    setOpenState = (ost1, ost2) => {
-        this.setState({
-            open_date_picker1: ost1,
-            open_date_picker2: ost2
-        })
-    }
-
-    render() {
-        const { gear, user, carts, favourites, history } = this.props;
-
-        if (!gear || !user || !carts || !favourites) {
+        if (!gear || !user || !carts || !favourites)
             return <BarLoader color="#F82462" height="5" />;
-        }
 
         const { numberOfUserImage, gearid, brand, rating, total_rating, city, replacementValue,
             pricePerDay, model, description, newArrival_Index, categoryName, accessories, userid } = gear;
         const name = brand + ' ' + model;
         const selectedType = newArrival_Index;
-        const carted = gearid && carts && carts.length > 0 ?
-            carts.filter(item => item.gearid === gearid).length : 0;
+        const carted_item = gearid && carts && carts.length > 0 ?
+            carts.filter(item => item.gearid === gearid) : 0;
+        const carted = carted_item ? carted_item.length : false;
         const favored = gearid && favourites && favourites.Count > 0 ?
             favourites.Items.filter(item => item.gearid === gearid).length : 0;
 
@@ -223,15 +223,14 @@ class ViewGear extends Component {
             </div>
         ));
 
-        // get recommended products
         const listGears = favourites.Items;
         const selectionRange = {
             startDate: this.state.startDate,
             endDate: this.state.endDate,
             key: 'selection',
         }
-        const start_date_str = this.getDateStr(this.state.startDate);
-        const end_date_str = this.getDateStr(this.state.endDate);
+        const start_date_str = getDateStr(this.state.startDate);
+        const end_date_str = getDateStr(this.state.endDate);
         const duration = calcDaysDiff(this.state.startDate, this.state.endDate) + 1;
         const total_price = duration * pricePerDay;
 
@@ -334,6 +333,7 @@ class ViewGear extends Component {
                                                     onChange={this.handleSelect}
                                                     rangeColors={['#F74377']}
                                                     showDateDisplay={false}
+                                                    dateDisplayFormat={'DD.MM.YYYY'}
                                                 />
                                                 : null
                                         }
@@ -355,6 +355,7 @@ class ViewGear extends Component {
                                                     onChange={this.handleSelect}
                                                     rangeColors={['#F74377']}
                                                     showDateDisplay={false}
+                                                    dateDisplayFormat={'DD.MM.YYYY'}
                                                 /> : null
                                         }
                                         {
@@ -502,42 +503,44 @@ class ViewGear extends Component {
                                             <div className="pickup-date-container">
                                                 <div className='row date-range-container'>
                                                     <TextField id="date-range-input1" className="date-range-input" type="text" inputProps={300} label={'PICKUP DATE'} defaultValue={start_date_str}
-                                                        onFocus={() => this.setOpenState(true, false)} value={start_date_str}/>
-                                                        {
-                                                            this.state.open_date_picker1 ?
-                                                                <DateRange
-                                                                    className={'date-range-wrapper'}
-                                                                    ranges={[selectionRange]}
-                                                                    onChange={this.handleSelect}
-                                                                    rangeColors={['#F74377']}
-                                                                    showDateDisplay={false}
-                                                                />
-                                                                : null
-                                                        }
-                                                        {
-                                                            this.state.open_date_picker1 ?
-                                                                <object type="image/svg+xml" data="/images/Icons/calendar/calendar1.svg"></object> :
-                                                                <object type="image/svg+xml" data="/images/Icons/calendar/calendar.svg"></object>
-                                                        }
+                                                               onFocus={() => this.setOpenState(true, false)} value={start_date_str}/>
+                                                    {
+                                                        this.state.open_date_picker1 ?
+                                                            <DateRange
+                                                                className={'date-range-wrapper'}
+                                                                ranges={[selectionRange]}
+                                                                onChange={this.handleSelect}
+                                                                rangeColors={['#F74377']}
+                                                                showDateDisplay={false}
+                                                                dateDisplayFormat={'DD.MM.YYYY'}
+                                                            />
+                                                            : null
+                                                    }
+                                                    {
+                                                        this.state.open_date_picker1 ?
+                                                            <object type="image/svg+xml" data="/images/Icons/calendar/calendar1.svg"></object> :
+                                                            <object type="image/svg+xml" data="/images/Icons/calendar/calendar.svg"></object>
+                                                    }
                                                 </div>
                                                 <div className='row date-range-container'>
                                                     <TextField id="date-range-input1" className="date-range-input" type="text" inputProps={300} label={'RETURN DATE'} defaultValue={end_date_str}
-                                                        onFocus={() => this.setOpenState(false, true)} value={end_date_str}/>
-                                                        {
-                                                            this.state.open_date_picker2 ?
-                                                                <DateRange
-                                                                    className={'date-range-wrapper'}
-                                                                    ranges={[selectionRange]}
-                                                                    onChange={this.handleSelect}
-                                                                    rangeColors={['#F74377']}
-                                                                    showDateDisplay={false}
-                                                                /> : null
-                                                        }
-                                                        {
-                                                            this.state.open_date_picker2 ?
-                                                                <object type="image/svg+xml" data="/images/Icons/calendar/calendar1.svg"></object> :
-                                                                <object type="image/svg+xml" data="/images/Icons/calendar/calendar.svg"></object>
-                                                        }
+                                                               onFocus={() => this.setOpenState(false, true)} value={end_date_str}/>
+                                                    {
+                                                        this.state.open_date_picker2 ?
+                                                            <DateRange
+                                                                className={'date-range-wrapper'}
+                                                                ranges={[selectionRange]}
+                                                                onChange={this.handleSelect}
+                                                                rangeColors={['#F74377']}
+                                                                showDateDisplay={false}
+                                                                dateDisplayFormat={'DD.MM.YYYY'}
+                                                            /> : null
+                                                    }
+                                                    {
+                                                        this.state.open_date_picker2 ?
+                                                            <object type="image/svg+xml" data="/images/Icons/calendar/calendar1.svg"></object> :
+                                                            <object type="image/svg+xml" data="/images/Icons/calendar/calendar.svg"></object>
+                                                    }
                                                 </div>
                                             </div>
                                             : null
@@ -583,9 +586,13 @@ class ViewGear extends Component {
                     </div>
                 </footer>
 
-                <CartModal carted={carted} gear={{...gear, start_date_str, end_date_str, total_price}} open={this.state.open} onClose={this.onCloseModal} addToCart={carted => this.addToCart(carted)}></CartModal>
+                <CartModal carted={carted} gear={{...gear, start_date_str, end_date_str, total_price, duration}} start_date={this.state.startDate} end_date={this.state.endDate} open={this.state.open} onClose={this.onCloseModal} addToCart={carted => this.addToCart(carted)}></CartModal>
             </div>
         );
+    }
+
+    render() {
+        return this.renderContent();
     }
 }
 
@@ -597,4 +604,4 @@ const mapStateToProps = state => ({
     favourites: state.app.favourites
 });
 
-export default connect(mapStateToProps)(ViewGear);
+export default connect(mapStateToProps)(RentGearDetail);

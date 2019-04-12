@@ -1,6 +1,7 @@
 /*
 modal css
  */
+// model 1
 .styles_modal__gNwvD {
   width: 100%;
   max-width: 630px;
@@ -25,6 +26,8 @@ modal css
   text-align: left;
   padding: 37px;
   white-space: nowrap;
+  align-items: center;
+  display: flex;
 
   i {
     font-size: 83px;
@@ -44,28 +47,28 @@ modal css
     span {
       display: block;
     }
-    .modal-carted-days {
-      width: 150px;
-      margin: 15px auto;
-      padding: 15px 10px;
-      background-color: #ffe6e6;
-      color: #F82462;
-      font-weight: 800;
-    }
-    .modal-carted-duration {
-      font-family: Helvetica Neue;
-      font-size: 16px;
-      line-height: 23px;
-      text-align: center;
-      color: #F82462;
-    }
-    .modal-carted-product-name {
-      font-family: Gotham Pro;
-      font-size: 27px;
-      line-height: 39px;
-      color: #252525;
-    }
   }
+}
+.modal-carted-product-name {
+  font-family: Gotham Pro;
+  font-size: 27px;
+  line-height: 39px;
+  color: #252525;
+}
+.modal-carted-days {
+  width: 150px;
+  margin: 15px auto;
+  padding: 15px 10px;
+  background-color: #ffe6e6;
+  color: #F82462;
+  font-weight: 800;
+}
+.modal-carted-duration {
+  font-family: Helvetica Neue;
+  font-size: 16px;
+  line-height: 23px;
+  text-align: center;
+  color: #F82462;
 }
 .modal-cart-price-left {
   width: 50%;
@@ -82,18 +85,18 @@ modal css
 .modal-cart-control {
   padding: 27px 50px;
 }
-.cart-continue-button, .cart-confirm-button {
+.cart-control-left-button, .cart-control-right-button {
   width: 45%;
   padding: 10px 0;
   background-color: white;
-  border: solid 1px #F6F6F6;
   cursor: pointer;
 }
-.cart-confirm-button {
+.cart-control-left-button {
   color: #252525;
   font-weight: bold;
+  border: solid 1px #d3d3d3;
 }
-.cart-continue-button {
+.cart-control-right-button {
   border: none;
   background-color: #F82462;
   color: white;
@@ -104,5 +107,51 @@ modal css
 .modal-cart-price-container {
   .price-per-day {
     color: #252525;
+  }
+}
+
+// model 2
+.modal-cart-body-1 {
+  padding: 30px;
+
+  .modal-cart-info {
+    padding: 10px;
+    justify-content: center;
+  }
+  .pickup-date-container {
+    padding: 0 !important;
+  }
+  .modal-cart-price-container {
+    border: none;
+    padding: 28px 0 19px 0;
+  }
+  .modal-cart-price-left {
+    background-color: #fff7fa;
+    padding: 24px 0;
+  }
+  .modal-cart-price-right {
+    background-color: #fff2f6;
+    padding: 24px 0;
+  }
+  .price-value {
+    font-family: Gotham Pro;
+    font-size: 20px;
+    line-height: 25px;
+    color: #F82462;
+  }
+  .price-text {
+    font-family: Helvetica Neue;
+    font-size: 16px;
+    line-height: 27px;
+    text-align: center;
+    color: #F82462;
+    /* Pink - Main Color */
+    opacity: 0.6;
+  }
+  .modal-cart-control {
+    padding: 0;
+  }
+  .date-range-wrapper {
+    margin-left: -222px !important;
   }
 }

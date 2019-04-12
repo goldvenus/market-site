@@ -9,7 +9,9 @@ import 'muicss/dist/css/mui.min.css';
 import Chips from 'react-chips';
 import CustomInput from '../../CustomInput';
 import { handleError, getGear, addCart, formatDate,readFileData , fetchCategories } from '../../../actions/app.actions';
-import {BeCheckBox} from "../../customcomponent/BeCheckBox";
+
+import Checkbox from "@material-ui/core/Checkbox";
+import BarLoader from "react-bar-loader";
 
 class EditGear extends Component {
     constructor(props) {
@@ -230,9 +232,9 @@ class EditGear extends Component {
     }
     render() {
         const { selectedType, replacementValue, pricePerDay ,accessories, isKit} = this.state;
-        const { gear } = this.props;
-        if (!gear) {
-            return <div className="centered-content">Loading...</div>;
+        const { gear , categories } = this.props;
+        if (!gear || !categories ) {
+            return <BarLoader color="#F82462" height="5" />;
         }
 
         const name = gear.brand + ' ' + gear.model;
@@ -278,8 +280,10 @@ class EditGear extends Component {
                                         <label className={selectedType === 'worn' ? 'active' : ''} htmlFor="worn">Worn</label>
                                     </div>
                                     <div className="theme-form-field kit-check">
-                                        <BeCheckBox type="checkbox" id="is-kit" checked={isKit}
-                                               onChange={(e) => this.setState({ isKit: e.target.checked })}/>
+
+                                        <Checkbox type="checkbox" id="is-kit" checked={isKit}
+                                               onChange={(e) => this.setState({ isKit: e.target.checked })}
+                                        />
                                         <Label for="is-kit">Is this a Kit?</Label>
                                     </div>
                                 </div>

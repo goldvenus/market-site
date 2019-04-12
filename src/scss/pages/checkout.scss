@@ -2,13 +2,13 @@
   .billing-address, .order-info {
     margin-top: 15px;
     border: 15px solid #f4f5f6;
-    flex: 1;
-    padding: 15px;
 
     .checkout-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      border-bottom: solid 1px #f6f6f6;
+      padding: 28px;
     }
 
     .theme-form {
@@ -20,9 +20,13 @@
       }
     }
   }
-
+  .billing-address {
+    flex: 1.423;
+  }
   .order-info {
+    padding: 15px;
     margin-left: 15px;
+    flex: 1;
   }
 
   .checkout-items {

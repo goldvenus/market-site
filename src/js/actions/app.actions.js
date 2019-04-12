@@ -259,6 +259,7 @@ const getListGears = async () => {
   try {
     let response = await get('viewUserGearList');
     if (response && response.data) {
+      console.log("Venus++++++++action_____", response.data);
       dispatch({
         type: ACTIONS.LIST_GEARS,
         payload: response.data.Items
