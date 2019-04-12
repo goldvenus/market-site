@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import Rating from 'react-rating';
 import DatePicker from 'react-datepicker';
-
+import {
+    Breadcrumb, BreadcrumbItem, Dropdown, Form, DropdownToggle, DropdownMenu,
+    DropdownItem, Input, Label, Carousel, CarouselItem, CarouselControl,
+    CarouselIndicators, CarouselCaption, InputGroup, InputGroupAddon
+} from 'reactstrap';
 import CustomCarousel from '../../CustomCarousel';
 import { getGear, addCart, handleError, formatDate } from '../../../actions/app.actions';
 

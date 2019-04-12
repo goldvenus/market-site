@@ -19,7 +19,7 @@ import RentGearDetail from '../components/Pages/RentGearDetail/RentGearDetail';
 import SearchResults from '../components/Pages/SearchResults/SearchResults';
 import Favourites from '../components/Pages/Favourites/Favourites';
 import Partner from '../components/Pages/Partner/Partner';
-
+import EditGear from '../components/Pages/EditGear/EditGear'
 import FAQ from '../components/Pages/FAQ/FAQ';
 
 export default (
@@ -35,6 +35,7 @@ export default (
       <Route exact path="/dashboard" component={Dashboard}/>
       <Route exact path="/addgear" component={AddGear}/>
       <Route exact path="/gear/:id" component={ViewGear}/>
+      <Route exact path="/editgear/:id" component={EditGear}/>
       <Route exact path="/gear/detail/:id" component={RentGearDetail}/>
       <Route exact path="/cart" component={Cart}/>
       <Route exact path="/checkout" component={Checkout}/>

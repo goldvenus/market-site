@@ -79,6 +79,7 @@ class CustomCarousel extends Component {
           <span className="sr-only">Next</span>
         </a>
       </Carousel>
+      <CarouselIndicators className='d-lg-none' items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex}/>
     </div>
   }
 }

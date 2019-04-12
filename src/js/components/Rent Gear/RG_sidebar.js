@@ -77,16 +77,16 @@ class Sidebar extends Component {
         <div className="catagory-header">
         <button className="sidebar-title   category-action-btn" onClick={this.categoryhandler}>
           All Categories
-          <i class="fa fa-angle-down" aria-hidden="true"></i>
+          <i className="fa fa-angle-down" aria-hidden="true"></i>
 
-        </button>  
+        </button>
         <button className="sidebar-title   search-action-btn" onClick={this.searchhandler}>
          <i className="fa fa-search"></i>
-        </button>  
+        </button>
         <Search></Search>
-        
+
         </div>
-       
+
         <ListGroup>
             {categories.map((element, index) =>
               <ListGroupItem onClick={this.handleClick.bind(this, index, element.categoryName)} value={element}
@@ -97,7 +97,7 @@ class Sidebar extends Component {
               </ListGroupItem>
             )}
           </ListGroup>
-        </div>  
+        </div>
       </aside>
     );
   }

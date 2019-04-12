@@ -3,12 +3,19 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
 import { getFavourites, days, deleteFavourite } from '../../../actions/app.actions';
+import CustomCarousel from '../../CustomCarousel';
+import CartModal1 from "../../common/CartModal";
 
 class Favourites extends Component {
-  constructor() {
-    super();
-
+  constructor(props) {
+    super(props);
     getFavourites();
+
+    this.state = {
+        open: false,
+        carted: false,
+        gear: {}
+    }
   }
 
   renderFavouritesItems() {
@@ -51,7 +58,14 @@ class Favourites extends Component {
     if (!favourites) {
       return <div className="centered-content"> Loading... </div>;
     }
-    return (
+
+    // const {gearid} = gear;
+    // const carted = gearid && carts && carts.length > 0 ?
+    //   carts.filter(item => item.gearid === gearid).length : 0;
+    // const favored = gearid && favourites && favourites.Count > 0 ?
+    //   favourites.Items.filter(item => item.gearid === gearid).length : 0;
+
+      return (
       <div className="cart centered-content">
         <Breadcrumb>
           <BreadcrumbItem>Home </BreadcrumbItem>
@@ -84,13 +98,16 @@ class Favourites extends Component {
             </tbody>
           </Table>
         </div>
+        <CartModal1 carted={this.state.carted} gear={this.state.gear} open={this.state.open} onClose={this.onCloseModal} addToCart={carted => this.addToCart(carted)}></CartModal1>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  favourites: state.app.favourites
+  gear: state.app.gear,
+  favourites: state.app.favourites,
+  carts: state.app.carts
 });
 
 export default connect(mapStateToProps)(Favourites);
