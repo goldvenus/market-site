@@ -196,6 +196,7 @@ class RentGearDetail extends Component {
 
     renderContent = () => {
         const { gear, user, carts, favourites } = this.props;
+
         if (!gear || !user || !carts || !favourites)
             return <BarLoader color="#F82462" height="5" />;
 
