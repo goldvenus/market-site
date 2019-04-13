@@ -4,17 +4,11 @@ import {
   Col, Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button
 } from 'reactstrap';
-import { withRouter, Link } from 'react-router-dom';
-import {addFavourites, deleteFavourite} from '../../actions/app.actions';
+import { withRouter } from 'react-router-dom';
+import { addFavourites, deleteFavourite } from '../../actions/app.actions';
 
 const CardView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city, rating, pricePerDay, gearid},
-                      history, favourites, carts}) => {
-
-  const favored = gearid && favourites && favourites.Count > 0 ?
-    favourites.Items.filter(item => item.gearid === gearid).length : 0;
-  const carted = gearid && carts && carts.length > 0 ?
-    carts.filter(item => item.gearid === gearid).length : 0;
-
+                      history, favored, carted, onOpenModal }) => {
   return (
     <Col md="8" className="cardz">
       <Card className="gear_card_view">
@@ -52,11 +46,7 @@ const CardView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city,
             <span className="theme-text-small text-gray"> /per day</span>
           </CardText>
           <div className="buttons">
-            <Button className={`cart ${carted ? 'disabled' : ''}`}>
-              {
-                carted ? 'Added to cart' : <Link to={`/gear/detail/${gearid}`}>Add to cart</Link>
-              }
-            </Button>
+            <Button className='cart' onClick={() => onOpenModal(gearid)}>Add to Cart</Button>
             <Button className="fav" onClick={() => {
                 favored>0 ? deleteFavourite({ gearid }) : addFavourites({ gearid })
               }}><i className={favored ? "fas fa-heart" : "far fa-heart"}></i></Button>
@@ -68,8 +58,6 @@ const CardView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city,
 }
 
 const mapStateToProps = store => ({
-  carts: store.app.carts,
-  favourites: store.app.favourites,
   isAuthenticated: store.app.isAuthenticated
 });
 export default connect(mapStateToProps)(withRouter(CardView));

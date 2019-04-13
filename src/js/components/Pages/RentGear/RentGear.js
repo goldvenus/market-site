@@ -64,6 +64,4 @@ class RentGear extends Component {
   }
 }
 
-// const mapStateToProps = state => ({});
-
 export default RentGear;

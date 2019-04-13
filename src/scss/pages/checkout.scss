@@ -1,19 +1,49 @@
 .checkout {
+  .checkout-head {
+    padding-top: 3rem;
+    margin-bottom: 2rem;
+  }
+  .checkout-title {
+    font-family: Gotham Pro;
+    font-size: 49px;
+    line-height: normal;
+    color: #252525;
+  }
   .billing-address, .order-info {
-    margin-top: 15px;
-    border: 15px solid #f4f5f6;
+    border: 30px solid #f4f5f6;
 
-    .checkout-header {
+    .checkout-header, .address-select {
       display: flex;
       align-items: center;
       justify-content: space-between;
       border-bottom: solid 1px #f6f6f6;
-      padding: 28px;
+      padding: 25px 28px;
+      font-family: Gotham Pro;
+      font-size: 16px;
+      line-height: 23px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: #AAAAAA;
+    }
+    .order-info-header {
+      padding: 0;
+      border: none;
+    }
+    .btn-edit-order a {
+      padding: 6px 10px;
+      font-family: Helvetica Neue;
+      font-size: 12px;
+      line-height: 18px;
+      text-align: center;
+      letter-spacing: 0.03em;
+      color: #F82462;
     }
 
     .theme-form {
       display: flex;
       flex-direction: column;
+      margin: 0;
+      padding: 40px 28px;
 
       .theme-form-field {
         width: auto;
@@ -24,8 +54,8 @@
     flex: 1.423;
   }
   .order-info {
-    padding: 15px;
-    margin-left: 15px;
+    padding: 20px 28px;
+    margin-left: 30px !important;
     flex: 1;
   }
 
@@ -64,5 +94,11 @@
 
   .bottom-buttons {
     margin-top: 15px;
+  }
+  .btn-edit-order-bottom {
+    padding: 0 20px;
+  }
+  .btn-payment {
+    padding: 8px 50px;
   }
 }
