@@ -1,4 +1,4 @@
-.cart {
+.cart_view {
   padding:24px;
   margin-top: 43px;
   li {
@@ -13,7 +13,6 @@
     width: 100%;
     align-items: center;
     .theme-page-title{
-      font-family: Gotham Pro;
       font-size: 49px;
       line-height: normal;
       color: #252525;
@@ -105,12 +104,15 @@
   }
 }
 @media(max-width: 1050px) {
-  .cart {
+  .cart_view {
     margin-top: 43px !important;
     .cart-table-div{
       background-color: #faf8f9;
       padding:20px;
       padding-bottom: 0;
+      .seclt_icon_group {
+        display: flex;
+      }
       .theme-table {
         border: 0;
         margin:0;
@@ -160,6 +162,12 @@
         }
         .sm-category-list-bottom {
           display: flex;
+          .sm-bottom-second-row {
+            display: flex;
+            margin: 0;
+            padding: 0;
+            border-top: 0;
+          }
           p {
             margin:0 !important;
             padding: 0;
@@ -188,7 +196,6 @@
             opacity: 0.5;
           }
           .cart-bottom-content1 {
-            font-family: Gotham Pro;
             font-size: 16px;
             line-height: 20px;
             color: #252525;
@@ -216,11 +223,53 @@
     width: 100%;
   }
 }
+.breadcrumb-item.active {
+  color: #000;
+}
 @media (min-width: 1200px) {
   .d-lg-table {
     display: contents !important;
   }
+}
 
+@media (max-width: 750px) {
+  .cart_view {
+    padding:15px !important;
+    margin-top:24px !important;
+    .cart-header {
+      .theme-page-title{
+        font-size:27px !important;
+      }
+    }
+    .cart-table-div {
+      padding:15px;
+      .seclt_icon_group {
+        display: block;
+        .seclt_edit_icon{
+          margin:0 !important;
+          margin-bottom:10px !important;
 
+        }
+      }
+      .sm-category-list-bottom {
+        display: block !important;
+        .sm-bottom-second-row {
+          display: flex;
 
+        }
+      }
+    }
+    .flex-row {
+        justify-content: center;
+        padding-top:24px;
+      .theme-btn-secondery{
+        padding:8px;
+      }
+      .theme-btn-primary {
+        margin: 0 !important;
+        padding:0;
+        margin-left:5px!important;
+      }
+    }
+  }
 }

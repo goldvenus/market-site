@@ -29,7 +29,7 @@ class Cart extends Component {
 
     return (
       carts.map((listItem, index) => (
-          <div className="d-md-none d-lg-table">
+          <div className="d-none d-lg-table">
              <tr key={`cart-item-${index}`} >
           <td width="10%">{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
             src={listItem.numberOfUserImage[0]} className="gear-img"/> : null}</td>
@@ -82,21 +82,23 @@ class Cart extends Component {
                            <p className="tb_brand_model_name">{listItem.brand + ' ' + listItem.model}</p>
                            <p className="theme-text-small text-muted tb_categories_name">{listItem.categoryName}</p>
                        </div >
-                       <div className="seclt_edit_icon">
-                           <div className="d-md-none d-lg-table-cell edit_gear_td">
-                                <Link to={`/editgear/${listItem.gearid}`}><span className="edit_gear"/></Link>
+                       <div className="seclt_icon_group">
+                           <div className="seclt_edit_icon">
+                               <div className="d-md-none d-lg-table-cell edit_gear_td">
+                                    <Link to={`/editgear/${listItem.gearid}`}><span className="edit_gear"/></Link>
+                               </div>
                            </div>
+                           <div width="seclt_del_icon">
+                                <i
+                                    className="close"
+                                    aria-hidden="true"
+                                    onClick={async () => {
+                                        await deleteCartItem({ gearid: listItem.gearid, orderid: listItem.orderid });
+                                        getCarts();
+                                    }}
+                                />
+                            </div>
                        </div>
-                       <div width="seclt_del_icon">
-                            <i
-                                className="close"
-                                aria-hidden="true"
-                                onClick={async () => {
-                                    await deleteCartItem({ gearid: listItem.gearid, orderid: listItem.orderid });
-                                    getCarts();
-                                }}
-                            />
-                        </div>
 
                    </div>
                     <div className="sm-category-list-bottom">
@@ -108,14 +110,16 @@ class Cart extends Component {
                                 {` ${days(listItem.startDate, listItem.endDate)} days`}
                             </p>
                         </div>
-                        <div className="col-md-8 cart-bottom-second">
-                            <p className="cart-bottom-title1">Price per day</p>
-                            <p className="cart-bottom-content1">{`$${listItem.pricePerDay}`}</p>
-                         </div>
-                        <div className="col-md-8 cart-bottom-third">
-                            <p className="cart-bottom-title1">Amouth</p>
-                            <p className="cart-bottom-content2">{`$${listItem.pricePerDay * days(listItem.startDate, listItem.endDate)}`}</p>
-                         </div>
+                        <div className="sm-bottom-second-row col-md-16">
+                            <div className="col-md-12 cart-bottom-second">
+                                <p className="cart-bottom-title1">Price per day</p>
+                                <p className="cart-bottom-content1">{`$${listItem.pricePerDay}`}</p>
+                             </div>
+                            <div className="col-md-12 cart-bottom-third">
+                                <p className="cart-bottom-title1">Amouth</p>
+                                <p className="cart-bottom-content2">{`$${listItem.pricePerDay * days(listItem.startDate, listItem.endDate)}`}</p>
+                             </div>
+                        </div>
                     </div>
 
                 </div>
@@ -127,14 +131,14 @@ class Cart extends Component {
       return <BarLoader color="#F82462" height="5" />;
     }
     return (
-      <div className="cart centered-content">
+      <div className="cart_view centered-content">
         <Breadcrumb className= "card_content_path">
           <BreadcrumbItem>Home </BreadcrumbItem>
           <BreadcrumbItem active>Cart</BreadcrumbItem>
         </Breadcrumb>
         <div className="cart-header ">
           <h2 className="theme-page-title">Cart</h2>
-          <div className="flex-row d-md-none d-lg-flex" >
+          <div className="flex-row d-none d-lg-flex" >
             <button className="theme-btn theme-btn-secondery"><Link to="/favourites">Favourites</Link></button>
             <button className="theme-btn theme-btn-primary theme-btn-link"><Link to="/checkout">Continue Shopping</Link></button>
           </div>
@@ -142,7 +146,7 @@ class Cart extends Component {
         <div className="cart-table-div">
           <Table className="theme-table">
             <thead>
-                <tr className= "d-md-none d-lg-table">
+                <tr className= "d-none d-lg-table">
                   <th/>
                   <th>Name & Category</th>
                   <th>Rental Period</th>
@@ -158,9 +162,9 @@ class Cart extends Component {
               {this.renderCartItems_table()}
           </Table>
         </div>
-          <div className="flex-row d-md-flex d-lg-none" >
-              <button className="theme-btn theme-btn-secondery col-md-8"><Link to="/favourites">Favourites</Link></button>
-              <button className="theme-btn theme-btn-primary theme-btn-link col-md-15"><Link to="/checkout">Continue Shopping</Link></button>
+          <div className="flex-row d-flex d-lg-none" >
+              <button className="theme-btn theme-btn-secondery col-8"><Link to="/favourites">Favourites</Link></button>
+              <button className="theme-btn theme-btn-primary theme-btn-link col-15"><Link to="/checkout">Continue Shopping</Link></button>
           </div>
       </div>
     );

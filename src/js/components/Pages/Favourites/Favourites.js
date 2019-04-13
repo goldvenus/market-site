@@ -13,7 +13,7 @@ import {
 import CartModal from "../../common/CartModal";
 import CartModal1 from "../../common/CartModal1";
 import BarLoader from "react-bar-loader";
-
+import Rating from "react-rating"
 class Favourites extends Component {
   constructor(props) {
     super(props);
@@ -65,20 +65,28 @@ class Favourites extends Component {
     return (
       favourites.Items.map((listItem, index) => (
         <tr key={`cart-item-${index}`}>
-          <td width="15%">{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
+          <td width="10%">{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
             src={listItem.numberOfUserImage[0]} className="gear-img"/> : null}</td>
-          <td className="gear" width="20%">
-            <p>{listItem.brand + ' ' + listItem.model}</p>
-            <p className="theme-text-small text-muted">{listItem.categoryName}</p>
+          <td className="gear" width="32%">
+            <p className="tb_brand_model_name">{listItem.brand + ' ' + listItem.model}</p>
+            <p className="theme-text-small text-muted tb_categories_name">{listItem.categoryName}</p>
           </td>
-          <td width="15%">{listItem.pricePerDay}</td>
-          <td width="15%">{listItem.pricePerDay * days(listItem.startDate, listItem.endDate)}</td>
+          <td width="20.5%">
+              <Rating
+                  initialRating={3}
+                 emptySymbol={<img src="/images/Icons/star/star_icon_d.png" className="icon" />}
+                 fullSymbol={<img src="/images/Icons/star/star_icon_a.png" className="icon" />}/>
+          </td>
+
+          <td width="17.5%">{listItem.pricePerDay * days(listItem.startDate, listItem.endDate)}</td>
+            <td className="tb_pay_per" width="17.5%">{`$${listItem.pricePerDay}`}</td>
           <td>
             <button className="theme-btn theme-btn-primary theme-btn-link add-to-cart-btn" onClick={() => this.onOpenModal(listItem.gearid)}>Add to Cart</button>
           </td>
-          <td>
+
+          <td class="favourites_close_icon">
             <i
-              className="fa fa-times"
+              className="close"
               aria-hidden="true"
               onClick={async () => {
                 await deleteFavourite({ gearid: listItem.gearid });
@@ -98,7 +106,7 @@ class Favourites extends Component {
     }
 
     return (
-      <div className="cart centered-content">
+      <div className="cart_view centered-content">
         <Breadcrumb>
           <BreadcrumbItem>Home </BreadcrumbItem>
           <BreadcrumbItem active>Favourites</BreadcrumbItem>
@@ -117,8 +125,9 @@ class Favourites extends Component {
             <tr>
               <th/>
               <th>Name & Category</th>
-              <th>Price Per Day</th>
-              <th>Amount</th>
+              <th>Rating</th>
+              <th>Location</th>
+              <th>Price per day</th>
               <th/>
               <th/>
             </tr>
