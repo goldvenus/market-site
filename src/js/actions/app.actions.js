@@ -259,7 +259,6 @@ const getListGears = async () => {
   try {
     let response = await get('viewUserGearList');
     if (response && response.data) {
-      console.log("Venus++++++++action_____", response.data);
       dispatch({
         type: ACTIONS.LIST_GEARS,
         payload: response.data.Items
@@ -297,21 +296,26 @@ const logout = () => {
 };
 
 const getGear = async (gearid) => {
-  try {
-    let response = await post('viewAddedGearItem', { gearid });
-    dispatch({
-      type: ACTIONS.GEAR,
-      payload: response.data[0]
-    });
-  } catch (error) {
-    handleError(error);
-  }
+  return new Promise(async (resolve, reject) => {
+    try {
+      let response = await post('viewAddedGearItem', { gearid });
+      dispatch({
+        type: ACTIONS.GEAR,
+        payload: response.data[0]
+      });
+      resolve(response);
+    } catch (error) {
+      handleError(error);
+      reject(error);
+    }
+  });
 };
 
 const addCart = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       let response = await post('addGearIntoCart', data);
+      // here must be some code for state change...
       resolve(response);
     } catch (error) {
       handleError(error);
@@ -367,7 +371,6 @@ const rentGearProductList = async (catDetail) => {
     });
 
   } catch (error) {
-
     handleError(error);
   }
 };
@@ -434,6 +437,7 @@ const search = async (brand, product_region) => {
 const addFavourites = async (data) => {
   try {
     let response = await post_new('addUserFavouriteGear', data);
+    // here must be some code for state change
     return response;
   } catch (error) {
     handleError(error);

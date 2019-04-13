@@ -18,6 +18,7 @@ class CartModal1 extends Component {
             open_date_picker1: false,
             open_date_picker2: false
         }
+
     }
 
     setOpenState = (ost1, ost2) => {
@@ -77,7 +78,6 @@ class CartModal1 extends Component {
     render() {
         const { open, dlg_model, onClose, addToCart, onSubmit, gear } = this.props;
         const { brand, model, pricePerDay } = gear;
-        console.log(gear);
         const duration = calcDaysDiff(this.state.startDate, this.state.endDate) + 1;
         const start_date_str = getDateStr(this.state.startDate);
         const end_date_str = getDateStr(this.state.endDate);

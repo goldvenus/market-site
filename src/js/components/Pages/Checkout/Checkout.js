@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Dropdown, DropdownToggle, Input, Label } from 'reactstrap';
 import CustomInput from '../../CustomInput';
 import { getCarts, days, checkout, handleError } from '../../../actions/app.actions';
+import BarLoader from "react-bar-loader";
 
 class Checkout extends Component {
   constructor() {
@@ -42,8 +43,8 @@ class Checkout extends Component {
     );
   }
 
-  async onCheckout() {
-    const { fullName, address, city, zip, saveAddress, product_region } = this.state;
+  async onCheckout(state) {
+    const { fullName, address, city, zip, saveAddress, product_region } = state;
 
     if (!fullName && !address && !city && !zip && !product_region) {
       handleError('Please provide required information');
@@ -65,9 +66,8 @@ class Checkout extends Component {
 
   render() {
     const { carts } = this.props;
-
     if (!carts) {
-      return <div className="centered-content">Loading...</div>;
+      return <BarLoader color="#F82462" height="5" />;
     }
 
     let total = 0;
@@ -82,80 +82,87 @@ class Checkout extends Component {
     const amount = total + tax;
 
     return (
-      <div className="checkout centered-content">
-        <Breadcrumb>
-          <BreadcrumbItem>Home </BreadcrumbItem>
-          <BreadcrumbItem active>Cart</BreadcrumbItem>
-          <BreadcrumbItem active>Checkout</BreadcrumbItem>
-        </Breadcrumb>
-
-        <div className="theme-page-title">Checkout</div>
-
-        <div className="flex-row flex-align-stretch">
-          <div className="billing-address">
-            <div className="checkout-header">
-              <div className="text-gray">BILLING ADDRESS</div>
-            </div>
-            <div className="theme-form">
-              <Dropdown className="theme-form-field">
-                <DropdownToggle caret>
-                  Saved Address
-                </DropdownToggle>
-              </Dropdown>
-              <div className="theme-form-field">
-                <CustomInput placeholder='Full Name' type="text"
-                             onChange={(value) => this.setState({ fullName: value })}/>
-              </div>
-              <div className="flex-row">
-                <div className="theme-form-field">
-                  <CustomInput placeholder='Address' type="text"
-                               onChange={(value) => this.setState({ address: value })}/>
-                </div>
-                <div className="theme-form-field">
-                  <CustomInput placeholder='City' type="text" onChange={(value) => this.setState({ city: value })}/>
-                </div>
-              </div>
-              <div className="flex-row">
-                <div className="theme-form-field">
-                  <CustomInput placeholder='Region' type="text"
-                               onChange={(value) => this.setState({ product_region: value })}/>
-                </div>
-                <div className="theme-form-field">
-                  <CustomInput placeholder='Zip' type="text" onChange={(value) => this.setState({ zip: value })}/>
-                </div>
-              </div>
-              <div className="theme-form-field">
-                <Input type="checkbox" id="save-address" checked={this.state.saveAddress}
-                       onChange={(e) => this.setState({ saveAddress: e.target.checked })}/>
-                <Label for="save-address">Save this address</Label>
-              </div>
-            </div>
-          </div>
-
-          <div className="order-info theme-text-small">
-            <div className="checkout-header">
-              <div className="text-gray">ORDER INFORMATION</div>
-              <button className="theme-btn theme-btn-filled-white theme-btn-link"><Link to="/cart">Edit Order</Link>
-              </button>
-            </div>
-
-            {this.renderCheckoutItems()}
-
-            <div className="checkout-total">
-              <div><span className="text-gray">Total </span> <b>${total}</b></div>
-              <div><span className="text-gray">Tax (21%) </span> <b>${tax}</b></div>
-              <div><span className="text-gray">Fee </span> <b>$0</b></div>
-            </div>
-
-            <div className="checkout-amount">
-              <div><span className="text-gray">Amount </span> <b>${amount}</b></div>
-            </div>
+      <div className="checkout">
+        <div className="checkout-head">
+          <div className='container'>
+            <Breadcrumb>
+              <BreadcrumbItem>Home </BreadcrumbItem>
+              <BreadcrumbItem active>Cart</BreadcrumbItem>
+              <BreadcrumbItem active>Checkout</BreadcrumbItem>
+            </Breadcrumb>
+            <div className="d-flex align-items-center checkout-title">Checkout</div>
           </div>
         </div>
+        <div className="payment-body">
+          <div className="container flex-row flex-align-stretch ">
+            <div className="billing-address">
+              <div className="checkout-header">
+                <div className="text-gray">BILLING ADDRESS</div>
+              </div>
+              <div className="address-select">
+                  <Dropdown className="theme-form-field">
+                      <DropdownToggle caret>
+                          Saved Address
+                      </DropdownToggle>
+                  </Dropdown>
+              </div>
+              <div className="theme-form">
+                <div className="theme-form-field">
+                  <CustomInput placeholder='Full Name' type="text"
+                               onChange={(value) => this.setState({ fullName: value })}/>
+                </div>
+                <div className="flex-row">
+                  <div className="theme-form-field">
+                    <CustomInput placeholder='Address' type="text"
+                                 onChange={(value) => this.setState({ address: value })}/>
+                  </div>
+                  <div className="theme-form-field">
+                    <CustomInput placeholder='City' type="text" onChange={(value) => this.setState({ city: value })}/>
+                  </div>
+                </div>
+                <div className="flex-row">
+                  <div className="theme-form-field">
+                    <CustomInput placeholder='Region' type="text"
+                                 onChange={(value) => this.setState({ product_region: value })}/>
+                  </div>
+                  <div className="theme-form-field">
+                    <CustomInput placeholder='Zip' type="text" onChange={(value) => this.setState({ zip: value })}/>
+                  </div>
+                </div>
+                <div className="theme-form-field">
+                  <Input type="checkbox" id="save-address" checked={this.state.saveAddress}
+                         onChange={(e) => this.setState({ saveAddress: e.target.checked })}/>
+                  <Label for="save-address">Save this address</Label>
+                </div>
+              </div>
+            </div>
 
-        <div className="flex-row bottom-buttons">
-          <button className="theme-btn theme-btn-secondery theme-btn-link"><Link to="/cart">Edit Order</Link></button>
-          <button className="theme-btn theme-btn-primary" onClick={this.onCheckout.bind(this)}>Payment</button>
+            <div className="order-info theme-text-small">
+              <div className="checkout-header order-info-header">
+                <div className="text-gray">ORDER INFORMATION</div>
+                <button className="theme-btn theme-btn-filled-white theme-btn-link btn-edit-order"><Link to="/cart">Edit Order</Link>
+                </button>
+              </div>
+
+              {this.renderCheckoutItems()}
+
+              <div className="checkout-total">
+                <div><span className="text-gray">Total </span> <b>${parseFloat(total).toFixed(2)}</b></div>
+                <div><span className="text-gray">Tax (21%) </span> <b>${parseFloat(tax).toFixed(2)}</b></div>
+                <div><span className="text-gray">Fee </span> <b>$0</b></div>
+              </div>
+
+              <div className="checkout-amount">
+                <div><span className="text-gray">Amount </span> <b>${parseFloat(amount).toFixed(2)}</b></div>
+              </div>
+            </div>
+          </div>
+          <div className="container flex-row flex-align-stretch ">
+            <div className="flex-row bottom-buttons">
+              <button className="theme-btn theme-btn-secondery theme-btn-link btn-edit-order-bottom"><Link to="/cart">Edit Order</Link></button>
+              <button className="theme-btn theme-btn-primary btn-payment" onClick={() => this.onCheckout(this.state)}>Payment</button>
+            </div>
+          </div>
         </div>
       </div>
     );

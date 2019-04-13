@@ -6,7 +6,7 @@ import { calcDaysDiff, getDateStr } from "./Functions";
 /*
     Modal Interface for CART_CONFIRM and CART_DONE (Rend Gear Detail Page)
  */
-const CartModal = ({ gear, carted, start_date, end_date, open, onClose, addToCart, history }) => {
+const CartModal = ({ gear, carted, start_date, end_date, open, onClose, addToCart, history, location }) => {
     const { brand, model, pricePerDay } = gear;
     const duration = calcDaysDiff(start_date, end_date) + 1;
     const start_date_str = getDateStr(start_date);
@@ -54,7 +54,13 @@ const CartModal = ({ gear, carted, start_date, end_date, open, onClose, addToCar
                     }}>{btn_label1}</button>
                     <div className='cart-button-space'></div>
                     <button className='cart-control-right-button theme-btn theme-btn-primary' onClick={() => {
-                        !carted ? addToCart() : history.push('/rentgear');
+                        if (!carted) {
+                            addToCart()
+                        } else if (location.pathname.indexOf('/gear/detail') >= 0) {
+                            history.push('/rentgear');
+                        } else {
+                            onClose();
+                        }
                     }}>{btn_label2}</button>
                 </div>
             </div>
