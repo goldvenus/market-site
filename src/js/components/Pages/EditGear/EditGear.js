@@ -8,7 +8,15 @@ import Textarea from 'muicss/lib/react/textarea';
 import 'muicss/dist/css/mui.min.css';
 import Chips from 'react-chips';
 import CustomInput from '../../CustomInput';
-import { handleError, getGear, addCart, formatDate,readFileData , fetchCategories } from '../../../actions/app.actions';
+import {
+    handleError,
+    getGear,
+    addCart,
+    formatDate,
+    readFileData,
+    fetchCategories,
+    getListGears
+} from '../../../actions/app.actions';
 
 import Checkbox from "@material-ui/core/Checkbox";
 import BarLoader from "react-bar-loader";
@@ -36,14 +44,27 @@ class EditGear extends Component {
             replacementValue: '',
             pricePerDay: '',
             startDate: new Date(),
-            endDate: new Date()
+            endDate: new Date(),
+            loadingdata: false
         };
         this.gearid = props.match.params.id;
-        getGear(this.gearid);
+        this.doloadingcategories();
         this.addToCart = this.addToCart.bind(this);
         this.toggle = this.toggle.bind(this);
         this.onTypeChange = this.onTypeChange.bind(this);
+        this.doloadingcategories();
     }
+
+    async doloadingcategories(){
+        try {
+            let res = await getGear(this.gearid);
+            this.setState({loadingdata: true})
+
+        } catch {
+            handleError('Gear is not added to cart');
+        }
+    }
+
     async dataSave(){
         try {
             const { categoryName, brand, model, description, selectedType, isKit, accessories, numberOfUserImage, city, region, address, postalCode, replacementValue, pricePerDay } = this.state;
@@ -65,7 +86,6 @@ class EditGear extends Component {
                 pricePerDay
             };
             let gearId;
-            console.log("Venus+++",data);
             //let gearId = await addGear(data);
 
             if (gearId) {
@@ -233,7 +253,7 @@ class EditGear extends Component {
     render() {
         const { selectedType, replacementValue, pricePerDay ,accessories, isKit} = this.state;
         const { gear , categories } = this.props;
-        if (!gear || !categories ) {
+        if (!this.state.loadingdata) {
             return <BarLoader color="#F82462" height="5" />;
         }
 
