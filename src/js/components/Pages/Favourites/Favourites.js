@@ -69,7 +69,7 @@ class Favourites extends Component {
     this.setState({ modal_open_st: 0 });
   };
 
-  async addToCart({ gearid, userid, startDate, endDate }) {
+  addToCart = async ({ gearid, userid, startDate, endDate }) => {
     try {
       if (startDate && endDate) {
         let res = await addCart({
@@ -80,16 +80,15 @@ class Favourites extends Component {
         });
 
         if (res) {
-          alert('added');
           this.setState({
             modal_open_st: 0
           });
         }
       }
     } catch {
-
+      handleError('Adding failed!');
     }
-  }
+  };
 
   renderFavouritesItems() {
     const { favourites } = this.props;

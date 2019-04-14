@@ -25,6 +25,8 @@ class Payment extends Component {
     // getCarts();
   }
 
+
+
   async pay() {
     const { cardNumber, cardHolder, expirationMonth, expirationYear, cvv, saveCard } = this.state;
 
@@ -190,7 +192,7 @@ class Payment extends Component {
               </div>
 
               <div className="order-info theme-text-small">
-                <div className="checkout-header">
+                <div className="order-info-header">
                   <div className="text-gray">ORDER INFORMATION</div>
                   <button className="theme-btn theme-btn-filled-white theme-btn-link"><Link to="/cart">Edit Order</Link>
                   </button>
@@ -201,19 +203,19 @@ class Payment extends Component {
                 }
 
                 <div className="checkout-total">
-                  <div><span className="text-gray">Total </span> <b>${total}</b></div>
-                  <div><span className="text-gray">Tax (21%) </span> <b>${tax}</b></div>
+                  <div><span className="text-gray">Total </span> <b>${parseFloat(total).toFixed(2)}</b></div>
+                  <div><span className="text-gray">Tax (21%) </span> <b>${parseFloat(tax).toFixed(2)}</b></div>
                   <div><span className="text-gray">Fee </span> <b>$0</b></div>
                 </div>
 
                 <div className="checkout-amount">
-                  <div><span className="text-gray">Amount </span> <b>${amount}</b></div>
+                  <div><span className="text-gray">Amount </span> <b className='checkout-total-price'>${parseFloat(amount).toFixed(2)}</b></div>
                 </div>
               </div>
             </div>
             <div className="flex-row bottom-buttons">
               <button className="theme-btn theme-btn-secondery theme-btn-link"><Link to="/cart">Edit Order</Link></button>
-              <button className="theme-btn theme-btn-primary" onClick={this.pay}>Pay (${amount})</button>
+              <button className="theme-btn theme-btn-primary" onClick={this.pay}>Pay (${parseFloat(amount).toFixed(2)})</button>
             </div>
           </div>
         </div>
