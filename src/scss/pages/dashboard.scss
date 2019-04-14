@@ -270,6 +270,7 @@ color: #fff
         }
       }
     }
+
     .wrraper .empety-list p {
       font-size: 16px;
       font-weight: bolder;
@@ -278,7 +279,10 @@ color: #fff
 
   }
 }
-
+.wrraper .empety-list{
+  padding:40px;
+  background-color: #faf8f9 !important;
+}
 @media(min-width: 500px)  {
   .navbar-wrapper{
     flex-wrap: nowrap;

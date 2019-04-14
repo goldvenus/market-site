@@ -15,7 +15,6 @@ import {
     formatDate,
     readFileData,
     fetchCategories,
-    getListGears
 } from '../../../actions/app.actions';
 
 import Checkbox from "@material-ui/core/Checkbox";

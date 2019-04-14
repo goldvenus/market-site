@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
 import {getCarts, formatDate, days, deleteCartItem, handleError} from '../../../actions/app.actions';
 import BarLoader from "react-bar-loader";
+import EmptyActivity from '../../EmptyActivity'
 
 class Cart extends Component {
   constructor() {
@@ -68,9 +69,7 @@ class Cart extends Component {
   }
 
   renderCartItems_table() {
-
         const { carts } = this.props;
-
         return (
             carts.map((listItem, index) => (
                 <div key={`cart-item-${index}`} className="d-lg-none d-md-block sm-table-cart">
@@ -130,13 +129,14 @@ class Cart extends Component {
     if (!this.state.loadingdata) {
       return <BarLoader color="#F82462" height="5" />;
     }
+      const { carts } = this.props;
     return (
       <div className="cart_view centered-content">
         <Breadcrumb className= "card_content_path">
           <BreadcrumbItem>Home </BreadcrumbItem>
           <BreadcrumbItem active>Cart</BreadcrumbItem>
         </Breadcrumb>
-        <div className="cart-header ">
+        <div className="cart-header">
           <h2 className="theme-page-title">Cart</h2>
           <div className="flex-row d-none d-lg-flex" >
             <button className="theme-btn theme-btn-secondery"><Link to="/favourites">Favourites</Link></button>
@@ -144,27 +144,34 @@ class Cart extends Component {
           </div>
         </div>
         <div className="cart-table-div">
-          <Table className="theme-table">
-            <thead>
-                <tr className= "d-none d-lg-table">
-                  <th/>
-                  <th>Name & Category</th>
-                  <th>Rental Period</th>
-                  <th>Price Per Day</th>
-                  <th>Amount</th>
-                  <th></th>
-                  <th/>
-                </tr>
-            </thead>
-            <tbody>
-            {this.renderCartItems()}
-            </tbody>
-              {this.renderCartItems_table()}
-          </Table>
+                    { !carts.length ? (
+                        <EmptyActivity e_name="Add from Favourites" e_path="/favourites" e_title="YOUR CART IS EMPTY" e_img_name = "cart"/>
+                    ) :(
+                        <Table className="theme-table">
+
+                <thead>
+                    <tr className= "d-none d-lg-table">
+                      <th/>
+                      <th>Name & Category</th>
+                      <th>Rental Period</th>
+                      <th>Price Per Day</th>
+                      <th>Amount</th>
+                      <th></th>
+                      <th/>
+                    </tr>
+                </thead>
+                <tbody>
+                {this.renderCartItems()}
+                {this.renderCartItems_table()}
+                </tbody>
+
+          </Table>)}
+
+
         </div>
           <div className="flex-row d-flex d-lg-none" >
-              <button className="theme-btn theme-btn-secondery col-8"><Link to="/favourites">Favourites</Link></button>
-              <button className="theme-btn theme-btn-primary theme-btn-link col-15"><Link to="/checkout">Continue Shopping</Link></button>
+              <button className="theme-btn theme-btn-secondery col-9"><Link to="/favourites">Favorites</Link></button>
+              <button className="theme-btn theme-btn-primary theme-btn-link col-14"><Link to="/checkout">Continue Shopping</Link></button>
           </div>
       </div>
     );

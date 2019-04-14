@@ -2,18 +2,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from "redux";
 import { Link, withRouter } from 'react-router-dom';
-import { Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
+import {Container, Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
 import {
     getFavourites,
     days,
     deleteFavourite,
     getGear,
-    handleError, addCart, formatDate
+    handleError, addCart, formatDate, deleteCartItem, getCarts
 } from '../../../actions/app.actions';
 import CartModal from "../../common/CartModal";
 import CartModal1 from "../../common/CartModal1";
 import BarLoader from "react-bar-loader";
 import Rating from "react-rating"
+import EmptyActivity from "../../EmptyActivity";
+
 class Favourites extends Component {
   constructor(props) {
     super(props);
@@ -26,7 +28,8 @@ class Favourites extends Component {
       cart_info: {
         start_date: new Date(),
         end_date: new Date()
-      }
+      },
+      ratingstate:{}
     }
   }
 
@@ -90,12 +93,14 @@ class Favourites extends Component {
 
   renderFavouritesItems() {
     const { favourites } = this.props;
+    const {ratingstate} = this.state;
     return (
       favourites.Items.map((listItem, index) => (
+       <div className="d-none d-lg-table">
         <tr key={`cart-item-${index}`}>
           <td width="10%">{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
             src={listItem.numberOfUserImage[0]} className="gear-img"/> : null}</td>
-          <td className="gear" width="32%">
+          <td className="gear" width="29%">
             <p className="tb_brand_model_name">{listItem.brand + ' ' + listItem.model}</p>
             <p className="theme-text-small text-muted tb_categories_name">{listItem.categoryName}</p>
           </td>
@@ -103,12 +108,14 @@ class Favourites extends Component {
               <Rating
                   initialRating={3}
                  emptySymbol={<img src="/images/Icons/star/star_icon_d.png" className="icon" />}
-                 fullSymbol={<img src="/images/Icons/star/star_icon_a.png" className="icon" />}/>
+                 fullSymbol={<img src="/images/Icons/star/star_icon_a.png" className="icon" />}
+                    onChange={(rate) => {console.log(rate)}}/>
+              <p>{this.state.ratingstate[index]}</p>
           </td>
 
-          <td width="17.5%">{listItem.pricePerDay * days(listItem.startDate, listItem.endDate)}</td>
+            <td width="17.5%"><div><div className="favouri_link_icon"/><span className="Raykjavik_span">Raykjavik</span></div></td>
             <td className="tb_pay_per" width="17.5%">{`$${listItem.pricePerDay}`}</td>
-          <td>
+          <td className="favoiurites_add_icon">
             <button className="theme-btn theme-btn-primary theme-btn-link add-to-cart-btn" onClick={() => this.onOpenModal(listItem.gearid)}>Add to Cart</button>
           </td>
 
@@ -122,9 +129,59 @@ class Favourites extends Component {
               }}/>
           </td>
         </tr>
+       </div>
       ))
     );
   }
+  renderFavouritesItems_md() {
+        const { favourites } = this.props;
+        return (
+
+                favourites.Items.map((listItem, index) => (
+                <div key={`cart-item-${index}`} className="d-lg-none d-sm-none d-md-block favo_table_root">
+                    <div className="sm_favor_table">
+                        <div  className="sm_favor_img">{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
+                            src={listItem.numberOfUserImage[0]} className="favor_gear-img"/> : null}
+                        </div>
+                        <div className="sm_favor_table_top">
+                             <div className="sm_favor_name_closeicon">
+                                <div className="col-md-22">
+                                    <p className="tb_brand_model_name">{listItem.brand + ' ' + listItem.model}</p>
+                                    <p className="theme-text-small text-muted tb_categories_name">{listItem.categoryName}</p>
+                                </div>
+                                <div className="favourites_close_icon col-md-1">
+                                    <i
+                                        className="close"
+                                        aria-hidden="true"
+                                        onClick={async () => {
+                                            await deleteFavourite({gearid: listItem.gearid});
+                                            getFavourites();
+                                        }}/>
+                                </div>
+                             </div>
+                            <div className="sm_favor_bottom">
+                                <div className="bottom_left col-md-8">
+                                    <Rating
+                                        initialRating={3}
+                                        emptySymbol={<img src="/images/Icons/star/star_icon_d.png" className="icon" />}
+                                        fullSymbol={<img src="/images/Icons/star/star_icon_a.png" className="icon" />}/>
+                                    <td><div><div className="favouri_link_icon"/><span className="Raykjavik_span">Raykjavik</span></div></td>
+                                </div>
+                                <div className="sm_favor_bottom_right col-md-14">
+                                    <p>Price per day</p>
+                                     <div className="tb_pay_per">{`$${listItem.pricePerDay}`}</div>
+                                </div>
+                            </div>
+                         </div>
+
+                     </div>
+                    <div className="favoiurites_add_icon">
+                        <button className="theme-btn theme-btn-primary theme-btn-link add-to-cart-btn" onClick={() => this.onOpenModal(listItem.gearid)}>Add to Cart</button>
+                    </div>
+                </div>
+            ))
+        );
+    }
 
   render() {
     const { favourites } = this.props;
@@ -134,38 +191,49 @@ class Favourites extends Component {
 
     return (
       <div className="cart_view centered-content">
-        <Breadcrumb>
+        <Breadcrumb className= "card_content_path">
           <BreadcrumbItem>Home </BreadcrumbItem>
           <BreadcrumbItem active>Favourites</BreadcrumbItem>
         </Breadcrumb>
-        <div className="cart-header">
+        <div className="cart-header ">
           <div className="theme-page-title">Favourites</div>
-          <div className="flex-row">
+          <div className="flex-row d-none d-lg-flex">
             <button className="theme-btn theme-btn-secondery"><Link to="/">Continue Shopping</Link></button>
-            <button className="theme-btn theme-btn-primary theme-btn-link"><Link to="/cart">Cart</Link></button>
+            <button className="theme-btn theme-btn-primary theme-btn-link"><Link to="/cart"> Cart </Link></button>
           </div>
         </div>
+          <div className="d-flex d-lg-none md_show_buttons" >
+              <button className="theme-btn theme-btn-secondery col-md-9"><Link to="/cart">Continue Shopping</Link></button>
+              <button className="theme-btn theme-btn-primary theme-btn-link col-md-14"><Link to="/checkout">Cart</Link></button>
+          </div>
+        <div className="cart-table-div">
 
-        <div>
-          <Table className="theme-table">
-            <thead>
-            <tr>
-              <th/>
-              <th>Name & Category</th>
-              <th>Rating</th>
-              <th>Location</th>
-              <th>Price per day</th>
-              <th/>
-              <th/>
-            </tr>
-            </thead>
-            <tbody>
-            {
-              this.renderFavouritesItems()
-            }
-            </tbody>
-          </Table>
+                        { !favourites.Items.length ? (
+                            <EmptyActivity e_name="  Cart  " e_path="/cart" e_title="THE ITEMS YOU LIKE APPEAR HERE" e_img_name = "favouri"/>
+
+                        ) :(
+                      <Table className="theme-table">
+                        <thead>
+                        <tr className= "d-none d-lg-table">
+                          <th/>
+                          <th>Name & Category</th>
+                          <th>Rating</th>
+                          <th>Location</th>
+                          <th>Price per day</th>
+                          <th/>
+                          <th/>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {
+                          this.renderFavouritesItems()
+                        }
+                        </tbody>
+                          {this.renderFavouritesItems_md()}
+                      </Table>)}
+
         </div>
+
         <CartModal1 dlg_model={1} gear={this.state.gear} open={this.state.modal_open_st === 2} onClose={this.onCloseModal} addToCart={this.addToCart}></CartModal1>
         <CartModal carted={this.state.carted} gear={this.state.gear} start_date={this.state.cart_info.start_date} end_date={this.state.cart_info.end_date} open={this.state.modal_open_st === 1} onClose={this.onCloseModal}></CartModal>
       </div>

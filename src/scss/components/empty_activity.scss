@@ -1,0 +1,29 @@
+.empty_activity_root {
+  height: 513px;
+  align-items: center;
+  text-align: center;
+  display: grid;
+  background-color: #faf8f9;
+  .empty_text {
+    font-family: Gotham Pro;
+    font-size: 16px;
+    line-height: 23px;
+    text-align: center;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    padding:56px 0;
+    color: #252525;
+    font-weight: 800;
+  }
+  .empty_button {
+    a {
+      padding:10px 25px !important;
+    }
+  }
+
+}
+@media (max-width: 750px){
+  .empty_activity_root {
+    height: 340px !important;
+  }
+}
