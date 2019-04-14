@@ -204,7 +204,7 @@ class Favourites extends Component {
             <button className="theme-btn theme-btn-primary theme-btn-link"><Link to="/cart"> Cart </Link></button>
           </div>
         </div>
-          <div className="d-md-flex d-none md_show_buttons" >
+          <div className="d-md-flex d-lg-none d-none md_show_buttons" >
               <button className="theme-btn theme-btn-secondery col-md-9"><Link to="/cart">Continue Shopping2</Link></button>
               <button className="theme-btn theme-btn-primary theme-btn-link col-md-14"><Link to="/checkout">Cart</Link></button>
           </div>
