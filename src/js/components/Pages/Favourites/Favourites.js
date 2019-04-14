@@ -15,7 +15,7 @@ import CartModal1 from "../../common/CartModal1";
 import BarLoader from "react-bar-loader";
 import Rating from "react-rating"
 import EmptyActivity from "../../EmptyActivity";
-
+import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 class Favourites extends Component {
   constructor(props) {
     super(props);
@@ -139,16 +139,19 @@ class Favourites extends Component {
                 favourites.Items.map((listItem, index) => (
                 <div key={`cart-item-${index}`} className="d-lg-none d-sm-none d-md-block favo_table_root">
                     <div className="sm_favor_table">
-                        <div  className="sm_favor_img">{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
+                        <div className="sm_favor_img d-md-flex d-none">{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
                             src={listItem.numberOfUserImage[0]} className="favor_gear-img"/> : null}
                         </div>
                         <div className="sm_favor_table_top">
                              <div className="sm_favor_name_closeicon">
-                                <div className="col-md-22">
+                                 <div className="sm_favor_img d-sm-flex d-md-none">{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
+                                     src={listItem.numberOfUserImage[0]} className="favor_gear-img"/> : null}
+                                 </div>
+                                <div className="col-md-22 favourites_close_text">
                                     <p className="tb_brand_model_name">{listItem.brand + ' ' + listItem.model}</p>
                                     <p className="theme-text-small text-muted tb_categories_name">{listItem.categoryName}</p>
                                 </div>
-                                <div className="favourites_close_icon col-md-1">
+                                <div className="favourites_close_icon">
                                     <i
                                         className="close"
                                         aria-hidden="true"
@@ -201,8 +204,8 @@ class Favourites extends Component {
             <button className="theme-btn theme-btn-primary theme-btn-link"><Link to="/cart"> Cart </Link></button>
           </div>
         </div>
-          <div className="d-flex d-lg-none md_show_buttons" >
-              <button className="theme-btn theme-btn-secondery col-md-9"><Link to="/cart">Continue Shopping</Link></button>
+          <div className="d-md-flex d-none md_show_buttons" >
+              <button className="theme-btn theme-btn-secondery col-md-9"><Link to="/cart">Continue Shopping2</Link></button>
               <button className="theme-btn theme-btn-primary theme-btn-link col-md-14"><Link to="/checkout">Cart</Link></button>
           </div>
         <div className="cart-table-div">
@@ -232,7 +235,10 @@ class Favourites extends Component {
                       </Table>)}
 
         </div>
-
+          <div className="d-flex d-md-none d-lg-none md_show_buttons" >
+              <button className="theme-btn theme-btn-secondery col-md-14"><Link to="/cart">Continue Shopping</Link></button>
+              <button className="theme-btn theme-btn-primary theme-btn-link col-md-9"><Link to="/checkout">Cart</Link></button>
+          </div>
         <CartModal1 dlg_model={1} gear={this.state.gear} open={this.state.modal_open_st === 2} onClose={this.onCloseModal} addToCart={this.addToCart}></CartModal1>
         <CartModal carted={this.state.carted} gear={this.state.gear} start_date={this.state.cart_info.start_date} end_date={this.state.cart_info.end_date} open={this.state.modal_open_st === 1} onClose={this.onCloseModal}></CartModal>
       </div>

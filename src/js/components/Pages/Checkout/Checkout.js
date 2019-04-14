@@ -21,7 +21,6 @@ class Checkout extends Component {
     super();
 
     getCarts();
-
     this.state = {
       fullName: '',
       address: '',
@@ -34,7 +33,6 @@ class Checkout extends Component {
 
   renderCheckoutItems() {
     const { carts } = this.props;
-
     const mappedCarts = carts.map((listItem, index) => {
       const d = days(listItem.startDate, listItem.endDate);
 
@@ -193,11 +191,11 @@ class Checkout extends Component {
                         </div>
                     </div>
                     <Label for="save-address" className='checkbox-label'>Save this address</Label>
-
+                </div>
                   {/*<Input type="checkbox" id="save-address" checked={this.state.saveAddress}*/}
                          {/*onChange={(e) => this.setState({ saveAddress: e.target.checked })}/>*/}
                   {/*<Label for="save-address">Save this address</Label>*/}
-                </div>
+
               </div>
             </div>
 
