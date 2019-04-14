@@ -47,7 +47,7 @@ class Payment extends Component {
   }
 
   handleClickCardList = () => {
-    if($('.addr-dropdown').hasClass('active')){
+    if ($('.addr-dropdown').hasClass('active')){
       $('.addr-dropdown').removeClass('active') ;
       $('.addr-dropdown ul').css('display', 'none');
     } else {
@@ -149,7 +149,7 @@ class Payment extends Component {
   render() {
     const { cardNumber, expirationYear, expirationMonth, cvv, cardHolder, saveCard } = this.state;
     const { isPaymentDone } = this.state;
-    if (!isPaymentDone) {
+    if (isPaymentDone) {
       return this.renderPaymentSuccess();
     }
     const { carts } = this.props;
