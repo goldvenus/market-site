@@ -159,6 +159,10 @@
             }
             .kit-check{
               margin-left: 59px;
+              display: flex;
+              label {
+                margin-top:5px;
+              }
             }
           }
           .form-accessories{

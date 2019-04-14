@@ -18,7 +18,6 @@ class Checkout extends Component {
     super();
 
     getCarts();
-
     this.state = {
       full_name: '',
       addr: 'Saved address',
@@ -32,7 +31,6 @@ class Checkout extends Component {
 
   renderCheckoutItems() {
     const { carts } = this.props;
-
     const mappedCarts = carts.map((listItem, index) => {
       const d = days(listItem.startDate, listItem.endDate);
 

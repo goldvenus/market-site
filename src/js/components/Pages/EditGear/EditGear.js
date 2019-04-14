@@ -15,11 +15,10 @@ import {
     formatDate,
     readFileData,
     fetchCategories,
-    getListGears
 } from '../../../actions/app.actions';
-
-import Checkbox from "@material-ui/core/Checkbox";
+import CustomSpinner from '../../CustomSpinner'
 import BarLoader from "react-bar-loader";
+
 
 class EditGear extends Component {
     constructor(props) {
@@ -254,9 +253,9 @@ class EditGear extends Component {
         const { selectedType, replacementValue, pricePerDay ,accessories, isKit} = this.state;
         const { gear , categories } = this.props;
         if (!this.state.loadingdata) {
-            return <BarLoader color="#F82462" height="5" />;
-        }
+            return <BarLoader color="#F82462" height="5" />;//<CustomSpinner/>;
 
+        }
         const name = gear.brand + ' ' + gear.model;
         if(selectedType == '') {
             this.state.selectedType = gear.type;
@@ -300,11 +299,17 @@ class EditGear extends Component {
                                         <label className={selectedType === 'worn' ? 'active' : ''} htmlFor="worn">Worn</label>
                                     </div>
                                     <div className="theme-form-field kit-check">
-
-                                        <Checkbox type="checkbox" id="is-kit" checked={isKit}
-                                               onChange={(e) => this.setState({ isKit: e.target.checked })}
-                                        />
+                                        {/*<Checkbox type="checkbox" id="is-kit" checked={isKit}*/}
+                                               {/*onChange={(e) => this.setState({ isKit: e.target.checked })}*/}
+                                        {/*/>*/}
+                                        <div className="input_svg pretty p-svg p-plain">
+                                            <input type="checkbox" onChange={(e) => this.setState({ isKit: e.target.checked })}/>
+                                            <div className="state">
+                                                <img className="svg check_svg" src="/images/Icons/task.svg"/>
+                                            </div>
+                                        </div>
                                         <Label for="is-kit">Is this a Kit?</Label>
+                                            {/*<Label for="save-address" className='checkbox-label'>Save this address</Label>*/}
                                     </div>
                                 </div>
                                 <div className="form-accessories">

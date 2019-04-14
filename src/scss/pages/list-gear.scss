@@ -38,7 +38,7 @@
           }
 
           .gear-img {
-            object-fit: fill;
+            object-fit: contain;
             width: 70px !important;
             height: 70px !important;
           }
@@ -69,6 +69,7 @@
             font-size: 21px;
             line-height: 37px;
             color: #252525;
+            font-weight: bold;
           }
           .gear_name_second{
             font-family: Helvetica Neue;
@@ -193,7 +194,7 @@
   .gear-img {
     width: 70px ;
     height: 70px ;
-    object-fit: fill;
+    object-fit: contain;
 
   }
 
@@ -267,7 +268,7 @@
   .card img {
     width: 70px !important;
     height: 70px !important;
-    object-fit: fill;
+    object-fit: contain;
   }
   .list-gear-small-line{
     height: 1px;
@@ -285,7 +286,7 @@
   .gear-img {
     width: 70px !important;
     height: 70px;
-    object-fit: fill;
+    object-fit: contain;
   }
   .close {
     display: inline-block;

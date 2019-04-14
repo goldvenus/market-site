@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Label, ListGroup, ListGroupItem } from 'reactstrap';
 import { getCarts, days, payment } from '../../../actions/app.actions';
 import BarLoader from "react-bar-loader";
-import './payment.css';
 import Dropdown, {
     MenuItem,
 } from '@trendmicro/react-dropdown';
