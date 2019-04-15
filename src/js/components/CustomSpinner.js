@@ -11,8 +11,6 @@ class CustomSpinner extends Component {
                     <Spinner size={70} spinnerColor={"#f00"} spinnerWidth={4} visible={true} />
                     <p>Loading data...</p>
                 </div>
-
-
         );
     }
 }

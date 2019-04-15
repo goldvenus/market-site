@@ -16,6 +16,7 @@ import BarLoader from "react-bar-loader";
 import Rating from "react-rating"
 import EmptyActivity from "../../EmptyActivity";
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
+import CustomSpinner from "../../CustomSpinner";
 class Favourites extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +30,8 @@ class Favourites extends Component {
         start_date: new Date(),
         end_date: new Date()
       },
-      ratingstate:{}
+      ratingstate:{},
+      loadingdata_del: false
     }
   }
 
@@ -89,7 +91,15 @@ class Favourites extends Component {
       handleError('Adding failed!');
     }
   };
+    async dogetFavorits_del () {
+        try {
+            await getFavourites();
+            this.setState({loadingdata_del : false});
 
+        }
+        catch {
+            handleError('Gear is not added to cart');}
+    }
   renderFavouritesItems() {
     const { favourites } = this.props;
     const {ratingstate} = this.state;
@@ -123,8 +133,9 @@ class Favourites extends Component {
               className="close"
               aria-hidden="true"
               onClick={async () => {
+                  this.setState({loadingdata_del : this});
                 await deleteFavourite({ gearid: listItem.gearid });
-                getFavourites();
+                this.dogetFavorits_del();
               }}/>
           </td>
         </tr>
@@ -156,8 +167,9 @@ class Favourites extends Component {
                                         className="close"
                                         aria-hidden="true"
                                         onClick={async () => {
-                                            await deleteFavourite({gearid: listItem.gearid});
-                                            getFavourites();
+                                            this.setState({loadingdata_del : this});
+                                            await deleteFavourite({ gearid: listItem.gearid });
+                                            this.dogetFavorits_del();
                                         }}/>
                                 </div>
                              </div>
@@ -190,7 +202,9 @@ class Favourites extends Component {
     if (!favourites) {
         return <BarLoader color="#F82462" height="5" />;
     }
-
+    if(this.state.loadingdata_del){
+       return <CustomSpinner/>
+    }
     return (
       <div className="cart_view centered-content">
         <Breadcrumb className= "card_content_path">

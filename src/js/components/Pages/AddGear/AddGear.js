@@ -11,7 +11,7 @@ import CustomInput from '../../CustomInput';
 import { element } from 'prop-types';
 import CustomCarousel from '../../CustomCarousel';
 import { handleError, readFileData, addGear, fetchCategories } from '../../../actions/app.actions';
-
+import "./AddGear.css"
 class AddGear extends Component {
   constructor() {
     super();
@@ -91,9 +91,9 @@ class AddGear extends Component {
     const { categories } = this.props.app;
 
     return (
-      <Form className="theme-form add-gear-info">
+      <Form className="theme-form add-gear-info container add-gear-info-cusvenus" id="tablet-form">
         <div className="flex-row">
-          <div className="theme-column">
+          <div className="theme-column " width="40%">
             <Dropdown className="theme-form-field theme-form-dropdown" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
               <DropdownToggle caret>
                 {categoryName}
@@ -120,7 +120,7 @@ class AddGear extends Component {
                            onChange={(value) => this.setState({ description: value })} type="text"/>
             </div>
           </div>
-          <div className="theme-column info-right-container">
+          <div className="theme-column info-right-container" id="new-tabs">
             <div className="type-tabs">
               <input name="type" id="new" type="radio" value="new" onChange={this.onTypeChange}/>
               <label className={selectedType === 'new' ? 'active' : ''} htmlFor="new">New</label>
@@ -132,14 +132,18 @@ class AddGear extends Component {
               <input name="type" id="worn" type="radio" value="worn" onChange={this.onTypeChange}/>
               <label className={selectedType === 'worn' ? 'active' : ''} htmlFor="worn">Worn</label>
             </div>
-            <div className="theme-form-field">
-              <Input type="checkbox" id="is-kit" checked={isKit}
-                     onChange={(e) => this.setState({ isKit: e.target.checked })}/>
-              <Label for="is-kit">Is this a Kit?</Label>
+            <div className="theme-form-field" id="kit-style">
+                <div className="input_svg pretty p-svg p-plain">
+                    <input type="checkbox" onChange={(e) => this.setState({ isKit: e.target.checked })}/>
+                    <div className="state">
+                        <img className="svg check_svg" src="/images/Icons/task.svg"/>
+                    </div>
+                </div>
+                <Label for="is-kit">Is this a Kit?</Label>
             </div>
             <div>
               <div className="theme-text-small">Accessories</div>
-              <div className="theme-form-field">
+              <div id="chip_style">
                 <Chips
                   value={accessories}
                   onChange={(accessories) => this.setState({ accessories })}
@@ -252,27 +256,27 @@ class AddGear extends Component {
       <div key={'accessory-' + index} className="">{accessory}</div>
     ));
     return <div className="add-gear-price">
-      <div>
+      <div id="fourth-content">
         <div className="theme-text-small text-gray">{categoryName}</div>
-        <h4 className="header">{brand + ' ' + model}</h4>
+        <h4 className="header" id="label-content">{brand + ' ' + model}</h4>
 
         <div className="price-type-tabs">
           <input id="new" type="radio" value="new"/>
           <label className={selectedType === 'new' ? 'active' : ''} htmlFor="new">New</label>
           <input id="like-new" type="radio" value="like_new"/>
-          <label className={selectedType === 'like_new' ? 'active' : ''} htmlFor="like-new">Like New</label>
+          <label className={selectedType === 'new' ? 'active' : ''}id="label-likenew" htmlFor="like-new">Like New</label>
           <input id="slightly-worn" type="radio" value="slightly_worn"/>
-          <label className={selectedType === 'slightly_worn' ? 'active' : ''} htmlFor="slightly-worn">Slightly
+          <label className={selectedType === 'new' ? 'active' : ''}id="label-slightly" htmlFor="slightly-worn">Slightly
             Worn</label>
           <input id="worn" type="radio" value="worn"/>
-          <label className={selectedType === 'worn' ? 'active' : ''} htmlFor="worn">Worn</label>
+          <label className={selectedType === 'new' ? 'active' : ''}id="label-worn" htmlFor="worn">Worn</label>
         </div>
 
         <div className="gear-carousel">
           <CustomCarousel items={numberOfUserImage}/>
         </div>
       </div>
-      <div className="gear-middle-container">
+      <div className="gear-middle-container" id="middle-container">
         <div className="flex-row gear-accessories-address">
           <div>
             <div className="theme-text-small text-gray">Accessories</div>
@@ -280,26 +284,24 @@ class AddGear extends Component {
               mappedAccessories
             }
           </div>
-          <div>
+          <div id="address-content">
             <div className="theme-text-small text-gray">Address</div>
             <div className="">{address}</div>
             <div className="">{city}</div>
           </div>
         </div>
-        <div>
+        <div id="description-container">
           <div className="theme-text-small text-gray">Description</div>
-          <p>
-            {description}
-          </p>
+              <div className="div_description">{description}</div>
         </div>
       </div>
-      <div className="gear-right-container">
+      <div className="gear-right-container" id="right-container">
         <div className="custom-theme-row">
           <div class="custom-theme-col">
             <div>Replacement Value</div>
             <InputGroup>
               <InputGroupAddon addonType="prepend">$</InputGroupAddon>
-              <CustomInput placeholder='Amount' type="text" value={replacementValue}
+              <CustomInput  type="text" value={replacementValue}
                            onChange={(value) => this.setState({ replacementValue: value })}/>
             </InputGroup>
           </div>
@@ -307,7 +309,7 @@ class AddGear extends Component {
             <div>Price per day</div>
             <InputGroup>
               <InputGroupAddon addonType="prepend">$</InputGroupAddon>
-              <CustomInput placeholder='Amount' type="text" value={pricePerDay}
+              <CustomInput  type="text" value={pricePerDay}
                            onChange={(value) => this.setState({ pricePerDay: value })}/>
             </InputGroup>
           </div>
@@ -442,7 +444,7 @@ class AddGear extends Component {
 
         {
           this.state.progressStep < 3 ? (
-            <div>
+            <div id="continue-button">
               <div className="flex-row buttons-container">
                 {
                   this.state.progressStep !== 0 ?

@@ -2,14 +2,14 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
   Container, Row, Col, Breadcrumb, Table,
-  BreadcrumbItem, Pagination, PaginationItem, PaginationLink, Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button
+  BreadcrumbItem, Pagination, PaginationItem, PaginationLink, Card, CardImg, CardText, CardBody
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import {getListGears, deleteGear,  handleError} from '../../../actions/app.actions';
 import BarLoader from "react-bar-loader";
 import EmptyActivity from "../../EmptyActivity";
+import Urllink_class from "../../Urllink_class";
 
 const ListGearItem =
   ({ listItem: { gearid, model = '', brand = '', categoryName = '', numberOfUserImage, pricePerDay, orderStatus: status } }) => {
@@ -145,8 +145,8 @@ class ListGear extends Component {
                 <Row>
                   <Col>
                     <Breadcrumb>
-                      <BreadcrumbItem>Home Page</BreadcrumbItem>
-                      <BreadcrumbItem active>List Gear</BreadcrumbItem>
+                      <BreadcrumbItem><Urllink_class name="Home Page"/></BreadcrumbItem>
+                      <BreadcrumbItem active><Urllink_class name="List Gear"/></BreadcrumbItem>
                     </Breadcrumb>
 
                     <div className="d-none d-lg-flex align-items-center ">

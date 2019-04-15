@@ -5,12 +5,14 @@ import { Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
 import {getCarts, formatDate, days, deleteCartItem, handleError} from '../../../actions/app.actions';
 import BarLoader from "react-bar-loader";
 import EmptyActivity from '../../EmptyActivity'
+import CustomSpinner from "../../CustomSpinner";
 
 class Cart extends Component {
   constructor() {
     super();
     this.state = {
-        loadingdata:false
+        loadingdata:false,
+        loadingdata_del:false
     }
 
      this.dogetCarts();
@@ -19,6 +21,15 @@ class Cart extends Component {
       try {
           await getCarts();
           this.setState({loadingdata : true});
+
+      }
+      catch {
+          handleError('Gear is not added to cart');}
+  }
+  async dogetCarts_del () {
+      try {
+          await getCarts();
+          this.setState({loadingdata_del : false});
 
       }
       catch {
@@ -56,8 +67,9 @@ class Cart extends Component {
               className="close"
               aria-hidden="true"
               onClick={async () => {
+                this.setState({loadingdata_del:true});
                 await deleteCartItem({ gearid: listItem.gearid, orderid: listItem.orderid });
-                getCarts();
+                 this.dogetCarts_del();
               }}
             />
           </td>
@@ -92,8 +104,9 @@ class Cart extends Component {
                                     className="close"
                                     aria-hidden="true"
                                     onClick={async () => {
+                                        this.setState({loadingdata_del:true});
                                         await deleteCartItem({ gearid: listItem.gearid, orderid: listItem.orderid });
-                                        getCarts();
+                                        this.dogetCarts_del();
                                     }}
                                 />
                             </div>
@@ -128,6 +141,9 @@ class Cart extends Component {
   render() {
     if (!this.state.loadingdata) {
       return <BarLoader color="#F82462" height="5" />;
+    }
+    if(this.state.loadingdata_del){
+        return <CustomSpinner/>
     }
       const { carts } = this.props;
     return (
