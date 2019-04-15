@@ -17,15 +17,14 @@ class CartModal1 extends Component {
             endDate: new Date(),
             open_date_picker1: false,
             open_date_picker2: false
-        }
-
+        };
     }
 
     setOpenState = (ost1, ost2) => {
         this.setState({
             open_date_picker1: ost1,
             open_date_picker2: ost2
-        })
+        });
     }
 
     handleSelect = ranges => {
@@ -67,6 +66,7 @@ class CartModal1 extends Component {
     }
 
     handleAddToCart = () => {
+        console.log(this.props.gear);
         this.props.addToCart({
             gearid: this.props.gear.gearid,
             userid: this.props.gear.userid,
@@ -76,7 +76,7 @@ class CartModal1 extends Component {
     }
 
     render() {
-        const { open, dlg_model, onClose, addToCart, onSubmit, gear } = this.props;
+        const { open, dlg_model, onClose, onSubmit, gear } = this.props;
         const { brand, model, pricePerDay } = gear;
         const duration = calcDaysDiff(this.state.startDate, this.state.endDate) + 1;
         const start_date_str = getDateStr(this.state.startDate);

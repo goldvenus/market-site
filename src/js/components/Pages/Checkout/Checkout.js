@@ -1,20 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, BreadcrumbItem, Input, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Label, ListGroup, ListGroupItem } from 'reactstrap';
 import { getCarts, days, checkout, handleError } from '../../../actions/app.actions';
 import BarLoader from "react-bar-loader";
 import TextField from "@material-ui/core/TextField";
 import Dropdown, {
-    DropdownToggle,
-    DropdownMenu,
-    DropdownMenuWrapper,
-    MenuItem,
-    DropdownButton
+    MenuItem
 } from '@trendmicro/react-dropdown';
 import '@trendmicro/react-buttons/dist/react-buttons.css';
 import '@trendmicro/react-dropdown/dist/react-dropdown.css';
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
+import $ from "jquery";
 
 class Checkout extends Component {
   constructor() {
@@ -22,12 +19,13 @@ class Checkout extends Component {
 
     getCarts();
     this.state = {
-      fullName: '',
-      address: '',
+      full_name: '',
+      addr: 'Saved address',
       city: '',
       product_region: '',
       zip: '',
-      saveAddress: false,
+      save_addr: false,
+      open: false,
     };
   }
 
@@ -36,7 +34,7 @@ class Checkout extends Component {
     const mappedCarts = carts.map((listItem, index) => {
       const d = days(listItem.startDate, listItem.endDate);
 
-      return <div key={`cart-item-${index}`} className="checkout-item theme-text-small">
+      return <div key={`cart-item-${index}`} className="checkout-item">
         <div>{listItem.brand + ' ' + listItem.model}</div>
         <div><b>${listItem.pricePerDay * d}</b> for <b>{d}</b> days</div>
       </div>;
@@ -52,23 +50,54 @@ class Checkout extends Component {
   }
 
   async onCheckout(state) {
-    const { fullName, address, city, zip, saveAddress, product_region } = state;
+    const { full_name, addr, city, zip, save_addr, product_region } = state;
 
-    if (!fullName && !address && !city && !zip && !product_region) {
+    if (!full_name && !addr && !city && !zip && !product_region) {
       handleError('Please provide required information');
       return false;
     }
     let response = await checkout({
-      fullName,
-      address,
+      full_name,
+      addr,
       city,
       zip,
       product_region,
-      saveAddress
+      save_addr
     });
 
     if (response) {
+
       this.props.history.push('/payment');
+    }
+  }
+
+  onCheckoutTemp = () => {
+      const { full_name, addr, city, zip, save_addr, product_region } = this.state;
+
+      if (!full_name && !addr && !city && !zip && !product_region) {
+          handleError('Please provide required information');
+          return false;
+      }
+      localStorage.checkout_info = {
+          full_name, addr, city, zip, save_addr, product_region
+      };
+  }
+
+  handleAddrChange = (e, val) => {
+    e.preventDefault();
+    this.setState({addr: val});
+  }
+
+  handleSetSaveState = () => {
+    this.setState(prev => ({addr_save_st: !prev.addr_save_st}));
+  }
+  handleClickAddrList = () => {
+    if($('.addr-dropdown').hasClass('active')){
+        $('.addr-dropdown').removeClass('active') ;
+        $('.addr-dropdown ul').css('display', 'none');
+    } else {
+        $('.addr-dropdown').addClass('active') ;
+        $('.addr-dropdown ul').css('display', 'block');
     }
   }
 
@@ -79,15 +108,13 @@ class Checkout extends Component {
     }
 
     let total = 0;
-
-    carts.forEach((listItem, index) => {
+    carts.forEach(listItem => {
       const d = days(listItem.startDate, listItem.endDate);
       total += d * listItem.pricePerDay;
     });
-
     const tax = total * 0.21;
-
     const amount = total + tax;
+    const addrs = ['beach', 'mountain', 'forest', 'river', 'dessert'];
 
     return (
       <div className="checkout">
@@ -105,101 +132,86 @@ class Checkout extends Component {
           <div className="container flex-row flex-align-stretch ">
             <div className="billing-address">
               <div className="checkout-header">
-                <div className="text-gray d-md-none d-lg-block">BILLING ADDRESS</div>
+                <div className="text-gray d-none d-md-none d-lg-block">BILLING ADDRESS</div>
                 <div className="text-gray d-md-block d-lg-none">INFO</div>
               </div>
               <div className="address-select">
-                  <Dropdown>
-                      <Dropdown.Toggle title="Saved address" />
-                      <Dropdown.Menu>
-
-                          <MenuItem divider />
-                          <MenuItem>
-                              Laufásvegur 58, 101 Reykjavík
-                              <MenuItem>
-                                  level item one
-                              </MenuItem>
-                              <MenuItem>
-                                  level item two
-                              </MenuItem>
-                              <MenuItem>
-                                  level item three
-                              </MenuItem>
+                <Dropdown className='d-none d-lg-block'>
+                  <Dropdown.Toggle title="Saved address" />
+                  <Dropdown.Menu>
+                    {
+                      addrs.map((element, index) => (
+                        <React.Fragment>
+                          <MenuItem key={index}>
+                            {element}
+                            <MenuItem onClick={(e) => this.handleAddrChange(e)}>
+                                level item one
+                            </MenuItem>
                           </MenuItem>
-
                           <MenuItem divider />
-                          <MenuItem>
-                              Laufásvegur 68, 106 Vik
-                              <MenuItem>
-                                  level item one
-                              </MenuItem>
-                              <MenuItem>
-                                  level item two
-                              </MenuItem>
-                              <MenuItem>
-                                  level item three
-                              </MenuItem>
-                          </MenuItem>
+                        </React.Fragment>))
+                    }
+                  </Dropdown.Menu>
+                </Dropdown>
+                <aside className="sidebar">
+                  <div className="addr-dropdown d-block d-lg-none">
+                    <div className="catagory-header">
+                      <button className="sidebar-title   category-action-btn" onClick={this.handleClickAddrList}>
+                        { this.state.addr }
+                        <i className="fa fa-angle-down" aria-hidden="true"></i>
+                      </button>
+                    </div>
 
-
-                          <MenuItem divider />
-                          <MenuItem>
-                              Laufásvegur 68, 106 Reykjavík
-                              <MenuItem>
-                                  level item one
-                              </MenuItem>
-                              <MenuItem>
-                                  level item two
-                              </MenuItem>
-                              <MenuItem>
-                                  level item three
-                              </MenuItem>
-                          </MenuItem>
-
-
-                      </Dropdown.Menu>
-                  </Dropdown>
+                    <ListGroup>
+                      {addrs.map((element, index) =>
+                        <ListGroupItem onClick={(e) => this.handleAddrChange(e, element)} value={element} key={index}>
+                          <div className='item-active'>
+                            {element}
+                          </div>
+                        </ListGroupItem>
+                      )}
+                    </ListGroup>
+                  </div>
+                </aside>
               </div>
               <div className="theme-form">
                 <div className="theme-form-field">
-                  <TextField placeholder='Full Name' type="text"
-                               onChange={(value) => this.setState({ fullName: value })}/>
+                  <TextField className='checkout-textfield' placeholder='Full Name' type="text"
+                               onChange={(value) => this.setState({ full_name: value })}/>
                 </div>
                 <div className="flex-row">
                   <div className="theme-form-field flex-md-12">
-                    <TextField placeholder='Address' type="text"
-                                 onChange={(value) => this.setState({ address: value })}/>
+                    <TextField className='checkout-textfield' placeholder='Address' type="text"
+                               onChange={(value) => this.setState({ addr: value })}/>
                   </div>
                   <div className="theme-form-field flex-md-12">
-                    <TextField placeholder='City' type="text" onChange={(value) => this.setState({ city: value })}/>
+                    <TextField className='checkout-textfield' placeholder='City' type="text"
+                               onChange={(value) => this.setState({ city: value })}/>
                   </div>
                 </div>
                 <div className="flex-row">
                   <div className="theme-form-field flex-md-12">
-                    <TextField placeholder='Region' type="text"
-                                 onChange={(value) => this.setState({ product_region: value })}/>
+                    <TextField className='checkout-textfield' placeholder='Region' type="text"
+                               onChange={(value) => this.setState({ product_region: value })}/>
                   </div>
                   <div className="theme-form-field flex-md-12">
-                    <TextField placeholder='Zip' type="text" onChange={(value) => this.setState({ zip: value })}/>
+                    <TextField className='checkout-textfield' placeholder='Zip' type="text"
+                               onChange={(value) => this.setState({ zip: value })}/>
                   </div>
                 </div>
-                <div className="theme-form-field">
-                    <div className="input_svg pretty p-svg p-plain">
-                        <input  type="checkbox"/>
-                        <div className="state">
-                            <img className="svg check_svg" src="images/Icons/task.svg"/>
-                        </div>
+                <div className="theme-form-field save-addr-btn">
+                  <div className="input_svg pretty p-svg p-plain">
+                    <input  type="checkbox"/>
+                    <div className="state">
+                        <img className="svg check_svg" src="/images/Icons/task.svg" onClick={this.handleSetSaveState}/>
                     </div>
-                    <Label for="save-address" className='checkbox-label'>Save this address</Label>
+                  </div>
+                  <Label for="save-address" className='checkbox-label'>Save this address</Label>
                 </div>
-                  {/*<Input type="checkbox" id="save-address" checked={this.state.saveAddress}*/}
-                         {/*onChange={(e) => this.setState({ saveAddress: e.target.checked })}/>*/}
-                  {/*<Label for="save-address">Save this address</Label>*/}
-
               </div>
             </div>
 
-            <div className="order-info theme-text-small">
+            <div className="order-info">
                 <div className="order-info-header">
                     <div className="text-gray">ORDER INFORMATION</div>
                     <button className="theme-btn theme-btn-filled-white theme-btn-link btn-edit-order"><Link to="/cart">Edit Order</Link>
@@ -223,7 +235,7 @@ class Checkout extends Component {
           <div className="container flex-row flex-align-stretch ">
             <div className="flex-row bottom-buttons">
               <button className="theme-btn theme-btn-secondery theme-btn-link btn-edit-order-bottom"><Link to="/cart">Edit Order</Link></button>
-              <button className="theme-btn theme-btn-primary btn-payment" onClick={() => this.onCheckout(this.state)}>Payment</button>
+              <button className="theme-btn theme-btn-primary btn-payment" onClick={this.onCheckoutTemp}>Payment</button>
             </div>
           </div>
         </div>

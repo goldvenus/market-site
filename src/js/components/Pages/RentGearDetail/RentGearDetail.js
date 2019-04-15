@@ -9,8 +9,8 @@ import {
     CardTitle, CardSubtitle
 } from 'reactstrap';
 import { Link } from "react-router-dom";
-import 'react-date-range/dist/styles.css'; // main style file
-import 'react-date-range/dist/theme/default.css'; // theme css file
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
 import { DateRange } from 'react-date-range';
 import TextField from '@material-ui/core/TextField';
 import CustomCarousel from '../../CustomCarousel';
@@ -34,9 +34,7 @@ const flickityOptions = {
 class RentGearDetail extends Component {
     constructor(props) {
         super(props);
-
         this.gearid = props.match.params.id;
-
         this.state = {
             startDate: new Date(),
             endDate: new Date(),
@@ -47,7 +45,6 @@ class RentGearDetail extends Component {
             open_date_picker1: false,
             open_date_picker2: false
         };
-
         getGear(this.gearid);
         this.addToCart = this.addToCart.bind(this);
     }
@@ -62,7 +59,6 @@ class RentGearDetail extends Component {
         try {
             const { startDate, endDate } = this.state;
             const { gear } = this.props;
-
             if (startDate && endDate) {
                 let res = await addCart({
                     gearid: gear.gearid,
@@ -140,6 +136,40 @@ class RentGearDetail extends Component {
 
     // carousel
     changeActiveItem = (activeItemIndex) => this.setState({ activeItemIndex });
+    renderCarousel = (img_arr) => {
+        // make img objects for bottom carousel
+        const children = img_arr.map((item, i) => (
+            <div key={i} className='carousel-image-container'>
+                <img src={item} alt="Image" />
+            </div>
+        ));
+        return (<ItemsCarousel
+            // Placeholder configurations
+            enablePlaceholder
+            numberOfPlaceholderItems={img_arr.length}
+            minimumPlaceholderTime={1000}
+            placeholderItem={<div style={{ height: 200, background: '#900' }}>Placeholder</div>}
+
+            // Carousel configurations
+            numberOfCards={5}
+            gutter={12}
+            showSlither={true}
+            firstAndLastGutter={true}
+            freeScrolling={false}
+
+            // Active item configurations
+            requestToChangeActive={this.changeActiveItem}
+            activeItemIndex={this.state.activeItemIndex}
+            activePosition={'center'}
+
+            chevronWidth={24}
+            rightChevron={'>'}
+            leftChevron={'<'}
+            outsideChevron={false}
+        >
+            {children}
+        </ItemsCarousel>);
+    }
 
     // modal
     onOpenModal = () => {
@@ -165,7 +195,6 @@ class RentGearDetail extends Component {
             t_start_date = t_end_date;
             t_end_date = temp;
         }
-
         if (t_start_date !== t_end_date) {
             // select range
             this.setState({
@@ -196,10 +225,8 @@ class RentGearDetail extends Component {
 
     renderContent = () => {
         const { gear, user, carts, favourites } = this.props;
-
         if (!gear || !user || !carts || !favourites)
             return <BarLoader color="#F82462" height="5" />;
-
         const { numberOfUserImage, gearid, brand, rating, total_rating, city, replacementValue,
             pricePerDay, model, description, newArrival_Index, categoryName, accessories, userid } = gear;
         const name = brand + ' ' + model;
@@ -209,20 +236,11 @@ class RentGearDetail extends Component {
         const carted = carted_item ? carted_item.length : false;
         const favored = gearid && favourites && favourites.Count > 0 ?
             favourites.Items.filter(item => item.gearid === gearid).length : 0;
-
         // description
         const is_first_enter = this.state.descp.length === 0;
         const is_view_more = description.length > 250;
         let descp = is_first_enter ? (is_view_more ? `${description.substr(0, 250)} ...` : description) :
             this.state.show_view_more ? `${description.substr(0, 250)} ...` : description;
-
-        // make img objects for bottom carousel
-        const children = numberOfUserImage.map((item, i) => (
-            <div key={i} className='carousel-image-container'>
-                <img src={item} alt="Image" />
-            </div>
-        ));
-
         const listGears = favourites.Items;
         const selectionRange = {
             startDate: this.state.startDate,
@@ -249,10 +267,9 @@ class RentGearDetail extends Component {
                     <div className="theme-form-small text-gray category">{categoryName} </div>
 
                     <span className='category-name'>
-                        {name}
+                        { name }
                         {
-                            carted > 0 ?
-                                <i className="fas fa-check-circle icon-carted"></i> : null
+                            carted > 0 ? <i className="fas fa-check-circle icon-carted"></i> : null
                         }
                     </span>
 
@@ -324,7 +341,7 @@ class RentGearDetail extends Component {
                                 <div className="pickup-date-container row">
                                     <div className='col-md-11 date-range-container'>
                                         <TextField id="date-range-input1" className="date-range-input" type="text" inputProps={300} label={'PICKUP DATE'} defaultValue={start_date_str}
-                                                   onFocus={() => this.setOpenState(true, false)} value={start_date_str}/>
+                                            onFocus={() => this.setOpenState(true, false)} value={start_date_str}/>
                                         {
                                             this.state.open_date_picker1 ?
                                                 <DateRange
@@ -346,7 +363,7 @@ class RentGearDetail extends Component {
                                     <div className='col-md-2'></div>
                                     <div className='col-md-11 date-range-container'>
                                         <TextField id="date-range-input1" className="date-range-input" type="text" inputProps={300} label={'RETURN DATE'} defaultValue={end_date_str}
-                                                   onFocus={() => this.setOpenState(false, true)} value={end_date_str}/>
+                                            onFocus={() => this.setOpenState(false, true)} value={end_date_str}/>
                                         {
                                             this.state.open_date_picker2 ?
                                                 <DateRange
@@ -403,32 +420,9 @@ class RentGearDetail extends Component {
                             <CustomCarousel items={numberOfUserImage}/>
                         </div>
                         <div className="carousel-bottom-container">
-                            <ItemsCarousel
-                                // Placeholder configurations
-                                enablePlaceholder
-                                numberOfPlaceholderItems={numberOfUserImage.length}
-                                minimumPlaceholderTime={1000}
-                                placeholderItem={<div style={{ height: 200, background: '#900' }}>Placeholder</div>}
-
-                                // Carousel configurations
-                                numberOfCards={5}
-                                gutter={12}
-                                showSlither={true}
-                                firstAndLastGutter={true}
-                                freeScrolling={false}
-
-                                // Active item configurations
-                                requestToChangeActive={this.changeActiveItem}
-                                activeItemIndex={this.state.activeItemIndex}
-                                activePosition={'center'}
-
-                                chevronWidth={24}
-                                rightChevron={'>'}
-                                leftChevron={'<'}
-                                outsideChevron={false}
-                            >
-                                {children}
-                            </ItemsCarousel>
+                            {
+                                this.renderCarousel(numberOfUserImage)
+                            }
                         </div>
                     </div>
                     <div className="right-container col-lg-15">
@@ -443,7 +437,7 @@ class RentGearDetail extends Component {
                                 <div className="gear-info col-lg-15">
                                     <div className="theme-form-small text-gray category d-none d-lg-block">{categoryName} </div>
                                     <span className='category-name d-none d-lg-block'>
-                                        {name}
+                                        { name }
                                         {
                                             carted > 0 ?
                                                 <i className="fas fa-check-circle"></i> : null
@@ -479,11 +473,11 @@ class RentGearDetail extends Component {
                                 <div className="gear-purchase col-lg-9">
                                     <div>
                                         <span className='star-wrapper'>
-                                        {
-                                            [1, 2, 3, 4, 5].map(i =>
-                                                <i className="fa fa-star star-selected" key={i}></i>
-                                            )
-                                        }
+                                            {
+                                                [1, 2, 3, 4, 5].map(i =>
+                                                    <i className="fa fa-star star-selected" key={i}></i>
+                                                )
+                                            }
                                         </span>
                                         <span className="theme-form-small">&nbsp;{rating} ({total_rating})</span>
                                         <div className="gear-address-container row">
@@ -503,7 +497,7 @@ class RentGearDetail extends Component {
                                             <div className="pickup-date-container">
                                                 <div className='row date-range-container'>
                                                     <TextField id="date-range-input1" className="date-range-input" type="text" inputProps={300} label={'PICKUP DATE'} defaultValue={start_date_str}
-                                                               onFocus={() => this.setOpenState(true, false)} value={start_date_str}/>
+                                                        onFocus={() => this.setOpenState(true, false)} value={start_date_str}/>
                                                     {
                                                         this.state.open_date_picker1 ?
                                                             <DateRange
@@ -524,7 +518,7 @@ class RentGearDetail extends Component {
                                                 </div>
                                                 <div className='row date-range-container'>
                                                     <TextField id="date-range-input1" className="date-range-input" type="text" inputProps={300} label={'RETURN DATE'} defaultValue={end_date_str}
-                                                               onFocus={() => this.setOpenState(false, true)} value={end_date_str}/>
+                                                        onFocus={() => this.setOpenState(false, true)} value={end_date_str}/>
                                                     {
                                                         this.state.open_date_picker2 ?
                                                             <DateRange

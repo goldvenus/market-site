@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import {ListGroup, ListGroupItem,
-} from 'reactstrap';
-
+import { ListGroup, ListGroupItem } from 'reactstrap';
 import Search from './search';
-
 import { fetchCategories } from '../../actions/app.actions';
 import $ from 'jquery';
 
@@ -23,23 +20,18 @@ class Sidebar extends Component {
   categoryhandler() {
     if($('.category-mobile').hasClass('active')){
       $('.category-mobile').removeClass('active') ;
-
-    }else{
+    } else {
       $('.category-mobile').addClass('active') ;
-
     }
-
   }
 
   searchhandler() {
     if($('.catagory-header .search').hasClass('s-active')){
       $('.catagory-header .search').removeClass('s-active') ;
 
-    }else{
+    } else {
       $('.catagory-header .search').addClass('s-active') ;
-
     }
-
   }
 
   handleClick(index, name) {
@@ -55,6 +47,7 @@ class Sidebar extends Component {
   }
   render() {
     const { categories } = this.props.app;
+    if (!categories) return null;
 
     return (
       <aside className="sidebar">
@@ -74,20 +67,19 @@ class Sidebar extends Component {
           </ListGroup>
         </div>
         <div className="category-mobile d-block d-lg-none">
-        <div className="catagory-header">
-        <button className="sidebar-title   category-action-btn" onClick={this.categoryhandler}>
-          All Categories
-          <i className="fa fa-angle-down" aria-hidden="true"></i>
+          <div className="catagory-header">
+            <button className="sidebar-title   category-action-btn" onClick={this.categoryhandler}>
+              All Categories
+              <i className="fa fa-angle-down" aria-hidden="true"></i>
 
-        </button>
-        <button className="sidebar-title   search-action-btn" onClick={this.searchhandler}>
-         <i className="fa fa-search"></i>
-        </button>
-        <Search></Search>
+            </button>
+            <button className="sidebar-title   search-action-btn" onClick={this.searchhandler}>
+             <i className="fa fa-search"></i>
+            </button>
+            <Search></Search>
+          </div>
 
-        </div>
-
-        <ListGroup>
+          <ListGroup>
             {categories.map((element, index) =>
               <ListGroupItem onClick={this.handleClick.bind(this, index, element.categoryName)} value={element}
                 key={index}>
