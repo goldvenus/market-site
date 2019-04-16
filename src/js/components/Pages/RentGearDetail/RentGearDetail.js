@@ -24,6 +24,7 @@ import {
 } from '../../../actions/app.actions';
 import CartModal from '../../common/CartModal'
 import { calcDaysDiff, getDateStr } from "../../common/Functions";
+import Urllink_class from "../../Urllink_class";
 
 const flickityOptions = {
     contain: true,
@@ -428,9 +429,9 @@ class RentGearDetail extends Component {
                     <div className="right-container col-lg-15">
                         <div className="right-container1 row">
                             <Breadcrumb>
-                                <BreadcrumbItem>Home</BreadcrumbItem>
-                                <BreadcrumbItem>Rent Gears</BreadcrumbItem>
-                                <BreadcrumbItem>{categoryName}</BreadcrumbItem>
+                                <Urllink_class name="Home"></Urllink_class>
+                                <Urllink_class name="Rent Gears"></Urllink_class>
+                                <Urllink_class name={categoryName}></Urllink_class>
                                 <BreadcrumbItem active>{name}</BreadcrumbItem>
                             </Breadcrumb>
                             <div className="gear-container row">

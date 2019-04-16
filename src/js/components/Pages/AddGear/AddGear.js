@@ -13,6 +13,7 @@ import CustomCarousel from '../../CustomCarousel';
 import { handleError, readFileData, addGear, fetchCategories } from '../../../actions/app.actions';
 import "./AddGear.css"
 import Textarea from "muicss/lib/react/textarea";
+import Urllink_class from "../../Urllink_class";
 class AddGear extends Component {
   constructor() {
     super();
@@ -452,7 +453,7 @@ class AddGear extends Component {
     return (
       <div className="add-gear">
         <Breadcrumb>
-          <BreadcrumbItem>Home</BreadcrumbItem>
+          <Urllink_class name="Home"></Urllink_class>
           <BreadcrumbItem active>Add Gear</BreadcrumbItem>
         </Breadcrumb>
         <h3 class="header">Add Gear</h3>

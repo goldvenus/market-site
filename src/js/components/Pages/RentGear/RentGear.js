@@ -5,6 +5,7 @@ import Sidebar from '../../Rent Gear/RG_sidebar';
 import Main from '../../Rent Gear/RG_main';
 
 import { rentGearProductList } from '../../../actions/app.actions';
+import Urllink_class from "../../Urllink_class";
 
 class RentGear extends Component {
   constructor(props) {
@@ -12,6 +13,21 @@ class RentGear extends Component {
     this.state = {
       catagory: ''
     };
+  //=this.props.match.id;
+  //     console.log("Venus++++++++++++",this.state.typename);
+  //     this.selectedCategory(this.typename);
+  // if(this.state.typename!=''){
+  //    console.log(this.state.category);
+  //   //   this.state.category=this.state.typename;
+  //     this.selectedCategory(this.typename);
+  // }
+  }
+
+  componentWillMount() {
+      //alert(this.props.match.id);
+      this.selectedCategory(this.props.match.params.id);
+      //console.log("Venus+++++++++++++++",this.props);
+
   }
 
   selectedCategory = (value) => {
@@ -27,6 +43,7 @@ class RentGear extends Component {
   };
 
   render() {
+
     return (
       <div className="rent-gear">
         <div className="rent-gear-head">
@@ -34,7 +51,7 @@ class RentGear extends Component {
             <Row>
               <Col >
                 <Breadcrumb >
-                <BreadcrumbItem>Home Page</BreadcrumbItem>
+                <Urllink_class name="Home Page"></Urllink_class>
                   <BreadcrumbItem active>Rent Gear</BreadcrumbItem>
                 </Breadcrumb>
                 <div className="d-flex align-items-center">

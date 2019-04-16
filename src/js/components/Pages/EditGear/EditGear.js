@@ -17,6 +17,7 @@ import {
     fetchCategories,
 } from '../../../actions/app.actions';
 import BarLoader from "react-bar-loader";
+import Urllink_class from "../../Urllink_class";
 
 
 class EditGear extends Component {
@@ -268,8 +269,8 @@ class EditGear extends Component {
                 <div className="edit_listgear_header">
                     <Breadcrumb>
                         <BreadcrumbItem>Home</BreadcrumbItem>
-                        <BreadcrumbItem>Rent Gears</BreadcrumbItem>
-                        <BreadcrumbItem>{gear.categoryName}</BreadcrumbItem>
+                        <Urllink_class name="Rent Gears"></Urllink_class>
+                        <Urllink_class name={gear.categoryName}></Urllink_class>
                         <BreadcrumbItem>{name}</BreadcrumbItem>
                     </Breadcrumb>
                     <h2 className="theme-page-title">Edit Gear</h2>

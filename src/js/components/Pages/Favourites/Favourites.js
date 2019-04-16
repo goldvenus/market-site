@@ -17,6 +17,7 @@ import Rating from "react-rating"
 import EmptyActivity from "../../EmptyActivity";
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import CustomSpinner from "../../CustomSpinner";
+import Urllink_class from "../../Urllink_class";
 class Favourites extends Component {
   constructor(props) {
     super(props);
@@ -208,7 +209,7 @@ class Favourites extends Component {
     return (
       <div className="cart_view centered-content">
         <Breadcrumb className= "card_content_path">
-          <BreadcrumbItem>Home </BreadcrumbItem>
+          <Urllink_class name="Home"> </Urllink_class>
           <BreadcrumbItem active>Favourites</BreadcrumbItem>
         </Breadcrumb>
         <div className="cart-header ">

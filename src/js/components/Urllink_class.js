@@ -7,31 +7,33 @@ class Urllink_class extends Component{
         if (this.props.name == 'Home Page' || this.props.name == 'Home' ) {
             return (
                 <Link to="/">
-                    {this.props.name}
+                    {`/${this.props.name}/`}
                 </Link>
             );
         } else if (this.props.name == "Favourites") {
             return (
                 <Link to="/cart">
-                    {this.props.name}
+                    {`/${this.props.name}/`}
                 </Link>
             );
         } else if (this.props.name == "Cart") {
             return (
                 <Link to="/cart">
-                    {this.props.name}
+                    {`/${this.props.name}/`}
                 </Link>
             );
-        } else if(this.props.name == "Rent Gears" || this.props.name == "Computers" || this.props.name == "Cameras" ||this.props.name == "Drones" &&this.props.name == "Camera Lenses" || this.props.name == "Lightings" || this.props.name == "Camera accessories" || this.props.name == "Rings" || this.props.name == "Audios" ||this.props.name == "Studio Spaces" || this.props.name == "Office Spaces") {
+
+        } else if (this.props.name == "Rent Gears") {
             return (
                 <Link to="/rentgear">
-                    {this.props.name}
+                    {`/${this.props.name}/`}
                 </Link>
             );
-        } else {
+
+        }else {
             return (
-                <Link to="/">
-                    {this.props.name}
+                <Link to={`/rentgear/${this.props.name}`}>
+                    {`/${this.props.name}/`}
                 </Link>
             );
         }

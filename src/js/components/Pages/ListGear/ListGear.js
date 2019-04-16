@@ -145,8 +145,8 @@ class ListGear extends Component {
                 <Row>
                   <Col>
                     <Breadcrumb>
-                      <BreadcrumbItem><Urllink_class name="Home Page"/></BreadcrumbItem>
-                      <BreadcrumbItem active><Urllink_class name="List Gear"/></BreadcrumbItem>
+                      <Urllink_class name="Home Page"/>
+                      <BreadcrumbItem active>List Gear</BreadcrumbItem>
                     </Breadcrumb>
 
                     <div className="d-none d-lg-flex align-items-center ">

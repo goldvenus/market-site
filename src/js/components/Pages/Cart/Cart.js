@@ -6,6 +6,7 @@ import {getCarts, formatDate, days, deleteCartItem, handleError} from '../../../
 import BarLoader from "react-bar-loader";
 import EmptyActivity from '../../EmptyActivity'
 import CustomSpinner from "../../CustomSpinner";
+import Urllink_class from "../../Urllink_class";
 
 class Cart extends Component {
   constructor() {
@@ -149,7 +150,7 @@ class Cart extends Component {
     return (
       <div className="cart_view centered-content">
         <Breadcrumb className= "card_content_path">
-          <BreadcrumbItem>Home </BreadcrumbItem>
+          <Urllink_class name="Home"> </Urllink_class>
           <BreadcrumbItem active>Cart</BreadcrumbItem>
         </Breadcrumb>
         <div className="cart-header">
