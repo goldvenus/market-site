@@ -190,7 +190,7 @@
   }
 
   .gear-right-container {
-    width: 200px;
+    width: 280px;
     border: 5px solid lightgray;
     padding: 5px 15px;
 
@@ -220,15 +220,51 @@
       flex: 1;
     }
   }
+  .success_gear_htag{
+    font-family: Gotham Pro;
+    font-size: 49px;
+    line-height: normal;
 
+    color: #252525;
+
+  }
   .success-message {
     text-align: center;
-    width: 300px;
+    width: 486px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 4px solid lightgray;
+    border: 10px solid #faf8f9;
     padding: 10px;
+    margin-top:40px;
+    margin-bottom: 40px;
+    .success_gear_categoryName{
+      font-size: 16px ;
+      line-height: 27px;
+      text-align: center;
+      color: #3A3A3A;
+    }
+    .success_gear_brand_modal{
+      font-family: Gotham Pro;
+      font-size: 27px;
+      line-height: 39px;
+      text-align: center;
+      color: #252525;
+    }
+    .success_gear_reaplacement{
+      border-top:2px #faf8f9 solid;
+      border-bottom:2px #faf8f9 solid;
+      padding: 15px 0;
+    }
+    .success_first_button {
+      padding:0;
+      width: 45%;
+    }
+    .success_sencond_button {
+      padding:0;
+      width: 45%;
+    }
+
 
     & > * {
       margin-top: 10px;
@@ -260,6 +296,28 @@
       i {
         font-size: 30px;
         color: $primary-color;
+      }
+    }
+  }
+  .custom-theme-row {
+    .custom-theme-col {
+      div {
+        margin:10px 0;
+        font-size: 16px;
+        line-height: 27px;
+        color: #252525;
+      }
+      padding:0;
+      span {
+        background-color: #faf8f9;
+        border: 0;
+        font-size:49px;
+      }
+      input {
+        background-color: #faf8f9;
+        border: 0;
+        font-size:49px;
+        height: 100%;
       }
     }
   }
@@ -332,7 +390,9 @@
   }
   .add-gear-price {
     display: block !important;
-    width:92%;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
 
   }
   #fourth-content{
@@ -351,7 +411,9 @@
 
   }
   .gear-middle-container {
+    margin-left:30px!important;
     width:85% !important;
+    text-align: left;
     .gear-accessories-address >div{
       text-align: left;
       width: 40%;
@@ -391,6 +453,53 @@
       }
     }
   }
+  .success-message {
+    text-align: center;
+    width: 80%!important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 10px solid #faf8f9;
+    padding: 10px;
+    margin-top:40px;
+    .success_gear_categoryName{
+      font-size: 16px ;
+      line-height: 27px;
+      text-align: center;
+      color: #3A3A3A;
+    }
+    .success_gear_brand_modal{
+      font-family: Gotham Pro;
+      font-size: 27px;
+      line-height: 39px;
+      text-align: center;
+      color: #252525;
+    }
+    .success_gear_reaplacement{
+      border-top:2px #faf8f9 solid;
+      border-bottom:2px #faf8f9 solid;
+      padding: 15px 0;
+    }
+    .success_first_button {
+      padding:0;
+      width: 45%;
+    }
+    .success_sencond_button {
+      padding:0;
+      width: 45%;
+    }
+
+
+    & > * {
+      margin-top: 10px;
+    }
+
+    .flex-row {
+      justify-content: space-around;
+      width: 100%;
+    }
+  }
+
 }
 @media(max-width: 500px) {
 
@@ -636,6 +745,62 @@
         font-size:29px !important;
         height: 100%;
       }
+    }
+  }
+  .success_gear_htag{
+    font-size: 27px !important;
+  }
+  .success-message {
+    text-align: center;
+    width: 486px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 10px solid #faf8f9;
+    padding: 10px;
+    margin-top:40px;
+    margin-bottom: 40px;
+    .success_gear_categoryName{
+      font-size: 16px ;
+      line-height: 27px;
+      text-align: center;
+      color: #3A3A3A;
+    }
+    .success_gear_brand_modal{
+      font-family: Gotham Pro;
+      font-size: 27px;
+      line-height: 39px;
+      text-align: center;
+      color: #252525;
+    }
+    .success_gear_reaplacement{
+      border-top:2px #faf8f9 solid;
+      border-bottom:2px #faf8f9 solid;
+      padding: 15px 0;
+    }
+    .buttons-container {
+      display: block;
+      .success_first_button {
+        padding:0;
+        width: 100%;
+      }
+      .success_sencond_button {
+        padding:0;
+        margin: 0 !important;
+        margin-top: 10px!important;
+        width: 100%;
+      }
+
+    }
+
+
+    & > * {
+      margin-top: 10px;
+    }
+
+    .flex-row {
+      justify-content: space-around;
+      width: 100%;
     }
   }
 }

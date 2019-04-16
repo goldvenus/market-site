@@ -268,7 +268,7 @@ class AddGear extends Component {
     const { selectedType, accessories, numberOfUserImage, categoryName, brand, model, address, city, description, replacementValue, pricePerDay } = this.state;
 
     let mappedAccessories = accessories.map((accessory, index) => (
-      <div key={'accessory-' + index} className="">{accessory}</div>
+      <div key={'accessory-' + index} className="d-md-flex">{accessory}</div>
     ));
     return <div className="add-gear-price">
       <div id="fourth-content">
@@ -294,7 +294,7 @@ class AddGear extends Component {
       <div className="gear-middle-container" id="middle-container">
         <div className="flex-row gear-accessories-address">
           <div>
-            <div className="theme-text-small text-gray">Accessories</div>
+            <div className="theme-text-small text-gray d-md-flex">Accessories</div>
             {
               mappedAccessories
             }
@@ -414,13 +414,13 @@ class AddGear extends Component {
     if (isGearAdded) {
       return <div className="add-gear">
         <h1><i className="fa fa-check-circle primary-color"></i></h1>
-        <h3>Gear Added Successfully</h3>
+        <h3 className="success_gear_htag">Gear Added Successfully</h3>
 
         <div className="success-message">
-          <div className="theme-text-small">{categoryName}</div>
-          <h6>{brand + ' ' + model}</h6>
+          <div className="theme-text-small success_gear_categoryName">{categoryName}</div>
+          <h6 className="success_gear_brand_modal">{brand + ' ' + model}</h6>
 
-          <div className="flex-row">
+          <div className="flex-row success_gear_reaplacement">
             <div>
               <div className="theme-text-small">Replacement Value</div>
               <div>${replacementValue}</div>
@@ -432,9 +432,9 @@ class AddGear extends Component {
           </div>
 
           <div className="flex-row buttons-container">
-            <button className="theme-btn theme-btn-secondery theme-btn-link"><Link to="/listgear">List Gear</Link>
+            <button className="theme-btn theme-btn-secondery theme-btn-link success_first_button"><Link to="/listgear">List Gear</Link>
             </button>
-            <button className="theme-btn theme-btn-primary theme-btn-link"><Link to={`/gear/${gearId}`}>View Gear</Link>
+            <button className="theme-btn theme-btn-primary theme-btn-link success_sencond_button"><Link to={`/gear/${gearId}`}>View Gear</Link>
             </button>
           </div>
         </div>
