@@ -121,25 +121,27 @@ class AddGear extends Component {
             </div>
           </div>
           <div className="theme-column info-right-container" id="new-tabs" width="35%">
-            <div className="type-tabs">
-              <input name="type" id="new" type="radio" value="new" onChange={this.onTypeChange}/>
-              <label className={selectedType === 'new' ? 'active' : ''} htmlFor="new">New</label>
-              <input name="type" id="like-new" type="radio" value="like_new" onChange={this.onTypeChange}/>
-              <label className={selectedType === 'like_new' ? 'active' : ''} htmlFor="like-new">Like New</label>
-              <input name="type" id="slightly-worn" type="radio" value="slightly_worn" onChange={this.onTypeChange}/>
-              <label className={selectedType === 'slightly_worn' ? 'active' : ''} htmlFor="slightly-worn">Slightly
-                Worn</label>
-              <input name="type" id="worn" type="radio" value="worn" onChange={this.onTypeChange}/>
-              <label className={selectedType === 'worn' ? 'active' : ''} htmlFor="worn">Worn</label>
-            </div>
-            <div className="theme-form-field" id="kit-style">
-                <div className="input_svg pretty p-svg p-plain">
-                    <input type="checkbox" onChange={(e) => this.setState({ isKit: e.target.checked })}/>
-                    <div className="state">
-                        <img className="svg check_svg" src="/images/Icons/task.svg"/>
-                    </div>
-                </div>
-                <Label for="is-kit">Is this a Kit?</Label>
+            <div className="info-right-newtabs-left">
+              <div className="type-tabs">
+                <input name="type" id="new" type="radio" value="new" onChange={this.onTypeChange}/>
+                <label className={selectedType === 'new' ? 'active' : ''} htmlFor="new">New</label>
+                <input name="type" id="like-new" type="radio" value="like_new" onChange={this.onTypeChange}/>
+                <label className={selectedType === 'like_new' ? 'active' : ''} htmlFor="like-new">Like New</label>
+                <input name="type" id="slightly-worn" type="radio" value="slightly_worn" onChange={this.onTypeChange}/>
+                <label className={selectedType === 'slightly_worn' ? 'active' : ''} htmlFor="slightly-worn">Slightly
+                  Worn</label>
+                <input name="type" id="worn" type="radio" value="worn" onChange={this.onTypeChange}/>
+                <label className={selectedType === 'worn' ? 'active' : ''} htmlFor="worn">Worn</label>
+              </div>
+              <div className="theme-form-field" id="kit-style">
+                  <div className="input_svg pretty p-svg p-plain">
+                      <input type="checkbox" onChange={(e) => this.setState({ isKit: e.target.checked })}/>
+                      <div className="state">
+                          <img className="svg check_svg" src="/images/Icons/task.svg"/>
+                      </div>
+                  </div>
+                  <Label for="is-kit">Is this a Kit?</Label>
+              </div>
             </div>
             <div>
               <div className="theme-text-small">Accessories</div>
@@ -271,7 +273,7 @@ class AddGear extends Component {
     return <div className="add-gear-price">
       <div id="fourth-content">
         <div className="theme-text-small text-gray">{categoryName}</div>
-        <h4 className="header" id="label-content">{brand + ' ' + model}</h4>
+        <h4 id="label-content">{brand + ' ' + model}</h4>
 
           <div className="price-type-tabs">
               <input id="new" type="radio" value="new"/>
@@ -329,7 +331,7 @@ class AddGear extends Component {
         </div>
         <div className="buttons-container">
           <button className="theme-btn theme-btn-secondery" onClick={this.previousStep.bind(this)}><span
-            className="fa fa-angle-left"/><span class="hide-bigscreen">Back</span></button>
+            className="fa fa-angle-left d-sm-none d-md-none d-lg-block"/><span class="d-sm-none d-lg-none d-md-block" >Back</span></button>
           <button className="theme-btn theme-btn-primary" onClick={this.addGearDetails.bind(this)}>Submit <span
             className="fa fa-angle-right"/></button>
         </div>
