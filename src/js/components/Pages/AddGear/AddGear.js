@@ -12,6 +12,7 @@ import { element } from 'prop-types';
 import CustomCarousel from '../../CustomCarousel';
 import { handleError, readFileData, addGear, fetchCategories } from '../../../actions/app.actions';
 import "./AddGear.css"
+import Textarea from "muicss/lib/react/textarea";
 class AddGear extends Component {
   constructor() {
     super();
@@ -92,9 +93,9 @@ class AddGear extends Component {
 
     return (
       <Form className="theme-form add-gear-info container add-gear-info-cusvenus" id="tablet-form">
-        <div className="flex-row">
-          <div className="theme-column " width="35%">
-            <Dropdown className="theme-form-field theme-form-dropdown" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+        <div className="flex-row d-md-block d-lg-flex">
+          <div className="theme-column category_first" width="35%">
+            <Dropdown className="theme-form-field theme-form-dropdown category_first" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
               <DropdownToggle caret>
                 {categoryName}
               </DropdownToggle>
@@ -107,20 +108,26 @@ class AddGear extends Component {
                 }
               </DropdownMenu>
             </Dropdown>
-            <div className="theme-form-field">
+            <div className="theme-form-field category_first">
               <CustomInput required="required" value={brand} onChange={(value) => this.setState({ brand: value })}
                            placeholder='Brand' type="text"/>
             </div>
-            <div className="theme-form-field">
+            <div className="theme-form-field category_first">
               <CustomInput placeholder='Model' value={model} onChange={(value) => this.setState({ model: value })}
                            type="text"/>
             </div>
-            <div className="theme-form-field">
-              <CustomInput placeholder='Description' type="textarea" value={description}
-                           onChange={(value) => this.setState({ description: value })} type="text"/>
+            <div className="theme-form-field category_first">
+                {/*<Textarea className="ELBLI_desc" label="DESCRIPTION" onChange = {(value) => this.setState({ description : value })} defaultValue={gear.description} floatingLabel={true}/>*/}
+
+
+              <Textarea className="category_description_ta" label='Description' floatingLabel={true}
+                           onChange={(e) => {
+                             console.log(e.target.value);
+                             this.setState({ description: e.target.value })
+                           }} type="text"/>
             </div>
           </div>
-          <div className="theme-column info-right-container" id="new-tabs" width="35%">
+          <div className="theme-column info-right-container " id="new-tabs" width="35%">
             <div className="info-right-newtabs-left">
               <div className="type-tabs">
                 <input name="type" id="new" type="radio" value="new" onChange={this.onTypeChange}/>
@@ -178,7 +185,7 @@ class AddGear extends Component {
                    <div className="add-gear-addimage file-input-container empty_page_addgear">
                        <img  src="/images/Icons/uploadimage.svg">
                        </img>
-                        <p>Upload Photos</p>
+                        <p className="empty_page_addgear_img">Upload Photos</p>
                         <p>Upload only png, jpg or jpeg</p>
                        <i><button className="theme-btn theme-btn-primary empty_addgear_btn">Upload</button></i>
                         <input type='file' onChange={this.addImage.bind(this)}></input>
@@ -341,6 +348,7 @@ class AddGear extends Component {
 
   renderContent() {
     const { progressStep } = this.state;
+    console.log("step:", progressStep);
     switch (progressStep) {
       case 0:
         return this.renderInfo();
@@ -464,7 +472,7 @@ class AddGear extends Component {
                 {
                   this.state.progressStep !== 0 ?
                     <button className="theme-btn theme-btn-secondary theme-back-btn" onClick={this.previousStep.bind(this)}><span
-                      className="fa fa-angle-left"/> Back</button> :
+                      className="fa fa-angle-left"/> Back  </button> :
                     null
                 }
 

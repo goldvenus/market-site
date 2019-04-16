@@ -7,13 +7,39 @@
   .header {
     font-size: 46px;
   }
+  .empty_page_addgear_img{
+    font-family: Gotham Pro;
+    font-size: 20px;
+    line-height: 25px;
+    text-align: center;
+    color: #252525;
+  }
   .add-gear-info-cusvenus{
     display: flex;
     justify-content: center;
   }
   .flex-row {
     width: 100%;
+    display: flex;
     justify-content: center;
+    .theme-column {
+      width: 35%;
+      .category_first {
+        width: 100%;
+        padding-right: 10px;
+
+      }
+      .btn-secondary{
+        width: 90%;
+      }
+      .category_description_ta{
+        width: 91%;
+        border: 1px solid rgba(31, 34, 38, 0.3);
+        textarea {
+          border-bottom:0;
+        }
+      }
+    }
   }
 
   .theme-form-dropdown {
@@ -498,6 +524,28 @@
       justify-content: space-around;
       width: 100%;
     }
+  }
+  .flex-row{
+    width: 100%;
+    .theme-column {
+      width: 100% !important;
+      .category_first {
+        width: 100% !important;
+
+        }
+      .category_description_ta{
+        width: 100%!important;
+        textarea {
+          width: 100% !important;
+        }
+      }
+    }
+  }
+  #continue-button {
+
+  }
+  #chip_style {
+    width: 96%;
   }
 
 }
