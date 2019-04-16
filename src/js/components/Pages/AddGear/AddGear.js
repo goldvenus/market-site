@@ -93,7 +93,7 @@ class AddGear extends Component {
     return (
       <Form className="theme-form add-gear-info container add-gear-info-cusvenus" id="tablet-form">
         <div className="flex-row">
-          <div className="theme-column " width="40%">
+          <div className="theme-column " width="35%">
             <Dropdown className="theme-form-field theme-form-dropdown" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
               <DropdownToggle caret>
                 {categoryName}
@@ -120,7 +120,7 @@ class AddGear extends Component {
                            onChange={(value) => this.setState({ description: value })} type="text"/>
             </div>
           </div>
-          <div className="theme-column info-right-container" id="new-tabs">
+          <div className="theme-column info-right-container" id="new-tabs" width="35%">
             <div className="type-tabs">
               <input name="type" id="new" type="radio" value="new" onChange={this.onTypeChange}/>
               <label className={selectedType === 'new' ? 'active' : ''} htmlFor="new">New</label>
@@ -166,10 +166,23 @@ class AddGear extends Component {
     return (<div className="add-gear-photos">
       <div className="add-gear-images">
         {mappedImages}
-        <div className="add-gear-addimage file-input-container">
-          <i className="fas fa-plus-circle"></i>
-          <input type="file" onChange={this.addImage.bind(this)}/>
-        </div>
+          {
+              this.state.numberOfUserImage.length>0 ?
+                  <div className="add-gear-addimage file-input-container">
+                      <i className="fas fa-plus-circle"></i>
+                      <input type="file" onChange={this.addImage.bind(this)}/>
+                  </div>
+                  :
+                   <div className="add-gear-addimage file-input-container empty_page_addgear">
+                       <img  src="/images/Icons/uploadimage.svg">
+                       </img>
+                        <p>Upload Photos</p>
+                        <p>Upload only png, jpg or jpeg</p>
+                       <i><button className="theme-btn theme-btn-primary empty_addgear_btn">Upload</button></i>
+                        <input type='file' onChange={this.addImage.bind(this)}></input>
+                   </div>
+
+          }
       </div>
     </div>);
   }
@@ -260,17 +273,17 @@ class AddGear extends Component {
         <div className="theme-text-small text-gray">{categoryName}</div>
         <h4 className="header" id="label-content">{brand + ' ' + model}</h4>
 
-        <div className="price-type-tabs">
-          <input id="new" type="radio" value="new"/>
-          <label className={selectedType === 'new' ? 'active' : ''} htmlFor="new">New</label>
-          <input id="like-new" type="radio" value="like_new"/>
-          <label className={selectedType === 'new' ? 'active' : ''}id="label-likenew" htmlFor="like-new">Like New</label>
-          <input id="slightly-worn" type="radio" value="slightly_worn"/>
-          <label className={selectedType === 'new' ? 'active' : ''}id="label-slightly" htmlFor="slightly-worn">Slightly
-            Worn</label>
-          <input id="worn" type="radio" value="worn"/>
-          <label className={selectedType === 'new' ? 'active' : ''}id="label-worn" htmlFor="worn">Worn</label>
-        </div>
+          <div className="price-type-tabs">
+              <input id="new" type="radio" value="new"/>
+              <label className={selectedType === 'new' ? 'active' : ''} htmlFor="new">New</label>
+              <input id="like-new" type="radio" value="like_new"/>
+              <label className={selectedType === 'like_new' ? 'active' : ''} htmlFor="like-new">Like New</label>
+              <input id="slightly-worn" type="radio" value="slightly_worn"/>
+              <label className={selectedType === 'slightly_worn' ? 'active' : ''} htmlFor="slightly-worn">Slightly
+                  Worn</label>
+              <input id="worn" type="radio" value="worn"/>
+              <label className={selectedType === 'worn' ? 'active' : ''} htmlFor="worn">Worn</label>
+          </div>
 
         <div className="gear-carousel">
           <CustomCarousel items={numberOfUserImage}/>
