@@ -146,6 +146,7 @@ class ListGear extends Component {
                   <Col>
                     <Breadcrumb>
                       <Urllink_class name="Home Page"/>
+                        <span className="space_slash_span">/</span>
                       <BreadcrumbItem active>List Gear</BreadcrumbItem>
                     </Breadcrumb>
 

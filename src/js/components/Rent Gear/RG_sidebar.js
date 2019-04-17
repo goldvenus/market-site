@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import Search from './search';
-import { fetchCategories } from '../../actions/app.actions';
 import $ from 'jquery';
+import {Rent_category} from "./Rent_category";
 
 class Sidebar extends Component {
   constructor(props) {
@@ -14,9 +14,18 @@ class Sidebar extends Component {
       category_name: ""
     }
   }
-  componentDidMount() {
-    fetchCategories();
+
+  componentWillMount() {
+    console.log("Sidebar_props", this.props.sideid);
+    if(this.props.sideid!==undefined){
+      const sideid= this.props.sideid;
+      this.setState({activeIndex: sideid});
+      const name = Rent_category[sideid];
+      this.props.callback(name);
+
+      }
   }
+
   categoryhandler() {
     if($('.category-mobile').hasClass('active')){
       $('.category-mobile').removeClass('active') ;
@@ -36,6 +45,8 @@ class Sidebar extends Component {
 
   handleClick(index, name) {
     let activeIndex = this.state.activeIndex === index ? null : index;
+    console.log("index", index);
+    console.log("name", name);
     this.setState({
       activeIndex,
       category_name: name

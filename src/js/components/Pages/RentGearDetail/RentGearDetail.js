@@ -120,7 +120,7 @@ class RentGearDetail extends Component {
                                 <span className="theme-text-small text-gray">per day</span>
                             </CardText>
                             <div className="buttons">
-                                <button className={`cart ${carted ? 'disabled' : ''}`}>
+                                <button className={`cart ${carted ? 'disabled' : ''}`} >
                                     {
                                         carted ? 'Added to cart' : <Link to={`/gear/detail/${gearid}`}>Add to cart</Link>
                                     }
@@ -430,8 +430,11 @@ class RentGearDetail extends Component {
                         <div className="right-container1 row">
                             <Breadcrumb>
                                 <Urllink_class name="Home"></Urllink_class>
+                                <span className="space_slash_span">/</span>
                                 <Urllink_class name="Rent Gears"></Urllink_class>
+                                <span className="space_slash_span">/</span>
                                 <Urllink_class name={categoryName}></Urllink_class>
+                                <span className="space_slash_span">/</span>
                                 <BreadcrumbItem active>{name}</BreadcrumbItem>
                             </Breadcrumb>
                             <div className="gear-container row">

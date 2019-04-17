@@ -454,6 +454,7 @@ class AddGear extends Component {
       <div className="add-gear">
         <Breadcrumb>
           <Urllink_class name="Home"></Urllink_class>
+            <span className="space_slash_span">/</span>
           <BreadcrumbItem active>Add Gear</BreadcrumbItem>
         </Breadcrumb>
         <h3 class="header">Add Gear</h3>

@@ -223,6 +223,7 @@ const getUser = async () => {
 
           getCarts();
           getFavourites();
+          fetchCategories();
         }
       }
     }

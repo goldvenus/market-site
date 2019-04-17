@@ -268,9 +268,12 @@ class EditGear extends Component {
             <div className="edit_listgear container centered-content">
                 <div className="edit_listgear_header">
                     <Breadcrumb>
-                        <BreadcrumbItem>Home</BreadcrumbItem>
-                        <Urllink_class name="Rent Gears"></Urllink_class>
+                        <Urllink_class name="Home"></Urllink_class>
+                        <span className="space_slash_span">/</span>
+                        <Urllink_class name="Rent Gears">/</Urllink_class>
+                        <span className="space_slash_span">/</span>
                         <Urllink_class name={gear.categoryName}></Urllink_class>
+                        <span className="space_slash_span">/</span>
                         <BreadcrumbItem>{name}</BreadcrumbItem>
                     </Breadcrumb>
                     <h2 className="theme-page-title">Edit Gear</h2>

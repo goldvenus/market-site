@@ -65,8 +65,11 @@ class ViewGear extends Component {
           <div>
             <Breadcrumb>
               <Urllink_class name="Home"></Urllink_class>
+                <span className="space_slash_span">/</span>
               <Urllink_class name="Rent Gears"></Urllink_class>
+                <span className="space_slash_span">/</span>
               <Urllink_class name={gear.categoryName}></Urllink_class>
+                <span className="space_slash_span">/</span>
               <BreadcrumbItem active>{name}</BreadcrumbItem>
             </Breadcrumb>
 

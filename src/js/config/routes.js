@@ -39,7 +39,7 @@ export default (
       <Route exact path="/checkout" component={Checkout}/>
       <Route exact path="/payment" component={Payment}/>
       <Route exact path='/listgear' component={ListGear}/>
-      <Route exact path='/rentgear' component={RentGear}/>
+      {/*<Route exact path='/rentgear' component={RentGear}/>*/}
       <Route exact path='/rentgear/:id' component={RentGear}/>
       <Route exact path='/search' component={SearchResults}/>
       <Route exact path='/favourites' component={Favourites}/>

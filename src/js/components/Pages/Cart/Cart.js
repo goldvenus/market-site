@@ -151,6 +151,7 @@ class Cart extends Component {
       <div className="cart_view centered-content">
         <Breadcrumb className= "card_content_path">
           <Urllink_class name="Home"> </Urllink_class>
+            <span className="space_slash_span">/</span>
           <BreadcrumbItem active>Cart</BreadcrumbItem>
         </Breadcrumb>
         <div className="cart-header">
