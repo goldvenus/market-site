@@ -37,7 +37,7 @@ export default (
       <Route exact path="/gear/detail/:id" component={RentGearDetail}/>
       <Route exact path="/cart" component={Cart}/>
       <Route exact path="/checkout" component={Checkout}/>
-      <Route exact path="/payment" component={Payment}/>
+      <Route exact path="/payment/:id" component={Payment}/>
       <Route exact path='/listgear' component={ListGear}/>
       <Route exact path='/rentgear' component={RentGear}/>
       <Route exact path='/search' component={SearchResults}/>

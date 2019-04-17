@@ -324,10 +324,35 @@ const addCart = (data) => {
   });
 };
 
-const checkout = (data) => {
+const checkout = data => {
   return new Promise(async (resolve, reject) => {
     try {
-      let response = await post('checkOut', data);
+      let response = await post('docheckout', data);
+      resolve(response.data);
+    } catch (error) {
+      handleError(error);
+      reject(error);
+    }
+  });
+};
+
+const getCheckout = data => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let response = await post('getcheckout', {user_id: data});
+      resolve(response.data);
+    } catch (error) {
+      handleError(error);
+      reject(error);
+    }
+  });
+}
+
+const payment = data => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      console.log("do payment");
+      let response = await post('dopayment', data);
       resolve(response);
     } catch (error) {
       handleError(error);
@@ -336,17 +361,17 @@ const checkout = (data) => {
   });
 };
 
-const payment = (data) => {
+const getPaymentCards = data => {
   return new Promise(async (resolve, reject) => {
     try {
-      let response = await post('payment', data);
-      resolve(response);
+      let response = await post('getpaycards', {user_id: data});
+      resolve(response.data);
     } catch (error) {
       handleError(error);
       reject(error);
     }
   });
-};
+}
 
 const getCarts = async () => {
   try {
@@ -543,7 +568,7 @@ const socialLogin = async (idToken, accessToken) => {
 export {
   register, confirmUser, login, logout, clearError, handleError, getUser,
   readFileData, addGear, fetchCategories, getListGears, getAllGears, getGear, addCart, getCarts,
-  formatDate, days, checkout, payment, rentGearProductList, dashboardMyListing,
+  formatDate, days, checkout, getCheckout, payment, getPaymentCards, rentGearProductList, dashboardMyListing,
   dashboardMyRentals, search, addFavourites, getFavourites, deleteFavourite, newArrivals,
   deleteCartItem, deleteGear, socialLogin, viewUserDashboard, sendResetPasswordEmail, confirmResetPassword
 };

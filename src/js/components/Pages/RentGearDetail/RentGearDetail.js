@@ -140,7 +140,7 @@ class RentGearDetail extends Component {
         // make img objects for bottom carousel
         const children = img_arr.map((item, i) => (
             <div key={i} className='carousel-image-container'>
-                <img src={item} alt="Image" />
+                <img src={item} alt="" />
             </div>
         ));
         return (<ItemsCarousel

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
-import {getCarts, formatDate, days, deleteCartItem, handleError} from '../../../actions/app.actions';
+import { getCarts, formatDate, days, deleteCartItem, handleError } from '../../../actions/app.actions';
 import BarLoader from "react-bar-loader";
 import EmptyActivity from '../../EmptyActivity'
 
@@ -13,7 +13,7 @@ class Cart extends Component {
         loadingdata:false
     }
 
-     this.dogetCarts();
+     // this.dogetCarts();
   }
   async dogetCarts() {
       try {
@@ -126,10 +126,12 @@ class Cart extends Component {
         );
     }
   render() {
-    if (!this.state.loadingdata) {
-      return <BarLoader color="#F82462" height="5" />;
-    }
-      const { carts } = this.props;
+    // if (!this.state.loadingdata) {
+    //   return <BarLoader color="#F82462" height="5" />;
+    // }
+    const { carts } = this.props;
+    if (!carts)
+        return <BarLoader color="#F82462" height="5" />;
     return (
       <div className="cart_view centered-content">
         <Breadcrumb className= "card_content_path">
@@ -144,10 +146,10 @@ class Cart extends Component {
           </div>
         </div>
         <div className="cart-table-div">
-                    { !carts.length ? (
-                        <EmptyActivity e_name="Add from Favourites" e_path="/favourites" e_title="YOUR CART IS EMPTY" e_img_name = "cart"/>
-                    ) :(
-                        <Table className="theme-table">
+                { !carts.length ? (
+                    <EmptyActivity e_name="Add from Favourites" e_path="/favourites" e_title="YOUR CART IS EMPTY" e_img_name = "cart"/>
+                ) :(
+                    <Table className="theme-table">
 
                 <thead>
                     <tr className= "d-none d-lg-table">

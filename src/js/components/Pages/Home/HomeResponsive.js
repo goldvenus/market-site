@@ -12,7 +12,6 @@ import {
   IconBtnCamera,
   IconBtnDrone,
   IconBtnLight,
-  IconLocation,
   IconSearch,
 } from './images';
 
@@ -374,7 +373,7 @@ class Home extends React.Component {
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>CAMERA</span>
                     <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/cameras"><i class="fa fa-chevron-right"></i></Link>
+                      <Link to="/cameras"><i className="fa fa-chevron-right"></i></Link>
                       </button>
                     </div>
                   </div>
@@ -385,7 +384,7 @@ class Home extends React.Component {
                     <div className="desc">
                       <span style={{ fontWeight: 'bold' }}>COMPUTER & ELECTRONICS</span>
                       <button className="theme-btn theme-btn-outline-white">
-                        <Link to="/cameras"><i class="fa fa-chevron-right"></i></Link>
+                        <Link to="/cameras"><i className="fa fa-chevron-right"></i></Link>
                       </button>
                     </div>
                   </div>
@@ -396,7 +395,7 @@ class Home extends React.Component {
                     <div className="desc">
                       <span style={{ fontWeight: 'bold' }}>DRONES</span>
                       <button className="theme-btn theme-btn-outline-white">
-                        <Link to="/cameras"><i class="fa fa-chevron-right"></i></Link>
+                        <Link to="/cameras"><i className="fa fa-chevron-right"></i></Link>
                       </button>
                     </div>
                   </div>
@@ -407,7 +406,7 @@ class Home extends React.Component {
                     <div className="desc">
                       <span style={{ fontWeight: 'bold' }}>LENSES</span>
                       <button className="theme-btn theme-btn-outline-white">
-                        <Link to="/lenses"><i class="fa fa-chevron-right"></i></Link>
+                        <Link to="/lenses"><i className="fa fa-chevron-right"></i></Link>
                       </button>
                     </div>
                   </div>
@@ -418,7 +417,7 @@ class Home extends React.Component {
                     <div className="desc">
                       <span style={{ fontWeight: 'bold' }}>CAMERA ACCESSORIES</span>
                       <button className="theme-btn theme-btn-outline-white">
-                        <Link to="/camera_accessories"><i class="fa fa-chevron-right"></i></Link>
+                        <Link to="/camera_accessories"><i className="fa fa-chevron-right"></i></Link>
                       </button>
                     </div>
                   </div>
@@ -429,7 +428,7 @@ class Home extends React.Component {
                     <div className="desc">
                       <span style={{ fontWeight: 'bold' }}>OFFICE SPACES</span>
                       <button className="theme-btn theme-btn-outline-white">
-                        <Link to="/office_spaces"><i class="fa fa-chevron-right"></i></Link>
+                        <Link to="/office_spaces"><i className="fa fa-chevron-right"></i></Link>
                       </button>
                     </div>
                   </div>
@@ -440,7 +439,7 @@ class Home extends React.Component {
                     <div className="desc">
                       <span style={{ fontWeight: 'bold' }}>OTHER</span>
                       <button className="theme-btn theme-btn-outline-white">
-                        <Link to="/office_spaces"><i class="fa fa-chevron-right"></i></Link>
+                        <Link to="/office_spaces"><i className="fa fa-chevron-right"></i></Link>
                       </button>
                     </div>
                   </div>

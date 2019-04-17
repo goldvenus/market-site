@@ -8,7 +8,7 @@ import EmptyRental from './Empty_Rental';
 
 const MyRentalItem = ({ rentItem }) => (
     <tr>
-      <td width="15%">{<img src={rentItem.numberOfUserImage[0]} className="gear-img" />}</td>
+      <td width="15%">{<img src={rentItem.numberOfUserImage[0]} alt="" className="gear-img" />}</td>
       <td className="gear" width="20%">
         <p >{rentItem.brand}</p>
         <p className="theme-text-small text-muted">{rentItem.categoryName}</p>

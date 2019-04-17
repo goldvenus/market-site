@@ -118,9 +118,9 @@
   width: 31px;
   height: 31px;
   cursor: pointer;
-
-  span {
-    margin: 4px 0 0 0;
+  input {
+    width: 100% !important;
+    height: 100% !important;
   }
 }
 .checkbox-label {
