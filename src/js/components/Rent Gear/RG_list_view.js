@@ -32,7 +32,6 @@ const ListView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city,
                     return <i className="fa fa-star" key={i}></i>
                   })
                 }
-
               </span> &nbsp;
               <span>
                 {rating}

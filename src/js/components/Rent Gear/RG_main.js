@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import CustomInput from '../CustomInput';
-import { Row, Col, Form, ListGroup, ListGroupItem, TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
+import { Row, Col, Form, TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import classnames from 'classnames';
 import CardView from './RG_card_view';
 import ListView from './RG_list_view';
 import TableView from './RG_table_view';
-import { addCart, formatDate, getGear, handleError, rentGearProductList } from '../../actions/app.actions';
+import { addCart, formatDate, handleError, rentGearProductList } from '../../actions/app.actions';
 import CartModal1 from "../common/CartModal1";
 import CartModal from "../common/CartModal";
 import BarLoader from "react-bar-loader";
@@ -19,7 +19,6 @@ class Main extends Component {
       searchText: '',
       locationText: '',
       activeTab: '1',
-
       modal_open_st: 0,
       carted: false,
       gear: {},
@@ -30,12 +29,18 @@ class Main extends Component {
     }
   }
 
-  componentDidMount() {
-    rentGearProductList({
-      categoryName: "Cameras",
-      product_region: this.state.locationText,
-      brand: this.state.searchText
-    });
+  shouldComponentUpdate(props, state) {
+    if (props !== this.props) {
+      const category = this.props.category !== undefined ? this.props.category : "Cameras";
+      rentGearProductList({
+        categoryName: category,
+        product_region: this.state.locationText,
+        brand: this.state.
+            searchText
+      });
+      return true;
+    }
+    return false;
   }
 
   onOpenModal = gearid => {
@@ -83,7 +88,6 @@ class Main extends Component {
         });
 
         if (res) {
-          // alert('added');
           this.setState({
             modal_open_st: 0
           });
@@ -125,7 +129,7 @@ class Main extends Component {
                 <div className="search-input">
                   <CustomInput icon="fa-search" placeholder="Search" type="text" label="Search" onChange={
                     (value) => {
-                      this.setState({ searchText: value } , ()=>{
+                      this.setState({ searchText: value } , () =>{
                         rentGearProductList({
                           categoryName: category,
                           product_region: this.state.locationText,
