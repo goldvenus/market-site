@@ -12,6 +12,7 @@ import AddGear from '../components/Pages/AddGear/AddGear';
 import Cart from '../components/Pages/Cart/Cart';
 import Checkout from '../components/Pages/Checkout/Checkout';
 import Payment from '../components/Pages/Payment/Payment';
+import PaymentSuccess from '../components/Pages/Payment/PaymentSuccess';
 import ListGear from '../components/Pages/ListGear/ListGear';
 import RentGear from '../components/Pages/RentGear/RentGear';
 import RentGearDetail from '../components/Pages/RentGearDetail/RentGearDetail';
@@ -38,8 +39,10 @@ export default (
       <Route exact path="/cart" component={Cart}/>
       <Route exact path="/checkout" component={Checkout}/>
       <Route exact path="/payment/:id" component={Payment}/>
+      <Route exact path="/payment/:id/:tid" component={PaymentSuccess}/>
       <Route exact path='/listgear' component={ListGear}/>
       <Route exact path='/rentgear' component={RentGear}/>
+      <Route exact path='/rentgear/:id' component={RentGear}/>
       <Route exact path='/search' component={SearchResults}/>
       <Route exact path='/favourites' component={Favourites}/>
       <Route exact path='/partners' component={Partner}/>

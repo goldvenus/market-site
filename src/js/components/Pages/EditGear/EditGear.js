@@ -16,8 +16,8 @@ import {
     readFileData,
     fetchCategories,
 } from '../../../actions/app.actions';
-import CustomSpinner from '../../CustomSpinner'
 import BarLoader from "react-bar-loader";
+import Urllink_class from "../../Urllink_class";
 
 
 class EditGear extends Component {
@@ -266,11 +266,14 @@ class EditGear extends Component {
         }
         return (
             <div className="edit_listgear container centered-content">
-                <div className="edit_listgear_header container">
+                <div className="edit_listgear_header">
                     <Breadcrumb>
-                        <BreadcrumbItem>Home</BreadcrumbItem>
-                        <BreadcrumbItem>Rent Gears</BreadcrumbItem>
-                        <BreadcrumbItem>{gear.categoryName}</BreadcrumbItem>
+                        <Urllink_class name="Home"></Urllink_class>
+                        <span className="space_slash_span">/</span>
+                        <Urllink_class name="Rent Gears">/</Urllink_class>
+                        <span className="space_slash_span">/</span>
+                        <Urllink_class name={gear.categoryName}></Urllink_class>
+                        <span className="space_slash_span">/</span>
                         <BreadcrumbItem>{name}</BreadcrumbItem>
                     </Breadcrumb>
                     <h2 className="theme-page-title">Edit Gear</h2>
@@ -303,7 +306,7 @@ class EditGear extends Component {
                                                {/*onChange={(e) => this.setState({ isKit: e.target.checked })}*/}
                                         {/*/>*/}
                                         <div className="input_svg pretty p-svg p-plain">
-                                            <input type="checkbox" onChange={(e) => this.setState({ isKit: e.target.checked })}/>
+                                            <input type="checkbox" checked={isKit} onChange={(e) => this.setState({ isKit: e.target.checked })}/>
                                             <div className="state">
                                                 <img className="svg check_svg" src="/images/Icons/task.svg"/>
                                             </div>

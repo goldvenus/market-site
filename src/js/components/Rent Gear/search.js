@@ -8,20 +8,13 @@ import { rentGearProductList } from '../../actions/app.actions';
 class Search extends Component {
     constructor(props) {
         super(props);
-    
+
         this.state = {
           searchText: '',
           locationText: '',
         }
-      }
-    
-      componentDidMount(){
-        rentGearProductList({
-          categoryName: "Cameras",
-          product_region: this.state.locationText,
-          brand: this.state.searchText
-        });
-      }
+    }
+
     render() {
         const {catagory} = this.props; 
         return ( 

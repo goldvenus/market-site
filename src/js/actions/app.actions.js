@@ -2,6 +2,7 @@ import axios from 'axios';
 import { API_URL, API_URL_NEW, ACTIONS } from '../constants';
 import store from '../store';
 import moment from 'moment';
+import CustomSpinner from "../components/CustomSpinner";
 
 const dispatch = store.dispatch;
 
@@ -133,7 +134,7 @@ const login = async (data) => {
       localStorage.idToken = idToken;
       localStorage.refreshToken = refreshToken;
       localStorage.userId = response.data.userAttributes.userid;
-
+      localStorage.userEmail = data.username;
       return response;
     }
   } catch (error) {
@@ -222,6 +223,7 @@ const getUser = async () => {
 
           getCarts();
           getFavourites();
+          fetchCategories();
         }
       }
     }
@@ -351,9 +353,10 @@ const getCheckout = data => {
 const payment = data => {
   return new Promise(async (resolve, reject) => {
     try {
-      console.log("do payment");
-      let response = await post('dopayment', data);
-      resolve(response);
+      let param = data;
+      param.email = localStorage.userEmail;
+      let response = await post('dopayment', param);
+      resolve(response.data);
     } catch (error) {
       handleError(error);
       reject(error);
@@ -371,7 +374,19 @@ const getPaymentCards = data => {
       reject(error);
     }
   });
-}
+};
+
+const getPaidItems = data => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let response = await post('getpaiditems', data);
+      resolve(response.data);
+    } catch (error) {
+      handleError(error);
+      reject(error);
+    }
+  });
+};
 
 const getCarts = async () => {
   try {
@@ -387,17 +402,19 @@ const getCarts = async () => {
 };
 
 const rentGearProductList = async (catDetail) => {
-  try {
-    let response = await post('showRentGearProductsList', catDetail);
-
-    dispatch({
-      type: ACTIONS.GEAR_PRODUCT_LIST,
-      payload: response.data
-    });
-
-  } catch (error) {
-    handleError(error);
-  }
+  return new Promise(async (resolve, reject) => {
+    try {
+      let response = await post('showRentGearProductsList', catDetail);
+      dispatch({
+        type: ACTIONS.GEAR_PRODUCT_LIST,
+        payload: response.data
+      });
+      resolve(response.data);
+    } catch (error) {
+      handleError(error);
+      reject(error);
+    }
+  });
 };
 
 const dashboardMyListing = async () => {
@@ -568,7 +585,7 @@ const socialLogin = async (idToken, accessToken) => {
 export {
   register, confirmUser, login, logout, clearError, handleError, getUser,
   readFileData, addGear, fetchCategories, getListGears, getAllGears, getGear, addCart, getCarts,
-  formatDate, days, checkout, getCheckout, payment, getPaymentCards, rentGearProductList, dashboardMyListing,
+  formatDate, days, checkout, getCheckout, payment, getPaymentCards, getPaidItems, rentGearProductList, dashboardMyListing,
   dashboardMyRentals, search, addFavourites, getFavourites, deleteFavourite, newArrivals,
   deleteCartItem, deleteGear, socialLogin, viewUserDashboard, sendResetPasswordEmail, confirmResetPassword
 };

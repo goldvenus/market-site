@@ -1,0 +1,19 @@
+#chip_style>div{
+    border:1px solid #fe8e74 !important;
+-webkit-border-radius: 0px !important;
+-moz-border-radius: 0px !important;
+border-radius: 0px !important;
+box-sizing: border-box;
+}
+#chip_style div{
+    color:#F82462;
+
+}
+#chip_style>div>div{
+
+    background: #fff1e1 !important;
+}
+#chip_style>div>div input{
+    margin: 0px !important;
+    color: #f00;
+}

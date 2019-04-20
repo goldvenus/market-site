@@ -12,6 +12,7 @@ import '@trendmicro/react-buttons/dist/react-buttons.css';
 import '@trendmicro/react-dropdown/dist/react-dropdown.css';
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import $ from "jquery";
+import CustomSpinner from "../../CustomSpinner";
 
 class Checkout extends Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class Checkout extends Component {
       product_region: '',
       zip: '',
       open: false,
+      loading: true
     };
 
     this.getUserCheckoutInfo();
@@ -34,7 +36,8 @@ class Checkout extends Component {
   getUserCheckoutInfo = async () => {
     const ret = await getCheckout(localStorage.userId);
     const checkout = ret.checkout_info;
-    const addr_list = ret.addr_list;
+    const addr_list = ret.addr_list !== undefined ? ret.addr_list : [];
+
     if (checkout) {
       this.setState({
         full_name: checkout.FullName,
@@ -43,11 +46,13 @@ class Checkout extends Component {
         product_region: checkout.ProductRegion,
         zip: checkout.Zip,
         addr_list: addr_list,
-        save_addr: checkout.SavedAddr
+        save_addr: checkout.SavedAddr,
+        loading: false
       });
     } else {
       this.setState({
-        addr_list: addr_list
+        addr_list: addr_list,
+        loading: true
       });
     }
   }
@@ -55,14 +60,14 @@ class Checkout extends Component {
   onCheckout = async () => {
     const { full_name, addr, city, zip, save_addr, product_region } = this.state;
     const user_id = localStorage.userId;
-    if (!full_name && !addr && !city && !zip && !product_region) {
+    if (!full_name || !addr || !city || !zip || !product_region) {
       handleError('Please provide required information');
       return false;
     }
 
     const data = { full_name, addr, city, zip, save_addr, product_region, user_id };
-    let response = await checkout(data);
-
+    this.setState({loading: true});
+    const response = await checkout(data);
     if (response) {
       this.props.history.push(`/payment/${response.data}`);
     }
@@ -120,7 +125,9 @@ class Checkout extends Component {
   render() {
     const { carts, user } = this.props;
     if (!carts || !user) {
-      return <BarLoader color="#F82462" height="5" />;
+      return <BarLoader color="#F82462" height="5"/>;
+    } else if (this.state.loading) {
+      return <CustomSpinner/>;
     }
 
     let total = 0;
@@ -184,7 +191,7 @@ class Checkout extends Component {
                       {
                         addr_list.length > 0?
                           addr_list.map((element, index) =>
-                            <ListGroupItem key={index} onClick={(e) => this.handleAddrChange(e, element)} value={element.addr} key={index}>
+                            <ListGroupItem onClick={(e) => this.handleAddrChange(e, element)} value={element.addr} key={index}>
                               <div className='item-active'>
                                 {element.addr}
                               </div>

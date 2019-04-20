@@ -21,9 +21,6 @@ const initialState = {
 export default (state = initialState, action) => {
   return producer(state, draft => {
     switch (action.type) {
-      case ACTIONS.CATEGORIES:
-        draft.categories = action.payload;
-        break;
       case ACTIONS.ERROR:
         draft.error = action.payload;
         break;

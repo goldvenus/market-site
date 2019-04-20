@@ -3,12 +3,11 @@ import { connect } from 'react-redux';
 import Rating from 'react-rating';
 import DatePicker from 'react-datepicker';
 import {
-    Breadcrumb, BreadcrumbItem, Dropdown, Form, DropdownToggle, DropdownMenu,
-    DropdownItem, Input, Label, Carousel, CarouselItem, CarouselControl,
-    CarouselIndicators, CarouselCaption, InputGroup, InputGroupAddon
+    Breadcrumb, BreadcrumbItem
 } from 'reactstrap';
 import CustomCarousel from '../../CustomCarousel';
 import { getGear, addCart, handleError, formatDate } from '../../../actions/app.actions';
+import Urllink_class from "../../Urllink_class";
 
 class ViewGear extends Component {
   constructor(props) {
@@ -65,9 +64,12 @@ class ViewGear extends Component {
         <div className="right-container">
           <div>
             <Breadcrumb>
-              <BreadcrumbItem>Home</BreadcrumbItem>
-              <BreadcrumbItem>Rent Gears</BreadcrumbItem>
-              <BreadcrumbItem>{gear.categoryName}</BreadcrumbItem>
+              <Urllink_class name="Home"></Urllink_class>
+                <span className="space_slash_span">/</span>
+              <Urllink_class name="Rent Gears"></Urllink_class>
+                <span className="space_slash_span">/</span>
+              <Urllink_class name={gear.categoryName}></Urllink_class>
+                <span className="space_slash_span">/</span>
               <BreadcrumbItem active>{name}</BreadcrumbItem>
             </Breadcrumb>
 

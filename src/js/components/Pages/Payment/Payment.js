@@ -2,20 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Label, ListGroup, ListGroupItem } from 'reactstrap';
-import {days, payment, getPaymentCards} from '../../../actions/app.actions';
+import { days, payment, getPaymentCards, handleError } from '../../../actions/app.actions';
 import BarLoader from "react-bar-loader";
 import Dropdown, {
     MenuItem,
 } from '@trendmicro/react-dropdown';
 import '@trendmicro/react-buttons/dist/react-buttons.css';
 import '@trendmicro/react-dropdown/dist/react-dropdown.css';
-
 import TextField from '@material-ui/core/TextField';
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import $ from "jquery";
+import moment from "moment";
+import CustomSpinner from "../../CustomSpinner";
 
 class Payment extends Component {
   constructor(props) {
@@ -30,18 +31,21 @@ class Payment extends Component {
       cvv: '',
       cards: [],
       save_card: false,
-      isPaymentDone: false
+      total: 0,
+      tax: 0,
+      fee: 0,
+      loading: true
     };
     this.getUserPaymentCards();
   }
 
   getUserPaymentCards = async () => {
     const ret = await getPaymentCards(localStorage.userId);
-    console.log(ret.card_list);
     const cards = ret.card_list;
     if (cards) {
       this.setState({
-        cards: cards
+        cards: cards,
+        loading: false
       });
     }
   }
@@ -49,11 +53,13 @@ class Payment extends Component {
   handleCardChange = (e, element) => {
     e.preventDefault();
     $(".select-card-btn").trigger('click');
+    const month = element.expiration_date.split('/')[0];
+    const year = element.expiration_date.split('/')[1];
     this.setState({
         card_number: element.card_number,
         card_holder: element.card_holder,
-        expiration_month: element.expiration_date,
-        expiration_year: element.expiration_date,
+        expiration_month: month,
+        expiration_year: year,
         cvv: element.cvv
     });
   }
@@ -79,6 +85,10 @@ class Payment extends Component {
   pay = async () => {
     const { carts } = this.props;
     const { card_number, expiration_year, expiration_month, cvv, card_holder, save_card } = this.state;
+    if (!card_number || !card_holder || !expiration_year || !expiration_month || !cvv) {
+        handleError('Please provide required information');
+        return false;
+    }
     let user_id = localStorage.userId;
     let total = 0;
     let sold_items = [];
@@ -91,18 +101,36 @@ class Payment extends Component {
     const amount = total + tax;
     const checkout_id = this.props.match.params.id;
     const fee = 0;
-    const expiration_date = expiration_year + '/' + expiration_month;
+    const expiration_date = expiration_month + expiration_year;
     const data = { card_number, card_holder, expiration_date, cvv, save_card, user_id,
         total, tax, amount, fee, checkout_id, sold_items};
-    console.log(data);
 
+    this.setState({loading: true});
     let response = await payment(data);
-    if (response) {
+    console.log(response);
+    if (response.status === 'pay-in-success') {
+      console.log(response.pay_data);
       this.setState({
-        isPaymentDone: true,
-        total: response.total,
-        tax: response.tax,
-        fee: response.fee
+        total: response.pay_data.Total,
+        tax: response.pay_data.Tax,
+        fee: response.pay_data.Fee,
+        loading: false
+      });
+      window.location.href = response.trans_data.SecureModeRedirectURL;
+    } else {
+      if (response.status === 'invalid-account') {
+        handleError("Your 'MangoPay Account' is invalid!");
+      } else if (response.status === 'no-account') {
+        handleError("You must register a 'MangoPay Account' in order to pay!");
+      } else if (response.status === 'pay-in-failed') {
+        handleError("Your pay was failed unexpectedly! Try again please.");
+      } else if (response.status === 'invalid-credit-wallet') {
+        handleError("Your 'Client's Wallet' is invalid!");
+      } else {
+        handleError(response.status);
+      }
+      this.setState({
+          loading: false
       });
     }
   }
@@ -124,71 +152,31 @@ class Payment extends Component {
     );
   }
 
-  renderDays = () => {
-    let arr = Array.apply(null, Array(31));
-    return arr.map((v, i) => (<MenuItem key={i} value={i+1}>{i+1}</MenuItem>));
+  renderYears = () => {
+    const year = 1*moment(new Date()).format('YY');
+    const arr = Array.apply(null, Array(10));
+    return arr.map((v, i) => (<MenuItem key={i} value={i+year}>{i+year}</MenuItem>));
   }
 
   renderMonths = () => {
     let arr = Array.apply(null, Array(12));
-    return arr.map((v, i) => (<MenuItem key={i} value={i+1}>{i+1}</MenuItem>));
-  }
-
-  renderPaymentSuccess = () => {
-    const { card_number, expiration_year, expiration_month, cvv, card_holder, save_card, cards } = this.state;
-    return (
-      <div className="payment payment-success-message centered-content">
-        <h1><i className="fa fa-check-circle primary-color"></i></h1>
-        <div className="theme-page-title payment-title">Payment was successful</div>
-
-        <div className="payment-success-info">
-          <div>
-              <div className="checkout-total">
-                  <div><span className="text-gray">Total </span> ${this.state.total}</div>
-                  <div><span className="text-gray">Tax (21%) </span> ${this.state.tax}</div>
-                  <div><span className="text-gray">Fee </span> ${this.state.fee}</div>
-              </div>
-              <div className="checkout-amount">
-                  <div><span className="text-gray">Amount </span>
-                      <b>${this.state.total + this.state.tax + this.state.fee}</b>
-                  </div>
-              </div>
-          </div>
-          <div>
-            <div><span className="text-gray">Paid with</span></div>
-            <div className="payment-card">
-              <div className="flex-row">
-                <img src="/images/master-card.svg" onClick={this.handleSetSaveState}/>
-                <div className="payment-card-number">{card_number}</div>
-              </div>
-              <div className="flex-row payment-card-other">
-                <span>{expiration_month} / {expiration_year}</span>
-                <span>{card_holder}</span>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="text-gray">Payment status</div>
-            <div className="payment-status">COMPLETED</div>
-          </div>
-        </div>
-        <div className="flex-row bottom-buttons">
-          <button className="theme-btn theme-btn-secondery theme-btn-link"><Link to="/">Home Page</Link></button>
-          <button className="theme-btn theme-btn-primary theme-btn-link"><Link to="/rentgear">My Rentals</Link></button>
-        </div>
-      </div>);
+    return arr.map((v, i) => {
+      let val = i + 1;
+      if (val < 10)
+        val = '0' + val;
+      return <MenuItem key={i} value={val}>{val}</MenuItem>;
+    });
   }
 
   render() {
-    const { card_number, expiration_year, expiration_month, cvv, card_holder, save_card, cards } = this.state;
-    const { isPaymentDone } = this.state;
-    if (isPaymentDone) {
-      return this.renderPaymentSuccess();
-    }
     const { carts } = this.props;
     if (!carts) {
       return <BarLoader color="#F82462" height="5" />;
+    } else if (this.state.loading) {
+      return <CustomSpinner/>;
     }
+
+    const { card_number, expiration_year, expiration_month, cvv, card_holder, save_card, cards } = this.state;
     let total = 0;
     carts.forEach(listItem => {
       const d = days(listItem.startDate, listItem.endDate);
@@ -225,11 +213,9 @@ class Payment extends Component {
                     {
                       cards.map((element, index) => (
                         <React.Fragment key={index}>
-                          <MenuItem onClick={(e) => this.handleCardChange(e, element)} value={element} key={index}>
-                            {element.card_holder}
-                            {/*<MenuItem onClick={(e) => this.handleCardChange(e)}>*/}
-                                {/*level item one*/}
-                            {/*</MenuItem>*/}
+                          <MenuItem className="dropdown-menu-item" onClick={(e) => this.handleCardChange(e, element)} value={element} key={index}>
+                            <img src="/images/cards/master-card.svg" alt=""/>
+                            {`  ` + element.card_number.substr(12, 4)}, {element.expiration_date}, {element.card_holder}
                           </MenuItem>
                           <MenuItem divider />
                         </React.Fragment>))
@@ -259,7 +245,7 @@ class Payment extends Component {
 
               <div className="theme-form card-info-wrapper">
                 <div className="payment-card">
-                  <img src="/images/master-card.svg"/>
+                  <img src="/images/cards/master-card.svg" alt=""/>
                   <div className="payment-card-number">{card_number}</div>
                   <div className="flex-row payment-card-other">
                     <span className='card-expiration-date'>{expiration_month} / {expiration_year}</span>
@@ -286,9 +272,8 @@ class Payment extends Component {
                       <Select value={expiration_month}
                         onChange={(event, child) => {
                             event.preventDefault();
-                            this.setState({ expiration_month: event.target.value,  age: child.props.value })
+                            this.setState({expiration_month: event.target.value})
                         }}
-                        name="age"
                         inputProps={{id: 'age-required'}}>
                         {
                           this.renderMonths()
@@ -299,12 +284,11 @@ class Payment extends Component {
                       <Select value={expiration_year}
                         onChange={(event, child) => {
                           event.preventDefault();
-                          this.setState({ expiration_year: event.target.value,  age: child.props.value })
+                          this.setState({ expiration_year: event.target.value })
                         }}
-                        name="age"
                         inputProps={{id: 'age-required'}}>
                         {
-                          this.renderDays()
+                          this.renderYears()
                         }
                         </Select>
                     </FormControl>
@@ -319,7 +303,7 @@ class Payment extends Component {
                   <div className="input_svg pretty p-svg p-plain">
                     <input  type="checkbox" onChange={this.handleSetSaveState} value={save_card} checked={save_card ? 'checked' : ''}/>
                     <div className="state">
-                      <img className="svg check_svg" src="/images/Icons/task.svg"/>
+                      <img className="svg check_svg" src="/images/Icons/task.svg" alt=""/>
                     </div>
                   </div>
                   <Label for="save-address" className='checkbox-label'>Save this payment method</Label>

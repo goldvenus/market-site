@@ -1,22 +1,17 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import Search from './search';
-import { fetchCategories } from '../../actions/app.actions';
 import $ from 'jquery';
 
 class Sidebar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeIndex: 0,
-      category_name: ""
+      activeIndex: 0
     }
   }
-  componentDidMount() {
-    fetchCategories();
-  }
+
   categoryhandler() {
     if($('.category-mobile').hasClass('active')){
       $('.category-mobile').removeClass('active') ;
@@ -35,20 +30,13 @@ class Sidebar extends Component {
   }
 
   handleClick(index, name) {
-    let activeIndex = this.state.activeIndex === index ? null : index;
-    this.setState({
-      activeIndex,
-      category_name: name
-    },
-    ()=>{
-      this.props.callback(this.state.category_name);
-      }
-    );
+    this.props.callback(name);
   }
   render() {
-    const { categories } = this.props.app;
-    if (!categories) return null;
-
+    const { categories } = this.props;
+    if (!categories)
+      return null;
+    console.log(categories);
     return (
       <aside className="sidebar">
         <div className="sidebar-title d-none d-lg-flex">
@@ -59,7 +47,7 @@ class Sidebar extends Component {
             {categories.map((element, index) =>
               <ListGroupItem onClick={this.handleClick.bind(this, index, element.categoryName)} value={element}
                 key={index}>
-                <div className={`${this.state.activeIndex === index && 'item-active'}`}>
+                <div className={`${this.props.sideid === index && 'item-active'}`}>
                   {element.categoryName}
                 </div>
               </ListGroupItem>
@@ -83,7 +71,7 @@ class Sidebar extends Component {
             {categories.map((element, index) =>
               <ListGroupItem onClick={this.handleClick.bind(this, index, element.categoryName)} value={element}
                 key={index}>
-                <div className={`${this.state.activeIndex === index && 'item-active'}`}>
+                <div className={`${this.props.sideid === index && 'item-active'}`}>
                   {element.categoryName}
                 </div>
               </ListGroupItem>
@@ -97,10 +85,6 @@ class Sidebar extends Component {
 
 Sidebar.protoTypes = {
   callback: PropTypes.func,
-}
+};
 
-export default connect(({ app }) => {
-  return {
-    app
-  };
-})(Sidebar);
+export default Sidebar;

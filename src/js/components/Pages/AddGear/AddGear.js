@@ -11,7 +11,9 @@ import CustomInput from '../../CustomInput';
 import { element } from 'prop-types';
 import CustomCarousel from '../../CustomCarousel';
 import { handleError, readFileData, addGear, fetchCategories } from '../../../actions/app.actions';
-
+import "./AddGear.css"
+import Textarea from "muicss/lib/react/textarea";
+import Urllink_class from "../../Urllink_class";
 class AddGear extends Component {
   constructor() {
     super();
@@ -91,10 +93,10 @@ class AddGear extends Component {
     const { categories } = this.props.app;
 
     return (
-      <Form className="theme-form add-gear-info">
-        <div className="flex-row">
-          <div className="theme-column">
-            <Dropdown className="theme-form-field theme-form-dropdown" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+      <Form className="theme-form add-gear-info container add-gear-info-cusvenus" id="tablet-form">
+        <div className="flex-row d-md-block d-lg-flex">
+          <div className="theme-column category_first" width="35%">
+            <Dropdown className="theme-form-field theme-form-dropdown category_first" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
               <DropdownToggle caret>
                 {categoryName}
               </DropdownToggle>
@@ -107,39 +109,51 @@ class AddGear extends Component {
                 }
               </DropdownMenu>
             </Dropdown>
-            <div className="theme-form-field">
+            <div className="theme-form-field category_first">
               <CustomInput required="required" value={brand} onChange={(value) => this.setState({ brand: value })}
                            placeholder='Brand' type="text"/>
             </div>
-            <div className="theme-form-field">
+            <div className="theme-form-field category_first">
               <CustomInput placeholder='Model' value={model} onChange={(value) => this.setState({ model: value })}
                            type="text"/>
             </div>
-            <div className="theme-form-field">
-              <CustomInput placeholder='Description' type="textarea" value={description}
-                           onChange={(value) => this.setState({ description: value })} type="text"/>
+            <div className="theme-form-field category_first">
+                {/*<Textarea className="ELBLI_desc" label="DESCRIPTION" onChange = {(value) => this.setState({ description : value })} defaultValue={gear.description} floatingLabel={true}/>*/}
+
+
+              <Textarea className="category_description_ta" label='Description' floatingLabel={true}
+                           onChange={(e) => {
+                             console.log(e.target.value);
+                             this.setState({ description: e.target.value })
+                           }} type="text"/>
             </div>
           </div>
-          <div className="theme-column info-right-container">
-            <div className="type-tabs">
-              <input name="type" id="new" type="radio" value="new" onChange={this.onTypeChange}/>
-              <label className={selectedType === 'new' ? 'active' : ''} htmlFor="new">New</label>
-              <input name="type" id="like-new" type="radio" value="like_new" onChange={this.onTypeChange}/>
-              <label className={selectedType === 'like_new' ? 'active' : ''} htmlFor="like-new">Like New</label>
-              <input name="type" id="slightly-worn" type="radio" value="slightly_worn" onChange={this.onTypeChange}/>
-              <label className={selectedType === 'slightly_worn' ? 'active' : ''} htmlFor="slightly-worn">Slightly
-                Worn</label>
-              <input name="type" id="worn" type="radio" value="worn" onChange={this.onTypeChange}/>
-              <label className={selectedType === 'worn' ? 'active' : ''} htmlFor="worn">Worn</label>
-            </div>
-            <div className="theme-form-field">
-              <Input type="checkbox" id="is-kit" checked={isKit}
-                     onChange={(e) => this.setState({ isKit: e.target.checked })}/>
-              <Label for="is-kit">Is this a Kit?</Label>
+          <div className="theme-column info-right-container " id="new-tabs" width="35%">
+            <div className="info-right-newtabs-left">
+              <div className="type-tabs">
+                <input name="type" id="new" type="radio" value="new" onChange={this.onTypeChange}/>
+                <label className={selectedType === 'new' ? 'active' : ''} htmlFor="new">New</label>
+                <input name="type" id="like-new" type="radio" value="like_new" onChange={this.onTypeChange}/>
+                <label className={selectedType === 'like_new' ? 'active' : ''} htmlFor="like-new">Like New</label>
+                <input name="type" id="slightly-worn" type="radio" value="slightly_worn" onChange={this.onTypeChange}/>
+                <label className={selectedType === 'slightly_worn' ? 'active' : ''} htmlFor="slightly-worn">Slightly
+                  Worn</label>
+                <input name="type" id="worn" type="radio" value="worn" onChange={this.onTypeChange}/>
+                <label className={selectedType === 'worn' ? 'active' : ''} htmlFor="worn">Worn</label>
+              </div>
+              <div className="theme-form-field" id="kit-style">
+                  <div className="input_svg pretty p-svg p-plain">
+                      <input type="checkbox" onChange={(e) => this.setState({ isKit: e.target.checked })}/>
+                      <div className="state">
+                          <img className="svg check_svg" src="/images/Icons/task.svg"/>
+                      </div>
+                  </div>
+                  <Label for="is-kit">Is this a Kit?</Label>
+              </div>
             </div>
             <div>
               <div className="theme-text-small">Accessories</div>
-              <div className="theme-form-field">
+              <div id="chip_style">
                 <Chips
                   value={accessories}
                   onChange={(accessories) => this.setState({ accessories })}
@@ -162,10 +176,23 @@ class AddGear extends Component {
     return (<div className="add-gear-photos">
       <div className="add-gear-images">
         {mappedImages}
-        <div className="add-gear-addimage file-input-container">
-          <i className="fas fa-plus-circle"></i>
-          <input type="file" onChange={this.addImage.bind(this)}/>
-        </div>
+          {
+              this.state.numberOfUserImage.length>0 ?
+                  <div className="add-gear-addimage file-input-container">
+                      <i className="fas fa-plus-circle"></i>
+                      <input type="file" onChange={this.addImage.bind(this)}/>
+                  </div>
+                  :
+                   <div className="add-gear-addimage file-input-container empty_page_addgear">
+                       <img  src="/images/Icons/uploadimage.svg">
+                       </img>
+                        <p className="empty_page_addgear_img">Upload Photos</p>
+                        <p>Upload only png, jpg or jpeg</p>
+                       <i><button className="theme-btn theme-btn-primary empty_addgear_btn">Upload</button></i>
+                        <input type='file' onChange={this.addImage.bind(this)}></input>
+                   </div>
+
+          }
       </div>
     </div>);
   }
@@ -249,57 +276,55 @@ class AddGear extends Component {
     const { selectedType, accessories, numberOfUserImage, categoryName, brand, model, address, city, description, replacementValue, pricePerDay } = this.state;
 
     let mappedAccessories = accessories.map((accessory, index) => (
-      <div key={'accessory-' + index} className="">{accessory}</div>
+      <div key={'accessory-' + index} className="d-md-flex">{accessory}</div>
     ));
     return <div className="add-gear-price">
-      <div>
+      <div id="fourth-content">
         <div className="theme-text-small text-gray">{categoryName}</div>
-        <h4 className="header">{brand + ' ' + model}</h4>
+        <h4 id="label-content">{brand + ' ' + model}</h4>
 
-        <div className="price-type-tabs">
-          <input id="new" type="radio" value="new"/>
-          <label className={selectedType === 'new' ? 'active' : ''} htmlFor="new">New</label>
-          <input id="like-new" type="radio" value="like_new"/>
-          <label className={selectedType === 'like_new' ? 'active' : ''} htmlFor="like-new">Like New</label>
-          <input id="slightly-worn" type="radio" value="slightly_worn"/>
-          <label className={selectedType === 'slightly_worn' ? 'active' : ''} htmlFor="slightly-worn">Slightly
-            Worn</label>
-          <input id="worn" type="radio" value="worn"/>
-          <label className={selectedType === 'worn' ? 'active' : ''} htmlFor="worn">Worn</label>
-        </div>
+          <div className="price-type-tabs">
+              <input id="new" type="radio" value="new"/>
+              <label className={selectedType === 'new' ? 'active' : ''} htmlFor="new">New</label>
+              <input id="like-new" type="radio" value="like_new"/>
+              <label className={selectedType === 'like_new' ? 'active' : ''} htmlFor="like-new">Like New</label>
+              <input id="slightly-worn" type="radio" value="slightly_worn"/>
+              <label className={selectedType === 'slightly_worn' ? 'active' : ''} htmlFor="slightly-worn">Slightly
+                  Worn</label>
+              <input id="worn" type="radio" value="worn"/>
+              <label className={selectedType === 'worn' ? 'active' : ''} htmlFor="worn">Worn</label>
+          </div>
 
         <div className="gear-carousel">
           <CustomCarousel items={numberOfUserImage}/>
         </div>
       </div>
-      <div className="gear-middle-container">
+      <div className="gear-middle-container" id="middle-container">
         <div className="flex-row gear-accessories-address">
           <div>
-            <div className="theme-text-small text-gray">Accessories</div>
+            <div className="theme-text-small text-gray d-md-flex">Accessories</div>
             {
               mappedAccessories
             }
           </div>
-          <div>
+          <div id="address-content">
             <div className="theme-text-small text-gray">Address</div>
             <div className="">{address}</div>
             <div className="">{city}</div>
           </div>
         </div>
-        <div>
+        <div id="description-container">
           <div className="theme-text-small text-gray">Description</div>
-          <p>
-            {description}
-          </p>
+              <div className="div_description">{description}</div>
         </div>
       </div>
-      <div className="gear-right-container">
+      <div className="gear-right-container" id="right-container">
         <div className="custom-theme-row">
           <div class="custom-theme-col">
             <div>Replacement Value</div>
             <InputGroup>
               <InputGroupAddon addonType="prepend">$</InputGroupAddon>
-              <CustomInput placeholder='Amount' type="text" value={replacementValue}
+              <CustomInput  type="text" value={replacementValue}
                            onChange={(value) => this.setState({ replacementValue: value })}/>
             </InputGroup>
           </div>
@@ -307,14 +332,14 @@ class AddGear extends Component {
             <div>Price per day</div>
             <InputGroup>
               <InputGroupAddon addonType="prepend">$</InputGroupAddon>
-              <CustomInput placeholder='Amount' type="text" value={pricePerDay}
+              <CustomInput  type="text" value={pricePerDay}
                            onChange={(value) => this.setState({ pricePerDay: value })}/>
             </InputGroup>
           </div>
         </div>
         <div className="buttons-container">
           <button className="theme-btn theme-btn-secondery" onClick={this.previousStep.bind(this)}><span
-            className="fa fa-angle-left"/><span class="hide-bigscreen">Back</span></button>
+            className="fa fa-angle-left d-sm-none d-md-none d-lg-block"/><span class="d-sm-none d-lg-none d-md-block" >Back</span></button>
           <button className="theme-btn theme-btn-primary" onClick={this.addGearDetails.bind(this)}>Submit <span
             className="fa fa-angle-right"/></button>
         </div>
@@ -324,6 +349,7 @@ class AddGear extends Component {
 
   renderContent() {
     const { progressStep } = this.state;
+    console.log("step:", progressStep);
     switch (progressStep) {
       case 0:
         return this.renderInfo();
@@ -397,13 +423,13 @@ class AddGear extends Component {
     if (isGearAdded) {
       return <div className="add-gear">
         <h1><i className="fa fa-check-circle primary-color"></i></h1>
-        <h3>Gear Added Successfully</h3>
+        <h3 className="success_gear_htag">Gear Added Successfully</h3>
 
         <div className="success-message">
-          <div className="theme-text-small">{categoryName}</div>
-          <h6>{brand + ' ' + model}</h6>
+          <div className="theme-text-small success_gear_categoryName">{categoryName}</div>
+          <h6 className="success_gear_brand_modal">{brand + ' ' + model}</h6>
 
-          <div className="flex-row">
+          <div className="flex-row success_gear_reaplacement">
             <div>
               <div className="theme-text-small">Replacement Value</div>
               <div>${replacementValue}</div>
@@ -415,9 +441,9 @@ class AddGear extends Component {
           </div>
 
           <div className="flex-row buttons-container">
-            <button className="theme-btn theme-btn-secondery theme-btn-link"><Link to="/listgear">List Gear</Link>
+            <button className="theme-btn theme-btn-secondery theme-btn-link success_first_button"><Link to="/listgear">List Gear</Link>
             </button>
-            <button className="theme-btn theme-btn-primary theme-btn-link"><Link to={`/gear/${gearId}`}>View Gear</Link>
+            <button className="theme-btn theme-btn-primary theme-btn-link success_sencond_button"><Link to={`/gear/${gearId}`}>View Gear</Link>
             </button>
           </div>
         </div>
@@ -427,7 +453,8 @@ class AddGear extends Component {
     return (
       <div className="add-gear">
         <Breadcrumb>
-          <BreadcrumbItem>Home</BreadcrumbItem>
+          <Urllink_class name="Home"></Urllink_class>
+            <span className="space_slash_span">/</span>
           <BreadcrumbItem active>Add Gear</BreadcrumbItem>
         </Breadcrumb>
         <h3 class="header">Add Gear</h3>
@@ -442,12 +469,12 @@ class AddGear extends Component {
 
         {
           this.state.progressStep < 3 ? (
-            <div>
+            <div id="continue-button">
               <div className="flex-row buttons-container">
                 {
                   this.state.progressStep !== 0 ?
                     <button className="theme-btn theme-btn-secondary theme-back-btn" onClick={this.previousStep.bind(this)}><span
-                      className="fa fa-angle-left"/> Back</button> :
+                      className="fa fa-angle-left"/> Back  </button> :
                     null
                 }
 
