@@ -27,5 +27,7 @@ const ACTIONS = {
   FAVOURITES: 'favourites',
   NEW_ARRIVALS: 'newArrivals',
   DASHBOARD: 'dashboard',
+  GEAR_HISTORY: 'gear_histories',
+  MY_GEAR_NAME: 'my_gear_names',
 };
 export { API_URL, ACTIONS, API_URL_NEW, FACEBOOK_LOGIN_URL };

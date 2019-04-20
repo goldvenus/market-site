@@ -2,7 +2,6 @@ import axios from 'axios';
 import { API_URL, API_URL_NEW, ACTIONS } from '../constants';
 import store from '../store';
 import moment from 'moment';
-import CustomSpinner from "../components/CustomSpinner";
 
 const dispatch = store.dispatch;
 
@@ -318,6 +317,11 @@ const addCart = (data) => {
     try {
       let response = await post('addGearIntoCart', data);
       // here must be some code for state change...
+     // console.log("action_addcart", response);
+      // dispatch({
+      //     type: ACTIONS.GEAR,
+      //     payload: response.data[0]
+      // });
       resolve(response);
     } catch (error) {
       handleError(error);
@@ -353,7 +357,6 @@ const payment = (data) => {
 const getCarts = async () => {
   try {
     let response = await get('viewUserCart');
-
     dispatch({
       type: ACTIONS.CARTS,
       payload: response.data
@@ -364,17 +367,15 @@ const getCarts = async () => {
 };
 
 const rentGearProductList = async (catDetail) => {
-  try {
-    let response = await post('showRentGearProductsList', catDetail);
-
-    dispatch({
-      type: ACTIONS.GEAR_PRODUCT_LIST,
-      payload: response.data
-    });
-
-  } catch (error) {
-    handleError(error);
-  }
+  return new Promise(async (resolve, reject) => {
+    try {
+      let response = await post('showRentGearProductsList', catDetail);
+      resolve(response.data);
+    } catch (error) {
+      handleError(error);
+      reject(error);
+    }
+  });
 };
 
 const dashboardMyListing = async () => {
@@ -541,11 +542,39 @@ const socialLogin = async (idToken, accessToken) => {
     handleError(error);
   }
 };
+///////////gear_history get action//////////
+const getgearhistory = async () => {
+    try {
+        let response = await get_new('gearhistory');
+        if (response) {
+            dispatch({
+                type: ACTIONS.GEAR_HISTORY,
+                payload: response.data
+            });
+        }
+    } catch (error) {
+        handleError(error);
+    }
+}
+const getmygearname = async () => {
+    try {
+        let response = await get_new('mygearname');
+        if(response){
+            dispatch ({
+                type: ACTIONS.MY_GEAR_NAME,
+                payload: response.data
+            })
+        }
+    }catch (error) {
+        handleError(error)
+    }
+}
 
 export {
   register, confirmUser, login, logout, clearError, handleError, getUser,
   readFileData, addGear, fetchCategories, getListGears, getAllGears, getGear, addCart, getCarts,
   formatDate, days, checkout, payment, rentGearProductList, dashboardMyListing,
   dashboardMyRentals, search, addFavourites, getFavourites, deleteFavourite, newArrivals,
-  deleteCartItem, deleteGear, socialLogin, viewUserDashboard, sendResetPasswordEmail, confirmResetPassword
+  deleteCartItem, deleteGear, socialLogin, viewUserDashboard, sendResetPasswordEmail, confirmResetPassword,
+  getgearhistory, getmygearname,
 };

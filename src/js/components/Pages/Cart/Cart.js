@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
-import {getCarts, formatDate, days, deleteCartItem, handleError} from '../../../actions/app.actions';
+import { getCarts, formatDate, days, deleteCartItem, handleError } from '../../../actions/app.actions';
 import BarLoader from "react-bar-loader";
 import EmptyActivity from '../../EmptyActivity'
 import CustomSpinner from "../../CustomSpinner";
@@ -12,21 +12,10 @@ class Cart extends Component {
   constructor() {
     super();
     this.state = {
-        loadingdata:false,
-        loadingdata_del:false
+        loadingdata_del: false
     }
-
-     this.dogetCarts();
   }
-  async dogetCarts() {
-      try {
-          await getCarts();
-          this.setState({loadingdata : true});
 
-      }
-      catch {
-          handleError('Gear is not added to cart');}
-  }
   async dogetCarts_del () {
       try {
           await getCarts();
@@ -36,10 +25,9 @@ class Cart extends Component {
       catch {
           handleError('Gear is not added to cart');}
   }
+
   renderCartItems() {
-
     const { carts } = this.props;
-
     return (
       carts.map((listItem, index) => (
           <div className="d-none d-lg-table">
@@ -139,14 +127,15 @@ class Cart extends Component {
             ))
         );
     }
+
   render() {
-    if (!this.state.loadingdata) {
+  const { carts } = this.props;
+    if (!carts) {
       return <BarLoader color="#F82462" height="5" />;
     }
-    if(this.state.loadingdata_del){
+    if (this.state.loadingdata_del) {
         return <CustomSpinner/>
     }
-      const { carts } = this.props;
     return (
       <div className="cart_view centered-content">
         <Breadcrumb className= "card_content_path">
@@ -162,36 +151,36 @@ class Cart extends Component {
           </div>
         </div>
         <div className="cart-table-div">
-                    { !carts.length ? (
-                        <EmptyActivity e_name="Add from Favourites" e_path="/favourites" e_title="YOUR CART IS EMPTY" e_img_name = "cart"/>
-                    ) :(
-                        <Table className="theme-table">
+            { !carts.length ? (
+                <EmptyActivity e_name="Add from Favourites" e_path="/favourites" e_title="YOUR CART IS EMPTY" e_img_name = "cart"/>
+            ) :(
+                <Table className="theme-table">
 
-                <thead>
-                    <tr className= "d-none d-lg-table">
-                      <th/>
-                      <th>Name & Category</th>
-                      <th>Rental Period</th>
-                      <th>Price Per Day</th>
-                      <th>Amount</th>
-                      <th></th>
-                      <th/>
-                    </tr>
-                </thead>
-                <tbody>
-                {this.renderCartItems()}
-                {this.renderCartItems_table()}
-                </tbody>
+            <thead>
+                <tr className= "d-none d-lg-table">
+                  <th/>
+                  <th>Name & Category</th>
+                  <th>Rental Period</th>
+                  <th>Price Per Day</th>
+                  <th>Amount</th>
+                  <th></th>
+                  <th/>
+                </tr>
+            </thead>
+            <tbody>
+            {this.renderCartItems()}
+            {this.renderCartItems_table()}
+            </tbody>
 
-          </Table>)}
+      </Table>)}
 
 
-        </div>
-          <div className="flex-row d-flex d-lg-none" >
-              <button className="theme-btn theme-btn-secondery col-9"><Link to="/favourites">Favorites</Link></button>
-              <button className="theme-btn theme-btn-primary theme-btn-link col-14"><Link to="/checkout">Continue Shopping</Link></button>
-          </div>
       </div>
+      <div className="flex-row d-flex d-lg-none" >
+          <button className="theme-btn theme-btn-secondery col-9"><Link to="/favourites">Favorites</Link></button>
+          <button className="theme-btn theme-btn-primary theme-btn-link col-14"><Link to="/checkout">Continue Shopping</Link></button>
+      </div>
+    </div>
     );
   }
 }

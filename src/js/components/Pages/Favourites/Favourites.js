@@ -5,10 +5,9 @@ import { Link, withRouter } from 'react-router-dom';
 import {Container, Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
 import {
     getFavourites,
-    days,
     deleteFavourite,
     getGear,
-    handleError, addCart, formatDate, deleteCartItem, getCarts
+    handleError, addCart, formatDate
 } from '../../../actions/app.actions';
 import CartModal from "../../common/CartModal";
 import CartModal1 from "../../common/CartModal1";

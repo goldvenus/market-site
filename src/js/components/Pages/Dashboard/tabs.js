@@ -6,32 +6,32 @@ export default function (props) {
   const {activeTab , toggle} = props;
   return (
     <Nav tabs>
-      <NavItem>
+      <NavItem className="nav-item-first">
         <NavLink
           className={classnames({ active: activeTab === '1' })}
           onClick={() => { toggle('1'); }}>
           Dashboard
         </NavLink>
       </NavItem>
-      <NavItem>
+      <NavItem className="nav-item-second">
         <NavLink
           className={classnames({ active: activeTab === '2' })}
           onClick={() => { toggle('2'); }}>
           Account Detail
         </NavLink>
       </NavItem>
-      <NavItem>
+      <NavItem className="nav-item-third">
         <NavLink
           className={classnames({ active: activeTab === '3' })}
           onClick={() => { toggle('3'); }}>
-          My Listing
+          Gear History
         </NavLink>
       </NavItem>
-      <NavItem>
+      <NavItem className="nav-item-four">
         <NavLink
           className={classnames({ active: activeTab === '4' })}
           onClick={() => { toggle('4'); }}>
-          My Rentals
+          Rental History
         </NavLink>
       </NavItem>
     </Nav>

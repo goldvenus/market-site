@@ -25,11 +25,9 @@ class RentGear extends Component {
   }
 
   selectedCategory = (value) => {
-    this.setState(() => ({
+    this.setState({
       "category": value,
       "sel_sideid": Rent_category.indexOf(value)
-    }), () => {
-      console.log("parent state changed", this.state);
     });
   };
 
