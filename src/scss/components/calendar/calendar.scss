@@ -1,5 +1,9 @@
 .Calendar_parent_div {
-    height: 950px;
+    display: flex;
+    .calendar_first_div {
+        width: 100%;
+        height: 800px;
+    }
     .rbc-event-content {
         display: none !important;
     }
@@ -244,7 +248,28 @@
 
 @media(max-width: 1050px){
     .Calendar_parent_div {
-        height: 764px;
+        display: flex;
+        .calendar_first_div {
+            width: 100%;
+            height: 650px !important;
+            .rbc-event-custom-data-top{
+                display: flex;
+                img {
+                    border-radius: 50%;
+                    padding:0;
+                    margin:0;
+                    width: 15px !important;
+                    height: 15px !important;
+                }
+                p {
+                    margin: 0 0 0 6px;
+                    color:white;
+                    font-size: 12px;
+
+                }
+
+            }
+        }
     }
     .calendar_dropdown_div{
         border: 25px #faf8f9 solid;
@@ -314,11 +339,11 @@
         .rbc-event-custom-data-bottom-date{
             font-size: 12px;
             font-weight: 400;
-            padding-top: 10px;
+            padding-top: 4px;
         }
         .rbc-event-custom-data-bottom-range {
-            padding-bottom: 5px;
-            padding-top: 10px;
+            padding-bottom: 0 !important;
+            padding-top: 4px !important;
         }
 
     }
@@ -337,11 +362,18 @@
             margin:0;
         }
     }
-
+    .rbc-date-cell {
+        padding:0 !important;
+        padding-top: 6px !important;
+        a {
+            margin-right: 6px !important;
+            margin-top: 6px !important;
+        }
+    }
 }
 @media (max-width: 550px) {
     .Calendar_parent_div {
-        height: 100%;
+        display: flex;
     }
     .calendar_dropdown_div{
         border-top: 16px #faf8f9 solid;
@@ -380,7 +412,7 @@
     }
     .calendar_dropdown_bottom_button{
         width: 100% !important;
-        margin:14px 25px 0 0 !important;
+        margin:14px 25px 14px 0 !important;
         padding:10px !important;
 
     }
@@ -401,7 +433,6 @@
         padding:0 !important;
     }
     .DayPicker-Day {
-        padding:17px;
 
     }
     .DayPicker-wrapper {
@@ -446,6 +477,19 @@
     }
     .modal-cart-control {
         padding: 10px 21px;
+    }
+    .gear_history_tab {
+        width: 100%;
+        margin-left: 3%;
+        white-space: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .DayPicker {
+        width: 100%;
+        .DayPicker-Month {
+            width: 100%;
+        }
     }
 }
 

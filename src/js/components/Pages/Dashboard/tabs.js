@@ -5,7 +5,8 @@ import {Nav, NavItem, NavLink, } from 'reactstrap';
 export default function (props) {
   const {activeTab , toggle} = props;
   return (
-    <Nav tabs>
+      <div className="gear_history_tab">
+    <Nav tabs >
       <NavItem className="nav-item-first">
         <NavLink
           className={classnames({ active: activeTab === '1' })}
@@ -35,5 +36,6 @@ export default function (props) {
         </NavLink>
       </NavItem>
     </Nav>
+      </div>
   );
 }

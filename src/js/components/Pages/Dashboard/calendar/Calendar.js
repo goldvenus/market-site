@@ -138,7 +138,7 @@ class Calendar extends React.Component {
                 </div>
 
                 <div className="Calendar_parent_div">
-                    <BigCalendar className="d-sm-none d-none d-lg-block d-md-block"
+                    <BigCalendar className="calendar_first_div d-sm-none d-none d-lg-block d-md-block"
                         selectable
                         localizer={localizer}
                         events={this.state.events.map((item, index) => {
