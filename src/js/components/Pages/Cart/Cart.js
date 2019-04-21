@@ -142,7 +142,7 @@ class Cart extends Component {
           <h2 className="theme-page-title">Cart</h2>
           <div className="flex-row d-none d-lg-flex" >
             <button className="theme-btn theme-btn-secondery"><Link to="/favourites">Favourites</Link></button>
-            <button className="theme-btn theme-btn-primary theme-btn-link"><Link to="/checkout">Continue Shopping</Link></button>
+            <button className="theme-btn theme-btn-primary"><Link to="/checkout">Continue Shopping</Link></button>
           </div>
         </div>
         <div className="cart-table-div">

@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import Search from './search';
 import $ from 'jquery';
+import {Link} from "react-router-dom";
 
 class Sidebar extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      activeIndex: 0
-    }
   }
 
   categoryhandler() {
@@ -29,14 +27,11 @@ class Sidebar extends Component {
     }
   }
 
-  handleClick(index, name) {
-    this.props.callback(name);
-  }
   render() {
-    const { categories } = this.props;
-    if (!categories)
+    const { categories, category } = this.props;
+    if (!categories || !category)
       return null;
-    console.log(categories);
+
     return (
       <aside className="sidebar">
         <div className="sidebar-title d-none d-lg-flex">
@@ -45,10 +40,11 @@ class Sidebar extends Component {
         <div className="sidebar-wrapper d-none d-lg-flex">
           <ListGroup>
             {categories.map((element, index) =>
-              <ListGroupItem onClick={this.handleClick.bind(this, index, element.categoryName)} value={element}
-                key={index}>
-                <div className={`${this.props.sideid === index && 'item-active'}`}>
-                  {element.categoryName}
+              <ListGroupItem value={element} key={index}>
+                <div className={`${element.replace(' ', '') === category && 'item-active'}`}>
+                  <Link to={`/rentgear/${element.replace(` `, ``)}`}>
+                    {element}
+                  </Link>
                 </div>
               </ListGroupItem>
             )}
@@ -69,10 +65,11 @@ class Sidebar extends Component {
 
           <ListGroup>
             {categories.map((element, index) =>
-              <ListGroupItem onClick={this.handleClick.bind(this, index, element.categoryName)} value={element}
-                key={index}>
+              <ListGroupItem value={element} key={index}>
                 <div className={`${this.props.sideid === index && 'item-active'}`}>
-                  {element.categoryName}
+                  <Link to={`/rentgear/${element.replace(` `, ``)}`}>
+                    {element}
+                  </Link>
                 </div>
               </ListGroupItem>
             )}

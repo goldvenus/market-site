@@ -110,7 +110,7 @@ class CartModal1 extends Component {
                     </div>
                     <div className="pickup-date-container row">
                         <div className='col-md-11 date-range-container'>
-                            <TextField id="date-range-input1" className="date-range-input" type="text" inputProps={300} label={'PICKUP DATE'} defaultValue={start_date_str}
+                            <TextField id="date-range-input1" className="date-range-input" type="text" label={'PICKUP DATE'} defaultValue={start_date_str}
                                 onFocus={() => this.setOpenState(true, false)} value={start_date_str}/>
                             {
                                 this.state.open_date_picker1 ?
@@ -131,7 +131,7 @@ class CartModal1 extends Component {
                         </div>
                         <div className='col-md-2'></div>
                         <div className='col-md-11 date-range-container'>
-                            <TextField id="date-range-input1" className="date-range-input" type="text" inputProps={300} label={'RETURN DATE'} defaultValue={end_date_str}
+                            <TextField id="date-range-input1" className="date-range-input" type="text" label={'RETURN DATE'} defaultValue={end_date_str}
                                        onFocus={() => this.setOpenState(false, true)} value={end_date_str}/>
                             {
                                 this.state.open_date_picker2 ?

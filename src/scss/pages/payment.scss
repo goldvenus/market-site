@@ -130,6 +130,43 @@
   opacity: 0.6;
 }
 
+.payment-success-body {
+  .paid-item {
+    padding: 30px 0;
+    display: flex;
+    border-bottom: solid 1px #F0F0F0;
+
+    .item-info {
+      width: 50%;
+
+    }
+    .pay-info {
+      width: 50%;
+      padding-left: 80px;
+
+      .buyer-profile {
+        img {
+          width: 36px;
+        }
+      }
+    }
+    .category-name {
+      font-family: Helvetica Neue;
+      font-size: 16px;
+      line-height: 27px;
+      color: #3A3A3A;
+      opacity: 0.3;
+    }
+    .brand-model {
+      font-family: Gotham Pro;
+      font-size: 27px;
+      line-height: 39px;
+      color: #252525;
+    }
+  }
+}
+
+
 @media (max-width: 1199px) {
   .payment-card {
     width: 49% !important;

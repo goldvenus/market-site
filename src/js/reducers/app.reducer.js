@@ -17,7 +17,6 @@ const initialState = {
   newArrivals: [],
   dashboard: {},
   carts:[],
-    //////new reducer Gear History
   gear_histories:[],
   my_gear_names:[]
 }
@@ -56,9 +55,9 @@ export default (state = initialState, action) => {
         draft.carts = action.payload;
         break;
 
-      case ACTIONS.GEAR_PRODUCT_LIST :
-        draft.productList = action.payload;
-        break;
+      // case ACTIONS.GEAR_PRODUCT_LIST:
+      //   draft.productList = action.payload;
+      //   break;
 
       case ACTIONS.DASHBOARD_MY_LISTINGS:
         draft.userListings = action.payload;

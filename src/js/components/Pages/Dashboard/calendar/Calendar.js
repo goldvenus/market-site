@@ -19,6 +19,7 @@ import {compose} from "redux";
 import connect from "react-redux/es/connect/connect";
 import {withRouter} from "react-router-dom";
 import { getgearhistory, getmygearname ,formatDate, handleError} from '../../../../actions/app.actions'
+import AboutPeriod from "./AboutPeriod";
 
 
 const localizer = BigCalendar.momentLocalizer(moment);
@@ -31,8 +32,13 @@ class Calendar extends React.Component {
             g_name: gear_names[0],
             dropdownOpen: false,
             open: false,
+            open_person_dlg: false,
             startDate: new Date(),
-            endDate: new Date()
+            endDate: new Date(),
+            imgurl:'',
+            person_name:'',
+            startday:new Date(),
+            endday: new Date(),
         };
         this.toggle = this.toggle.bind(this);
         this.changeGearName = this.changeGearName.bind(this);
@@ -53,8 +59,12 @@ class Calendar extends React.Component {
     onOpenModel= () => {
         this.setState({open:true});
     }
+    onOpenAboutPersonModel = () => {
+        this.setState({open_person_dlg:true});
+    }
     onCloseModel = () => {
         this.setState({open:false});
+        this.setState({open_person_dlg:false});
     }
     async addToPeriod({startDate, endDate}) {
         alert(formatDate(startDate));
@@ -85,6 +95,10 @@ class Calendar extends React.Component {
     ////////////big calendar func///////////////
     selectedEvent(event) {
         console.log("Click_event", event);
+        if(event!=='Owner') {
+            this.setState({imgurl : event.imgurl, person_name: event.title, startday: event.start, endday: event.end});
+            this.onOpenAboutPersonModel();
+        }
     }
     eventColors(event) {
         var backgroundColor = "event-";
@@ -133,6 +147,7 @@ class Calendar extends React.Component {
                         </Dropdown>
                         <button className="calendar_dropdown_bottom_button" onClick={this.onOpenModel}>Add Unavailable Period</button>
                         <PeriodModal gearname={this.state.g_name} open={this.state.open} onClose={this.onCloseModel} addToPeriod={() => this.addToPeriod()}></PeriodModal>
+                        <AboutPeriod gearname={this.state.g_name} open={this.state.open_person_dlg} onClose={this.onCloseModel} imgurl = {this.state.imgurl} person_name={this.state.person_name} startday={this.state.startDate} endday={this.state.endday}></AboutPeriod>
 
                     </div>
                 </div>

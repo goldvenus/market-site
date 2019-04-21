@@ -185,7 +185,7 @@ class EditGear extends Component {
                             <CustomInput required="required" value={brand} onChange={(value) => this.setState({ brand: value })} type="text"/>
                         </div>
                         <div className="col-lg-8 ELBLIC_div3">
-                            <p className="info_header">Modal</p>
+                            <p className="info_header">Model</p>
                            <CustomInput required="required" value={model} onChange={(value) => this.setState({ model: value })} type="text"/>
                         </div>
                     </div>
@@ -225,26 +225,28 @@ class EditGear extends Component {
             <Form className="theme-form add-gear-address">
                 <p className="type_title_css">Address</p>
                 <table>
-                    <tr>
-                        <td className="theme-form-field">
-                            <CustomInput placeholder='City' type="text" value={city}
-                                         onChange={(value) => this.setState({ city: value })}/>
-                        </td>
-                        <td className="theme-form-field">
-                            <CustomInput placeholder='Region' type="text" value={region}
-                                         onChange={(value) => this.setState({ region: value })}/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className="theme-form-field">
-                            <CustomInput placeholder='Address' type="text" value={address}
-                                         onChange={(value) => this.setState({ address: value })}/>
-                        </td>
-                        <td className="theme-form-field">
-                            <CustomInput placeholder='Postal Code' type="text" value={postalCode}
-                                         onChange={(value) => this.setState({ postalCode: value })}/>
-                        </td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <td className="theme-form-field">
+                                <CustomInput placeholder='City' type="text" value={city}
+                                             onChange={(value) => this.setState({ city: value })}/>
+                            </td>
+                            <td className="theme-form-field">
+                                <CustomInput placeholder='Region' type="text" value={region}
+                                             onChange={(value) => this.setState({ region: value })}/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="theme-form-field">
+                                <CustomInput placeholder='Address' type="text" value={address}
+                                             onChange={(value) => this.setState({ address: value })}/>
+                            </td>
+                            <td className="theme-form-field">
+                                <CustomInput placeholder='Postal Code' type="text" value={postalCode}
+                                             onChange={(value) => this.setState({ postalCode: value })}/>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </Form>
         );

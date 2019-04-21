@@ -160,12 +160,9 @@ class Home extends Component {
 
   handleSearch = e => {
     e.preventDefault();
-
     const { searchText, locationText } = this.state;
-
     if (searchText) {
       const res = search(searchText, locationText);
-
       if (res) {
         this.props.history.push('/search');
       }

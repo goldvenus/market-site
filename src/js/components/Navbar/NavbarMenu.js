@@ -70,9 +70,6 @@ class NavbarMenu extends React.Component {
 
   render() {
     const { collapsed } = this.state;
-
-    console.log(collapsed)
-
     const {
       carts,
       favourites,

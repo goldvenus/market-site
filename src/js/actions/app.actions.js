@@ -192,11 +192,11 @@ const refreshToken = async () => {
     let response = await axios.post(getAPIUrl('getUserRefreshTokens'), { username: localStorage.userId }, tokenAxiosConfig());
 
     if (response && response.data) {
-      const { accessToken, idToken, refreshToken } = response.data;
+      const { accessToken, idToken, refreshToken, userName } = response.data;
       localStorage.accessToken = accessToken.jwtToken;
       localStorage.idToken = idToken.jwtToken;
       localStorage.refreshToken = refreshToken.token;
-
+      localStorage.username = userName;
       return response;
     }
   } catch (error) {
@@ -316,7 +316,11 @@ const addCart = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       let response = await post('addGearIntoCart', data);
-      // here must be some code for state change...
+      console.log(response.data);
+      dispatch({
+        type: ACTIONS.ADD_TO_CART,
+        payload: response.data[0]
+      });
       resolve(response);
     } catch (error) {
       handleError(error);
@@ -404,10 +408,6 @@ const rentGearProductList = async (catDetail) => {
   return new Promise(async (resolve, reject) => {
     try {
       let response = await post('showRentGearProductsList', catDetail);
-      dispatch({
-        type: ACTIONS.GEAR_PRODUCT_LIST,
-        payload: response.data
-      });
       resolve(response.data);
     } catch (error) {
       handleError(error);

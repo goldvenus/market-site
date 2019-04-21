@@ -67,7 +67,6 @@ class Favourites extends Component {
   }
 
   onCloseModal = () => {
-    console.log('close modal');
     this.setState({ modal_open_st: 0 });
   };
 
@@ -91,21 +90,22 @@ class Favourites extends Component {
       handleError('Adding failed!');
     }
   };
-    async dogetFavorits_del () {
-        try {
-            await getFavourites();
-            this.setState({loadingdata_del : false});
-
-        }
-        catch {
-            handleError('Gear is not added to cart');}
+  async dogetFavorits_del () {
+    try {
+      await getFavourites();
+      this.setState({loadingdata_del : false});
     }
+    catch {
+      handleError('Gear is not added to cart');
+    }
+  }
+
   renderFavouritesItems() {
     const { favourites } = this.props;
-    const {ratingstate} = this.state;
+    const { ratingstate } = this.state;
+
     return (
       favourites.Items.map((listItem, index) => (
-       <div className="d-none d-lg-table">
         <tr key={`cart-item-${index}`}>
           <td width="10%">{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
             src={listItem.numberOfUserImage[0]} className="gear-img"/> : null}</td>
@@ -125,10 +125,10 @@ class Favourites extends Component {
             <td width="17.5%"><div><div className="favouri_link_icon"/><span className="Raykjavik_span">Raykjavik</span></div></td>
             <td className="tb_pay_per" width="17.5%">{`$${listItem.pricePerDay}`}</td>
           <td className="favoiurites_add_icon">
-            <button className="theme-btn theme-btn-primary theme-btn-link add-to-cart-btn" onClick={() => this.onOpenModal(listItem.gearid)}>Add to Cart</button>
+            <button className="theme-btn theme-btn-primary add-to-cart-btn" onClick={() => this.onOpenModal(listItem.gearid)}>Add to Cart</button>
           </td>
 
-          <td class="favourites_close_icon">
+          <td className="favourites_close_icon">
             <i
               className="close"
               aria-hidden="true"
@@ -139,63 +139,61 @@ class Favourites extends Component {
               }}/>
           </td>
         </tr>
-       </div>
       ))
     );
   }
   renderFavouritesItems_md() {
-        const { favourites } = this.props;
-        return (
-
-                favourites.Items.map((listItem, index) => (
-                <div key={`cart-item-${index}`} className="d-lg-none d-sm-none d-md-block favo_table_root">
-                    <div className="sm_favor_table">
-                        <div className="sm_favor_img d-md-flex d-none">{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
-                            src={listItem.numberOfUserImage[0]} className="favor_gear-img"/> : null}
-                        </div>
-                        <div className="sm_favor_table_top">
-                             <div className="sm_favor_name_closeicon">
-                                 <div className="sm_favor_img d-sm-flex d-md-none">{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
-                                     src={listItem.numberOfUserImage[0]} className="favor_gear-img"/> : null}
-                                 </div>
-                                <div className="col-md-22 favourites_close_text">
-                                    <p className="tb_brand_model_name">{listItem.brand + ' ' + listItem.model}</p>
-                                    <p className="theme-text-small text-muted tb_categories_name">{listItem.categoryName}</p>
-                                </div>
-                                <div className="favourites_close_icon">
-                                    <i
-                                        className="close"
-                                        aria-hidden="true"
-                                        onClick={async () => {
-                                            this.setState({loadingdata_del : this});
-                                            await deleteFavourite({ gearid: listItem.gearid });
-                                            this.dogetFavorits_del();
-                                        }}/>
-                                </div>
+    const { favourites } = this.props;
+    return (
+        favourites.Items.map((listItem, index) => (
+            <div key={`cart-item-${index}`} className="d-lg-none d-sm-none d-md-block favo_table_root">
+                <div className="sm_favor_table">
+                    <div className="sm_favor_img d-md-flex d-none">{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
+                        src={listItem.numberOfUserImage[0]} className="favor_gear-img"/> : null}
+                    </div>
+                    <div className="sm_favor_table_top">
+                         <div className="sm_favor_name_closeicon">
+                             <div className="sm_favor_img d-sm-flex d-md-none">{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
+                                 src={listItem.numberOfUserImage[0]} className="favor_gear-img"/> : null}
                              </div>
-                            <div className="sm_favor_bottom">
-                                <div className="bottom_left col-md-8">
-                                    <Rating
-                                        initialRating={3}
-                                        emptySymbol={<img src="/images/Icons/star/star_icon_d.png" className="icon" />}
-                                        fullSymbol={<img src="/images/Icons/star/star_icon_a.png" className="icon" />}/>
-                                    <td><div><div className="favouri_link_icon"/><span className="Raykjavik_span">Raykjavik</span></div></td>
-                                </div>
-                                <div className="sm_favor_bottom_right col-md-14">
-                                    <p>Price per day</p>
-                                     <div className="tb_pay_per">{`$${listItem.pricePerDay}`}</div>
-                                </div>
+                            <div className="col-md-22 favourites_close_text">
+                                <p className="tb_brand_model_name">{listItem.brand + ' ' + listItem.model}</p>
+                                <p className="theme-text-small text-muted tb_categories_name">{listItem.categoryName}</p>
+                            </div>
+                            <div className="favourites_close_icon">
+                                <i
+                                    className="close"
+                                    aria-hidden="true"
+                                    onClick={async () => {
+                                        this.setState({loadingdata_del : this});
+                                        await deleteFavourite({ gearid: listItem.gearid });
+                                        this.dogetFavorits_del();
+                                    }}/>
                             </div>
                          </div>
-
+                        <div className="sm_favor_bottom">
+                            <div className="bottom_left col-md-8">
+                                <Rating
+                                    initialRating={3}
+                                    emptySymbol={<img src="/images/Icons/star/star_icon_d.png" className="icon" />}
+                                    fullSymbol={<img src="/images/Icons/star/star_icon_a.png" className="icon" />}/>
+                                <div><div className="favouri_link_icon"/><span className="Raykjavik_span">Raykjavik</span></div>
+                            </div>
+                            <div className="sm_favor_bottom_right col-md-14">
+                                <p>Price per day</p>
+                                 <div className="tb_pay_per">{`$${listItem.pricePerDay}`}</div>
+                            </div>
+                        </div>
                      </div>
-                    <div className="favoiurites_add_icon">
-                        <button className="theme-btn theme-btn-primary theme-btn-link add-to-cart-btn" onClick={() => this.onOpenModal(listItem.gearid)}>Add to Cart</button>
-                    </div>
+
+                 </div>
+                <div className="favoiurites_add_icon">
+                    <button className="theme-btn theme-btn-primary theme-btn-link add-to-cart-btn" onClick={() => this.onOpenModal(listItem.gearid)}>Add to Cart</button>
                 </div>
-            ))
-        );
-    }
+            </div>
+        ))
+    );
+  }
 
   render() {
     const { favourites } = this.props;
@@ -216,7 +214,7 @@ class Favourites extends Component {
           <div className="theme-page-title">Favourites</div>
           <div className="flex-row d-none d-lg-flex">
             <button className="theme-btn theme-btn-secondery"><Link to="/">Continue Shopping</Link></button>
-            <button className="theme-btn theme-btn-primary theme-btn-link"><Link to="/cart"> Cart </Link></button>
+            <button className="theme-btn theme-btn-primary go-to-cart-btn"><Link to="/cart"> Cart </Link></button>
           </div>
         </div>
           <div className="d-md-flex d-lg-none d-none md_show_buttons" >
@@ -224,36 +222,39 @@ class Favourites extends Component {
               <button className="theme-btn theme-btn-primary theme-btn-link col-md-14"><Link to="/checkout">Cart</Link></button>
           </div>
         <div className="cart-table-div">
-
-                        { !favourites.Items.length ? (
-                            <EmptyActivity e_name="  Cart  " e_path="/cart" e_title="THE ITEMS YOU LIKE APPEAR HERE" e_img_name = "favouri"/>
-
-                        ) :(
-                      <Table className="theme-table">
-                        <thead>
-                        <tr className= "d-none d-lg-table">
-                          <th/>
-                          <th>Name & Category</th>
-                          <th>Rating</th>
-                          <th>Location</th>
-                          <th>Price per day</th>
-                          <th/>
-                          <th/>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {
-                          this.renderFavouritesItems()
-                        }
-                        </tbody>
-                          {this.renderFavouritesItems_md()}
-                      </Table>)}
-
+          {
+            !favourites.Items.length ?
+              (<EmptyActivity e_name="  Cart  " e_path="/cart" e_title="THE ITEMS YOU LIKE APPEAR HERE" e_img_name = "favouri"/>
+            ) :(
+              <Table className="theme-table d-none d-lg-table">
+                <thead>
+                <tr className= "d-none d-lg-table">
+                  <th/>
+                  <th>Name & Category</th>
+                  <th>Rating</th>
+                  <th>Location</th>
+                  <th>Price per day</th>
+                  <th/>
+                  <th/>
+                </tr>
+                </thead>
+                <tbody>
+                {
+                  this.renderFavouritesItems()
+                }
+                </tbody>
+              </Table>
+          )}
+          {
+            this.renderFavouritesItems_md()
+          }
         </div>
-          <div className="d-flex d-md-none d-lg-none md_show_buttons" >
-              <button className="theme-btn theme-btn-secondery col-md-14"><Link to="/cart">Continue Shopping</Link></button>
-              <button className="theme-btn theme-btn-primary theme-btn-link col-md-9"><Link to="/checkout">Cart</Link></button>
-          </div>
+
+        <div className="d-flex d-md-none d-lg-none md_show_buttons" >
+          <button className="theme-btn theme-btn-secondery col-md-14"><Link to="/cart">Continue Shopping</Link></button>
+          <button className="theme-btn theme-btn-primary theme-btn-link col-md-9"><Link to="/checkout">Cart</Link></button>
+        </div>
+
         <CartModal1 dlg_model={1} gear={this.state.gear} open={this.state.modal_open_st === 2} onClose={this.onCloseModal} addToCart={this.addToCart}></CartModal1>
         <CartModal carted={this.state.carted} gear={this.state.gear} start_date={this.state.cart_info.start_date} end_date={this.state.cart_info.end_date} open={this.state.modal_open_st === 1} onClose={this.onCloseModal}></CartModal>
       </div>

@@ -65,42 +65,6 @@
     color: red;
   }
 
-  .type-tabs {
-    input {
-      display: none;
-    }
-
-    .type-tab {
-      background-color: #fef1e8;
-      color: #1cdb74;
-      font-size: 13px;
-      padding: 3px 18px;
-      border-radius: 0 4px 4px 0;
-
-      &.active {
-        background-color: #1cdb74;
-        color: #FAF5EC;
-        z-index: 1000;
-        border-radius: 4px;
-      }
-      &.type-tab2 {
-        background-color: #f8f1e8;
-        color: #F2C893;
-        z-index: 999;
-      }
-      &.type-tab3 {
-        background-color: #fbe3d9;
-        color: #F5BCA4;
-        z-index: 998;
-      }
-      &.type-tab4 {
-        background-color: #f9dada;
-        color: #F6B3B3;
-        z-index: 997;
-      }
-    }
-  }
-
   .accessories {
     margin-top: 10px;
     font-family: Helvetica Neue;
@@ -143,6 +107,42 @@
     &:hover {
       text-decoration: underline;
       text-decoration-color: #FDBED0;
+    }
+  }
+}
+
+.type-tabs {
+  input {
+    display: none;
+  }
+
+  .type-tab {
+    background-color: #fef1e8;
+    color: #1cdb74;
+    font-size: 13px;
+    padding: 3px 18px;
+    border-radius: 0 4px 4px 0;
+
+    &.active {
+      background-color: #1cdb74;
+      color: #FAF5EC;
+      z-index: 1000;
+      border-radius: 4px;
+    }
+    &.type-tab2 {
+      background-color: #f8f1e8;
+      color: #F2C893;
+      z-index: 999;
+    }
+    &.type-tab3 {
+      background-color: #fbe3d9;
+      color: #F5BCA4;
+      z-index: 998;
+    }
+    &.type-tab4 {
+      background-color: #f9dada;
+      color: #F6B3B3;
+      z-index: 997;
     }
   }
 }

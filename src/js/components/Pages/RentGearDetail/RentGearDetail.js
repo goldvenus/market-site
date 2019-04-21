@@ -53,7 +53,6 @@ class RentGearDetail extends Component {
             loadingdata_del: false
         };
         getGear(this.gearid);
-        this.addToCart = this.addToCart.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -126,7 +125,7 @@ class RentGearDetail extends Component {
                                 <span className="theme-text-small text-gray">per day</span>
                             </CardText>
                             <div className="buttons">
-                                <button className={`cart ${carted ? 'disabled' : ''}`} onClick={() => this.onOpenModal(item.gearid)}>
+                                <button className={`cart ${carted ? 'disabled' : ''}`} onClick={this.onOpenModal}>
                                     {
                                         carted ? 'Added to cart' : <Link to={`/gear/detail/${gearid}`}>Add to cart</Link>
                                     }
@@ -143,6 +142,7 @@ class RentGearDetail extends Component {
 
     // carousel
     changeActiveItem = (activeItemIndex) => this.setState({ activeItemIndex });
+
     renderCarousel = (img_arr) => {
         // make img objects for bottom carousel
         const children = img_arr.map((item, i) => (
@@ -179,14 +179,14 @@ class RentGearDetail extends Component {
     }
 
     // modal
-    async onOpenModal(gearid) {
+    onOpenModal = async (gearid) => {
+        console.log(this.props);
         try {
             const { carts } = this.props;
             const cart = gearid && carts && carts.length > 0 ?
                 carts.filter(item => item.gearid === gearid) : 0;
             const carted = cart.length;
-
-            let res = await getGear(gearid);
+            const res = await getGear(gearid);
             if (res) {
                 const open_state = carted ? 1 : 2;
                 let start_date = new Date();
@@ -205,8 +205,8 @@ class RentGearDetail extends Component {
                     }
                 });
             }
-        } catch {
-            handleError('Cannot get gear.');
+        } catch(err) {
+            handleError(err);
         }
     }
     onCloseModal = () => {
@@ -374,7 +374,7 @@ class RentGearDetail extends Component {
                             user && this.state.userid !== userid ?
                                 <div className="pickup-date-container row">
                                     <div className='col-md-11 date-range-container'>
-                                        <TextField id="date-range-input1" className="date-range-input" type="text" inputProps={300} label={'PICKUP DATE'} defaultValue={start_date_str}
+                                        <TextField id="date-range-input1" className="date-range-input" type="text" label={'PICKUP DATE'}
                                             onFocus={() => this.setOpenState(true, false)} value={start_date_str}/>
                                         {
                                             this.state.open_date_picker1 ?
@@ -396,7 +396,7 @@ class RentGearDetail extends Component {
                                     </div>
                                     <div className='col-md-2'></div>
                                     <div className='col-md-11 date-range-container'>
-                                        <TextField id="date-range-input1" className="date-range-input" type="text" inputProps={300} label={'RETURN DATE'} defaultValue={end_date_str}
+                                        <TextField id="date-range-input1" className="date-range-input" type="text" label={'RETURN DATE'}
                                             onFocus={() => this.setOpenState(false, true)} value={end_date_str}/>
                                         {
                                             this.state.open_date_picker2 ?
@@ -533,7 +533,7 @@ class RentGearDetail extends Component {
                                         user && this.state.userid !== userid ?
                                             <div className="pickup-date-container">
                                                 <div className='row date-range-container'>
-                                                    <TextField id="date-range-input1" className="date-range-input" type="text" inputProps={300} label={'PICKUP DATE'} defaultValue={start_date_str}
+                                                    <TextField id="date-range-input1" className="date-range-input" type="text" label={'PICKUP DATE'}
                                                         onFocus={() => this.setOpenState(true, false)} value={start_date_str}/>
                                                     {
                                                         this.state.open_date_picker1 ?
@@ -554,7 +554,7 @@ class RentGearDetail extends Component {
                                                     }
                                                 </div>
                                                 <div className='row date-range-container'>
-                                                    <TextField id="date-range-input1" className="date-range-input" type="text" inputProps={300} label={'RETURN DATE'} defaultValue={end_date_str}
+                                                    <TextField id="date-range-input1" className="date-range-input" type="text" label={'RETURN DATE'}
                                                         onFocus={() => this.setOpenState(false, true)} value={end_date_str}/>
                                                     {
                                                         this.state.open_date_picker2 ?

@@ -53,8 +53,8 @@ class Payment extends Component {
   handleCardChange = (e, element) => {
     e.preventDefault();
     $(".select-card-btn").trigger('click');
-    const month = element.expiration_date.split('/')[0];
-    const year = element.expiration_date.split('/')[1];
+    const month = element.expiration_date.substr(0, 2);
+    const year = element.expiration_date.substr(2, 2);
     this.setState({
         card_number: element.card_number,
         card_holder: element.card_holder,
@@ -89,6 +89,7 @@ class Payment extends Component {
         handleError('Please provide required information');
         return false;
     }
+
     let user_id = localStorage.userId;
     let total = 0;
     let sold_items = [];
@@ -107,9 +108,8 @@ class Payment extends Component {
 
     this.setState({loading: true});
     let response = await payment(data);
-    console.log(response);
-    if (response.status === 'pay-in-success') {
-      console.log(response.pay_data);
+
+    if (response.status === 'payin-success') {
       this.setState({
         total: response.pay_data.Total,
         tax: response.pay_data.Tax,

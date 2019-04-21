@@ -1,42 +1,41 @@
-import {Component} from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import React from "react";
 
-class Urllink_class extends Component{
-    render() {
-        if (this.props.name == 'Home Page' || this.props.name == 'Home' ) {
-            return (
-                <Link to="/">
-                    {`${this.props.name}`}
-                </Link>
-            );
-        } else if (this.props.name == "Favourites") {
-            return (
-                <Link to="/favourites">
-                    {`${this.props.name}`}
-                </Link>
-            );
-        } else if (this.props.name == "Cart") {
-            return (
-                <Link to="/cart">
-                    {`${this.props.name}`}
-                </Link>
-            );
+const Urllink_class  = (props) => {
+    const category = props.name.replace(' ', '');
 
-        } else if (this.props.name == "Rent Gears") {
-            return (
-                <Link to="/rentgear">
-                    {`${this.props.name}`}
-                </Link>
-            );
+    if (category === 'HomePage' || category === 'Home' ) {
+        return (
+            <Link to="/">
+                {category}
+            </Link>
+        );
+    } else if (category === "Favourites") {
+        return (
+            <Link to="/favourites">
+                {category}
+            </Link>
+        );
+    } else if (category === "Cart") {
+        return (
+            <Link to="/cart">
+                {category}
+            </Link>
+        );
 
-        }else {
-            return (
-                <Link to={`/rentgear/${this.props.name}`}>
-                    {`${this.props.name}`}
-                </Link>
-            );
-        }
+    } else if (category === "RentGears") {
+        return (
+            <Link to="/rentgear">
+                {category}
+            </Link>
+        );
+
+    }else {
+        return (
+            <Link to={`/rentgear/${category}`}>
+                {category}
+            </Link>
+        );
     }
 }
 export default Urllink_class;

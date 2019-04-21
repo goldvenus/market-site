@@ -7,6 +7,7 @@ import '@trendmicro/react-buttons/dist/react-buttons.css';
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import moment from "moment";
 import CustomSpinner from "../../CustomSpinner";
+import ItemsCarousel from "react-items-carousel";
 
 class Payment extends Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class Payment extends Component {
       tax: 0,
       fee: 0,
       amount: 0,
+      buyer_info: {},
       loading: true
     };
 
@@ -38,7 +40,8 @@ class Payment extends Component {
       const ret = await getPaidItems(param);
       console.log(ret);
       const pay_info = ret.pay_info;
-      const items = pay_info.SoldItems;
+      const items = ret.sold_items;
+      const buyer_info = ret.buyer_info;
 
       this.setState({
         items: items,
@@ -50,29 +53,107 @@ class Payment extends Component {
         tax: pay_info.Tax,
         fee: pay_info.Fee,
         amount: pay_info.Amount,
+        buyer_info: buyer_info,
         loading: false
       });
     } catch(err) {
-      handleError("Payment info laoding failed!");
+      handleError("Payment info loading failed!");
     }
   }
 
   renderCheckoutItems() {
     const { items } = this.state;
     return (
-      <div className="checkout-items">
+      <div className="paid-items">
         {
           items.map((listItem, index) => {
             const d = days(listItem.startDate, listItem.endDate);
-            return <div key={`cart-item-${index}`} className="checkout-item">
-              <div>{listItem.brand + ' ' + listItem.model}</div>
-              <div><b>${listItem.pricePerDay * d}</b> for <b>{days(listItem.startDate, listItem.endDate)}</b> days</div>
+            return <div key={`cart-item-${index}`} className="paid-item">
+              <div className='item-info'>
+                <div className='category-name'>{listItem.categoryName}</div>
+                <div className='brand-model'>{listItem.brand + ' ' + listItem.model}</div>
+                <div className="type-tabs">
+                  <input name="type" id="new" type="radio" value="new"/>
+                  <label className={`type-tab ${listItem.type === 'new' ? 'active' : ''}`} htmlFor="new">New</label>
+                  <input name="type" id="like-new" type="radio" value="like_new"/>
+                  <label className={`type-tab type-tab2 ${listItem.type === 'like_new' ? 'active' : ''}`} htmlFor="like-new">Like New</label>
+                  <input name="type" id="slightly-worn" type="radio" value="slightly_worn"/>
+                  <label className={`type-tab type-tab3 ${listItem.type === 'new' ? 'active' : ''}`} htmlFor="slightly-worn">SlightlyWorn</label>
+                  <input name="type" id="worn" type="radio" value="worn"/>
+                  <label className={`type-tab type-tab4 ${listItem.type === 'Worn' ? 'active' : ''}`} htmlFor="worn">Worn</label>
+                </div>
+                <div className="carousel-bottom-container">
+                  {
+                    this.renderCarousel(listItem.numberOfUserImage)
+                  }
+                </div>
+              </div>
+              <div className='pay-info'>
+                <div className='item-info'>
+                  <div className='category-name'>{listItem.categoryName}</div>
+                  <div className='brand-model'>{listItem.brand + ' ' + listItem.model}</div>
+                </div>
+                <div className='buyer-info'>
+                  <div className='buyer-info-left'>
+                    <div className='category-name'>{localStorage.username}</div>
+                    <div className='buyer-profile'>
+                        <img src={this.state.buyer_info.cognitoPool.userAttributes.picture}></img>
+                        <div>
+                            <span>Jakob Storm</span>
+                            <span>+1 (123) 562-42-11</span>
+                        </div>
+                    </div>
+                    <div className='period-price'>
+
+                    </div>
+                  </div>
+                  <div className='buyer-info-right'></div>
+                </div>
+                <div className='payment-info'>
+                    <b>${listItem.pricePerDay * d}</b> for <b>{days(listItem.startDate, listItem.endDate)}</b> days
+                </div>
+              </div>
             </div>;
           })
         }
       </div>
     );
   }
+
+  renderCarousel = (img_arr) => {
+        // make img objects for bottom carousel
+        const children = img_arr.map((item, i) => (
+            <div key={i} className='carousel-image-container'>
+                <img src={item} alt="" />
+            </div>
+        ));
+        return (<ItemsCarousel
+            // Placeholder configurations
+            enablePlaceholder
+            numberOfPlaceholderItems={img_arr.length}
+            minimumPlaceholderTime={1000}
+            placeholderItem={<div style={{ height: 200, background: '#900' }}>Placeholder</div>}
+
+            // Carousel configurations
+            numberOfCards={5}
+            gutter={12}
+            showSlither={true}
+            firstAndLastGutter={true}
+            freeScrolling={false}
+
+            // Active item configurations
+            requestToChangeActive={this.changeActiveItem}
+            activeItemIndex={this.state.activeItemIndex}
+            activePosition={'center'}
+
+            chevronWidth={24}
+            rightChevron={'>'}
+            leftChevron={'<'}
+            outsideChevron={false}
+        >
+            {children}
+        </ItemsCarousel>);
+}
 
   render() {
     if (this.state.loading) {

@@ -7,9 +7,6 @@
     img {
       object-fit:contain;
     }
-    .add-to-cart-btn{
-      padding:7px 15px;
-    }
     .favourites_close_icon {
       padding:0;
       padding-right:30px;
@@ -28,7 +25,10 @@
     margin-right: 10px;
   }
 }
-.wrraper {
+.go-to-cart-btn {
+  padding: 8px 35px !important;
+}
+.wrapper {
   background-color: #faf8f9;
   text-align: center;
 }

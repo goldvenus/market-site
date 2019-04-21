@@ -589,7 +589,7 @@ class Home extends React.Component {
               reloadOnUpdate // default false
             >
                 {data.arrivals.map((val, key) => (
-                  <div className="arrival-items arrival-items-inner-wrapper"><ArrivalItem key={key} {...val}/></div>
+                  <div key={key} className="arrival-items arrival-items-inner-wrapper"><ArrivalItem {...val}/></div>
                 ))}
 
             </Flickity>
@@ -636,13 +636,15 @@ class Home extends React.Component {
               reloadOnUpdate // default false
             >
               
-                {
-                  data.stories.map((item, index) => {
-                    return <div className="slide"><Row sm="8" key={index}>
+              {
+                data.stories.map((item, index) => {
+                  return <div className="slide" key={index}>
+                    <Row sm="8">
                       <ThemeCardTwo story={item}/>
-                    </Row></div>;
-                  })
-                }
+                    </Row>
+                  </div>
+                })
+              }
             
               </Flickity>
               <Row>
