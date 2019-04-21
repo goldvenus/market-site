@@ -25,6 +25,7 @@ import {
 import CartModal from '../../common/CartModal'
 import { calcDaysDiff, getDateStr } from "../../common/Functions";
 import Urllink_class from "../../Urllink_class";
+import CartModal1 from "../../common/CartModal1";
 
 const flickityOptions = {
     contain: true,
@@ -44,7 +45,12 @@ class RentGearDetail extends Component {
             activeItemIndex: 1,
             open: false,
             open_date_picker1: false,
-            open_date_picker2: false
+            open_date_picker2: false,
+            modal_open_st: 0,
+            carted: false,
+            gear: {},
+            ratingstate:{},
+            loadingdata_del: false
         };
         getGear(this.gearid);
         this.addToCart = this.addToCart.bind(this);
@@ -120,7 +126,7 @@ class RentGearDetail extends Component {
                                 <span className="theme-text-small text-gray">per day</span>
                             </CardText>
                             <div className="buttons">
-                                <button className={`cart ${carted ? 'disabled' : ''}`} >
+                                <button className={`cart ${carted ? 'disabled' : ''}`} onClick={() => this.onOpenModal(item.gearid)}>
                                     {
                                         carted ? 'Added to cart' : <Link to={`/gear/detail/${gearid}`}>Add to cart</Link>
                                     }
@@ -173,9 +179,36 @@ class RentGearDetail extends Component {
     }
 
     // modal
-    onOpenModal = () => {
-        this.setState({ open: true });
-    };
+    async onOpenModal(gearid) {
+        try {
+            const { carts } = this.props;
+            const cart = gearid && carts && carts.length > 0 ?
+                carts.filter(item => item.gearid === gearid) : 0;
+            const carted = cart.length;
+
+            let res = await getGear(gearid);
+            if (res) {
+                const open_state = carted ? 1 : 2;
+                let start_date = new Date();
+                let end_date = new Date();
+                if (carted) {
+                    start_date = new Date(cart[0].startDate);
+                    end_date = new Date(cart[0].endDate);
+                }
+                this.setState({
+                    modal_open_st: open_state,
+                    gear: this.props.gear,
+                    carted: carted,
+                    cart_info: {
+                        start_date: start_date,
+                        end_date: end_date
+                    }
+                });
+            }
+        } catch {
+            handleError('Cannot get gear.');
+        }
+    }
     onCloseModal = () => {
         this.setState({ open: false });
     };
@@ -583,8 +616,8 @@ class RentGearDetail extends Component {
                             favored>0 ? deleteFavourite({ gearid }) : addFavourites({ gearid })}}></i>
                     </div>
                 </footer>
-
-                <CartModal carted={carted} gear={{...gear, start_date_str, end_date_str}} start_date={this.state.startDate} end_date={this.state.endDate} open={this.state.open} onClose={this.onCloseModal} addToCart={carted => this.addToCart(carted)}></CartModal>
+                <CartModal1 dlg_model={1} gear={this.state.gear} open={this.state.modal_open_st === 2} onClose={this.onCloseModal} addToCart={this.addToCart}></CartModal1>
+                <CartModal carted={carted} gear={{...gear, start_date_str, end_date_str}} start_date={this.state.startDate} end_date={this.state.endDate} open={this.state.modal_open_st===1} onClose={this.onCloseModal} addToCart={carted => this.addToCart(carted)}></CartModal>
             </div>
         );
     }

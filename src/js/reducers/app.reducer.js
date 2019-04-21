@@ -16,6 +16,10 @@ const initialState = {
   searchResults: [],
   newArrivals: [],
   dashboard: {},
+  carts:[],
+    //////new reducer Gear History
+  gear_histories:[],
+  my_gear_names:[]
 }
 
 export default (state = initialState, action) => {
@@ -77,6 +81,10 @@ export default (state = initialState, action) => {
       case ACTIONS.DASHBOARD:
         draft.dashboard = action.payload;
         break;
+      case ACTIONS.GEAR_HISTORY:
+          draft.gear_histories = action.payload;
+      case ACTIONS.MY_GEAR_NAME:
+            draft.my_gear_names = action.payload;
       default:
         break;
     }

@@ -9,6 +9,10 @@ import dataSet from './dataSet';
 import EmpetyList from './Empety_list'
 import { getListGears } from '../../../actions/app.actions';
 import connect from "react-redux/es/connect/connect";
+import Calendar from "./calendar/Calendar";
+
+import {gear_names} from "./calendar/general";
+
 {/* <tr>
   <td width="15%">{<img src={rentItem.numberOfUserImage[0]} className="gear-img" />}</td>
   <td className="gear" width="20%">
@@ -33,12 +37,19 @@ import connect from "react-redux/es/connect/connect";
 
 const MyListingItem = ({ listItem }) => (
   <tr>
-    <td width="15%">{<img src={listItem.numberOfUserImage[0]} className="gear-img"/>}</td>
-    <td className="gear" width="20%">
+    <td width="5%" className="d-md-none d-none d-lg-table-cell listing-data-image">{<img src={listItem.numberOfUserImage[0]} className="gear-img"/>}</td>
+      <td width="20%" className="d-lg-none d-md-table-cell listing-data-image">{<img src={listItem.numberOfUserImage[0]} className="gear-img"/>}</td>
+
+    <td className="d-none d-lg-table-cell" width="20%">
       <p >{listItem.brand}</p>
       <p className="theme-text-small text-muted">{listItem.categoryName}</p>
     </td>
-    <td className="rental-period" width="20%">
+      <td className="listing-p d-lg-none d-md-table-cell" width="40%">
+          <p className="theme-text-small text-muted table-content-name">{listItem.categoryName}</p>
+          <p className="table-content-name-body">{listItem.brand}</p>
+      </td>
+
+    <td className="d-none d-lg-table-cell rental-period" width="25%">
       <p>
         {/* {`${listItem.startDate.split(' ')[0]} to ${listItem.endDate.split(' ')[0]} `} */}
       </p>
@@ -46,12 +57,40 @@ const MyListingItem = ({ listItem }) => (
         {` ${listItem.totalRentedNumerOfDay} days`}
       </p>
     </td>
-    <td width="20%">
-      <img src={listItem.clientDP} className="landrord-img" />
+      <td className="d-lg-none d-md-table-cell listing-temp-right" width="40%" >
+          <div className="rental-period listing-temp-right-top" width="100%" height="50%">
+              <p className="listing-temp-right-top-number"> 201.94.17-12345
+                  {/* {`${listItem.startDate.split(' ')[0]} to ${listItem.endDate.split(' ')[0]} `} */}
+              </p>
+              <p className="theme-text-small text-muted">
+                  {` ${listItem.totalRentedNumerOfDay} days`}
+              </p>
+          </div>
+          <div className="listing-temp-right-bottom" width="100%" height="50%">
+              <div className="d-lg-none d-md-table-cell listing-temp-right-bottom-left" width="50%">
+                  <p className="listing-temp-right-bottom-left-p">Price per day</p>
+                  {`${listItem.pricePerDay} $`}
+              </div>
+              <div className="d-lg-none d-md-table-cell listing-temp-right-bottom-right" width="50%">
+                  <p className="listing-temp-right-bottom-right-p">Amouth</p>
+                  {`${listItem.totalRentedNumerOfDay * listItem.pricePerDay} $`}
+              </div>
+          </div>
+      </td>
+
+    <td width="25%" className="d-md-none d-lg-table-cell">
+      <img src={listItem.numberOfUserImage[0]} className = "landrord-img circle-region-picture" />
       <span className="ml-1 "> {listItem.clientName} </span>
     </td>
-    <td width="15%">{`${listItem.pricePerDay} $`} </td>
-    <td width="15%">{`${listItem.totalRentedNumerOfDay * listItem.pricePerDay} $`}</td>
+
+      <td width="25%" className="d-none d-sm-table-cell">
+          <img src={listItem.numberOfUserImage[0]} className = "landrord-img circle-region-picture" />
+          <span className="ml-1 "> {listItem.clientName} </span>
+      </td>
+
+    <td className="d-none d-lg-table-cell" width="15%">{`${listItem.pricePerDay} $`} </td>
+
+    <td className="d-none d-lg-table-cell" width="15%">{`${listItem.totalRentedNumerOfDay * listItem.pricePerDay} $`}</td>
   </tr>
 )
 
@@ -83,11 +122,6 @@ class MyListings extends React.Component {
 
   }
 
-
-
-
-
-
   render() {
     const { currentPage} = this.state;
     const { list} = this.props;
@@ -96,27 +130,29 @@ class MyListings extends React.Component {
       this.pagesCount = Math.ceil(list ? list.length / this.pageSize : "");
     return (
       <Row className="my-listing my-listing-tabs">
-        <Col sm="24">
+        <Col sm="24" className="listing-body calendar_all_parent">
           <div className="d-flex align-items-center">
-            <h4 className="tab-title">My Listings</h4>
+            <h4 className="tab-title tab-title-listings">Gear history</h4>
             <Link to='/listGear' className="theme-btn theme-btn-primary ml-auto mb-3">List Gear</Link>
           </div>
 
-         <Tabs>
 
-          <TabList>
-            <Tab><i className="fa fa-list"></i>My Listing</Tab>
-            <Tab><i className="fa fa-calendar"></i> Calender</Tab>
+         <Tabs className="fa-table-selected">
+
+          <TabList >
+              <Tab ><div className="list-menu-letter"><i className="fa fa-list"></i>List</div></Tab>
+              <Tab ><div className="list-calendar-letter"><i className="fa fa-calendar"></i> Calender</div></Tab>
           </TabList>
-          <div className="wrraper">
+          <div className="wrraper wrraper-region calendar_wrraper">
             <TabPanel>
             { (list.length <= 0) ? <EmpetyList/> : 
-             (
-              <React.Fragment>
+               (
+                 <React.Fragment>
                       <div className="table-responsive">
                         <Table className="listing-data-slice" >
-                          <thead>
-                            <tr className="text-muted theme-text-bold">
+                        
+                          <thead  className="d-md-none d-lg-table d-sm-none list-table-head">
+                            <tr className="text-muted theme-text-bold listing-data-thead">
                               <th></th>
                               <th>Name & Category</th>
                               <th>Rental Period</th>
@@ -125,7 +161,7 @@ class MyListings extends React.Component {
                               <th>Amount</th>
                             </tr>
                           </thead>
-                          <tbody>
+                          <tbody className="listing-data-tbody">
                             {list ? list
                               .slice(
                                 currentPage * this.pageSize,
@@ -138,7 +174,7 @@ class MyListings extends React.Component {
                           </tbody>
                         </Table>
                       </div>
-                      <Pagination aria-label="Page navigation example">
+                      <Pagination aria-label="Page navigation example" className="listing-data-pagenation">
           
                         <PaginationItem disabled={currentPage <= 0}>
                           <PaginationLink
@@ -166,13 +202,11 @@ class MyListings extends React.Component {
           
                       </Pagination>
                     </React.Fragment>
-            )
-          }
+               )
+             }
             </TabPanel>
             <TabPanel>
-              <h2>
-                calendar
-              </h2>
+                <Calendar/>
             </TabPanel>
           </div>
         </Tabs>

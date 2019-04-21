@@ -2,7 +2,6 @@ import axios from 'axios';
 import { API_URL, API_URL_NEW, ACTIONS } from '../constants';
 import store from '../store';
 import moment from 'moment';
-import CustomSpinner from "../components/CustomSpinner";
 
 const dispatch = store.dispatch;
 
@@ -581,11 +580,39 @@ const socialLogin = async (idToken, accessToken) => {
     handleError(error);
   }
 };
+///////////gear_history get action//////////
+const getgearhistory = async () => {
+    try {
+        let response = await get_new('gearhistory');
+        if (response) {
+            dispatch({
+                type: ACTIONS.GEAR_HISTORY,
+                payload: response.data
+            });
+        }
+    } catch (error) {
+        handleError(error);
+    }
+}
+const getmygearname = async () => {
+    try {
+        let response = await get_new('mygearname');
+        if(response){
+            dispatch ({
+                type: ACTIONS.MY_GEAR_NAME,
+                payload: response.data
+            })
+        }
+    }catch (error) {
+        handleError(error)
+    }
+}
 
 export {
   register, confirmUser, login, logout, clearError, handleError, getUser,
   readFileData, addGear, fetchCategories, getListGears, getAllGears, getGear, addCart, getCarts,
   formatDate, days, checkout, getCheckout, payment, getPaymentCards, getPaidItems, rentGearProductList, dashboardMyListing,
   dashboardMyRentals, search, addFavourites, getFavourites, deleteFavourite, newArrivals,
-  deleteCartItem, deleteGear, socialLogin, viewUserDashboard, sendResetPasswordEmail, confirmResetPassword
+  deleteCartItem, deleteGear, socialLogin, viewUserDashboard, sendResetPasswordEmail, confirmResetPassword,
+  getgearhistory, getmygearname,
 };
