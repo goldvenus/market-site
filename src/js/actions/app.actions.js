@@ -315,14 +315,16 @@ const getGear = async (gearid) => {
 const addCart = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
+        console.log(data);
       let response = await post('addGearIntoCart', data);
       console.log(response.data);
       dispatch({
         type: ACTIONS.ADD_TO_CART,
-        payload: response.data[0]
+        payload: response.data.data
       });
-      resolve(response);
+      resolve(response.data);
     } catch (error) {
+        console.log(error);
       handleError(error);
       reject(error);
     }
@@ -478,6 +480,7 @@ const search = async (brand, product_region) => {
 const addFavourites = async (data) => {
   try {
     let response = await post_new('addUserFavouriteGear', data);
+    console.log(response);
     // here must be some code for state change
     return response;
   } catch (error) {
@@ -488,7 +491,6 @@ const addFavourites = async (data) => {
 const getFavourites = async () => {
   try {
     let response = await get_new('viewUserFavouriteGear');
-
     if (response) {
       dispatch({
         type: ACTIONS.FAVOURITES,
@@ -516,12 +518,21 @@ const viewUserDashboard = async () => {
 };
 
 const deleteFavourite = async (data) => {
-  try {
-    let response = await post_new('deleteUserFavouriteGear', data);
-    return response;
-  } catch (error) {
-    handleError(error);
-  }
+  return new Promise(async (resolve, reject) => {
+    try {
+      let response = await post_new('deleteUserFavouriteGear', data);
+      if (response.data.status === 'success') {
+        dispatch({
+          type: ACTIONS.DELETE_FAVOR_ITEM,
+          payload: data.gearid
+        });
+      } else {
+        resolve(false);
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  });
 };
 
 const newArrivals = async () => {
@@ -540,19 +551,40 @@ const newArrivals = async () => {
 };
 
 const deleteCartItem = async (data) => {
-  try {
-    let response = await post('deleteGearFromCart', data);
-  } catch (error) {
-    handleError(error);
-  }
+  return new Promise(async (resolve, reject) => {
+    try {
+      let response = await post('deleteGearFromCart', data);
+      if (response.data.status === 'success') {
+        dispatch({
+          type: ACTIONS.DELETE_CART_ITEM,
+          payload: data.gearid
+        });
+      } else {
+        resolve(false);
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  });
 };
 
 const deleteGear = async (data) => {
-  try {
-    let response = await post_new('deleteUserGear', data);
-  } catch (error) {
-    handleError(error);
-  }
+  return new Promise(async (resolve, reject) => {
+    try {
+      let response = await post_new('deleteUserGear', data);
+      if (response) {
+        dispatch({
+          type: ACTIONS.DELETE_GEAR,
+          payload: data.gearid
+        });
+        resolve()
+      } else {
+
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  });
 };
 
 const socialLogin = async (idToken, accessToken) => {

@@ -1,3 +1,5 @@
+@import "../variables";
+
 .rent-gear {
   .rent-gear-head {
     padding-top: 3rem;
@@ -28,13 +30,21 @@
             border: none;
             padding: 0;
 
-            div {
+            a {
               position: relative;
+              display: flex;
               padding: .8rem 1.25rem;
-            }
+              text-decoration: none;
 
-            &:hover {
-              background-color: $gray-light;
+              &:hover {
+                background-color: #fff;
+              }
+              &.item-active {
+                background-color: #f82462;
+                &:hover {
+                  background-color: #f82462 !important;
+                }
+              }
             }
           }
 
@@ -550,6 +560,12 @@
       }
     }
   }
+}
+
+.gear-list-empty {
+  justify-content: center;
+  display: flex;
+  padding: 10px;
 }
 
 @media(max-width: 700px) {

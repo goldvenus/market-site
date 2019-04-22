@@ -113,6 +113,8 @@ modal css
 // model 2
 .modal-cart-body-1 {
   padding: 30px;
+  //max-height: 360px;
+  //overflow: hidden;
 
   .modal-cart-info {
     padding: 10px;
@@ -155,3 +157,6 @@ modal css
     margin-left: -222px !important;
   }
 }
+
+
+/* ... style */

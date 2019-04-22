@@ -16,9 +16,10 @@ const initialState = {
   searchResults: [],
   newArrivals: [],
   dashboard: {},
-  carts:[],
-  gear_histories:[],
-  my_gear_names:[]
+  carts: [],
+  favorites: [],
+  gear_histories: [],
+  my_gear_names: []
 }
 
 export default (state = initialState, action) => {
@@ -50,14 +51,29 @@ export default (state = initialState, action) => {
       case ACTIONS.GEAR:
         draft.gear = action.payload;
         break;
-
+      case ACTIONS.DELETE_GEAR:
+        draft.listGears = draft.listGears.filter(item => item.gearid !== action.payload);
+        break;
       case ACTIONS.CARTS:
         draft.carts = action.payload;
         break;
+      case ACTIONS.ADD_TO_CART:
+        draft.carts = [...draft.carts, action.payload];
+        break;
+      case ACTIONS.DELETE_CART_ITEM:
+        draft.carts = draft.carts.reduce((arr, item) =>
+            item.gearid !== action.payload ?
+                arr.concat(item) : arr, []);
+        break;
 
-      // case ACTIONS.GEAR_PRODUCT_LIST:
-      //   draft.productList = action.payload;
-      //   break;
+      case ACTIONS.ADD_TO_FAVORITE:
+        draft.favourites = [...draft.favourites, action.payload];
+        break;
+      case ACTIONS.DELETE_FAVOR_ITEM:
+        draft.favorites = draft.favorites.reduce((arr, item) =>
+            item.gearid !== action.payload ?
+                arr.concat(item) : arr, []);
+        break;
 
       case ACTIONS.DASHBOARD_MY_LISTINGS:
         draft.userListings = action.payload;

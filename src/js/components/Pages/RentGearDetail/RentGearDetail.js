@@ -14,6 +14,7 @@ import 'react-date-range/dist/theme/default.css';
 import { DateRange } from 'react-date-range';
 import TextField from '@material-ui/core/TextField';
 import CustomCarousel from '../../CustomCarousel';
+import { ToastsStore } from 'react-toasts';
 import {
     getGear,
     addCart,
@@ -23,9 +24,10 @@ import {
     addFavourites
 } from '../../../actions/app.actions';
 import CartModal from '../../common/CartModal'
+import CartModal1 from '../../common/CartModal1';
 import { calcDaysDiff, getDateStr } from "../../common/Functions";
 import Urllink_class from "../../Urllink_class";
-import CartModal1 from "../../common/CartModal1";
+import { Inline } from '@zendeskgarden/react-loaders'
 
 const flickityOptions = {
     contain: true,
@@ -43,15 +45,15 @@ class RentGearDetail extends Component {
             descp: '',
             show_view_more: true,
             activeItemIndex: 1,
-            open: false,
             open_date_picker1: false,
             open_date_picker2: false,
             modal_open_st: 0,
             carted: false,
             gear: {},
             ratingstate:{},
-            loadingdata_del: false
+            busy: false
         };
+
         getGear(this.gearid);
     }
 
@@ -73,12 +75,14 @@ class RentGearDetail extends Component {
                     endDate: formatDate(endDate)
                 });
 
-                if (res) {
-                    this.props.history.push('/cart');
+                if (res.status === 'success') {
+                    ToastsStore.info('Gear was added to cart!');
+                } else {
+                    ToastsStore.error('Gear was not added to cart!');
                 }
             }
         } catch {
-            handleError('Gear is not added to cart');
+            ToastsStore.error('Gear was not added to cart!');
         }
     }
 
@@ -126,9 +130,7 @@ class RentGearDetail extends Component {
                             </CardText>
                             <div className="buttons">
                                 <button className={`cart ${carted ? 'disabled' : ''}`} onClick={this.onOpenModal}>
-                                    {
-                                        carted ? 'Added to cart' : <Link to={`/gear/detail/${gearid}`}>Add to cart</Link>
-                                    }
+                                    <Link to={`/gear/detail/${gearid}`}>Add to cart</Link>
                                 </button>
                                 <button className="fav" onClick={() => {
                                     favored > 0 ? deleteFavourite({gearid}) : addFavourites({gearid})
@@ -179,13 +181,15 @@ class RentGearDetail extends Component {
     }
 
     // modal
-    onOpenModal = async (gearid) => {
-        console.log(this.props);
+    onOpenModal = async () => {
         try {
             const { carts } = this.props;
+            const gearid = this.gearid;
             const cart = gearid && carts && carts.length > 0 ?
                 carts.filter(item => item.gearid === gearid) : 0;
             const carted = cart.length;
+
+            this.setState({busy: true});
             const res = await getGear(gearid);
             if (res) {
                 const open_state = carted ? 1 : 2;
@@ -202,22 +206,27 @@ class RentGearDetail extends Component {
                     cart_info: {
                         start_date: start_date,
                         end_date: end_date
-                    }
+                    },
+                    busy: false
                 });
             }
         } catch(err) {
             handleError(err);
         }
-    }
-    onCloseModal = () => {
-        this.setState({ open: false });
     };
+
+    onCloseModal = () => {
+        this.setState({
+            modal_open_st: 0
+        });
+    };
+
     setOpenState = (ost1, ost2) => {
         this.setState({
             open_date_picker1: ost1,
             open_date_picker2: ost2
-        })
-    }
+        });
+    };
 
     // date-range-picker
     handleSelect = ranges => {
@@ -285,6 +294,7 @@ class RentGearDetail extends Component {
         const end_date_str = getDateStr(this.state.endDate);
         const duration = calcDaysDiff(this.state.startDate, this.state.endDate) + 1;
         const total_price = duration * pricePerDay;
+        const busy = this.state.busy;
 
         return (
             <div className="detail-container container">
@@ -390,8 +400,8 @@ class RentGearDetail extends Component {
                                         }
                                         {
                                             this.state.open_date_picker1 ?
-                                                <object type="image/svg+xml" data="/images/Icons/calendar/calendar1.svg"></object> :
-                                                <object type="image/svg+xml" data="/images/Icons/calendar/calendar.svg"></object>
+                                                <object type="image/svg+xml" data="/images/Icons/calendar/calendar1.svg">abc</object> :
+                                                <object type="image/svg+xml" data="/images/Icons/calendar/calendar.svg">abc</object>
                                         }
                                     </div>
                                     <div className='col-md-2'></div>
@@ -411,16 +421,19 @@ class RentGearDetail extends Component {
                                         }
                                         {
                                             this.state.open_date_picker2 ?
-                                                <object type="image/svg+xml" data="/images/Icons/calendar/calendar1.svg"></object> :
-                                                <object type="image/svg+xml" data="/images/Icons/calendar/calendar.svg"></object>
+                                                <object type="image/svg+xml" data="/images/Icons/calendar/calendar1.svg">abc</object> :
+                                                <object type="image/svg+xml" data="/images/Icons/calendar/calendar.svg">abc</object>
                                         }
                                     </div>
                                 </div>
                                 : null
                         }
                         <div className="bottom-buttons">
-                            <button className="theme-btn theme-btn-primary btn-cart" onClick={this.onOpenModal}>
-                                Add to Cart</button>
+                            <button className="theme-btn theme-btn-primary btn-cart" onClick={() => this.onOpenModal()}>
+                                {
+                                    busy ? <Inline size={64} color={"#fff"} /> : 'Add to Cart'
+                                }
+                            </button>
                             <button className="theme-btn theme-btn-secondery btn-favor" onClick={() => {
                                 favored>0 ? deleteFavourite({ gearid }) : addFavourites({ gearid })}}>
                                 <i className={`${favored ? 'fas' : 'far'} fa-heart`}></i>
@@ -462,11 +475,11 @@ class RentGearDetail extends Component {
                     <div className="right-container col-lg-15">
                         <div className="right-container1 row">
                             <Breadcrumb>
-                                <Urllink_class name="Home"></Urllink_class>
+                                <Urllink_class name="Home"/>
                                 <span className="space_slash_span">/</span>
-                                <Urllink_class name="Rent Gears"></Urllink_class>
+                                <Urllink_class name="Rent Gears"/>
                                 <span className="space_slash_span">/</span>
-                                <Urllink_class name={categoryName}></Urllink_class>
+                                <Urllink_class name={categoryName}/>
                                 <span className="space_slash_span">/</span>
                                 <BreadcrumbItem active>{name}</BreadcrumbItem>
                             </Breadcrumb>
@@ -549,8 +562,8 @@ class RentGearDetail extends Component {
                                                     }
                                                     {
                                                         this.state.open_date_picker1 ?
-                                                            <object type="image/svg+xml" data="/images/Icons/calendar/calendar1.svg"></object> :
-                                                            <object type="image/svg+xml" data="/images/Icons/calendar/calendar.svg"></object>
+                                                            <img src="/images/Icons/calendar/calendar1.svg"/> :
+                                                            <img src="/images/Icons/calendar/calendar.svg"/>
                                                     }
                                                 </div>
                                                 <div className='row date-range-container'>
@@ -569,8 +582,8 @@ class RentGearDetail extends Component {
                                                     }
                                                     {
                                                         this.state.open_date_picker2 ?
-                                                            <object type="image/svg+xml" data="/images/Icons/calendar/calendar1.svg"></object> :
-                                                            <object type="image/svg+xml" data="/images/Icons/calendar/calendar.svg"></object>
+                                                            <img src="/images/Icons/calendar/calendar1.svg"/> :
+                                                            <img src="/images/Icons/calendar/calendar.svg"/>
                                                     }
                                                 </div>
                                             </div>
@@ -582,8 +595,11 @@ class RentGearDetail extends Component {
                                         {duration} days
                                     </div>
                                     <div className="bottom-buttons">
-                                        <button className="theme-btn theme-btn-primary btn-cart" onClick={this.onOpenModal}>
-                                            Add to Cart</button>
+                                        <button className="theme-btn theme-btn-primary btn-cart" onClick={() => this.onOpenModal()} disabled={`${busy ? 'disabled' : ''}`}>
+                                            {
+                                                busy ? <Inline size={64} color={"#fff"} /> : 'Add to Cart'
+                                            }
+                                        </button>
                                         <button className="theme-btn theme-btn-secondery btn-favor" onClick={() => {
                                             favored>0 ? deleteFavourite({ gearid }) : addFavourites({ gearid })}}>
                                             <i className={`${favored ? 'fas' : 'far'} fa-heart`}></i>
@@ -616,8 +632,12 @@ class RentGearDetail extends Component {
                             favored>0 ? deleteFavourite({ gearid }) : addFavourites({ gearid })}}></i>
                     </div>
                 </footer>
-                <CartModal1 dlg_model={1} gear={this.state.gear} open={this.state.modal_open_st === 2} onClose={this.onCloseModal} addToCart={this.addToCart}></CartModal1>
-                <CartModal carted={carted} gear={{...gear, start_date_str, end_date_str}} start_date={this.state.startDate} end_date={this.state.endDate} open={this.state.modal_open_st===1} onClose={this.onCloseModal} addToCart={carted => this.addToCart(carted)}></CartModal>
+                {
+                    this.state.modal_open_st === 2 ?
+                        <CartModal1 dlg_model={1} gear={this.state.gear} open={true} onClose={this.onCloseModal} addToCart={this.addToCart}></CartModal1> :
+                        this.state.modal_open_st === 1 ?
+                            <CartModal carted={carted} gear={{...gear, start_date_str, end_date_str}} start_date={this.state.startDate} end_date={this.state.endDate} open={true} onClose={this.onCloseModal} addToCart={carted => this.addToCart(carted)}></CartModal> : null
+                }
             </div>
         );
     }

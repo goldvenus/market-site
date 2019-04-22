@@ -41,11 +41,9 @@ class Sidebar extends Component {
           <ListGroup>
             {categories.map((element, index) =>
               <ListGroupItem value={element} key={index}>
-                <div className={`${element.replace(' ', '') === category && 'item-active'}`}>
-                  <Link to={`/rentgear/${element.replace(` `, ``)}`}>
-                    {element}
-                  </Link>
-                </div>
+                <Link className={`${this.props.category === element.replace(' ', '') ? 'item-active' : ''}`} to={`/rentgear/${element.replace(` `, ``)}`}>
+                  {element}
+                </Link>
               </ListGroupItem>
             )}
           </ListGroup>
@@ -66,11 +64,9 @@ class Sidebar extends Component {
           <ListGroup>
             {categories.map((element, index) =>
               <ListGroupItem value={element} key={index}>
-                <div className={`${this.props.sideid === index && 'item-active'}`}>
-                  <Link to={`/rentgear/${element.replace(` `, ``)}`}>
-                    {element}
-                  </Link>
-                </div>
+                <Link className={`${this.props.sideid === index ? 'item-active' : ''}`} to={`/rentgear/${element.replace(` `, ``)}`}>
+                  {element}
+                </Link>
               </ListGroupItem>
             )}
           </ListGroup>

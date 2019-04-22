@@ -55,7 +55,7 @@ class Checkout extends Component {
         loading: true
       });
     }
-  }
+  };
 
   onCheckout = async () => {
     const { full_name, addr, city, zip, save_addr, product_region } = this.state;
@@ -71,7 +71,7 @@ class Checkout extends Component {
     if (response) {
       this.props.history.push(`/payment/${response.data}`);
     }
-  }
+  };
 
   handleAddrChange = (e, element) => {
     e.preventDefault();
@@ -81,16 +81,16 @@ class Checkout extends Component {
         product_region: element.product_region,
         city: element.city
     });
-  }
+  };
 
   handleSetSaveState = () => {
     console.log(this.state.save_addr);
     this.setState({save_addr: !this.state.save_addr});
-  }
+  };
 
   handleInputChange = (e, val) => {
-        this.setState({[val]: e.target.value});
-    }
+    this.setState({[val]: e.target.value});
+  };
 
   handleClickAddrList = () => {
     if($('.addr-dropdown').hasClass('active')){
@@ -100,34 +100,32 @@ class Checkout extends Component {
       $('.addr-dropdown').addClass('active') ;
       $('.addr-dropdown ul').css('display', 'block');
     }
-  }
+  };
 
   renderCheckoutItems() {
-        const { carts } = this.props;
-        const mappedCarts = carts.map((listItem, index) => {
-            const d = days(listItem.startDate, listItem.endDate);
+    const { carts } = this.props;
+    const mappedCarts = carts.map((listItem, index) => {
+      const d = days(listItem.startDate, listItem.endDate);
 
-            return <div key={`cart-item-${index}`} className="checkout-item">
-                <div>{listItem.brand + ' ' + listItem.model}</div>
-                <div><b>${listItem.pricePerDay * d}</b> for <b>{d}</b> days</div>
-            </div>;
-        });
+      return <div key={`cart-item-${index}`} className="checkout-item">
+        <div>{listItem.brand + ' ' + listItem.model}</div>
+        <div><b>${listItem.pricePerDay * d}</b> for <b>{d}</b> days</div>
+      </div>;
+    });
 
-        return (
-            <div className="checkout-items">
-                {
-                    mappedCarts
-                }
-            </div>
-        );
+    return (
+      <div className="checkout-items">
+        {
+          mappedCarts
+        }
+      </div>
+    );
   }
 
   render() {
     const { carts, user } = this.props;
     if (!carts || !user) {
       return <BarLoader color="#F82462" height="5"/>;
-    } else if (this.state.loading) {
-      return <CustomSpinner/>;
     }
 
     let total = 0;
@@ -140,6 +138,10 @@ class Checkout extends Component {
     const { full_name, addr, city, zip, save_addr, product_region, addr_list } = this.state;
 
     return (
+      <React.Fragment>
+      {
+        this.state.loading ? <CustomSpinner/> : null
+      }
       <div className="checkout">
         <div className="checkout-head">
           <div className='container'>
@@ -271,6 +273,7 @@ class Checkout extends Component {
           </div>
         </div>
       </div>
+    </React.Fragment>
     );
   }
 }

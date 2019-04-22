@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from "redux";
 import { Link, withRouter } from 'react-router-dom';
-import {Container, Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
 import {
     getFavourites,
     deleteFavourite,
@@ -12,15 +12,16 @@ import {
 import CartModal from "../../common/CartModal";
 import CartModal1 from "../../common/CartModal1";
 import BarLoader from "react-bar-loader";
+import { ToastsStore } from 'react-toasts';
 import Rating from "react-rating"
 import EmptyActivity from "../../EmptyActivity";
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import CustomSpinner from "../../CustomSpinner";
 import Urllink_class from "../../Urllink_class";
+
 class Favourites extends Component {
   constructor(props) {
     super(props);
-    // getFavourites();
 
     this.state = {
       modal_open_st: 0,
@@ -31,7 +32,7 @@ class Favourites extends Component {
         end_date: new Date()
       },
       ratingstate:{},
-      loadingdata_del: false
+      deleting: false
     }
   }
 
@@ -62,7 +63,7 @@ class Favourites extends Component {
         });
       }
     } catch {
-      handleError('Cannot get gear.');
+      ToastsStore.error('Cannot get gear.');
     }
   }
 
@@ -87,18 +88,9 @@ class Favourites extends Component {
         }
       }
     } catch {
-      handleError('Adding failed!');
+      ToastsStore.error('Gear adding failed!');
     }
   };
-  async dogetFavorits_del () {
-    try {
-      await getFavourites();
-      this.setState({loadingdata_del : false});
-    }
-    catch {
-      handleError('Gear is not added to cart');
-    }
-  }
 
   renderFavouritesItems() {
     const { favourites } = this.props;
@@ -108,7 +100,7 @@ class Favourites extends Component {
       favourites.Items.map((listItem, index) => (
         <tr key={`cart-item-${index}`}>
           <td width="10%">{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
-            src={listItem.numberOfUserImage[0]} className="gear-img"/> : null}</td>
+            src={listItem.numberOfUserImage[0]} alt='' className="gear-img"/> : null}</td>
           <td className="gear" width="29%">
             <p className="tb_brand_model_name">{listItem.brand + ' ' + listItem.model}</p>
             <p className="theme-text-small text-muted tb_categories_name">{listItem.categoryName}</p>
@@ -116,8 +108,8 @@ class Favourites extends Component {
           <td width="20.5%">
               <Rating
                   initialRating={3}
-                 emptySymbol={<img src="/images/Icons/star/star_icon_d.png" className="icon" />}
-                 fullSymbol={<img src="/images/Icons/star/star_icon_a.png" className="icon" />}
+                 emptySymbol={<img src="/images/Icons/star/star_icon_d.png" alt='' className="icon" />}
+                 fullSymbol={<img src="/images/Icons/star/star_icon_a.png" alt='' className="icon" />}
                     onChange={(rate) => {console.log(rate)}}/>
               <p>{this.state.ratingstate[index]}</p>
           </td>
@@ -133,9 +125,11 @@ class Favourites extends Component {
               className="close"
               aria-hidden="true"
               onClick={async () => {
-                  this.setState({loadingdata_del : this});
-                await deleteFavourite({ gearid: listItem.gearid });
-                this.dogetFavorits_del();
+                this.setState({deleting : true});
+                let ret = await deleteFavourite({ gearid: listItem.gearid });
+                if (!ret) handleError("Removing failed!");
+                else ToastsStore.info("Successfully removed!");
+                this.setState({deleting : false});
               }}/>
           </td>
         </tr>
@@ -149,12 +143,12 @@ class Favourites extends Component {
             <div key={`cart-item-${index}`} className="d-lg-none d-sm-none d-md-block favo_table_root">
                 <div className="sm_favor_table">
                     <div className="sm_favor_img d-md-flex d-none">{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
-                        src={listItem.numberOfUserImage[0]} className="favor_gear-img"/> : null}
+                        src={listItem.numberOfUserImage[0]} alt='' className="favor_gear-img"/> : null}
                     </div>
                     <div className="sm_favor_table_top">
                          <div className="sm_favor_name_closeicon">
                              <div className="sm_favor_img d-sm-flex d-md-none">{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
-                                 src={listItem.numberOfUserImage[0]} className="favor_gear-img"/> : null}
+                                 src={listItem.numberOfUserImage[0]} alt='' className="favor_gear-img"/> : null}
                              </div>
                             <div className="col-md-22 favourites_close_text">
                                 <p className="tb_brand_model_name">{listItem.brand + ' ' + listItem.model}</p>
@@ -166,8 +160,10 @@ class Favourites extends Component {
                                     aria-hidden="true"
                                     onClick={async () => {
                                         this.setState({loadingdata_del : this});
-                                        await deleteFavourite({ gearid: listItem.gearid });
-                                        this.dogetFavorits_del();
+                                        let ret = await deleteFavourite({ gearid: listItem.gearid });
+                                        if (!ret) handleError("Removing from favorites failed!");
+                                        // else handleSuccess("Successfully removed!");
+                                        this.setState({deleting : false});
                                     }}/>
                             </div>
                          </div>
@@ -175,8 +171,8 @@ class Favourites extends Component {
                             <div className="bottom_left col-md-8">
                                 <Rating
                                     initialRating={3}
-                                    emptySymbol={<img src="/images/Icons/star/star_icon_d.png" className="icon" />}
-                                    fullSymbol={<img src="/images/Icons/star/star_icon_a.png" className="icon" />}/>
+                                    emptySymbol={<img src="/images/Icons/star/star_icon_d.png" alt='' className="icon" />}
+                                    fullSymbol={<img src="/images/Icons/star/star_icon_a.png" alt='' className="icon" />}/>
                                 <div><div className="favouri_link_icon"/><span className="Raykjavik_span">Raykjavik</span></div>
                             </div>
                             <div className="sm_favor_bottom_right col-md-14">
@@ -185,7 +181,6 @@ class Favourites extends Component {
                             </div>
                         </div>
                      </div>
-
                  </div>
                 <div className="favoiurites_add_icon">
                     <button className="theme-btn theme-btn-primary theme-btn-link add-to-cart-btn" onClick={() => this.onOpenModal(listItem.gearid)}>Add to Cart</button>
@@ -198,66 +193,69 @@ class Favourites extends Component {
   render() {
     const { favourites } = this.props;
     if (!favourites) {
-        return <BarLoader color="#F82462" height="5" />;
+      return <BarLoader color="#F82462" height="5" />;
     }
-    if(this.state.loadingdata_del){
-       return <CustomSpinner/>
-    }
+
     return (
-      <div className="cart_view centered-content">
-        <Breadcrumb className= "card_content_path">
-          <Urllink_class name="Home"> </Urllink_class>
-            <span className="space_slash_span">/</span>
-          <BreadcrumbItem active>Favourites</BreadcrumbItem>
-        </Breadcrumb>
-        <div className="cart-header ">
-          <div className="theme-page-title">Favourites</div>
-          <div className="flex-row d-none d-lg-flex">
-            <button className="theme-btn theme-btn-secondery"><Link to="/">Continue Shopping</Link></button>
-            <button className="theme-btn theme-btn-primary go-to-cart-btn"><Link to="/cart"> Cart </Link></button>
+      <React.Fragment>
+        {
+          this.state.loading ? <CustomSpinner/> : null
+        }
+        <div className="cart_view centered-content">
+          <Breadcrumb className= "card_content_path">
+              <Urllink_class name="Home"/>
+              <span className="space_slash_span">/</span>
+              <BreadcrumbItem active>Favourites</BreadcrumbItem>
+          </Breadcrumb>
+          <div className="cart-header ">
+            <div className="theme-page-title">Favourites</div>
+            <div className="flex-row d-none d-lg-flex">
+              <button className="theme-btn theme-btn-secondery"><Link to="/">Continue Shopping</Link></button>
+              <button className="theme-btn theme-btn-primary go-to-cart-btn"><Link to="/cart"> Cart </Link></button>
+            </div>
           </div>
-        </div>
-          <div className="d-md-flex d-lg-none d-none md_show_buttons" >
-              <button className="theme-btn theme-btn-secondery col-md-9"><Link to="/cart">Continue Shopping2</Link></button>
-              <button className="theme-btn theme-btn-primary theme-btn-link col-md-14"><Link to="/checkout">Cart</Link></button>
+            <div className="d-md-flex d-lg-none d-none md_show_buttons" >
+                <button className="theme-btn theme-btn-secondery col-md-9"><Link to="/cart">Continue Shopping2</Link></button>
+                <button className="theme-btn theme-btn-primary theme-btn-link col-md-14"><Link to="/checkout">Cart</Link></button>
+            </div>
+          <div className="cart-table-div">
+            {
+              !favourites.Items.length ?
+                (<EmptyActivity e_name="  Cart  " e_path="/cart" e_title="THE ITEMS YOU LIKE APPEAR HERE" e_img_name = "favouri"/>
+              ) :(
+                <Table className="theme-table d-none d-lg-table">
+                  <thead>
+                  <tr className= "d-none d-lg-table">
+                    <th/>
+                    <th>Name & Category</th>
+                    <th>Rating</th>
+                    <th>Location</th>
+                    <th>Price per day</th>
+                    <th/>
+                    <th/>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {
+                    this.renderFavouritesItems()
+                  }
+                  </tbody>
+                </Table>
+            )}
+            {
+              this.renderFavouritesItems_md()
+            }
           </div>
-        <div className="cart-table-div">
-          {
-            !favourites.Items.length ?
-              (<EmptyActivity e_name="  Cart  " e_path="/cart" e_title="THE ITEMS YOU LIKE APPEAR HERE" e_img_name = "favouri"/>
-            ) :(
-              <Table className="theme-table d-none d-lg-table">
-                <thead>
-                <tr className= "d-none d-lg-table">
-                  <th/>
-                  <th>Name & Category</th>
-                  <th>Rating</th>
-                  <th>Location</th>
-                  <th>Price per day</th>
-                  <th/>
-                  <th/>
-                </tr>
-                </thead>
-                <tbody>
-                {
-                  this.renderFavouritesItems()
-                }
-                </tbody>
-              </Table>
-          )}
-          {
-            this.renderFavouritesItems_md()
-          }
-        </div>
 
-        <div className="d-flex d-md-none d-lg-none md_show_buttons" >
-          <button className="theme-btn theme-btn-secondery col-md-14"><Link to="/cart">Continue Shopping</Link></button>
-          <button className="theme-btn theme-btn-primary theme-btn-link col-md-9"><Link to="/checkout">Cart</Link></button>
-        </div>
+          <div className="d-flex d-md-none d-lg-none md_show_buttons" >
+            <button className="theme-btn theme-btn-secondery col-md-14"><Link to="/cart">Continue Shopping</Link></button>
+            <button className="theme-btn theme-btn-primary theme-btn-link col-md-9"><Link to="/checkout">Cart</Link></button>
+          </div>
 
-        <CartModal1 dlg_model={1} gear={this.state.gear} open={this.state.modal_open_st === 2} onClose={this.onCloseModal} addToCart={this.addToCart}></CartModal1>
-        <CartModal carted={this.state.carted} gear={this.state.gear} start_date={this.state.cart_info.start_date} end_date={this.state.cart_info.end_date} open={this.state.modal_open_st === 1} onClose={this.onCloseModal}></CartModal>
-      </div>
+          <CartModal1 dlg_model={1} gear={this.state.gear} open={this.state.modal_open_st === 2} onClose={this.onCloseModal} addToCart={this.addToCart}></CartModal1>
+          <CartModal carted={this.state.carted} gear={this.state.gear} start_date={this.state.cart_info.start_date} end_date={this.state.cart_info.end_date} open={this.state.modal_open_st === 1} onClose={this.onCloseModal}></CartModal>
+        </div>
+      </React.Fragment>
     );
   }
 }

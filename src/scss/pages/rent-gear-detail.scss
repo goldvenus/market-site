@@ -359,8 +359,10 @@
 .date-range-container {
   padding: 24px 0 0 0 !important;
   border-bottom: solid 1px #EAEAEA;
-  object {
+  img {
     margin-top: 10px;
+    width: 21px;
+    height: 24px;
   }
 }
 .pickup-date-container {
@@ -396,6 +398,9 @@
     &:before {
       border: none !important;
     }
+    &:after {
+      border-bottom: 1px solid #AAA !important;
+    }
   }
   label {
     color: #7C7C7C !important;
@@ -404,8 +409,6 @@
 }
 .date-range-icon {
   width: 20%;
-  background-image: url("/images/Icons/calendar/calendar.svg");
-  background-repeat: no-repeat;
   margin-top: 18px;
 }
 .MuiInput-underline-27:hover:not(.MuiInput-disabled-26):not(.MuiInput-focused-25):not(.MuiInput-error-28):before {

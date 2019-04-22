@@ -29,5 +29,10 @@ const ACTIONS = {
   DASHBOARD: 'dashboard',
   GEAR_HISTORY: 'gear_histories',
   MY_GEAR_NAME: 'my_gear_names',
+  ADD_TO_CART: 'addToCart',
+  ADD_TO_FAVORITE: 'addToFavorite',
+  DELETE_CART_ITEM: 'deleteCartItem',
+  DELETE_FAVOR_ITEM: 'deleteFavorItem',
+  DELETE_GEAR: 'deleteGear'
 };
 export { API_URL, ACTIONS, API_URL_NEW, FACEBOOK_LOGIN_URL };

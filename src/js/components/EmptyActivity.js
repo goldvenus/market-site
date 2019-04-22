@@ -8,9 +8,9 @@ class EmptyActivity extends Component {
         const {e_img_name } = this.props;
         if (e_img_name=="cart")
             return(<svg width="65" height="51" viewBox="0 0 65 51" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M56.8 6.5H5.06188C3.04346 6.5 1.60095 8.4531 2.19454 10.3823L7.54839 27.7823C7.9357 29.041 9.09871 29.9 10.4157 29.9H47.8M56.8 6.5L47.8 29.9M56.8 6.5H60.6767C61.5967 6.5 62.4241 5.93986 62.7657 5.08563V5.08563C63.3569 3.60768 62.2685 2 60.6767 2H58.7861C58.0843 2 57.4047 2.24605 56.8656 2.69534L52.3 6.5M47.8 29.9L45.83 35.1534C45.3909 36.3243 44.2715 37.1 43.021 37.1H11.8" stroke="#252525" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="16.3008" cy="46.1" r="3" stroke="#252525" stroke-width="3"/>
-                <circle cx="37.8984" cy="46.1" r="3" stroke="#252525" stroke-width="3"/>
+                <path d="M56.8 6.5H5.06188C3.04346 6.5 1.60095 8.4531 2.19454 10.3823L7.54839 27.7823C7.9357 29.041 9.09871 29.9 10.4157 29.9H47.8M56.8 6.5L47.8 29.9M56.8 6.5H60.6767C61.5967 6.5 62.4241 5.93986 62.7657 5.08563V5.08563C63.3569 3.60768 62.2685 2 60.6767 2H58.7861C58.0843 2 57.4047 2.24605 56.8656 2.69534L52.3 6.5M47.8 29.9L45.83 35.1534C45.3909 36.3243 44.2715 37.1 43.021 37.1H11.8" stroke="#252525" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                <circle cx="16.3008" cy="46.1" r="3" stroke="#252525" strokeWidth="3"/>
+                <circle cx="37.8984" cy="46.1" r="3" stroke="#252525" strokeWidth="3"/>
             </svg>);
         else if(e_img_name=="favouri")
             return(<svg width="76" height="62" viewBox="0 0 76 62" fill="none" xmlns="http://www.w3.org/2000/svg">
