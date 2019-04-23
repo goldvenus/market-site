@@ -105,15 +105,6 @@ class Checkout extends Component {
     }
   };
 
-
-  handleClickListButton = () => {
-    if (this.state.addr_list.length < 1) {
-      $(".select-addr-btn + div").css('display', 'none');
-    } else {
-      $(".select-addr-btn + div").css('display', 'block');
-    }
-  };
-
   renderCheckoutItems() {
     const { carts } = this.props;
     const mappedCarts = carts.map((listItem, index) => {
@@ -188,7 +179,7 @@ class Checkout extends Component {
               </div>
               <div className="address-select">
                 <Dropdown className='d-none d-lg-block'>
-                  <Dropdown.Toggle title="Saved address" className="select-addr-btn" onClick={this.handleClickListButton}/>
+                  <Dropdown.Toggle title="Saved address" className="select-addr-btn"/>
                   <Dropdown.Menu>
                     {
                       addr_list_temp.length > 0?

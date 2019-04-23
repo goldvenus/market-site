@@ -17,7 +17,7 @@ import Select from '@material-ui/core/Select';
 import $ from "jquery";
 import moment from "moment";
 import CustomSpinner from "../../CustomSpinner";
-import { getUniqueObjectArray, validateCard, cc_format, checkDigit } from "../../common/Functions";
+import { getUniqueObjectArray, validateCard, cc_format, checkDigitSpace } from "../../common/Functions";
 
 class Payment extends Component {
   constructor(props) {
@@ -73,10 +73,12 @@ class Payment extends Component {
   handleInputChange = (e, type) => {
     let value = e.target.value;
     if (type === 'card_number') {
-      value = cc_format(value);
-      if (!checkDigit(e)) {
-        handleError("Your input includes character!");
-        return;
+      // only allow digits and space
+      if (checkDigitSpace(value)) {
+        value = cc_format(value);
+      } else {
+        handleError("Please input right number!");
+        value = this.state.card_number;
       }
     }
     this.setState({[type]: value});
@@ -126,9 +128,10 @@ class Payment extends Component {
     const checkout_id = this.props.match.params.id;
     const fee = 0;
     const expiration_date = expiration_month + expiration_year;
-    const data = { card_number, card_holder, expiration_date, cvv, save_card, user_id,
+    let data = { card_number, card_holder, expiration_date, cvv, save_card, user_id,
         total, tax, amount, fee, checkout_id, sold_items};
-
+    console.log(card_number);
+    data.card_number = card_number.replace(/ /g, '');   // eat spaces
     this.setState({loading: true});
     let response = await payment(data);
 

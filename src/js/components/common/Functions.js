@@ -66,10 +66,6 @@ export const cc_format = value => {
     }
 };
 
-export const checkDigit = event => {
-    var code = (event.which) ? event.which : event.keyCode;
-    if ((code < 48 || code > 57) && (code > 31)) {
-        return false;
-    }
-    return true;
+export const checkDigitSpace = value => {
+    return /^[\d,' ']*$/.test(value);
 };
