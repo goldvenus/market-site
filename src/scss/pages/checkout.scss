@@ -155,10 +155,17 @@
 }
 .select-addr-btn, .select-card-btn {
   border: none;
-  background: none;
+  background: none !important;
+  border: none !important;
+  font-family: Helvetica Neue;
+  font-size: 16px;
+  line-height: 27px;
+  color: #252525;
+  opacity: 0.8;
 
   &:hover {
     background: none;
+    border: none !important;
   }
 }
 .select-addr-btn ~ div, .select-card-btn ~ div {
