@@ -156,18 +156,18 @@ class Calendar extends React.Component {
                     <BigCalendar className="calendar_first_div d-sm-none d-none d-lg-block d-md-block"
                         selectable
                         localizer={localizer}
-                        events={this.state.events.map((item, index) => {
+                        events={this.state.events.map((item) => {
                             if(item.rent_gear_name === this.state.g_name) {
                                 return {...item, title: (item.title + item.start)}
                             }
-                        })}//(item => item.rent_gear_name === this.state.g_name)}
+                        })}
                         defaultView="month"
                         scrollToTime={new Date(1970, 1, 1, 6)}
                         defaultDate={new Date()}
                         onSelectEvent={event => this.selectedEvent(event)}
                         eventPropGetter={this.eventColors}
                         components={{
-                        toolbar: CalendarToolBar
+                          toolbar: CalendarToolBar
                         }}
                     />
                     <Helmet>
@@ -229,7 +229,7 @@ const UpdateMydata_calendar = () => {
     $(document).ready(function () {
         $(".rbc-date-cell").each(function (index) {
             let day_number = $(this).find("a").html();
-            if(day_number[0]=='0'){
+            if(day_number[0] === '0'){
                 $(this).find("a").html(day_number[1]);
             }
         })
@@ -261,7 +261,7 @@ const UpdateMydata_calendar = () => {
             $(".rbc-event-content").each(function (even_content) {
                 const title =  $(this).html();
                 const filterevent = events.filter(item => (item.title + item.start) === title);
-                if(filterevent.length==0){
+                if(filterevent.length === 0){
                     return;
                 }
                 const start_time = getDateStr(new Date(filterevent[0].start));

@@ -13,6 +13,8 @@ import '@trendmicro/react-dropdown/dist/react-dropdown.css';
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import $ from "jquery";
 import CustomSpinner from "../../CustomSpinner";
+import Urllink_class from "../../Urllink_class";
+import { getUniqueObjectArray } from "../../common/Functions";
 
 class Checkout extends Component {
   constructor(props) {
@@ -27,7 +29,8 @@ class Checkout extends Component {
       product_region: '',
       zip: '',
       open: false,
-      loading: true
+      loading: true,
+      project_name: ''
     };
 
     this.getUserCheckoutInfo();
@@ -47,7 +50,8 @@ class Checkout extends Component {
         zip: checkout.Zip,
         addr_list: addr_list,
         save_addr: checkout.SavedAddr,
-        loading: false
+        loading: false,
+        project_name: checkout.ProjectName
       });
     } else {
       this.setState({
@@ -58,14 +62,14 @@ class Checkout extends Component {
   };
 
   onCheckout = async () => {
-    const { full_name, addr, city, zip, save_addr, product_region } = this.state;
+    const { full_name, addr, city, zip, save_addr, product_region, project_name } = this.state;
     const user_id = localStorage.userId;
-    if (!full_name || !addr || !city || !zip || !product_region) {
+    if (!full_name || !addr || !city || !zip || !product_region || !project_name) {
       handleError('Please provide required information');
       return false;
     }
 
-    const data = { full_name, addr, city, zip, save_addr, product_region, user_id };
+    const data = { full_name, addr, city, zip, save_addr, product_region, project_name, user_id };
     this.setState({loading: true});
     const response = await checkout(data);
     if (response) {
@@ -79,12 +83,11 @@ class Checkout extends Component {
     this.setState({
         addr: element.addr,
         product_region: element.product_region,
-        city: element.city
+        zip: element.zip
     });
   };
 
   handleSetSaveState = () => {
-    console.log(this.state.save_addr);
     this.setState({save_addr: !this.state.save_addr});
   };
 
@@ -99,6 +102,15 @@ class Checkout extends Component {
     } else {
       $('.addr-dropdown').addClass('active') ;
       $('.addr-dropdown ul').css('display', 'block');
+    }
+  };
+
+
+  handleClickListButton = () => {
+    if (this.state.addr_list.length < 1) {
+      $(".select-addr-btn + div").css('display', 'none');
+    } else {
+      $(".select-addr-btn + div").css('display', 'block');
     }
   };
 
@@ -134,8 +146,10 @@ class Checkout extends Component {
       total += d * listItem.pricePerDay;
     });
     const tax = total * 0.21;
-    const amount = total + tax;
-    const { full_name, addr, city, zip, save_addr, product_region, addr_list } = this.state;
+    const fee = total * 0.05;
+    const amount = total + tax + fee;
+    const { full_name, addr, city, zip, save_addr, product_region, addr_list, project_name } = this.state;
+    const addr_list_temp = getUniqueObjectArray(addr_list);
 
     return (
       <React.Fragment>
@@ -145,12 +159,24 @@ class Checkout extends Component {
       <div className="checkout">
         <div className="checkout-head">
           <div className='container'>
-            <Breadcrumb>
-              <BreadcrumbItem>Home </BreadcrumbItem>
-              <BreadcrumbItem active>Cart</BreadcrumbItem>
+            <Breadcrumb className= "card_content_path">
+              <Urllink_class name="Home"/>
+              <span className="space_slash_span">/</span>
               <BreadcrumbItem active>Checkout</BreadcrumbItem>
             </Breadcrumb>
-              <div className="d-flex align-items-center checkout-title"><span>Checkout</span></div>
+            <div className="d-flex align-items-center checkout-title"><span>Checkout</span></div>
+          </div>
+        </div>
+        <div className="container flex-row flex-align-stretch ">
+          <div className="project-name-container">
+            <div className="text-gray">PROJECT NAME</div>
+            <div className="text-gray">
+              <div className="theme-form-field">
+                <TextField className='checkout-textfield' placeholder='Project name' type="text"
+                      value={project_name}
+                      onChange={e => this.handleInputChange(e, 'project_name')}/>
+              </div>
+            </div>
           </div>
         </div>
         <div className="payment-body">
@@ -162,19 +188,18 @@ class Checkout extends Component {
               </div>
               <div className="address-select">
                 <Dropdown className='d-none d-lg-block'>
-                  <Dropdown.Toggle title="Saved address" className="select-addr-btn"/>
+                  <Dropdown.Toggle title="Saved address" className="select-addr-btn" onClick={this.handleClickListButton}/>
                   <Dropdown.Menu>
                     {
-                      addr_list.length > 0?
-                        addr_list.map((element, index) => (
+                      addr_list_temp.length > 0?
+                        addr_list_temp.map((element, index) => (
                           <React.Fragment key={index}>
                             <MenuItem onClick={e => this.handleAddrChange(e, element)}>
-                              {element.addr}
-                              {/*<MenuItem onClick={(e) => this.handleAddrChange(e)}>*/}
-                                  {/*level item one*/}
-                              {/*</MenuItem>*/}
+                              {element.addr}, {element.zip} {element.product_region}
                             </MenuItem>
-                            <MenuItem divider />
+                            {
+                              index === addr_list_temp.length - 1 ? null : <MenuItem divider />
+                            }
                           </React.Fragment>))
                         : null
                     }
@@ -191,8 +216,8 @@ class Checkout extends Component {
 
                     <ListGroup>
                       {
-                        addr_list.length > 0?
-                          addr_list.map((element, index) =>
+                        addr_list_temp.length > 0?
+                          addr_list_temp.map((element, index) =>
                             <ListGroupItem onClick={(e) => this.handleAddrChange(e, element)} value={element.addr} key={index}>
                               <div className='item-active'>
                                 {element.addr}
@@ -257,7 +282,7 @@ class Checkout extends Component {
                   <div className="checkout-total">
                     <div><span className="text-gray">Total </span> <b>${parseFloat(total).toFixed(2)}</b></div>
                     <div><span className="text-gray">Tax (21%) </span> <b>${parseFloat(tax).toFixed(2)}</b></div>
-                    <div><span className="text-gray">Fee </span> <b>$0</b></div>
+                    <div><span className="text-gray">Fee (5%) </span> <b>${parseFloat(fee).toFixed(2)}</b></div>
                   </div>
                   <div className="checkout-amount">
                     <div><span className="text-gray">Amount </span> <b className='checkout-total-price'>${parseFloat(amount).toFixed(2)}</b></div>

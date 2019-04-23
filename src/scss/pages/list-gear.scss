@@ -158,6 +158,15 @@
 
 }
 
+.listing-data-slice {
+  th {
+    border: none;
+  }
+}
+.table thead th {
+  border-bottom: 2px solid #f0f0f0 !important;
+}
+
 .button-tablet button ,
 .span-tablet span{
   display: none;

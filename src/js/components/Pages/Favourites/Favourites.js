@@ -4,7 +4,6 @@ import { compose } from "redux";
 import { Link, withRouter } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
 import {
-    getFavourites,
     deleteFavourite,
     getGear,
     handleError, addCart, formatDate
@@ -223,17 +222,15 @@ class Favourites extends Component {
               !favourites.Items.length ?
                 (<EmptyActivity e_name="  Cart  " e_path="/cart" e_title="THE ITEMS YOU LIKE APPEAR HERE" e_img_name = "favouri"/>
               ) :(
-                <Table className="theme-table d-none d-lg-table">
-                  <thead>
-                  <tr className= "d-none d-lg-table">
-                    <th/>
+                <Table className="theme-table table">
+                  <thead className= "d-none d-lg-table">
+                    <th></th>
                     <th>Name & Category</th>
                     <th>Rating</th>
                     <th>Location</th>
                     <th>Price per day</th>
-                    <th/>
-                    <th/>
-                  </tr>
+                    <th></th>
+                    <th></th>
                   </thead>
                   <tbody>
                   {

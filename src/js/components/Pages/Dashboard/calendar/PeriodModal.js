@@ -112,8 +112,8 @@ class PeriodModal extends Component {
                             }
                             {
                                 this.state.open_date_picker1 ?
-                                    <object type="image/svg+xml" data="/images/Icons/calendar/calendar1.svg"></object> :
-                                    <object type="image/svg+xml" data="/images/Icons/calendar/calendar.svg"></object>
+                                    <object type="image/svg+xml" data="/images/Icons/calendar/calendar1.svg">a</object> :
+                                    <object type="image/svg+xml" data="/images/Icons/calendar/calendar.svg">a</object>
                             }
                         </div>
                         <div className='col-md-2'></div>
@@ -132,8 +132,8 @@ class PeriodModal extends Component {
                             }
                             {
                                 this.state.open_date_picker2 ?
-                                    <object type="image/svg+xml" data="/images/Icons/calendar/calendar1.svg"></object> :
-                                    <object type="image/svg+xml" data="/images/Icons/calendar/calendar.svg"></object>
+                                    <object type="image/svg+xml" data="/images/Icons/calendar/calendar1.svg">a</object> :
+                                    <object type="image/svg+xml" data="/images/Icons/calendar/calendar.svg">a</object>
                             }
                         </div>
                     </div>

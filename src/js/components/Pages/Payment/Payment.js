@@ -17,6 +17,7 @@ import Select from '@material-ui/core/Select';
 import $ from "jquery";
 import moment from "moment";
 import CustomSpinner from "../../CustomSpinner";
+import { getUniqueObjectArray, validateCard, cc_format, checkDigit } from "../../common/Functions";
 
 class Payment extends Component {
   constructor(props) {
@@ -36,6 +37,7 @@ class Payment extends Component {
       fee: 0,
       loading: true
     };
+
     this.getUserPaymentCards();
   }
 
@@ -48,7 +50,7 @@ class Payment extends Component {
         loading: false
       });
     }
-  }
+  };
 
   handleCardChange = (e, element) => {
     e.preventDefault();
@@ -62,31 +64,52 @@ class Payment extends Component {
         expiration_year: year,
         cvv: element.cvv
     });
-  }
+  };
 
   handleSetSaveState = () => {
     this.setState({save_card: !this.state.save_card});
-  }
+  };
 
-  handleInputChange = (e, val) => {
-      this.setState({[val]: e.target.value});
-  }
+  handleInputChange = (e, type) => {
+    let value = e.target.value;
+    if (type === 'card_number') {
+      value = cc_format(value);
+      if (!checkDigit(e)) {
+        handleError("Your input includes character!");
+        return;
+      }
+    }
+    this.setState({[type]: value});
+  };
 
   handleClickCardList = () => {
-      if($('.addr-dropdown').hasClass('active')){
-          $('.addr-dropdown').removeClass('active') ;
-          $('.addr-dropdown ul').css('display', 'none');
-      } else {
-          $('.addr-dropdown').addClass('active') ;
-          $('.addr-dropdown ul').css('display', 'block');
+    if($('.addr-dropdown').hasClass('active')){
+      $('.addr-dropdown').removeClass('active') ;
+      $('.addr-dropdown ul').css('display', 'none');
+    } else {
+      if (this.state.cards.length > 0) {
+        $('.addr-dropdown').addClass('active');
+        $('.addr-dropdown ul').css('display', 'block');
       }
-  }
+    }
+  };
+
+  handleClickListButton = (e) => {
+    if (this.state.cards.length < 1) {
+      $(".select-card-btn + div").css('display', 'none');
+    } else {
+      $(".select-card-btn + div").css('display', 'block');
+    }
+  };
 
   pay = async () => {
     const { carts } = this.props;
     const { card_number, expiration_year, expiration_month, cvv, card_holder, save_card } = this.state;
     if (!card_number || !card_holder || !expiration_year || !expiration_month || !cvv) {
-        handleError('Please provide required information');
+        handleError('Please provide required information!');
+        return false;
+    } else if (!validateCard(card_number)) {
+        handleError('Your card is invalid!');
         return false;
     }
 
@@ -121,7 +144,7 @@ class Payment extends Component {
       if (response.status === 'invalid-account') {
         handleError("Your 'MangoPay Account' is invalid!");
       } else if (response.status === 'no-account') {
-        handleError("You must register a 'MangoPay Account' in order to pay!");
+        handleError("You must register into 'MangoPay' in order to pay!");
       } else if (response.status === 'pay-in-failed') {
         handleError("Your pay was failed unexpectedly! Try again please.");
       } else if (response.status === 'invalid-credit-wallet') {
@@ -133,7 +156,7 @@ class Payment extends Component {
           loading: false
       });
     }
-  }
+  };
 
   renderCheckoutItems() {
     const { carts } = this.props;
@@ -156,7 +179,7 @@ class Payment extends Component {
     const year = 1*moment(new Date()).format('YY');
     const arr = Array.apply(null, Array(10));
     return arr.map((v, i) => (<MenuItem key={i} value={i+year}>{i+year}</MenuItem>));
-  }
+  };
 
   renderMonths = () => {
     let arr = Array.apply(null, Array(12));
@@ -166,17 +189,15 @@ class Payment extends Component {
         val = '0' + val;
       return <MenuItem key={i} value={val}>{val}</MenuItem>;
     });
-  }
+  };
 
   render() {
     const { carts } = this.props;
     if (!carts) {
       return <BarLoader color="#F82462" height="5" />;
-    } else if (this.state.loading) {
-      return <CustomSpinner/>;
     }
 
-    const { card_number, expiration_year, expiration_month, cvv, card_holder, save_card, cards } = this.state;
+    const { card_number, expiration_year, expiration_month, cvv, card_holder, save_card } = this.state;
     let total = 0;
     carts.forEach(listItem => {
       const d = days(listItem.startDate, listItem.endDate);
@@ -184,8 +205,13 @@ class Payment extends Component {
     });
     const tax = total * 0.21;
     const amount = total + tax;
+    const cards = getUniqueObjectArray(this.state.cards);
 
     return (
+      <React.Fragment>
+      {
+        this.state.loading ? <CustomSpinner/> : null
+      }
       <div className="payment checkout">
         <div className="payment-head">
           <div className='container'>
@@ -208,7 +234,7 @@ class Payment extends Component {
 
               <div className="address-select">
                 <Dropdown className='d-none d-lg-block'>
-                  <Dropdown.Toggle title="Saved Cards" className="select-card-btn"/>
+                  <Dropdown.Toggle title="Saved Cards" className="select-card-btn" onClick={this.handleClickListButton}/>
                   <Dropdown.Menu>
                     {
                       cards.map((element, index) => (
@@ -217,7 +243,9 @@ class Payment extends Component {
                             <img src="/images/cards/master-card.svg" alt=""/>
                             {`  ` + element.card_number.substr(12, 4)}, {element.expiration_date}, {element.card_holder}
                           </MenuItem>
-                          <MenuItem divider />
+                          {
+                            index === cards.length - 1 ? null : <MenuItem divider />
+                          }
                         </React.Fragment>))
                     }
                   </Dropdown.Menu>
@@ -270,7 +298,7 @@ class Payment extends Component {
                     <FormControl id="select-month">
                       <InputLabel htmlFor="age-required">Expiration</InputLabel>
                       <Select value={expiration_month}
-                        onChange={(event, child) => {
+                        onChange={(event) => {
                             event.preventDefault();
                             this.setState({expiration_month: event.target.value})
                         }}
@@ -282,7 +310,7 @@ class Payment extends Component {
                     </FormControl>
                     <FormControl id="select-day" >
                       <Select value={expiration_year}
-                        onChange={(event, child) => {
+                        onChange={(event) => {
                           event.preventDefault();
                           this.setState({ expiration_year: event.target.value })
                         }}
@@ -340,6 +368,7 @@ class Payment extends Component {
           </div>
         </div>
       </div>
+      </React.Fragment>
     );
   }
 }

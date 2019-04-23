@@ -145,7 +145,7 @@ const sendResetPasswordEmail = async (data) => {
   try {
 
     let response = await post('sendCodeForgotPaswordUser', data)
-    if(response && response.status == 200) {
+    if(response && response.status === 200) {
       return true
     }
 
@@ -165,13 +165,13 @@ const sendResetPasswordEmail = async (data) => {
 const confirmResetPassword = async (data) => {
   try {
 
-    if(data.password != data.password_new) {
+    if(data.password !== data.password_new) {
       handleError('Passwords don\'t match');
       return
     }
 
-    let response = await post('confirmForgotPasswordUser', data)
-    if(response && response.status == 200) {
+    let response = await post('confirmForgotPasswordUser', data);
+    if(response && response.status === 200) {
       return true
     }
 
@@ -260,6 +260,7 @@ const getListGears = async () => {
   try {
     let response = await get('viewUserGearList');
     if (response && response.data) {
+        console.log(response.data.Items);
       dispatch({
         type: ACTIONS.LIST_GEARS,
         payload: response.data.Items
@@ -315,16 +316,13 @@ const getGear = async (gearid) => {
 const addCart = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-        console.log(data);
       let response = await post('addGearIntoCart', data);
-      console.log(response.data);
       dispatch({
         type: ACTIONS.ADD_TO_CART,
         payload: response.data.data
       });
       resolve(response.data);
     } catch (error) {
-        console.log(error);
       handleError(error);
       reject(error);
     }
@@ -577,7 +575,7 @@ const deleteGear = async (data) => {
           type: ACTIONS.DELETE_GEAR,
           payload: data.gearid
         });
-        resolve()
+        resolve(response.status);
       } else {
 
       }

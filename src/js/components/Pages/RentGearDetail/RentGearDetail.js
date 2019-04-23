@@ -28,12 +28,13 @@ import CartModal1 from '../../common/CartModal1';
 import { calcDaysDiff, getDateStr } from "../../common/Functions";
 import Urllink_class from "../../Urllink_class";
 import { Inline } from '@zendeskgarden/react-loaders'
+import Rating from "react-rating";
 
 const flickityOptions = {
     contain: true,
     prevNextButtons: false,
     pageDots: false
-}
+};
 
 class RentGearDetail extends Component {
     constructor(props) {
@@ -59,7 +60,7 @@ class RentGearDetail extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.location !== prevProps.location) {
-          getGear(this.gearid);
+            getGear(this.gearid);
         }
     }
 
@@ -178,7 +179,7 @@ class RentGearDetail extends Component {
         >
             {children}
         </ItemsCarousel>);
-    }
+    };
 
     // modal
     onOpenModal = async () => {
@@ -270,6 +271,7 @@ class RentGearDetail extends Component {
         const { gear, user, carts, favourites } = this.props;
         if (!gear || !user || !carts || !favourites)
             return <BarLoader color="#F82462" height="5" />;
+
         const { numberOfUserImage, gearid, brand, rating, total_rating, city, replacementValue,
             pricePerDay, model, description, newArrival_Index, categoryName, accessories, userid } = gear;
         const name = brand + ' ' + model;
@@ -289,12 +291,15 @@ class RentGearDetail extends Component {
             startDate: this.state.startDate,
             endDate: this.state.endDate,
             key: 'selection',
-        }
+        };
         const start_date_str = getDateStr(this.state.startDate);
         const end_date_str = getDateStr(this.state.endDate);
         const duration = calcDaysDiff(this.state.startDate, this.state.endDate) + 1;
         const total_price = duration * pricePerDay;
         const busy = this.state.busy;
+        const star_rating = gear.starRating;
+        let star_arr = Array.apply(null, Array(5));
+        console.log(star_rating);
 
         return (
             <div className="detail-container container">
@@ -333,11 +338,12 @@ class RentGearDetail extends Component {
                         <div className='col-sm-5'></div>
                         <div className='col-sm-7 col-12'>
                             <span>
-                            {
-                                [1, 2, 3, 4, 5].map(i =>
-                                    <i className="fa fa-star star-selected" key={i}></i>
-                                )
-                            }
+                                {
+                                    star_arr.map((item, key) =>
+                                        key < star_rating ?
+                                            <i className="fa fa-star star-selected" key={key}></i> :
+                                            <i className="fa fa-star" key={key}></i>)
+                                }
                             </span>
                             <span> {rating} ({total_rating})</span>
                         </div>
@@ -523,11 +529,11 @@ class RentGearDetail extends Component {
                                 <div className="gear-purchase col-lg-9">
                                     <div>
                                         <span className='star-wrapper'>
-                                            {
-                                                [1, 2, 3, 4, 5].map(i =>
-                                                    <i className="fa fa-star star-selected" key={i}></i>
-                                                )
-                                            }
+                                            <Rating
+                                                initialRating={star_rating}
+                                                emptySymbol={<img src="/images/Icons/star/star_icon_d.png" alt='' className="icon" />}
+                                                fullSymbol={<img src="/images/Icons/star/star_icon_a.png" alt='' className="icon" />}
+                                                onChange={(rate) => {console.log(rate)}}/>
                                         </span>
                                         <span className="theme-form-small">&nbsp;{rating} ({total_rating})</span>
                                         <div className="gear-address-container row">
@@ -627,20 +633,20 @@ class RentGearDetail extends Component {
                         <span>$159<span className='price-slash'> / </span><span className='price-per-day-text'>per day</span></span>
                     </div>
                     <div className='icon-container'>
-                        <i className="fa fa-shopping-cart icon-cart" onClick={this.onOpenModal}></i>
+                        <i className="fa fa-shopping-cart icon-cart" onClick={this.onOpenModal}/>
                         <i className="far fa-heart icon-heart" onClick={() => {
-                            favored>0 ? deleteFavourite({ gearid }) : addFavourites({ gearid })}}></i>
+                            favored>0 ? deleteFavourite({ gearid }) : addFavourites({ gearid })}}/>
                     </div>
                 </footer>
                 {
                     this.state.modal_open_st === 2 ?
-                        <CartModal1 dlg_model={1} gear={this.state.gear} open={true} onClose={this.onCloseModal} addToCart={this.addToCart}></CartModal1> :
+                        <CartModal1 dlg_model={1} gear={this.state.gear} open={true} onClose={this.onCloseModal} addToCart={this.addToCart}/> :
                         this.state.modal_open_st === 1 ?
-                            <CartModal carted={carted} gear={{...gear, start_date_str, end_date_str}} start_date={this.state.startDate} end_date={this.state.endDate} open={true} onClose={this.onCloseModal} addToCart={carted => this.addToCart(carted)}></CartModal> : null
+                            <CartModal carted={carted} gear={{...gear, start_date_str, end_date_str}} start_date={this.state.startDate} end_date={this.state.endDate} open={true} onClose={this.onCloseModal} addToCart={carted => this.addToCart(carted)}/> : null
                 }
             </div>
         );
-    }
+    };
 
     render() {
         return this.renderContent();
