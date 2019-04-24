@@ -11,6 +11,7 @@ import { addCart, formatDate, rentGearProductList } from '../../actions/app.acti
 import CartModal1 from "../common/CartModal1";
 import CartModal from "../common/CartModal";
 import BarLoader from "react-bar-loader";
+import Loader from 'react-loader-spinner'
 
 class Main extends Component {
   constructor(props) {
@@ -144,12 +145,27 @@ class Main extends Component {
 
   render() {
     const { category, carts, favourites } = this.props;
+
     if (!carts || !favourites || !category || this.state.loading)
-      return <BarLoader color="#F82462" height="5" />;
+        return <div className="circle-loader">
+            <Loader
+                type="Oval"
+                color="#F82462"
+                height="60"
+                width="60"
+            />
+        </div>;
 
     let { product_list } = this.state;
     if (product_list === undefined)
-      return <BarLoader color="#F82462" height="5" />;
+      return <div className="circle-loader">
+          <Loader
+              type="Oval"
+              color="#F82462"
+              height="60"
+              width="60"
+          />
+      </div>;
 
     if (this.state.category !== category) {
       this.state.searchText = '';
