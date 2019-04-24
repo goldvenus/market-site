@@ -19,6 +19,7 @@ const initialState = {
   carts: [],
   favorites: [],
   gear_histories: [],
+  order_histories: [],
   my_gear_names: []
 }
 
@@ -96,10 +97,12 @@ export default (state = initialState, action) => {
       case ACTIONS.DASHBOARD:
         draft.dashboard = action.payload;
         break;
+      case ACTIONS.ORDER_HISTORY:
+        draft.order_histories = action.payload;
       case ACTIONS.GEAR_HISTORY:
-          draft.gear_histories = action.payload;
+        draft.gear_histories = action.payload;
       case ACTIONS.MY_GEAR_NAME:
-            draft.my_gear_names = action.payload;
+        draft.my_gear_names = action.payload;
       default:
         break;
     }

@@ -10,6 +10,7 @@ import Chart from './chart';
 import AccountDetail from './account_detail';
 import MyListings from './listing';
 import MyRental from './rental';
+import OrderHistory from './OrderHistory'
 
 class Dashboard extends Component {
   constructor(props) {
@@ -71,6 +72,9 @@ class Dashboard extends Component {
               </TabPane>
               <TabPane tabId="4">
                 <MyRental list={Rental_Items}/>
+              </TabPane>
+              <TabPane tabId="5" id="#order">
+                <OrderHistory list={OrderHistory}/>
               </TabPane>
             </TabContent>
           </Container>

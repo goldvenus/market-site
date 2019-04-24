@@ -35,6 +35,13 @@ export default function (props) {
           Rental History
         </NavLink>
       </NavItem>
+        <NavItem className="nav-item-four">
+          <NavLink
+            className={classnames({ active: activeTab === '5' })}
+            onClick={() => { toggle('5'); }}>
+            Order History
+          </NavLink>
+        </NavItem>
     </Nav>
       </div>
   );

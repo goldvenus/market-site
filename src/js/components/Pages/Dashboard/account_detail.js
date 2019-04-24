@@ -1,6 +1,6 @@
 import React from 'react';
 import VMC from '../../../../assets/images/VMC.jpg';
-import {Card, Button, CardTitle, Row, Col } from 'reactstrap';
+import { Card, Button, CardTitle, Row, Col } from 'reactstrap';
 import { Form, FormGroup, Label, Input, FormFeedback,} from 'reactstrap';
 
 export default function(){

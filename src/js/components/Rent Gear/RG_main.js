@@ -101,12 +101,12 @@ class Main extends Component {
 
         if (res.status === 'success') {
           ToastsStore.info("Gear was added to cart!");
-          this.setState({
-            modal_open_st: 0
-          });
         } else {
           ToastsStore.error(res.errorMessage);
         }
+        this.setState({
+          modal_open_st: 0
+        });
       }
     } catch {
       ToastsStore.error("Gear was not added to cart!");
@@ -137,6 +137,7 @@ class Main extends Component {
     const { carts, favourites } = this.props;
     const favored = gearid && favourites && favourites.Count > 0 ?
       favourites.Items.filter(item => item.gearid === gearid).length : 0;
+    console.log(carts);
     const carted = gearid && carts && carts.length > 0 ?
       carts.filter(item => item.gearid === gearid).length : 0;
     return { carted, favored };

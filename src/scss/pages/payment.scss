@@ -4,7 +4,7 @@
     margin-bottom: 2rem;
   }
   .payment-title {
-    margin-bottom: 25px;
+    margin: 80px 0;
   }
   .payment-card {
     padding: 15px 20px;
@@ -36,7 +36,8 @@
   }
 }
 
-.payment-success-message {
+.payment-success-container {
+  padding: 10px 125px !important;
   h1, .theme-page-title {
     text-align: center;
   }
@@ -57,7 +58,7 @@
     .payment-status {
       padding: 5px 10px;
       color: white;
-      background: green;
+      background: #1CDB74;
     }
 
     .checkout-amount {
@@ -69,6 +70,11 @@
 
   .payment-card {
     width: auto;
+    min-height: 140px !important;
+
+    .payment-card-other {
+      margin-top: 25px !important;
+    }
   }
 
   .bottom-buttons {
@@ -131,26 +137,54 @@
   opacity: 0.6;
 }
 
-.payment-success-body {
-  .paid-item {
+.payment-success-icon > i {
+  background-color: #F7F7F7;
+  font-size: 55px;
+  padding: 10px;
+  border-radius: 35px;
+  color: #1CDB74;
+}
+
+.paid-item {
     padding: 30px 0;
     display: flex;
     border-bottom: solid 1px #F0F0F0;
+    text-align: left;
 
     .item-info {
-      width: 50%;
-
     }
+
     .pay-info {
       width: 50%;
       padding-left: 80px;
 
+      & > div {
+        display: flex;
+        & > div {
+          width: 50%;
+        }
+      }
+
       .buyer-profile {
+        display: flex;
+
+        div {
+          margin: -5px 0 0 10px;
+          span {
+            display: block;
+          }
+        }
         img {
           width: 36px;
+          height: 36PX;
         }
       }
     }
+
+    .buyer-info {
+      margin: 30px 0;
+    }
+
     .category-name {
       font-family: Helvetica Neue;
       font-size: 16px;
@@ -164,9 +198,7 @@
       line-height: 39px;
       color: #252525;
     }
-  }
 }
-
 
 @media (max-width: 1199px) {
   .payment-card {

@@ -18,7 +18,7 @@ import Helmet from 'react-helmet';
 import {compose} from "redux";
 import connect from "react-redux/es/connect/connect";
 import {withRouter} from "react-router-dom";
-import { getgearhistory, getmygearname ,formatDate, handleError} from '../../../../actions/app.actions'
+import { getGearHistory, getmygearname ,formatDate, handleError} from '../../../../actions/app.actions'
 import AboutPeriod from "./AboutPeriod";
 
 
@@ -44,7 +44,7 @@ class Calendar extends React.Component {
         this.changeGearName = this.changeGearName.bind(this);
     }
     componentDidMount(){
-        getgearhistory();
+        getGearHistory();
         getmygearname();
         UpdateMydata_calendar();
     }

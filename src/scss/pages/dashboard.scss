@@ -369,6 +369,57 @@ color: #fff
   width: 100%;
 }
 
+.status-bar-container {
+  width: 100%;
+  font-size: 20px;
+  display: flex;
+
+  & > .status-bar:before {
+    content: "";
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-left: 20px solid white;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+  }
+  & > .status-bar:after {
+    content: "";
+    right: -20px;
+    bottom: 0;
+    height: 0;
+    border-left: 20px solid red;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    width: 30%;
+  }
+
+  .rotated-square {
+    transform: rotate(45deg);
+    width: 40px;
+  }
+}
+
+.tb-project-name, .tb-category-name {
+  cursor: pointer;
+}
+
+.to-payment-detail {
+  float: left;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+  background-image: url('/images/Icons/cart/cross-p.svg');
+  cursor: pointer;
+}
+//
+//width: 150px;
+//height: 150px;
+//background: #1e90ff;
+//-webkit-clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+//clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
 
 @media(min-width: 500px)  {
   .navbar-wrapper{

@@ -126,7 +126,7 @@
     border-radius: 0 4px 4px 0;
 
     &.active {
-      background-color: #1cdb74;
+      background-color: #1cdb74 !important;
       color: #FAF5EC;
       z-index: 1000;
       border-radius: 4px;

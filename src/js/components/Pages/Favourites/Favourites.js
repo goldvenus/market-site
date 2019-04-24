@@ -224,13 +224,15 @@ class Favourites extends Component {
               ) :(
                 <Table className="theme-table table">
                   <thead className= "d-none d-lg-table">
-                    <th></th>
-                    <th>Name & Category</th>
-                    <th>Rating</th>
-                    <th>Location</th>
-                    <th>Price per day</th>
-                    <th></th>
-                    <th></th>
+                    <tr>
+                      <th></th>
+                      <th>Name & Category</th>
+                      <th>Rating</th>
+                      <th>Location</th>
+                      <th>Price per day</th>
+                      <th></th>
+                      <th></th>
+                    </tr>
                   </thead>
                   <tbody>
                   {

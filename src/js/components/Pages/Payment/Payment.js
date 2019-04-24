@@ -58,7 +58,7 @@ class Payment extends Component {
     const month = element.expiration_date.substr(0, 2);
     const year = element.expiration_date.substr(2, 2);
     this.setState({
-        card_number: element.card_number,
+        card_number: cc_format(element.card_number),
         card_holder: element.card_holder,
         expiration_month: month,
         expiration_year: year,
@@ -96,14 +96,6 @@ class Payment extends Component {
     }
   };
 
-  handleClickListButton = (e) => {
-    if (this.state.cards.length < 1) {
-      $(".select-card-btn + div").css('display', 'none');
-    } else {
-      $(".select-card-btn + div").css('display', 'block');
-    }
-  };
-
   pay = async () => {
     const { carts } = this.props;
     const { card_number, expiration_year, expiration_month, cvv, card_holder, save_card } = this.state;
@@ -121,27 +113,22 @@ class Payment extends Component {
     carts.forEach(listItem => {
       let d = days(listItem.startDate, listItem.endDate);
       total += d * listItem.pricePerDay;
-      sold_items.push(listItem.gearid)
+      sold_items.push(listItem)
     });
     const tax = total * 0.21;
     const amount = total + tax;
     const checkout_id = this.props.match.params.id;
-    const fee = 0;
+    const fee = total*5/100;
     const expiration_date = expiration_month + expiration_year;
     let data = { card_number, card_holder, expiration_date, cvv, save_card, user_id,
         total, tax, amount, fee, checkout_id, sold_items};
-    console.log(card_number);
+
     data.card_number = card_number.replace(/ /g, '');   // eat spaces
     this.setState({loading: true});
     let response = await payment(data);
 
     if (response.status === 'payin-success') {
-      this.setState({
-        total: response.pay_data.Total,
-        tax: response.pay_data.Tax,
-        fee: response.pay_data.Fee,
-        loading: false
-      });
+      // take user to other page to confirm payment
       window.location.href = response.trans_data.SecureModeRedirectURL;
     } else {
       if (response.status === 'invalid-account') {

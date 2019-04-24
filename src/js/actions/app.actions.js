@@ -260,7 +260,6 @@ const getListGears = async () => {
   try {
     let response = await get('viewUserGearList');
     if (response && response.data) {
-        console.log(response.data.Items);
       dispatch({
         type: ACTIONS.LIST_GEARS,
         payload: response.data.Items
@@ -317,10 +316,12 @@ const addCart = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       let response = await post('addGearIntoCart', data);
-      dispatch({
-        type: ACTIONS.ADD_TO_CART,
-        payload: response.data.data
-      });
+      if (response.data.status === 'success') {
+        dispatch({
+          type: ACTIONS.ADD_TO_CART,
+          payload: response.data.data
+        });
+      }
       resolve(response.data);
     } catch (error) {
       handleError(error);
@@ -404,6 +405,20 @@ const getCarts = async () => {
   }
 };
 
+const getOrderHistory = async () => {
+    try {
+        let response = await get('getorderhistory');
+        if (response.data.status === 'success') {
+            dispatch({
+                type: ACTIONS.ORDER_HISTORY,
+                payload: response.data.data
+            });
+        }
+    } catch (error) {
+        handleError(error);
+    }
+};
+
 const rentGearProductList = async (catDetail) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -478,7 +493,7 @@ const search = async (brand, product_region) => {
 const addFavourites = async (data) => {
   try {
     let response = await post_new('addUserFavouriteGear', data);
-    console.log(response);
+
     // here must be some code for state change
     return response;
   } catch (error) {
@@ -610,8 +625,8 @@ const socialLogin = async (idToken, accessToken) => {
     handleError(error);
   }
 };
-///////////gear_history get action//////////
-const getgearhistory = async () => {
+
+const getGearHistory = async () => {
     try {
         let response = await get_new('gearhistory');
         if (response) {
@@ -624,6 +639,7 @@ const getgearhistory = async () => {
         handleError(error);
     }
 }
+
 const getmygearname = async () => {
     try {
         let response = await get_new('mygearname');
@@ -640,9 +656,9 @@ const getmygearname = async () => {
 
 export {
   register, confirmUser, login, logout, clearError, handleError, getUser,
-  readFileData, addGear, fetchCategories, getListGears, getAllGears, getGear, addCart, getCarts,
+  readFileData, addGear, fetchCategories, getListGears, getAllGears, getGear, addCart, getCarts, getOrderHistory,
   formatDate, days, checkout, getCheckout, payment, getPaymentCards, getPaidItems, rentGearProductList, dashboardMyListing,
   dashboardMyRentals, search, addFavourites, getFavourites, deleteFavourite, newArrivals,
   deleteCartItem, deleteGear, socialLogin, viewUserDashboard, sendResetPasswordEmail, confirmResetPassword,
-  getgearhistory, getmygearname,
+  getGearHistory, getmygearname,
 };

@@ -38,17 +38,19 @@ class Payment extends Component {
   getUserPaidItems = async (param) => {
     try {
       const ret = await getPaidItems(param);
-      console.log(ret);
-      const pay_info = ret.pay_info;
+      console.log(ret.sold_items);
+      const pay_info =  ret.pay_info;
       const items = ret.sold_items;
       const buyer_info = ret.buyer_info;
+      let card_number = pay_info.CardNumber;
+      card_number = `**** ${card_number.substr(card_number.length-4, 4)}`;
 
       this.setState({
         items: items,
-        card_number: pay_info.CardNumber,
+        card_number: card_number,
         card_holder: pay_info.CardHolder,
-        expiration_month: pay_info.ExpirationDate,
-        expiration_year: pay_info.ExpirationDate,
+        expiration_month: pay_info.ExpirationDate.substr(0, 2),
+        expiration_year: pay_info.ExpirationDate.substr(2, 2),
         total: pay_info.Total,
         tax: pay_info.Tax,
         fee: pay_info.Fee,
@@ -67,6 +69,7 @@ class Payment extends Component {
       <div className="paid-items">
         {
           items.map((listItem, index) => {
+              console.log(listItem.type);
             const d = days(listItem.startDate, listItem.endDate);
             return <div key={`cart-item-${index}`} className="paid-item">
               <div className='item-info'>
@@ -78,9 +81,9 @@ class Payment extends Component {
                   <input name="type" id="like-new" type="radio" value="like_new"/>
                   <label className={`type-tab type-tab2 ${listItem.type === 'like_new' ? 'active' : ''}`} htmlFor="like-new">Like New</label>
                   <input name="type" id="slightly-worn" type="radio" value="slightly_worn"/>
-                  <label className={`type-tab type-tab3 ${listItem.type === 'new' ? 'active' : ''}`} htmlFor="slightly-worn">SlightlyWorn</label>
+                  <label className={`type-tab type-tab3 ${listItem.type === 'slightly_worn' ? 'active' : ''}`} htmlFor="slightly-worn">SlightlyWorn</label>
                   <input name="type" id="worn" type="radio" value="worn"/>
-                  <label className={`type-tab type-tab4 ${listItem.type === 'Worn' ? 'active' : ''}`} htmlFor="worn">Worn</label>
+                  <label className={`type-tab type-tab4 ${listItem.type === 'worn' ? 'active' : ''}`} htmlFor="worn">Worn</label>
                 </div>
                 <div className="carousel-bottom-container">
                   {
@@ -90,8 +93,10 @@ class Payment extends Component {
               </div>
               <div className='pay-info'>
                 <div className='item-info'>
-                  <div className='category-name'>{listItem.categoryName}</div>
-                  <div className='brand-model'>{listItem.brand + ' ' + listItem.model}</div>
+                  <div>
+                    <div className='category-name'>{listItem.categoryName}</div>
+                    <div className='brand-model'>{listItem.brand + ' ' + listItem.model}</div>
+                  </div>
                 </div>
                 <div className='buyer-info'>
                   <div className='buyer-info-left'>
@@ -107,10 +112,26 @@ class Payment extends Component {
 
                     </div>
                   </div>
-                  <div className='buyer-info-right'></div>
+                  <div className='buyer-info-right'>
+                      <div className='category-name'>{localStorage.username}</div>
+                      <div className='period-price'>
+
+                      </div>
+                  </div>
                 </div>
                 <div className='payment-info'>
-                    <b>${listItem.pricePerDay * d}</b> for <b>{days(listItem.startDate, listItem.endDate)}</b> days
+                  <div>
+                      <div className="category-name">Period</div>
+                      <div>
+                          <b>${listItem.pricePerDay * d}</b> for <b>{days(listItem.startDate, listItem.endDate)}</b> days
+                      </div>
+                  </div>
+                  <div>
+                      <div className="category-name">Price</div>
+                      <div>
+                          <b>${listItem.pricePerDay * d}</b> for <b>{days(listItem.startDate, listItem.endDate)}</b> days
+                      </div>
+                  </div>
                 </div>
               </div>
             </div>;
@@ -163,10 +184,12 @@ class Payment extends Component {
     const { card_number, expiration_year, expiration_month, card_holder, total, tax, fee, amount } = this.state;
 
     return (
-      <div className="payment payment-success-message centered-content">
-        <h1><i className="fa fa-check-circle primary-color"></i></h1>
-        <div className="theme-page-title payment-title">Payment was successful</div>
-
+      <div className="payment payment-success-container centered-content">
+        <div className="theme-page-title payment-title">
+          <div className="payment-success-icon"><i className="fa fa-check success-color"></i>
+          </div>
+          <span>Payment was successful</span>
+        </div>
         <div className="payment-success-body">
           {this.renderCheckoutItems()}
         </div>
@@ -176,7 +199,7 @@ class Payment extends Component {
               <div className="checkout-total">
                   <div><span className="text-gray">Total </span> $ {total}</div>
                   <div><span className="text-gray">Tax (21%) </span> $ {tax}</div>
-                  <div><span className="text-gray">Fee </span> $ {fee}</div>
+                  <div><span className="text-gray">Fee (15%) </span> $ {fee}</div>
               </div>
               <div className="checkout-amount">
                   <div><span className="text-gray">Amount </span>
@@ -204,7 +227,7 @@ class Payment extends Component {
         </div>
         <div className="flex-row bottom-buttons">
           <button className="theme-btn theme-btn-secondery theme-btn-link"><Link to="/">Home Page</Link></button>
-          <button className="theme-btn theme-btn-primary theme-btn-link"><Link to="/rentgear">My Rentals</Link></button>
+          <button className="theme-btn theme-btn-primary theme-btn-link"><Link to="/dashboard/#order">My Rentals</Link></button>
         </div>
       </div>);
   }
