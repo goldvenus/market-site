@@ -299,7 +299,6 @@ class RentGearDetail extends Component {
         const busy = this.state.busy;
         const star_rating = gear.starRating;
         let star_arr = Array.apply(null, Array(5));
-        console.log(star_rating);
 
         return (
             <div className="detail-container container">
@@ -340,7 +339,7 @@ class RentGearDetail extends Component {
                             <span>
                                 {
                                     star_arr.map((item, key) =>
-                                        key < star_rating ?
+                                        key < 6 ?
                                             <i className="fa fa-star star-selected" key={key}></i> :
                                             <i className="fa fa-star" key={key}></i>)
                                 }
@@ -529,11 +528,14 @@ class RentGearDetail extends Component {
                                 <div className="gear-purchase col-lg-9">
                                     <div>
                                         <span className='star-wrapper'>
-                                            <Rating
-                                                initialRating={star_rating}
-                                                emptySymbol={<img src="/images/Icons/star/star_icon_d.png" alt='' className="icon" />}
-                                                fullSymbol={<img src="/images/Icons/star/star_icon_a.png" alt='' className="icon" />}
-                                                onChange={(rate) => {console.log(rate)}}/>
+                                            {
+                                                star_rating > 0 ?
+                                                    star_arr.map((item, key) =>
+                                                        key < 6 ?
+                                                            <i className="fa fa-star star-selected" key={key}></i> :
+                                                            <i className="fa fa-star" key={key}></i>) :
+                                                    null
+                                            }
                                         </span>
                                         <span className="theme-form-small">&nbsp;{rating} ({total_rating})</span>
                                         <div className="gear-address-container row">
