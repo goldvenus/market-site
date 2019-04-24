@@ -16,8 +16,8 @@ class Search extends Component {
     }
 
     render() {
-        const {catagory} = this.props; 
-        return ( 
+        const {catagory} = this.props;
+        return (
             <div className="search">
               <Form className="theme-form">
                 <div className="search-input">
@@ -37,5 +37,5 @@ class Search extends Component {
          );
     }
 }
- 
+
 export default Search;

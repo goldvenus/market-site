@@ -133,26 +133,26 @@ class NavbarMenu extends React.Component {
         <CollapseMenu isOpen={!collapsed}>
           <Container>
             <Row>
-              <Col xs={24} lg={12}>  
+              <Col xs={24} lg={12}>
                 <ul className="menu-links-wrapper">
                   {/* sm only menu */}
                   <li className="animated-menu-item menu-item-sm">
                     <Link to="/rentgear">
-                    
+
                       <h2 onClick={this.toggleNavbar} >
                         Rent Gear
                       </h2>
-                      
+
                     </Link>
                   </li>
                   <li className="animated-menu-item menu-item-sm with-mb">
                     <Link to="/listgear">
                       <h2 onClick={this.toggleNavbar} >
-                        List Gear 
-                        
+                        List Gear
+
                       </h2>
                     </Link>
-                    
+
                   </li>
                   {/* sm only menu end */}
 
@@ -222,7 +222,7 @@ const mapStateToProps = store => ({
   error: store.app.error,
   carts: store.app.carts,
   favourites: store.app.favourites,
-  isAuthenticated: store.app.isAuthenticated
+  isAuthenticated: store.user.isAuthenticated
 });
 
 export default withRouter(connect(mapStateToProps)(NavbarMenu));

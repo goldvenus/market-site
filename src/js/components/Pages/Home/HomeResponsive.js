@@ -28,8 +28,8 @@ class Home extends React.Component {
     searchLocationValue: '',
     searchLocationResult: [],
   };
-  
- 
+
+
   handleChangeSearchValue = e => {
     this.setState({
       searchValue: (e && e.target && e.target.value) || '',
@@ -66,7 +66,7 @@ class Home extends React.Component {
         }
       });
     }
- 
+
     $window.on('scroll resize', check_if_in_view);
     $window.trigger('scroll');
 
@@ -91,7 +91,7 @@ class Home extends React.Component {
       socialLogin(idToken, accessToken);
     }
   }
-  
+
 
   render() {
     const {
@@ -126,7 +126,7 @@ class Home extends React.Component {
 }
 
     return (
-      
+
       <div className="page home-page home">
         <div className="section section-hero">
           <div className="container">
@@ -367,7 +367,7 @@ class Home extends React.Component {
               disableImagesLoaded={false} // default false
               reloadOnUpdate // default false
             >
-              <div className="am"> 
+              <div className="am">
                 <div className="block-content">
                 <p id="camera"/>
                   <div className="desc">
@@ -378,7 +378,7 @@ class Home extends React.Component {
                     </div>
                   </div>
               </div>
-              <div className="am">       
+              <div className="am">
                <div className="block-content">
                     <p id="computer_electronic"/>
                     <div className="desc">
@@ -389,7 +389,7 @@ class Home extends React.Component {
                     </div>
                   </div>
                   </div>
-                  <div className="am">       
+                  <div className="am">
                     <div className="block-content">
                     <p id="drones"/>
                     <div className="desc">
@@ -400,7 +400,7 @@ class Home extends React.Component {
                     </div>
                   </div>
                   </div>
-                  <div className="am">       
+                  <div className="am">
                     <div className="block-content">
                     <p id="lenses"/>
                     <div className="desc">
@@ -410,8 +410,8 @@ class Home extends React.Component {
                       </button>
                     </div>
                   </div>
-                  </div>                  
-                  <div className="am">       
+                  </div>
+                  <div className="am">
                     <div className="block-content">
                     <p id="camera_accessories"/>
                     <div className="desc">
@@ -421,8 +421,8 @@ class Home extends React.Component {
                       </button>
                     </div>
                   </div>
-                  </div>                  
-                  <div className="am">       
+                  </div>
+                  <div className="am">
                     <div className="block-content">
                     <p id="office_spaces"/>
                     <div className="desc">
@@ -433,7 +433,7 @@ class Home extends React.Component {
                     </div>
                   </div>
                   </div>
-                  <div className="am">       
+                  <div className="am">
                     <div className="block-content">
                     <p id="others"/>
                     <div className="desc">
@@ -579,7 +579,7 @@ class Home extends React.Component {
               <div className="arrival-items-glow"/>
             </div>
           </div>
-          
+
           <div className="home-new-arrival d-inline d-lg-none slider-2">
           <Flickity
               className={'carousel'} // default ''
@@ -635,7 +635,7 @@ class Home extends React.Component {
               disableImagesLoaded={false} // default false
               reloadOnUpdate // default false
             >
-              
+
               {
                 data.stories.map((item, index) => {
                   return <div className="slide" key={index}>
@@ -645,7 +645,7 @@ class Home extends React.Component {
                   </div>
                 })
               }
-            
+
               </Flickity>
               <Row>
                 <Col className="text-center">

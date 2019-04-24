@@ -126,7 +126,7 @@ class MyListings extends React.Component {
     const { currentPage} = this.state;
     const { list} = this.props;
     console.log(list);
-    
+
       this.pagesCount = Math.ceil(list ? list.length / this.pageSize : "");
     return (
       <Row className="my-listing my-listing-tabs">
@@ -145,12 +145,12 @@ class MyListings extends React.Component {
           </TabList>
           <div className="wrraper wrraper-region calendar_wrraper">
             <TabPanel>
-            { (list.length <= 0) ? <EmpetyList/> : 
+            { (list.length <= 0) ? <EmpetyList/> :
                (
                  <React.Fragment>
                       <div className="table-responsive">
                         <Table className="listing-data-slice" >
-                        
+
                           <thead  className="d-md-none d-lg-table d-sm-none list-table-head">
                             <tr className="text-muted theme-text-bold listing-data-thead">
                               <th></th>
@@ -170,12 +170,12 @@ class MyListings extends React.Component {
                               .map((data, i) =>
                                 <MyListingItem listItem={data} key={i} />
                             ) : ""}
-          
+
                           </tbody>
                         </Table>
                       </div>
                       <Pagination aria-label="Page navigation example" className="listing-data-pagenation">
-          
+
                         <PaginationItem disabled={currentPage <= 0}>
                           <PaginationLink
                             onClick={e => this.handleClick(e, currentPage - 1)}
@@ -183,7 +183,7 @@ class MyListings extends React.Component {
                             href="#"
                           />
                         </PaginationItem>
-          
+
                         {[...Array(this.pagesCount)].map((page, i) =>
                           <PaginationItem active={i === currentPage} key={i}>
                             <PaginationLink onClick={e => this.handleClick(e, i)} href="#">
@@ -191,7 +191,7 @@ class MyListings extends React.Component {
                             </PaginationLink>
                           </PaginationItem>
                         )}
-          
+
                         <PaginationItem disabled={currentPage >= this.pagesCount - 1}>
                           <PaginationLink
                             onClick={e => this.handleClick(e, currentPage + 1)}
@@ -199,7 +199,7 @@ class MyListings extends React.Component {
                             href="#"
                           />
                         </PaginationItem>
-          
+
                       </Pagination>
                     </React.Fragment>
                )

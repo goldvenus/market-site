@@ -1,5 +1,5 @@
 import producer from 'immer'; //Immutability Library
-import { ACTIONS } from '../constants';
+import { ACTIONS } from '../../constants';
 import { Action } from 'rxjs/internal/scheduler/Action';
 
 const initialState = {
