@@ -26,7 +26,7 @@ class CustomInput extends Component {
 
   render() {
     const { showPlaceholder } = this.state;
-    const { placeholder, type, label, value, icon, required } = this.props;
+    const { placeholder, type, name, label, value, icon, required } = this.props;
     return (
       <div className={icon ? label === 'Location' ? "custom-input location-input custom-input-with-icon" : label === "Search" ? " custom-input search-input custom-input-with-icon" : "custom-input custom-input-with-icon" : "custom-input"}>
         <label htmlFor={label} className="theme-text-small label">{label}</label>
@@ -39,6 +39,7 @@ class CustomInput extends Component {
         <Input
           placeholder={placeholder}
           type={type}
+          name={name}
           required={required || false}
           onChange={this.onInputChange.bind(this)}
           value={value}

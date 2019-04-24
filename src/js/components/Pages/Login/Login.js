@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
 import { Button, Form, Label, Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import formSerialize from "form-serialize";
 import CustomInput from '../../CustomInput';
 import AuthSideMenu from '../../AuthSideMenu';
-import { login } from '../../../actions/app.actions';
+// import { login } from '../../../actions/app.actions';
+import { login } from '../../../core/actions/user.action';
 import { FACEBOOK_LOGIN_URL } from '../../../constants';
 
 class Login extends Component {
@@ -22,24 +25,20 @@ class Login extends Component {
 
   }
 
-  async submit(e) {
-
-    const { username, password } = this.state;
-
-    if (username && password) {
+  submit = e => {
       e.preventDefault();
-      let res = await login({
-        username,
-        password
-      });
+      const data = formSerialize(e.target, {hash: true});
+      this.props.login(data);
+  };
 
-      if (res) {
-        this.props.history.push('/');
+  componentWillReceiveProps(nextProps) {
+      if (nextProps.isAuthenticated && !this.props.isAuthenticated) {
+          this.props.history.push('/');
       }
-    }
   }
 
   render() {
+    const { isAuthorizing } = this.props;
     const { username, password } = this.state;
     return (
       <div className="auth-container">
@@ -69,14 +68,14 @@ class Login extends Component {
             </button>
           </div>
           <div className="login-or-divider">Or</div>
-          <Form className="theme-form">
+          <form className="theme-form" method="POST" onSubmit={this.submit}>
             <div className="theme-form-field">
-              <CustomInput placeholder='EMAIL' type="email" required="required" value={username}
+              <CustomInput placeholder='EMAIL' type="email" name="username" required="required" value={username}
                            onChange={(value) => this.setState({ username: value })}/>
             </div>
             <div className="flex-row">
               <div className="theme-form-field">
-                <CustomInput placeholder='PASSWORD' type="Password" required="required" value={password}
+                <CustomInput placeholder='PASSWORD' type="Password" name="password" required="required" value={password}
                              onChange={(value) => this.setState({ password: value })}/>
               </div>
               <Link className="theme-form-link" to="/forgotpassword">Forgot password?</Link>
@@ -85,9 +84,14 @@ class Login extends Component {
               <Input type="checkbox" id="login-remember"/>
               <Label for="login-remember">Remember me on this device</Label>
             </div>
+              {
+                  isAuthorizing ?
+                      <button type="submit" disabled className="theme-btn-submit">Sign In</button>
+                      :
+                      <button type="submit" className="theme-btn-submit">Sign In</button>
+              }
 
-            <button className="theme-btn-submit" onClick={this.submit.bind(this)}>Sign In</button>
-          </Form>
+          </form>
           <div className="login-or-divider"></div>
           <div className="flex-row signup-link">
             <span>Don't have an account?</span>
@@ -100,8 +104,17 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.app.isAuthenticated
-});
+function mapStateToProps(state) {
+  return {
+      isAuthorizing: state.user.isAuthorizing,
+      isAuthenticated: state.user.isAuthenticated
+  };
+}
 
-export default connect(mapStateToProps)(Login);
+function mapDispatchToProps(dispatch) {
+  return {
+      login: bindActionCreators(login, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

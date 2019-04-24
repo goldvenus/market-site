@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import { logout } from '../../actions/app.actions';
+import { logout } from '../../core/actions/user.action';
 
 const RightArrow = () => (
   <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -93,8 +93,8 @@ class NavbarDropdown extends React.PureComponent {
 }
 
 const mapStateToProps = store => ({
-  isAuthenticated: store.app.isAuthenticated,
-  user: store.app.user,
+  isAuthenticated: store.user.isAuthenticated,
+  user: store.user.user,
 });
 
 export default withRouter(

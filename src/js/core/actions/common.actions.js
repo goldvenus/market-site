@@ -1,7 +1,7 @@
-import axios from "axios";
-import { API_URL, API_URL_NEW } from '../constants';
-import { handleError } from "../actions/app.actions";
-
+import axios from 'axios';
+import { API_URL, API_URL_NEW, ACTIONS } from '../../constants';
+import store from "../../store";
+const dispatch = store.dispatch;
 const axiosConfig = () => {
     let config = {
         'headers': {
@@ -42,6 +42,22 @@ const tokenAxiosConfig = () => {
     return config;
 };
 
+const getAPIUrl = (url) => API_URL + url;
+
+const handleError = (error) => {
+    dispatch({
+        type: ACTIONS.ERROR,
+        payload: error || 'Something went wrong'
+    });
+};
+
+const clearError = () => {
+    dispatch({
+        type: ACTIONS.REMOVE_ERROR,
+        payload: null
+    });
+};
+
 const get = async (url) => {
     return await axios.get(getAPIUrl(url), axiosConfig()).then((res) => res)
         .catch(err => {
@@ -70,9 +86,6 @@ const post_new = async (url, data) => {
         });
 };
 
-export default {
-    user: {
-        login: async (credentials) => ,
-        register: user => axios.post(API_URL + 'signup', user)
-    }
+export {
+    axiosConfig, tokenAxiosConfig, getAPIUrl, handleError, clearError, get, get_new, post, post_new
 }
