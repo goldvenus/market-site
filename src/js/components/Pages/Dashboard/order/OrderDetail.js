@@ -1,28 +1,45 @@
 import React, { Component } from 'react';
 import '@trendmicro/react-buttons/dist/react-buttons.css';
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
-import Modal from "react-responsive-modal";
-import { days } from "../../../../actions/app.actions";
+import { days, getOrderDetail } from "../../../../actions/app.actions";
 import { getDateStr } from "../../../common/Functions"
+import CustomSpinner from "../../../CustomSpinner";
 
-class OrderConfirm extends Component {
+class OrderDetail extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            history: []
+        };
+        this.getHistory();
     }
 
-    handleClose = () => {
-        this.props.close();
+    getHistory = async () => {
+        const history = await getOrderDetail({payment_id: this.props.match.params.id});
+        this.setState({history: history});
     };
 
     render() {
-        // const {card_number, expiration_year, expiration_month, card_holder, total, tax, fee, amount} = this.props.info;
-        const { info } = this.props;
+        if (this.state.history.length < 1) {
+            return <CustomSpinner/>;
+        }
+
+        const info = this.state.history;
         const sold_items = info.SoldItems;
         const expiration_date = info.ExpirationDate.substr(0, 2) + '/' + info.ExpirationDate.substr(2, 2);
         return (
-            <Modal open={true} onClose={this.handleClose} center classNames={{modal: "order-modal"}}>
-                <div className="order-modal-header"><span>{info.ProjectName}<i className="edit_icon"/></span></div>
-                <div className="paid-items order-modal-body">
+            <div className="payment payment-success-container centered-content">
+                <div className="theme-page-title payment-title">
+                    <div className="payment-success-icon"><i className="fa fa-check success-color"></i>
+                    </div>
+                    <span>Payment was successful</span>
+                    <div className="detail-top-button-container">
+                        <button className='view-receipt-btn theme-btn theme-btn-secondery theme-btn-primary'>PRINT RECEIPT</button>
+                        <div className='space-between'></div>
+                        <button className='theme-btn theme-btn-primary'>EMAIL RECEIPT</button>
+                    </div>
+                </div>
+                <div className="payment-success-body">
                     <div>
                     {
                         sold_items.map((listItem, index) => {
@@ -118,12 +135,12 @@ class OrderConfirm extends Component {
                     </div>
                 </div>
                 <div className="order-modal-footer">
-                    <button className='view-receipt-btn theme-btn theme-btn-secondery theme-btn-primary'>View Recipt</button>
+                    <button className='view-receipt-btn theme-btn theme-btn-secondery theme-btn-primary'>View Receipt</button>
                     <div className='space-between'></div>
                     <button className='theme-btn theme-btn-primary'>Rent History</button>
                 </div>
-        </Modal>)
+            </div>)
     }
 }
 
-export default OrderConfirm
+export default OrderDetail

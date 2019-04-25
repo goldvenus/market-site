@@ -419,6 +419,22 @@ const getOrderHistory = async () => {
     }
 };
 
+const getOrderDetail = async (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response = await post('getorderdetail', data);
+            if (response.data.status === 'success') {
+                resolve(response.data.data);
+            } else {
+                reject(false);
+            }
+        } catch (error) {
+            handleError(error);
+            reject(false);
+        }
+    });
+};
+
 const rentGearProductList = async (catDetail) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -656,7 +672,7 @@ const getmygearname = async () => {
 
 export {
   register, confirmUser, login, logout, clearError, handleError, getUser,
-  readFileData, addGear, fetchCategories, getListGears, getAllGears, getGear, addCart, getCarts, getOrderHistory,
+  readFileData, addGear, fetchCategories, getListGears, getAllGears, getGear, addCart, getCarts, getOrderHistory, getOrderDetail,
   formatDate, days, checkout, getCheckout, payment, getPaymentCards, getPaidItems, rentGearProductList, dashboardMyListing,
   dashboardMyRentals, search, addFavourites, getFavourites, deleteFavourite, newArrivals,
   deleteCartItem, deleteGear, socialLogin, viewUserDashboard, sendResetPasswordEmail, confirmResetPassword,

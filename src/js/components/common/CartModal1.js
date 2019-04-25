@@ -110,7 +110,7 @@ class CartModal1 extends Component {
         }
 
         return (
-            <Modal open={open} onClose={this.handleClose} center>
+            <Modal open={open} onClose={this.handleClose} center classNames={{modal: "cart-modal"}}>
                 <div className='modal-cart-header'>
                     <span >{dlg_heading}</span>
                 </div>

@@ -113,7 +113,7 @@ class Payment extends Component {
     carts.forEach(listItem => {
       let d = days(listItem.startDate, listItem.endDate);
       total += d * listItem.pricePerDay;
-      sold_items.push(listItem)
+      sold_items.push({...listItem, PickStatus: 0});
     });
     const tax = total * 0.21;
     const amount = total + tax;

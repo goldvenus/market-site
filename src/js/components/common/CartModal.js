@@ -35,7 +35,7 @@ class CartModal extends Component {
         }
 
         return (
-            <Modal open={open} onClose={onClose} center>
+            <Modal open={open} onClose={onClose} center classNames={{modal: "cart-modal"}}>
                 <div className='modal-cart-header'>
                     {
                         carted ? <i className='fas fa-check-circle'></i> : null

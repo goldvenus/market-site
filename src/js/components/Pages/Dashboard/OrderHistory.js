@@ -2,15 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from "redux";
 import { Link, withRouter } from 'react-router-dom';
-import { Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
+import { Table } from 'reactstrap';
 import { handleError, getOrderHistory } from '../../../actions/app.actions';
 import { ToastsStore } from 'react-toasts';
 import Rating from "react-rating"
-import EmptyActivity from "../../EmptyActivity";
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import OrderConfirm from "./order/OrderConfirm"
 import OrderRating from "./order/OrderRating"
-import "./order/order.css"
 
 class OrderHistory extends Component {
     constructor(props) {
@@ -24,18 +22,8 @@ class OrderHistory extends Component {
         getOrderHistory();
     }
 
-    handleControl = (proj) => {
-        this.setState({
-            modal_open_st: 1,
-            cur_proj: proj
-        });
-    };
-
-    handleRating = (proj) => {
-        this.setState({
-            modal_open_st: 2,
-            cur_proj: proj
-        });
+    handleControl = (val) => {
+        this.setState({cur_proj: val});
     };
 
     renderOrderHistoryItems() {
@@ -66,7 +54,7 @@ class OrderHistory extends Component {
                         </div>
                     </td>
                     <td className="tb_pay_per" width="17.5%">{`$${listItem.Amount}`}</td>
-                    <td><i className="to-payment-detail" aria-hidden="true"/></td>
+                    <td><div className="to-payment-detail"><Link to={`/dashboard/order/detail/${listItem.PaymentId}`}><i className="fa fa-angle-right"/></Link></div></td>
                 </tr>
             ))
         );
@@ -122,11 +110,11 @@ class OrderHistory extends Component {
         if (!histories || histories.length < 1) {
             return null;
         }
-        console.log(this.props.histories[this.state.cur_proj]);
+        console.log("----------", histories);
 
         return (
             <React.Fragment>
-                <div className="row">
+                <div className="row order-history-container">
                     <div className="col-sm-24">
                         <div className="cart-header ">
                             <h4>Order Histories</h4>
@@ -138,7 +126,7 @@ class OrderHistory extends Component {
                         <div className="cart-table-div">
                             {
                                 !histories.length ?
-                                    (<EmptyActivity e_name="  Cart  " e_path="/cart" e_title="THE ITEMS YOU LIKE APPEAR HERE" e_img_name = "favouri"/>
+                                    (null
                                     ) :(
                                         <Table className="theme-table table">
                                             <thead className= "d-none d-lg-table">
@@ -167,9 +155,12 @@ class OrderHistory extends Component {
                             <button className="theme-btn theme-btn-secondery col-md-14"><Link to="/cart">Continue Shopping</Link></button>
                             <button className="theme-btn theme-btn-primary theme-btn-link col-md-9"><Link to="/checkout">Cart</Link></button>
                         </div>
-
-                        <OrderConfirm open={this.state.modal_open_st === 1} info={this.props.histories[this.state.cur_proj]}/>
-                        <OrderRating open={this.state.modal_open_st === 2} info={this.props.histories[this.state.cur_proj]}/>
+                        {
+                            this.state.modal_open_st === 1 ?
+                                <OrderConfirm info={this.props.histories[this.state.cur_proj]} close={this.handleClose}/> :
+                            this.state.modal_open_st === 2 ?
+                                <OrderRating info={this.props.histories[this.state.cur_proj]} close={this.handleClose}/> : null
+                        }
                     </div>
                 </div>
             </React.Fragment>
