@@ -5,12 +5,16 @@ import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import { days, getOrderDetail } from "../../../../actions/app.actions";
 import { getDateStr } from "../../../common/Functions"
 import CustomSpinner from "../../../CustomSpinner";
+import PickupConfirmModal from "./PickupConfirmModal";
+import PickupSuccessModal from "./PickupSuccessModal";
 
 class OrderDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            history: []
+            history: [],
+            modal_open_st: 0,
+            cur_proj: 0
         };
         this.getHistory();
     }
@@ -20,11 +24,22 @@ class OrderDetail extends Component {
         this.setState({history: history});
     };
 
+    confirmPickup = (val) => {
+        this.setState({modal_open_st: 1, cur_proj: val});
+    };
+
+    successPickup = (val) => {
+        this.setState({modal_open_st: 2, cur_proj: val});
+    };
+
+    handleClose = () => {
+        this.setState({modal_open_st: 0});
+    };
+
     render() {
         if (this.state.history.length < 1) {
             return <CustomSpinner/>;
         }
-
         const info = this.state.history;
         const sold_items = info.SoldItems;
         const expiration_date = info.ExpirationDate.substr(0, 2) + '/' + info.ExpirationDate.substr(2, 2);
@@ -93,8 +108,8 @@ class OrderDetail extends Component {
                                 </div>
                                     <div className='pickup-btn-container'>
                                     <div>
-                                        <button className={`theme-btn pickup-btn ${pick_status < 1 ? 'warning-btn' : 'success-btn disabled'}`}>{btn_label1}</button>
-                                        <button className={`theme-btn return-btn ${pick_status < 1 ? 'disabled disabled-btn' : 'active-btn'}`}>{btn_label2}</button>
+                                        <button className={`theme-btn pickup-btn ${pick_status < 1 ? 'warning-btn' : 'success-btn disabled'}`} onClick={() => this.confirmPickup(index)}>{btn_label1}</button>
+                                        <button className={`theme-btn return-btn ${pick_status < 1 ? 'disabled disabled-btn' : 'active-btn'}`} onClick={() => this.successPickup(index)}>{btn_label2}</button>
                                     </div>
                                 </div>
                                 </div>
@@ -139,6 +154,10 @@ class OrderDetail extends Component {
                     <div className='space-between'></div>
                     <button className='theme-btn theme-btn-primary'><Link to='/dashboard/#rent'>Rent History</Link></button>
                 </div>
+                {
+                    this.state.modal_open_st === 1 ? <PickupConfirmModal onClose={this.handleClose} info={this.state.history.SoldItems[this.state.cur_proj]}/> :
+                    this.state.modal_open_st === 2 ? <PickupSuccessModal onClose={this.handleClose} info={this.state.history.SoldItems[this.state.cur_proj]}/> : null
+                }
             </div>)
     }
 }

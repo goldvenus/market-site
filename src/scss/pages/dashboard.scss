@@ -369,7 +369,7 @@ color: #fff
   width: 100%;
 }
 
-// order history
+// Order history
 .owner-profile img {
   border-radius: 18px;
 }
@@ -423,11 +423,13 @@ color: #fff
     text-decoration-line: underline;
   }
 }
-
 .order-history-container {
   tr {
     cursor: pointer;
 
+    td {
+      border: none;
+    }
     .history-rental-duration {
       font-family: Helvetica Neue;
       font-size: 12px;
@@ -627,6 +629,70 @@ color: #fff
   }
 }
 
+// Order pickup modal
+.pickup-modal {
+  .pickup-success-header {
+    height: 320px !important;
+  }
+  .pickup-modal-header {
+    padding: 40px;
+    height: 158px;
+    background-color: #F82462;
+    align-items: center;
+    justify-content: center;
+    font-family: Gotham Pro;
+    font-size: 27px;
+    line-height: 34px;
+    text-align: center;
+    color: #FFFFFF;
+    display: flex;
+
+    .pickup-heading {
+      margin: 20px;
+    }
+    .pickup-sub-heading {
+      font-family: Helvetica Neue;
+      font-size: 16px;
+      line-height: 27px;
+      text-align: center;
+      color: #FFFFFF;
+    }
+  }
+  .pickup-success-body {
+    padding: 40px !important;
+
+    button {
+      padding: 15px 40px;
+    }
+  }
+  .pickup-modal-body {
+    padding: 28px;
+
+    .pickup-item-name {
+      font-family: Gotham Pro;
+      font-size: 27px;
+      line-height: 34px;
+      color: #252525;
+    }
+    .pickup-control {
+      justify-content: center;
+      display: flex;
+    }
+    .pickup-confirm-time {
+      font-family: Gotham Pro;
+      font-size: 16px;
+      line-height: 23px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: #252525;
+      margin: 20px 0;
+
+      span {
+        font-weight: 600;
+      }
+    }
+  }
+}
 
 //
 //width: 150px;
@@ -635,7 +701,7 @@ color: #fff
 //-webkit-clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
 //clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
 
-// order detail page
+// Order detail page
 .order-detail-container {
   .detail-top-button-container {
     display: flex;

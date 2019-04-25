@@ -8,8 +8,8 @@ import { days } from "../../../actions/app.actions";
 import { ToastsStore } from 'react-toasts';
 import Rating from "react-rating"
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
-import OrderConfirm from "./order/OrderConfirm"
-import OrderRating from "./order/OrderRating"
+import OrderConfirm from "./Order/OrderConfirm"
+import OrderRating from "./Order/OrderRating"
 import {getDateStr} from "../../common/Functions";
 
 class OrderHistory extends Component {
@@ -52,8 +52,8 @@ class OrderHistory extends Component {
                             <p className="theme-text-small text-muted tb-category-name"><span>{listItem.SoldItems.length} Items:</span> {product_name}</p>
                         </td>
                         <td width="20.5%">
-                            <div className='history-rental-period'>{getDateStr(first_item.startDate)} - {getDateStr(first_item.endDate)}</div>
-                            <div className='history-rental-duration'>{days(Date(first_item.startDate), Date(first_item.endDate))}</div>
+                            <div className='history-rental-period' onClick={() => this.handleRating(index)}>{getDateStr(first_item.startDate)} - {getDateStr(first_item.endDate)}</div>
+                            <div className='history-rental-duration'>{days(Date(first_item.startDate), Date(first_item.endDate))} days</div>
                         </td>
 
                         <td width="17.5%">

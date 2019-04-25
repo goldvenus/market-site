@@ -32,7 +32,7 @@ const events = [
     },
     {
         title: "Owner",
-        imgurl: '/images/Icons/calendar/lock.png',
+        imgurl: '/images/Icons/Calendar/lock.png',
         data_range: "3 days",
         rent_gear_name: "Intel Com",
         allDay: true,

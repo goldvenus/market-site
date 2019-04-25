@@ -9,9 +9,9 @@ import dataSet from './dataSet';
 import EmpetyList from './Empety_list'
 import { getListGears } from '../../../actions/app.actions';
 import connect from "react-redux/es/connect/connect";
-import Calendar from "./calendar/Calendar";
+import Calendar from "./Calendar/Calendar";
 
-import {gear_names} from "./calendar/general";
+import {gear_names} from "./Calendar/general";
 
 {/* <tr>
   <td width="15%">{<img src={rentItem.numberOfUserImage[0]} className="gear-img" />}</td>

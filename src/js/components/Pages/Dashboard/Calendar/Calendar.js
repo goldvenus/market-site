@@ -92,7 +92,7 @@ class Calendar extends React.Component {
     //////////////////////////////////
 
 
-    ////////////big calendar func///////////////
+    ////////////big Calendar func///////////////
     selectedEvent(event) {
         console.log("Click_event", event);
         if(event!=='Owner') {
