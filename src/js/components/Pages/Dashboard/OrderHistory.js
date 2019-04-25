@@ -60,7 +60,7 @@ class OrderHistory extends Component {
                             <div className="status-bar-container">
                                 <div className="status-bar status-bar1">Payment</div>
                                 <div className="status-bar status-bar2">Pickup</div>
-                                <div className="status-bar">Return</div>
+                                <div className="status-bar status-bar3">Return</div>
                             </div>
                         </td>
                         <td className="tb_pay_per" width="17.5%">{`$${listItem.Amount}`}</td>
