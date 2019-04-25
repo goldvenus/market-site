@@ -503,9 +503,34 @@ tr {
       text-align: center;
     }
   }
-  .pickup-btn-container {
+  .rating-select-container {
     width: 50%;
+    display: flex;
+    align-items: flex-end;
     padding-left: 10%;
+
+    .rating-select-inner {
+      display: block;
+
+      .rating-select-top {
+        margin-bottom: 20px;
+        font-family: Helvetica Neue;
+        font-size: 14px;
+        line-height: 25px;
+        text-transform: uppercase;
+        color: rgba(37, 37, 37, 0.5);
+      }
+      .rating-select-bottom {
+        & > div {
+          padding: 13px 0;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+    }
+  }
+  .pickup-btn-container {
     display: flex;
     align-items: flex-end;
 
@@ -542,6 +567,7 @@ tr {
       }
       .warning-btn {
         background-color: #FBF6E8;
+        margin-bottom: 17px;
         color: #DBA61C !important;
       }
       .warning-btn:hover {
@@ -574,9 +600,80 @@ tr {
 //-webkit-clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
 //clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
 
-.order-detail {
+// order detail page
+.order-detail-container {
   .detail-top-button-container {
+    display: flex;
+    justify-content: center;
+    font-family: Helvetica Neue;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    color: #252525;
+    margin-top: 100px;
 
+    button {
+      width: 18%;
+      border: solid 1px #d3d3d3;
+    }
+    .space-between {
+      width: 5%;
+    }
+  }
+  .paid-item {
+    display: block;
+
+    .item-info-top {
+      border-bottom: solid 1px #f0f0f0;
+      padding: 30px 0;
+    }
+    .item-info-bottom {
+      .pay-info-history {
+        padding: 0 !important;
+      }
+      .pickup-btn-container {
+        width: 50%;
+        padding-left: 80px;
+        display: flex;
+
+        & > div {
+          margin-top: 50px;
+          width: 100%;
+
+          .return-btn {
+            background-color: white;
+            border: solid 1px #FED3E0;
+            color: #F82462;
+          }
+          .disabled-btn {
+            border: solid 1px #929292;
+            color: #929292;
+            opacity: 0.5;
+          }
+          .success-btn {
+            width: 100%;
+            color: #1CDB74;
+            background-color: #E9FCF2;
+            margin-bottom: 17px;
+          }
+          .active-btn:hover {
+            background-color: #F82462;
+            border: solid 1px #F82462;
+            color: white !important;
+          }
+          .warning-btn {
+            background-color: #FBF6E8;
+            margin-bottom: 17px;
+            color: #DBA61C !important;
+          }
+          .warning-btn:hover {
+            color: white !important;
+            background-color: #F82462;
+            border: solid 1px #F82462;
+          }
+        }
+      }
+    }
   }
 }
 

@@ -23,7 +23,15 @@ class OrderHistory extends Component {
     }
 
     handleControl = (val) => {
-        this.setState({cur_proj: val});
+        this.setState({cur_proj: val, modal_open_st: 1});
+    };
+
+    handleRating = (val) => {
+        this.setState({cur_proj: val, modal_open_st: 2});
+    };
+
+    handleClose = () => {
+        this.setState({modal_open_st: 0});
     };
 
     renderOrderHistoryItems() {

@@ -28,15 +28,15 @@ class OrderDetail extends Component {
         const sold_items = info.SoldItems;
         const expiration_date = info.ExpirationDate.substr(0, 2) + '/' + info.ExpirationDate.substr(2, 2);
         return (
-            <div className="payment payment-success-container centered-content">
+            <div className="payment payment-success-container order-detail-container centered-content">
                 <div className="theme-page-title payment-title">
                     <div className="payment-success-icon"><i className="fa fa-check success-color"></i>
                     </div>
                     <span>Payment was successful</span>
                     <div className="detail-top-button-container">
-                        <button className='view-receipt-btn theme-btn theme-btn-secondery theme-btn-primary'>PRINT RECEIPT</button>
+                        <button className='view-receipt-btn theme-btn theme-btn-secondery'>PRINT RECEIPT</button>
                         <div className='space-between'></div>
-                        <button className='theme-btn theme-btn-primary'>EMAIL RECEIPT</button>
+                        <button className='theme-btn theme-btn-secondery'>EMAIL RECEIPT</button>
                     </div>
                 </div>
                 <div className="payment-success-body">
@@ -48,56 +48,58 @@ class OrderDetail extends Component {
                             const btn_label2 = "CONFIRM RETURN";
 
                             return <div key={`cart-item-${index}`} className="paid-item">
-                            <div className='pay-info pay-info-history'>
-                                <div className='item-info'>
+                                <div className='item-info-top'>
                                     <div>
                                         <div className='category-name'>{listItem.categoryName}</div>
                                         <div className='brand-model'>{listItem.brand + ' ' + listItem.model}</div>
                                     </div>
                                 </div>
-                                <div className='buyer-info'>
-                                    <div className='buyer-info-left'>
-                                        <div className='category-name'>{localStorage.username}</div>
-                                        <div className='buyer-profile owner-profile'>
-                                            <img src={listItem.numberOfUserImage[0]}></img>
-                                            <div>
-                                                <span>Jakob Storm</span>
-                                                <span>+1 (123) 562-42-11</span>
+                                <div className='item-info-bottom'>
+                                    <div className='pay-info pay-info-history'>
+                                    <div className='buyer-info'>
+                                        <div className='buyer-info-left'>
+                                            <div className='category-name'>{localStorage.username}</div>
+                                            <div className='buyer-profile owner-profile'>
+                                                <img src={listItem.numberOfUserImage[0]}></img>
+                                                <div>
+                                                    <span>Jakob Storm</span>
+                                                    <span>+1 (123) 562-42-11</span>
+                                                </div>
+                                            </div>
+                                            <div className='period-price'>
+                                                <div>{info.Addr},</div>
+                                                <div>{info.Zip} {info.Region}</div>
                                             </div>
                                         </div>
-                                        <div className='period-price'>
-                                            <div>{info.Addr},</div>
-                                            <div>{info.Zip} {info.Region}</div>
-                                        </div>
-                                    </div>
-                                    <div className='buyer-info-right'>
-                                        <div className='category-name'>Address</div>
-                                        <div className='period-price'>
+                                        <div className='buyer-info-right'>
+                                            <div className='category-name'>Address</div>
+                                            <div className='period-price'>
 
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className='payment-info'>
-                                    <div>
-                                        <div className="category-name">Period</div>
+                                    <div className='payment-info'>
                                         <div>
-                                            {getDateStr(listItem.startDate)} - {getDateStr(listItem.endDate)}
+                                            <div className="category-name">Period</div>
+                                            <div>
+                                                {getDateStr(listItem.startDate)} - {getDateStr(listItem.endDate)}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div>
-                                        <div className="category-name">Price</div>
                                         <div>
-                                            <b>${listItem.pricePerDay * days(Date(listItem.startDate), Date(listItem.endDate))}</b> for <b>{days(listItem.startDate, listItem.endDate)}</b> days
+                                            <div className="category-name">Price</div>
+                                            <div>
+                                                <b>${listItem.pricePerDay * days(Date(listItem.startDate), Date(listItem.endDate))}</b> for <b>{days(listItem.startDate, listItem.endDate)}</b> days
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className='pickup-btn-container'>
-                                <div>
-                                    <button className={`theme-btn pickup-btn ${pick_status < 1 ? 'warning-btn' : 'success-btn disabled'}`}>{btn_label1}</button>
-                                    <button className={`theme-btn return-btn ${pick_status < 1 ? 'disabled disabled-btn' : 'active-btn'}`}>{btn_label2}</button>
+                                    <div className='pickup-btn-container'>
+                                    <div>
+                                        <button className={`theme-btn pickup-btn ${pick_status < 1 ? 'warning-btn' : 'success-btn disabled'}`}>{btn_label1}</button>
+                                        <button className={`theme-btn return-btn ${pick_status < 1 ? 'disabled disabled-btn' : 'active-btn'}`}>{btn_label2}</button>
+                                    </div>
                                 </div>
-                            </div>
+                                </div>
                         </div>;
                     })
                     }

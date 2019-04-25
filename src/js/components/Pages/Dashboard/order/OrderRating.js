@@ -4,6 +4,7 @@ import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import Modal from "react-responsive-modal";
 import { days } from "../../../../actions/app.actions";
 import { getDateStr } from "../../../common/Functions"
+import Rating from "react-rating";
 
 class OrderRating extends Component {
     constructor(props) {
@@ -19,7 +20,6 @@ class OrderRating extends Component {
     };
 
     render() {
-        // const {card_number, expiration_year, expiration_month, card_holder, total, tax, fee, amount} = this.props.info;
         const { info } = this.props;
         const sold_items = info.SoldItems;
         const expiration_date = info.ExpirationDate.substr(0, 2) + '/' + info.ExpirationDate.substr(2, 2);
@@ -79,10 +79,37 @@ class OrderRating extends Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className='pickup-btn-container'>
-                                        <div>
-                                            <button className={`theme-btn pickup-btn ${pick_status < 1 ? 'warning-btn' : 'success-btn disabled'}`}>{btn_label1}</button>
-                                            <button className={`theme-btn return-btn ${pick_status < 1 ? 'disabled disabled-btn' : 'active-btn'}`}>{btn_label2}</button>
+                                    <div className='rating-select-container'>
+                                        <div className='rating-select-inner'>
+                                            <div className="row rating-select-top">
+                                                HOW WAS YOUR EXPERIENCE?
+                                            </div>
+                                            <div className="row rating-select-bottom">
+                                                <div>
+                                                    <span>Gear</span>
+                                                    <Rating
+                                                        initialRating={3}
+                                                        emptySymbol={<img src="/images/Icons/star/star_icon_d.png" alt='' className="icon" />}
+                                                        fullSymbol={<img src="/images/Icons/star/star_icon_a.png" alt='' className="icon" />}
+                                                        onClick={() => this.handleRating(index)}/>
+                                                </div>
+                                                <div>
+                                                    <span>Owner</span>
+                                                    <Rating
+                                                        initialRating={3}
+                                                        emptySymbol={<img src="/images/Icons/star/star_icon_d.png" alt='' className="icon" />}
+                                                        fullSymbol={<img src="/images/Icons/star/star_icon_a.png" alt='' className="icon" />}
+                                                        onClick={() => this.handleRating(index)}/>
+                                                </div>
+                                                <div>
+                                                    <span>Platform</span>
+                                                    <Rating
+                                                        initialRating={3}
+                                                        emptySymbol={<img src="/images/Icons/star/star_icon_d.png" alt='' className="icon" />}
+                                                        fullSymbol={<img src="/images/Icons/star/star_icon_a.png" alt='' className="icon" />}
+                                                        onClick={() => this.handleRating(index)}/>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>;
