@@ -369,7 +369,6 @@ color: #fff
   width: 100%;
 }
 
-
 // order history
 .owner-profile img {
   border-radius: 18px;
@@ -405,20 +404,54 @@ color: #fff
     width: 40px;
   }
 }
-.tb-project-name, .tb-category-name {
+.tb-project-name {
   cursor: pointer;
+  font-family: Helvetica Neue;
+  font-size: 16px;
+  line-height: 28px;
+  color: #252525;
 }
-.to-payment-detail {
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
-  background-color: #F4F4F4;
-  align-items: center;
-  justify-content: center;
-  display: flex;
+.tb-category-name {
+  cursor: pointer;
+  font-family: Helvetica Neue;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0.03em;
+  color: #3A3A3A;
+  opacity: 0.5;
+  span {
+    text-decoration-line: underline;
+  }
 }
-tr {
+
+.order-history-container {
+  tr {
     cursor: pointer;
+
+    .history-rental-duration {
+      font-family: Helvetica Neue;
+      font-size: 12px;
+      line-height: 18px;
+      letter-spacing: 0.03em;
+      color: #3A3A3A;
+      opacity: 0.5;
+    }
+    .history-rental-period {
+      font-family: Helvetica Neue;
+      font-size: 16px;
+      line-height: 27px;
+      color: #252525;
+    }
+    .to-payment-detail {
+      width: 30px;
+      height: 30px;
+      border-radius: 15px;
+      background-color: #F4F4F4;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+    }
+  }
 }
 .order-modal {
   width: 100%;
@@ -593,6 +626,8 @@ tr {
     border: solid 1px #D3D3D3;
   }
 }
+
+
 //
 //width: 150px;
 //height: 150px;
@@ -628,6 +663,8 @@ tr {
       padding: 30px 0;
     }
     .item-info-bottom {
+      display: flex;
+
       .pay-info-history {
         padding: 0 !important;
       }
@@ -640,6 +677,9 @@ tr {
           margin-top: 50px;
           width: 100%;
 
+          button {
+            width: 100%;
+          }
           .return-btn {
             background-color: white;
             border: solid 1px #FED3E0;

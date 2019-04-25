@@ -4,11 +4,13 @@ import { compose } from "redux";
 import { Link, withRouter } from 'react-router-dom';
 import { Table } from 'reactstrap';
 import { handleError, getOrderHistory } from '../../../actions/app.actions';
+import { days } from "../../../actions/app.actions";
 import { ToastsStore } from 'react-toasts';
 import Rating from "react-rating"
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import OrderConfirm from "./order/OrderConfirm"
 import OrderRating from "./order/OrderRating"
+import {getDateStr} from "../../common/Functions";
 
 class OrderHistory extends Component {
     constructor(props) {
@@ -36,35 +38,36 @@ class OrderHistory extends Component {
 
     renderOrderHistoryItems() {
         const { histories } = this.props;
-
         return (
-            histories.map((listItem, index) => (
-                <tr key={`cart-item-${index}`}>
-                    <td width="10%">{listItem.SoldItems[0].numberOfUserImage && listItem.SoldItems[0].numberOfUserImage.length > 0 ? <img
-                        src={listItem.SoldItems[0].numberOfUserImage[0]} alt='' className="gear-img"/> : null}</td>
-                    <td className="gear" width="29%">
-                        <p className="tb-project-name" onClick={() => this.handleControl(index)}>{listItem.ProjectName}</p>
-                        <p className="theme-text-small text-muted tb-category-name">{listItem.SoldItems[0].brand + ' ' + listItem.SoldItems[0].model}</p>
-                    </td>
-                    <td width="20.5%">
-                        <Rating
-                            initialRating={3}
-                            emptySymbol={<img src="/images/Icons/star/star_icon_d.png" alt='' className="icon" />}
-                            fullSymbol={<img src="/images/Icons/star/star_icon_a.png" alt='' className="icon" />}
-                            onClick={() => this.handleRating(index)}/>
-                    </td>
+            histories.map((listItem, index) => {
+                const first_item = listItem.SoldItems[0];
+                let product_name = listItem.SoldItems[0].brand + ' ' + listItem.SoldItems[0].model;
+                product_name = product_name.substr(0, 13) + '...';
+                return (
+                    <tr key={`cart-item-${index}`}>
+                        <td width="10%">{first_item.numberOfUserImage && first_item.numberOfUserImage.length > 0 ? <img
+                            src={first_item.numberOfUserImage[0]} alt='' className="gear-img"/> : null}</td>
+                        <td className="gear" width="29%">
+                            <p className="tb-project-name" onClick={() => this.handleControl(index)}>listItem.ProjectName</p>
+                            <p className="theme-text-small text-muted tb-category-name"><span>{listItem.SoldItems.length} Items:</span> {product_name}</p>
+                        </td>
+                        <td width="20.5%">
+                            <div className='history-rental-period'>{getDateStr(first_item.startDate)} - {getDateStr(first_item.endDate)}</div>
+                            <div className='history-rental-duration'>{days(Date(first_item.startDate), Date(first_item.endDate))}</div>
+                        </td>
 
-                    <td width="17.5%">
-                        <div className="status-bar-container">
-                            <div className="status-bar status-bar1">Payment</div>
-                            <div className="status-bar status-bar2">Pickup</div>
-                            <div className="status-bar">Return</div>
-                        </div>
-                    </td>
-                    <td className="tb_pay_per" width="17.5%">{`$${listItem.Amount}`}</td>
-                    <td><div className="to-payment-detail"><Link to={`/dashboard/order/detail/${listItem.PaymentId}`}><i className="fa fa-angle-right"/></Link></div></td>
-                </tr>
-            ))
+                        <td width="17.5%">
+                            <div className="status-bar-container">
+                                <div className="status-bar status-bar1">Payment</div>
+                                <div className="status-bar status-bar2">Pickup</div>
+                                <div className="status-bar">Return</div>
+                            </div>
+                        </td>
+                        <td className="tb_pay_per" width="17.5%">{`$${listItem.Amount}`}</td>
+                        <td><div className="to-payment-detail"><Link to={`/dashboard/order/detail/${listItem.PaymentId}`}><i className="fa fa-angle-right"/></Link></div></td>
+                    </tr>
+                )
+            })
         );
     }
     renderHistoriesItems_md() {
@@ -118,14 +121,13 @@ class OrderHistory extends Component {
         if (!histories || histories.length < 1) {
             return null;
         }
-        console.log("----------", histories);
 
         return (
             <React.Fragment>
                 <div className="row order-history-container">
                     <div className="col-sm-24">
                         <div className="cart-header ">
-                            <h4>Order Histories</h4>
+                            <h4>Order History</h4>
                         </div>
                         <div className="d-md-flex d-lg-none d-none md_show_buttons" >
                             <button className="theme-btn theme-btn-secondery col-md-9"><Link to="/cart">Continue Shopping2</Link></button>

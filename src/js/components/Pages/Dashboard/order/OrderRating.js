@@ -5,6 +5,7 @@ import Modal from "react-responsive-modal";
 import { days } from "../../../../actions/app.actions";
 import { getDateStr } from "../../../common/Functions"
 import Rating from "react-rating";
+import {Link} from "react-router-dom";
 
 class OrderRating extends Component {
     constructor(props) {
@@ -33,6 +34,7 @@ class OrderRating extends Component {
                                 const pick_status = 1*listItem.PickStatus;
                                 const btn_label1 = pick_status < 1 ? "CONFIRM PICKUP" : "PICKUP CONFIRMED";
                                 const btn_label2 = "CONFIRM RETURN";
+                                console.log(listItem);
 
                                 return <div key={`cart-item-${index}`} className="paid-item">
                                     <div className='pay-info pay-info-history'>
@@ -44,7 +46,7 @@ class OrderRating extends Component {
                                         </div>
                                         <div className='buyer-info'>
                                             <div className='buyer-info-left'>
-                                                <div className='category-name'>{localStorage.username}</div>
+                                                <div className='category-name'>Owner Name</div>
                                                 <div className='buyer-profile owner-profile'>
                                                     <img src={listItem.numberOfUserImage[0]}></img>
                                                     <div>
@@ -52,15 +54,12 @@ class OrderRating extends Component {
                                                         <span>+1 (123) 562-42-11</span>
                                                     </div>
                                                 </div>
-                                                <div className='period-price'>
-                                                    <div>{info.Addr},</div>
-                                                    <div>{info.Zip} {info.Region}</div>
-                                                </div>
                                             </div>
                                             <div className='buyer-info-right'>
                                                 <div className='category-name'>Address</div>
                                                 <div className='period-price'>
-
+                                                    <div>{info.Addr},</div>
+                                                    <div>{info.Zip} {info.Region}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -91,7 +90,7 @@ class OrderRating extends Component {
                                                         initialRating={3}
                                                         emptySymbol={<img src="/images/Icons/star/star_icon_d.png" alt='' className="icon" />}
                                                         fullSymbol={<img src="/images/Icons/star/star_icon_a.png" alt='' className="icon" />}
-                                                        onClick={() => this.handleRating(index)}/>
+                                                        />
                                                 </div>
                                                 <div>
                                                     <span>Owner</span>
@@ -99,7 +98,7 @@ class OrderRating extends Component {
                                                         initialRating={3}
                                                         emptySymbol={<img src="/images/Icons/star/star_icon_d.png" alt='' className="icon" />}
                                                         fullSymbol={<img src="/images/Icons/star/star_icon_a.png" alt='' className="icon" />}
-                                                        onClick={() => this.handleRating(index)}/>
+                                                        />
                                                 </div>
                                                 <div>
                                                     <span>Platform</span>
@@ -107,7 +106,7 @@ class OrderRating extends Component {
                                                         initialRating={3}
                                                         emptySymbol={<img src="/images/Icons/star/star_icon_d.png" alt='' className="icon" />}
                                                         fullSymbol={<img src="/images/Icons/star/star_icon_a.png" alt='' className="icon" />}
-                                                        onClick={() => this.handleRating(index)}/>
+                                                        />
                                                 </div>
                                             </div>
                                         </div>
@@ -151,7 +150,7 @@ class OrderRating extends Component {
                 <div className="order-modal-footer">
                     <button className='view-receipt-btn theme-btn theme-btn-secondery theme-btn-primary'>View Recipt</button>
                     <div className='space-between'></div>
-                    <button className='theme-btn theme-btn-primary'>Rent History</button>
+                    <button className='theme-btn theme-btn-primary'><Link to='/dashboard/#rent'>Rent History</Link></button>
                 </div>
             </Modal>)
     }

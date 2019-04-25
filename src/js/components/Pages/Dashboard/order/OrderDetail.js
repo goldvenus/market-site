@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import '@trendmicro/react-buttons/dist/react-buttons.css';
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import { days, getOrderDetail } from "../../../../actions/app.actions";
@@ -58,7 +59,7 @@ class OrderDetail extends Component {
                                     <div className='pay-info pay-info-history'>
                                     <div className='buyer-info'>
                                         <div className='buyer-info-left'>
-                                            <div className='category-name'>{localStorage.username}</div>
+                                            <div className='category-name'>Owner Name</div>
                                             <div className='buyer-profile owner-profile'>
                                                 <img src={listItem.numberOfUserImage[0]}></img>
                                                 <div>
@@ -66,15 +67,12 @@ class OrderDetail extends Component {
                                                     <span>+1 (123) 562-42-11</span>
                                                 </div>
                                             </div>
-                                            <div className='period-price'>
-                                                <div>{info.Addr},</div>
-                                                <div>{info.Zip} {info.Region}</div>
-                                            </div>
                                         </div>
                                         <div className='buyer-info-right'>
                                             <div className='category-name'>Address</div>
                                             <div className='period-price'>
-
+                                                <div>{info.Addr},</div>
+                                                <div>{info.Zip} {info.Region}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -139,7 +137,7 @@ class OrderDetail extends Component {
                 <div className="order-modal-footer">
                     <button className='view-receipt-btn theme-btn theme-btn-secondery theme-btn-primary'>View Receipt</button>
                     <div className='space-between'></div>
-                    <button className='theme-btn theme-btn-primary'>Rent History</button>
+                    <button className='theme-btn theme-btn-primary'><Link to='/dashboard/#rent'>Rent History</Link></button>
                 </div>
             </div>)
     }

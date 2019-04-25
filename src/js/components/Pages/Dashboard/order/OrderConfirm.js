@@ -4,6 +4,7 @@ import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import Modal from "react-responsive-modal";
 import { days } from "../../../../actions/app.actions";
 import { getDateStr } from "../../../common/Functions"
+import {Link} from "react-router-dom";
 
 class OrderConfirm extends Component {
     constructor(props) {
@@ -48,15 +49,12 @@ class OrderConfirm extends Component {
                                                 <span>+1 (123) 562-42-11</span>
                                             </div>
                                         </div>
-                                        <div className='period-price'>
-                                            <div>{info.Addr},</div>
-                                            <div>{info.Zip} {info.Region}</div>
-                                        </div>
                                     </div>
                                     <div className='buyer-info-right'>
                                         <div className='category-name'>Address</div>
                                         <div className='period-price'>
-
+                                            <div>{info.Addr},</div>
+                                            <div>{info.Zip} {info.Region}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -120,7 +118,7 @@ class OrderConfirm extends Component {
                 <div className="order-modal-footer">
                     <button className='view-receipt-btn theme-btn theme-btn-secondery theme-btn-primary'>View Recipt</button>
                     <div className='space-between'></div>
-                    <button className='theme-btn theme-btn-primary'>Rent History</button>
+                    <button className='theme-btn theme-btn-primary'><Link to='/dashboard/#rent'>Rent History</Link></button>
                 </div>
         </Modal>)
     }
