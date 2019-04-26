@@ -265,7 +265,7 @@ class RentGearDetail extends Component {
                 open_date_picker2: false
             });
         }
-    }
+    };
 
     renderContent = () => {
         const { gear, user, carts, favourites } = this.props;

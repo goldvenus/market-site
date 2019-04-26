@@ -160,7 +160,7 @@ const sendResetPasswordEmail = async (data) => {
     handleError(error);
     return false
   }
-}
+};
 
 const confirmResetPassword = async (data) => {
   try {
@@ -185,7 +185,7 @@ const confirmResetPassword = async (data) => {
     handleError(error);
     return false
   }
-}
+};
 
 const refreshToken = async () => {
   try {
@@ -654,7 +654,7 @@ const getGearHistory = async () => {
     } catch (error) {
         handleError(error);
     }
-}
+};
 
 const getmygearname = async () => {
     try {

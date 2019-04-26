@@ -11,6 +11,7 @@ import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import OrderConfirm from "./Order/OrderConfirm"
 import OrderRating from "./Order/OrderRating"
 import {getDateStr} from "../../common/Functions";
+import BarLoader from "react-bar-loader";
 
 class OrderHistory extends Component {
     constructor(props) {
@@ -38,6 +39,10 @@ class OrderHistory extends Component {
 
     renderOrderHistoryItems() {
         const { histories } = this.props;
+        if (!histories) {
+            return <BarLoader color="#F82462" height="5"/>;
+        }
+
         return (
             histories.map((listItem, index) => {
                 const first_item = listItem.SoldItems[0];
@@ -179,8 +184,7 @@ class OrderHistory extends Component {
 }
 
 const mapStateToProps = state => ({
-    histories: state.app.order_histories,
-    carts: state.app.carts
+    histories: state.app.order_histories
 });
 
 export default compose(

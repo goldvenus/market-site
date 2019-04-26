@@ -10,30 +10,7 @@ import EmpetyList from './Empety_list'
 import { getListGears } from '../../../actions/app.actions';
 import connect from "react-redux/es/connect/connect";
 import Calendar from "./Calendar/Calendar";
-
-import {gear_names} from "./Calendar/general";
-
-{/* <tr>
-  <td width="15%">{<img src={rentItem.numberOfUserImage[0]} className="gear-img" />}</td>
-  <td className="gear" width="20%">
-    <p >{rentItem.brand}</p>
-    <p className="theme-text-small text-muted">{rentItem.categoryName}</p>
-  </td>
-  <td className="rental-period" width="20%">
-    <p>
-      {`${rentItem.orderDate} to ${rentItem.endDate} `}
-    </p>
-    <p className="theme-text-small text-muted">
-      {` ${days(rentItem.orderDate, rentItem.endDate)} days`}
-    </p>
-  </td>
-  <td width="20%">
-    <img src={rentItem.landrord_img} className="landrord-img" />
-    <span className="ml-1 "> {rentItem.landrord_name} </span>
-  </td>
-  <td width="15%">{rentItem.pricePerDay}</td>
-  <td width="15%">{rentItem.replacementValue}</td>
-</tr> */}
+import BarLoader from "react-bar-loader";
 
 const MyListingItem = ({ listItem }) => (
   <tr>
@@ -124,8 +101,10 @@ class MyListings extends React.Component {
 
   render() {
     const { currentPage} = this.state;
-    const { list} = this.props;
-    console.log(list);
+    const { list } = this.props;
+    if (!list) {
+      return <BarLoader color="#F82462" height="5"/>;
+    }
 
       this.pagesCount = Math.ceil(list ? list.length / this.pageSize : "");
     return (
@@ -206,7 +185,7 @@ class MyListings extends React.Component {
              }
             </TabPanel>
             <TabPanel>
-                <Calendar/>
+                <Calendar listGears={list}/>
             </TabPanel>
           </div>
         </Tabs>

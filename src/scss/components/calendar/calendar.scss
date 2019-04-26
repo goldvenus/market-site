@@ -49,6 +49,12 @@
         }
     }
     .rbc-header {
+        height: 40px;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        border: solid 1px #F2F2F2;
+
         span {
             font-size: 16px;
             line-height: 27px;
@@ -57,15 +63,18 @@
             font-weight: 100;
         }
     }
+    .rbc-day-bg {
+      border: solid 1px #F2F2F2;;
+    }
     .rbc-month-header {
         background-color: #FBFBFB;
+        border-top: solid 1px #F2F2F2;
     }
     .rbc-off-range {
         a {
             color: #252525;
             opacity: 0.5;
         }
-
     }
     .rbc-off-range-bg {
         background-color: #faf8f9;

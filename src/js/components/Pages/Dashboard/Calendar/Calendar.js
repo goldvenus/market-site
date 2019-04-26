@@ -18,55 +18,58 @@ import Helmet from 'react-helmet';
 import {compose} from "redux";
 import connect from "react-redux/es/connect/connect";
 import {withRouter} from "react-router-dom";
-import { getGearHistory, getmygearname ,formatDate, handleError} from '../../../../actions/app.actions'
+import { getGearHistory, getListGears ,formatDate, handleError} from '../../../../actions/app.actions'
 import AboutPeriod from "./AboutPeriod";
+import BarLoader from "react-bar-loader";
 
 
 const localizer = BigCalendar.momentLocalizer(moment);
 class Calendar extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
             events: events,
             alert: null,
-            g_name: gear_names[0],
+            gear_title: '',
+            cur_gear_num: 0,
+            gear_rent_info_list: [],
+            cur_rent_info_num: 0,
             dropdownOpen: false,
             open: false,
-            open_person_dlg: false,
-            startDate: new Date(),
-            endDate: new Date(),
-            imgurl:'',
-            person_name:'',
-            startday:new Date(),
-            endday: new Date(),
+            open_person_dlg: false
         };
-        this.toggle = this.toggle.bind(this);
-        this.changeGearName = this.changeGearName.bind(this);
     }
-    componentDidMount(){
-        getGearHistory();
-        getmygearname();
-        UpdateMydata_calendar();
+
+    componentDidMount() {
+        // getGearHistory();
+        getListGears();
+        // getGearDetail();
+        // UpdateMydata_calendar();
     }
-    shouldComponentUpdate(state, props){
+
+    shouldComponentUpdate(state, props) {
         if(this.state !== state || this.props !== props){
             UpdateMydata_calendar();
             return true;
         }
         else return false;
     }
-    //////////////available period dialog func///////////
+
     onOpenModel= () => {
         this.setState({open:true});
-    }
+    };
+
     onOpenAboutPersonModel = () => {
         this.setState({open_person_dlg:true});
-    }
+    };
+
     onCloseModel = () => {
         this.setState({open:false});
         this.setState({open_person_dlg:false});
-    }
-    async addToPeriod({startDate, endDate}) {
+    };
+
+    addToPeriod = async ({startDate, endDate}) => {
         alert(formatDate(startDate));
         try {
             alert(formatDate(startDate));
@@ -77,22 +80,14 @@ class Calendar extends React.Component {
         } catch {
             handleError('Available Period Failed.');
         }
-    }
-    //////////////////////////////////////////////
+    };
 
-
-    /////// DayPicker Calendar///////////
     handleDayClick(day, { selected }) {
         if(selected)
             alert(day);
-        // this.setState({
-        //     selectedDay: selected ? undefined : day,
-        // });
     }
-    //////////////////////////////////
 
-
-    ////////////big Calendar func///////////////
+    // big Calendar func
     selectedEvent(event) {
         console.log("Click_event", event);
         if(event!=='Owner') {
@@ -100,6 +95,7 @@ class Calendar extends React.Component {
             this.onOpenAboutPersonModel();
         }
     }
+
     eventColors(event) {
         var backgroundColor = "event-";
         event.color
@@ -109,46 +105,54 @@ class Calendar extends React.Component {
             className: backgroundColor
         };
     }
-    toggle() {
-        this.setState(prevState => ({
-            dropdownOpen: !prevState.dropdownOpen
-        }));
-    }
-    ///////////////////////////////////////////
-    //////////////////DropdownMenu func/////////////////
-    changeGearName(e) {
-        this.setState({ g_name: e.target.textContent });
-    }
-    ////////////////////////////////////
+
+    toggle = () => {
+        this.setState({dropdownOpen: !this.state.dropdownOpen});
+    };
+
+    // DropdownMenu func
+    changeGearName = gear_num => {
+        this.setState({cur_gear_num: gear_num });
+    };
+
     render() {
-        const {g_name} = this.state;
-        const times = this.state.events.map((item, index) => {
+        const { listGears } = this.props;
+        if (!listGears) {
+            return <BarLoader color="#F82462" height="5"/>;
+        }
+
+        const cur_gear = listGears[this.state.cur_gear_num];
+        const gear_name = cur_gear.brand + " " + cur_gear.categoryName;
+        let cur_rent = {};
+        if (this.state.gear_rent_info_list.length > 0)
+            cur_rent = this.state.gear_rent_info_list[this.state.cur_rent_info_num];
+        console.log(listGears);
+
+        const times = this.state.events.map((item) => {
             console.log("DayPicker->",{after : item.end, before : item.start});
-            return {after : item.end, before : item.start}
-        })
-        console.log("times:",times);
+            return {after : item.end, before : item.start};
+        });
+
         return (
             <div>
                 <div className="calendar_dropdown_div">
-                  <p className="dropdown_calendar_gearname">SELECT GEAR</p>
+                    <p className="dropdown_calendar_gearname">SELECT GEAR</p>
                     <div className="calendar_dropdown_div_bottom">
                         <Dropdown className=" calendar_dropdown" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                             <DropdownToggle caret>
-                                {g_name}
+                                {gear_name}
                             </DropdownToggle>
                                 <DropdownMenu left>
                                 {
-                                    gear_names.map((ele, index) => {
-                                        return <DropdownItem key={index}
-                                                             onClick={this.changeGearName.bind(this)}>{ele}</DropdownItem>;
+                                    listGears.map((ele, index) => {
+                                        return <DropdownItem key={index} onClick={() => this.changeGearName(index)}>{ele.brand} {ele.categoryName}</DropdownItem>;
                                     })
                                 }
                             </DropdownMenu>
                         </Dropdown>
                         <button className="calendar_dropdown_bottom_button" onClick={this.onOpenModel}>Add Unavailable Period</button>
-                        <PeriodModal gearname={this.state.g_name} open={this.state.open} onClose={this.onCloseModel} addToPeriod={() => this.addToPeriod()}></PeriodModal>
-                        <AboutPeriod gearname={this.state.g_name} open={this.state.open_person_dlg} onClose={this.onCloseModel} imgurl = {this.state.imgurl} person_name={this.state.person_name} startday={this.state.startDate} endday={this.state.endday}></AboutPeriod>
-
+                        {/*<PeriodModal gearname={gear_name} open={this.state.open} onClose={this.onCloseModel} addToPeriod={this.addToPeriod}/>*/}
+                        {/*<AboutPeriod gearname={gear_name} open={this.state.open_person_dlg} onClose={this.onCloseModel} imgurl={cur_rent.img_url} person_name={cur_rent.renter_name} startday={cur_rent.startDate} endday={cur_rent.endDate}/>*/}
                     </div>
                 </div>
 
@@ -282,14 +286,6 @@ const UpdateMydata_calendar = () => {
         });
 
     })
-}
-const mapStateToProps = state => ({
-    gear: state.app.my_gear_names,
-    favourites: state.app.gear_histories,
-});
+};
 
-export default compose(
-    connect(mapStateToProps),
-    withRouter
-)(Calendar);
-
+export default Calendar;

@@ -4,7 +4,7 @@ import { Action } from 'rxjs/internal/scheduler/Action';
 
 const initialState = {
   categories: [],
-  listGears: [],
+  listGears: null,
   allGears: [],
   error: null,
   user: null,
@@ -18,10 +18,9 @@ const initialState = {
   dashboard: {},
   carts: [],
   favorites: [],
-  gear_histories: [],
-  order_histories: [],
+  order_histories: null,
   my_gear_names: []
-}
+};
 
 export default (state = initialState, action) => {
   return producer(state, draft => {
@@ -99,8 +98,6 @@ export default (state = initialState, action) => {
         break;
       case ACTIONS.ORDER_HISTORY:
         draft.order_histories = action.payload;
-      case ACTIONS.GEAR_HISTORY:
-        draft.gear_histories = action.payload;
       case ACTIONS.MY_GEAR_NAME:
         draft.my_gear_names = action.payload;
       default:
