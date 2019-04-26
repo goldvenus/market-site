@@ -642,39 +642,28 @@ const socialLogin = async (idToken, accessToken) => {
   }
 };
 
-const getGearHistory = async () => {
+const getGearRentState = (data) => {
+  return new Promise(async (resolve, reject) => {
     try {
-        let response = await get_new('gearhistory');
-        if (response) {
-            dispatch({
-                type: ACTIONS.GEAR_HISTORY,
-                payload: response.data
-            });
-        }
+      let response = await post('getGearRentState', data);
+      if (response.status === 'success') {
+        resolve(response.data);
+      } else {
+        reject(false);
+      }
     } catch (error) {
-        handleError(error);
+      handleError(error);
+      reject(false);
     }
+  });
 };
-
-const getmygearname = async () => {
-    try {
-        let response = await get_new('mygearname');
-        if(response){
-            dispatch ({
-                type: ACTIONS.MY_GEAR_NAME,
-                payload: response.data
-            })
-        }
-    }catch (error) {
-        handleError(error)
-    }
-}
 
 export {
   register, confirmUser, login, logout, clearError, handleError, getUser,
-  readFileData, addGear, fetchCategories, getListGears, getAllGears, getGear, addCart, getCarts, getOrderHistory, getOrderDetail,
-  formatDate, days, checkout, getCheckout, payment, getPaymentCards, getPaidItems, rentGearProductList, dashboardMyListing,
+  readFileData, fetchCategories, addCart, getCarts, getOrderHistory, getOrderDetail,
+  formatDate, days, rentGearProductList, dashboardMyListing,
   dashboardMyRentals, search, addFavourites, getFavourites, deleteFavourite, newArrivals,
   deleteCartItem, deleteGear, socialLogin, viewUserDashboard, sendResetPasswordEmail, confirmResetPassword,
-  getGearHistory, getmygearname,
+  getListGears, getAllGears, getGear, getGearRentState, addGear,
+  checkout, getCheckout, payment, getPaymentCards, getPaidItems
 };

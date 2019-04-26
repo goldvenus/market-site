@@ -18,7 +18,7 @@ import Helmet from 'react-helmet';
 import {compose} from "redux";
 import connect from "react-redux/es/connect/connect";
 import {withRouter} from "react-router-dom";
-import { getGearHistory, getListGears ,formatDate, handleError} from '../../../../actions/app.actions'
+import { getGearRentState, getListGears ,formatDate, handleError} from '../../../../actions/app.actions'
 import AboutPeriod from "./AboutPeriod";
 import BarLoader from "react-bar-loader";
 
@@ -37,7 +37,8 @@ class Calendar extends React.Component {
             cur_rent_info_num: 0,
             dropdownOpen: false,
             open: false,
-            open_person_dlg: false
+            open_person_dlg: false,
+            cur_date: new Date()
         };
     }
 
@@ -89,7 +90,6 @@ class Calendar extends React.Component {
 
     // big Calendar func
     selectedEvent(event) {
-        console.log("Click_event", event);
         if(event!=='Owner') {
             this.setState({imgurl : event.imgurl, person_name: event.title, startday: event.start, endday: event.end});
             this.onOpenAboutPersonModel();
@@ -112,7 +112,20 @@ class Calendar extends React.Component {
 
     // DropdownMenu func
     changeGearName = gear_num => {
+        const gearid = this.props.listGears[gear_num].gearid;
+        console.log(gearid);
+        let date_obj = new Date(this.state.cur_date);
+        date_obj.setMonth(date_obj.getMonth() - 3);
+        let start_date = moment(date_obj).format('YYYY-MM-DD');
+        date_obj.setMonth(date_obj.getMonth() + 6);
+        let end_date = moment(date_obj).format('YYYY-MM-DD');
+
+        const ret = getGearRentState({gearid, start_date, end_date});
         this.setState({cur_gear_num: gear_num });
+    };
+
+    handleNavigate = () => {
+        alert("ff");
     };
 
     render() {
@@ -126,10 +139,9 @@ class Calendar extends React.Component {
         let cur_rent = {};
         if (this.state.gear_rent_info_list.length > 0)
             cur_rent = this.state.gear_rent_info_list[this.state.cur_rent_info_num];
-        console.log(listGears);
 
         const times = this.state.events.map((item) => {
-            console.log("DayPicker->",{after : item.end, before : item.start});
+            // console.log("DayPicker->",{after : item.end, before : item.start});
             return {after : item.end, before : item.start};
         });
 
@@ -142,10 +154,10 @@ class Calendar extends React.Component {
                             <DropdownToggle caret>
                                 {gear_name}
                             </DropdownToggle>
-                                <DropdownMenu left>
+                                <DropdownMenu left="true">
                                 {
                                     listGears.map((ele, index) => {
-                                        return <DropdownItem key={index} onClick={() => this.changeGearName(index)}>{ele.brand} {ele.categoryName}</DropdownItem>;
+                                        return <DropdownItem key={index+1} onClick={() => this.changeGearName(index)}>{ele.brand} {ele.categoryName}</DropdownItem>;
                                     })
                                 }
                             </DropdownMenu>
@@ -173,6 +185,7 @@ class Calendar extends React.Component {
                         components={{
                           toolbar: CalendarToolBar
                         }}
+                        onNavigate={this.handleNavigate}
                     />
                     <Helmet>
                         <style>{`
@@ -222,7 +235,7 @@ class CalendarToolBar extends React.PureComponent {
                 <div className="rbc-toobar-menu" style={{ width: '100%', textAlign: 'right' }}>
                     <IconButton onClick={() => {onNavigate('PREV'); UpdateMydata_calendar();}}><LeftArrowIcon /></IconButton>
                     <Typography variant="headline" style={{ textTransform: 'capitalize', width: '100%' }}>{label}</Typography>
-                    <IconButton><RightArrowIcon onClick={() => {onNavigate('NEXT'); UpdateMydata_calendar();}} /></IconButton>
+                    <IconButton onClick={() => {onNavigate('NEXT'); UpdateMydata_calendar();}}><RightArrowIcon/></IconButton>
                 </div>
             </Toolbar>
         );
