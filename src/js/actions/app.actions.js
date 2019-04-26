@@ -646,11 +646,7 @@ const getGearRentState = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       let response = await post('getGearRentState', data);
-      if (response.status === 'success') {
-        resolve(response.data);
-      } else {
-        reject(false);
-      }
+      resolve(response.data.data);
     } catch (error) {
       handleError(error);
       reject(false);

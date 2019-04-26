@@ -24,7 +24,7 @@ class PeriodModal extends Component {
             open_date_picker1: ost1,
             open_date_picker2: ost2
         });
-    }
+    };
 
     handleSelect = ranges => {
         let t_start_date = ranges.selection.startDate;
@@ -62,14 +62,14 @@ class PeriodModal extends Component {
                 open_date_picker2: false
             });
         }
-    }
+    };
 
     handleAddToPeriod = () => {
         this.props.addToPeriod({
             startDate: this.state.startDate,
             endDate: this.state.endDate
         });
-    }
+    };
 
     render() {
         const { open, onClose, gearname } = this.props;
@@ -84,10 +84,8 @@ class PeriodModal extends Component {
         let btn_label1 = 'Cancel';
         let btn_label2 = 'Add Period';
 
-
-
         return (
-            <Modal open={open} onClose={onClose} center>
+            <Modal open={open} onClose={onClose} center classNames={{modal: "cart-modal"}}>
                 <div className='Period-cart-header'>
                     <span >{dlg_heading}</span>
                 </div>

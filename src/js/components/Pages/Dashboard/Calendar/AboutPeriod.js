@@ -14,10 +14,8 @@ class AboutPeriod extends Component {
         let dlg_heading = 'About Period';
         let btn_label1 = 'Cancel';
 
-
-
         return (
-            <Modal open={open} onClose={onClose} center>
+            <Modal open={open} onClose={onClose} center classNames={{modal: "cart-modal"}}>
                 <div className='Period-cart-header'>
                     <span >{dlg_heading}</span>
                 </div>
@@ -25,12 +23,10 @@ class AboutPeriod extends Component {
                     <div className='modal-cart-info row'>
                         <span className='period-carted-product-name'>{gearname}</span>
                     </div>
-
-
                     <div className='modal-cart-control row'>
                         <button className='cart-control-left-button theme-btn theme-btn-primary' onClick={onClose}>{btn_label1}</button>
                         <div className='cart-button-space'></div>
-                      </div>
+                    </div>
                 </div>
             </Modal>
         )
