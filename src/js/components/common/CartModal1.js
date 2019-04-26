@@ -135,8 +135,8 @@ class CartModal1 extends Component {
                             }
                             {
                                 this.state.open_date_picker1 ?
-                                    <img src="/images/Icons/calendar/calendar1.svg"/> :
-                                    <img src="/images/Icons/calendar/calendar.svg"/>
+                                    <img src="/images/Icons/calendar/calendar1.svg" alt=''/> :
+                                    <img src="/images/Icons/calendar/calendar.svg" alt=''/>
                             }
                         </div>
                         <div className='col-md-2'></div>
@@ -155,8 +155,8 @@ class CartModal1 extends Component {
                             }
                             {
                                 this.state.open_date_picker2 ?
-                                    <img src="/images/Icons/calendar/calendar1.svg"/> :
-                                    <img src="/images/Icons/calendar/calendar.svg"/>
+                                    <img src="/images/Icons/calendar/calendar1.svg" alt=''/> :
+                                    <img src="/images/Icons/calendar/calendar.svg" alt=''/>
                             }
                         </div>
                     </div>

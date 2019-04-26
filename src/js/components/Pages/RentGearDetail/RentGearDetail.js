@@ -28,7 +28,6 @@ import CartModal1 from '../../common/CartModal1';
 import { calcDaysDiff, getDateStr } from "../../common/Functions";
 import Urllink_class from "../../Urllink_class";
 import { Inline } from '@zendeskgarden/react-loaders'
-import Rating from "react-rating";
 
 const flickityOptions = {
     contain: true,

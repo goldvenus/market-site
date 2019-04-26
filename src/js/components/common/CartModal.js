@@ -9,15 +9,15 @@ import { calcDaysDiff, getDateStr } from "./Functions";
  */
 class CartModal extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             busy: false
         };
     }
 
     render() {
-        const {gear, carted, start_date, end_date, open, onClose, addToCart, history, location} = this.props;
-        const {brand, model, pricePerDay} = gear;
+        const { gear, carted, start_date, end_date, open, onClose, addToCart, history, location } = this.props;
+        const { brand, model, pricePerDay } = gear;
         const duration = calcDaysDiff(start_date, end_date) + 1;
         const start_date_str = getDateStr(start_date);
         const end_date_str = getDateStr(end_date);

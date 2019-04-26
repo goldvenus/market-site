@@ -72,7 +72,7 @@ class PeriodModal extends Component {
     };
 
     render() {
-        const { open, onClose, gearname } = this.props;
+        const { open, onClose, gear_info } = this.props;
         const start_date_str = getDateStr(this.state.startDate);
         const end_date_str = getDateStr(this.state.endDate);
         const selectionRange = {
@@ -83,6 +83,7 @@ class PeriodModal extends Component {
         let dlg_heading = 'Unavailable Period';
         let btn_label1 = 'Cancel';
         let btn_label2 = 'Add Period';
+        console.log(gear_info);
 
         return (
             <Modal open={open} onClose={onClose} center classNames={{modal: "cart-modal"}}>
@@ -90,8 +91,8 @@ class PeriodModal extends Component {
                     <span >{dlg_heading}</span>
                 </div>
                 <div className='period-cart-body-1'>
-                    <div className='modal-cart-info row'>
-                        <span className='period-carted-product-name'>{gearname}</span>
+                    <div className='pickup-period row'>
+                        <span className='period-carted-product-name'>{gear_info.brand} {gear_info.categoryName}</span>
                     </div>
                     <div className="pickup-date-container row">
                         <div className='col-md-11 date-range-container'>
@@ -100,7 +101,7 @@ class PeriodModal extends Component {
                             {
                                 this.state.open_date_picker1 ?
                                     <DateRange
-                                        className={'date-range-wrapper'}
+                                        className={'date-range-wrapper date-range-wrapper-period'}
                                         ranges={[selectionRange]}
                                         onChange={this.handleSelect}
                                         rangeColors={['#F74377']}
@@ -110,8 +111,8 @@ class PeriodModal extends Component {
                             }
                             {
                                 this.state.open_date_picker1 ?
-                                    <object type="image/svg+xml" data="/images/Icons/calendar/calendar1.svg">a</object> :
-                                    <object type="image/svg+xml" data="/images/Icons/calendar/calendar.svg">a</object>
+                                    <img src="/images/Icons/calendar/calendar1.svg" alt=''/> :
+                                    <img src="/images/Icons/calendar/calendar.svg" alt=''/>
                             }
                         </div>
                         <div className='col-md-2'></div>
@@ -121,7 +122,7 @@ class PeriodModal extends Component {
                             {
                                 this.state.open_date_picker2 ?
                                     <DateRange
-                                        className={'date-range-wrapper'}
+                                        className={'date-range-wrapper date-range-wrapper-period'}
                                         ranges={[selectionRange]}
                                         onChange={this.handleSelect}
                                         rangeColors={['#F74377']}
@@ -130,8 +131,8 @@ class PeriodModal extends Component {
                             }
                             {
                                 this.state.open_date_picker2 ?
-                                    <object type="image/svg+xml" data="/images/Icons/calendar/calendar1.svg">a</object> :
-                                    <object type="image/svg+xml" data="/images/Icons/calendar/calendar.svg">a</object>
+                                    <img src="/images/Icons/calendar/calendar1.svg" alt=''/> :
+                                    <img src="/images/Icons/calendar/calendar.svg" alt=''/>
                             }
                         </div>
                     </div>

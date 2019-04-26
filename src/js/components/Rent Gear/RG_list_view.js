@@ -64,7 +64,7 @@ const ListView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city,
       </Card>
     </Col>
   );
-}
+};
 
 const mapStateToProps = store => ({
   isAuthenticated: store.app.isAuthenticated

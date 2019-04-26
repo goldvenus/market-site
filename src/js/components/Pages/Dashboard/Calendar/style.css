@@ -230,3 +230,22 @@
   background: white;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
+
+.about-period-container {
+  padding: 20px;
+}
+
+.about-period-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 0 41px;
+}
+
+.pickup-period {
+    padding: 40px 0 10px;
+}
+
+.date-range-wrapper-period {
+    margin-left: -229px !important;
+}

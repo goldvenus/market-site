@@ -180,15 +180,16 @@
         margin-bottom: 20px;
         .calendar_dropdown {
             text-align: left;
-            width: 70%;
+            width: 73%;
         }
-        .calendar_dropdown_bottom_button{
+        .calendar_dropdown_bottom_button {
             width: 20%;
             border: 1px solid #d3d3d3;
             border-radius: 4px;
             font-weight: 500;
             background-color: white;
-            margin-left: 80px;
+            margin-left: 53px;
+            cursor: pointer;
         }
     }
 
@@ -196,7 +197,7 @@
         border: 0;
         padding: 5px 10px 5px;
         opacity: 1;
-        border-bottom: 1px solid lightgrey;
+        border-bottom: solid 1px #EAEAEA;
         left: 0;
         top: 0;
         transform: none;
@@ -295,7 +296,7 @@
                 text-align: left;
                 width: 70%;
             }
-            .calendar_dropdown_bottom_button{
+            .calendar_dropdown_bottom_button {
                 width: 42%;
                 border: 1px solid #d3d3d3;
                 border-radius: 4px;
@@ -303,6 +304,7 @@
                 background-color: white;
                 margin-left: 30px;
                 margin-right: 22px;
+                cursor: pointer;
             }
         }
 

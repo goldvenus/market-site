@@ -1,35 +1,28 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import Modal from "react-responsive-modal";
-class AboutPeriod extends Component {
-    // model1: Add to Cart, model2: Edit
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
+import { getDateStr } from "../../../common/Functions"
 
-    render() {
-        const { open, onClose, gearname, imgurl, person_name, startday, endday } = this.props;
-        let dlg_heading = 'About Period';
-        let btn_label1 = 'Cancel';
+const AboutPeriod = ({ open, onClose, gear_info }) => {
+    let dlg_heading = 'About Period';
+    let btn_label1 = 'Close';
 
-        return (
-            <Modal open={open} onClose={onClose} center classNames={{modal: "cart-modal"}}>
-                <div className='Period-cart-header'>
-                    <span >{dlg_heading}</span>
+    return (
+        <Modal open={open} onClose={onClose} center classNames={{modal: "cart-modal"}}>
+            <div className='Period-cart-header'>
+                <img src={gear_info.img_url} alt=''/>
+                <span>{gear_info.renter_name}</span>
+            </div>
+            <div className='period-cart-body-1'>
+                <div className='about-period-container row'>
+                    <span className='period-carted-product-name'>{gear_info.brand} {gear_info.categoryName}</span>
+                    <span className='period-carted-product-name'>{getDateStr(new Date(gear_info.startDate))} - {getDateStr(new Date(gear_info.endDate))}</span>
                 </div>
-                <div className='period-cart-body-1'>
-                    <div className='modal-cart-info row'>
-                        <span className='period-carted-product-name'>{gearname}</span>
-                    </div>
-                    <div className='modal-cart-control row'>
-                        <button className='cart-control-left-button theme-btn theme-btn-primary' onClick={onClose}>{btn_label1}</button>
-                        <div className='cart-button-space'></div>
-                    </div>
+                <div className='about-period-button-container row'>
+                    <button className='cart-control-left-button theme-btn theme-btn-primary' onClick={onClose}>{btn_label1}</button>
                 </div>
-            </Modal>
-        )
-    }
-}
-export default withRouter(AboutPeriod);
+            </div>
+        </Modal>
+    )
+};
+
+export default AboutPeriod;

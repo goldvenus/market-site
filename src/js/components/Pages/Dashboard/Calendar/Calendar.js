@@ -32,16 +32,14 @@ class Calendar extends React.Component {
             gear_rent_info_list: [],
             cur_rent_info_num: 0,
             dropdownOpen: false,
-            open: false,
-            open_person_dlg: false,
-            cur_date: new Date()
+            open: 0,
+            cur_date: new Date(),
+            loading: false
         };
     }
 
     componentDidMount() {
-        // getGearHistory();
         getListGears();
-        // getGearDetail();
     }
 
     shouldComponentUpdate(state, props) {
@@ -52,17 +50,16 @@ class Calendar extends React.Component {
         else return false;
     }
 
-    onOpenModel= () => {
-        this.setState({open:true});
+    onOpenModel = () => {
+        this.setState({open: 1});
     };
 
-    onOpenAboutPersonModel = () => {
-        this.setState({open_person_dlg:true});
+    onOpenAboutModal = () => {
+        this.setState({open: 2});
     };
 
-    onCloseModel = () => {
-        this.setState({open:false});
-        this.setState({open_person_dlg:false});
+    onCloseModal = () => {
+        this.setState({open: 0});
     };
 
     addToPeriod = async ({startDate, endDate}) => {
@@ -79,15 +76,19 @@ class Calendar extends React.Component {
     };
 
     handleDayClick(day, { selected }) {
-        if(selected)
+        if (selected) {
             alert(day);
+        }
     }
 
-    // big Calendar func
     selectedEvent(event) {
-        if(event!=='Owner') {
-            this.setState({imgurl : event.imgurl, person_name: event.title, startday: event.start, endday: event.end});
-            this.onOpenAboutPersonModel();
+        if(event !== 'Owner') {
+            // extract only gear ids from array
+            const arr = this.state.gear_rent_info_list.reduce((arr, item) => {
+                return item.gearid === event.gearid ? [...arr, item.gearid] : arr;
+            }, []);
+            this.setState({cur_gear_num: arr.indexOf(event.gearid)});
+            this.onOpenAboutModal();
         }
     }
 
@@ -164,17 +165,18 @@ class Calendar extends React.Component {
                                 {gear_name}
                             </DropdownToggle>
                             <DropdownMenu left="true">
-                                {
-                                    listGears.map((ele, index) => {
-                                        return <DropdownItem key={index+1} onClick={() => this.handleSelectGear(index)}>{ele.brand} {ele.categoryName}</DropdownItem>;
-                                    })
-                                }
+                                <DropdownItem>select a gear</DropdownItem>
+                                    {
+                                        listGears.map((ele, index) => {
+                                            return <DropdownItem key={index+1} onClick={() => this.handleSelectGear(index)}>{ele.brand} {ele.categoryName}</DropdownItem>;
+                                        })
+                                    }
                             </DropdownMenu>
                         </Dropdown>
                         <button className="calendar_dropdown_bottom_button" onClick={this.onOpenModel}>Add Unavailable Period</button>
                         {
-                            this.state.open ? <PeriodModal gearname={gear_name} open={true} onClose={this.onCloseModal} addToPeriod={this.addToPeriod}/> :
-                            this.state.open_person_dlg ? <AboutPeriod gearname={gear_name} open={true} onClose={this.onCloseModal} imgurl={cur_rent.img_url} person_name={cur_rent.renter_name} startday={cur_rent.startDate} endday={cur_rent.endDate}/> : null
+                            this.state.open === 1 ? <PeriodModal gear_info={cur_rent} open={true} onClose={this.onCloseModal} addToPeriod={this.addToPeriod}/> :
+                            this.state.open === 2 ? <AboutPeriod gear_info={cur_rent} open={true} onClose={this.onCloseModal}/> : null
                         }
                     </div>
                 </div>
@@ -218,21 +220,22 @@ class Calendar extends React.Component {
                             }
                             `}</style>
                     </Helmet>
+
                     <DayPicker className="d-lg-none d-md-none d-sm-block"
                         initialMonth={new Date(2019, 4)}
                         onDayClick={this.handleDayClick}
-                        modifiers={{startday: this.state.gear_rent_info_list.map((item, index) => {
+                        modifiers={{startday: this.state.gear_rent_info_list.map((item) => {
                                 return new Date(item.start);
-                            }), endday: this.state.gear_rent_info_list.map((item, index) =>{
+                            }), endday: this.state.gear_rent_info_list.map((item) =>{
                                 return new Date(item.end);
                             })}}
-                        selectedDays = {this.state.gear_rent_info_list.map((item, index) => {
+                        selectedDays = {this.state.gear_rent_info_list.map((item) => {
                             let after_day = new Date(item.start);
                             after_day.setHours(after_day.getHours()-24);
                             let before_day = new Date(item.end);
                             before_day.setHours(before_day.getHours()+ 24);
-                           return {after : after_day, before : before_day}
-                       })}
+                            return {after : after_day, before : before_day}
+                        })}
                     />
                 </div>
             </div>
