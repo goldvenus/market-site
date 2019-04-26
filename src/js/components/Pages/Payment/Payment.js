@@ -116,9 +116,9 @@ class Payment extends Component {
       sold_items.push({...listItem, PickStatus: 0});
     });
     const tax = total * 0.21;
-    const amount = total + tax;
+    const fee = total * 0.15;
+    const amount = total + tax + fee;
     const checkout_id = this.props.match.params.id;
-    const fee = total*5/100;
     const expiration_date = expiration_month + expiration_year;
     let data = { card_number, card_holder, expiration_date, cvv, save_card, user_id,
         total, tax, amount, fee, checkout_id, sold_items};

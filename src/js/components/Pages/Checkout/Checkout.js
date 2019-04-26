@@ -40,7 +40,6 @@ class Checkout extends Component {
     const ret = await getCheckout(localStorage.userId);
     const checkout = ret.checkout_info;
     const addr_list = ret.addr_list !== undefined ? ret.addr_list : [];
-
     if (checkout) {
       this.setState({
         full_name: checkout.FullName,
@@ -54,9 +53,10 @@ class Checkout extends Component {
         project_name: checkout.ProjectName
       });
     } else {
+        console.log(addr_list);
       this.setState({
         addr_list: addr_list,
-        loading: true
+        loading: false
       });
     }
   };
@@ -72,6 +72,12 @@ class Checkout extends Component {
     const data = { full_name, addr, city, zip, save_addr, product_region, project_name, user_id };
     this.setState({loading: true});
     const response = await checkout(data);
+    if (response.status === 'duplicated') {
+        handleError('You should provide another project name!');
+        this.setState({loading: false});
+        return;
+    }
+
     if (response) {
       this.props.history.push(`/payment/${response.data}`);
     }
@@ -83,7 +89,9 @@ class Checkout extends Component {
     this.setState({
         addr: element.addr,
         product_region: element.product_region,
-        zip: element.zip
+        zip: element.zip,
+        city: element.city,
+        full_name: element.full_name
     });
   };
 
@@ -137,7 +145,7 @@ class Checkout extends Component {
       total += d * listItem.pricePerDay;
     });
     const tax = total * 0.21;
-    const fee = total * 0.05;
+    const fee = total * 0.15;
     const amount = total + tax + fee;
     const { full_name, addr, city, zip, save_addr, product_region, addr_list, project_name } = this.state;
     const addr_list_temp = getUniqueObjectArray(addr_list);
@@ -273,7 +281,7 @@ class Checkout extends Component {
                   <div className="checkout-total">
                     <div><span className="text-gray">Total </span> <b>${parseFloat(total).toFixed(2)}</b></div>
                     <div><span className="text-gray">Tax (21%) </span> <b>${parseFloat(tax).toFixed(2)}</b></div>
-                    <div><span className="text-gray">Fee (5%) </span> <b>${parseFloat(fee).toFixed(2)}</b></div>
+                    <div><span className="text-gray">Fee (15%) </span> <b>${parseFloat(fee).toFixed(2)}</b></div>
                   </div>
                   <div className="checkout-amount">
                     <div><span className="text-gray">Amount </span> <b className='checkout-total-price'>${parseFloat(amount).toFixed(2)}</b></div>
