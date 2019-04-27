@@ -34,24 +34,24 @@ const MyListingItem = ({ listItem }) => (
       </p>
     </td>
       <td className="d-lg-none d-md-table-cell listing-temp-right" width="40%" >
-          <div className="rental-period listing-temp-right-top" width="100%" height="50%">
-              <p className="listing-temp-right-top-number"> 201.94.17-12345
-                  {/* {`${listItem.startDate.split(' ')[0]} to ${listItem.endDate.split(' ')[0]} `} */}
-              </p>
-              <p className="theme-text-small text-muted">
-                  {` ${listItem.totalRentedNumerOfDay} days`}
-              </p>
-          </div>
-          <div className="listing-temp-right-bottom" width="100%" height="50%">
-              <div className="d-lg-none d-md-table-cell listing-temp-right-bottom-left" width="50%">
-                  <p className="listing-temp-right-bottom-left-p">Price per day</p>
-                  {`${listItem.pricePerDay} $`}
-              </div>
-              <div className="d-lg-none d-md-table-cell listing-temp-right-bottom-right" width="50%">
-                  <p className="listing-temp-right-bottom-right-p">Amouth</p>
-                  {`${listItem.totalRentedNumerOfDay * listItem.pricePerDay} $`}
-              </div>
-          </div>
+        <div className="rental-period listing-temp-right-top" width="100%" height="50%">
+            <p className="listing-temp-right-top-number"> 201.94.17-12345
+                {/* {`${listItem.startDate.split(' ')[0]} to ${listItem.endDate.split(' ')[0]} `} */}
+            </p>
+            <p className="theme-text-small text-muted">
+                {` ${listItem.totalRentedNumerOfDay} days`}
+            </p>
+        </div>
+        <div className="listing-temp-right-bottom" width="100%" height="50%">
+            <div className="d-lg-none d-md-table-cell listing-temp-right-bottom-left" width="50%">
+                <p className="listing-temp-right-bottom-left-p">Price per day</p>
+                {`${listItem.pricePerDay} $`}
+            </div>
+            <div className="d-lg-none d-md-table-cell listing-temp-right-bottom-right" width="50%">
+                <p className="listing-temp-right-bottom-right-p">Amouth</p>
+                {`${listItem.totalRentedNumerOfDay * listItem.pricePerDay} $`}
+            </div>
+        </div>
       </td>
 
     <td width="25%" className="d-md-none d-lg-table-cell">

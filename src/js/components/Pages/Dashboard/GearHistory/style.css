@@ -275,3 +275,10 @@
     width: 20px;
     height: 20px;
 }
+.rbc-event-custom-data-top {
+    display: flex;
+    justify-content: space-between;
+}
+.rbc-event-item-wrapper {
+    display: flex;
+}

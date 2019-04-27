@@ -58,11 +58,11 @@ class Payment extends Component {
     const month = element.expiration_date.substr(0, 2);
     const year = element.expiration_date.substr(2, 2);
     this.setState({
-        card_number: cc_format(element.card_number),
-        card_holder: element.card_holder,
-        expiration_month: month,
-        expiration_year: year,
-        cvv: element.cvv
+      card_number: cc_format(element.card_number),
+      card_holder: element.card_holder,
+      expiration_month: month,
+      expiration_year: year,
+      cvv: element.cvv
     });
   };
 
