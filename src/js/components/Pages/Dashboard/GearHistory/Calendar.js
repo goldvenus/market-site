@@ -51,6 +51,10 @@ class Calendar extends React.Component {
         else return false;
     }
 
+    componentWillReceiveProps(props) {
+        // UpdateMydata_calendar();
+    }
+
     onOpenModel = () => {
         this.setState({open: 1});
     };
@@ -128,13 +132,15 @@ class Calendar extends React.Component {
         global_events = ret;
         UpdateMydata_calendar();
         this.setState({gear_rent_info_list: ret, cur_rent_info_num: 0});
+        getListGears();
     };
 
     setBlockPeriod = async ({startDate, endDate}) => {
         let start_date = formatDate(startDate);
         let end_date = formatDate(endDate);
         let available = true;
-        this.state.block_period.forEach(item => {
+        let block_period = this.props.listGears[this.state.cur_gear_num].blockPeriod;
+        block_period.forEach(item => {
             if ((start_date >= item.start_date && start_date <= item.end_date) ||
                     (end_date >= item.start_date && end_date <= item.end_date) ||
                         (start_date <= item.start_date && end_date >= item.end_date)) {
@@ -153,7 +159,7 @@ class Calendar extends React.Component {
             console.log(res);
             if (res.status === 'success') {
                 handleError("Successfully set!");
-                this.setState({block_period: [...this.state.block_period, new_period]});
+                getListGears();
             } else {
                 handleError("Failed!");
             }
@@ -167,24 +173,28 @@ class Calendar extends React.Component {
             return {
                 ...item,
                 title: (item.renter_name + item.startDate),
-                start: item.start_date,
-                end: item.end_date,
+                start: item.startDate,
+                end: item.endDate,
                 color: "red"
             };
         });
     };
 
-    getBlockPeriodEvents = () => {
-        return this.state.block_period.map((item) => {
-            return {
-                ...item,
-                title: ('Owner' + item.startDate),
-                start: item.start_date,
-                end: item.end_date,
-                color: "#F74377"
-            };
-        });
-    };
+    getBlockPeriodEvents = (block_period) => (
+        block_period === undefined ? [] :
+            block_period.map(item => {
+                return {
+                    ...item,
+                    title: ('Owner' + item.start_date),
+                    start: item.start_date,
+                    end: item.end_date,
+                    color: "#F74377",
+                    renter_name: 'Owner',
+                    startDate: item.start_date,
+                    endDate: item.end_date
+                };
+            })
+    );
 
     render() {
         const { listGears } = this.props;
@@ -194,16 +204,16 @@ class Calendar extends React.Component {
 
         const cur_gear = listGears[this.state.cur_gear_num];
         const gear_name = cur_gear.brand + " " + cur_gear.categoryName;
-        let cur_rent = {};
-        if (this.state.gear_rent_info_list.length > 0) {
-            cur_rent = this.state.gear_rent_info_list[this.state.cur_rent_info_num];
-        }
+        let cur_rent = this.state.gear_rent_info_list.length > 0 ?
+            this.state.gear_rent_info_list[this.state.cur_rent_info_num] : {};
 
         // prepare gear renting history, block period
         let period1 = this.getGearRentPeriodEvents();
-        let period2 = this.getBlockPeriodEvents();
-        console.log("***", this.state.block_period);
+        let period2 = this.getBlockPeriodEvents(cur_gear.blockPeriod);
         let period_arr = [...period1, ...period2];
+        global_events = period_arr;
+        console.log("period: ", period_arr);
+        console.log("global: ", global_events);
 
         return (
             <div>
@@ -304,7 +314,7 @@ const UpdateMydata_calendar = () => {
     $(document).ready(function () {
         $(".rbc-date-cell").each(function() {
             let day_number = $(this).find("a").html();
-            if(day_number[0] === '0'){
+            if(day_number[0] === '0') {
                 $(this).find("a").html(day_number[1]);
             }
         });
@@ -356,7 +366,7 @@ const UpdateMydata_calendar = () => {
         $(window).on('resize', function(){
             if(resize_index) {
                 resize_index = false;
-                setTimeout(update_ui, 200);
+                setTimeout(update_ui, 400);
             }
         });
     });

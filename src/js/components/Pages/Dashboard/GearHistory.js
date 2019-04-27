@@ -5,7 +5,6 @@ import { Pagination, PaginationItem, PaginationLink, Table } from 'reactstrap';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import "react-tabs/style/react-tabs.css";
 import moment from 'moment';
-import dataSet from './dataSet';
 import EmpetyList from './Empety_list'
 import { getListGears } from '../../../actions/app.actions';
 import connect from "react-redux/es/connect/connect";
@@ -87,7 +86,6 @@ class MyListings extends React.Component {
 
     // get list get gears
     getListGears();
-
   }
   handleClick(e, index) {
 

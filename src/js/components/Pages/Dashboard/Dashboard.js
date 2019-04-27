@@ -8,7 +8,7 @@ import Head from './head';
 import Tabs from './tabs';
 import Chart from './chart';
 import AccountDetail from './account_detail';
-import MyListings from './listing';
+import MyListings from './GearHistory';
 import MyRental from './rental';
 import OrderHistory from './OrderHistory'
 

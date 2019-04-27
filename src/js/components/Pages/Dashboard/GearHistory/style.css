@@ -249,3 +249,13 @@
 .date-range-wrapper-period {
     margin-left: -229px !important;
 }
+
+.period-cart-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.period-cart-header img {
+    width: 50px;
+    height: 50px;
+}

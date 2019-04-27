@@ -8,7 +8,7 @@ const AboutPeriod = ({ open, onClose, gear_info }) => {
 
     return (
         <Modal open={open} onClose={onClose} center classNames={{modal: "cart-modal"}}>
-            <div className='Period-cart-header'>
+            <div className='period-cart-header'>
                 <img src={gear_info.img_url} alt=''/>
                 <span>{gear_info.renter_name}</span>
             </div>
