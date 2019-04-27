@@ -8,8 +8,8 @@ import { days } from "../../../actions/app.actions";
 import { ToastsStore } from 'react-toasts';
 import Rating from "react-rating"
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
-import OrderConfirm from "./Order/OrderConfirm"
-import OrderRating from "./Order/OrderRating"
+import OrderConfirm from "./OrderHistory/OrderConfirm"
+import OrderRating from "./OrderHistory/OrderRating"
 import {getDateStr} from "../../common/Functions";
 import BarLoader from "react-bar-loader";
 

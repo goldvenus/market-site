@@ -8,7 +8,7 @@ import Register from '../components/Pages/Register/Register';
 import RegisterConfirm from '../components/Pages/RegisterConfirm/RegisterConfirm';
 import ForgotPassword from '../components/Pages/ForgotPassword/ForgotPassword';
 import Dashboard from '../components/Pages/Dashboard/Dashboard';
-import OrderDetail from '../components/Pages/Dashboard/Order/OrderDetail';
+import OrderDetail from '../components/Pages/Dashboard/OrderHistory/OrderDetail';
 import AddGear from '../components/Pages/AddGear/AddGear';
 import Cart from '../components/Pages/Cart/Cart';
 import Checkout from '../components/Pages/Checkout/Checkout';

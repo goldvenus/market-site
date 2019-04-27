@@ -654,12 +654,25 @@ const getGearRentState = (data) => {
   });
 };
 
+const setBlockPeriod = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let response = await post('setBlockPeriod', data);
+      resolve(response.data);
+    } catch (error) {
+      handleError(error);
+      reject(false);
+    }
+  });
+};
+
 export {
   register, confirmUser, login, logout, clearError, handleError, getUser,
-  readFileData, fetchCategories, addCart, getCarts, getOrderHistory, getOrderDetail,
-  formatDate, days, rentGearProductList, dashboardMyListing,
-  dashboardMyRentals, search, addFavourites, getFavourites, deleteFavourite, newArrivals,
-  deleteCartItem, deleteGear, socialLogin, viewUserDashboard, sendResetPasswordEmail, confirmResetPassword,
-  getListGears, getAllGears, getGear, getGearRentState, addGear,
+  readFileData, fetchCategories, addCart, getCarts, deleteCartItem,
+  search, addFavourites, getFavourites, deleteFavourite, newArrivals,
+  formatDate, days,
+  viewUserDashboard, dashboardMyListing, dashboardMyRentals, getGearRentState, setBlockPeriod, getOrderHistory, getOrderDetail,
+  socialLogin, sendResetPasswordEmail, confirmResetPassword,
+  getListGears, getAllGears, getGear, addGear, deleteGear, rentGearProductList,
   checkout, getCheckout, payment, getPaymentCards, getPaidItems
 };

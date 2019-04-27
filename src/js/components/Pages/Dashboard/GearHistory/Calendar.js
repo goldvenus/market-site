@@ -9,13 +9,13 @@ import IconButton from "@material-ui/core/IconButton/IconButton";
 import RightArrowIcon from '@material-ui/icons/ChevronRight';
 import LeftArrowIcon from "@material-ui/icons/ChevronLeft";
 import Typography from "@material-ui/core/Typography/Typography";
-import {Dropdown,  DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Dropdown,  DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import PeriodModal from "./PeriodModal"
 import DayPicker from "react-day-picker";
 import './style.css';
 import Helmet from 'react-helmet';
 import { days } from "../../../../actions/app.actions";
-import { getGearRentState, getListGears ,formatDate, handleError} from '../../../../actions/app.actions'
+import { getGearRentState, getListGears ,formatDate, handleError, setBlockPeriod } from '../../../../actions/app.actions'
 import AboutPeriod from "./AboutPeriod";
 import BarLoader from "react-bar-loader";
 
@@ -30,6 +30,7 @@ class Calendar extends React.Component {
             alert: null,
             cur_gear_num: 0,
             gear_rent_info_list: [],
+            block_period: [{start_date: '2019-04-01', end_date: '2019-04-05'}],
             cur_rent_info_num: 0,
             dropdownOpen: false,
             open: 0,
@@ -60,19 +61,6 @@ class Calendar extends React.Component {
 
     onCloseModal = () => {
         this.setState({open: 0});
-    };
-
-    addToPeriod = async ({startDate, endDate}) => {
-        alert(formatDate(startDate));
-        try {
-            alert(formatDate(startDate));
-            //const { startDate, endDate } = this.state;
-            if (startDate && endDate) {
-               alert(formatDate(endDate));
-            }
-        } catch {
-            handleError('Available Period Failed.');
-        }
     };
 
     handleDayClick(day, { selected }) {
@@ -142,6 +130,62 @@ class Calendar extends React.Component {
         this.setState({gear_rent_info_list: ret, cur_rent_info_num: 0});
     };
 
+    setBlockPeriod = async ({startDate, endDate}) => {
+        let start_date = formatDate(startDate);
+        let end_date = formatDate(endDate);
+        let available = true;
+        this.state.block_period.forEach(item => {
+            if ((start_date >= item.start_date && start_date <= item.end_date) ||
+                    (end_date >= item.start_date && end_date <= item.end_date) ||
+                        (start_date <= item.start_date && end_date >= item.end_date)) {
+                            available = false;
+            }
+        });
+        if (!available) {
+            handleError("The period you selected is not allowed!");
+            return;
+        }
+
+        try {
+            let gearid = this.props.listGears[this.state.cur_gear_num].gearid;
+            let new_period = {start_date, end_date, gearid};
+            let res = await setBlockPeriod(new_period);
+            console.log(res);
+            if (res.status === 'success') {
+                handleError("Successfully set!");
+                this.setState({block_period: [...this.state.block_period, new_period]});
+            } else {
+                handleError("Failed!");
+            }
+        } catch {
+            handleError('Available Period Failed.');
+        }
+    };
+
+    getGearRentPeriodEvents = () => {
+        return this.state.gear_rent_info_list.map((item) => {
+            return {
+                ...item,
+                title: (item.renter_name + item.startDate),
+                start: item.start_date,
+                end: item.end_date,
+                color: "red"
+            };
+        });
+    };
+
+    getBlockPeriodEvents = () => {
+        return this.state.block_period.map((item) => {
+            return {
+                ...item,
+                title: ('Owner' + item.startDate),
+                start: item.start_date,
+                end: item.end_date,
+                color: "#F74377"
+            };
+        });
+    };
+
     render() {
         const { listGears } = this.props;
         if (!listGears) {
@@ -154,6 +198,12 @@ class Calendar extends React.Component {
         if (this.state.gear_rent_info_list.length > 0) {
             cur_rent = this.state.gear_rent_info_list[this.state.cur_rent_info_num];
         }
+
+        // prepare gear renting history, block period
+        let period1 = this.getGearRentPeriodEvents();
+        let period2 = this.getBlockPeriodEvents();
+        console.log("***", this.state.block_period);
+        let period_arr = [...period1, ...period2];
 
         return (
             <div>
@@ -175,7 +225,7 @@ class Calendar extends React.Component {
                         </Dropdown>
                         <button className="calendar_dropdown_bottom_button" onClick={this.onOpenModel}>Add Unavailable Period</button>
                         {
-                            this.state.open === 1 ? <PeriodModal gear_info={cur_rent} open={true} onClose={this.onCloseModal} addToPeriod={this.addToPeriod}/> :
+                            this.state.open === 1 ? <PeriodModal gear_info={cur_rent} open={true} onClose={this.onCloseModal} setBlockPeriod={this.setBlockPeriod}/> :
                             this.state.open === 2 ? <AboutPeriod gear_info={cur_rent} open={true} onClose={this.onCloseModal}/> : null
                         }
                     </div>
@@ -185,15 +235,7 @@ class Calendar extends React.Component {
                     <BigCalendar className="calendar_first_div d-sm-none d-none d-lg-block d-md-block"
                         selectable
                         localizer={localizer}
-                        events={this.state.gear_rent_info_list.map((item) => {
-                            return {
-                                ...item,
-                                title: (item.renter_name + item.startDate),
-                                start: item.startDate,
-                                end: item.endDate,
-                                color: "red"
-                            }
-                        })}
+                        events={period_arr}
                         defaultView="month"
                         scrollToTime={new Date(1970, 1, 1, 6)}
                         defaultDate={new Date()}

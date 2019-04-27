@@ -9,7 +9,7 @@ import dataSet from './dataSet';
 import EmpetyList from './Empety_list'
 import { getListGears } from '../../../actions/app.actions';
 import connect from "react-redux/es/connect/connect";
-import Calendar from "./Calendar/Calendar";
+import Calendar from "./GearHistory/Calendar";
 import BarLoader from "react-bar-loader";
 
 const MyListingItem = ({ listItem }) => (

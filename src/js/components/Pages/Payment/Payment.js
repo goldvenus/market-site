@@ -134,7 +134,7 @@ class Payment extends Component {
       if (response.status === 'invalid-account') {
         handleError("Your 'MangoPay Account' is invalid!");
       } else if (response.status === 'no-account') {
-        handleError("You must register into 'MangoPay' in Order to pay!");
+        handleError("You must register into 'MangoPay' in OrderHistory to pay!");
       } else if (response.status === 'pay-in-failed') {
         handleError("Your pay was failed unexpectedly! Try again please.");
       } else if (response.status === 'invalid-credit-wallet') {

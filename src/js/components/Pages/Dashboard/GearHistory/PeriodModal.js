@@ -4,11 +4,8 @@ import Modal from "react-responsive-modal";
 import TextField from "@material-ui/core/TextField/TextField";
 import { DateRange } from "react-date-range";
 import { getDateStr } from "../../../common/Functions"
-/*
-    Modal Interface for CART_CONFIRM(Favorites Page) and CART_EDIT(Cart Page - CART_EDIT)
- */
+
 class PeriodModal extends Component {
-    // model1: Add to Cart, model2: Edit
     constructor(props) {
         super(props);
         this.state = {
@@ -65,7 +62,7 @@ class PeriodModal extends Component {
     };
 
     handleAddToPeriod = () => {
-        this.props.addToPeriod({
+        this.props.setBlockPeriod({
             startDate: this.state.startDate,
             endDate: this.state.endDate
         });
@@ -83,7 +80,6 @@ class PeriodModal extends Component {
         let dlg_heading = 'Unavailable Period';
         let btn_label1 = 'Cancel';
         let btn_label2 = 'Add Period';
-        console.log(gear_info);
 
         return (
             <Modal open={open} onClose={onClose} center classNames={{modal: "cart-modal"}}>
@@ -97,7 +93,7 @@ class PeriodModal extends Component {
                     <div className="pickup-date-container row">
                         <div className='col-md-11 date-range-container'>
                             <TextField id="date-range-input1" className="date-range-input" type="text" inputProps={300} label={'START DATE'} defaultValue={start_date_str}
-                                       onFocus={() => this.setOpenState(true, false)} value={start_date_str}/>
+                                    onFocus={() => this.setOpenState(true, false)} value={start_date_str}/>
                             {
                                 this.state.open_date_picker1 ?
                                     <DateRange
@@ -118,7 +114,7 @@ class PeriodModal extends Component {
                         <div className='col-md-2'></div>
                         <div className='col-md-11 date-range-container'>
                             <TextField id="date-range-input1" className="date-range-input" type="text" inputProps={300} label={'END DATE'} defaultValue={end_date_str}
-                                       onFocus={() => this.setOpenState(false, true)} value={end_date_str}/>
+                                    onFocus={() => this.setOpenState(false, true)} value={end_date_str}/>
                             {
                                 this.state.open_date_picker2 ?
                                     <DateRange
@@ -140,7 +136,7 @@ class PeriodModal extends Component {
                     <div className='modal-cart-control row'>
                         <button className='cart-control-left-button theme-btn theme-btn-primary' onClick={onClose}>{btn_label1}</button>
                         <div className='cart-button-space'></div>
-                        <button className='cart-control-right-button theme-btn theme-btn-primary' onClick={() => {this.handleAddToPeriod();}}>{btn_label2}</button>
+                        <button className='cart-control-right-button theme-btn theme-btn-primary' onClick={this.handleAddToPeriod}>{btn_label2}</button>
                     </div>
                 </div>
             </Modal>
