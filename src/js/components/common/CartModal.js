@@ -64,14 +64,20 @@ class CartModal extends Component {
                         }}>{btn_label1}</button>
                         <div className='cart-button-space'></div>
                         <button className='cart-control-right-button theme-btn theme-btn-primary' onClick={() => {
-                            if (!carted) {
-                                this.setState({busy: true});
-                                addToCart();
-                            } else if (location.pathname.indexOf('/gear/detail') >= 0) {
-                                this.setState({busy: false});
-                                onClose();
+                                if (!carted) {
+                                    this.setState({busy: true});
+                                    addToCart();
+                                } else if (location.pathname.indexOf('/gear/detail') >= 0) {
+                                    this.setState({busy: false});
+                                    onClose();
+                                }
+                            }}
+                            disabled={this.state.busy ? 'disabled' : ''}
+                        >
+                            {
+                                this.state.busy ? <Inline size={64} color={"#fff"} /> : btn_label2
                             }
-                        }}>{btn_label2}</button>
+                        </button>
                     </div>
                 </div>
             </Modal>

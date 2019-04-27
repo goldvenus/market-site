@@ -3,7 +3,6 @@ import Modal from "react-responsive-modal";
 import { getDateStr } from "../../../common/Functions"
 
 const AboutPeriod = ({ open, onClose, gear_info }) => {
-    let dlg_heading = 'About Period';
     let btn_label1 = 'Close';
 
     return (

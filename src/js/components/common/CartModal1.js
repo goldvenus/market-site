@@ -78,7 +78,6 @@ class CartModal1 extends Component {
     };
 
     handleClose = (e) => {
-        console.log(this.state.busy);
         if (this.state.busy)
             e.preventDefault();
         else
@@ -172,7 +171,7 @@ class CartModal1 extends Component {
                         </div>
                     </div>
                     <div className='modal-cart-control row'>
-                        <button className='cart-control-left-button theme-btn theme-btn-primary' onClick={this.handleClose}>{btn_label1}</button>
+                        <button className='cart-control-left-button theme-btn theme-btn-primary' onClick={(e) => this.handleClose(e)}>{btn_label1}</button>
                         <div className='cart-button-space'></div>
                         <button className='cart-control-right-button theme-btn theme-btn-primary'
                             onClick={() => {dlg_model === 1 ? this.handleAddToCart() : onSubmit();}}

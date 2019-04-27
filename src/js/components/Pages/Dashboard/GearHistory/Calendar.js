@@ -10,16 +10,25 @@ import RightArrowIcon from '@material-ui/icons/ChevronRight';
 import LeftArrowIcon from "@material-ui/icons/ChevronLeft";
 import Typography from "@material-ui/core/Typography/Typography";
 import { Dropdown,  DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import PeriodModal from "./PeriodModal"
+import PeriodSetModal from "./PeriodSetModal"
+import PeriodDeleteModal from "./PeriodDeleteModal"
 import DayPicker from "react-day-picker";
 import './style.css';
 import Helmet from 'react-helmet';
 import { days } from "../../../../actions/app.actions";
-import { getGearRentState, getListGears ,formatDate, handleError, setBlockPeriod } from '../../../../actions/app.actions'
+import {
+    getGearRentState,
+    getListGears,
+    formatDate,
+    handleError,
+    setBlockPeriod,
+    deletePeriod
+} from '../../../../actions/app.actions'
 import AboutPeriod from "./AboutPeriod";
 import BarLoader from "react-bar-loader";
 
 let global_events = [];
+let global_func = null;
 const localizer = BigCalendar.momentLocalizer(moment);
 
 class Calendar extends React.Component {
@@ -32,6 +41,8 @@ class Calendar extends React.Component {
             gear_rent_info_list: [],
             block_period: [{start_date: '2019-04-01', end_date: '2019-04-05'}],
             cur_rent_info_num: 0,
+            cur_block_date: {},
+            cur_block_num: 0,
             dropdownOpen: false,
             open: 0,
             cur_date: new Date(),
@@ -39,8 +50,11 @@ class Calendar extends React.Component {
         };
     }
 
-    componentDidMount() {
+    componentDidMou nt() {
         getListGears();
+        global_func = (e) => {
+            this.setState({open: 4});
+        }
     }
 
     shouldComponentUpdate(state, props) {
@@ -55,7 +69,7 @@ class Calendar extends React.Component {
         // UpdateMydata_calendar();
     }
 
-    onOpenModel = () => {
+    onOpenModal = () => {
         this.setState({open: 1});
     };
 
@@ -67,20 +81,10 @@ class Calendar extends React.Component {
         this.setState({open: 0});
     };
 
+
     handleDayClick(day, { selected }) {
         if (selected) {
             alert(day);
-        }
-    }
-
-    selectedEvent(event) {
-        if(event !== 'Owner') {
-            // extract only gear ids from array
-            const arr = this.state.gear_rent_info_list.reduce((arr, item) => {
-                return item.gearid === event.gearid ? [...arr, item.gearid] : arr;
-            }, []);
-            this.setState({cur_gear_num: arr.indexOf(event.gearid)});
-            this.onOpenAboutModal();
         }
     }
 
@@ -135,40 +139,68 @@ class Calendar extends React.Component {
         getListGears();
     };
 
-    setBlockPeriod = async ({startDate, endDate}) => {
+    handleSetBlockPeriod = async ({startDate, endDate, mode}) => {
+        // add and edit
+        console.log(startDate, endDate, mode, this.state.cur_block_num);
         let start_date = formatDate(startDate);
         let end_date = formatDate(endDate);
         let available = true;
         let block_period = this.props.listGears[this.state.cur_gear_num].blockPeriod;
-        block_period.forEach(item => {
-            if ((start_date >= item.start_date && start_date <= item.end_date) ||
-                    (end_date >= item.start_date && end_date <= item.end_date) ||
-                        (start_date <= item.start_date && end_date >= item.end_date)) {
-                            available = false;
+        block_period = block_period === undefined ? [] : block_period;
+        block_period.forEach((item, key) => {
+            if (!(mode === 2 && key === this.state.cur_block_num)) {
+                if ((start_date >= item.start_date && start_date <= item.end_date) ||
+                        (end_date >= item.start_date && end_date <= item.end_date) ||
+                            (start_date <= item.start_date && end_date >= item.end_date)) {
+                                available = false;
+                }
             }
         });
         if (!available) {
             handleError("The period you selected is not allowed!");
-            return;
+            return -1;
         }
 
         try {
+            let period_arr = this.props.listGears[this.state.cur_gear_num].blockPeriod;
             let gearid = this.props.listGears[this.state.cur_gear_num].gearid;
-            let new_period = {start_date, end_date, gearid};
-            let res = await setBlockPeriod(new_period);
-            console.log(res);
+            if (mode === 2)
+                period_arr = period_arr.filter((item, key) => this.state.cur_block_num !== key);
+            period_arr.push({start_date, end_date});
+
+            let res = await setBlockPeriod({period_arr, gearid});
             if (res.status === 'success') {
-                handleError("Successfully set!");
-                getListGears();
+                await getListGears();
+                handleError("Period was set successfully!");
+                this.setState({open: 0});
             } else {
-                handleError("Failed!");
+                handleError("Period was not set!");
             }
         } catch {
-            handleError('Available Period Failed.');
+            handleError('Period was not set!');
         }
     };
 
-    getGearRentPeriodEvents = () => {
+    handleDeleteBlockPeriod = async () => {
+        try {
+            let period_arr = this.props.listGears[this.state.cur_gear_num].blockPeriod;
+            let gearid = this.props.listGears[this.state.cur_gear_num].gearid;
+            period_arr = period_arr.filter((item, key) => this.state.cur_block_num !== key);
+
+            let res = await setBlockPeriod({period_arr, gearid});
+            if (res.status === 'success') {
+                getListGears();
+                handleError("Period was removed successfully!");
+                this.setState({open: 0, cur_block_num: 0});
+            } else {
+                handleError("Period was not removed!");
+            }
+        } catch {
+            handleError('Period was not removed!');
+        }
+    };
+
+    getGearRentPeriodItems = () => {
         return this.state.gear_rent_info_list.map((item) => {
             return {
                 ...item,
@@ -180,21 +212,41 @@ class Calendar extends React.Component {
         });
     };
 
-    getBlockPeriodEvents = (block_period) => (
+    getBlockPeriodItems = (block_period) => (
         block_period === undefined ? [] :
-            block_period.map(item => {
+            block_period.map((item, key) => {
                 return {
                     ...item,
                     title: ('Owner' + item.start_date),
                     start: item.start_date,
                     end: item.end_date,
-                    color: "#F74377",
+                    color: "#f74377",
                     renter_name: 'Owner',
                     startDate: item.start_date,
-                    endDate: item.end_date
+                    endDate: item.end_date,
+                    cur_block_num: key
                 };
             })
     );
+
+    selectedEvent(event) {
+        console.log(event);
+        if(event.renter_name !== 'Owner') {
+            // extract only gear ids from array
+            const arr = this.state.gear_rent_info_list.reduce((arr, item) => {
+                return item.gearid === event.gearid ? [...arr, item.gearid] : arr;
+            }, []);
+            this.setState({cur_gear_num: arr.indexOf(event.gearid)});
+            this.onOpenAboutModal();
+        } else {
+            let block_date = {start_date: event.start_date, end_date: event.end_date};
+            this.setState({
+                cur_block_date: block_date,
+                cur_block_num: event.cur_block_num,
+                open: 3
+            });
+        }
+    }
 
     render() {
         const { listGears } = this.props;
@@ -208,12 +260,10 @@ class Calendar extends React.Component {
             this.state.gear_rent_info_list[this.state.cur_rent_info_num] : {};
 
         // prepare gear renting history, block period
-        let period1 = this.getGearRentPeriodEvents();
-        let period2 = this.getBlockPeriodEvents(cur_gear.blockPeriod);
+        let period1 = this.getGearRentPeriodItems();
+        let period2 = this.getBlockPeriodItems(cur_gear.blockPeriod);
         let period_arr = [...period1, ...period2];
         global_events = period_arr;
-        console.log("period: ", period_arr);
-        console.log("global: ", global_events);
 
         return (
             <div>
@@ -233,10 +283,12 @@ class Calendar extends React.Component {
                                     }
                             </DropdownMenu>
                         </Dropdown>
-                        <button className="calendar_dropdown_bottom_button" onClick={this.onOpenModel}>Add Unavailable Period</button>
+                        <button className="calendar_dropdown_bottom_button" onClick={this.onOpenModal}>Add Unavailable Period</button>
                         {
-                            this.state.open === 1 ? <PeriodModal gear_info={cur_rent} open={true} onClose={this.onCloseModal} setBlockPeriod={this.setBlockPeriod}/> :
-                            this.state.open === 2 ? <AboutPeriod gear_info={cur_rent} open={true} onClose={this.onCloseModal}/> : null
+                            this.state.open === 1 ? <PeriodSetModal gear_info={cur_rent} onClose={this.onCloseModal} mode={1} setBlockPeriod={this.handleSetBlockPeriod}/> :
+                            this.state.open === 2 ? <AboutPeriod gear_info={cur_rent} onClose={this.onCloseModal}/> :
+                            this.state.open === 3 ? <PeriodSetModal gear_info={cur_rent} onClose={this.onCloseModal} mode={2} date_obj={this.state.cur_block_date} setBlockPeriod={this.handleSetBlockPeriod}/> :
+                            this.state.open === 4 ? <PeriodDeleteModal gear_info={cur_rent} onClose={this.onCloseModal} date_obj={this.state.cur_block_date} onDelete={this.handleDeleteBlockPeriod}/> : null
                         }
                     </div>
                 </div>
@@ -326,6 +378,7 @@ const UpdateMydata_calendar = () => {
                 "<div class='rbc-event-custom-data-top'>" +
                     "<img class='rent_user' src="+filter_e.img_url+" >" +
                     "<p>"+filter_e.title+"</p>" +
+                    "<div class='rbc-event-custom-data-cross'></div>" +
                 "</div>" +
                 "<div class='rbc-event-custom-data-bottom'>" +
                     "<p class='rbc-event-custom-data-bottom-date'>"+time_s+" - "+time_e+"</p>" +
@@ -359,11 +412,17 @@ const UpdateMydata_calendar = () => {
                 $(this).parent().append(Append_Rent_Data(filterevent[0], start_time, end_time));
                 resize_index = true;
             });
+
+            $(".rbc-event-custom-data-cross").click(function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                global_func();
+            });
         };
 
         update_ui();
 
-        $(window).on('resize', function(){
+        $(window).on('resize', function() {
             if(resize_index) {
                 resize_index = false;
                 setTimeout(update_ui, 400);

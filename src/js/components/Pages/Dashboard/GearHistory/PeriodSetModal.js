@@ -3,16 +3,18 @@ import { withRouter } from 'react-router-dom';
 import Modal from "react-responsive-modal";
 import TextField from "@material-ui/core/TextField/TextField";
 import { DateRange } from "react-date-range";
+import { Inline } from '@zendeskgarden/react-loaders'
 import { getDateStr } from "../../../common/Functions"
 
-class PeriodModal extends Component {
+class PeriodSetModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
             startDate: new Date(),
             endDate: new Date(),
             open_date_picker1: false,
-            open_date_picker2: false
+            open_date_picker2: false,
+            busy: false
         };
     }
 
@@ -61,15 +63,36 @@ class PeriodModal extends Component {
         }
     };
 
-    handleAddToPeriod = () => {
-        this.props.setBlockPeriod({
+    componentDidMount() {
+        if (this.props.mode === 2) {
+            this.setState({
+                startDate: new Date(this.props.date_obj.start_date),
+                endDate: new Date(this.props.date_obj.end_date)
+            });
+        }
+    }
+
+    handleAddToPeriod = async () => {
+        this.setState({busy: true});
+        let res = await this.props.setBlockPeriod({
             startDate: this.state.startDate,
-            endDate: this.state.endDate
+            endDate: this.state.endDate,
+            mode: this.props.mode
         });
+        if (res === -1) {
+            this.setState({busy: false});
+        }
+    };
+
+    handleClose = (e) => {
+        if (this.state.busy)
+            e.preventDefault();
+        else
+            this.props.onClose();
     };
 
     render() {
-        const { open, onClose, gear_info } = this.props;
+        const { gear_info, mode } = this.props;
         const start_date_str = getDateStr(this.state.startDate);
         const end_date_str = getDateStr(this.state.endDate);
         const selectionRange = {
@@ -80,10 +103,14 @@ class PeriodModal extends Component {
         let dlg_heading = 'Unavailable Period';
         let btn_label1 = 'Cancel';
         let btn_label2 = 'Add Period';
+        if (mode === 2) {
+            dlg_heading = 'Edit Period';
+            btn_label2 = 'Save';
+        }
 
         return (
-            <Modal open={open} onClose={onClose} center classNames={{modal: "cart-modal"}}>
-                <div className='Period-cart-header'>
+            <Modal open={true} onClose={this.handleClose} center classNames={{modal: "cart-modal"}}>
+                <div className='period-cart-header'>
                     <span >{dlg_heading}</span>
                 </div>
                 <div className='period-cart-body-1'>
@@ -134,13 +161,19 @@ class PeriodModal extends Component {
                     </div>
 
                     <div className='modal-cart-control row'>
-                        <button className='cart-control-left-button theme-btn theme-btn-primary' onClick={onClose}>{btn_label1}</button>
+                        <button className='cart-control-left-button theme-btn theme-btn-primary' onClick={(e) => this.handleClose(e)}>{btn_label1}</button>
                         <div className='cart-button-space'></div>
-                        <button className='cart-control-right-button theme-btn theme-btn-primary' onClick={this.handleAddToPeriod}>{btn_label2}</button>
+                        <button className='cart-control-right-button theme-btn theme-btn-primary' onClick={this.handleAddToPeriod}
+                            disabled={this.state.busy ? 'disabled' : ''}
+                        >
+                            {
+                                this.state.busy ? <Inline size={64} color={"#fff"} /> : btn_label2
+                            }
+                        </button>
                     </div>
                 </div>
             </Modal>
         )
     }
 }
-export default withRouter(PeriodModal);
+export default withRouter(PeriodSetModal);
