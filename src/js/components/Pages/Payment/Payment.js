@@ -58,11 +58,11 @@ class Payment extends Component {
     const month = element.expiration_date.substr(0, 2);
     const year = element.expiration_date.substr(2, 2);
     this.setState({
-        card_number: cc_format(element.card_number),
-        card_holder: element.card_holder,
-        expiration_month: month,
-        expiration_year: year,
-        cvv: element.cvv
+      card_number: cc_format(element.card_number),
+      card_holder: element.card_holder,
+      expiration_month: month,
+      expiration_year: year,
+      cvv: element.cvv
     });
   };
 
@@ -134,7 +134,7 @@ class Payment extends Component {
       if (response.status === 'invalid-account') {
         handleError("Your 'MangoPay Account' is invalid!");
       } else if (response.status === 'no-account') {
-        handleError("You must register into 'MangoPay' in OrderHistory to pay!");
+        handleError("You must register into 'MangoPay' in order to pay!");
       } else if (response.status === 'pay-in-failed') {
         handleError("Your pay was failed unexpectedly! Try again please.");
       } else if (response.status === 'invalid-credit-wallet') {

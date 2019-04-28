@@ -4,8 +4,12 @@ import constants from "../types";
 const initialState = {
     isAuthorizing: false,
     isAuthenticated: false,
+    isRegistering: false,
+    isRegistered: false,
+    isRegisteringFailed: false,
     isLoading: false,
-    user: null
+    user: null,
+    errMsg: null
 };
 
 export default (state = initialState, action) => {
@@ -24,9 +28,26 @@ export default (state = initialState, action) => {
                 draft.isAuthorizing = false;
                 break;
 
+            case constants.SIGNUP_REQUEST:
+                draft.isRegistering = true;
+                draft.isRegistered = false;
+                draft.isRegisteringFailed = false;
+                break;
+            case constants.SIGNUP_SUCCESS:
+                draft.isRegistering = false;
+                draft.isRegistered = true;
+                draft.isRegisteringFailed = false;
+                break;
+            case constants.SIGNUP_FAILED:
+                draft.isRegistering = false;
+                draft.isRegistered = false;
+                draft.isRegisteringFailed = true;
+                break;
+
             case constants.USER_LOGOUT:
                 draft.user = null;
                 draft.isAuthenticated = false;
+
                 break;
             default:
                 break;

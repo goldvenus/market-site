@@ -309,6 +309,7 @@
 
     }
     .my-listing-tabs{
+      padding:30px;
       .wrraper{
         padding: 0;
         padding: 30px 30px 52px 30px;
@@ -864,7 +865,7 @@ color: #fff
   .wrraper {
     padding: 18px !important;
       .react-tabs__tab-panel {
-        //margin-bottom: -14px;
+
         .table-responsive {
           margin-bottom: -14px;
           .listing-data-slice {
@@ -1013,6 +1014,7 @@ color: #fff
         }
         .wrraper{
           padding: 0px 16px !important;
+
           .react-tabs__tab-panel{
             .table-responsive{
               .listing-data-slice{
@@ -1040,4 +1042,14 @@ color: #fff
 
   }
 
+}
+.react-tabs__tab-panel--selected {
+  padding:30px;
+}
+.gear_history_next_btn {
+  width: 30px;
+  height: 30px;
+  padding-right: 47px;
+  background-repeat: no-repeat;
+  background-image: url("/images/Icons/dashbord/next_gear_history.svg");
 }

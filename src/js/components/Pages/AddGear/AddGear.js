@@ -14,6 +14,7 @@ import { handleError, readFileData, addGear, fetchCategories } from '../../../ac
 import "./AddGear.css"
 import Textarea from "muicss/lib/react/textarea";
 import Urllink_class from "../../Urllink_class";
+import CustomSpinner from "../../CustomSpinner";
 class AddGear extends Component {
   constructor() {
     super();
@@ -38,7 +39,8 @@ class AddGear extends Component {
       address: '',
       postalCode: '',
       replacementValue: '',
-      pricePerDay: ''
+      pricePerDay: '',
+      busy: false
     };
 
     this.toggle = this.toggle.bind(this);
@@ -259,10 +261,12 @@ class AddGear extends Component {
         pricePerDay
       };
 
+      this.setState({busy: true});
       let gearId = await addGear(data);
 
       if (gearId) {
         this.setState({
+          busy: false,
           isGearAdded: true,
           gearId
         });
@@ -452,6 +456,9 @@ class AddGear extends Component {
 
     return (
       <div className="add-gear">
+        {
+          this.state.busy ? <CustomSpinner/> : null
+        }
         <Breadcrumb>
           <Urllink_class name="Home"></Urllink_class>
             <span className="space_slash_span">/</span>

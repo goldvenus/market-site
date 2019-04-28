@@ -196,3 +196,20 @@ img {
   margin-right:7px;
   margin-left:7px !important;
 }
+.notification-message{
+  h4 {
+    color:white;
+
+  }
+}
+.notification-error {
+  background-color: #ea4d5e;
+}
+.notification-container {
+  width: 40vw;
+}
+.notification {
+  border:1px solid white;
+  border-radius: 19px;
+}
+
