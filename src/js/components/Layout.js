@@ -8,6 +8,8 @@ import Footer from './Footer';
 import { clearError } from '../actions/app.actions';
 import { CartIcon, HeartIcon } from './common/IconComponent';
 import { ToastsContainer, ToastsStore, ToastsContainerPosition } from "react-toasts";
+import { createNotification } from "./common/CustomNotification";
+import CustomNotification from "./common/CustomNotification";
 
 const Layout = ({ location, error, carts, favourites, isAuthenticated }) => {
   const showHeader = ['/login', '/register', '/forgotpassword', '/confirm'].indexOf(location.pathname) === -1;
@@ -57,11 +59,14 @@ const Layout = ({ location, error, carts, favourites, isAuthenticated }) => {
       {showHeader && <Footer/>}
 
       {!!error && (
-        <div className="alert alert-danger app-error" role="alert">
-          <div className="app-error-text">{String(error)}</div>
-          <div className="app-error-close" onClick={clearError}>X</div>
-        </div>
+         <CustomNotification info = "error" title = {String(error)}/>
+
+        // <div className="alert alert-danger app-error" role="alert">
+        //   <div className="app-error-text">{String(error)}</div>
+        //   <div className="app-error-close" onClick={clearError}>X</div>
+        // </div>
       )}
+
 
       <ToastsContainer store={ToastsStore} position={ToastsContainerPosition.TOP_RIGHT}/>
     </React.Fragment>

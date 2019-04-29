@@ -172,7 +172,6 @@ class Calendar extends React.Component {
     };
 
     handleDeleteBlockPeriod = async () => {
-        alert("ff");
         try {
             let period_arr = this.props.listGears[this.state.cur_gear_num].blockPeriod;
             let gearid = this.props.listGears[this.state.cur_gear_num].gearid;
@@ -221,7 +220,6 @@ class Calendar extends React.Component {
     );
 
     selectedEvent(event) {
-        console.log(event);
         if(event.renter_name.indexOf('Owner') === -1) {
             // extract only gear ids from array
             const arr = this.state.gear_rent_info_list.reduce((arr, item) => {
@@ -230,15 +228,17 @@ class Calendar extends React.Component {
             this.setState({cur_rent_info_num: arr.indexOf(event.gearid)});
             this.onOpenAboutModal();
         } else {
-            alert("delete");
-            // let block_date = {start_date: event.start_date, end_date: event.end_date};
-            // let open_flag = global_cal_item_delete ? 4 : 3;
-            // console.log(block_date);
-            // this.setState({
-            //     cur_block_date: block_date,
-            //     cur_block_num: event.cur_block_num,
-            //     open: open_flag
-            // });
+            let block_date = {start_date: event.start_date, end_date: event.end_date};
+            let open_flag = 3;
+            if (global_cal_item_delete) {
+                open_flag = 4;
+                global_cal_item_delete = false;
+            }
+            this.setState({
+                cur_block_date: block_date,
+                cur_block_num: event.cur_block_num,
+                open: open_flag
+            });
         }
     }
 

@@ -9,6 +9,7 @@ import AuthSideMenu from '../../AuthSideMenu';
 // import { login } from '../../../actions/app.actions';
 import { login } from '../../../core/actions/user.action';
 import { FACEBOOK_LOGIN_URL } from '../../../constants';
+import CustomSpinner from "../../CustomSpinner";
 
 class Login extends Component {
   constructor(props) {
@@ -42,6 +43,9 @@ class Login extends Component {
     const { username, password } = this.state;
     return (
       <div className="auth-container">
+        {
+          isAuthorizing ? <CustomSpinner/> : null
+        }
         <AuthSideMenu/>
         <div className="login">
           <h2 className="header">Login</h2>

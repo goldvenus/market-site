@@ -271,7 +271,7 @@
     margin-right: 15px;
 }
 .rbc-event-custom-data-cross {
-    background-image: url('/images/Icons/cart/cross-p.svg');
+    background-image: url('/images/Icons/cross/cross.svg');
     width: 20px;
     height: 20px;
 }
@@ -281,4 +281,12 @@
 }
 .rbc-event-item-wrapper {
     display: flex;
+}
+
+.delete-period-button-container {
+    padding: 20px;
+}
+
+.Calendar_parent_div .event-owner {
+    background-color: #f74377 !important;
 }

@@ -10,17 +10,27 @@ const dispatch = store.dispatch;
 
 
 const register = async (data) => {
+    dispatch({
+        type: constants.SIGNUP_REQUEST
+    });
     return new Promise(async (resolve, reject) => {
         try {
             let response = await post('signup', data);
-            dispatch({
-                type: ACTIONS.USER,
-                payload: response
-            });
-
+            if (response) {
+                dispatch({
+                    type: constants.SIGNUP_SUCCESS
+                });
+            } else {
+                dispatch({
+                    type: constants.SIGNUP_FAILED
+                });
+            }
             resolve(response);
         } catch (error) {
-            handleError(error);
+            dispatch({
+                type: constants.SIGNUP_FAILED,
+                payload: error
+            });
             reject(error);
         }
     });

@@ -4,14 +4,17 @@ import { Form } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import CustomInput from '../../CustomInput';
 import AuthSideMenu from '../../AuthSideMenu';
-import { register, handleError, readFileData } from '../../../actions/app.actions';
+import { handleError, readFileData } from '../../../actions/app.actions';
+import { register } from '../../../core/actions/user.action';
+import {bindActionCreators} from "redux";
+import CustomSpinner from "../../CustomSpinner";
+import {ACTIONS} from "../../../constants";
 
 class Register extends Component {
   constructor() {
     super();
 
     this.state = {
-      isRegistered: false,
       password: '',
       confirmPassword: '',
       username: '',
@@ -43,10 +46,10 @@ class Register extends Component {
     const { password, confirmPassword, username, phoneNumber, fullName, gender, address, picture } = this.state;
 
     if (fullName && username && password && confirmPassword && picture) {
+      e.preventDefault();
       if (password !== confirmPassword) {
         handleError('Password and confirm password do not match');
       } else {
-        e.preventDefault();
         let response = await register({
           fullName,
           username,
@@ -56,23 +59,23 @@ class Register extends Component {
           address,
           picture
         });
-
-        if (response) {
-          this.setState({
-            isRegistered: true
-          });
-        }
       }
     } else {
+      e.preventDefault();
       handleError('Please provide all details');
     }
   }
 
   render() {
-    const { isRegistered, password, confirmPassword, username, fullName, fileName } = this.state;
+    const { password, confirmPassword, username, fullName, fileName } = this.state;
+    const { isRegistered, isRegistering, isRegisteringFailed, errMsg } = this.props;
     return (
       <div className="auth-container theme-navbar">
         <AuthSideMenu/>
+        {
+          isRegistering ? <CustomSpinner/> : null
+          // isRegisteringFailed ? handleError(errMsg) : null
+        }
         {
           isRegistered ? (
             <div className="login success-message">
@@ -154,4 +157,19 @@ class Register extends Component {
   }
 }
 
-export default Register;
+function mapStateToProps(state) {
+    return {
+        isRegistering: state.user.isRegistering,
+        isRegistered: state.user.isRegistered,
+        isRegisteringFailed: state.user.isRegisteringFailed,
+        errMsg: state.user.errMsg
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        register: bindActionCreators(register, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

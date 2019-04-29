@@ -104,13 +104,13 @@ const fetchCategories = () => {
 const register = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let response = await post('signup', data);
-      dispatch({
-        type: ACTIONS.USER,
-        payload: response
-      });
-
-      resolve(response);
+      // let response = await post('signup', data);
+      // dispatch({
+      //   type: ACTIONS.USER,
+      //   payload: response
+      // });
+      //
+      // resolve(response);
     } catch (error) {
       handleError(error);
       reject(error);
@@ -122,19 +122,19 @@ const login = async (data) => {
   try {
     let response = await post('signin', data);
     if (response && response.data) {
-      dispatch({
-        type: ACTIONS.LOGGED_IN,
-        payload: response.data.userAttributes
-      });
-
-      // store the token
-      const { accessToken, idToken, refreshToken } = response.data.tokens;
-      localStorage.accessToken = accessToken;
-      localStorage.idToken = idToken;
-      localStorage.refreshToken = refreshToken;
-      localStorage.userId = response.data.userAttributes.userid;
-      localStorage.userEmail = data.username;
-      return response;
+      // dispatch({
+      //   type: ACTIONS.LOGGED_IN,
+      //   payload: response.data.userAttributes
+      // });
+      //
+      // // store the token
+      // const { accessToken, idToken, refreshToken } = response.data.tokens;
+      // localStorage.accessToken = accessToken;
+      // localStorage.idToken = idToken;
+      // localStorage.refreshToken = refreshToken;
+      // localStorage.userId = response.data.userAttributes.userid;
+      // localStorage.userEmail = data.username;
+      // return response;
     }
   } catch (error) {
     handleError(error);
