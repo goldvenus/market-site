@@ -4,9 +4,11 @@
   flex-direction: column;
   width: 100%;
   margin-top: 70px;
+
   .header {
     font-size: 46px;
   }
+
   .empty_page_addgear_img{
     font-family: Gotham Pro;
     font-size: 20px;
@@ -14,10 +16,12 @@
     text-align: center;
     color: #252525;
   }
+
   .add-gear-info-cusvenus{
     display: flex;
     justify-content: center;
   }
+
   .flex-row {
     width: 100%;
     display: flex;
@@ -246,6 +250,7 @@
       flex: 1;
     }
   }
+
   .success_gear_htag{
     font-family: Gotham Pro;
     font-size: 49px;
@@ -254,6 +259,7 @@
     color: #252525;
 
   }
+
   .success-message {
     text-align: center;
     width: 486px;
@@ -325,6 +331,7 @@
       }
     }
   }
+
   .custom-theme-row {
     .custom-theme-col {
       div {
@@ -346,6 +353,31 @@
         height: 100%;
       }
     }
+  }
+
+  #chip_style {
+    div{
+      color:#F82462;
+
+    }
+
+    & > div{
+      border:1px solid #fe8e74 !important;
+      -webkit-border-radius: 0px !important;
+      -moz-border-radius: 0px !important;
+      border-radius: 0px !important;
+      box-sizing: border-box;
+
+      & > div {
+        background: #fff1e1 !important;
+
+        input{
+          margin: 0px !important;
+          color: #f00;
+        }
+      }
+    }
+
   }
 }
 .empty_page_addgear{

@@ -72,7 +72,7 @@ const post_new = async (url, data) => {
 
 export default {
     user: {
-        login: async (credentials) => ,
+        login: async (credentials) => axios.post(API_URL + 'signin', credentials),
         register: user => axios.post(API_URL + 'signup', user)
     }
 }

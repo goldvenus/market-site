@@ -14,4 +14,9 @@ export default keyMirror({
     SIGNUP_SUCCESS: null,
     SIGNUP_FAILED: null,
     SIGNUP_LOAD: null,
+
+    //reset pwd request
+    RESET_PWD_REQUEST: null,
+    RESET_PWD_SUCCESS: null,
+    RESET_PWD_FAILED: null
 });

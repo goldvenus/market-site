@@ -80,14 +80,19 @@ const logout = () => {
 
 const sendResetPasswordEmail = async (data) => {
     try {
-
+        dispatch({
+            type: constants.RESET_PWD_REQUEST
+        });
         let response = await post('sendCodeForgotPaswordUser', data)
         if(response && response.status === 200) {
+            dispatch({
+                type: constants.RESET_PWD_SUCCESS
+            });
             return true
         }
 
         dispatch({
-            type: ACTIONS.ERROR,
+            type: constants.RESET_PWD_FAILED,
             payload: 'Something went wrong'
         });
 
