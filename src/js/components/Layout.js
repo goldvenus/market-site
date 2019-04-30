@@ -2,10 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 
-import routes from '../config/routes';
+import routes from '../routes';
 import Header from './Header';
 import Footer from './Footer';
-import { clearError } from '../actions/app.actions';
 import { CartIcon, HeartIcon } from './common/IconComponent';
 import { ToastsContainer, ToastsStore, ToastsContainerPosition } from "react-toasts";
 import { createNotification } from "./common/CustomNotification";

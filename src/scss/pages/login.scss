@@ -48,7 +48,8 @@
 }
 
 .login {
-  margin-left: 60px;
+  position: relative;
+  padding-left: 60px;
   padding-top: 60px;
   display: flex;
   flex-direction: column;
@@ -96,6 +97,10 @@
       }
     }
   }
+
+  .beaut_spinner {
+    position: absolute;
+  }
 }
 
 .login.success-message {
@@ -111,6 +116,7 @@
 @media(max-width: 769px) {
   .login {
     padding-top: 0;
+    padding-left: 0;
     margin-left: 5px
   }
 }

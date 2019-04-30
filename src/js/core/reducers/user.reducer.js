@@ -7,6 +7,12 @@ const initialState = {
     isRegistering: false,
     isRegistered: false,
     isRegisteringFailed: false,
+    isSendingFWDEmail: false,
+    isSentFWDEmail: false,
+    isSendingFWDEmailFailed: false,
+    isConfirmingFWD: false,
+    isConfirmedFWD: false,
+    isConfirmingFWDFailed: false,
     isLoading: false,
     user: null
 };
@@ -25,6 +31,7 @@ export default (state = initialState, action) => {
             case constants.LOGIN_FAILED:
                 draft.isAuthenticated = false;
                 draft.isAuthorizing = false;
+                draft.errMsg = action.payload;
                 break;
 
             case constants.SIGNUP_REQUEST:
@@ -41,6 +48,24 @@ export default (state = initialState, action) => {
                 draft.isRegistering = false;
                 draft.isRegistered = false;
                 draft.isRegisteringFailed = true;
+                draft.errMsg = action.payload;
+                break;
+
+            case constants.RESET_PWD_REQUEST:
+                draft.isSendingFWDEmail = true;
+                draft.isSentFWDEmail = false;
+                draft.isSendingFWDEmailFailed = false;
+                break;
+            case constants.RESET_PWD_SUCCESS:
+                draft.isSendingFWDEmail = false;
+                draft.isSentFWDEmail = true;
+                draft.isSendingFWDEmailFailed = false;
+                break;
+            case constants.RESET_PWD_FAILED:
+                draft.isSendingFWDEmail = false;
+                draft.isSentFWDEmail = false;
+                draft.isSendingFWDEmailFailed = true;
+                draft.errMsg = action.payload;
                 break;
 
             case constants.USER_LOGOUT:

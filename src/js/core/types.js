@@ -15,6 +15,11 @@ export default keyMirror({
     SIGNUP_FAILED: null,
     SIGNUP_LOAD: null,
 
+    //reset pwd request
+    RESET_PWD_REQUEST: null,
+    RESET_PWD_SUCCESS: null,
+    RESET_PWD_FAILED: null
+
     // list gears
     LIST_GEARS_REQUEST: null,
     LIST_GEARS_SUCCESS: null,

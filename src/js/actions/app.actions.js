@@ -101,92 +101,6 @@ const fetchCategories = () => {
   }
 };
 
-const register = async (data) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      // let response = await post('signup', data);
-      // dispatch({
-      //   type: ACTIONS.USER,
-      //   payload: response
-      // });
-      //
-      // resolve(response);
-    } catch (error) {
-      handleError(error);
-      reject(error);
-    }
-  });
-};
-
-const login = async (data) => {
-  try {
-    let response = await post('signin', data);
-    if (response && response.data) {
-      // dispatch({
-      //   type: ACTIONS.LOGGED_IN,
-      //   payload: response.data.userAttributes
-      // });
-      //
-      // // store the token
-      // const { accessToken, idToken, refreshToken } = response.data.tokens;
-      // localStorage.accessToken = accessToken;
-      // localStorage.idToken = idToken;
-      // localStorage.refreshToken = refreshToken;
-      // localStorage.userId = response.data.userAttributes.userid;
-      // localStorage.userEmail = data.username;
-      // return response;
-    }
-  } catch (error) {
-    handleError(error);
-  }
-};
-
-const sendResetPasswordEmail = async (data) => {
-  try {
-
-    let response = await post('sendCodeForgotPaswordUser', data)
-    if(response && response.status === 200) {
-      return true
-    }
-
-    dispatch({
-      type: ACTIONS.ERROR,
-      payload: 'Something went wrong'
-    });
-
-    return false
-
-  } catch (error) {
-    handleError(error);
-    return false
-  }
-};
-
-const confirmResetPassword = async (data) => {
-  try {
-
-    if(data.password !== data.password_new) {
-      handleError('Passwords don\'t match');
-      return
-    }
-
-    let response = await post('confirmForgotPasswordUser', data);
-    if(response && response.status === 200) {
-      return true
-    }
-
-    dispatch({
-      type: ACTIONS.ERROR,
-      payload: 'Something went wrong'
-    });
-
-    return false
-  } catch(error) {
-    handleError(error);
-    return false
-  }
-};
-
 const refreshToken = async () => {
   try {
     let response = await axios.post(getAPIUrl('getUserRefreshTokens'), { username: localStorage.userId }, tokenAxiosConfig());
@@ -282,18 +196,6 @@ const getAllGears = async () => {
   } catch (error) {
     handleError(error);
   }
-};
-
-const logout = () => {
-  delete localStorage.accessToken;
-  delete localStorage.idToken;
-  delete localStorage.refreshToken;
-  delete localStorage.userid;
-
-  dispatch({
-    type: ACTIONS.LOGGED_OUT,
-    payload: null
-  });
 };
 
 const getGear = async (gearid) => {
@@ -667,12 +569,12 @@ const setBlockPeriod = (data) => {
 };
 
 export {
-  register, confirmUser, login, logout, clearError, handleError, getUser,
+  confirmUser, handleError, getUser,
   readFileData, fetchCategories, addCart, getCarts, deleteCartItem,
   search, addFavourites, getFavourites, deleteFavourite, newArrivals,
   formatDate, days,
   viewUserDashboard, dashboardMyListing, dashboardMyRentals, getGearRentState, setBlockPeriod, getOrderHistory, getOrderDetail,
-  socialLogin, sendResetPasswordEmail, confirmResetPassword,
+  socialLogin,
   getListGears, getAllGears, getGear, addGear, deleteGear, rentGearProductList,
   checkout, getCheckout, payment, getPaymentCards, getPaidItems
 };

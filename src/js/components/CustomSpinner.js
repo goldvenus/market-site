@@ -5,7 +5,7 @@ class CustomSpinner extends Component {
     render() {
         return (
             <div className="beaut_spinner">
-                <Spinner size={70} spinnerColor={"#f00"} spinnerWidth={4} visible={true} />
+                <Spinner size={70} spinnerColor={"rgb(248, 44, 98)"} spinnerWidth={4} visible={true} />
             </div>
         );
     }
