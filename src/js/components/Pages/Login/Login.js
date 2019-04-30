@@ -8,7 +8,7 @@ import CustomInput from '../../CustomInput';
 import AuthSideMenu from '../../AuthSideMenu';
 // import { login } from '../../../actions/app.actions';
 import { login } from '../../../core/actions/user.action';
-import { FACEBOOK_LOGIN_URL } from '../../../constants';
+import { FACEBOOK_LOGIN_URL } from '../../../core/constants';
 import CustomSpinner from "../../CustomSpinner";
 
 class Login extends Component {

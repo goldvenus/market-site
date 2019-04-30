@@ -8,8 +8,7 @@ const initialState = {
     isRegistered: false,
     isRegisteringFailed: false,
     isLoading: false,
-    user: null,
-    errMsg: null
+    user: null
 };
 
 export default (state = initialState, action) => {

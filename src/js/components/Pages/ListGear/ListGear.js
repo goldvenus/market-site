@@ -6,7 +6,8 @@ import {
 } from 'reactstrap';
 import {Link} from 'react-router-dom';
 import classNames from 'classnames';
-import {getListGears, deleteGear, handleError} from '../../../actions/app.actions';
+import { getListGears, deleteGear } from '../../../core/actions/gear.action';
+import { handleError } from '../../../core/actions/common.action'
 import BarLoader from "react-bar-loader";
 import EmptyActivity from "../../EmptyActivity";
 import Urllink_class from "../../Urllink_class";

@@ -1,11 +1,12 @@
 
 import constants from "../types";
-import { axiosConfig, tokenAxiosConfig, getAPIUrl, handleError, clearError, get, get_new, post, post_new } from './common.actions'
 import axios from "axios";
+import { axiosConfig, tokenAxiosConfig, getAPIUrl, get, get_new, post, post_new } from '../api'
+import { handleError, clearError } from './common.action'
 import { fetchCategories, getCarts, getFavourites } from "../../actions/app.actions";
 
 import store from '../../store';
-import { ACTIONS } from "../../constants";
+import { ACTIONS } from "../constants";
 const dispatch = store.dispatch;
 
 

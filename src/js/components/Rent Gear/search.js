@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
 import CustomInput from '../CustomInput';
 import { Form} from 'reactstrap';
-
-import { rentGearProductList } from '../../actions/app.actions';
+import { rentGearProductList } from '../../core/actions/gear.action';
 
 class Search extends Component {
     constructor(props) {

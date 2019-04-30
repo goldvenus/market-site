@@ -8,9 +8,9 @@ import Textarea from 'muicss/lib/react/textarea';
 import 'muicss/dist/css/mui.min.css';
 import Chips from 'react-chips';
 import CustomInput from '../../CustomInput';
+import { getGear } from '../../../core/actions/gear.action'
 import {
     handleError,
-    getGear,
     addCart,
     formatDate,
     readFileData,
@@ -18,7 +18,6 @@ import {
 } from '../../../actions/app.actions';
 import BarLoader from "react-bar-loader";
 import Urllink_class from "../../Urllink_class";
-
 
 class EditGear extends Component {
     constructor(props) {

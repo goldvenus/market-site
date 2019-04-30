@@ -1,5 +1,5 @@
 import producer from 'immer'; //Immutability Library
-import { ACTIONS } from '../../constants';
+import { ACTIONS } from '../constants';
 import { Action } from 'rxjs/internal/scheduler/Action';
 
 const initialState = {
@@ -18,8 +18,7 @@ const initialState = {
   dashboard: {},
   carts: [],
   favorites: [],
-  order_histories: null,
-  my_gear_names: []
+  orderHistories: null
 };
 
 export default (state = initialState, action) => {
@@ -97,9 +96,7 @@ export default (state = initialState, action) => {
         draft.dashboard = action.payload;
         break;
       case ACTIONS.ORDER_HISTORY:
-        draft.order_histories = action.payload;
-      case ACTIONS.MY_GEAR_NAME:
-        draft.my_gear_names = action.payload;
+        draft.orderHistories = action.payload;
       default:
         break;
     }

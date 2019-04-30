@@ -7,7 +7,8 @@ import classnames from 'classnames';
 import CardView from './RG_card_view';
 import ListView from './RG_list_view';
 import TableView from './RG_table_view';
-import { addCart, formatDate, rentGearProductList } from '../../actions/app.actions';
+import { addCart, formatDate } from '../../actions/app.actions';
+import { rentGearProductList } from '../../core/actions/gear.action'
 import CartModal1 from "../common/CartModal1";
 import CartModal from "../common/CartModal";
 import BarLoader from "react-bar-loader";

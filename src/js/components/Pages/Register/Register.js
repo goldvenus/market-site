@@ -8,7 +8,7 @@ import { handleError, readFileData } from '../../../actions/app.actions';
 import { register } from '../../../core/actions/user.action';
 import {bindActionCreators} from "redux";
 import CustomSpinner from "../../CustomSpinner";
-import {ACTIONS} from "../../../constants";
+import {ACTIONS} from "../../../core/constants";
 
 class Register extends Component {
   constructor() {
@@ -161,8 +161,7 @@ function mapStateToProps(state) {
     return {
         isRegistering: state.user.isRegistering,
         isRegistered: state.user.isRegistered,
-        isRegisteringFailed: state.user.isRegisteringFailed,
-        errMsg: state.user.errMsg
+        isRegisteringFailed: state.user.isRegisteringFailed
     };
 }
 

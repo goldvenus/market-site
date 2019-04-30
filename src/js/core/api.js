@@ -1,6 +1,8 @@
 import axios from "axios";
-import { API_URL, API_URL_NEW } from '../constants';
-import { handleError } from "../actions/app.actions";
+import { API_URL, API_URL_NEW } from './constants';
+// import { handleError } from "../actions/app.actions";
+
+const getAPIUrl = (url) => API_URL + url;
 
 const axiosConfig = () => {
     let config = {
@@ -59,20 +61,24 @@ const get_new = async (url) => {
 const post = async (url, data) => {
     return axios.post(getAPIUrl(url), data, axiosConfig()).then((res) => res)
         .catch(err => {
-            handleError(err.response.data.errorMessage);
+            // handleError(err.response.data.errorMessage);
         });
 };
 
 const post_new = async (url, data) => {
     return axios.post(API_URL_NEW + url, data, axiosConfig()).then((res) => res)
         .catch(err => {
-            handleError(err.response.data.errorMessage);
+            // handleError(err.response.data.errorMessage);
         });
 };
 
-export default {
-    user: {
-        login: async (credentials) => ,
-        register: user => axios.post(API_URL + 'signup', user)
-    }
+// export default {
+//     user: {
+//         login: async (credentials) => axios.post(API_URL + 'signin', credentials),
+//         register: user => axios.post(API_URL + 'signup', user)
+//     }
+// }
+
+export {
+    getAPIUrl, axiosConfig, tokenAxiosConfig, get, get_new, post, post_new
 }

@@ -3,14 +3,15 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
   Breadcrumb, BreadcrumbItem, Dropdown, Form, DropdownToggle, DropdownMenu,
-  DropdownItem, Input, Label, Carousel, CarouselItem, CarouselControl,
+  DropdownItem, Label, Carousel, CarouselItem, CarouselControl,
   CarouselIndicators, CarouselCaption, InputGroup, InputGroupAddon
 } from 'reactstrap';
 import Chips, { Chip } from 'react-chips';
 import CustomInput from '../../CustomInput';
-import { element } from 'prop-types';
 import CustomCarousel from '../../CustomCarousel';
-import { handleError, readFileData, addGear, fetchCategories } from '../../../actions/app.actions';
+import { readFileData, fetchCategories } from '../../../actions/app.actions';
+import { addGear } from '../../../core/actions/gear.action'
+import { handleError } from '../../../core/actions/common.action'
 import "./AddGear.css"
 import Textarea from "muicss/lib/react/textarea";
 import Urllink_class from "../../Urllink_class";
