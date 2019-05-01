@@ -260,9 +260,9 @@ class Favourites extends Component {
 }
 
 const mapStateToProps = state => ({
-  gear: state.app.gear,
-  favourites: state.app.favourites,
-  carts: state.app.carts
+  gear: state.gear.gear,
+  favourites: state.favourite.favourites,
+  carts: state.cart.carts
 });
 
 export default compose(

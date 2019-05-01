@@ -92,7 +92,7 @@ class AddGear extends Component {
 
   renderInfo() {
     const { selectedType, brand, model, description, isKit, categoryName, accessories } = this.state;
-    const { categories } = this.props.app;
+    const { categories } = this.props.categories;
 
     return (
       <Form className="theme-form add-gear-info container add-gear-info-cusvenus" id="tablet-form">
@@ -495,7 +495,7 @@ class AddGear extends Component {
 }
 
 const mapStateToProps = state => ({
-  app: state.app,
+  categories: state.category.categories,
 });
 
 export default connect(mapStateToProps)(AddGear);

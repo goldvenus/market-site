@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getPaidItems } from '../../core/actions/payment.actions';
+import { getPaidItems } from '../../core/actions/payment.action';
 import { days } from '../../core/helper';
 import { handleError } from '../../core/actions/common.action';
 import '@trendmicro/react-buttons/dist/react-buttons.css';
@@ -234,7 +234,7 @@ class Payment extends Component {
 }
 
 const mapStateToProps = state => ({
-  carts: state.app.carts
+  carts: state.cart.carts
 });
 
 export default connect(mapStateToProps)(Payment);

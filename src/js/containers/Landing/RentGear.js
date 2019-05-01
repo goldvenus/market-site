@@ -59,6 +59,6 @@ const RentGear = (props) => {
 
 export default connect(state => {
   return {
-    categories: state.app.categories
+    categories: state.category.categories
   };
 })(RentGear);

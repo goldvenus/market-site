@@ -49,6 +49,7 @@ export default (state = initialState, action) => {
                 draft.isLoading = true;
                 break;
             case constants.GET_ORDER_HISTORY_SUCCESS:
+                draft.orderHistories = action.payload;
                 draft.isLoading = false;
                 break;
             case constants.GET_ORDER_HISTORY_FAILED:

@@ -304,8 +304,8 @@ class Checkout extends Component {
 }
 
 const mapStateToProps = state => ({
-  carts: state.app.carts,
-  user: state.app.user
+  carts: state.cart.carts,
+  user: state.user.user
 });
 
 export default connect(mapStateToProps)(Checkout);

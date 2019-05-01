@@ -5,7 +5,6 @@ import { Pagination, PaginationItem, PaginationLink, Table } from 'reactstrap';
 import moment from 'moment';
 import EmptyRental from './Empty_Rental';
 
-
 const MyRentalItem = ({ rentItem }) => (
     <tr>
       <td width="15%">{<img src={rentItem.numberOfUserImage[0]} alt="" className="gear-img" />}</td>

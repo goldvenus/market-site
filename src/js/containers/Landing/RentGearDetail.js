@@ -652,11 +652,11 @@ class RentGearDetail extends Component {
 }
 
 const mapStateToProps = state => ({
-    gear: state.app.gear,
-    listGears: state.app.allGears,
-    user: state.app.user,
-    carts: state.app.carts,
-    favourites: state.app.favourites
+    gear: state.gear.gear,
+    listGears: state.gear.allGears,
+    user: state.user.user,
+    carts: state.cart.carts,
+    favourites: state.favourite.favourites
 });
 
 export default connect(mapStateToProps)(RentGearDetail);

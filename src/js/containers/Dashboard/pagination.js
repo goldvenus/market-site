@@ -2,10 +2,8 @@ const { Pagination, PaginationItem, PaginationLink } = Reactstrap;
 
 class App extends React.PureComponent {
 
-  constructor() {
-
-    super();
-
+  constructor(props) {
+    super(props);
     // create data set of random length
     this.dataSet = [...Array(Math.ceil(500 + Math.random() * 500))].map(
       (a, i) => "Record " + (i + 1)
@@ -17,21 +15,16 @@ class App extends React.PureComponent {
     this.state = {
       currentPage: 0
     };
-
   }
 
   handleClick(e, index) {
-
     e.preventDefault();
-
     this.setState({
       currentPage: index
     });
-
   }
 
   render() {
-
     const { currentPage } = this.state;
 
     return (

@@ -179,7 +179,7 @@ class Cart extends Component {
 }
 
 const mapStateToProps = state => ({
-  carts: state.app.carts
+  carts: state.cart.carts
 });
 
 export default connect(mapStateToProps)(Cart);

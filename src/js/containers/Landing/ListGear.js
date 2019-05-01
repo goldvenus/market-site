@@ -6,12 +6,11 @@ import {
 } from 'reactstrap';
 import {Link} from 'react-router-dom';
 import classNames from 'classnames';
-import { getListGears, deleteGear } from '../../../core/actions/gear.action';
-import { handleError } from '../../../core/actions/common.action'
+import { getListGears, deleteGear } from '../../core/actions/gear.action';
 import BarLoader from "react-bar-loader";
-import EmptyActivity from "../../EmptyActivity";
-import Urllink_class from "../../Urllink_class";
-import CustomSpinner from "../../CustomSpinner";
+import EmptyActivity from "../../components/EmptyActivity";
+import Urllink_class from "../../components/Urllink_class";
+import CustomSpinner from "../../components/CustomSpinner";
 import {ToastsStore} from "react-toasts";
 
 const ListGearItem = ({onDelete, listItem: {gearid, model = '', brand = '', categoryName = '', numberOfUserImage, pricePerDay, orderStatus: status}}) => {
@@ -240,8 +239,8 @@ class ListGear extends Component {
 }
 
 const mapStateToProps = state => ({
-    listGears: state.app.listGears,
-    categories: state.app.categories
+    listGears: state.gear.listGears,
+    categories: state.category.categories
 });
 
 export default connect(mapStateToProps)(ListGear);

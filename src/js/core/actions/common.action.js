@@ -11,7 +11,7 @@ const handleError = (error) => {
 
 const clearError = () => {
     dispatch({
-        type: constants.REMOVE_ERROR,
+        type: constants.CLEAR_ERROR,
         payload: null
     });
 };

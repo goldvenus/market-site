@@ -73,7 +73,7 @@ const Layout = ({ location, error, carts, favourites, isAuthenticated }) => {
 };
 
 const mapStateToProps = store => ({
-  error: store.user.error,
+  error: store.common.error,
   carts: store.cart.carts,
   favourites: store.favourite.favourites,
   isAuthenticated: store.user.isAuthenticated

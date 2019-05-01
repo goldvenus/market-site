@@ -182,7 +182,7 @@ class OrderHistory extends Component {
 }
 
 const mapStateToProps = state => ({
-    histories: state.app.orderHistories
+    histories: state.dashboard.orderHistories
 });
 
 export default compose(

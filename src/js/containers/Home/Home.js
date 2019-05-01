@@ -6,9 +6,7 @@ import { Container, Row, Col, Form, ListGroup, ListGroupItem } from 'reactstrap'
 import { newArrivals } from '../../core/actions/gear.action';
 import { socialLogin } from "../../core/actions/user.action";
 import { fetchCategories } from "../../core/actions/category.action";
-import { searchHome } from "../../core/actions/gear.action";
 import CustomInput from '../../components/CustomInput';
-import ThemeCardOne from '../../components/Theme-Cards/ThemeCardOne';
 import ThemeCardTwo from '../../components/Theme-Cards/ThemeCardTwo';
 
 import data from '../../components/dummydata';
@@ -114,8 +112,8 @@ class Home extends Component {
   handleSearchTextChange = value => {
     if (value) {
       const pattern = new RegExp(value, 'ig');
-      const suggestions = (this.props.app.categories || []).map(cat => cat.categoryName);
-      const searchTextSuggestions = suggestions.filter((s) => s.searchHome(pattern) > -1);
+      const suggestions = (this.props.categories || []).map(cat => cat.categoryName);
+      const searchTextSuggestions = suggestions.filter((s) => s.search(pattern) > -1);
 
       this.setState({
         searchText: value,
@@ -174,8 +172,6 @@ class Home extends Component {
   };
 
   render() {
-    let cat = this.props.app;
-
     const { searchTextSuggestions, locationTextSuggestions, searchText, locationText } = this.state;
 
     return (
@@ -634,7 +630,7 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-  app: state.app,
+  categories: state.category.categories,
 });
 
 export default connect(mapStateToProps)(Home);

@@ -4,7 +4,6 @@ import { Form } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import CustomInput from '../../components/CustomInput';
 import AuthSideMenu from '../../components/AuthSideMenu';
-import CustomSpinner from '../../components/CustomSpinner';
 import { sendResetPasswordEmail, confirmResetPassword } from '../../core/actions/user.action';
 
 class ForgotPassword extends Component {

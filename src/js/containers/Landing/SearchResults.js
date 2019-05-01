@@ -22,7 +22,7 @@ class SearchResults extends Component {
 }
 
 const mapStateToProps = state => ({
-  searchResults: state.app.searchResults,
+  searchResults: state.gear.searchResults,
 });
 
 export default connect(mapStateToProps)(SearchResults);

@@ -7,14 +7,14 @@ import {
 import Textarea from 'muicss/lib/react/textarea';
 import 'muicss/dist/css/mui.min.css';
 import Chips from 'react-chips';
-import CustomInput from '../../CustomInput';
+import CustomInput from '../../components/CustomInput';
 import { getGear } from '../../core/actions/gear.action'
 import { handleError, readFileData } from "../../core/actions/common.action";
 import { addCart } from "../../core/actions/cart.action";
 import { formatDate } from "../../core/helper";
 import { fetchCategories } from '../../core/actions/category.action';
 import BarLoader from "react-bar-loader";
-import Urllink_class from "../../Urllink_class";
+import Urllink_class from "../../components/Urllink_class";
 
 class EditGear extends Component {
     constructor(props) {
@@ -370,9 +370,9 @@ class EditGear extends Component {
 }
 
 const mapStateToProps = state => ({
-    categories: state.app.categories,
-    gear: state.app.gear,
-    user: state.app.user,
+    categories: state.category.categories,
+    gear: state.gear.gear,
+    user: state.user.user,
 });
 
 export default connect(mapStateToProps)(EditGear);

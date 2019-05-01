@@ -1,5 +1,4 @@
 import React from 'react';
-import chart from '../../../assets/images/chart-1.jpg';
 import {Row, Col} from 'reactstrap';
 import LineChart from './LineChart';
 

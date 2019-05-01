@@ -133,8 +133,8 @@ class ViewGear extends Component {
 }
 
 const mapStateToProps = state => ({
-  gear: state.app.gear,
-  user: state.app.user,
+  gear: state.gear.gear,
+  user: state.user.user,
 });
 
 export default connect(mapStateToProps)(ViewGear);

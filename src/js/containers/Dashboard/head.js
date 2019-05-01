@@ -1,7 +1,5 @@
 import React from 'react';
-import profile_pic from '../../../assets/images/profile-pic.jpg';
-import {Row, Col} from 'reactstrap';
-// import { getMaxListeners } from 'cluster';
+import { Row, Col } from 'reactstrap';
 
 export default function(props){
   return(

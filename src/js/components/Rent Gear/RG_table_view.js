@@ -5,7 +5,7 @@ import {
   CardTitle, CardSubtitle
 } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
-import { addFavourites, deleteFavourite } from '../../core/actions/favourite.actions';
+import { addFavourites, deleteFavourite } from '../../core/actions/favourite.action';
 
 const TableView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city, rating, pricePerDay, gearid},
                        history, favored, carted, onOpenModal }) => {

@@ -1,6 +1,6 @@
 import constants from "../types";
 import { handleError } from "./common.action";
-import { post, post_new, get, get_new } from "../api";
+import { post, post_new, get, get_new } from "../api/index";
 import store from '../../store';
 const dispatch = store.dispatch;
 

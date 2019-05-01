@@ -6,7 +6,7 @@ import Flickity from 'react-flickity-component';
 import { fetchCategories } from "../../core/actions/category.action";
 import { socialLogin } from '../../core/actions/user.action';
 import { newArrivals } from '../../core/actions/gear.action'
-import MaterialInputWithDropdown from '../../MaterialInputWithDropdown';
+import MaterialInputWithDropdown from '../../components/common/MaterialInputWithDropdown';
 
 import imgLogo from './images/logo.png';
 import {
@@ -721,7 +721,7 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  categories: state.app.categories,
+  categories: state.category.categories,
 });
 
 export default connect(mapStateToProps)(Home);
