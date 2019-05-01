@@ -7,11 +7,11 @@ import classnames from 'classnames';
 import CardView from './RG_card_view';
 import ListView from './RG_list_view';
 import TableView from './RG_table_view';
-import { addCart, formatDate } from '../../actions/app.actions';
+import { addCart } from '../../core/actions/cart.action';
 import { rentGearProductList } from '../../core/actions/gear.action'
-import CartModal1 from "../common/CartModal1";
-import CartModal from "../common/CartModal";
-import BarLoader from "react-bar-loader";
+import { formatDate } from '../../core/helper'
+import CartModal1 from "../common/CartModal2";
+import CartModal from "../common/CartModal1";
 import Loader from 'react-loader-spinner'
 
 class Main extends Component {
@@ -293,7 +293,7 @@ class Main extends Component {
 
 export default connect(state => {
   return {
-    carts: state.app.carts,
-    favourites: state.app.favourites
+    carts: state.cart.carts,
+    favourites: state.favourite.favourites
   };
 })(Main);

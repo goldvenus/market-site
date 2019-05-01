@@ -24,6 +24,6 @@ const ThemeCardOne = ({ Gear: { numberOfUserImage, model,  catagory, brand, tota
       </Card>
       </Link>
     );
-}
+};
 
 export default ThemeCardOne;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Modal from "react-responsive-modal";
-import { getDateStr } from "../../../components/common/Functions"
+import { getDateStr } from "../../../core/helper/index"
 
 const AboutPeriod = ({ open, onClose, gear_info }) => {
     let btn_label1 = 'Close';

@@ -1,4 +1,4 @@
-import { ACTIONS } from "../constants";
+import constants from "../types";
 import { handleError } from "./common.action";
 import { post, post_new, get, get_new } from "../api";
 import store from '../../store';
@@ -18,7 +18,7 @@ const getGear = async (gearid) => {
         try {
             let response = await post('viewAddedGearItem', { gearid });
             dispatch({
-                type: ACTIONS.GEAR,
+                type: constants.GEAR,
                 payload: response.data[0]
             });
             resolve(response);
@@ -34,7 +34,7 @@ const getListGears = async () => {
         let response = await get('viewUserGearList');
         if (response && response.data) {
             dispatch({
-                type: ACTIONS.LIST_GEARS,
+                type: constants.LIST_GEARS,
                 payload: response.data.Items
             });
         }
@@ -61,7 +61,7 @@ const newArrivals = async () => {
 
         if (response) {
             dispatch({
-                type: ACTIONS.NEW_ARRIVALS,
+                type: constants.NEW_ARRIVALS,
                 payload: response.data
             });
         }
@@ -76,7 +76,7 @@ const deleteGear = async (data) => {
             let response = await post_new('deleteUserGear', data);
             if (response) {
                 dispatch({
-                    type: ACTIONS.DELETE_GEAR,
+                    type: constants.DELETE_GEAR,
                     payload: data.gearid
                 });
                 resolve(response.status);
@@ -89,6 +89,30 @@ const deleteGear = async (data) => {
     });
 };
 
+const searchHome = async (brand, product_region) => {
+    dispatch({
+        type: constants.SEARCH_HOME_REQUEST
+    });
+    try {
+        let response = await post_new('showHomePageSearch', {
+            brand,
+            product_region
+        });
+
+        if (response) {
+            dispatch({
+                type: constants.SEARCH_HOME_SUCCESS,
+                payload: response.data
+            });
+        }
+    } catch (error) {
+        handleError(error);
+        dispatch({
+            type: constants.SEARCH_HOME_FAILED,
+        });
+    }
+};
+
 export {
-    newArrivals, addGear, deleteGear, getGear, rentGearProductList, getListGears
+    newArrivals, addGear, deleteGear, getGear, rentGearProductList, getListGears, searchHome
 };

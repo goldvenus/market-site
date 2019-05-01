@@ -6,7 +6,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import "react-tabs/style/react-tabs.css";
 import moment from 'moment';
 import EmpetyList from './Empety_list'
-import { getListGears } from '../../actions/app.actions';
+import { getListGears } from '../../core/actions/gear.action';
 import connect from "react-redux/es/connect/connect";
 import Calendar from "./GearHistory/Calendar";
 import BarLoader from "react-bar-loader";

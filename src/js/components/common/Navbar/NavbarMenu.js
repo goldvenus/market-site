@@ -219,9 +219,8 @@ class NavbarMenu extends React.Component {
 }
 
 const mapStateToProps = store => ({
-  error: store.app.error,
-  carts: store.app.carts,
-  favourites: store.app.favourites,
+  carts: store.cart.carts,
+  favourites: store.favourite.favourites,
   isAuthenticated: store.user.isAuthenticated
 });
 

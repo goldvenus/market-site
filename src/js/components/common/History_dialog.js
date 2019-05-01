@@ -12,10 +12,10 @@ class History_dialog extends Component {
         }
     }
 
-
     handleClose = () => {
         this.props.close();
-    }
+    };
+
     changeActiveItem = (activeItemIndex) => this.setState({ activeItemIndex });
     renderCarousel = (img_arr) => {
         // make img objects for bottom carousel

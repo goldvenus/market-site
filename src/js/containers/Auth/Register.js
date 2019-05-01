@@ -4,10 +4,10 @@ import { Form } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import CustomInput from '../../components/CustomInput';
 import AuthSideMenu from '../../components/AuthSideMenu';
-import { handleError, readFileData } from '../../actions/app.actions';
+import { readFileData } from '../../core/actions/com';
+import { handleError } from "../../core/actions/common.action";
 import { register } from '../../core/actions/user.action';
-import {bindActionCreators} from "redux";
-import {ACTIONS} from "../../../core/constants";
+import { bindActionCreators } from "redux";
 import CustomSpinner from "../../components/CustomSpinner";
 
 class Register extends Component {

@@ -3,10 +3,14 @@ import { withRouter } from 'react-router-dom';
 import Modal from "react-responsive-modal";
 import TextField from "@material-ui/core/TextField/TextField";
 import { DateRange } from "react-date-range";
+import { calcDaysDiff, getDateStr } from "../../core/helper";
 import { Inline } from '@zendeskgarden/react-loaders'
-import { getDateStr } from "../../../core/helper/index"
 
-class PeriodSetModal extends Component {
+/*
+    Modal Interface for CART_CONFIRM(Favorites Page) and CART_EDIT(Cart Page - CART_EDIT)
+ */
+class CartModal2 extends Component {
+    // model1: Add to Cart, model2: Edit
     constructor(props) {
         super(props);
         this.state = {
@@ -63,25 +67,14 @@ class PeriodSetModal extends Component {
         }
     };
 
-    componentDidMount() {
-        if (this.props.mode === 2) {
-            this.setState({
-                startDate: new Date(this.props.date_obj.start_date),
-                endDate: new Date(this.props.date_obj.end_date)
-            });
-        }
-    }
-
-    handleAddToPeriod = async () => {
+    handleAddToCart = () => {
         this.setState({busy: true});
-        let res = await this.props.setBlockPeriod({
+        this.props.addToCart({
+            gearid: this.props.gear.gearid,
+            userid: this.props.gear.userid,
             startDate: this.state.startDate,
-            endDate: this.state.endDate,
-            mode: this.props.mode
+            endDate: this.state.endDate
         });
-        if (res === -1) {
-            this.setState({busy: false});
-        }
     };
 
     handleClose = (e) => {
@@ -92,39 +85,46 @@ class PeriodSetModal extends Component {
     };
 
     render() {
-        const { gear_info, mode } = this.props;
+        const { open, dlg_model, onClose, onSubmit, gear } = this.props;
+        const { brand, model, pricePerDay } = gear;
+        const duration = calcDaysDiff(this.state.startDate, this.state.endDate) + 1;
         const start_date_str = getDateStr(this.state.startDate);
         const end_date_str = getDateStr(this.state.endDate);
+        const total_price = pricePerDay * duration;
         const selectionRange = {
             startDate: this.state.startDate,
             endDate: this.state.endDate,
             key: 'selection',
         };
-        let dlg_heading = 'Unavailable Period';
-        let btn_label1 = 'Cancel';
-        let btn_label2 = 'Add Period';
-        if (mode === 2) {
-            dlg_heading = 'Edit Period';
-            btn_label2 = 'Save';
+        let dlg_heading = 'Add to Cart';
+        let btn_label1 = '';
+        let btn_label2 = '';
+        if (dlg_model === 1) {
+            btn_label1 = 'Cancel';
+            btn_label2 = 'Add to Cart';
+        } else {
+            btn_label1 = 'Cancel';
+            btn_label2 = 'submit';
+            dlg_heading = 'Edit';
         }
 
         return (
-            <Modal open={true} onClose={this.handleClose} center classNames={{modal: "cart-modal"}}>
-                <div className='period-cart-header'>
+            <Modal open={open} onClose={this.handleClose} center classNames={{modal: "cart-modal"}}>
+                <div className='modal-cart-header'>
                     <span >{dlg_heading}</span>
                 </div>
-                <div className='period-cart-body-1'>
-                    <div className='pickup-period row'>
-                        <span className='period-carted-product-name'>{gear_info.brand} {gear_info.categoryName}</span>
+                <div className='modal-cart-body-1'>
+                    <div className='modal-cart-info row'>
+                        <span className='modal-carted-product-name'>{brand} {model}</span>
                     </div>
                     <div className="pickup-date-container row">
                         <div className='col-md-11 date-range-container'>
-                            <TextField id="date-range-input1" className="date-range-input" type="text" inputProps={300} label={'START DATE'} defaultValue={start_date_str}
-                                    onFocus={() => this.setOpenState(true, false)} value={start_date_str}/>
+                            <TextField id="date-range-input1" className="date-range-input" type="text" label={'PICKUP DATE'}
+                                       onFocus={() => this.setOpenState(true, false)} value={start_date_str}/>
                             {
                                 this.state.open_date_picker1 ?
                                     <DateRange
-                                        className={'date-range-wrapper date-range-wrapper-period'}
+                                        className={'date-range-wrapper'}
                                         ranges={[selectionRange]}
                                         onChange={this.handleSelect}
                                         rangeColors={['#F74377']}
@@ -140,12 +140,12 @@ class PeriodSetModal extends Component {
                         </div>
                         <div className='col-md-2'></div>
                         <div className='col-md-11 date-range-container'>
-                            <TextField id="date-range-input1" className="date-range-input" type="text" inputProps={300} label={'END DATE'} defaultValue={end_date_str}
-                                    onFocus={() => this.setOpenState(false, true)} value={end_date_str}/>
+                            <TextField id="date-range-input1" className="date-range-input" type="text" label={'RETURN DATE'}
+                                       onFocus={() => this.setOpenState(false, true)} value={end_date_str}/>
                             {
                                 this.state.open_date_picker2 ?
                                     <DateRange
-                                        className={'date-range-wrapper date-range-wrapper-period'}
+                                        className={'date-range-wrapper'}
                                         ranges={[selectionRange]}
                                         onChange={this.handleSelect}
                                         rangeColors={['#F74377']}
@@ -159,11 +159,22 @@ class PeriodSetModal extends Component {
                             }
                         </div>
                     </div>
-
+                    <div className='modal-cart-price-container row'>
+                        <div className='modal-cart-price-left'>
+                            <span className="price-value">${pricePerDay}</span>
+                            <span className='price-text'> per day</span>
+                        </div>
+                        <div className='modal-cart-price-right'>
+                            <span className="price-value">${total_price}</span>
+                            <span className='price-text'> for </span>
+                            <span className="price-value">{duration} days</span>
+                        </div>
+                    </div>
                     <div className='modal-cart-control row'>
                         <button className='cart-control-left-button theme-btn theme-btn-primary' onClick={(e) => this.handleClose(e)}>{btn_label1}</button>
                         <div className='cart-button-space'></div>
-                        <button className='cart-control-right-button theme-btn theme-btn-primary' onClick={this.handleAddToPeriod}
+                        <button className='cart-control-right-button theme-btn theme-btn-primary'
+                            onClick={() => {dlg_model === 1 ? this.handleAddToCart() : onSubmit();}}
                             disabled={this.state.busy ? 'disabled' : ''}
                         >
                             {
@@ -176,4 +187,5 @@ class PeriodSetModal extends Component {
         )
     }
 }
-export default withRouter(PeriodSetModal);
+
+export default withRouter(CartModal2);

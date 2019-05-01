@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
-import { Carousel, CarouselItem, CarouselControl, CarouselIndicators,
-  CarouselCaption } from 'reactstrap';
+import { Carousel, CarouselItem, CarouselIndicators } from 'reactstrap';
 
 class CustomCarousel extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       activeIndex: 0,
@@ -84,7 +82,4 @@ class CustomCarousel extends Component {
   }
 }
 
-export default connect((store) => {
-  return {
-  };
-})(CustomCarousel);
+export default CustomCarousel;

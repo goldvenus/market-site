@@ -31,7 +31,6 @@ export default (state = initialState, action) => {
             case constants.LOGIN_FAILED:
                 draft.isAuthenticated = false;
                 draft.isAuthorizing = false;
-                draft.errMsg = action.payload;
                 break;
 
             case constants.SIGNUP_REQUEST:
@@ -48,7 +47,6 @@ export default (state = initialState, action) => {
                 draft.isRegistering = false;
                 draft.isRegistered = false;
                 draft.isRegisteringFailed = true;
-                draft.errMsg = action.payload;
                 break;
 
             case constants.RESET_PWD_REQUEST:
@@ -71,8 +69,18 @@ export default (state = initialState, action) => {
             case constants.USER_LOGOUT:
                 draft.user = null;
                 draft.isAuthenticated = false;
-
                 break;
+
+            case constants.CONFIRM_USER_REQUEST:
+                draft.isLoading = true;
+                break;
+            case constants.CONFIRM_USER_SUCCESS:
+                draft.isLoading = false;
+                break;
+            case constants.CONFIRM_USER_FAILED:
+                draft.isLoading = false;
+                break;
+
             default:
                 break;
         }

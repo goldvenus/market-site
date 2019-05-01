@@ -27,6 +27,6 @@ const ThemeCardTwo = ({ story: { story_img, auth_name, auth_img, views, story_ti
       </CardFooter>
     </div>
   );
-}
+};
 
 export default ThemeCardTwo;

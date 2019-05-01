@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
-import { getUser } from './actions/app.actions';
+import { getUser } from './core/actions/user.action';
 
 import Layout from './components/Layout';
 import store from './store';

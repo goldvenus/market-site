@@ -73,10 +73,10 @@ const Layout = ({ location, error, carts, favourites, isAuthenticated }) => {
 };
 
 const mapStateToProps = store => ({
-  error: store.app.error,
-  carts: store.app.carts,
-  favourites: store.app.favourites,
-  isAuthenticated: store.app.isAuthenticated
+  error: store.user.error,
+  carts: store.cart.carts,
+  favourites: store.favourite.favourites,
+  isAuthenticated: store.user.isAuthenticated
 });
 
 export default withRouter(connect(mapStateToProps)(Layout));

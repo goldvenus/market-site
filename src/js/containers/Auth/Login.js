@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import formSerialize from "form-serialize";
 import CustomInput from '../../components/CustomInput';
 import AuthSideMenu from '../../components/AuthSideMenu';
-// import { login } from '../../../actions/app.actions';
 import { login } from '../../../core/actions/user.action';
 import { FACEBOOK_LOGIN_URL } from '../../../core/constants';
 import CustomSpinner from "../../CustomSpinner";

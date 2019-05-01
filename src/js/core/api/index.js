@@ -1,6 +1,6 @@
 import axios from "axios";
-import { API_URL, API_URL_NEW } from './constants';
-// import { handleError } from "../actions/app.actions";
+import { API_URL, API_URL_NEW } from '../constants';
+import { handleError } from "../actions/common.action";
 
 const getAPIUrl = (url) => API_URL + url;
 

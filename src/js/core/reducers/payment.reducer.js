@@ -2,43 +2,39 @@ import producer from 'immer';
 import constants from "../types";
 
 const initialState = {
-    favourites: null,
     isLoading: false,
 };
 
 export default (state = initialState, action) => {
     return producer(state, draft => {
         switch (action.type) {
-            case constants.GET_FAVOURITES_REQUEST:
+            case constants.DO_PAYMENT_REQUEST:
                 draft.isLoading = true;
                 break;
-            case constants.GET_FAVOURITES_SUCCESS:
+            case constants.DO_PAYMENT_SUCCESS:
                 draft.isLoading = false;
-                draft.favourites = action.payload;
                 break;
-            case constants.GET_FAVOURITES_FAILED:
+            case constants.DO_PAYMENT_FAILED:
                 draft.isLoading = false;
                 break;
 
-            case constants.ADD_FAVOURITE_REQUEST:
+            case constants.GET_PAID_ITEMS_REQUEST:
                 draft.isLoading = true;
                 break;
-            case constants.ADD_FAVOURITE_SUCCESS:
+            case constants.GET_PAID_ITEMS_SUCCESS:
                 draft.isLoading = false;
-                draft.favorites = [...draft.favorites, action.payload];
                 break;
-            case constants.ADD_FAVOURITE_FAILED:
+            case constants.GET_PAID_ITEMS_FAILED:
                 draft.isLoading = false;
                 break;
 
-            case constants.DELETE_FAVOURITE_REQUEST:
+            case constants.GET_PAY_CARDS_REQUEST:
                 draft.isLoading = true;
                 break;
-            case constants.ADD_FAVOURITE_FAILED:
+            case constants.GET_PAY_CARDS_SUCCESS:
                 draft.isLoading = false;
-                draft.favorites = draft.favorites.filter(item => item.gearid !== action.payload);
                 break;
-            case constants.ADD_FAVOURITE_FAILED:
+            case constants.GET_PAY_CARDS_FAILED:
                 draft.isLoading = false;
                 break;
 
@@ -46,4 +42,4 @@ export default (state = initialState, action) => {
                 break;
         }
     })
-};
+}

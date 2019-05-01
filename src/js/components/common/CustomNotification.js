@@ -1,5 +1,5 @@
 import React from 'react';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 
 
@@ -28,7 +28,6 @@ class CustomNotification extends React.Component {
 
     };
     render() {
-
         return (
             <div>
                 <NotificationContainer/>

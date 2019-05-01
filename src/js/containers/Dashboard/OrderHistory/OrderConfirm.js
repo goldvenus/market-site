@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import '@trendmicro/react-buttons/dist/react-buttons.css';
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import Modal from "react-responsive-modal";
-import { days } from "../../../actions/app.actions";
-import { getDateStr } from "../../../components/common/Functions"
-import {Link} from "react-router-dom";
+import { days, getDateStr } from "../../../core/helper"
+import { Link } from "react-router-dom";
 
 class OrderConfirm extends Component {
     constructor(props) {

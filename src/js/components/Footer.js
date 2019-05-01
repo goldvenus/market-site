@@ -149,6 +149,6 @@ class Footer extends Component {
 
 export default connect((store) => {
   return {
-    isAuthenticated: store.app.isAuthenticated
+    isAuthenticated: store.user.isAuthenticated
   };
 })(Footer);

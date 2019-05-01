@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Modal from "react-responsive-modal";
-import { getDateStr } from "../../../components/common/Functions"
+import { getDateStr } from "../../../core/helper/index"
 import { Inline } from '@zendeskgarden/react-loaders'
 
 class PeriodDeleteModal extends Component {

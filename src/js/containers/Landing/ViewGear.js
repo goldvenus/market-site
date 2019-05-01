@@ -6,7 +6,10 @@ import {
     Breadcrumb, BreadcrumbItem
 } from 'reactstrap';
 import CustomCarousel from '../../components/CustomCarousel';
-import { getGear, addCart, handleError, formatDate } from '../../actions/app.actions';
+import { getGear } from "../../core/actions/gear.action";
+import { addCart } from "../../core/actions/cart.action";
+import { handleError } from "../../core/actions/common.action";
+import { formatDate } from "../../core/helper";
 import Urllink_class from "../../components/Urllink_class";
 
 class ViewGear extends Component {

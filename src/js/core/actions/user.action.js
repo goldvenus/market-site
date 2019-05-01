@@ -1,14 +1,12 @@
-
-import constants from "../types";
 import axios from "axios";
-import { axiosConfig, tokenAxiosConfig, getAPIUrl, get, get_new, post, post_new } from '../api'
+import { axiosConfig, tokenAxiosConfig, getAPIUrl, get, get_new, post, post_new } from '../api/index'
 import { handleError, clearError } from './common.action'
-import { fetchCategories, getCarts, getFavourites } from "../../actions/app.actions";
-
+import { fetchCategories } from './category.action';
+import { getCarts } from "./cart.action";
+import { getFavourites } from "./favourite.action";
+import constants from "../types";
 import store from '../../store';
-import { ACTIONS } from "../constants";
 const dispatch = store.dispatch;
-
 
 const register = async (data) => {
     dispatch({
@@ -80,55 +78,49 @@ const logout = () => {
 };
 
 const sendResetPasswordEmail = async (data) => {
+    dispatch({
+        type: constants.RESET_PWD_REQUEST
+    });
     try {
-        dispatch({
-            type: constants.RESET_PWD_REQUEST
-        });
         let response = await post('sendCodeForgotPaswordUser', data)
         if(response && response.status === 200) {
             dispatch({
                 type: constants.RESET_PWD_SUCCESS
             });
-            return true
+            return true;
         }
-
         dispatch({
             type: constants.RESET_PWD_FAILED,
             payload: 'Something went wrong'
         });
-
-        return false
-
+        return false;
     } catch (error) {
+        dispatch({
+            type: constants.RESET_PWD_FAILED
+        });
         handleError(error);
-        return false
+        return false;
     }
-}
+};
 
 const confirmResetPassword = async (data) => {
     try {
-
         if(data.password !== data.password_new) {
             handleError('Passwords don\'t match');
-            return
+            return;
         }
 
         let response = await post('confirmForgotPasswordUser', data);
         if(response && response.status === 200) {
-            return true
+            return true;
         }
-
-        dispatch({
-            type: ACTIONS.ERROR,
-            payload: 'Something went wrong'
-        });
-
+        handleError('Something went wrong');
         return false
     } catch(error) {
         handleError(error);
         return false
     }
-}
+};
 
 const refreshToken = async () => {
     try {
@@ -148,21 +140,19 @@ const refreshToken = async () => {
 };
 
 const getUser = async () => {
+    dispatch({
+        type: constants.LOGIN_REQUEST,
+    });
     try {
         if (localStorage.accessToken) {
             const token = await refreshToken();
             if (token) {
                 let response = await get('getUserInfo');
-                dispatch({
-                    type: ACTIONS.ERROR,
-                    payload: ''
-                });
                 if (response && response.data) {
                     dispatch({
-                        type: ACTIONS.LOGGED_IN,
+                        type: constants.LOGIN_SUCCESS,
                         payload: response.data.userAttributes
                     });
-
                     getCarts();
                     getFavourites();
                     fetchCategories();
@@ -170,16 +160,67 @@ const getUser = async () => {
             }
         }
     } catch (error) {
-        // handleError(error);
+        dispatch({
+            type: constants.LOGIN_FAILED,
+        });
+        handleError(error);
+    }
+};
+
+const socialLogin = async (idToken, accessToken) => {
+    dispatch({
+        type: constants.LOGIN_REQUEST
+    });
+    try {
+        localStorage.idToken = idToken;
+        localStorage.accessToken = accessToken;
+        let response = await get_new('socialProviderTokenExchange');
+        if (response && response.data) {
+            dispatch({
+                type: constants.LOGIN_SUCCESS,
+                payload: response.data.userAttributes
+            });
+            // store the token
+            const { accessToken, idToken, refreshToken } = response.data.tokens;
+            localStorage.accessToken = accessToken;
+            localStorage.idToken = idToken;
+            localStorage.refreshToken = refreshToken;
+            return response;
+        }
+    } catch (error) {
+        dispatch({
+            type: constants.LOGIN_FAILED
+        });
+        handleError(error);
+    }
+};
+
+const confirmUser = async (username, confirmationCode) => {
+    dispatch({
+        type: constants.CONFIRM_USER_REQUEST
+    });
+    try {
+        let response = await post('confirmUser', { username, confirmationCode });
+        dispatch({
+            type: constants.CONFIRM_USER_SUCCESS
+        });
+        return response;
+    } catch (error) {
+        dispatch({
+            type: constants.CONFIRM_USER_FAILED,
+        });
+        handleError(error);
     }
 };
 
 export {
     login,
     logout,
-    register,
-    refreshToken,
     getUser,
+    register,
+    confirmUser,
+    refreshToken,
+    socialLogin,
     confirmResetPassword,
     sendResetPasswordEmail,
 }

@@ -3,14 +3,12 @@ import { connect } from 'react-redux';
 import { compose } from "redux";
 import { Link, withRouter } from 'react-router-dom';
 import { Table } from 'reactstrap';
-import { handleError, getOrderHistory } from '../../actions/app.actions';
-import { days } from "../../actions/app.actions";
-import { ToastsStore } from 'react-toasts';
+import { getOrderHistory } from '../../core/actions/dashboard.action';
+import { days, getDateStr } from "../../core/helper";
 import Rating from "react-rating"
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import OrderConfirm from "./OrderHistory/OrderConfirm"
 import OrderRating from "./OrderHistory/OrderRating"
-import {getDateStr} from "../../components/common/Functions";
 import BarLoader from "react-bar-loader";
 
 class OrderHistory extends Component {

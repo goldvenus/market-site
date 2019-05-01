@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { days, getPaidItems, handleError } from '../../actions/app.actions';
-import BarLoader from "react-bar-loader";
+import { getPaidItems } from '../../core/actions/payment.actions';
+import { days } from '../../core/helper';
+import { handleError } from '../../core/actions/common.action';
 import '@trendmicro/react-buttons/dist/react-buttons.css';
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
-import moment from "moment";
 import CustomSpinner from "../../components/CustomSpinner";
 import ItemsCarousel from "react-items-carousel";
 

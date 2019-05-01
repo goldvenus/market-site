@@ -15,17 +15,14 @@ import { DateRange } from 'react-date-range';
 import TextField from '@material-ui/core/TextField';
 import CustomCarousel from '../../components/CustomCarousel';
 import { ToastsStore } from 'react-toasts';
-import {
-    getGear,
-    addCart,
-    handleError,
-    formatDate,
-    deleteFavourite,
-    addFavourites
-} from '../../actions/app.actions';
-import CartModal from '../../components/common/CartModal'
-import CartModal1 from '../../components/common/CartModal1';
-import { calcDaysDiff, getDateStr } from "../../components/common/Functions";
+import { getGear } from "../../core/actions/gear.action";
+import { addFavourites, deleteFavourite } from "../../core/actions/favourite.action";
+import { addCart } from "../../core/actions/cart.action";
+import { handleError } from '../../core/actions/common.action';
+import { formatDate } from "../../core/helper";
+import CartModal from '../../components/common/CartModal1'
+import CartModal1 from '../../components/common/CartModal2';
+import { calcDaysDiff, getDateStr } from "../../core/helper";
 import Urllink_class from "../../components/Urllink_class";
 import { Inline } from '@zendeskgarden/react-loaders'
 

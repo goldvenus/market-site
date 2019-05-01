@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { compose } from "redux";
 import { Link, withRouter } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
-import {
-    deleteFavourite,
-    getGear,
-    handleError, addCart, formatDate
-} from '../../actions/app.actions';
-import CartModal from "../../components/common/CartModal";
-import CartModal1 from "../../components/common/CartModal1";
+import { getGear } from "../../core/actions/gear.action";
+import { deleteFavourite } from "../../core/actions/favourite.action";
+import { handleError } from "../../core/actions/common.action";
+import { addCart } from "../../core/actions/cart.action";
+import { formatDate } from "../../core/helper";
+import CartModal from "../../components/common/CartModal1";
+import CartModal1 from "../../components/common/CartModal2";
 import BarLoader from "react-bar-loader";
 import { ToastsStore } from 'react-toasts';
 import Rating from "react-rating"

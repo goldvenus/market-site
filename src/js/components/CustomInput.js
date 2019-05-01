@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
 import { Input } from 'reactstrap';
 
 class CustomInput extends Component {
@@ -49,7 +48,4 @@ class CustomInput extends Component {
   }
 }
 
-export default connect((store) => {
-  return {
-  };
-})(CustomInput);
+export default CustomInput;

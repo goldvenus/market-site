@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import '@trendmicro/react-buttons/dist/react-buttons.css';
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import Modal from "react-responsive-modal";
-import { days } from "../../../actions/app.actions";
-import { getDateStr } from "../../../components/common/Functions"
+import { getDateStr, days } from "../../../core/helper"
 import Rating from "react-rating";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class OrderRating extends Component {
     constructor(props) {

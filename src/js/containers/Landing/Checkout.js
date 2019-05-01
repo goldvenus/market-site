@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Label, ListGroup, ListGroupItem } from 'reactstrap';
-import { days, getCheckout, checkout, handleError } from '../../actions/app.actions';
+import { getCheckout, checkout } from '../../core/actions/checkout.action';
+import { days } from '../../core/helper';
 import BarLoader from "react-bar-loader";
 import TextField from "@material-ui/core/TextField";
 import Dropdown, {
@@ -14,7 +15,8 @@ import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import $ from "jquery";
 import CustomSpinner from "../../components/CustomSpinner";
 import Urllink_class from "../../components/Urllink_class";
-import { getUniqueObjectArray } from "../../components/common/Functions";
+import { getUniqueObjectArray } from "../../core/helper/index";
+import { handleError } from "../../core/actions/common.action";
 
 class Checkout extends Component {
   constructor(props) {
@@ -53,7 +55,6 @@ class Checkout extends Component {
         project_name: checkout.ProjectName
       });
     } else {
-        console.log(addr_list);
       this.setState({
         addr_list: addr_list,
         loading: false

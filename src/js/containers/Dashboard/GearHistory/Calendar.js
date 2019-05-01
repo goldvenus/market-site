@@ -3,7 +3,7 @@ import BigCalendar from "react-big-calendar";
 import moment from "moment";
 import $ from "jquery";
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { getDateStr } from "../../../components/common/Functions"
+import { getDateStr } from "../../../core/helper/index"
 import Toolbar from "@material-ui/core/Toolbar/Toolbar";
 import IconButton from "@material-ui/core/IconButton/IconButton";
 import RightArrowIcon from '@material-ui/icons/ChevronRight';
@@ -15,14 +15,11 @@ import PeriodDeleteModal from "./PeriodDeleteModal"
 import DayPicker from "react-day-picker";
 import './style.css';
 import Helmet from 'react-helmet';
-import { days } from "../../../actions/app.actions";
-import {
-    getGearRentState,
-    getListGears,
-    formatDate,
-    handleError,
-    setBlockPeriod
-} from '../../../actions/app.actions'
+import { days } from '../../../core/helper';
+import { getListGears } from "../../../core/actions/gear.action";
+import { formatDate } from "../../../core/helper";
+import { handleError } from "../../../core/actions/common.action";
+import { getGearRentState, setBlockPeriod } from '../../../core/actions/dashboard.action'
 import AboutPeriod from "./AboutPeriod";
 import BarLoader from "react-bar-loader";
 import CustomSpinner from "../../../components/CustomSpinner";

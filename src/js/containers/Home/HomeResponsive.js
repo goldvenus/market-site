@@ -2,9 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Col, Container, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import Flickity from 'react-flickity-component'
-import { fetchCategories, socialLogin } from '../../../actions/app.actions';
-import { newArrivals } from '../../../core/actions/gear.action'
+import Flickity from 'react-flickity-component';
+import { fetchCategories } from "../../core/actions/category.action";
+import { socialLogin } from '../../core/actions/user.action';
+import { newArrivals } from '../../core/actions/gear.action'
 import MaterialInputWithDropdown from '../../MaterialInputWithDropdown';
 
 import imgLogo from './images/logo.png';

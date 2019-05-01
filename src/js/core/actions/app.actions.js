@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { API_URL, API_URL_NEW, ACTIONS } from '../core/constants';
-import store from '../store';
+import { API_URL, API_URL_NEW } from '../constants';
+import store from '../../store';
 import moment from 'moment';
 
 const dispatch = store.dispatch;
@@ -254,7 +254,7 @@ const getCheckout = data => {
       reject(error);
     }
   });
-}
+};
 
 const payment = data => {
   return new Promise(async (resolve, reject) => {

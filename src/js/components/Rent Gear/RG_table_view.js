@@ -5,7 +5,7 @@ import {
   CardTitle, CardSubtitle
 } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
-import { addFavourites, deleteFavourite } from '../../actions/app.actions';
+import { addFavourites, deleteFavourite } from '../../core/actions/favourite.actions';
 
 const TableView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city, rating, pricePerDay, gearid},
                        history, favored, carted, onOpenModal }) => {
@@ -64,7 +64,7 @@ const TableView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city
 }
 
 const mapStateToProps = store => ({
-  isAuthenticated: store.app.isAuthenticated
+  isAuthenticated: store.user.isAuthenticated
 });
 
 export default connect(mapStateToProps)(withRouter(TableView));

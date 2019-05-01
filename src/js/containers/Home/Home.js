@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Form, ListGroup, ListGroupItem } from 'reactstrap';
 
-import { fetchCategories, search, newArrivals, socialLogin } from '../../actions/app.actions';
-
+import { newArrivals } from '../../core/actions/gear.action';
+import { socialLogin } from "../../core/actions/user.action";
+import { fetchCategories } from "../../core/actions/category.action";
+import { searchHome } from "../../core/actions/gear.action";
 import CustomInput from '../../components/CustomInput';
 import ThemeCardOne from '../../components/Theme-Cards/ThemeCardOne';
 import ThemeCardTwo from '../../components/Theme-Cards/ThemeCardTwo';
@@ -113,7 +115,7 @@ class Home extends Component {
     if (value) {
       const pattern = new RegExp(value, 'ig');
       const suggestions = (this.props.app.categories || []).map(cat => cat.categoryName);
-      const searchTextSuggestions = suggestions.filter((s) => s.search(pattern) > -1);
+      const searchTextSuggestions = suggestions.filter((s) => s.searchHome(pattern) > -1);
 
       this.setState({
         searchText: value,

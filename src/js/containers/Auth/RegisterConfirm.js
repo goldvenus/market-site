@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { Form } from 'reactstrap';
 import CustomInput from '../../components/CustomInput';
 import AuthSideMenu from '../../components/AuthSideMenu';
-import { handleError, confirmUser } from '../../actions/app.actions';
+import { handleError } from '../../core/actions/common.action';
+import { confirmUser } from '../../core/actions/user.action';
 
 class RegisterConfirm extends Component {
   constructor(props) {

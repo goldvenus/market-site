@@ -6,6 +6,7 @@ const initialState = {
     listGears: null,
     productList: null,
     newArrivals: null,
+    searchResults: null,
     isLoading: false,
 };
 
@@ -71,6 +72,18 @@ export default (state = initialState, action) => {
                 draft.newArrivals = null;
                 draft.isLoading = false;
                 break;
+
+            case constants.SEARCH_HOME_REQUEST:
+                draft.isLoading = true;
+                break;
+            case constants.SEARCH_HOME_SUCCESS:
+                draft.searchResult = action.payload;
+                draft.isLoading = false;
+                break;
+            case constants.SEARCH_HOME_FAILED:
+                draft.isLoading = false;
+                break;
+
             default:
                 break;
         }

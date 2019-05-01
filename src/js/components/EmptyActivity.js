@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {Link} from "react-router-dom";
+
 class EmptyActivity extends Component {
     constructor(props) {
         super(props);
@@ -35,4 +36,5 @@ class EmptyActivity extends Component {
         );
     }
 }
+
 export default EmptyActivity;

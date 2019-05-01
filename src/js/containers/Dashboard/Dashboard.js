@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, TabContent, TabPane } from 'reactstrap';
-
-import { dashboardMyListing, dashboardMyRentals, viewUserDashboard } from '../../actions/app.actions';
-
+import { dashboardMyListing, dashboardMyRentals, viewUserDashboard } from '../../core/actions/dashboard.action';
 import Head from './head';
 import Tabs from './tabs';
 import Chart from './chart';

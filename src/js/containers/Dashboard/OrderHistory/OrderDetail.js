@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import '@trendmicro/react-buttons/dist/react-buttons.css';
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
-import { days, getOrderDetail } from "../../../actions/app.actions";
-import { getDateStr } from "../../../components/common/Functions"
+import { getOrderDetail } from "../../../core/actions/dashboard.action";
+import { days, getDateStr } from "../../../core/helper"
 import CustomSpinner from "../../../components/CustomSpinner";
 import PickupConfirmModal from "./PickupConfirmModal";
 import PickupSuccessModal from "./PickupSuccessModal";

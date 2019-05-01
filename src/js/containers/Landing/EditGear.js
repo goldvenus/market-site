@@ -8,14 +8,11 @@ import Textarea from 'muicss/lib/react/textarea';
 import 'muicss/dist/css/mui.min.css';
 import Chips from 'react-chips';
 import CustomInput from '../../CustomInput';
-import { getGear } from '../../../core/actions/gear.action'
-import {
-    handleError,
-    addCart,
-    formatDate,
-    readFileData,
-    fetchCategories,
-} from '../../../actions/app.actions';
+import { getGear } from '../../core/actions/gear.action'
+import { handleError, readFileData } from "../../core/actions/common.action";
+import { addCart } from "../../core/actions/cart.action";
+import { formatDate } from "../../core/helper";
+import { fetchCategories } from '../../core/actions/category.action';
 import BarLoader from "react-bar-loader";
 import Urllink_class from "../../Urllink_class";
 

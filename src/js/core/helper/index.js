@@ -1,16 +1,22 @@
 import moment from "moment";
 
-export const calcDaysDiff = (date1, date2) => {
+const calcDaysDiff = (date1, date2) => {
   if (date1 === null || date2 === null || date1 === undefined || date2 === undefined) return 0;
   let timeDiff = Math.abs(date2.getTime() - date1.getTime());
   return Math.ceil(timeDiff / (1000 * 3600 * 24));
 };
 
-export const getDateStr = date_obj => {
+const getDateStr = date_obj => {
     return date_obj && moment(date_obj).format('DD.MM.YYYY');
 };
 
-export const getUniqueObjectArray = obj_arr => {
+const formatDate = (date) => {
+    return date && moment(date).format('YYYY-MM-DD');
+};
+
+const days = (d1, d2) => { return moment(d2).diff(moment(d1), 'days') + 1; };
+
+const getUniqueObjectArray = obj_arr => {
     return obj_arr.filter((thing, index) => {
         return index === obj_arr.findIndex(obj => {
             return JSON.stringify(obj) === JSON.stringify(thing);
@@ -18,7 +24,7 @@ export const getUniqueObjectArray = obj_arr => {
     })
 };
 
-export const validateCard = value => {
+const validateCard = value => {
     var value = value.replace(/\D/g, '');
     var sum = 0;
     var shouldDouble = false;
@@ -49,7 +55,7 @@ export const validateCard = value => {
     return valid && accepted;
 };
 
-export const cc_format = value => {
+const cc_format = value => {
     var v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '')
     var matches = v.match(/\d{4,16}/g);
     var match = matches && matches[0] || ''
@@ -66,6 +72,11 @@ export const cc_format = value => {
     }
 };
 
-export const checkDigitSpace = value => {
+const checkDigitSpace = value => {
     return /^[\d,' ']*$/.test(value);
 };
+
+export {
+    calcDaysDiff, getDateStr, formatDate, days, getUniqueObjectArray,
+    validateCard, cc_format, checkDigitSpace
+}

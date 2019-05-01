@@ -8,7 +8,9 @@ import {
 import Chips from 'react-chips';
 import CustomInput from '../../components/CustomInput';
 import CustomCarousel from '../../components/CustomCarousel';
-import { handleError, readFileData, addGear, fetchCategories } from '../../actions/app.actions';
+import { handleError, readFileData } from '../../core/actions/common.action';
+import { addGear } from '../../core/actions/gear.action';
+import { fetchCategories } from "../../core/actions/category.action";
 import Textarea from "muicss/lib/react/textarea";
 import Urllink_class from "../../components/Urllink_class";
 import CustomSpinner from "../../components/CustomSpinner";
