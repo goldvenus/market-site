@@ -5,39 +5,45 @@ import Main from '../../components/Rent Gear/RG_main';
 import Urllink_class from "../../components/Urllink_class";
 import connect from "react-redux/es/connect/connect";
 import BarLoader from "react-bar-loader";
+import { fetchCategories } from "../../core/actions/category.action";
 
-const RentGear = (props) => {
-  let { categories } = props;
-  let category = props.match.params.id;
-
-  if (!categories || !categories.length) {
-    return <BarLoader color="#F82462" height="5"/>;
+class RentGear extends React.Component {
+  constructor(props) {
+    super(props);
+    fetchCategories();
   }
 
-  categories = categories.reduce((arr, item) => arr.concat(item.categoryName), []);
-  if (category === undefined) {
-    props.history.push('/rentgear/'+categories[0]);
-    return null;
-  }
+  render() {
+    let {categories, isLoading} = this.props;
+    let category = this.props.match.params.id;
+    if (isLoading) {
+      return <BarLoader color="#F82462" height="5"/>;
+    }
 
-  return (
-    <div className="rent-gear">
-      <div className="rent-gear-head">
-        <Container>
-          <Row>
-            <Col >
-              <Breadcrumb >
-              <Urllink_class name="Home Page"></Urllink_class>
+    categories = categories.reduce((arr, item) => arr.concat(item.categoryName), []);
+    if (category === undefined) {
+      this.props.history.push('/rentgear/' + categories[0]);
+      return null;
+    }
+
+    return (
+      <div className="rent-gear">
+        <div className="rent-gear-head">
+          <Container>
+            <Row>
+              <Col>
+                <Breadcrumb>
+                  <Urllink_class name="Home Page"></Urllink_class>
                   <span className="space_slash_span">/</span>
-                <BreadcrumbItem active>Rent Gear </BreadcrumbItem>
-              </Breadcrumb>
-              <div className="d-flex align-items-center">
-                <h2 className="theme-page-title rent-gear-title">Rent Gear</h2>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-      </div>
+                  <BreadcrumbItem active>Rent Gear </BreadcrumbItem>
+                </Breadcrumb>
+                <div className="d-flex align-items-center">
+                  <h2 className="theme-page-title rent-gear-title">Rent Gear</h2>
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        </div>
       <div className="rent-gear-body">
         <Container>
           <Row>
@@ -53,12 +59,14 @@ const RentGear = (props) => {
           </Row>
         </Container>
       </div>
-    </div>
-  );
+      </div>
+    )
+  }
 };
 
 export default connect(state => {
   return {
-    categories: state.category.categories
+    categories: state.category.categories,
+    isLoading: state.category.isLoading
   };
 })(RentGear);

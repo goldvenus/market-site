@@ -1,7 +1,6 @@
 import axios from "axios";
 import { axiosConfig, tokenAxiosConfig, getAPIUrl, get, get_new, post, post_new } from '../api/index'
 import { handleError, clearError } from './common.action'
-import { fetchCategories } from './category.action';
 import { getCarts } from "./cart.action";
 import { getFavourites } from "./favourite.action";
 import constants from "../types";
@@ -148,7 +147,6 @@ const getUser = async () => {
                 if (response && response.data) {
                     getCarts();
                     getFavourites();
-                    fetchCategories();
                 }
             }
         }

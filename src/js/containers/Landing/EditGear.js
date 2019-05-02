@@ -95,7 +95,6 @@ class EditGear extends Component {
     }
     componentDidMount() {
         fetchCategories();
-
     }
     changeCategory(e) {
         this.setState({ categoryName: e.target.textContent });
