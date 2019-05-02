@@ -9,6 +9,7 @@ import AccountDetail from './account_detail';
 import MyListings from './GearHistory';
 import MyRental from './rental';
 import OrderHistory from './OrderHistory'
+import BarLoader from "react-bar-loader";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -35,11 +36,14 @@ class Dashboard extends Component {
   }
 
   render() {
-    const Rental_Items = this.props.userRentals.Items;
-    const Listing_Items = this.props.userListings.Items;
+    const Rental_Items = this.props.userRentals;
+    const Listing_Items = this.props.userListings;
     const { user, isAuthenticated, dashboard } = this.props;
     let series;
 
+    if (!Rental_Items || !Listing_Items) {
+      return <BarLoader color="#F82462" height="5"/>;
+    }
     if (dashboard && dashboard.monthlyTotalEarning) {
       series = {
         totalEarnings: dashboard.monthlyTotalEarning,
@@ -85,9 +89,9 @@ class Dashboard extends Component {
 const mapStateToProps = state => ({
   userListings: state.dashboard.userListings,
   userRentals: state.dashboard.userRentals,
+  dashboard: state.dashboard.dashboard,
   user: state.user.user,
   isAuthenticated: state.user.isAuthenticated,
-  dashboard: state.dashboard.dashboard,
 });
 
 export default connect(mapStateToProps)(Dashboard);

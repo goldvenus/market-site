@@ -34,7 +34,7 @@ const dashboardMyListing = async () => {
         if (response && response.data) {
             dispatch({
                 type: constants.GET_MY_LISTINGS_SUCCESS,
-                payload: response.data
+                payload: response.data.Items
             });
         }
     } catch (error) {
@@ -53,7 +53,7 @@ const dashboardMyRentals = async () => {
         let response = await get('userDashboardRentalProductList');
         dispatch({
             type: constants.GET_MY_RENTALS_SUCCESS,
-            payload: response.data
+            payload: response.data.Items
         });
     } catch (error) {
         dispatch({

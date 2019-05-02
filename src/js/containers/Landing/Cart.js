@@ -123,8 +123,8 @@ class Cart extends Component {
   }
 
   render() {
-  const { carts } = this.props;
-    if (!carts) {
+  const { carts, isLoading } = this.props;
+    if (isLoading) {
       return <BarLoader color="#F82462" height="5" />;
     }
 
@@ -179,7 +179,8 @@ class Cart extends Component {
 }
 
 const mapStateToProps = state => ({
-  carts: state.cart.carts
+  carts: state.cart.carts,
+  isLoading: state.cart.isLoading
 });
 
 export default connect(mapStateToProps)(Cart);

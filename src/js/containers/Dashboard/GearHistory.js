@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { Pagination, PaginationItem, PaginationLink, Table } from 'reactstrap';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import "react-tabs/style/react-tabs.css";
-import moment from 'moment';
 import EmpetyList from './Empety_list'
 import { getListGears } from '../../core/actions/gear.action';
 import connect from "react-redux/es/connect/connect";
@@ -63,18 +62,14 @@ const MyListingItem = ({ listItem, showdialog , gearkey}) => (
          <div className="gear_history_next_btn" onClick={() => showdialog(gearkey)}/>
      </td>
   </tr>
-)
-
-const days = (d1, d2) => { return moment(d2).diff(moment(d1) , 'days')};
+);
 
 class MyListings extends React.Component {
   constructor(props) {
-
     super(props);
     // Data set of random length
     this.pageSize = 3;
     this.pagesCount = 0;
-
     this.state = {
       currentPage: 0,
       openGearHistoryVisible: false,
@@ -83,29 +78,27 @@ class MyListings extends React.Component {
     getListGears();
   }
   handleClick(e, index) {
-
     e.preventDefault();
-
     this.setState({
       currentPage: index
     });
-
   }
   showHistoryItemDialog =(key) => {
       this.setState({openGearHistoryVisible: true, openGearDialogKey: key});
-  }
+  };
   hideHistoryItemDialog = () => {
       this.setState({openGearHistoryVisible: false});
-  }
+  };
 
   render() {
     const { currentPage} = this.state;
     const { list } = this.props;
-    if (!list) {
-      return <BarLoader color="#F82462" height="5"/>;
-    }
+    // if (isLoading) {
+    //   return <BarLoader color="#F82462" height="5"/>;
+    // }
 
-      this.pagesCount = Math.ceil(list ? list.length / this.pageSize : "");
+    this.pagesCount = Math.ceil(list ? list.length / this.pageSize : "");
+
     return (
         <div>
             <Row className="my-listing my-listing-tabs gear-history-top-panel">
@@ -191,14 +184,15 @@ class MyListings extends React.Component {
         </Tabs>
         </Col>
       </Row >
-            <History_dialog info = {list[this.state.openGearDialogKey]} open = {this.state.openGearHistoryVisible} close = {this.hideHistoryItemDialog}/>
-        </div>
+      <History_dialog info = {list[this.state.openGearDialogKey]} open = {this.state.openGearHistoryVisible} close = {this.hideHistoryItemDialog}/>
+    </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
-  list: state.app.listGears
+  // list: state.gear.listGears,
+  // isLoading: state.gear.isLoading
 });
 
 export default connect(mapStateToProps)(MyListings);

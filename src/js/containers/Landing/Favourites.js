@@ -96,7 +96,7 @@ class Favourites extends Component {
     const { ratingstate } = this.state;
 
     return (
-      favourites.Items.map((listItem, index) => (
+      favourites.map((listItem, index) => (
         <tr key={`cart-item-${index}`}>
           <td width="10%">{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
             src={listItem.numberOfUserImage[0]} alt='' className="gear-img"/> : null}</td>
@@ -138,7 +138,7 @@ class Favourites extends Component {
   renderFavouritesItems_md() {
     const { favourites } = this.props;
     return (
-        favourites.Items.map((listItem, index) => (
+        favourites.map((listItem, index) => (
             <div key={`cart-item-${index}`} className="d-lg-none d-sm-none d-md-block favo_table_root">
                 <div className="sm_favor_table">
                     <div className="sm_favor_img d-md-flex d-none">{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
@@ -219,7 +219,7 @@ class Favourites extends Component {
             </div>
           <div className="cart-table-div">
             {
-              !favourites.Items.length ?
+              !favourites.length ?
                 (<EmptyActivity e_name="  Cart  " e_path="/cart" e_title="THE ITEMS YOU LIKE APPEAR HERE" e_img_name = "favouri"/>
               ) :(
                 <Table className="theme-table table">
