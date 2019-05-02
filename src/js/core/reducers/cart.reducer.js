@@ -4,6 +4,7 @@ import constants from "../types";
 const initialState = {
     carts: null,
     isLoading: false,
+    isDeleting: false
 };
 
 export default (state = initialState, action) => {
@@ -32,14 +33,14 @@ export default (state = initialState, action) => {
                 break;
 
             case constants.DELETE_CART_ITEM_REQUEST:
-                draft.isLoading = true;
+                draft.isDeleting = true;
                 break;
             case constants.DELETE_CART_ITEM_SUCCESS:
                 draft.carts = draft.carts.filter(item => item.gearid !== action.payload);
-                draft.isLoading = false;
+                draft.isDeleting = false;
                 break;
             case constants.DELETE_CART_ITEM_FAILED:
-                draft.isLoading = false;
+                draft.isDeleting = false;
                 break;
 
             default:

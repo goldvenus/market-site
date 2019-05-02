@@ -1,6 +1,6 @@
 import axios from "axios";
-import { axiosConfig, tokenAxiosConfig, getAPIUrl, get, get_new, post, post_new } from '../api/index'
-import { handleError, clearError } from './common.action'
+import { tokenAxiosConfig, getAPIUrl, get, post} from '../api'
+import { handleError, handleInfo } from './common.action'
 import { getCarts } from "./cart.action";
 import { getFavourites } from "./favourite.action";
 import constants from "../types";
@@ -14,21 +14,24 @@ const register = async (data) => {
     return new Promise(async (resolve, reject) => {
         try {
             let response = await post('signup', data);
-            if (response) {
+            if (response.status === 'success') {
                 dispatch({
                     type: constants.SIGNUP_SUCCESS
                 });
+                handleInfo('You were registered successfully');
             } else {
                 dispatch({
                     type: constants.SIGNUP_FAILED
                 });
+                handleError(response.errMsg);
             }
             resolve(response);
         } catch (error) {
+            console.log(error);
             dispatch({
-                type: constants.SIGNUP_FAILED,
-                payload: error
+                type: constants.SIGNUP_FAILED
             });
+            handleError(error);
             reject(error);
         }
     });
@@ -45,6 +48,7 @@ const login = async (data) => {
                 type: constants.LOGIN_SUCCESS,
                 payload: response.data.userAttributes
             });
+            handleInfo("Welcome to our site!");
 
             // store the token
             const { accessToken, idToken, refreshToken } = response.data.tokens;
@@ -56,11 +60,11 @@ const login = async (data) => {
             return response;
         }
     } catch (error) {
-        console.log("LOGLIN_ERROR: ", error);
         dispatch({
             type: constants.LOGIN_FAILED,
             payload: error
         });
+        handleError(error+"askdjfwjfaksjdkf");
     }
 };
 
@@ -162,12 +166,13 @@ const socialLogin = async (idToken, accessToken) => {
     try {
         localStorage.idToken = idToken;
         localStorage.accessToken = accessToken;
-        let response = await get_new('socialProviderTokenExchange');
+        let response = await get('socialProviderTokenExchange');
         if (response && response.data) {
             dispatch({
                 type: constants.LOGIN_SUCCESS,
                 payload: response.data.userAttributes
             });
+            handleInfo("Welcome to our site!");
             // store the token
             const { accessToken, idToken, refreshToken } = response.data.tokens;
             localStorage.accessToken = accessToken;

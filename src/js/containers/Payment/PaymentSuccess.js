@@ -38,7 +38,6 @@ class Payment extends Component {
   getUserPaidItems = async (param) => {
     try {
       const ret = await getPaidItems(param);
-      console.log(ret.sold_items);
       const pay_info =  ret.pay_info;
       const items = ret.sold_items;
       const buyer_info = ret.buyer_info;
@@ -69,7 +68,6 @@ class Payment extends Component {
       <div className="paid-items">
         {
           items.map((listItem, index) => {
-              console.log(listItem.type);
             const d = days(listItem.startDate, listItem.endDate);
             return <div key={`cart-item-${index}`} className="paid-item">
               <div className='item-info'>

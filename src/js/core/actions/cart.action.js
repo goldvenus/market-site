@@ -1,5 +1,5 @@
 import constants  from "../types";
-import { handleError } from "./common.action";
+import { handleError, handleInfo } from "./common.action";
 import { get, post } from "../api/index";
 import store from '../../store';
 const dispatch = store.dispatch;
@@ -16,6 +16,7 @@ const addCart = (data) => {
                     type: constants.ADD_TO_CART_SUCCESS,
                     payload: response.data.data
                 });
+                handleInfo('Gear was added to cart');
             }
             resolve(response.data);
         } catch (error) {
@@ -36,7 +37,7 @@ const getCarts = async () => {
         let response = await get('viewUserCart');
         dispatch({
             type: constants.GET_CARTS_SUCCESS,
-            payload: response
+            payload: response.data
         });
     } catch (error) {
         dispatch({
@@ -58,8 +59,10 @@ const deleteCartItem = async (data) => {
                     type: constants.DELETE_CART_ITEM_SUCCESS,
                     payload: data.gearid
                 });
+                handleInfo('Gear was removed from cart');
             } else {
                 resolve(false);
+                handleError('Gear was not removed');
             }
         } catch (error) {
             handleError(error);

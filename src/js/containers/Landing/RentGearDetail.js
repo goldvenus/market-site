@@ -14,7 +14,6 @@ import 'react-date-range/dist/theme/default.css';
 import { DateRange } from 'react-date-range';
 import TextField from '@material-ui/core/TextField';
 import CustomCarousel from '../../components/CustomCarousel';
-import { ToastsStore } from 'react-toasts';
 import { getGear } from "../../core/actions/gear.action";
 import { addFavourites, deleteFavourite } from "../../core/actions/favourite.action";
 import { addCart } from "../../core/actions/cart.action";
@@ -65,21 +64,15 @@ class RentGearDetail extends Component {
             const { startDate, endDate } = this.state;
             const { gear } = this.props;
             if (startDate && endDate) {
-                let res = await addCart({
+                await addCart({
                     gearid: gear.gearid,
                     userid: gear.userid,
                     startDate: formatDate(startDate),
                     endDate: formatDate(endDate)
                 });
-
-                if (res.status === 'success') {
-                    ToastsStore.info('Gear was added to cart!');
-                } else {
-                    ToastsStore.error('Gear was not added to cart!');
-                }
             }
         } catch {
-            ToastsStore.error('Gear was not added to cart!');
+            handleError('Gear was not added to cart!');
         }
     }
 
@@ -275,14 +268,14 @@ class RentGearDetail extends Component {
         const carted_item = gearid && carts && carts.length > 0 ?
             carts.filter(item => item.gearid === gearid) : 0;
         const carted = carted_item ? carted_item.length : false;
-        const favored = gearid && favourites && favourites.Count > 0 ?
-            favourites.Items.filter(item => item.gearid === gearid).length : 0;
+        const favored = gearid && favourites > 0 ?
+            favourites.filter(item => item.gearid === gearid).length : 0;
         // description
         const is_first_enter = this.state.descp.length === 0;
         const is_view_more = description.length > 250;
         let descp = is_first_enter ? (is_view_more ? `${description.substr(0, 250)} ...` : description) :
             this.state.show_view_more ? `${description.substr(0, 250)} ...` : description;
-        const listGears = favourites.Items;
+        const listGears = favourites;
         const selectionRange = {
             startDate: this.state.startDate,
             endDate: this.state.endDate,
@@ -653,7 +646,6 @@ class RentGearDetail extends Component {
 
 const mapStateToProps = state => ({
     gear: state.gear.gear,
-    listGears: state.gear.allGears,
     user: state.user.user,
     carts: state.cart.carts,
     favourites: state.favourite.favourites

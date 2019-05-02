@@ -1,6 +1,5 @@
 import axios from "axios";
-import { API_URL, API_URL_NEW } from '../constants';
-// import { handleError } from "../actions/common.action";
+import { API_URL } from '../constants';
 
 const getAPIUrl = (url) => API_URL + url;
 
@@ -51,22 +50,8 @@ const get = async (url) => {
         });
 };
 
-const get_new = async (url) => {
-    return await axios.get(API_URL_NEW + url, axiosConfig()).then((res) => res)
-        .catch(err => {
-            //handleError(err.response && err.response.data.errorMessage)
-        });
-};
-
 const post = async (url, data) => {
     return axios.post(getAPIUrl(url), data, axiosConfig()).then((res) => res)
-        .catch(err => {
-            // handleError(err.response.data.errorMessage);
-        });
-};
-
-const post_new = async (url, data) => {
-    return axios.post(API_URL_NEW + url, data, axiosConfig()).then((res) => res)
         .catch(err => {
             // handleError(err.response.data.errorMessage);
         });
@@ -80,5 +65,5 @@ const post_new = async (url, data) => {
 // }
 
 export {
-    getAPIUrl, axiosConfig, tokenAxiosConfig, get, get_new, post, post_new
+    getAPIUrl, axiosConfig, tokenAxiosConfig, get, post
 }

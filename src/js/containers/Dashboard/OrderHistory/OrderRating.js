@@ -33,7 +33,6 @@ class OrderRating extends Component {
                                 const pick_status = 1*listItem.PickStatus;
                                 const btn_label1 = pick_status < 1 ? "CONFIRM PICKUP" : "PICKUP CONFIRMED";
                                 const btn_label2 = "CONFIRM RETURN";
-                                console.log(listItem);
 
                                 return <div key={`cart-item-${index}`} className="paid-item">
                                     <div className='pay-info pay-info-history'>

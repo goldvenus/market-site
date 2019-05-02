@@ -2,6 +2,20 @@ import constants from '../types';
 import store from "../../store";
 const dispatch = store.dispatch;
 
+const handleInfo = (info) => {
+    dispatch({
+        type: constants.INFO,
+        payload: info
+    });
+};
+
+const clearInfo = (info) => {
+    dispatch({
+        type: constants.CLEAR_INFO,
+        payload: info
+    });
+};
+
 const handleError = (error) => {
     dispatch({
         type: constants.ERROR,
@@ -33,5 +47,5 @@ const readFileData = (event) => {
 };
 
 export {
-    handleError, clearError, readFileData
+    handleError, clearError, readFileData, handleInfo, clearInfo
 }

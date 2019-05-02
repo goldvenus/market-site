@@ -1,6 +1,6 @@
 import constants from "../types";
 import { handleError } from "./common.action";
-import { post, post_new, get, get_new } from "../api/index";
+import { post, get} from "../api/index";
 import store from '../../store';
 const dispatch = store.dispatch;
 
@@ -14,15 +14,21 @@ const addGear = async (data) => {
 };
 
 const getGear = async (gearid) => {
+    dispatch({
+        type: constants.GET_GEAR_REQUEST
+    });
     return new Promise(async (resolve, reject) => {
         try {
             let response = await post('viewAddedGearItem', { gearid });
             dispatch({
-                type: constants.GEAR,
+                type: constants.GET_GEAR_SUCCESS,
                 payload: response.data[0]
             });
             resolve(response);
         } catch (error) {
+            dispatch({
+                type: constants.GET_GEAR_FAILED
+            });
             handleError(error);
             reject(error);
         }
@@ -35,7 +41,6 @@ const getListGears = async () => {
     });
     try {
         let response = await get('viewUserGearList');
-        console.log("=========>>", response);
         if (response && response.data) {
             dispatch({
                 type: constants.LIST_GEARS_SUCCESS,
@@ -68,7 +73,7 @@ const rentGearProductList = async (catDetail) => {
 
 const newArrivals = async () => {
     try {
-        let response = await get_new('viewNewArrivalGears');
+        let response = await get('viewNewArrivalGears');
 
         if (response) {
             dispatch({
@@ -82,19 +87,23 @@ const newArrivals = async () => {
 };
 
 const deleteGear = async (data) => {
+    dispatch({
+        type: constants.DELETE_GEAR_REQUEST
+    });
     return new Promise(async (resolve) => {
         try {
-            let response = await post_new('deleteUserGear', data);
+            let response = await post('deleteUserGear', data);
             if (response) {
                 dispatch({
-                    type: constants.DELETE_GEAR,
+                    type: constants.DELETE_GEAR_SUCCESS,
                     payload: data.gearid
                 });
                 resolve(response.status);
-            } else {
-
             }
         } catch (error) {
+            dispatch({
+                type: constants.DELETE_GEAR_FAILED
+            });
             handleError(error);
         }
     });
@@ -105,7 +114,7 @@ const searchHome = async (brand, product_region) => {
         type: constants.SEARCH_HOME_REQUEST
     });
     try {
-        let response = await post_new('showHomePageSearch', {
+        let response = await post('showHomePageSearch', {
             brand,
             product_region
         });

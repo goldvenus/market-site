@@ -6,11 +6,10 @@ import routes from '../routes';
 import Header from './Header';
 import Footer from './Footer';
 import { CartIcon, HeartIcon } from './common/IconComponent';
-import { ToastsContainer, ToastsStore, ToastsContainerPosition } from "react-toasts";
 import { createNotification } from "./common/CustomNotification";
 import CustomNotification from "./common/CustomNotification";
 
-const Layout = ({ location, error, carts, favourites, isAuthenticated }) => {
+const Layout = ({ location, error, info, carts, favourites, isAuthenticated }) => {
   const showHeader = ['/login', '/register', '/forgotpassword', '/confirm'].indexOf(location.pathname) === -1;
 
   let output = null
@@ -36,8 +35,8 @@ const Layout = ({ location, error, carts, favourites, isAuthenticated }) => {
             <HeartIcon/>
           </div>
           <span className="sidebar-item__title">FAVORITES</span>
-          {!!(favourites && favourites.Items && favourites.Items.length > 0) &&
-          <span className="sidebar-item__badge">{favourites.Items.length}</span>
+          {!!(favourites && favourites.length > 0) &&
+          <span className="sidebar-item__badge">{favourites.length}</span>
           }
           <div className="sidebar-item__bg"/>
         </div>
@@ -59,21 +58,18 @@ const Layout = ({ location, error, carts, favourites, isAuthenticated }) => {
 
       {!!error && (
          <CustomNotification info = "error" title = {String(error)}/>
-
-        // <div className="alert alert-danger app-error" role="alert">
-        //   <div className="app-error-text">{String(error)}</div>
-        //   <div className="app-error-close" onClick={clearError}>X</div>
-        // </div>
       )}
 
-
-      <ToastsContainer store={ToastsStore} position={ToastsContainerPosition.TOP_RIGHT}/>
+      {!!info && (
+        <CustomNotification info = "info" title = {String(info)}/>
+      )}
     </React.Fragment>
   );
 };
 
 const mapStateToProps = store => ({
-  error: store.common.error,
+  error: store.common.errorMsg,
+  info: store.common.infoMsg,
   carts: store.cart.carts,
   favourites: store.favourite.favourites,
   isAuthenticated: store.user.isAuthenticated

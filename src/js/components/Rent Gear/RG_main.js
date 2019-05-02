@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import CustomInput from '../CustomInput';
 import { Row, Col, Form, TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
-import { ToastsStore } from 'react-toasts';
 import classnames from 'classnames';
 import CardView from './RG_card_view';
 import ListView from './RG_list_view';
@@ -13,6 +12,7 @@ import { formatDate } from '../../core/helper'
 import CartModal1 from "../common/CartModal2";
 import CartModal from "../common/CartModal1";
 import Loader from 'react-loader-spinner'
+import { handleError } from "../../core/actions/common.action";
 
 class Main extends Component {
   constructor(props) {
@@ -101,17 +101,12 @@ class Main extends Component {
           endDate: formatDate(endDate)
         });
 
-        if (res.status === 'success') {
-          ToastsStore.info("Gear was added to cart!");
-        } else {
-          ToastsStore.error(res.errorMessage);
-        }
         this.setState({
           modal_open_st: 0
         });
       }
     } catch {
-      ToastsStore.error("Gear was not added to cart!");
+      handleError("Gear was not added to cart!");
     }
   };
 
@@ -139,7 +134,6 @@ class Main extends Component {
     const { carts, favourites } = this.props;
     const favored = gearid && favourites && favourites.Count > 0 ?
       favourites.Items.filter(item => item.gearid === gearid).length : 0;
-    console.log(carts);
     const carted = gearid && carts && carts.length > 0 ?
       carts.filter(item => item.gearid === gearid).length : 0;
     return { carted, favored };

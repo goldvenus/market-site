@@ -1,16 +1,16 @@
-import axios from "axios";
 import constants from '../types'
 import { API_URL } from "../constants";
 import { handleError } from "./common.action";
+import { get } from "../api"
 import store from '../../store';
 const dispatch = store.dispatch;
 
-const fetchCategories = () => {
+const fetchCategories = async () => {
   dispatch({
     type: constants.GET_CATEGORIES_REQUEST,
   });
   try {
-    let response = axios.get(API_URL + 'getAllProductsCategory');
+    let response = await get('getAllProductsCategory');
     dispatch({
       type: constants.GET_CATEGORIES_SUCCESS,
       payload: response.data
