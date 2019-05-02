@@ -34,11 +34,11 @@ export default (state = initialState, action) => {
             case constants.DELETE_FAVOURITE_REQUEST:
                 draft.isLoading = true;
                 break;
-            case constants.ADD_FAVOURITE_FAILED:
+            case constants.DELETE_FAVOURITE_SUCCESS:
                 draft.isLoading = false;
                 draft.favorites = draft.favorites.filter(item => item.gearid !== action.payload);
                 break;
-            case constants.ADD_FAVOURITE_FAILED:
+            case constants.DELETE_FAVOURITE_FAILED:
                 draft.isLoading = false;
                 break;
 

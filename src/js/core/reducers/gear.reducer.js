@@ -33,7 +33,6 @@ export default (state = initialState, action) => {
                 break;
             case constants.LIST_GEARS_FAILED:
                 draft.isLoading = false;
-                draft.listGears = null;
                 break;
 
             case constants.GET_GEAR_REQUEST:

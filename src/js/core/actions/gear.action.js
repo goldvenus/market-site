@@ -30,20 +30,31 @@ const getGear = async (gearid) => {
 };
 
 const getListGears = async () => {
+    dispatch({
+        type: constants.LIST_GEARS_REQUEST
+    });
     try {
         let response = await get('viewUserGearList');
+        console.log("=========>>", response);
         if (response && response.data) {
             dispatch({
-                type: constants.LIST_GEARS,
+                type: constants.LIST_GEARS_SUCCESS,
                 payload: response.data.Items
             });
         }
     } catch (error) {
+        dispatch({
+            type: constants.LIST_GEARS_FAILED
+        });
         handleError(error);
     }
 };
 
 const rentGearProductList = async (catDetail) => {
+    // dispatch({
+    //     type: constants.LIST_GEARS_REQUEST
+    // });
+
     return new Promise(async (resolve, reject) => {
         try {
             let response = await post('showRentGearProductsList', catDetail);

@@ -32,7 +32,7 @@ const getFavourites = async () => {
         if (response) {
             dispatch({
                 type: constants.GET_FAVOURITES_SUCCESS,
-                payload: response.data
+                payload: response.data.Items
             });
         }
     } catch (error) {

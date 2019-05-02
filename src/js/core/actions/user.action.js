@@ -140,19 +140,12 @@ const refreshToken = async () => {
 };
 
 const getUser = async () => {
-    dispatch({
-        type: constants.LOGIN_REQUEST,
-    });
     try {
         if (localStorage.accessToken) {
             const token = await refreshToken();
             if (token) {
                 let response = await get('getUserInfo');
                 if (response && response.data) {
-                    dispatch({
-                        type: constants.LOGIN_SUCCESS,
-                        payload: response.data.userAttributes
-                    });
                     getCarts();
                     getFavourites();
                     fetchCategories();
@@ -160,9 +153,6 @@ const getUser = async () => {
             }
         }
     } catch (error) {
-        dispatch({
-            type: constants.LOGIN_FAILED,
-        });
         handleError(error);
     }
 };

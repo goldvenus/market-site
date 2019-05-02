@@ -99,17 +99,16 @@ export default class MyRentals extends React.Component {
 
 
   }
+
   handleClick(e, index) {
     e.preventDefault();
     this.setState({
       currentPage: index
     });
-
   }
   
   render() {
     const { list } = this.props;
-    console.log(list);
     const { currentPage } = this.state;
 
     this.pagesCount = Math.ceil(list ? list.length / this.pageSize : "");
