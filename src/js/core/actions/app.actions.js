@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_URL, API_URL_NEW } from '../constants';
+import { API_URL } from '../constants';
 import store from '../../store';
 import moment from 'moment';
 
@@ -68,22 +68,8 @@ const get = async (url) => {
     });
 };
 
-const get_new = async (url) => {
-  return await axios.get(API_URL_NEW + url, axiosConfig()).then((res) => res)
-    .catch(err => {
-      //handleError(err.response && err.response.data.errorMessage)
-    });
-};
-
 const post = async (url, data) => {
   return axios.post(getAPIUrl(url), data, axiosConfig()).then((res) => res)
-    .catch(err => {
-      handleError(err.response.data.errorMessage);
-    });
-};
-
-const post_new = async (url, data) => {
-  return axios.post(API_URL_NEW + url, data, axiosConfig()).then((res) => res)
     .catch(err => {
       handleError(err.response.data.errorMessage);
     });
@@ -392,7 +378,7 @@ const confirmUser = async (username, confirmationCode) => {
 
 const search = async (brand, product_region) => {
   try {
-    let response = await post_new('showHomePageSearch', {
+    let response = await post('showHomePageSearch', {
       brand,
       product_region
     });
@@ -410,7 +396,7 @@ const search = async (brand, product_region) => {
 
 const addFavourites = async (data) => {
   try {
-    let response = await post_new('addUserFavouriteGear', data);
+    let response = await post('addUserFavouriteGear', data);
 
     // here must be some code for state change
     return response;
@@ -421,7 +407,7 @@ const addFavourites = async (data) => {
 
 const getFavourites = async () => {
   try {
-    let response = await get_new('viewUserFavouriteGear');
+    let response = await get('viewUserFavouriteGear');
     if (response) {
       dispatch({
         type: ACTIONS.FAVOURITES,
@@ -451,7 +437,7 @@ const viewUserDashboard = async () => {
 const deleteFavourite = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let response = await post_new('deleteUserFavouriteGear', data);
+      let response = await post('deleteUserFavouriteGear', data);
       if (response.data.status === 'success') {
         dispatch({
           type: ACTIONS.DELETE_FAVOR_ITEM,
@@ -468,7 +454,7 @@ const deleteFavourite = async (data) => {
 
 const newArrivals = async () => {
   try {
-    let response = await get_new('viewNewArrivalGears');
+    let response = await get('viewNewArrivalGears');
 
     if (response) {
       dispatch({
@@ -502,7 +488,7 @@ const deleteCartItem = async (data) => {
 const deleteGear = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let response = await post_new('deleteUserGear', data);
+      let response = await post('deleteUserGear', data);
       if (response) {
         dispatch({
           type: ACTIONS.DELETE_GEAR,
@@ -523,7 +509,7 @@ const socialLogin = async (idToken, accessToken) => {
     localStorage.idToken = idToken;
     localStorage.accessToken = accessToken;
 
-    let response = await get_new('socialProviderTokenExchange');
+    let response = await get('socialProviderTokenExchange');
 
     if (response && response.data) {
       dispatch({

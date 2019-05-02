@@ -1,5 +1,5 @@
 import axios from "axios";
-import { axiosConfig, tokenAxiosConfig, getAPIUrl, get, get_new, post, post_new } from '../api/index'
+import { axiosConfig, tokenAxiosConfig, getAPIUrl, get, post} from '../api/index'
 import { handleError, clearError } from './common.action'
 import { fetchCategories } from './category.action';
 import { getCarts } from "./cart.action";
@@ -174,7 +174,7 @@ const socialLogin = async (idToken, accessToken) => {
     try {
         localStorage.idToken = idToken;
         localStorage.accessToken = accessToken;
-        let response = await get_new('socialProviderTokenExchange');
+        let response = await get('socialProviderTokenExchange');
         if (response && response.data) {
             dispatch({
                 type: constants.LOGIN_SUCCESS,

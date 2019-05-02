@@ -1,6 +1,6 @@
 import constants from "../types";
 import { handleError } from "./common.action";
-import { post, post_new, get, get_new } from "../api/index";
+import { post, get} from "../api/index";
 import store from '../../store';
 const dispatch = store.dispatch;
 
@@ -57,7 +57,7 @@ const rentGearProductList = async (catDetail) => {
 
 const newArrivals = async () => {
     try {
-        let response = await get_new('viewNewArrivalGears');
+        let response = await get('viewNewArrivalGears');
 
         if (response) {
             dispatch({
@@ -73,7 +73,7 @@ const newArrivals = async () => {
 const deleteGear = async (data) => {
     return new Promise(async (resolve) => {
         try {
-            let response = await post_new('deleteUserGear', data);
+            let response = await post('deleteUserGear', data);
             if (response) {
                 dispatch({
                     type: constants.DELETE_GEAR,
@@ -94,7 +94,7 @@ const searchHome = async (brand, product_region) => {
         type: constants.SEARCH_HOME_REQUEST
     });
     try {
-        let response = await post_new('showHomePageSearch', {
+        let response = await post('showHomePageSearch', {
             brand,
             product_region
         });

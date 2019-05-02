@@ -1,7 +1,7 @@
 import constants from "../types";
 import { handleError } from "./common.action";
-import { get_new, post_new } from "../api/index";
 import store from '../../store';
+import { get, post } from "../api/index";
 const dispatch = store.dispatch;
 
 const addFavourites = async (data) => {
@@ -9,7 +9,7 @@ const addFavourites = async (data) => {
         type: constants.ADD_FAVOURITE_REQUEST,
     });
     try {
-        let response = await post_new('addUserFavouriteGear', data);
+        let response = await post('addUserFavouriteGear', data);
         dispatch({
             type: constants.ADD_FAVOURITE_SUCCESS,
             payload: response.data
@@ -28,7 +28,7 @@ const getFavourites = async () => {
         type: constants.GET_FAVOURITES_REQUEST
     });
     try {
-        let response = await get_new('viewUserFavouriteGear');
+        let response = await get('viewUserFavouriteGear');
         if (response) {
             dispatch({
                 type: constants.GET_FAVOURITES_SUCCESS,
@@ -49,7 +49,7 @@ const deleteFavourite = async (data) => {
     });
     return new Promise(async (resolve, reject) => {
         try {
-            let response = await post_new('deleteUserFavouriteGear', data);
+            let response = await post('deleteUserFavouriteGear', data);
             if (response.data.status === 'success') {
                 dispatch({
                     type: constants.DELETE_FAVOURITE_SUCCESS,
