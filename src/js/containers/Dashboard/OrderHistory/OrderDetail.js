@@ -12,7 +12,7 @@ class OrderDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            history: [],
+            history: null,
             modal_open_st: 0,
             cur_proj: 0
         };
@@ -37,7 +37,7 @@ class OrderDetail extends Component {
     };
 
     render() {
-        if (this.state.history.length < 1) {
+        if (!this.state.history) {
             return <CustomSpinner/>;
         }
         const info = this.state.history;

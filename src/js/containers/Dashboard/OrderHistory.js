@@ -196,6 +196,7 @@ class OrderHistory extends Component {
                                 !histories.length ?
                                     (null
                                     ) :(
+                                        <div>
                                         <Table className="theme-table table">
                                             <thead className= "d-none d-lg-table">
                                                 <tr>
@@ -210,14 +211,16 @@ class OrderHistory extends Component {
 
                                             <tbody>
                                             {
-                                                this.renderOrderHistoryItems()
+                                              this.renderOrderHistoryItems()
                                             }
-                                            { this.renderOrderHistoryItems_sm()
 
-                                            }
                                             </tbody>
 
                                         </Table>
+                                        <div className="order_history_sm_parent_div">
+                                            {this.renderOrderHistoryItems_sm()}
+                                        </div>
+                                </div>
                                     )}
                             {
                                 this.renderHistoriesItems_md()
