@@ -25,14 +25,7 @@ export default function (props) {
         <NavLink
           className={classnames({ active: activeTab === '3' })}
           onClick={() => { toggle('3'); }}>
-          Gear History
-        </NavLink>
-      </NavItem>
-      <NavItem className="nav-item-four">
-        <NavLink
-          className={classnames({ active: activeTab === '4' })}
-          onClick={() => { toggle('4'); }}>
-          Rental History
+          My Gear
         </NavLink>
       </NavItem>
         <NavItem className="nav-item-four">

@@ -72,9 +72,6 @@ class Dashboard extends Component {
               <TabPane tabId="3">
                 <MyListings list={Listing_Items}/>
               </TabPane>
-              <TabPane tabId="4">
-                <MyRental list={Rental_Items}/>
-              </TabPane>
               <TabPane tabId="5" id="#order">
                 <OrderHistory list={OrderHistory}/>
               </TabPane>

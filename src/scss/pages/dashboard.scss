@@ -470,6 +470,7 @@ color: #fff
     }
   }
 }
+
 .order-modal {
   width: 100%;
   max-width: 1000px !important;
@@ -709,7 +710,6 @@ color: #fff
   }
 }
 
-
 // OrderHistory detail page
 .order-detail-container {
   .detail-top-button-container {
@@ -792,6 +792,48 @@ color: #fff
   }
 }
 
+// Gear History
+.react-tabs__tab-panel--selected {
+  padding:30px;
+}
+
+button.rent-cal-btn {
+  border: solid 1px #F82462;
+  color: #F82462;
+  background-color: white;
+
+  &:hover {
+    color: white;
+    background-color: #F82462;
+  }
+}
+span.edit_my_gear {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  vertical-align: middle !important;
+  margin-bottom: 12px !important;
+  cursor: pointer;
+  background-image: url('/images/Icons/cart/edit-b.svg') !important;
+
+  &:hover {
+    background-image: url('/images/Icons/cart/edit-p.svg') !important;
+  }
+}
+
+.gear-edit-modal {
+  max-width: 1200px !important;
+  height: 1400px;
+
+  input {
+    outline: none;
+  }
+  button {
+    cursor: pointer;
+  }
+}
+
 @media(min-width: 500px)  {
   .navbar-wrapper{
     flex-wrap: nowrap;
@@ -820,8 +862,6 @@ color: #fff
   }
 
 }
-
-
 
 @media (max-width:1050px){
   .dashboard-head{
@@ -1040,14 +1080,4 @@ color: #fff
 
   }
 
-}
-.react-tabs__tab-panel--selected {
-  padding:30px;
-}
-.gear_history_next_btn {
-  width: 30px;
-  height: 30px;
-  padding-right: 47px;
-  background-repeat: no-repeat;
-  background-image: url("/images/Icons/dashbord/next_gear_history.svg");
 }

@@ -1,35 +1,33 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-    Breadcrumb, BreadcrumbItem, Dropdown, Form, DropdownToggle, DropdownMenu,
+    Dropdown, Form, DropdownToggle, DropdownMenu,
     DropdownItem, Label
 } from 'reactstrap';
 import Textarea from 'muicss/lib/react/textarea';
 import 'muicss/dist/css/mui.min.css';
 import Chips from 'react-chips';
-import CustomInput from '../../components/CustomInput';
-import { getGear } from '../../core/actions/gear.action'
-import { handleError, readFileData } from "../../core/actions/common.action";
-import { addCart } from "../../core/actions/cart.action";
-import { formatDate } from "../../core/helper";
-import { fetchCategories } from '../../core/actions/category.action';
-import BarLoader from "react-bar-loader";
-import Urllink_class from "../../components/Urllink_class";
+import CustomInput from '../../../components/CustomInput';
+import { getGear, editGear } from '../../../core/actions/gear.action'
+import { handleError, readFileData } from "../../../core/actions/common.action";
+import { fetchCategories } from '../../../core/actions/category.action';
+import CustomSpinner from "../../../components/CustomSpinner";
+import Modal from "react-responsive-modal";
 
-class EditGear extends Component {
+class GearEditModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
             dropdownOpen: false,
             selectedType: '',
             isGearAdded: false,
-            gearId: '',
+            gearid: '',
 
             categoryName: 'Category',
             brand: '',
             model: '',
             description: '',
-            isKit: '',
+            isKit: false,
             accessories: [],
             numberOfUserImage: [],
             city: '',
@@ -42,29 +40,39 @@ class EditGear extends Component {
             endDate: new Date(),
             loadingdata: false
         };
-        this.gearid = props.match.params.id;
-        this.doloadingcategories();
-        this.addToCart = this.addToCart.bind(this);
-        this.toggle = this.toggle.bind(this);
-        this.onTypeChange = this.onTypeChange.bind(this);
-        this.doloadingcategories();
+        this.gearid = props.gearid;
     }
 
-    async doloadingcategories(){
-        try {
-            let res = await getGear(this.gearid);
-            this.setState({loadingdata: true})
+    componentDidMount() {
+        getGear(this.gearid);
+        fetchCategories();
+    }
 
-        } catch {
-            handleError('Gear is not added to cart');
+    componentWillReceiveProps(props) {
+        if (!!props.gear) {
+            this.state.gearid = this.gearid;
+            this.state.categoryName = props.gear.categoryName;
+            this.state.brand = props.gear.brand;
+            this.state.model = props.gear.model;
+            this.state.description = props.gear.description;
+            this.state.selectedType = props.gear.type;
+            this.state.isKit = props.gear.isKit;
+            this.state.accessories = props.gear.accessories;
+            this.state.numberOfUserImage = props.gear.numberOfUserImage;
+            this.state.city = props.gear.city;
+            this.state.region = props.gear.product_region;
+            this.state.address = props.gear.address;
+            this.state.postalCode = props.gear.postalCode;
+            this.state.replacementValue = props.gear.replacementValue;
+            this.state.pricePerDay = props.gear.pricePerDay;
         }
     }
 
-    async dataSave(){
+    dataSave = async () => {
         try {
             const { categoryName, brand, model, description, selectedType, isKit, accessories, numberOfUserImage, city, region, address, postalCode, replacementValue, pricePerDay } = this.state;
-
             const data = {
+                gearid: this.gearid,
                 categoryName,
                 brand,
                 model,
@@ -80,56 +88,28 @@ class EditGear extends Component {
                 replacementValue,
                 pricePerDay
             };
-            let gearId;
-            //let gearId = await addGear(data);
-
-            if (gearId) {
-                this.setState({
-                    isGearAdded: true,
-                    gearId
-                });
-            }
+            await editGear(data);
+            this.props.onClose();
         } catch (e) {
-
         }
-    }
-    componentDidMount() {
-        fetchCategories();
-    }
-    changeCategory(e) {
+    };
+
+    changeCategory = (e) => {
         this.setState({ categoryName: e.target.textContent });
-    }
-    onTypeChange(e) {
+    };
+
+    onTypeChange = (e) => {
         this.setState({
             selectedType: e.target.value
         });
-    }
-    toggle() {
+    };
+
+    toggle = () => {
         this.setState(prevState => ({
             dropdownOpen: !prevState.dropdownOpen
         }));
-    }
-    async addToCart() {
-        try {
-            const { startDate, endDate } = this.state;
-            const { gear } = this.props;
+    };
 
-            if (startDate && endDate) {
-                let res = await addCart({
-                    gearid: gear.gearid,
-                    userid: gear.userid,
-                    startDate: formatDate(startDate),
-                    endDate: formatDate(endDate)
-                });
-
-                if (res) {
-                    this.props.history.push('/cart');
-                }
-            }
-        } catch {
-            handleError('Gear is not added to cart');
-        }
-    }
     async addImage(event) {
         try {
             let image = await readFileData(event);
@@ -145,6 +125,7 @@ class EditGear extends Component {
             handleError('Please upload a valid image');
         }
     }
+
     renderInfo () {
         const { brand, model,categoryName, accessories } = this.state;
         const { categories ,gear, user} = this.props;
@@ -187,6 +168,7 @@ class EditGear extends Component {
                 </div>
             </Form>);
     }
+
     renderPhotos () {
         const {gear} = this.props;
         const {numberOfUserImage} = this.state;
@@ -206,6 +188,7 @@ class EditGear extends Component {
             </div>
         </div>);
     }
+
     renderAddress() {
         const { city, region, address, postalCode } = this.state;
         const { gear } = this.props;
@@ -246,35 +229,19 @@ class EditGear extends Component {
             </Form>
         );
     }
-    render() {
-        const { selectedType, replacementValue, pricePerDay ,accessories, isKit} = this.state;
-        const { gear , categories } = this.props;
-        if (!this.state.loadingdata) {
-            return <BarLoader color="#F82462" height="5" />;//<CustomSpinner/>;
 
+    render() {
+        const { gear, categories, onClose } = this.props;
+        if (!gear || !categories) {
+            return <CustomSpinner/>;
         }
+        console.log(this.state);
+        const { selectedType, replacementValue, pricePerDay ,accessories, isKit} = this.state;
         const name = gear.brand + ' ' + gear.model;
-        if(selectedType == '') {
-            this.state.selectedType = gear.type;
-            this.state.replacementValue = gear.replacementValue;
-            this.state.pricePerDay = gear.pricePerDay;
-            this.state.accessories = gear.accessories;
-            this.state.isKit = gear.isKit;
-        }
+
         return (
-            <div className="edit_listgear container centered-content">
-                <div className="edit_listgear_header">
-                    <Breadcrumb>
-                        <Urllink_class name="Home"></Urllink_class>
-                        <span className="space_slash_span">/</span>
-                        <Urllink_class name="Rent Gears">/</Urllink_class>
-                        <span className="space_slash_span">/</span>
-                        <Urllink_class name={gear.categoryName}></Urllink_class>
-                        <span className="space_slash_span">/</span>
-                        <BreadcrumbItem>{name}</BreadcrumbItem>
-                    </Breadcrumb>
-                    <h2 className="theme-page-title">Edit Gear</h2>
-                </div>
+            <Modal open={true} onClose={onClose} center classNames={{modal: "gear-edit-modal"}}>
+              <div className="edit_listgear container centered-content">
                 <div className="edit_listgear_body_all">
                     <div className="edit_listgear_body_left col-lg-16">
                         <div className="ELBL_info">
@@ -282,7 +249,7 @@ class EditGear extends Component {
                                 <p>info</p>
                             </div>
                             {this.renderInfo()}
-                            <Textarea className="ELBLI_desc" label="DESCRIPTION" onChange = {(value) => this.setState({ description : value })} defaultValue={gear.description} floatingLabel={true}/>
+                            <Textarea className="ELBLI_desc" label="DESCRIPTION" onChange = {(e) => this.setState({ description : e.target.value })} defaultValue={gear.description} floatingLabel={true}/>
                         </div>
                         <div className="ELBL_type">
                             <div className="theme-column info-right-container">
@@ -309,7 +276,6 @@ class EditGear extends Component {
                                             </div>
                                         </div>
                                         <Label for="is-kit">Is this a Kit?</Label>
-                                            {/*<Label for="save-address" className='checkbox-label'>Save this address</Label>*/}
                                     </div>
                                 </div>
                                 <div className="form-accessories">
@@ -342,7 +308,7 @@ class EditGear extends Component {
                                         <div className="ELBLPCTP_div">
                                             <p className="money_label">$</p>
                                             <input defaultValue={replacementValue}
-                                                   onChange={(value) => this.setState({ replacementValue: value })}/>
+                                                   onChange={(e) => this.setState({ replacementValue: e.target.value })}/>
                                         </div>
                                     </div>
                                     <div className="ELBLPCT_pay">
@@ -350,7 +316,7 @@ class EditGear extends Component {
                                         <div className="ELBLPCTP_div">
                                             <p className="money_label">$</p>
                                             <input defaultValue={pricePerDay}
-                                                   onChange={(value) => this.setState({ pricePerDay: value })}/>
+                                                   onChange={(e) => this.setState({ pricePerDay: e.target.value })}/>
                                         </div>
                                     </div>
                                 </div>
@@ -363,7 +329,8 @@ class EditGear extends Component {
                         </div>
                     </div>
                 </div>
-            </div>
+              </div>
+            </Modal>
         );
     }
 }
@@ -374,4 +341,4 @@ const mapStateToProps = state => ({
     user: state.user.user,
 });
 
-export default connect(mapStateToProps)(EditGear);
+export default connect(mapStateToProps)(GearEditModal);

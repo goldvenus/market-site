@@ -20,7 +20,7 @@ import RentGearDetail from './containers/Landing/RentGearDetail';
 import SearchResults from './containers/Landing/SearchResults';
 import Favourites from './containers/Landing/Favourites';
 import Partner from './containers/Landing/Partner';
-import EditGear from './containers/Landing/EditGear'
+import EditGear from './containers/Dashboard/GearHistory/GearEditModal'
 import FAQ from './containers/Landing/FAQ';
 
 export default (

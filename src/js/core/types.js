@@ -25,7 +25,7 @@ export default keyMirror({
     CONFIRM_USER_SUCCESS: null,
     CONFIRM_USER_FAILED: null,
 
-    // ==== list gears ==== //
+    // ==== gears ==== //
     LIST_GEARS_REQUEST: null,
     LIST_GEARS_SUCCESS: null,
     LIST_GEARS_FAILED: null,
@@ -34,6 +34,11 @@ export default keyMirror({
     ADD_GEAR_REQUEST: null,
     ADD_GEAR_SUCCESS: null,
     ADD_GEAR_FAILED: null,
+
+    // edit gear
+    EDIT_GEAR_REQUEST: null,
+    EDIT_GEAR_SUCCESS: null,
+    EDIT_GEAR_FAILED: null,
 
     // get gear
     GET_GEAR_REQUEST: null,

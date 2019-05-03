@@ -15,6 +15,8 @@ import PeriodDeleteModal from "./PeriodDeleteModal"
 import DayPicker from "react-day-picker";
 import './style.css';
 import Helmet from 'react-helmet';
+import Rodal from 'rodal';
+import 'rodal/lib/rodal.css';
 import { days } from '../../../core/helper';
 import { getListGears } from "../../../core/actions/gear.action";
 import { formatDate } from "../../../core/helper";
@@ -28,7 +30,7 @@ let global_events = [];
 let global_cal_item_delete = false;
 const localizer = BigCalendar.momentLocalizer(moment);
 
-class Calendar extends React.Component {
+class RentalCalendarModal extends React.Component {
     constructor(props) {
         super(props);
 
@@ -102,7 +104,6 @@ class Calendar extends React.Component {
         const range = this.getSearchRange(this.state.cur_date, 3);
         this.setState({loading: true});
         const ret = await getGearRentState({gearid, start_date: range.start_date, end_date: range.end_date});
-        // update calendar
         global_events = ret;
         UpdateMydata_calendar();
         this.setState({cur_gear_num: gear_num, gear_rent_info_list: ret, loading: false});
@@ -120,7 +121,6 @@ class Calendar extends React.Component {
         const gearid = this.props.listGears[this.state.cur_gear_num].gearid;
         this.setState({loading: true});
         const ret = await getGearRentState({gearid, start_date: range.start_date, end_date: range.end_date});
-        // update calendar
         global_events = ret;
         UpdateMydata_calendar();
         await getListGears();
@@ -241,8 +241,8 @@ class Calendar extends React.Component {
 
     render() {
         const { listGears } = this.props;
-        if (!listGears) {
-            return <BarLoader color="#F82462" height="5"/>;
+        if (!listGears || this.state.loading) {
+            return <CustomSpinner/>;
         }
 
         const cur_gear = listGears[this.state.cur_gear_num];
@@ -258,10 +258,7 @@ class Calendar extends React.Component {
         UpdateMydata_calendar();
 
         return (
-            <div>
-                {
-                    this.state.loading ? <CustomSpinner/> : null
-                }
+            <Rodal visible={true} animation={'zoom'} className={'rental-calendar-modal'}>
                 <div className="calendar_dropdown_div">
                     <p className="dropdown_calendar_gearname">SELECT GEAR</p>
                     <div className="calendar_dropdown_div_bottom">
@@ -336,7 +333,7 @@ class Calendar extends React.Component {
                         })}
                     />
                 </div>
-            </div>
+            </Rodal>
         );
     }
 }
@@ -418,4 +415,4 @@ const UpdateMydata_calendar = () => {
     });
 };
 
-export default Calendar;
+export default RentalCalendarModal;

@@ -25,6 +25,28 @@ const addGear = async (data) => {
     }
 };
 
+const editGear = async (data) => {
+    clearMsg();
+    dispatch({
+        type: constants.EDIT_GEAR_REQUEST,
+    });
+    try {
+        let response = await post('editGearItem', data);
+        if (response.data.status === 'success' ) {
+            dispatch({
+                type: constants.EDIT_GEAR_SUCCESS,
+                payload: data
+            });
+            handleInfo('Gear was edited');
+            return response.data.status;
+        } else {
+            handleError('Gear was not edited');
+        }
+    } catch (error) {
+        handleError(error);
+    }
+};
+
 const getGear = async (gearid) => {
     dispatch({
         type: constants.GET_GEAR_REQUEST
@@ -152,5 +174,5 @@ const searchHome = async (brand, product_region) => {
 };
 
 export {
-    newArrivals, addGear, deleteGear, getGear, rentGearProductList, getListGears, searchHome
+    newArrivals, addGear, deleteGear, getGear, rentGearProductList, getListGears, searchHome, editGear
 };
