@@ -271,9 +271,8 @@
     margin-right: 15px;
 }
 .rbc-event-custom-data-cross {
-    background-image: url('/images/Icons/cross/cross.svg');
-    width: 20px;
-    height: 20px;
+    width: 13px;
+    height: 17px;
 }
 .rbc-event-custom-data-top {
     display: flex;
@@ -289,4 +288,8 @@
 
 .Calendar_parent_div .event-owner {
     background-color: #f74377 !important;
+}
+
+.Calendar_parent_div .rbc-now a {
+    padding: 10px 14px !important;
 }

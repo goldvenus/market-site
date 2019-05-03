@@ -42,7 +42,6 @@ class OrderHistory extends Component {
 
         return (
             histories.map((listItem, index) => {
-                console.log("Venus_log=>" ,listItem);
                 const first_item = listItem.SoldItems[0];
                 let product_name = listItem.SoldItems[0].brand + ' ' + listItem.SoldItems[0].model;
                 product_name = product_name.substr(0, 13) + '...';

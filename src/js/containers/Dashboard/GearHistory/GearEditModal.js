@@ -202,45 +202,35 @@ class GearEditModal extends Component {
         return (
             <Form className="theme-form add-gear-address">
                 <p className="type_title_css">Address</p>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td className="theme-form-field">
-                                <CustomInput placeholder='City' type="text" value={city}
-                                             onChange={(value) => this.setState({ city: value })}/>
-                            </td>
-                            <td className="theme-form-field">
-                                <CustomInput placeholder='Region' type="text" value={region}
-                                             onChange={(value) => this.setState({ region: value })}/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="theme-form-field">
-                                <CustomInput placeholder='Address' type="text" value={address}
-                                             onChange={(value) => this.setState({ address: value })}/>
-                            </td>
-                            <td className="theme-form-field">
-                                <CustomInput placeholder='Postal Code' type="text" value={postalCode}
-                                             onChange={(value) => this.setState({ postalCode: value })}/>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div className='address-wrapper'>
+                    <CustomInput placeholder='City' type="text" value={city}
+                                 onChange={(value) => this.setState({ city: value })}/>
+                    <CustomInput placeholder='Region' type="text" value={region}
+                                 onChange={(value) => this.setState({ region: value })}/>
+                </div>
+                <div className='address-wrapper'>
+                    <CustomInput placeholder='Address' type="text" value={address}
+                                 onChange={(value) => this.setState({ address: value })}/>
+
+                    <CustomInput placeholder='Postal Code' type="text" value={postalCode}
+                                 onChange={(value) => this.setState({ postalCode: value })}/>
+                </div>
             </Form>
         );
     }
 
     render() {
-        const { gear, categories, onClose } = this.props;
+        const { gear, categories, onClose, onCalendar } = this.props;
         if (!gear || !categories) {
             return <CustomSpinner/>;
         }
-        console.log(this.state);
         const { selectedType, replacementValue, pricePerDay ,accessories, isKit} = this.state;
-        const name = gear.brand + ' ' + gear.model;
 
         return (
             <Modal open={true} onClose={onClose} center classNames={{modal: "gear-edit-modal"}}>
+              <div className="gear-edit-modal-header">
+                <h2>Edit Gear</h2>
+              </div>
               <div className="edit_listgear container centered-content">
                 <div className="edit_listgear_body_all">
                     <div className="edit_listgear_body_left col-lg-16">
@@ -322,7 +312,7 @@ class GearEditModal extends Component {
                                 </div>
                                 <div className="ELBLPC_down">
                                     <button className="ed_save" onClick={() => this.dataSave()}>save</button>
-                                    <button>Calendar</button>
+                                    <button onClick={() => onCalendar(this.state.gearid)}>Calendar</button>
                                 </div>
                                 <div className="ELBLPC_bottom"></div>
                             </div>

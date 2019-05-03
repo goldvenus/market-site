@@ -23,8 +23,8 @@ import { formatDate } from "../../../core/helper";
 import { handleError } from "../../../core/actions/common.action";
 import { getGearRentState, setBlockPeriod } from '../../../core/actions/dashboard.action'
 import AboutPeriod from "./AboutPeriod";
-import BarLoader from "react-bar-loader";
 import CustomSpinner from "../../../components/CustomSpinner";
+import Modal from "react-responsive-modal";
 
 let global_events = [];
 let global_cal_item_delete = false;
@@ -49,8 +49,16 @@ class RentalCalendarModal extends React.Component {
         };
     }
 
+    componentDidMount() {
+        console.log(this.props.gearid);
+        let cur_gear_num = this.props.listGears.reduce((a, item, key) => item.gearid === this.props.gearid ? key : a, 0);
+        this.setState(() => ({cur_gear_num: cur_gear_num}), () => {
+            this.handleSelectGear(cur_gear_num);
+        });
+    }
+
     shouldComponentUpdate(state, props) {
-        if(this.state !== state || this.props !== props){
+        if(this.state !== state || this.props !== props) {
             UpdateMydata_calendar();
             return true;
         }
@@ -68,7 +76,6 @@ class RentalCalendarModal extends React.Component {
     onCloseModal = () => {
         this.setState({open: 0});
     };
-
 
     // handleDayClick(day, { selected }) {
     //     if (selected) {
@@ -150,6 +157,8 @@ class RentalCalendarModal extends React.Component {
 
         try {
             let period_arr = this.props.listGears[this.state.cur_gear_num].blockPeriod;
+            if (period_arr === undefined)
+                period_arr = [];
             let gearid = this.props.listGears[this.state.cur_gear_num].gearid;
             if (mode === 2)
                 period_arr = period_arr.filter((item, key) => this.state.cur_block_num !== key);
@@ -240,7 +249,7 @@ class RentalCalendarModal extends React.Component {
     }
 
     render() {
-        const { listGears } = this.props;
+        const { listGears, onClose } = this.props;
         if (!listGears || this.state.loading) {
             return <CustomSpinner/>;
         }
@@ -258,7 +267,7 @@ class RentalCalendarModal extends React.Component {
         UpdateMydata_calendar();
 
         return (
-            <Rodal visible={true} animation={'zoom'} className={'rental-calendar-modal'}>
+            <Modal open={true} onClose={onClose} center classNames={{modal: "rental-calendar-modal"}}>
                 <div className="calendar_dropdown_div">
                     <p className="dropdown_calendar_gearname">SELECT GEAR</p>
                     <div className="calendar_dropdown_div_bottom">
@@ -333,7 +342,7 @@ class RentalCalendarModal extends React.Component {
                         })}
                     />
                 </div>
-            </Rodal>
+            </Modal>
         );
     }
 }
@@ -365,14 +374,15 @@ const UpdateMydata_calendar = () => {
 
         let resize_index=true;
         function Append_Rent_Data(filter_e, time_s, time_e, real_time) {
-            let close_btn = "<div class='rbc-event-custom-data-cross' gearid='"+filter_e.gearid+"'></div>";
+            let close_btn = "<i class='rbc-event-custom-data-cross fa fa-times'></i>";
             if (filter_e.title !== 'Owner' + real_time)
                 close_btn = '';
+
             return (
             "<div class='rbc-event-custom-data'>" +
                 "<div class='rbc-event-custom-data-top'>" +
                     "<div class='rbc-event-item-wrapper'><img class='rent_user' src="+filter_e.img_url+" >" +
-                    "<p>"+filter_e.title+"</p></div>" + close_btn +
+                    "<p>"+filter_e.renter_name+"</p></div>" + close_btn +
                 "</div>" +
                 "<div class='rbc-event-custom-data-bottom'>" +
                     "<p class='rbc-event-custom-data-bottom-date'>"+time_s+" - "+time_e+"</p>" +
