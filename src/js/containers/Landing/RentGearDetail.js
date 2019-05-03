@@ -565,8 +565,8 @@ class RentGearDetail extends Component {
                                                   }
                                                   {
                                                       this.state.open_date_picker1 ?
-                                                          <img src="/images/Icons/calendar/calendar1.svg"/> :
-                                                          <img src="/images/Icons/calendar/calendar.svg"/>
+                                                          <img src="/images/Icons/calendar/calendar1.svg" alt=''/> :
+                                                          <img src="/images/Icons/calendar/calendar.svg" alt=''/>
                                                   }
                                               </div>
                                               <div className='row date-range-container'>

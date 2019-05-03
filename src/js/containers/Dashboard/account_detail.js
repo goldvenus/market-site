@@ -8,7 +8,7 @@ export default function(){
     <Row className="account-detail">
       <Col sm="24">
         <h4 className="tab-title">Account Details</h4>
-        <div className="wrraper">
+        <div className="wrraper_dashboard">
           <Row>
             <Col sm="12">
               <Card body>
