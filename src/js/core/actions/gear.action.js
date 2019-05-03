@@ -1,28 +1,46 @@
 import constants from "../types";
-import { handleError } from "./common.action";
+import { clearMsg, handleError, handleInfo } from "./common.action";
 import { post, get} from "../api/index";
 import store from '../../store';
 const dispatch = store.dispatch;
 
 const addGear = async (data) => {
+    clearMsg();
+    dispatch({
+        type: constants.ADD_GEAR_REQUEST,
+    });
     try {
         let response = await post('addGearItem', data);
-        return response.data.status;
+        if (response.data.status) {
+            dispatch({
+                type: constants.ADD_GEAR_SUCCESS,
+            });
+            handleInfo('Gear was added');
+            return response.data.status;
+        } else {
+            handleError('Gear was not added');
+        }
     } catch (error) {
         handleError(error);
     }
 };
 
 const getGear = async (gearid) => {
+    dispatch({
+        type: constants.GET_GEAR_REQUEST
+    });
     return new Promise(async (resolve, reject) => {
         try {
             let response = await post('viewAddedGearItem', { gearid });
             dispatch({
-                type: constants.GEAR,
+                type: constants.GET_GEAR_SUCCESS,
                 payload: response.data[0]
             });
             resolve(response);
         } catch (error) {
+            dispatch({
+                type: constants.GET_GEAR_FAILED
+            });
             handleError(error);
             reject(error);
         }
@@ -35,7 +53,6 @@ const getListGears = async () => {
     });
     try {
         let response = await get('viewUserGearList');
-        console.log("=========>>", response);
         if (response && response.data) {
             dispatch({
                 type: constants.LIST_GEARS_SUCCESS,
@@ -67,34 +84,44 @@ const rentGearProductList = async (catDetail) => {
 };
 
 const newArrivals = async () => {
+    dispatch({
+        type: constants.NEW_ARRIVALS_REQUEST,
+    });
     try {
         let response = await get('viewNewArrivalGears');
 
         if (response) {
             dispatch({
-                type: constants.NEW_ARRIVALS,
+                type: constants.NEW_ARRIVALS_SUCCESS,
                 payload: response.data
             });
         }
     } catch (error) {
+        dispatch({
+            type: constants.NEW_ARRIVALS_FAILED,
+        });
         handleError(error);
     }
 };
 
 const deleteGear = async (data) => {
+    dispatch({
+        type: constants.DELETE_GEAR_REQUEST
+    });
     return new Promise(async (resolve) => {
         try {
             let response = await post('deleteUserGear', data);
             if (response) {
                 dispatch({
-                    type: constants.DELETE_GEAR,
+                    type: constants.DELETE_GEAR_SUCCESS,
                     payload: data.gearid
                 });
                 resolve(response.status);
-            } else {
-
             }
         } catch (error) {
+            dispatch({
+                type: constants.DELETE_GEAR_FAILED
+            });
             handleError(error);
         }
     });

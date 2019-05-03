@@ -191,8 +191,8 @@ class MyListings extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  // list: state.gear.listGears,
-  // isLoading: state.gear.isLoading
+  list: state.gear.listGears,
+  isLoading: state.gear.isLoading
 });
 
 export default connect(mapStateToProps)(MyListings);

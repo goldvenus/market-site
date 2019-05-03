@@ -1,25 +1,30 @@
 import constants from "../types";
-import { handleError } from "./common.action";
+import {clearMsg, handleError, handleInfo} from "./common.action";
 import store from '../../store';
 import { get, post } from "../api/index";
 const dispatch = store.dispatch;
 
 const addFavourites = async (data) => {
+    clearMsg();
     dispatch({
         type: constants.ADD_FAVOURITE_REQUEST,
     });
     try {
         let response = await post('addUserFavouriteGear', data);
-        dispatch({
-            type: constants.ADD_FAVOURITE_SUCCESS,
-            payload: response.data
-        });
-        return response;
+        if (response.data.status === 'success') {
+            dispatch({
+                type: constants.ADD_FAVOURITE_SUCCESS,
+                payload: response.data.data
+            });
+            handleInfo('Gear was added to favorite');
+        } else {
+            handleError('Gear was not added to favorite');
+        }
     } catch (error) {
-        handleError(error);
         dispatch({
             type: constants.ADD_FAVOURITE_FAILED,
         });
+        handleError(error);
     }
 };
 
@@ -44,6 +49,7 @@ const getFavourites = async () => {
 };
 
 const deleteFavourite = async (data) => {
+    clearMsg();
     dispatch({
         type: constants.DELETE_FAVOURITE_REQUEST,
     });
@@ -55,17 +61,19 @@ const deleteFavourite = async (data) => {
                     type: constants.DELETE_FAVOURITE_SUCCESS,
                     payload: data.gearid
                 });
+                handleInfo('Gear was removed from favorite');
             } else {
-                resolve(false);
                 dispatch({
                     type: constants.DELETE_FAVOURITE_FAILED,
                 });
+                handleError('Gear was not removed');
+                resolve(false);
             }
         } catch (error) {
-            handleError(error);
             dispatch({
                 type: constants.DELETE_FAVOURITE_FAILED,
             });
+            handleError(error);
         }
     });
 };

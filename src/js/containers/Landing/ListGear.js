@@ -11,7 +11,7 @@ import BarLoader from "react-bar-loader";
 import EmptyActivity from "../../components/EmptyActivity";
 import Urllink_class from "../../components/Urllink_class";
 import CustomSpinner from "../../components/CustomSpinner";
-import {ToastsStore} from "react-toasts";
+import {handleError} from "../../core/actions/common.action";
 
 const ListGearItem = ({onDelete, listItem: {gearid, model = '', brand = '', categoryName = '', numberOfUserImage, pricePerDay, orderStatus: status}}) => {
 
@@ -70,7 +70,6 @@ class ListGear extends Component {
         this.state = {
             gear_list: this.props.listGears,
             currentPage: 1,
-            loading: true,
             deleting: false,
         };
 
@@ -89,12 +88,8 @@ class ListGear extends Component {
 
     doGetListGears = async () => {
         try {
-            this.setState({loading: true});
             await getListGears();
             this.pageCount = this.calcPageCount(this.props.listGears.length, this.pageSize);
-            this.setState({
-                loading: false
-            });
         } catch {
             // handleError('Gear is not added to cart!');
         }
@@ -111,11 +106,9 @@ class ListGear extends Component {
             if (this.state.currentPage > this.pageCount) {
                 cur_page = this.pageCount;
             }
-            this.setState(() => ({gear_list: new_list, currentPage: cur_page}), () => {
-                ToastsStore.info("Gear was deleted!");
-            });
+            this.setState({gear_list: new_list, currentPage: cur_page});
         } else {
-            ToastsStore.error("Gear was not deleted!");
+            handleError("Gear was not deleted!");
         }
         this.setState({deleting: false});
     };
@@ -133,7 +126,7 @@ class ListGear extends Component {
     };
 
     render() {
-        if (this.state.loading) {
+        if (this.props.loading || !this.props.listGears) {
             return <BarLoader color="#F82462" height="5"/>
         }
         else {
@@ -142,7 +135,7 @@ class ListGear extends Component {
             return (
                 <React.Fragment>
                     {
-                        this.state.deleting ? <CustomSpinner/> : null
+                        this.props.deleting ? <CustomSpinner/> : null
                     }
                     <div className="list-gear">
                         <div className="list-gear-head">
@@ -240,7 +233,8 @@ class ListGear extends Component {
 
 const mapStateToProps = state => ({
     listGears: state.gear.listGears,
-    categories: state.category.categories
+    loading: state.gear.isLoading,
+    deleting: state.gear.isDeleting
 });
 
 export default connect(mapStateToProps)(ListGear);

@@ -53,7 +53,6 @@ class History_dialog extends Component {
     };
     render() {
         const { info } = this.props;
-        console.log("Venus_log=>info", info);
         const { numberOfUserImage, gearid, brand, rating, total_rating, city, replacementValue,
             pricePerDay, model, description, newArrival_Index, categoryName, accessories, userid } = info;
           return (

@@ -3,7 +3,7 @@ import constants from "../types";
 
 const initialState = {
     categories: null,
-    isLoading: false,
+    isLoading: true,
 };
 
 export default (state = initialState, action) => {

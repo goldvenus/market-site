@@ -14,6 +14,7 @@ import { fetchCategories } from "../../core/actions/category.action";
 import Textarea from "muicss/lib/react/textarea";
 import Urllink_class from "../../components/Urllink_class";
 import CustomSpinner from "../../components/CustomSpinner";
+import BarLoader from "react-bar-loader";
 
 class AddGear extends Component {
   constructor() {
@@ -92,7 +93,7 @@ class AddGear extends Component {
 
   renderInfo() {
     const { selectedType, brand, model, description, isKit, categoryName, accessories } = this.state;
-    const { categories } = this.props.categories;
+    const { categories } = this.props;
 
     return (
       <Form className="theme-form add-gear-info container add-gear-info-cusvenus" id="tablet-form">
@@ -125,7 +126,6 @@ class AddGear extends Component {
 
               <Textarea className="category_description_ta" label='Description' floatingLabel={true}
                            onChange={(e) => {
-                             console.log(e.target.value);
                              this.setState({ description: e.target.value })
                            }} type="text"/>
             </div>
@@ -324,7 +324,7 @@ class AddGear extends Component {
       </div>
       <div className="gear-right-container" id="right-container">
         <div className="custom-theme-row">
-          <div class="custom-theme-col">
+          <div className="custom-theme-col">
             <div>Replacement Value</div>
             <InputGroup>
               <InputGroupAddon addonType="prepend">$</InputGroupAddon>
@@ -332,7 +332,7 @@ class AddGear extends Component {
                            onChange={(value) => this.setState({ replacementValue: value })}/>
             </InputGroup>
           </div>
-          <div class="custom-theme-col">
+          <div className="custom-theme-col">
             <div>Price per day</div>
             <InputGroup>
               <InputGroupAddon addonType="prepend">$</InputGroupAddon>
@@ -353,7 +353,6 @@ class AddGear extends Component {
 
   renderContent() {
     const { progressStep } = this.state;
-    console.log("step:", progressStep);
     switch (progressStep) {
       case 0:
         return this.renderInfo();
@@ -423,6 +422,10 @@ class AddGear extends Component {
 
   render() {
     const { isGearAdded, replacementValue, pricePerDay, brand, model, categoryName, gearId } = this.state;
+    const { isLoadingCategories } = this.props;
+    if (isLoadingCategories) {
+      return <BarLoader color="#F82462" height="5" />;
+    }
 
     if (isGearAdded) {
       return <div className="add-gear">
@@ -464,7 +467,7 @@ class AddGear extends Component {
             <span className="space_slash_span">/</span>
           <BreadcrumbItem active>Add Gear</BreadcrumbItem>
         </Breadcrumb>
-        <h3 class="header">Add Gear</h3>
+        <h3 className="header">Add Gear</h3>
         <div className="add-gear-progress">
           {
             this.renderProgress()
@@ -496,6 +499,7 @@ class AddGear extends Component {
 
 const mapStateToProps = state => ({
   categories: state.category.categories,
+  isLoadingCategories: state.category.isLoading
 });
 
 export default connect(mapStateToProps)(AddGear);

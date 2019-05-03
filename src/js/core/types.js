@@ -140,7 +140,8 @@ export default keyMirror({
     GET_ORDER_DETAIL_SUCCESS: null,
     GET_ORDER_DETAIL_FAILED: null,
 
-    // ==== error ==== //
+    // ==== common ==== //
     ERROR: null,
-    CLEAR_ERROR: null
+    INFO: null,
+    CLEAR_MSG: null
 });

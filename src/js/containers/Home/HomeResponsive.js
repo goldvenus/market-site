@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Col, Container, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import Flickity from 'react-flickity-component';
-import { fetchCategories } from "../../core/actions/category.action";
 import { socialLogin } from '../../core/actions/user.action';
 import { newArrivals } from '../../core/actions/gear.action'
 import MaterialInputWithDropdown from '../../components/common/MaterialInputWithDropdown';
@@ -29,7 +28,6 @@ class Home extends React.Component {
     searchLocationValue: '',
     searchLocationResult: [],
   };
-
 
   handleChangeSearchValue = e => {
     this.setState({
@@ -71,7 +69,6 @@ class Home extends React.Component {
     $window.on('scroll resize', check_if_in_view);
     $window.trigger('scroll');
 
-    fetchCategories();
     newArrivals();
 
     //facebook login
@@ -92,7 +89,6 @@ class Home extends React.Component {
       socialLogin(idToken, accessToken);
     }
   }
-
 
   render() {
     const {
@@ -122,12 +118,9 @@ class Home extends React.Component {
     prevNextButtons: true,
     pageDots: true,
     draggable: false
-
-
-}
+  }
 
     return (
-
       <div className="page home-page home">
         <div className="section section-hero">
           <div className="container">
@@ -204,7 +197,6 @@ class Home extends React.Component {
 
           </div>
         </div>
-
 
         <div className="home-body">
           {/* cards container for the large screen */}

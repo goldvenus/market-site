@@ -11,26 +11,13 @@ import CustomSpinner from "../../components/CustomSpinner";
 import Urllink_class from "../../components/Urllink_class";
 
 class Cart extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      deleting: 'init'
-    }
-  }
-
-  shouldComponentUpdate(props, state) {
-    if (this.props !== props && this.state.deleting !== 'init')
-      this.setState({deleting: false});
-    return true;
-  }
-
   renderCartItems() {
     const { carts } = this.props;
     return (
       carts.map((listItem, index) => (
         <tr key={`cart-item-${index}`}>
           <td width="10%">{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
-            src={listItem.numberOfUserImage[0]} className="gear-img"/> : null}</td>
+            src={listItem.numberOfUserImage[0]} className="gear-img" alt=''/> : null}</td>
           <td  width="32%" className="gear" >
             <p className="tb_brand_model_name">{listItem.brand + ' ' + listItem.model}</p>
             <p className="theme-text-small text-muted tb_categories_name">{listItem.categoryName}</p>
@@ -53,7 +40,6 @@ class Cart extends Component {
               className="close"
               aria-hidden="true"
               onClick={async () => {
-                this.setState({deleting: true});
                 let ret = await deleteCartItem({ gearid: listItem.gearid, orderid: listItem.orderid });
                 if (!ret) handleError("Removing from cart failed!");
               }}
@@ -71,7 +57,7 @@ class Cart extends Component {
             <tr key={`cart-item-${index}`} className="d-lg-none d-md-block sm-table-cart">
                <td className="sm-category-list-top">
                    <div className='sclt_img'>{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
-                    src={listItem.numberOfUserImage[0]} className="gear-img"/> : null}
+                    src={listItem.numberOfUserImage[0]} className="gear-img" alt=''/> : null}
                    </div>
                    <div className="col-md-17">
                        <p className="tb_brand_model_name">{listItem.brand + ' ' + listItem.model}</p>
@@ -88,7 +74,6 @@ class Cart extends Component {
                                 className="close"
                                 aria-hidden="true"
                                 onClick={async () => {
-                                    this.setState({deleting: true});
                                     let ret = await deleteCartItem({ gearid: listItem.gearid, orderid: listItem.orderid });
                                     if (!ret) handleError("Removing from cart failed!");
                                 }}
@@ -123,15 +108,15 @@ class Cart extends Component {
   }
 
   render() {
-  const { carts, isLoading } = this.props;
-    if (isLoading) {
+  const { carts, isLoading, isDeleting } = this.props;
+    if (!carts) {
       return <BarLoader color="#F82462" height="5" />;
     }
 
     return (
       <React.Fragment>
         {
-          this.state.deleting === true ? <CustomSpinner /> : null
+          isDeleting && <CustomSpinner/>
         }
         <div className="cart_view centered-content">
           <Breadcrumb className= "card_content_path">
@@ -180,7 +165,8 @@ class Cart extends Component {
 
 const mapStateToProps = state => ({
   carts: state.cart.carts,
-  isLoading: state.cart.isLoading
+  isLoading: state.cart.isLoading,
+  isDeleting: state.cart.isDeleting
 });
 
 export default connect(mapStateToProps)(Cart);

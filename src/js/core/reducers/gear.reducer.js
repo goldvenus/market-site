@@ -8,6 +8,7 @@ const initialState = {
     newArrivals: null,
     searchResults: null,
     isLoading: false,
+    isDeleting: false
 };
 
 export default (state = initialState, action) => {
@@ -48,15 +49,15 @@ export default (state = initialState, action) => {
                 break;
 
             case constants.DELETE_GEAR_REQUEST:
-                draft.isLoading = true;
+                draft.isDeleting = true;
                 break;
             case constants.DELETE_GEAR_SUCCESS:
                 draft.listGears = draft.listGears.filter(item => item.gearid !== action.payload);
-                draft.isLoading = false;
+                draft.isDeleting = false;
                 draft.gear = null;
                 break;
             case constants.DELETE_GEAR_FAILED:
-                draft.isLoading = false;
+                draft.isDeleting = false;
                 draft.gear = null;
                 break;
 

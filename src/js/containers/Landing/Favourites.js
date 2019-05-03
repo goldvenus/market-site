@@ -5,13 +5,12 @@ import { Link, withRouter } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
 import { getGear } from "../../core/actions/gear.action";
 import { deleteFavourite } from "../../core/actions/favourite.action";
-import { handleError } from "../../core/actions/common.action";
+import { handleError, handleInfo } from "../../core/actions/common.action";
 import { addCart } from "../../core/actions/cart.action";
 import { formatDate } from "../../core/helper";
-import CartModal from "../../components/common/CartModal1";
-import CartModal1 from "../../components/common/CartModal2";
+import CartModal1 from "../../components/common/CartModal1";
+import CartModal2 from "../../components/common/CartModal2";
 import BarLoader from "react-bar-loader";
-import { ToastsStore } from 'react-toasts';
 import Rating from "react-rating"
 import EmptyActivity from "../../components/EmptyActivity";
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
@@ -30,8 +29,7 @@ class Favourites extends Component {
         start_date: new Date(),
         end_date: new Date()
       },
-      ratingstate:{},
-      deleting: false
+      ratingstate:{}
     }
   }
 
@@ -62,7 +60,7 @@ class Favourites extends Component {
         });
       }
     } catch {
-      ToastsStore.error('Cannot get gear.');
+      handleError('Cannot get gear.');
     }
   }
 
@@ -87,7 +85,7 @@ class Favourites extends Component {
         }
       }
     } catch {
-      ToastsStore.error('Gear adding failed!');
+      handleError('Gear adding failed!');
     }
   };
 
@@ -109,7 +107,7 @@ class Favourites extends Component {
                   initialRating={3}
                  emptySymbol={<img src="/images/Icons/star/star_icon_d.png" alt='' className="icon" />}
                  fullSymbol={<img src="/images/Icons/star/star_icon_a.png" alt='' className="icon" />}
-                    onChange={(rate) => {console.log(rate)}}/>
+                    onChange={(rate) => {}}/>
               <p>{this.state.ratingstate[index]}</p>
           </td>
 
@@ -124,11 +122,9 @@ class Favourites extends Component {
               className="close"
               aria-hidden="true"
               onClick={async () => {
-                this.setState({deleting : true});
                 let ret = await deleteFavourite({ gearid: listItem.gearid });
                 if (!ret) handleError("Removing failed!");
-                else ToastsStore.info("Successfully removed!");
-                this.setState({deleting : false});
+                else handleInfo("Successfully removed!");
               }}/>
           </td>
         </tr>
@@ -158,11 +154,7 @@ class Favourites extends Component {
                                     className="close"
                                     aria-hidden="true"
                                     onClick={async () => {
-                                        this.setState({loadingdata_del : this});
-                                        let ret = await deleteFavourite({ gearid: listItem.gearid });
-                                        if (!ret) handleError("Removing from favorites failed!");
-                                        // else handleSuccess("Successfully removed!");
-                                        this.setState({deleting : false});
+                                        deleteFavourite({ gearid: listItem.gearid });
                                     }}/>
                             </div>
                          </div>
@@ -190,7 +182,7 @@ class Favourites extends Component {
   }
 
   render() {
-    const { favourites } = this.props;
+    const { favourites, isChanging } = this.props;
     if (!favourites) {
       return <BarLoader color="#F82462" height="5" />;
     }
@@ -198,7 +190,7 @@ class Favourites extends Component {
     return (
       <React.Fragment>
         {
-          this.state.loading ? <CustomSpinner/> : null
+          isChanging ? <CustomSpinner/> : null
         }
         <div className="cart_view centered-content">
           <Breadcrumb className= "card_content_path">
@@ -250,9 +242,12 @@ class Favourites extends Component {
             <button className="theme-btn theme-btn-secondery col-md-14"><Link to="/cart">Continue Shopping</Link></button>
             <button className="theme-btn theme-btn-primary theme-btn-link col-md-9"><Link to="/checkout">Cart</Link></button>
           </div>
-
-          <CartModal1 dlg_model={1} gear={this.state.gear} open={this.state.modal_open_st === 2} onClose={this.onCloseModal} addToCart={this.addToCart}></CartModal1>
-          <CartModal carted={this.state.carted} gear={this.state.gear} start_date={this.state.cart_info.start_date} end_date={this.state.cart_info.end_date} open={this.state.modal_open_st === 1} onClose={this.onCloseModal}></CartModal>
+          {
+            this.state.modal_open_st === 2 ?
+              <CartModal2 dlg_model={1} gear={this.state.gear} open={this.state.modal_open_st === 2} onClose={this.onCloseModal} addToCart={this.addToCart}></CartModal2> :
+            this.state.modal_open_st === 1 ?
+              <CartModal1 carted={this.state.carted} gear={this.state.gear} start_date={this.state.cart_info.start_date} end_date={this.state.cart_info.end_date} open={this.state.modal_open_st === 1} onClose={this.onCloseModal}></CartModal1> : null
+          }
         </div>
       </React.Fragment>
     );
@@ -262,6 +257,7 @@ class Favourites extends Component {
 const mapStateToProps = state => ({
   gear: state.gear.gear,
   favourites: state.favourite.favourites,
+  isChanging: state.favourite.isChanging,
   carts: state.cart.carts
 });
 

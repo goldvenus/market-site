@@ -5,7 +5,6 @@ import { Container, Row, Col, Form, ListGroup, ListGroupItem } from 'reactstrap'
 
 import { newArrivals } from '../../core/actions/gear.action';
 import { socialLogin } from "../../core/actions/user.action";
-import { fetchCategories } from "../../core/actions/category.action";
 import CustomInput from '../../components/CustomInput';
 import ThemeCardTwo from '../../components/Theme-Cards/ThemeCardTwo';
 
@@ -87,7 +86,6 @@ class Home extends Component {
     $window.on('scroll resize', check_if_in_view);
     $window.trigger('scroll');
 
-    fetchCategories();
     newArrivals();
 
     //facebook login

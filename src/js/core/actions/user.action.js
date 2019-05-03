@@ -1,7 +1,6 @@
 import axios from "axios";
-import { axiosConfig, tokenAxiosConfig, getAPIUrl, get, post} from '../api/index'
-import { handleError, clearError } from './common.action'
-import { fetchCategories } from './category.action';
+import { tokenAxiosConfig, getAPIUrl, get, post} from '../api'
+import { handleError, handleInfo } from './common.action'
 import { getCarts } from "./cart.action";
 import { getFavourites } from "./favourite.action";
 import constants from "../types";
@@ -15,21 +14,24 @@ const register = async (data) => {
     return new Promise(async (resolve, reject) => {
         try {
             let response = await post('signup', data);
-            if (response) {
+            if (response.data.status === 'success') {
                 dispatch({
                     type: constants.SIGNUP_SUCCESS
                 });
+                handleInfo('You were registered successfully');
             } else {
                 dispatch({
                     type: constants.SIGNUP_FAILED
                 });
+                handleError(response.data.errorMessage);
             }
             resolve(response);
         } catch (error) {
+            console.log(error);
             dispatch({
-                type: constants.SIGNUP_FAILED,
-                payload: error
+                type: constants.SIGNUP_FAILED
             });
+            handleError(error);
             reject(error);
         }
     });
@@ -46,7 +48,7 @@ const login = async (data) => {
                 type: constants.LOGIN_SUCCESS,
                 payload: response.data.userAttributes
             });
-
+            handleInfo("Welcome to our site!");
             // store the token
             const { accessToken, idToken, refreshToken } = response.data.tokens;
             localStorage.accessToken = accessToken;
@@ -54,14 +56,16 @@ const login = async (data) => {
             localStorage.refreshToken = refreshToken;
             localStorage.userId = response.data.userAttributes.userid;
             localStorage.userEmail = data.username;
+            await getCarts();
+            await getFavourites();
             return response;
         }
     } catch (error) {
-        console.log("LOGLIN_ERROR: ", error);
         dispatch({
             type: constants.LOGIN_FAILED,
             payload: error
         });
+        handleError(error);
     }
 };
 
@@ -135,7 +139,7 @@ const refreshToken = async () => {
             return response;
         }
     } catch (error) {
-        // handleError(error);
+        handleError(error);
     }
 };
 
@@ -146,9 +150,8 @@ const getUser = async () => {
             if (token) {
                 let response = await get('getUserInfo');
                 if (response && response.data) {
-                    getCarts();
-                    getFavourites();
-                    fetchCategories();
+                    await getCarts();
+                    await getFavourites();
                 }
             }
         }
@@ -170,6 +173,7 @@ const socialLogin = async (idToken, accessToken) => {
                 type: constants.LOGIN_SUCCESS,
                 payload: response.data.userAttributes
             });
+            handleInfo("Welcome to our site!");
             // store the token
             const { accessToken, idToken, refreshToken } = response.data.tokens;
             localStorage.accessToken = accessToken;

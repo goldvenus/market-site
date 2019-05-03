@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import CustomInput from '../CustomInput';
 import { Row, Col, Form, TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
-import { ToastsStore } from 'react-toasts';
 import classnames from 'classnames';
 import CardView from './RG_card_view';
 import ListView from './RG_list_view';
@@ -10,9 +9,11 @@ import TableView from './RG_table_view';
 import { addCart } from '../../core/actions/cart.action';
 import { rentGearProductList } from '../../core/actions/gear.action'
 import { formatDate } from '../../core/helper'
-import CartModal1 from "../common/CartModal2";
-import CartModal from "../common/CartModal1";
+import CartModal2 from "../common/CartModal2";
+import CartModal1 from "../common/CartModal1";
 import Loader from 'react-loader-spinner'
+import { handleError } from "../../core/actions/common.action";
+import CustomSpinner from "../CustomSpinner";
 
 class Main extends Component {
   constructor(props) {
@@ -94,24 +95,19 @@ class Main extends Component {
   addToCart = async ({ gearid, userid, startDate, endDate }) => {
     try {
       if (startDate && endDate) {
-        let res = await addCart({
+        await addCart({
           gearid: gearid,
           userid: userid,
           startDate: formatDate(startDate),
           endDate: formatDate(endDate)
         });
 
-        if (res.status === 'success') {
-          ToastsStore.info("Gear was added to cart!");
-        } else {
-          ToastsStore.error(res.errorMessage);
-        }
         this.setState({
           modal_open_st: 0
         });
       }
     } catch {
-      ToastsStore.error("Gear was not added to cart!");
+      handleError("Gear was not added to cart!");
     }
   };
 
@@ -137,16 +133,15 @@ class Main extends Component {
 
   isCartedFavored = gearid => {
     const { carts, favourites } = this.props;
-    const favored = gearid && favourites && favourites.Count > 0 ?
-      favourites.Items.filter(item => item.gearid === gearid).length : 0;
-    console.log(carts);
+    const favored = gearid && favourites && favourites.length > 0 ?
+      favourites.filter(item => item.gearid === gearid).length : 0;
     const carted = gearid && carts && carts.length > 0 ?
       carts.filter(item => item.gearid === gearid).length : 0;
     return { carted, favored };
   };
 
   render() {
-    const { category, carts, favourites } = this.props;
+    const { category, carts, favourites, isChanging } = this.props;
 
     if (!carts || !favourites || !category || this.state.loading)
         return <div className="circle-loader">
@@ -179,7 +174,9 @@ class Main extends Component {
     const is_empty = product_list.length < 1;
 
     return (
-      <div className="main-wrapper">
+      <React.Fragment>
+        {isChanging && <CustomSpinner />}
+        <div className="main-wrapper">
         <Row className="main_head">
           <Col md="18 d-none d-md-flex" >
             <div className="search">
@@ -279,14 +276,15 @@ class Main extends Component {
               </TabContent>
                 {
                     this.state.modal_open_st === 2 ?
-                        <CartModal1 dlg_model={1} gear={this.state.gear} open={this.state.modal_open_st === 2} onClose={this.onCloseModal} addToCart={this.addToCart} /> :
+                        <CartModal2 dlg_model={1} gear={this.state.gear} open={this.state.modal_open_st === 2} onClose={this.onCloseModal} addToCart={this.addToCart} /> :
                     this.state.modal_open_st === 1 ?
-                        <CartModal carted={this.state.carted} gear={this.state.gear} start_date={this.state.cart_info.start_date} end_date={this.state.cart_info.end_date} open={this.state.modal_open_st === 1} onClose={this.onCloseModal} /> :
+                        <CartModal1 carted={this.state.carted} gear={this.state.gear} start_date={this.state.cart_info.start_date} end_date={this.state.cart_info.end_date} open={this.state.modal_open_st === 1} onClose={this.onCloseModal} /> :
                         null
                 }
             </React.Fragment>
         }
       </div>
+      </React.Fragment>
     );
   }
 }
@@ -294,6 +292,7 @@ class Main extends Component {
 export default connect(state => {
   return {
     carts: state.cart.carts,
-    favourites: state.favourite.favourites
+    favourites: state.favourite.favourites,
+    isChanging: state.favourite.isChanging
   };
 })(Main);

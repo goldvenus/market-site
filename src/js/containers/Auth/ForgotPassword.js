@@ -32,7 +32,6 @@ class ForgotPassword extends Component {
 
       if(email) {
         const res = await sendResetPasswordEmail({email: email})
-        console.log(res)
 
         if(res) {
           // this.setState({isEmailSent: true})
