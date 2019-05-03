@@ -24,15 +24,14 @@ class Payment extends Component {
       fee: 0,
       amount: 0,
       buyer_info: {},
-      loading: true
+      loading: false
     };
 
     const checkout_id = this.props.match.params.id;
     const payment_id = this.props.match.params.tid;
-    if (payment_id === undefined || checkout_id === undefined)
-      window.location.href = "http://localhost:3000";
 
-    this.getUserPaidItems({checkout_id, payment_id});
+
+    // this.getUserPaidItems({checkout_id, payment_id});
   }
 
   getUserPaidItems = async (param) => {
@@ -60,7 +59,7 @@ class Payment extends Component {
     } catch(err) {
       handleError("Payment info loading failed!");
     }
-  }
+  };
 
   renderCheckoutItems() {
     const { items } = this.state;

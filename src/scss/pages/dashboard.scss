@@ -710,6 +710,7 @@ color: #fff
   }
 }
 
+
 // OrderHistory detail page
 .order-detail-container {
   .detail-top-button-container {
@@ -1080,4 +1081,214 @@ span.edit_my_gear {
 
   }
 
+}
+.react-tabs__tab-panel--selected {
+  padding:30px;
+}
+.gear_history_next_btn {
+  width: 30px;
+  height: 30px;
+  padding-right: 47px;
+  background-repeat: no-repeat;
+  background-image: url("/images/Icons/dashbord/next_gear_history.svg");
+}
+.order_history_sm_gearimage {
+  padding:18px;
+}
+.order_history_sm_gear_name {
+  padding-top:3vh;
+}
+.status-bar-container {
+  padding:18px;
+  border-bottom: 1px solid #f5f5f5;
+  border-top: 1px solid #f5f5f5;
+  justify-content: center;
+
+}
+.order_history_sm_gear_days {
+  padding:18px;
+  border-bottom: 1px solid #f5f5f5;
+}
+.order_history_client_image {
+  padding:18px;
+  display: flex;
+
+  img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+
+}.order_history_client_namegroup {
+   padding-top:12px;
+   .order_history_client_first_name {
+     font-size: 12px;
+     line-height: 18px;
+     letter-spacing: 0.03em;
+     color: #3A3A3A;
+     opacity: 0.5;
+   }
+   .order_history_client_second_name {
+     font-family: Helvetica Neue;
+     font-size: 16px;
+     line-height: 27px;
+     color: #252525;
+   }
+   p {
+     margin:0;
+   }
+
+ }
+ .order_history_payment {
+   padding:18px;
+   border:1px solid #F5F5F5;
+   p{
+     margin:0;
+   }
+  .order_history_pay_group {
+    border-right: 1px solid #F5F5F5;
+  }
+   .order_history_pay_title {
+     font-family: Helvetica Neue;
+     font-size: 12px;
+     line-height: 18px;
+     letter-spacing: 0.03em;
+     color: #3A3A3A;
+     opacity: 0.5;
+   }
+   .order_history_pay_perday_content {
+     font-family: Gotham Pro;
+     font-size: 20px;
+     line-height: 25px;
+     color: #252525;
+   }
+   .prder_history_amount_content {
+     font-family: Gotham Pro;
+     font-size: 20px;
+     line-height: 25px;
+     color: #252525;
+     font-weight: 500;
+   }
+ }
+ .order_mobile_parent_div {
+   border-bottom:20px solid #faf8f9;
+ }
+
+ .order_rating_dialog_sm_parent {
+   .order-modal-header{
+     padding:5px;
+     padding-right:0;
+     font-weight: 700;
+     font-family: Gotham Pro;
+     font-size: 24px;
+     line-height: 27px;
+     color: #252525;
+     .edit_icon {
+       margin-left:10px;
+     }
+  }
+   .order-modal-body {
+      padding:0;
+     .paid-item .pay-info {
+       width: 100%;
+       background-color: white;
+     }
+     .buyer-info {
+       display: block;
+       border-top: 1px solid #faf8f9;
+       padding:15px;
+       text-align: center;
+       margin:0;
+       .buyer-info-left {
+         width: 100%;
+         justify-content: center;
+         display: flex;
+           span {
+             padding-top:12px;
+         }
+       }
+       .buyer-info-right {
+         width:100%
+       }
+     }
+     .item-info {
+       text-align: center;
+       padding:15px;
+       img {
+         width:93px;
+         height: 93px;
+         object-fit: contain;
+       }
+      .order_history_gear_name_sm {
+        width: 100%;
+        .brand-model {
+          font-family: Gotham Pro;
+          font-size: 20px;
+          line-height: 25px;/* identical to box height */
+          text-align: center;
+          font-weight: 700;
+          color: #252525;
+        }
+      }
+     }
+   }
+   .payment-info {
+     padding:15px;
+     text-align: center;
+     border-top:1px solid #faf8f9;
+     div {
+       width: 100% !important;
+     }
+   }
+   .rating-select-container {
+     width: 100%;
+     padding:35px;
+     background-color: white;
+     border-top:1px solid #faf8f9;
+   }
+   .payment-success-info {
+     margin:0;
+     border:0;
+     padding:0;
+     text-align: center;
+     display: block;
+     .text-gray {
+       padding:10px 0;
+     }
+     .payment-card {
+       padding:15px;
+       margin:0;
+     }
+   }
+   .order_history_competed_div_sm {
+     border-top:1px solid lightgray;
+     padding:25px;
+   }
+   .checkout-amount {
+     padding:15px;
+   }
+   .order-modal-footer {
+     border-top:1px solid lightgray;
+     padding:15px 0;
+   }
+   .pickup-btn-container {
+     padding:15px;
+     background-color: white;
+   }
+
+ }
+.styles_modal__gNwvD {
+  background-color: #faf8f9;
+}
+@media (max-width:550px) {
+  .styles_closeButton__20ID4 {
+    top: -36px;
+    right: 0 !important;
+  }
+  .styles_modal__gNwvD {
+    margin-top: 10vh;
+  }
+}
+.order_history_sm_parent_div {
+  border:15px solid #faf8f9;
 }
