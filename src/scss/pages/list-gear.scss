@@ -12,7 +12,7 @@
   }
 
   .list-gear-body {
-    .wrraper {
+    .list-gear-wrapper {
       background-color: $gray-light;
       padding: 30px;
       text-align: center;
@@ -235,10 +235,10 @@
   .gear p {
     font-size: 12px !important;
   }
-  .list-gear .list-gear-body .wrraper .listing-data-slice td {
+  .list-gear .list-gear-body .list-gear-wrapper .listing-data-slice td {
     border-top: 18px solid #faf8f9 !important;
   }
-  .list-gear .list-gear-body .wrraper {
+  .list-gear .list-gear-body .list-gear-wrapper {
     padding: 5px 10px;
     margin-bottom: 5rem;
   }
@@ -273,133 +273,49 @@
   }
 }
 
-@media(max-width: 700px) {
-  .card img {
-    width: 70px !important;
-    height: 70px !important;
-    object-fit: contain;
-  }
-  .list-gear-small-line{
-    height: 1px;
-    background-color: #F5F5F5;
-    margin-top: 18px;
-  }
+@media(max-width: 767px) {
+  .list-gear-mobile {
+    .list-gear-item-wrapper {
+      width: 100%;
+      border: solid 16px #faf8f9;
+      border-top: none;
+      padding: 16px;
 
-  .listing-data-slice{
-    background-color: #faf8f9 !important;
-  .card {
-    margin:16px;
-  }
+      .list-gear-item-info {
+        padding: 16px;
+        display: flex;
+        justify-content: space-between;
 
-  }
-  .gear-img {
-    width: 70px !important;
-    height: 70px;
-    object-fit: contain;
-  }
-  .close {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    margin:0;
-    vertical-align: middle;
-    cursor: pointer;
-    background-image: url('/images/Icons/cart/cross-p.svg');
-  }
-  .edit_gear{
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    margin:0;
-    vertical-align: middle;
-    cursor: pointer;
-    background-image: url('/images/Icons/cart/edit-b.svg');
-  }
-      .list-gear-small .card {
-        word-wrap: normal;
+        .list-gear-item-img {
 
-      }
-      .list-gear-title {
-        justify-content: center;
-        margin-bottom: 40px !important;
-      }
-      .table-head {
-       display: none;
-     }
-     .pagination {
-       display: none;
-     }
-     .list-gear-large {
+        }
+        .list-gear-item-props {
+          display: grid;
+          align-items: center;
 
-       display: none;
-     }
-    .list-img {
-      display: flex;
-      flex-direction: row;
-      align-items: flex-start;
-      justify-content: space-between;
-      .list-text {
-        margin: 15px;
-        p {
-
-          margin: 0;
+          .gear_name_first {
+            font-family: Helvetica Neue;
+            font-size: 16px;
+            line-height: 20px;
+            color: #252525;
+          }
+          .gear_name_second {
+            font-family: Helvetica Neue;
+            font-size: 12px;
+            line-height: 18px;
+            letter-spacing: 0.03em;
+            color: #3A3A3A;
+            opacity: 0.5;
+          }
+        }
+        .list-gear-item-control {
+          align-items: center;
+          display: grid;
         }
       }
     }
-    .gear-img {
-      width: 70px !important;
-      max-width: 70px !important;
-      height: 70px !important;
-    }
-    .list-gear-small button {
-      width: 100% !important;
-      margin-top: 18px;
-      height: 25px !important;
-      color: #1CDB74;
-      font-size: 12px;
-      border:1px solid #1CDB74;
-
-    }
-
-    .list-prices {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-      text-align: center;
-
-    }
-    .list-prices p {
-      font-size: 12px;
-      color: #6c757d;
-      margin-bottom: 15px;
-    }
-  .list-prices div{
-    margin-top: 20px;
-    width: 50%;
   }
-  .list-gear-small-line-ver{
-    width: 1px !important;
-    margin: 0 !important;
-    background-color: #F5F5F5;
+  .list-gear-item-wrapper:first-child {
+    border-top: solid 16px #faf8f9;;
   }
-    .list-prices span {
-      color: #000;
-      font-size: 16px;
-      font-weight: bold;
-    }
-    .list-text a {
-      font-size: 16px;
-      font-weight: bold;
-    }
-
-
-  .list-icons {
-    display: flex;
-    flex-direction: column;
-    .close {
-      margin-bottom: 12px;
-    }
-  }
-
-
 }

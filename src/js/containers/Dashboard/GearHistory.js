@@ -91,11 +91,11 @@ class MyListings extends React.Component {
   };
 
   render() {
-    const { currentPage} = this.state;
+    const { currentPage, isLoading} = this.state;
     const { list } = this.props;
-    // if (isLoading) {
-    //   return <BarLoader color="#F82462" height="5"/>;
-    // }
+    if (!list) {
+      return <BarLoader color="#F82462" height="5"/>;
+    }
 
     this.pagesCount = Math.ceil(list ? list.length / this.pageSize : "");
 
@@ -115,7 +115,7 @@ class MyListings extends React.Component {
               <Tab ><div className="list-menu-letter"><i className="fa fa-list"></i>List</div></Tab>
               <Tab ><div className="list-calendar-letter"><i className="fa fa-calendar"></i> Calender</div></Tab>
           </TabList>
-          <div className="wrraper wrraper-region calendar_wrraper">
+          <div className="wrraper_dashboard wrraper-region calendar_wrraper">
             <TabPanel>
             { (list.length <= 0) ? <EmpetyList/> :
                (

@@ -70,6 +70,7 @@ class Home extends React.Component {
     $window.trigger('scroll');
 
     newArrivals();
+    newArrivals();
 
     //facebook login
     let href = window.location.href;

@@ -88,13 +88,13 @@
         text-align: center !important;
         font-size:16px;
       }
-      .wrraper{
+      .wrraper_dashboard{
         padding: 30px 30px 52px 30px;
       }
     }
 
     .chart {
-      .wrraper {
+      .wrraper_dashboard {
         background-color: $gray-light;
         padding: 3rem;
         text-align: center;
@@ -117,7 +117,7 @@
     }
 
     .account-detail {
-      .wrraper {
+      .wrraper_dashboard {
         background-color: $gray-light;
         padding: 3rem;
         text-align: center;
@@ -204,7 +204,7 @@
         padding-top: 9px !important;
       }
 
-      .wrraper {
+      .wrraper_dashboard {
         background-color: $gray-light;
         padding: 3rem;
         text-align: center;
@@ -295,7 +295,7 @@
       }
 
       .my-rental {
-        .wrraper {
+        .wrraper_dashboard {
           background-color: $gray-light;
           padding: 3rem;
           text-align: center;
@@ -310,7 +310,7 @@
     }
     .my-listing-tabs{
       padding:30px;
-      .wrraper{
+      .wrraper_dashboard{
         padding: 0;
         padding: 30px 30px 52px 30px;
       }
@@ -354,7 +354,7 @@ color: #fff
       }
     }
 
-    .wrraper .empety-list p {
+    .wrraper_dashboard .empety-list p {
       font-size: 16px;
       font-weight: bolder;
       margin-bottom: 46px;
@@ -362,7 +362,7 @@ color: #fff
 
   }
 }
-.wrraper .empety-list{
+.wrraper_dashboard .empety-list{
   padding:40px;
   background-color: #faf8f9 !important;
 }
@@ -830,7 +830,7 @@ color: #fff
       height: 141px !important;
     }
   }
-  .wrraper {
+  .wrraper_dashboard {
     img {
       width: 90px !important;
       height: 90px !important;
@@ -862,14 +862,12 @@ color: #fff
     }
   }
 
-  .wrraper {
+  .wrraper_dashboard {
     padding: 18px !important;
       .react-tabs__tab-panel {
-
         .table-responsive {
           margin-bottom: -14px;
           .listing-data-slice {
-
           }
         }
       }
@@ -931,7 +929,7 @@ color: #fff
   .listing-data-image{
     margin: auto !important;
   }
-  .wrraper .listing-data-slice tr{
+  .wrraper_dashboard .listing-data-slice tr{
     height: 140px;
     td {
       border-top: 18px solid #f3f3f3 !important;
@@ -1012,7 +1010,7 @@ color: #fff
 
 
         }
-        .wrraper{
+        .wrraper_dashboard{
           padding: 0px 16px !important;
 
           .react-tabs__tab-panel{

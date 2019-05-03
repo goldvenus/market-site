@@ -100,7 +100,7 @@ class Payment extends Component {
                   <div className='buyer-info-left'>
                     <div className='category-name'>{localStorage.username}</div>
                     <div className='buyer-profile'>
-                        <img src={this.state.buyer_info.cognitoPool.userAttributes.picture}></img>
+                        <img src={this.state.buyer_info.cognitoPool.userAttributes.picture} alt=''></img>
                         <div>
                             <span>Jakob Storm</span>
                             <span>+1 (123) 562-42-11</span>

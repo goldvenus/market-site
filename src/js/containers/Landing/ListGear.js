@@ -25,7 +25,7 @@ const ListGearItem = ({onDelete, listItem: {gearid, model = '', brand = '', cate
             <tr className="list-gear-large">
                 <td width="10%">
                     {numberOfUserImage && numberOfUserImage.length > 0
-                        ? <img src={numberOfUserImage[0]} className="gear-img" alt=""/>
+                        ? <img src={numberOfUserImage[0]} className="gear-img list-gear-img" alt=""/>
                         : null
                     }
                 </td>
@@ -165,13 +165,13 @@ class ListGear extends Component {
                             </Container>
                         </div>
                         <Container>
-                            <div className="list-gear-body">
+                            <div className="list-gear-body d-none d-sm-block">
                                 {!gear_list.length ? (
                                         <EmptyActivity e_name="Add Gear" e_path="/addgear" e_title="YOUR LIST GEAR IS EMPTY"
                                                        e_img_name="cart"/>
                                     ) :
                                     (
-                                        <div className="wrraper">
+                                        <div className="list-gear-wrapper">
                                             <Fragment>
                                                 <Table className="listing-data-slice">
                                                     <thead className="table-head">
@@ -189,8 +189,7 @@ class ListGear extends Component {
                                                     <tbody>
                                                     {
                                                         gear_list.map((data, i) => {
-                                                        return <ListGearItem listItem={data} key={i}
-                                                                             onDelete={this.handleDelete}/>;
+                                                        return <ListGearItem listItem={data} key={i} onDelete={this.handleDelete}/>;
                                                     })}
                                                     </tbody>
                                                 </Table>
@@ -216,12 +215,48 @@ class ListGear extends Component {
                                                             next
                                                         />
                                                     </PaginationItem>
-
                                                 </Pagination>
                                             </Fragment>
                                         </div>
                                     )}
-
+                            </div>
+                            <div className='list-gear-mobile d-block d-sm-none'>
+                                {!gear_list.length ? (
+                                    <EmptyActivity e_name="Add Gear" e_path="/addgear" e_title="YOUR LIST GEAR IS EMPTY"
+                                                   e_img_name="cart"/>
+                                    ) : (
+                                    gear_list.map((item) => {
+                                        return (<div className='list-gear-item-wrapper'>
+                                                <div className='list-gear-item-info'>
+                                                    <div className='list-gear-item-img'>
+                                                        <img src={item.numberOfUserImage[0]}/>
+                                                    </div>
+                                                    <div className='list-gear-item-props'>
+                                                        <p className="gear_name_first"><Link to={`/gear/${item.gearid}`}>{item.model + ' ' + item.brand}</Link></p>
+                                                        <p className="theme-text-small text-muted gear_name_second">{item.categoryName}</p>
+                                                    </div>
+                                                    <div className='list-gear-item-control'>
+                                                        <Link to={`/editgear/${item.gearid}`}><span className="edit_gear"/></Link>
+                                                        <span className="close" onClick={() => this.onDelete(item.gearid)}/>
+                                                    </div>
+                                                </div>
+                                                <div className='list-gear-item-status'>
+                                                    <button className=''></button>
+                                                </div>
+                                                <div className='list-gear-item-value'>
+                                                    <div className='price-per-day'>
+                                                        <span>Price per day</span>
+                                                        <span>{item.pricePerDay}</span>
+                                                    </div>
+                                                    <div className='price-total'>
+                                                        <span>Amount</span>
+                                                        <span>{item.Amount}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )})
+                                    )
+                                }
                             </div>
                         </Container>
                     </div>
