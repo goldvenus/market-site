@@ -14,7 +14,7 @@ const register = async (data) => {
     return new Promise(async (resolve, reject) => {
         try {
             let response = await post('signup', data);
-            if (response.status === 'success') {
+            if (response.data.status === 'success') {
                 dispatch({
                     type: constants.SIGNUP_SUCCESS
                 });
@@ -23,7 +23,7 @@ const register = async (data) => {
                 dispatch({
                     type: constants.SIGNUP_FAILED
                 });
-                handleError(response.errMsg);
+                handleError(response.data.errorMessage);
             }
             resolve(response);
         } catch (error) {
@@ -49,7 +49,6 @@ const login = async (data) => {
                 payload: response.data.userAttributes
             });
             handleInfo("Welcome to our site!");
-
             // store the token
             const { accessToken, idToken, refreshToken } = response.data.tokens;
             localStorage.accessToken = accessToken;
@@ -57,6 +56,8 @@ const login = async (data) => {
             localStorage.refreshToken = refreshToken;
             localStorage.userId = response.data.userAttributes.userid;
             localStorage.userEmail = data.username;
+            await getCarts();
+            await getFavourites();
             return response;
         }
     } catch (error) {
@@ -64,7 +65,7 @@ const login = async (data) => {
             type: constants.LOGIN_FAILED,
             payload: error
         });
-        handleError(error+"askdjfwjfaksjdkf");
+        handleError(error);
     }
 };
 
@@ -138,7 +139,7 @@ const refreshToken = async () => {
             return response;
         }
     } catch (error) {
-        // handleError(error);
+        handleError(error);
     }
 };
 
@@ -149,8 +150,8 @@ const getUser = async () => {
             if (token) {
                 let response = await get('getUserInfo');
                 if (response && response.data) {
-                    getCarts();
-                    getFavourites();
+                    await getCarts();
+                    await getFavourites();
                 }
             }
         }

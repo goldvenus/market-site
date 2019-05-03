@@ -12,15 +12,14 @@ export default (state = initialState, action) => {
             case constants.ERROR:
                 draft.errorMsg = action.payload;
                 break;
-            case constants.CLEAR_ERROR:
+
+            case constants.CLEAR_MSG:
                 draft.errorMsg = null;
+                draft.infoMsg = null;
                 break;
 
             case constants.INFO:
                 draft.infoMsg = action.payload;
-                break;
-            case constants.CLEAR_INFO:
-                draft.infoMsg = null;
                 break;
 
             default:

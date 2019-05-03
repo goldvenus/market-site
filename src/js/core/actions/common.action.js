@@ -9,10 +9,9 @@ const handleInfo = (info) => {
     });
 };
 
-const clearInfo = (info) => {
+const clearMsg = () => {
     dispatch({
-        type: constants.CLEAR_INFO,
-        payload: info
+        type: constants.CLEAR_MSG
     });
 };
 
@@ -20,13 +19,6 @@ const handleError = (error) => {
     dispatch({
         type: constants.ERROR,
         payload: error || 'Something went wrong'
-    });
-};
-
-const clearError = () => {
-    dispatch({
-        type: constants.CLEAR_ERROR,
-        payload: null
     });
 };
 
@@ -47,5 +39,5 @@ const readFileData = (event) => {
 };
 
 export {
-    handleError, clearError, readFileData, handleInfo, clearInfo
+    handleError, readFileData, handleInfo, clearMsg
 }

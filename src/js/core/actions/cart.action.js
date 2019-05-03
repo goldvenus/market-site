@@ -1,10 +1,11 @@
 import constants  from "../types";
-import { handleError, handleInfo } from "./common.action";
+import { handleError, handleInfo, clearMsg } from "./common.action";
 import { get, post } from "../api/index";
 import store from '../../store';
 const dispatch = store.dispatch;
 
 const addCart = (data) => {
+    clearMsg();
     dispatch({
         type: constants.ADD_TO_CART_REQUEST
     });
@@ -48,6 +49,7 @@ const getCarts = async () => {
 };
 
 const deleteCartItem = async (data) => {
+    clearMsg();
     dispatch({
         type: constants.DELETE_CART_ITEM_REQUEST
     });

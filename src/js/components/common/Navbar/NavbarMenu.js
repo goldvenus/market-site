@@ -94,8 +94,8 @@ class NavbarMenu extends React.Component {
         <Link to="/favourites">
           <div className="sidebar-item__icon">
             <HeartIcon/>
-            {!!(favourites && favourites.Items && favourites.Items.length > 0) &&
-            <span className="sidebar-item__badge">{favourites.Items.length}</span>
+            {!!(favourites && favourites.length > 0) &&
+            <span className="sidebar-item__badge">{favourites.length}</span>
             }
           </div>
         </Link>

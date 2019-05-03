@@ -67,7 +67,7 @@ class CartModal1 extends Component {
                                 if (!carted) {
                                     this.setState({busy: true});
                                     addToCart();
-                                } else if (location.pathname.indexOf('/gear/detail') >= 0) {
+                                } else {
                                     this.setState({busy: false});
                                     onClose();
                                 }

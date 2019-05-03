@@ -29,7 +29,6 @@ class Home extends React.Component {
     searchLocationResult: [],
   };
 
-
   handleChangeSearchValue = e => {
     this.setState({
       searchValue: (e && e.target && e.target.value) || '',
@@ -91,7 +90,6 @@ class Home extends React.Component {
     }
   }
 
-
   render() {
     const {
       searchValue,
@@ -120,12 +118,9 @@ class Home extends React.Component {
     prevNextButtons: true,
     pageDots: true,
     draggable: false
-
-
-}
+  }
 
     return (
-
       <div className="page home-page home">
         <div className="section section-hero">
           <div className="container">
@@ -202,7 +197,6 @@ class Home extends React.Component {
 
           </div>
         </div>
-
 
         <div className="home-body">
           {/* cards container for the large screen */}

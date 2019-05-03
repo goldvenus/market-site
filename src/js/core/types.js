@@ -142,7 +142,6 @@ export default keyMirror({
 
     // ==== common ==== //
     ERROR: null,
-    CLEAR_ERROR: null,
     INFO: null,
-    CLEAR_INFO: null
+    CLEAR_MSG: null
 });

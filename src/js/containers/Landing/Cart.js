@@ -109,14 +109,14 @@ class Cart extends Component {
 
   render() {
   const { carts, isLoading, isDeleting } = this.props;
-    if (isLoading) {
+    if (!carts) {
       return <BarLoader color="#F82462" height="5" />;
     }
 
     return (
       <React.Fragment>
         {
-          isDeleting === true ? <CustomSpinner /> : null
+          isDeleting && <CustomSpinner/>
         }
         <div className="cart_view centered-content">
           <Breadcrumb className= "card_content_path">
