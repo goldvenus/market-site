@@ -49,7 +49,7 @@ class Register extends Component {
       if (password !== confirmPassword) {
         handleError('Password and confirm password do not match');
       } else {
-        let response = await register({
+        await register({
           fullName,
           username,
           password,
@@ -67,7 +67,7 @@ class Register extends Component {
 
   render() {
     const { password, confirmPassword, username, fullName, fileName } = this.state;
-    const { isRegistered, isRegistering, isRegisteringFailed, errMsg } = this.props;
+    const { isRegistered, isRegistering } = this.props;
     return (
       <div className="auth-container theme-navbar">
         <AuthSideMenu/>

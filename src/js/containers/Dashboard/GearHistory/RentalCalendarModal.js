@@ -15,8 +15,8 @@ import PeriodDeleteModal from "./PeriodDeleteModal"
 import DayPicker from "react-day-picker";
 import './style.css';
 import Helmet from 'react-helmet';
-import Rodal from 'rodal';
-import 'rodal/lib/rodal.css';
+// import Rodal from 'rodal';
+// import 'rodal/lib/rodal.css';
 import { days } from '../../../core/helper';
 import { getListGears } from "../../../core/actions/gear.action";
 import { formatDate } from "../../../core/helper";
@@ -404,7 +404,6 @@ const UpdateMydata_calendar = () => {
                 const duration = days(new Date(filterevent[0].startDate), new Date(filterevent[0].endDate));
                 filterevent[0].data_range = duration + " days";
                 filterevent[0].title = filterevent[0].renter_name + filterevent[0].startDate;
-                filterevent[0].gearid = filterevent[0].gearid;
                 $(this).parent().prepend(Append_Rent_Data(filterevent[0], start_time, end_time,filterevent[0].startDate ));
                 resize_index = true;
             });

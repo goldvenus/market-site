@@ -25,18 +25,18 @@ const getUniqueObjectArray = obj_arr => {
 };
 
 const validateCard = value => {
-    var value = value.replace(/\D/g, '');
+    var new_value = value.replace(/\D/g, '');
     var sum = 0;
     var shouldDouble = false;
-    for (var i = value.length - 1; i >= 0; i--) {
-        var digit = parseInt(value.charAt(i));
+    for (var i = new_value.length - 1; i >= 0; i--) {
+        var digit = parseInt(new_value.charAt(i));
         if (shouldDouble) {
             if ((digit *= 2) > 9) digit -= 9;
         }
         sum += digit;
         shouldDouble = !shouldDouble;
     }
-    var valid = (sum % 10) == 0;
+    var valid = (sum % 10) === 0;
     var accepted = false;
     var acceptedCreditCards = {
         visa: /^4[0-9]{12}(?:[0-9]{3})?$/,
@@ -48,7 +48,7 @@ const validateCard = value => {
     };
     Object.keys(acceptedCreditCards).forEach(function(key) {
         var regex = acceptedCreditCards[key];
-        if (regex.test(value)) {
+        if (regex.test(new_value)) {
             accepted = true;
         }
     });
@@ -56,10 +56,10 @@ const validateCard = value => {
 };
 
 const cc_format = value => {
-    var v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '')
+    var v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
     var matches = v.match(/\d{4,16}/g);
-    var match = matches && matches[0] || ''
-    var parts = []
+    var match = matches.length ? matches[0] : '';
+    var parts = [];
 
     for (let i=0, len=match.length; i<len; i+=4) {
         parts.push(match.substring(i, i+4))

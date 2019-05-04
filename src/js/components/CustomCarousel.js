@@ -44,7 +44,7 @@ class CustomCarousel extends Component {
   }
 
   render() {
-    const {activeIndex, selectedType} = this.state;
+    const {activeIndex} = this.state;
     const { items } = this.props;
 
     const slides = items.map((item, index) => {
@@ -55,7 +55,7 @@ class CustomCarousel extends Component {
           key={index}
         >
           <div className="carousel-image-container">
-            <img src={item} alt="Image" />
+            <img src={item} alt="carousel" />
           </div>
         </CarouselItem>
       );
@@ -68,14 +68,14 @@ class CustomCarousel extends Component {
          previous={this.previous}
        >
        {slides}
-        <a className="carousel-control-prev" role="button" tabIndex="0" onClick={this.previous}>
+        <div className="carousel-control-prev" role="button" tabIndex="0" onClick={this.previous}>
           <i className="fa fa-angle-left"></i>
           <span className="sr-only">Previous</span>
-        </a>
-        <a className="carousel-control-next" role="button" tabIndex="0" onClick={this.next}>
+        </div>
+        <div href="#" className="carousel-control-next" role="button" tabIndex="0" onClick={this.next}>
           <i className="fa fa-angle-right"></i>
           <span className="sr-only">Next</span>
-        </a>
+        </div>
       </Carousel>
       <CarouselIndicators className='d-lg-none' items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex}/>
     </div>

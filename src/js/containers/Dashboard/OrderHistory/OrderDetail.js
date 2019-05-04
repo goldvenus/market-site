@@ -76,7 +76,7 @@ class OrderDetail extends Component {
                                         <div className='buyer-info-left'>
                                             <div className='category-name'>Owner Name</div>
                                             <div className='buyer-profile owner-profile'>
-                                                <img src={listItem.numberOfUserImage[0]}></img>
+                                                <img src={listItem.numberOfUserImage[0]} alt="number of user" />
                                                 <div>
                                                     <span>Jakob Storm</span>
                                                     <span>+1 (123) 562-42-11</span>

@@ -34,10 +34,10 @@ class OrderRating extends Component {
                                 <div>
                                     {
                                         sold_items.map((listItem, index) => {
-                                            const pick_status = 1*listItem.PickStatus;
-                                            const btn_label1 = pick_status < 1 ? "CONFIRM PICKUP" : "PICKUP CONFIRMED";
-                                            const btn_label2 = "CONFIRM RETURN";
-                                            console.log(listItem);
+                                            // const pick_status = 1*listItem.PickStatus;
+                                            // const btn_label1 = pick_status < 1 ? "CONFIRM PICKUP" : "PICKUP CONFIRMED";
+                                            // const btn_label2 = "CONFIRM RETURN";
+                                            // console.log(listItem);
 
                                             return <div key={`cart-item-${index}`} className="paid-item">
                                                 <div className='pay-info pay-info-history'>
@@ -51,7 +51,7 @@ class OrderRating extends Component {
                                                         <div className='buyer-info-left'>
                                                             <div className='category-name'>Owner Name</div>
                                                             <div className='buyer-profile owner-profile'>
-                                                                <img src={listItem.numberOfUserImage[0]}></img>
+                                                                <img src={listItem.numberOfUserImage[0]} alt="number of user" ></img>
                                                                 <div>
                                                                     <span>Jakob Storm</span>
                                                                     <span>+1 (123) 562-42-11</span>
@@ -164,15 +164,15 @@ class OrderRating extends Component {
                             <div>
                                 {
                                     sold_items.map((listItem, index) => {
-                                        const pick_status = 1*listItem.PickStatus;
-                                        const btn_label1 = pick_status < 1 ? "CONFIRM PICKUP" : "PICKUP CONFIRMED";
-                                        const btn_label2 = "CONFIRM RETURN";
-                                        console.log(listItem);
+                                        // const pick_status = 1*listItem.PickStatus;
+                                        // const btn_label1 = pick_status < 1 ? "CONFIRM PICKUP" : "PICKUP CONFIRMED";
+                                        // const btn_label2 = "CONFIRM RETURN";
+                                        // console.log(listItem);
 
                                         return <div key={`cart-item-${index}`} className="paid-item d-block">
                                             <div className='pay-info pay-info-history'>
                                                 <div className='item-info d-block'>
-                                                    <img src={listItem.numberOfUserImage[0]}></img>
+                                                    <img src={listItem.numberOfUserImage[0]} alt="number of user" />
                                                     <div className="order_history_gear_name_sm">
                                                         <div className='category-name'>{listItem.categoryName}</div>
                                                         <div className='brand-model'>{listItem.brand + ' ' + listItem.model}</div>
@@ -182,7 +182,7 @@ class OrderRating extends Component {
                                                 <div className='buyer-info'>
                                                     <div className='buyer-info-left'>
                                                         <div className='buyer-profile owner-profile'>
-                                                            <img src={listItem.numberOfUserImage[0]}></img>
+                                                            <img src={listItem.numberOfUserImage[0]} alt="number of user" />
                                                             <div>
                                                                 <span>Jakob Storm</span>
                                                             </div>

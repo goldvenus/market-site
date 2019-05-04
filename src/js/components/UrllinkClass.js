@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import React from "react";
 
-const Urllink_class  = (props) => {
+const UrllinkClass  = (props) => {
     const category = props.name.replace(' ', '');
 
     if (category === 'HomePage' || category === 'Home' ) {
@@ -39,4 +39,4 @@ const Urllink_class  = (props) => {
     }
 }
 
-export default Urllink_class;
+export default UrllinkClass;

@@ -10,7 +10,7 @@ import { getGear } from "../../core/actions/gear.action";
 import { addCart } from "../../core/actions/cart.action";
 import { handleError } from "../../core/actions/common.action";
 import { formatDate } from "../../core/helper";
-import Urllink_class from "../../components/Urllink_class";
+import UrllinkClass from "../../components/UrllinkClass";
 
 class ViewGear extends Component {
   constructor(props) {
@@ -67,11 +67,11 @@ class ViewGear extends Component {
         <div className="right-container">
           <div>
             <Breadcrumb>
-              <Urllink_class name="Home"></Urllink_class>
+              <UrllinkClass name="Home"></UrllinkClass>
                 <span className="space_slash_span">/</span>
-              <Urllink_class name="Rent Gears"></Urllink_class>
+              <UrllinkClass name="Rent Gears"></UrllinkClass>
                 <span className="space_slash_span">/</span>
-              <Urllink_class name={gear.categoryName}></Urllink_class>
+              <UrllinkClass name={gear.categoryName}></UrllinkClass>
                 <span className="space_slash_span">/</span>
               <BreadcrumbItem active>{name}</BreadcrumbItem>
             </Breadcrumb>

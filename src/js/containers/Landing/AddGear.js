@@ -12,7 +12,7 @@ import { handleError, readFileData } from '../../core/actions/common.action';
 import { addGear } from '../../core/actions/gear.action';
 import { fetchCategories } from "../../core/actions/category.action";
 import Textarea from "muicss/lib/react/textarea";
-import Urllink_class from "../../components/Urllink_class";
+import UrllinkClass from "../../components/UrllinkClass";
 import CustomSpinner from "../../components/CustomSpinner";
 import BarLoader from "react-bar-loader";
 
@@ -463,7 +463,7 @@ class AddGear extends Component {
           this.state.busy ? <CustomSpinner/> : null
         }
         <Breadcrumb>
-          <Urllink_class name="Home"></Urllink_class>
+          <UrllinkClass name="Home"></UrllinkClass>
             <span className="space_slash_span">/</span>
           <BreadcrumbItem active>Add Gear</BreadcrumbItem>
         </Breadcrumb>

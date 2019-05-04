@@ -7,7 +7,6 @@ import Tabs from './tabs';
 import Chart from './chart';
 import AccountDetail from './account_detail';
 import MyListings from './GearHistory';
-import MyRental from './rental';
 import OrderHistory from './OrderHistory'
 import BarLoader from "react-bar-loader";
 

@@ -22,7 +22,7 @@ import { formatDate } from "../../core/helper";
 import CartModal1 from '../../components/common/CartModal1'
 import CartModal2 from '../../components/common/CartModal2';
 import { calcDaysDiff, getDateStr } from "../../core/helper";
-import Urllink_class from "../../components/Urllink_class";
+import UrllinkClass from "../../components/UrllinkClass";
 import { Inline } from '@zendeskgarden/react-loaders'
 import CustomSpinner from "../../components/CustomSpinner";
 
@@ -475,11 +475,11 @@ class RentGearDetail extends Component {
                   <div className="right-container col-lg-15">
                       <div className="right-container1 row">
                           <Breadcrumb>
-                              <Urllink_class name="Home"/>
+                              <UrllinkClass name="Home"/>
                               <span className="space_slash_span">/</span>
-                              <Urllink_class name="Rent Gears"/>
+                              <UrllinkClass name="Rent Gears"/>
                               <span className="space_slash_span">/</span>
-                              <Urllink_class name={categoryName}/>
+                              <UrllinkClass name={categoryName}/>
                               <span className="space_slash_span">/</span>
                               <BreadcrumbItem active>{name}</BreadcrumbItem>
                           </Breadcrumb>
@@ -585,8 +585,8 @@ class RentGearDetail extends Component {
                                                   }
                                                   {
                                                       this.state.open_date_picker2 ?
-                                                          <img src="/images/Icons/calendar/calendar1.svg"/> :
-                                                          <img src="/images/Icons/calendar/calendar.svg"/>
+                                                          <img src="/images/Icons/calendar/calendar1.svg" alt="calendar1" /> :
+                                                          <img src="/images/Icons/calendar/calendar.svg" alt="calendar" />
                                                   }
                                               </div>
                                           </div>

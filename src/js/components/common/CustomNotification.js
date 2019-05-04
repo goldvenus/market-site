@@ -4,9 +4,6 @@ import 'react-notifications/lib/notifications.css';
 
 
 class CustomNotification extends React.Component {
-    constructor(props) {
-        super(props);
-    }
     componentDidMount () {
         this.createNotification(this.props.info, this.props.title)
     }
@@ -23,6 +20,8 @@ class CustomNotification extends React.Component {
                 break;
             case 'error':
                 NotificationManager.error(title, "Error", 5000);
+                break;
+            default:
                 break;
         }
     };

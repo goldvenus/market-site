@@ -41,6 +41,16 @@ class Main extends Component {
     this.loadProductList(this.props.category);
   }
 
+  initProductList = (category) => {
+      if (this.state.category !== category) {
+          this.setState({
+              searchText: '',
+              locationText: ''
+          });
+          this.loadProductList(category);
+      }
+  };
+
   loadProductList = async (category) => {
     this.setState({loading: true});
     let ret = await rentGearProductList({
@@ -164,11 +174,7 @@ class Main extends Component {
           />
       </div>;
 
-    if (this.state.category !== category) {
-      this.state.searchText = '';
-      this.state.locationText = '';
-      this.loadProductList(category);
-    }
+    this.initProductList(category);
 
     product_list = this.doSearch();
     const is_empty = product_list.length < 1;

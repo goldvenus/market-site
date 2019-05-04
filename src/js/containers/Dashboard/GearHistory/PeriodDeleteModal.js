@@ -26,7 +26,7 @@ class PeriodDeleteModal extends Component {
 
     render() {
         let dlg_heading = 'Delete Period';
-        let { gear_info, onClose, onDelete } = this.props;
+        let { gear_info } = this.props;
         return (
             <Modal open={true} onClose={this.handleClose} center classNames={{modal: "cart-modal"}}>
                 <div className='period-cart-header'>

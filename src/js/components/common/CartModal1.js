@@ -16,7 +16,7 @@ class CartModal1 extends Component {
     }
 
     render() {
-        const { gear, carted, start_date, end_date, open, onClose, addToCart, history, location } = this.props;
+        const { gear, carted, start_date, end_date, open, onClose, addToCart, history } = this.props;
         const { brand, model, pricePerDay } = gear;
         const duration = calcDaysDiff(start_date, end_date) + 1;
         const start_date_str = getDateStr(start_date);

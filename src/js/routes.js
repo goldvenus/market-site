@@ -12,15 +12,12 @@ import OrderDetail from './containers/Dashboard/OrderHistory/OrderDetail';
 import AddGear from './containers/Landing/AddGear';
 import Cart from './containers/Landing/Cart';
 import Checkout from './containers/Landing/Checkout';
-import Payment from './containers/Payment/Payment';
 import PaymentSuccess from './containers/Payment/PaymentSuccess';
-import ListGear from './containers/Landing/ListGear';
 import RentGear from './containers/Landing/RentGear';
 import RentGearDetail from './containers/Landing/RentGearDetail';
 import SearchResults from './containers/Landing/SearchResults';
 import Favourites from './containers/Landing/Favourites';
 import Partner from './containers/Landing/Partner';
-import EditGear from './containers/Dashboard/GearHistory/GearEditModal'
 import FAQ from './containers/Landing/FAQ';
 
 export default (

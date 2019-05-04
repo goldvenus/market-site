@@ -9,7 +9,7 @@ import classNames from 'classnames';
 import { getListGears, deleteGear } from '../../core/actions/gear.action';
 import BarLoader from "react-bar-loader";
 import EmptyActivity from "../../components/EmptyActivity";
-import Urllink_class from "../../components/Urllink_class";
+import UrllinkClass from "../../components/UrllinkClass";
 import CustomSpinner from "../../components/CustomSpinner";
 import {handleError} from "../../core/actions/common.action";
 
@@ -143,7 +143,7 @@ class ListGear extends Component {
                                 <Row>
                                     <Col>
                                         <Breadcrumb>
-                                            <Urllink_class name="Home Page"/>
+                                            <UrllinkClass name="Home Page"/>
                                             <span className="space_slash_span">/</span>
                                             <BreadcrumbItem active>List Gear</BreadcrumbItem>
                                         </Breadcrumb>

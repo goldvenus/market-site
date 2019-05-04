@@ -50,21 +50,23 @@ class GearEditModal extends Component {
 
     componentWillReceiveProps(props) {
         if (!!props.gear) {
-            this.state.gearid = this.gearid;
-            this.state.categoryName = props.gear.categoryName;
-            this.state.brand = props.gear.brand;
-            this.state.model = props.gear.model;
-            this.state.description = props.gear.description;
-            this.state.selectedType = props.gear.type;
-            this.state.isKit = props.gear.isKit;
-            this.state.accessories = props.gear.accessories;
-            this.state.numberOfUserImage = props.gear.numberOfUserImage;
-            this.state.city = props.gear.city;
-            this.state.region = props.gear.product_region;
-            this.state.address = props.gear.address;
-            this.state.postalCode = props.gear.postalCode;
-            this.state.replacementValue = props.gear.replacementValue;
-            this.state.pricePerDay = props.gear.pricePerDay;
+            this.setState({
+                gearid: this.gearid,
+                categoryName: props.gear.categoryName,
+                brand: props.gear.brand,
+                model: props.gear.model,
+                description: props.gear.description,
+                selectedType: props.gear.type,
+                isKit: props.gear.isKit,
+                accessories: props.gear.accessories,
+                numberOfUserImage: props.gear.numberOfUserImage,
+                city: props.gear.city,
+                region: props.gear.product_region,
+                address: props.gear.address,
+                postalCode: props.gear.postalCode,
+                replacementValue: props.gear.replacementValue,
+                pricePerDay: props.gear.pricePerDay
+            });
         }
     }
 
@@ -127,14 +129,18 @@ class GearEditModal extends Component {
     }
 
     renderInfo () {
-        const { brand, model,categoryName, accessories } = this.state;
-        const { categories ,gear, user} = this.props;
-        if(categoryName == 'Category'){
-            this.state.categoryName = gear.categoryName;
+        const { brand, model,categoryName } = this.state;
+        const { categories ,gear } = this.props;
+        if(categoryName === 'Category'){
+            this.setState({
+                categoryName: gear.categoryName
+            });
         }
-        if(model==''){
-            this.state.model=gear.model;
-            this.state.brand=gear.brand;
+        if(model === ''){
+            this.setState({
+                model: gear.model,
+                brand: gear.brand
+            });
         }
         return (
             <Form className="theme-form add-gear-info d-sm-none d-lg-block">
@@ -172,10 +178,14 @@ class GearEditModal extends Component {
     renderPhotos () {
         const {gear} = this.props;
         const {numberOfUserImage} = this.state;
-        this.state.numberOfUserImage=gear.numberOfUserImage;
+
+        this.setState({
+            numberOfUserImage: gear.numberOfUserImage
+        });
+
         const mappedImages = numberOfUserImage.map((image, index) => (
             <div className="add-gear-image" key={'gear-image-' + index}>
-                <img src={image}/>
+                <img src={image} alt="add gear" />
             </div>
         ));
         return (<div className="add-gear-photos">
@@ -192,13 +202,15 @@ class GearEditModal extends Component {
     renderAddress() {
         const { city, region, address, postalCode } = this.state;
         const { gear } = this.props;
-        if(city=='')
-        {
-            this.state.city = gear.city;
-            this.state.region = gear.product_region;
-            this.state.address = gear.address;
-            this.state.postalCode = gear.postalCode;
-        }
+
+        if(city === '')
+            this.setState({
+                city: gear.city,
+                region: gear.product_region,
+                address: gear.address,
+                postalCode: gear.postalCode
+            });
+
         return (
             <Form className="theme-form add-gear-address">
                 <p className="type_title_css">Address</p>
@@ -246,11 +258,11 @@ class GearEditModal extends Component {
                                 <div className="type-tab-div">
                                     <div className="type-tabs">
                                         <input name="type" id="new" type="radio" value="new" onChange={this.onTypeChange}/>
-                                        <label className={selectedType == 'new' ? 'active' : ''} htmlFor="new">New</label>
+                                        <label className={selectedType === 'new' ? 'active' : ''} htmlFor="new">New</label>
                                         <input name="type" id="like-new" type="radio" value="like_new" onChange={this.onTypeChange}/>
-                                        <label className={selectedType == 'like_new' ? 'active' : ''} htmlFor="like-new">Like New</label>
+                                        <label className={selectedType === 'like_new' ? 'active' : ''} htmlFor="like-new">Like New</label>
                                         <input name="type" id="slightly-worn" type="radio" value="slightly_worn" onChange={this.onTypeChange}/>
-                                        <label className={selectedType == 'slightly_worn' ? 'active' : ''} htmlFor="slightly-worn">Slightly
+                                        <label className={selectedType === 'slightly_worn' ? 'active' : ''} htmlFor="slightly-worn">Slightly
                                             Worn</label>
                                         <input name="type" id="worn" type="radio" value="worn" onChange={this.onTypeChange}/>
                                         <label className={selectedType === 'worn' ? 'active' : ''} htmlFor="worn">Worn</label>
@@ -262,7 +274,7 @@ class GearEditModal extends Component {
                                         <div className="input_svg pretty p-svg p-plain">
                                             <input type="checkbox" checked={isKit} onChange={(e) => this.setState({ isKit: e.target.checked })}/>
                                             <div className="state">
-                                                <img className="svg check_svg" src="/images/Icons/task.svg"/>
+                                                <img className="svg check_svg" src="/images/Icons/task.svg" alt="task icon" />
                                             </div>
                                         </div>
                                         <Label for="is-kit">Is this a Kit?</Label>

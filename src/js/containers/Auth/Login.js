@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import { Button, Form, Label, Input } from 'reactstrap';
+import { Label, Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import formSerialize from "form-serialize";
 import CustomInput from '../../components/CustomInput';

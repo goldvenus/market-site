@@ -8,7 +8,7 @@ import { deleteCartItem } from '../../core/actions/cart.action'
 import BarLoader from "react-bar-loader";
 import EmptyActivity from '../../components/EmptyActivity'
 import CustomSpinner from "../../components/CustomSpinner";
-import Urllink_class from "../../components/Urllink_class";
+import UrllinkClass from "../../components/UrllinkClass";
 
 class Cart extends Component {
   renderCartItems() {
@@ -116,11 +116,11 @@ class Cart extends Component {
     return (
       <React.Fragment>
         {
-          isDeleting && <CustomSpinner/>
+            (isDeleting || isLoading) && <CustomSpinner/>
         }
         <div className="cart_view centered-content">
           <Breadcrumb className= "card_content_path">
-            <Urllink_class name="Home"> </Urllink_class>
+            <UrllinkClass name="Home"> </UrllinkClass>
               <span className="space_slash_span">/</span>
             <BreadcrumbItem active>Cart</BreadcrumbItem>
           </Breadcrumb>
