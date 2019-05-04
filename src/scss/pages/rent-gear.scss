@@ -584,7 +584,7 @@
     margin-top: 1rem;
     justify-content: flex-start !important;
   }
-  .card img {
+  .card img.rent-gear-img {
     height: 100% !important;
   }
   .sidebar-wrapper .list-group {
@@ -652,19 +652,14 @@
   .breadcrumb {
     justify-content: center;
   }
-
-.cardz {
-  flex: 0 50% !important;
-  max-width: fit-content;
+  .cardz {
+    flex: 0 50% !important;
+    max-width: fit-content;
+  }
+  .rent-gear-title {
+      margin: 0 auto;
+  }
 }
-
-.rent-gear-title{
-    margin: 0 auto;
-}
-
-
-
- }
 
  @media (max-width:1050px){
   .category-mobile {

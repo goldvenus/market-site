@@ -1,13 +1,47 @@
 import constants from "../types";
-import { handleError } from "./common.action";
+import { clearMsg, handleError, handleInfo } from "./common.action";
 import { post, get} from "../api/index";
 import store from '../../store';
 const dispatch = store.dispatch;
 
 const addGear = async (data) => {
+    clearMsg();
+    dispatch({
+        type: constants.ADD_GEAR_REQUEST,
+    });
     try {
         let response = await post('addGearItem', data);
-        return response.data.status;
+        if (response.data.status) {
+            dispatch({
+                type: constants.ADD_GEAR_SUCCESS,
+            });
+            handleInfo('Gear was added');
+            return response.data.status;
+        } else {
+            handleError('Gear was not added');
+        }
+    } catch (error) {
+        handleError(error);
+    }
+};
+
+const editGear = async (data) => {
+    clearMsg();
+    dispatch({
+        type: constants.EDIT_GEAR_REQUEST,
+    });
+    try {
+        let response = await post('editGearItem', data);
+        if (response.data.status === 'success' ) {
+            dispatch({
+                type: constants.EDIT_GEAR_SUCCESS,
+                payload: data
+            });
+            handleInfo('Gear was edited');
+            return response.data.status;
+        } else {
+            handleError('Gear was not edited');
+        }
     } catch (error) {
         handleError(error);
     }
@@ -72,16 +106,22 @@ const rentGearProductList = async (catDetail) => {
 };
 
 const newArrivals = async () => {
+    dispatch({
+        type: constants.NEW_ARRIVALS_REQUEST,
+    });
     try {
         let response = await get('viewNewArrivalGears');
 
         if (response) {
             dispatch({
-                type: constants.NEW_ARRIVALS,
+                type: constants.NEW_ARRIVALS_SUCCESS,
                 payload: response.data
             });
         }
     } catch (error) {
+        dispatch({
+            type: constants.NEW_ARRIVALS_FAILED,
+        });
         handleError(error);
     }
 };
@@ -134,5 +174,5 @@ const searchHome = async (brand, product_region) => {
 };
 
 export {
-    newArrivals, addGear, deleteGear, getGear, rentGearProductList, getListGears, searchHome
+    newArrivals, addGear, deleteGear, getGear, rentGearProductList, getListGears, searchHome, editGear
 };

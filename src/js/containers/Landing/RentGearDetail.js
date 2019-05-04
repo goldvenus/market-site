@@ -19,11 +19,12 @@ import { addFavourites, deleteFavourite } from "../../core/actions/favourite.act
 import { addCart } from "../../core/actions/cart.action";
 import { handleError } from '../../core/actions/common.action';
 import { formatDate } from "../../core/helper";
-import CartModal from '../../components/common/CartModal1'
-import CartModal1 from '../../components/common/CartModal2';
+import CartModal1 from '../../components/common/CartModal1'
+import CartModal2 from '../../components/common/CartModal2';
 import { calcDaysDiff, getDateStr } from "../../core/helper";
 import Urllink_class from "../../components/Urllink_class";
 import { Inline } from '@zendeskgarden/react-loaders'
+import CustomSpinner from "../../components/CustomSpinner";
 
 const flickityOptions = {
     contain: true,
@@ -59,7 +60,7 @@ class RentGearDetail extends Component {
         }
     }
 
-    async addToCart() {
+    addToCart = async () => {
         try {
             const { startDate, endDate } = this.state;
             const { gear } = this.props;
@@ -70,11 +71,12 @@ class RentGearDetail extends Component {
                     startDate: formatDate(startDate),
                     endDate: formatDate(endDate)
                 });
+                this.setState({modal_open_st: 0});
             }
         } catch {
-            handleError('Gear was not added to cart!');
+            handleError('Gear was not added to cart');
         }
-    }
+    };
 
     renderRecommendedProducts({ listGears }) {
         return listGears.map((item, i) => {
@@ -257,7 +259,7 @@ class RentGearDetail extends Component {
     };
 
     renderContent = () => {
-        const { gear, user, carts, favourites } = this.props;
+        const { gear, user, carts, favourites, isChangingFavor } = this.props;
         if (!gear || !user || !carts || !favourites)
             return <BarLoader color="#F82462" height="5" />;
 
@@ -268,7 +270,7 @@ class RentGearDetail extends Component {
         const carted_item = gearid && carts && carts.length > 0 ?
             carts.filter(item => item.gearid === gearid) : 0;
         const carted = carted_item ? carted_item.length : false;
-        const favored = gearid && favourites > 0 ?
+        const favored = gearid && favourites && favourites.length > 0 ?
             favourites.filter(item => item.gearid === gearid).length : 0;
         // description
         const is_first_enter = this.state.descp.length === 0;
@@ -290,352 +292,357 @@ class RentGearDetail extends Component {
         let star_arr = Array.apply(null, Array(5));
 
         return (
+          <React.Fragment>
+            {
+              isChangingFavor && <CustomSpinner/>
+            }
             <div className="detail-container container">
-                <div className='d-lg-none d-xl-none d-info-container'>
-                    <div className='location-bar-container'>
-                        <span>
-                            <span className='breadcrumb-item'>Home</span>
-                            <span className='breadcrumb-item'>Rent Gears</span>
-                            <span className='breadcrumb-item'>{categoryName}</span>
-                            <span className='breadcrumb-item active'>{name}</span>
-                        </span>
-                    </div>
+              <div className='d-lg-none d-xl-none d-info-container'>
+                  <div className='location-bar-container'>
+                      <span>
+                          <span className='breadcrumb-item'>Home</span>
+                          <span className='breadcrumb-item'>Rent Gears</span>
+                          <span className='breadcrumb-item'>{categoryName}</span>
+                          <span className='breadcrumb-item active'>{name}</span>
+                      </span>
+                  </div>
 
-                    <div className="theme-form-small text-gray category">{categoryName} </div>
+                  <div className="theme-form-small text-gray category">{categoryName} </div>
 
-                    <span className='category-name'>
-                        { name }
-                        {
-                            carted > 0 ? <i className="fas fa-check-circle icon-carted"></i> : null
-                        }
-                    </span>
+                  <span className='category-name'>
+                      { name }
+                      {
+                          carted > 0 ? <i className="fas fa-check-circle icon-carted"></i> : null
+                      }
+                  </span>
 
-                    <div className="type-tabs">
-                        <input name="type" id="new" type="radio" value="new"/>
-                        <label className={`type-tab ${selectedType === 1 ? 'active' : ''}`} htmlFor="new">New</label>
-                        <input name="type" id="like-new" type="radio" value="like_new"/>
-                        <label className={`type-tab type-tab2 ${selectedType === 2 ? 'active' : ''}`} htmlFor="like-new">Like New</label>
-                        <input name="type" id="slightly-worn" type="radio" value="slightly_worn"/>
-                        <label className={`type-tab type-tab3 ${selectedType === 3 ? 'active' : ''}`} htmlFor="slightly-worn">Slightly
-                            Worn</label>
-                        <input name="type" id="worn" type="radio" value="worn"/>
-                        <label className={`type-tab type-tab4 ${selectedType === 4 ? 'active' : ''}`} htmlFor="worn">Worn</label>
-                    </div>
+                  <div className="type-tabs">
+                      <input name="type" id="new" type="radio" value="new"/>
+                      <label className={`type-tab ${selectedType === 1 ? 'active' : ''}`} htmlFor="new">New</label>
+                      <input name="type" id="like-new" type="radio" value="like_new"/>
+                      <label className={`type-tab type-tab2 ${selectedType === 2 ? 'active' : ''}`} htmlFor="like-new">Like New</label>
+                      <input name="type" id="slightly-worn" type="radio" value="slightly_worn"/>
+                      <label className={`type-tab type-tab3 ${selectedType === 3 ? 'active' : ''}`} htmlFor="slightly-worn">Slightly
+                          Worn</label>
+                      <input name="type" id="worn" type="radio" value="worn"/>
+                      <label className={`type-tab type-tab4 ${selectedType === 4 ? 'active' : ''}`} htmlFor="worn">Worn</label>
+                  </div>
 
-                    <div className='row rating-container'>
-                        <div className='col-sm-5'></div>
-                        <div className='col-sm-7 col-12'>
-                            <span>
-                                {
-                                    star_arr.map((item, key) =>
-                                        key < 6 ?
-                                            <i className="fa fa-star star-selected" key={key}></i> :
-                                            <i className="fa fa-star" key={key}></i>)
-                                }
-                            </span>
-                            <span> {rating} ({total_rating})</span>
-                        </div>
-                        <div className="gear-address-container col-sm-7 col-12 row">
-                            <div className='marker-icon'></div>
-                            <span className='gear-address'>{city}</span>
-                        </div>
-                        <div className='col-sm-5'></div>
-                    </div>
+                  <div className='row rating-container'>
+                      <div className='col-sm-5'></div>
+                      <div className='col-sm-7 col-12'>
+                          <span>
+                              {
+                                  star_arr.map((item, key) =>
+                                      key < 6 ?
+                                          <i className="fa fa-star star-selected" key={key}></i> :
+                                          <i className="fa fa-star" key={key}></i>)
+                              }
+                          </span>
+                          <span> {rating} ({total_rating})</span>
+                      </div>
+                      <div className="gear-address-container col-sm-7 col-12 row">
+                          <div className='marker-icon'></div>
+                          <span className='gear-address'>{city}</span>
+                      </div>
+                      <div className='col-sm-5'></div>
+                  </div>
 
-                    <div className="carousel-top-container">
-                        <CustomCarousel items={numberOfUserImage}/>
-                    </div>
+                  <div className="carousel-top-container">
+                      <CustomCarousel items={numberOfUserImage}/>
+                  </div>
 
-                    <div className="gear-info">
-                        <div className="theme-form-small text-gray accessories">Accessories</div>
-                        <div className="accessories-content">{accessories.join(', ')}</div>
+                  <div className="gear-info">
+                      <div className="theme-form-small text-gray accessories">Accessories</div>
+                      <div className="accessories-content">{accessories.join(', ')}</div>
 
-                        <div className="theme-form-small text-gray description">Description</div>
-                        <div className="description-content">{descp}</div>
-                        {
-                            is_view_more && this.state.show_view_more ? <div className="view-more" onClick={() => {
-                                this.setState({descp: description, show_view_more: false});
-                            }}>View More...</div> : null
-                        }
-                        {
-                            is_view_more && !this.state.show_view_more ? <div className="view-more" onClick={() => {
-                                this.setState({descp: description, show_view_more: true});
-                            }}>Fold...</div> : null
-                        }
-                    </div>
+                      <div className="theme-form-small text-gray description">Description</div>
+                      <div className="description-content">{descp}</div>
+                      {
+                          is_view_more && this.state.show_view_more ? <div className="view-more" onClick={() => {
+                              this.setState({descp: description, show_view_more: false});
+                          }}>View More...</div> : null
+                      }
+                      {
+                          is_view_more && !this.state.show_view_more ? <div className="view-more" onClick={() => {
+                              this.setState({descp: description, show_view_more: true});
+                          }}>Fold...</div> : null
+                      }
+                  </div>
 
-                    <div className="d-none d-sm-block gear-purchase">
-                        <div className='row price-container'>
-                            <div className='col-md-12'>
-                                <div className="theme-form-small text-gray replacement">Replacement Value</div>
-                                <div className="replacement-content">${replacementValue}</div>
-                            </div>
-                            <div className='col-md-12 tablet-price-container'>
-                                <div className="price-per-day">${pricePerDay}<span className='price-slash'> / </span><span className="price-per-day-text">per day</span></div>
-                            </div>
-                        </div>
-                        {
-                            user && this.state.userid !== userid ?
-                                <div className="pickup-date-container row">
-                                    <div className='col-md-11 date-range-container'>
-                                        <TextField id="date-range-input1" className="date-range-input" type="text" label={'PICKUP DATE'}
-                                            onFocus={() => this.setOpenState(true, false)} value={start_date_str}/>
-                                        {
-                                            this.state.open_date_picker1 ?
-                                                <DateRange
-                                                    className={'date-range-wrapper'}
-                                                    ranges={[selectionRange]}
-                                                    onChange={this.handleSelect}
-                                                    rangeColors={['#F74377']}
-                                                    showDateDisplay={false}
-                                                    dateDisplayFormat={'DD.MM.YYYY'}
-                                                />
-                                                : null
-                                        }
-                                        {
-                                            this.state.open_date_picker1 ?
-                                                <object type="image/svg+xml" data="/images/Icons/calendar/calendar1.svg">abc</object> :
-                                                <object type="image/svg+xml" data="/images/Icons/calendar/calendar.svg">abc</object>
-                                        }
-                                    </div>
-                                    <div className='col-md-2'></div>
-                                    <div className='col-md-11 date-range-container'>
-                                        <TextField id="date-range-input1" className="date-range-input" type="text" label={'RETURN DATE'}
-                                            onFocus={() => this.setOpenState(false, true)} value={end_date_str}/>
-                                        {
-                                            this.state.open_date_picker2 ?
-                                                <DateRange
-                                                    className={'date-range-wrapper'}
-                                                    ranges={[selectionRange]}
-                                                    onChange={this.handleSelect}
-                                                    rangeColors={['#F74377']}
-                                                    showDateDisplay={false}
-                                                    dateDisplayFormat={'DD.MM.YYYY'}
-                                                /> : null
-                                        }
-                                        {
-                                            this.state.open_date_picker2 ?
-                                                <object type="image/svg+xml" data="/images/Icons/calendar/calendar1.svg">abc</object> :
-                                                <object type="image/svg+xml" data="/images/Icons/calendar/calendar.svg">abc</object>
-                                        }
-                                    </div>
-                                </div>
-                                : null
-                        }
-                        <div className="bottom-buttons">
-                            <button className="theme-btn theme-btn-primary btn-cart" onClick={() => this.onOpenModal()}>
-                                {
-                                    busy ? <Inline size={64} color={"#fff"} /> : 'Add to Cart'
-                                }
-                            </button>
-                            <button className="theme-btn theme-btn-secondery btn-favor" onClick={() => {
-                                favored>0 ? deleteFavourite({ gearid }) : addFavourites({ gearid })}}>
-                                <i className={`${favored ? 'fas' : 'far'} fa-heart`}></i>
-                            </button>
-                        </div>
-                    </div>
+                  <div className="d-none d-sm-block gear-purchase">
+                      <div className='row price-container'>
+                          <div className='col-md-12'>
+                              <div className="theme-form-small text-gray replacement">Replacement Value</div>
+                              <div className="replacement-content">${replacementValue}</div>
+                          </div>
+                          <div className='col-md-12 tablet-price-container'>
+                              <div className="price-per-day">${pricePerDay}<span className='price-slash'> / </span><span className="price-per-day-text">per day</span></div>
+                          </div>
+                      </div>
+                      {
+                          user && this.state.userid !== userid ?
+                              <div className="pickup-date-container row">
+                                  <div className='col-md-11 date-range-container'>
+                                      <TextField id="date-range-input1" className="date-range-input" type="text" label={'PICKUP DATE'}
+                                          onFocus={() => this.setOpenState(true, false)} value={start_date_str}/>
+                                      {
+                                          this.state.open_date_picker1 ?
+                                              <DateRange
+                                                  className={'date-range-wrapper'}
+                                                  ranges={[selectionRange]}
+                                                  onChange={this.handleSelect}
+                                                  rangeColors={['#F74377']}
+                                                  showDateDisplay={false}
+                                                  dateDisplayFormat={'DD.MM.YYYY'}
+                                              />
+                                              : null
+                                      }
+                                      {
+                                          this.state.open_date_picker1 ?
+                                              <object type="image/svg+xml" data="/images/Icons/calendar/calendar1.svg">abc</object> :
+                                              <object type="image/svg+xml" data="/images/Icons/calendar/calendar.svg">abc</object>
+                                      }
+                                  </div>
+                                  <div className='col-md-2'></div>
+                                  <div className='col-md-11 date-range-container'>
+                                      <TextField id="date-range-input1" className="date-range-input" type="text" label={'RETURN DATE'}
+                                          onFocus={() => this.setOpenState(false, true)} value={end_date_str}/>
+                                      {
+                                          this.state.open_date_picker2 ?
+                                              <DateRange
+                                                  className={'date-range-wrapper'}
+                                                  ranges={[selectionRange]}
+                                                  onChange={this.handleSelect}
+                                                  rangeColors={['#F74377']}
+                                                  showDateDisplay={false}
+                                                  dateDisplayFormat={'DD.MM.YYYY'}
+                                              /> : null
+                                      }
+                                      {
+                                          this.state.open_date_picker2 ?
+                                              <object type="image/svg+xml" data="/images/Icons/calendar/calendar1.svg">abc</object> :
+                                              <object type="image/svg+xml" data="/images/Icons/calendar/calendar.svg">abc</object>
+                                      }
+                                  </div>
+                              </div>
+                              : null
+                      }
+                      <div className="bottom-buttons">
+                          <button className="theme-btn theme-btn-primary btn-cart" onClick={() => this.onOpenModal()}>
+                              {
+                                  busy ? <Inline size={64} color={"#fff"} /> : 'Add to Cart'
+                              }
+                          </button>
+                          <button className="theme-btn theme-btn-secondery btn-favor" onClick={() => {
+                              favored>0 ? deleteFavourite({ gearid }) : addFavourites({ gearid })}}>
+                              <i className={`${favored ? 'fas' : 'far'} fa-heart`}></i>
+                          </button>
+                      </div>
+                  </div>
 
-                    <div className='recommend-container'>
-                        <div className='recommend-heading'>
-                            <span>RECOMMENDED <br className="d-sm-block d-md-none"/>FOR THIS PRODUCT</span>
-                        </div>
-                        <div className='recommend-body d-xl-none d-lg-none slider-2'>
-                            <Flickity
-                                className={'carousel'} // default ''
-                                elementType={'div'} // default 'div'
-                                options={flickityOptions} // takes flickity options {}
-                                disableImagesLoaded={false} // default false
-                                reloadOnUpdate // default false
-                            >
-                                {
-                                    this.renderRecommendedProducts({listGears})
-                                }
-                            </Flickity>
-                        </div>
-                    </div>
-                </div>
+                  <div className='recommend-container'>
+                      <div className='recommend-heading'>
+                          <span>RECOMMENDED <br className="d-sm-block d-md-none"/>FOR THIS PRODUCT</span>
+                      </div>
+                      <div className='recommend-body d-xl-none d-lg-none slider-2'>
+                          <Flickity
+                              className={'carousel'} // default ''
+                              elementType={'div'} // default 'div'
+                              options={flickityOptions} // takes flickity options {}
+                              disableImagesLoaded={false} // default false
+                              reloadOnUpdate // default false
+                          >
+                              {
+                                  this.renderRecommendedProducts({listGears})
+                              }
+                          </Flickity>
+                      </div>
+                  </div>
+              </div>
 
-                <div className="d-none d-lg-flex d-xl-flex view-gear-detail row">
-                    <div className="col-lg-9 left-container">
-                        <div className="carousel-top-container">
-                            <CustomCarousel items={numberOfUserImage}/>
-                        </div>
-                        <div className="carousel-bottom-container">
-                            {
-                                this.renderCarousel(numberOfUserImage)
-                            }
-                        </div>
-                    </div>
-                    <div className="right-container col-lg-15">
-                        <div className="right-container1 row">
-                            <Breadcrumb>
-                                <Urllink_class name="Home"/>
-                                <span className="space_slash_span">/</span>
-                                <Urllink_class name="Rent Gears"/>
-                                <span className="space_slash_span">/</span>
-                                <Urllink_class name={categoryName}/>
-                                <span className="space_slash_span">/</span>
-                                <BreadcrumbItem active>{name}</BreadcrumbItem>
-                            </Breadcrumb>
-                            <div className="gear-container row">
-                                <div className="gear-info col-lg-15">
-                                    <div className="theme-form-small text-gray category d-none d-lg-block">{categoryName} </div>
-                                    <span className='category-name d-none d-lg-block'>
-                                        { name }
-                                        {
-                                            carted > 0 ?
-                                                <i className="fas fa-check-circle"></i> : null
-                                        }
-                                    </span>
-                                    <div className="type-tabs d-none d-lg-block">
-                                        <input name="type" id="new" type="radio" value="new" onChange={this.onTypeChange}/>
-                                        <label className={`type-tab ${selectedType === 1 ? 'active' : ''}`} htmlFor="new">New</label>
-                                        <input name="type" id="like-new" type="radio" value="like_new" onChange={this.onTypeChange}/>
-                                        <label className={`type-tab type-tab2 ${selectedType === 2 ? 'active' : ''}`} htmlFor="like-new">Like New</label>
-                                        <input name="type" id="slightly-worn" type="radio" value="slightly_worn" onChange={this.onTypeChange}/>
-                                        <label className={`type-tab type-tab3 ${selectedType === 3 ? 'active' : ''}`} htmlFor="slightly-worn">Slightly
-                                            Worn</label>
-                                        <input name="type" id="worn" type="radio" value="worn" onChange={this.onTypeChange}/>
-                                        <label className={`type-tab type-tab4 ${selectedType === 4 ? 'active' : ''}`} htmlFor="worn">Worn</label>
-                                    </div>
-                                    <div className="theme-form-small text-gray accessories">Accessories</div>
-                                    <div className="accessories-content">{accessories.join(', ')}</div>
+              <div className="d-none d-lg-flex d-xl-flex view-gear-detail row">
+                  <div className="col-lg-9 left-container">
+                      <div className="carousel-top-container">
+                          <CustomCarousel items={numberOfUserImage}/>
+                      </div>
+                      <div className="carousel-bottom-container">
+                          {
+                              this.renderCarousel(numberOfUserImage)
+                          }
+                      </div>
+                  </div>
+                  <div className="right-container col-lg-15">
+                      <div className="right-container1 row">
+                          <Breadcrumb>
+                              <Urllink_class name="Home"/>
+                              <span className="space_slash_span">/</span>
+                              <Urllink_class name="Rent Gears"/>
+                              <span className="space_slash_span">/</span>
+                              <Urllink_class name={categoryName}/>
+                              <span className="space_slash_span">/</span>
+                              <BreadcrumbItem active>{name}</BreadcrumbItem>
+                          </Breadcrumb>
+                          <div className="gear-container row">
+                              <div className="gear-info col-lg-15">
+                                  <div className="theme-form-small text-gray category d-none d-lg-block">{categoryName} </div>
+                                  <span className='category-name d-none d-lg-block'>
+                                      { name }
+                                      {
+                                          carted > 0 ?
+                                              <i className="fas fa-check-circle"></i> : null
+                                      }
+                                  </span>
+                                  <div className="type-tabs d-none d-lg-block">
+                                      <input name="type" id="new" type="radio" value="new" onChange={this.onTypeChange}/>
+                                      <label className={`type-tab ${selectedType === 1 ? 'active' : ''}`} htmlFor="new">New</label>
+                                      <input name="type" id="like-new" type="radio" value="like_new" onChange={this.onTypeChange}/>
+                                      <label className={`type-tab type-tab2 ${selectedType === 2 ? 'active' : ''}`} htmlFor="like-new">Like New</label>
+                                      <input name="type" id="slightly-worn" type="radio" value="slightly_worn" onChange={this.onTypeChange}/>
+                                      <label className={`type-tab type-tab3 ${selectedType === 3 ? 'active' : ''}`} htmlFor="slightly-worn">Slightly
+                                          Worn</label>
+                                      <input name="type" id="worn" type="radio" value="worn" onChange={this.onTypeChange}/>
+                                      <label className={`type-tab type-tab4 ${selectedType === 4 ? 'active' : ''}`} htmlFor="worn">Worn</label>
+                                  </div>
+                                  <div className="theme-form-small text-gray accessories">Accessories</div>
+                                  <div className="accessories-content">{accessories.join(', ')}</div>
 
-                                    <div className="theme-form-small text-gray description">Description</div>
-                                    <div className="description-content">{descp}</div>
-                                    {
-                                        is_view_more && this.state.show_view_more ? <div className="view-more" onClick={() => {
-                                            this.setState({descp: description, show_view_more: false});
-                                        }}>View More...</div> : null
-                                    }
-                                    {
-                                        is_view_more && !this.state.show_view_more ? <div className="view-more" onClick={() => {
-                                            this.setState({descp: description, show_view_more: true});
-                                        }}>Fold...</div> : null
-                                    }
-                                </div>
-                                <div className="gear-purchase col-lg-9">
-                                    <div>
-                                        <span className='star-wrapper'>
-                                            {
-                                                star_rating > 0 ?
-                                                    star_arr.map((item, key) =>
-                                                        key < 6 ?
-                                                            <i className="fa fa-star star-selected" key={key}></i> :
-                                                            <i className="fa fa-star" key={key}></i>) :
-                                                    null
-                                            }
-                                        </span>
-                                        <span className="theme-form-small">&nbsp;{rating} ({total_rating})</span>
-                                        <div className="gear-address-container row">
-                                            <div className='marker-icon'></div>
-                                            <span className='gear-address'>{city}</span>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div className="theme-form-small text-gray replacement">Replacement Value</div>
-                                        <div className="replacement-content">${replacementValue}</div>
-                                    </div>
-                                    <div>
-                                        <div className="price-per-day">${pricePerDay}<span className='price-slash'> / </span><span className="price-per-day-text">per day</span></div>
-                                    </div>
-                                    {
-                                        user && this.state.userid !== userid ?
-                                            <div className="pickup-date-container">
-                                                <div className='row date-range-container'>
-                                                    <TextField id="date-range-input1" className="date-range-input" type="text" label={'PICKUP DATE'}
-                                                        onFocus={() => this.setOpenState(true, false)} value={start_date_str}/>
-                                                    {
-                                                        this.state.open_date_picker1 ?
-                                                            <DateRange
-                                                                className={'date-range-wrapper'}
-                                                                ranges={[selectionRange]}
-                                                                onChange={this.handleSelect}
-                                                                rangeColors={['#F74377']}
-                                                                showDateDisplay={false}
-                                                                dateDisplayFormat={'DD.MM.YYYY'}
-                                                            />
-                                                            : null
-                                                    }
-                                                    {
-                                                        this.state.open_date_picker1 ?
-                                                            <img src="/images/Icons/calendar/calendar1.svg"/> :
-                                                            <img src="/images/Icons/calendar/calendar.svg"/>
-                                                    }
-                                                </div>
-                                                <div className='row date-range-container'>
-                                                    <TextField id="date-range-input1" className="date-range-input" type="text" label={'RETURN DATE'}
-                                                        onFocus={() => this.setOpenState(false, true)} value={end_date_str}/>
-                                                    {
-                                                        this.state.open_date_picker2 ?
-                                                            <DateRange
-                                                                className={'date-range-wrapper'}
-                                                                ranges={[selectionRange]}
-                                                                onChange={this.handleSelect}
-                                                                rangeColors={['#F74377']}
-                                                                showDateDisplay={false}
-                                                                dateDisplayFormat={'DD.MM.YYYY'}
-                                                            /> : null
-                                                    }
-                                                    {
-                                                        this.state.open_date_picker2 ?
-                                                            <img src="/images/Icons/calendar/calendar1.svg"/> :
-                                                            <img src="/images/Icons/calendar/calendar.svg"/>
-                                                    }
-                                                </div>
-                                            </div>
-                                            : null
-                                    }
-                                    <div className="cost-container">
-                                        ${total_price}
-                                        <span className="cost-for"> for </span>
-                                        {duration} days
-                                    </div>
-                                    <div className="bottom-buttons">
-                                        <button className="theme-btn theme-btn-primary btn-cart" onClick={() => this.onOpenModal()} disabled={`${busy ? 'disabled' : ''}`}>
-                                            {
-                                                busy ? <Inline size={64} color={"#fff"} /> : 'Add to Cart'
-                                            }
-                                        </button>
-                                        <button className="theme-btn theme-btn-secondery btn-favor" onClick={() => {
-                                            favored>0 ? deleteFavourite({ gearid }) : addFavourites({ gearid })}}>
-                                            <i className={`${favored ? 'fas' : 'far'} fa-heart`}></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                                  <div className="theme-form-small text-gray description">Description</div>
+                                  <div className="description-content">{descp}</div>
+                                  {
+                                      is_view_more && this.state.show_view_more ? <div className="view-more" onClick={() => {
+                                          this.setState({descp: description, show_view_more: false});
+                                      }}>View More...</div> : null
+                                  }
+                                  {
+                                      is_view_more && !this.state.show_view_more ? <div className="view-more" onClick={() => {
+                                          this.setState({descp: description, show_view_more: true});
+                                      }}>Fold...</div> : null
+                                  }
+                              </div>
+                              <div className="gear-purchase col-lg-9">
+                                  <div>
+                                      <span className='star-wrapper'>
+                                          {
+                                              star_rating > 0 ?
+                                                  star_arr.map((item, key) =>
+                                                      key < 6 ?
+                                                          <i className="fa fa-star star-selected" key={key}></i> :
+                                                          <i className="fa fa-star" key={key}></i>) :
+                                                  null
+                                          }
+                                      </span>
+                                      <span className="theme-form-small">&nbsp;{rating} ({total_rating})</span>
+                                      <div className="gear-address-container row">
+                                          <div className='marker-icon'></div>
+                                          <span className='gear-address'>{city}</span>
+                                      </div>
+                                  </div>
+                                  <div>
+                                      <div className="theme-form-small text-gray replacement">Replacement Value</div>
+                                      <div className="replacement-content">${replacementValue}</div>
+                                  </div>
+                                  <div>
+                                      <div className="price-per-day">${pricePerDay}<span className='price-slash'> / </span><span className="price-per-day-text">per day</span></div>
+                                  </div>
+                                  {
+                                      user && this.state.userid !== userid ?
+                                          <div className="pickup-date-container">
+                                              <div className='row date-range-container'>
+                                                  <TextField id="date-range-input1" className="date-range-input" type="text" label={'PICKUP DATE'}
+                                                      onFocus={() => this.setOpenState(true, false)} value={start_date_str}/>
+                                                  {
+                                                      this.state.open_date_picker1 ?
+                                                          <DateRange
+                                                              className={'date-range-wrapper'}
+                                                              ranges={[selectionRange]}
+                                                              onChange={this.handleSelect}
+                                                              rangeColors={['#F74377']}
+                                                              showDateDisplay={false}
+                                                              dateDisplayFormat={'DD.MM.YYYY'}
+                                                          />
+                                                          : null
+                                                  }
+                                                  {
+                                                      this.state.open_date_picker1 ?
+                                                          <img src="/images/Icons/calendar/calendar1.svg" alt=''/> :
+                                                          <img src="/images/Icons/calendar/calendar.svg" alt=''/>
+                                                  }
+                                              </div>
+                                              <div className='row date-range-container'>
+                                                  <TextField id="date-range-input1" className="date-range-input" type="text" label={'RETURN DATE'}
+                                                      onFocus={() => this.setOpenState(false, true)} value={end_date_str}/>
+                                                  {
+                                                      this.state.open_date_picker2 ?
+                                                          <DateRange
+                                                              className={'date-range-wrapper'}
+                                                              ranges={[selectionRange]}
+                                                              onChange={this.handleSelect}
+                                                              rangeColors={['#F74377']}
+                                                              showDateDisplay={false}
+                                                              dateDisplayFormat={'DD.MM.YYYY'}
+                                                          /> : null
+                                                  }
+                                                  {
+                                                      this.state.open_date_picker2 ?
+                                                          <img src="/images/Icons/calendar/calendar1.svg"/> :
+                                                          <img src="/images/Icons/calendar/calendar.svg"/>
+                                                  }
+                                              </div>
+                                          </div>
+                                          : null
+                                  }
+                                  <div className="cost-container">
+                                      ${total_price}
+                                      <span className="cost-for"> for </span>
+                                      {duration} days
+                                  </div>
+                                  <div className="bottom-buttons">
+                                      <button className="theme-btn theme-btn-primary btn-cart" onClick={() => this.onOpenModal()} disabled={`${busy ? 'disabled' : ''}`}>
+                                          {
+                                              busy ? <Inline size={64} color={"#fff"} /> : 'Add to Cart'
+                                          }
+                                      </button>
+                                      <button className="theme-btn theme-btn-secondery btn-favor" onClick={() => {
+                                          favored>0 ? deleteFavourite({ gearid }) : addFavourites({ gearid })}}>
+                                          <i className={`${favored ? 'fas' : 'far'} fa-heart`}></i>
+                                      </button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
 
-                <div className='d-none d-lg-block d-xl-block recommend-container'>
-                    <div className='recommend-heading'>
-                        <span>RECOMMENDED FOR THIS PRODUCT</span>
-                    </div>
-                    <div className='recommend-body row slider-2'>
-                        {
-                            this.renderRecommendedProducts({listGears})
-                        }
-                    </div>
-                </div>
+              <div className='d-none d-lg-block d-xl-block recommend-container'>
+                  <div className='recommend-heading'>
+                      <span>RECOMMENDED FOR THIS PRODUCT</span>
+                  </div>
+                  <div className='recommend-body row slider-2'>
+                      {
+                          this.renderRecommendedProducts({listGears})
+                      }
+                  </div>
+              </div>
 
-                <footer className='mobile-footer d-block d-sm-none row'>
-                    <div className='price-container'>
-                        <span>$159<span className='price-slash'> / </span><span className='price-per-day-text'>per day</span></span>
-                    </div>
-                    <div className='icon-container'>
-                        <i className="fa fa-shopping-cart icon-cart" onClick={this.onOpenModal}/>
-                        <i className="far fa-heart icon-heart" onClick={() => {
-                            favored>0 ? deleteFavourite({ gearid }) : addFavourites({ gearid })}}/>
-                    </div>
-                </footer>
-                {
-                    this.state.modal_open_st === 2 ?
-                        <CartModal1 dlg_model={1} gear={this.state.gear} open={true} onClose={this.onCloseModal} addToCart={this.addToCart}/> :
-                        this.state.modal_open_st === 1 ?
-                            <CartModal carted={carted} gear={{...gear, start_date_str, end_date_str}} start_date={this.state.startDate} end_date={this.state.endDate} open={true} onClose={this.onCloseModal} addToCart={carted => this.addToCart(carted)}/> : null
-                }
+              <footer className='mobile-footer d-block d-sm-none row'>
+                  <div className='price-container'>
+                      <span>$159<span className='price-slash'> / </span><span className='price-per-day-text'>per day</span></span>
+                  </div>
+                  <div className='icon-container'>
+                      <i className="fa fa-shopping-cart icon-cart" onClick={this.onOpenModal}/>
+                      <i className="far fa-heart icon-heart" onClick={() => {
+                          favored>0 ? deleteFavourite({ gearid }) : addFavourites({ gearid })}}/>
+                  </div>
+              </footer>
+              {
+                  this.state.modal_open_st === 2 ?
+                      <CartModal2 dlg_model={1} gear={this.state.gear} open={true} onClose={this.onCloseModal} addToCart={() => this.addToCart()}/> :
+                  this.state.modal_open_st === 1 ?
+                      <CartModal1 carted={carted} gear={{...gear, start_date_str, end_date_str}} start_date={this.state.startDate} end_date={this.state.endDate} open={true} onClose={this.onCloseModal} addToCart={carted => this.addToCart(carted)}/> : null
+              }
             </div>
+          </React.Fragment>
         );
     };
 
@@ -648,7 +655,8 @@ const mapStateToProps = state => ({
     gear: state.gear.gear,
     user: state.user.user,
     carts: state.cart.carts,
-    favourites: state.favourite.favourites
+    favourites: state.favourite.favourites,
+    isChangingFavor: state.favourite.isChanging
 });
 
 export default connect(mapStateToProps)(RentGearDetail);

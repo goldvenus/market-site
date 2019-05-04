@@ -7,7 +7,7 @@ export default function ( props) {
     <Row className="chart">
       <Col sm="24">
         <h4 className="tab-title">Dashboard</h4>
-        <div className="wrraper">
+        <div className="wrraper_dashboard">
           <Row className="line-chart">
             <Col>
               <LineChart series={props.series} />

@@ -20,7 +20,7 @@ import RentGearDetail from './containers/Landing/RentGearDetail';
 import SearchResults from './containers/Landing/SearchResults';
 import Favourites from './containers/Landing/Favourites';
 import Partner from './containers/Landing/Partner';
-import EditGear from './containers/Landing/EditGear'
+import EditGear from './containers/Dashboard/GearHistory/GearEditModal'
 import FAQ from './containers/Landing/FAQ';
 
 export default (
@@ -36,13 +36,11 @@ export default (
       <Route exact path="/dashboard" component={Dashboard}/>
       <Route exact path="/dashboard/order/detail/:id" component={OrderDetail}/>
       <Route exact path="/addgear" component={AddGear}/>
-      <Route exact path="/editgear/:id" component={EditGear}/>
       <Route exact path="/gear/detail/:id" component={RentGearDetail}/>
       <Route exact path="/cart" component={Cart}/>
       <Route exact path="/checkout" component={Checkout}/>
-      <Route exact path="/payment/:id" component={Payment}/>
+      <Route exact path="/payment" component={PaymentSuccess}/>
       <Route exact path="/payment/:id/:tid" component={PaymentSuccess}/>
-      <Route exact path='/listgear' component={ListGear}/>
       <Route exact path='/rentgear' component={RentGear}/>
       <Route exact path='/rentgear/:id' component={RentGear}/>
       <Route exact path='/search' component={SearchResults}/>

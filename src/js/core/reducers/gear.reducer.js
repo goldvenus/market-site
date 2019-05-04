@@ -8,21 +8,33 @@ const initialState = {
     newArrivals: null,
     searchResults: null,
     isLoading: false,
-    isDeleting: false
+    isChanging: false
 };
 
 export default (state = initialState, action) => {
     return producer(state, draft => {
         switch (action.type) {
             case constants.ADD_GEAR_REQUEST:
-                draft.isLoading = true;
+                draft.isChanging = true;
                 break;
             case constants.ADD_GEAR_SUCCESS:
                 draft.listGears = [...draft.listGears, action.payload];
-                draft.isLoading = false;
+                draft.isChanging = false;
                 break;
             case constants.ADD_GEAR_FAILED:
-                draft.isLoading = false;
+                draft.isChanging = false;
+                break;
+
+            case constants.EDIT_GEAR_REQUEST:
+                draft.isChanging = true;
+                break;
+            case constants.EDIT_GEAR_SUCCESS:
+                draft.isChanging = false;
+                draft.listGears = draft.listGears.map(item =>
+                    item.gearid === action.payload.gearid ? action.payload : item);
+                break;
+            case constants.EDIT_GEAR_FAILED:
+                draft.isChanging = false;
                 break;
 
             case constants.LIST_GEARS_REQUEST:

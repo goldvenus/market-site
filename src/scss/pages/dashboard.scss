@@ -78,9 +78,6 @@
       margin-top: 15px;
     }
 
-    .tab-title-listings{
-      margin-top: 13px;
-    }
     .fa-table-selected{
       margin-top: -50px;
       .react-tabs__tab-list{
@@ -88,13 +85,13 @@
         text-align: center !important;
         font-size:16px;
       }
-      .wrraper{
+      .wrraper_dashboard{
         padding: 30px 30px 52px 30px;
       }
     }
 
     .chart {
-      .wrraper {
+      .wrraper_dashboard {
         background-color: $gray-light;
         padding: 3rem;
         text-align: center;
@@ -117,7 +114,7 @@
     }
 
     .account-detail {
-      .wrraper {
+      .wrraper_dashboard {
         background-color: $gray-light;
         padding: 3rem;
         text-align: center;
@@ -204,7 +201,7 @@
         padding-top: 9px !important;
       }
 
-      .wrraper {
+      .wrraper_dashboard {
         background-color: $gray-light;
         padding: 3rem;
         text-align: center;
@@ -227,6 +224,9 @@
             }
           }
           .listing-data-tbody{
+            .edit-gear-td {
+              text-align: center;
+            }
             p{
               margin: auto !important;
             }
@@ -295,7 +295,7 @@
       }
 
       .my-rental {
-        .wrraper {
+        .wrraper_dashboard {
           background-color: $gray-light;
           padding: 3rem;
           text-align: center;
@@ -308,12 +308,7 @@
 
 
     }
-    .my-listing-tabs{
-      padding:30px;
-      .wrraper{
-        padding: 0;
-        padding: 30px 30px 52px 30px;
-      }
+    .my-listing-tabs {
       .react-tabs__tab-list{
         border: 1px solid #f74962;
         border-radius: 30px;
@@ -354,7 +349,7 @@ color: #fff
       }
     }
 
-    .wrraper .empety-list p {
+    .wrraper_dashboard .empety-list p {
       font-size: 16px;
       font-weight: bolder;
       margin-bottom: 46px;
@@ -362,7 +357,7 @@ color: #fff
 
   }
 }
-.wrraper .empety-list{
+.wrraper_dashboard .empety-list{
   padding:40px;
   background-color: #faf8f9 !important;
 }
@@ -470,6 +465,7 @@ color: #fff
     }
   }
 }
+
 .order-modal {
   width: 100%;
   max-width: 1000px !important;
@@ -792,6 +788,64 @@ color: #fff
   }
 }
 
+// Gear History
+.react-tabs__tab-panel--selected {
+  padding:30px;
+}
+
+button.rent-cal-btn {
+  border: solid 1px #F82462;
+  color: #F82462;
+  background-color: white;
+
+  &:hover {
+    color: white;
+    background-color: #F82462;
+  }
+}
+span.edit_my_gear {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  vertical-align: middle !important;
+  cursor: pointer;
+  background-image: url('/images/Icons/cart/edit-b.svg') !important;
+
+  &:hover {
+    background-image: url('/images/Icons/cart/edit-p.svg') !important;
+  }
+}
+
+.gear-edit-modal {
+  max-width: 1200px !important;
+  height: 1400px;
+
+  .gear-edit-modal-header {
+    text-align: center;
+    padding: 35px;
+  }
+  input {
+    outline: none;
+  }
+  button {
+    cursor: pointer;
+  }
+}
+.rental-calendar-modal {
+  max-width: 1200px !important;
+  width: 1200px;
+  height: 1100px;
+}
+.address-wrapper {
+  display: flex;
+  margin: 40px 0;
+
+  .custom-input:first-child {
+    margin-right: 25px;
+  }
+}
+
 @media(min-width: 500px)  {
   .navbar-wrapper{
     flex-wrap: nowrap;
@@ -821,8 +875,6 @@ color: #fff
 
 }
 
-
-
 @media (max-width:1050px){
   .dashboard-head{
     img{
@@ -830,7 +882,7 @@ color: #fff
       height: 141px !important;
     }
   }
-  .wrraper {
+  .wrraper_dashboard {
     img {
       width: 90px !important;
       height: 90px !important;
@@ -862,14 +914,12 @@ color: #fff
     }
   }
 
-  .wrraper {
+  .wrraper_dashboard {
     padding: 18px !important;
       .react-tabs__tab-panel {
-
         .table-responsive {
           margin-bottom: -14px;
           .listing-data-slice {
-
           }
         }
       }
@@ -931,7 +981,7 @@ color: #fff
   .listing-data-image{
     margin: auto !important;
   }
-  .wrraper .listing-data-slice tr{
+  .wrraper_dashboard .listing-data-slice tr{
     height: 140px;
     td {
       border-top: 18px solid #f3f3f3 !important;
@@ -991,11 +1041,6 @@ color: #fff
   .dashboard-body{
     .listing-body{
       .align-items-center{
-        .tab-title-listings{
-          margin-bottom: 14px !important;
-          margin-top: 0px !important;
-        }
-
       }
       .fa-table-selected{
         margin-top:0px !important;
@@ -1012,7 +1057,7 @@ color: #fff
 
 
         }
-        .wrraper{
+        .wrraper_dashboard{
           padding: 0px 16px !important;
 
           .react-tabs__tab-panel{
@@ -1028,9 +1073,11 @@ color: #fff
                     height: 356px !important;
                     td {
                       border-top: 16px solid #f3f3f3 !important;
+                      &:last-child {
+                        text-align: center;
+                      }
                     }
                   }
-
                 }
               }
             }
@@ -1052,4 +1099,201 @@ color: #fff
   padding-right: 47px;
   background-repeat: no-repeat;
   background-image: url("/images/Icons/dashbord/next_gear_history.svg");
+}
+.order_history_sm_gearimage {
+  padding:18px;
+}
+.order_history_sm_gear_name {
+  padding-top:3vh;
+}
+.status-bar-container {
+  padding:18px;
+  border-bottom: 1px solid #f5f5f5;
+  border-top: 1px solid #f5f5f5;
+  justify-content: center;
+
+}
+.order_history_sm_gear_days {
+  padding:18px;
+  border-bottom: 1px solid #f5f5f5;
+}
+.order_history_client_image {
+  padding:18px;
+  display: flex;
+
+  img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+
+}.order_history_client_namegroup {
+   padding-top:12px;
+   .order_history_client_first_name {
+     font-size: 12px;
+     line-height: 18px;
+     letter-spacing: 0.03em;
+     color: #3A3A3A;
+     opacity: 0.5;
+   }
+   .order_history_client_second_name {
+     font-family: Helvetica Neue;
+     font-size: 16px;
+     line-height: 27px;
+     color: #252525;
+   }
+   p {
+     margin:0;
+   }
+
+ }
+ .order_history_payment {
+   padding:18px;
+   border:1px solid #F5F5F5;
+   p{
+     margin:0;
+   }
+  .order_history_pay_group {
+    border-right: 1px solid #F5F5F5;
+  }
+   .order_history_pay_title {
+     font-family: Helvetica Neue;
+     font-size: 12px;
+     line-height: 18px;
+     letter-spacing: 0.03em;
+     color: #3A3A3A;
+     opacity: 0.5;
+   }
+   .order_history_pay_perday_content {
+     font-family: Gotham Pro;
+     font-size: 20px;
+     line-height: 25px;
+     color: #252525;
+   }
+   .prder_history_amount_content {
+     font-family: Gotham Pro;
+     font-size: 20px;
+     line-height: 25px;
+     color: #252525;
+     font-weight: 500;
+   }
+ }
+ .order_mobile_parent_div {
+   border-bottom:20px solid #faf8f9;
+ }
+
+ .order_rating_dialog_sm_parent {
+   .order-modal-header{
+     padding:5px;
+     padding-right:0;
+     font-weight: 700;
+     font-family: Gotham Pro;
+     font-size: 24px;
+     line-height: 27px;
+     color: #252525;
+     .edit_icon {
+       margin-left:10px;
+     }
+  }
+   .order-modal-body {
+      padding:0;
+     .paid-item .pay-info {
+       width: 100%;
+       background-color: white;
+     }
+     .buyer-info {
+       display: block;
+       border-top: 1px solid #faf8f9;
+       padding:15px;
+       text-align: center;
+       margin:0;
+       .buyer-info-left {
+         width: 100%;
+         justify-content: center;
+         display: flex;
+           span {
+             padding-top:12px;
+         }
+       }
+       .buyer-info-right {
+         width:100%
+       }
+     }
+     .item-info {
+       text-align: center;
+       padding:15px;
+       img {
+         width:93px;
+         height: 93px;
+         object-fit: contain;
+       }
+      .order_history_gear_name_sm {
+        width: 100%;
+        .brand-model {
+          font-family: Gotham Pro;
+          font-size: 20px;
+          line-height: 25px;/* identical to box height */
+          text-align: center;
+          font-weight: 700;
+          color: #252525;
+        }
+      }
+     }
+   }
+   .payment-info {
+     padding:15px;
+     text-align: center;
+     border-top:1px solid #faf8f9;
+     div {
+       width: 100% !important;
+     }
+   }
+   .rating-select-container {
+     width: 100%;
+     padding:35px;
+     background-color: white;
+     border-top:1px solid #faf8f9;
+   }
+   .payment-success-info {
+     margin:0;
+     border:0;
+     padding:0;
+     text-align: center;
+     display: block;
+     .text-gray {
+       padding:10px 0;
+     }
+     .payment-card {
+       padding:15px;
+       margin:0;
+     }
+   }
+   .order_history_competed_div_sm {
+     border-top:1px solid lightgray;
+     padding:25px;
+   }
+   .checkout-amount {
+     padding:15px;
+   }
+   .order-modal-footer {
+     border-top:1px solid lightgray;
+     padding:15px 0;
+   }
+   .pickup-btn-container {
+     padding:15px;
+     background-color: white;
+   }
+
+ }
+@media (max-width:550px) {
+  .styles_closeButton__20ID4 {
+    top: -36px;
+    right: 0 !important;
+  }
+  .styles_modal__gNwvD {
+    margin-top: 10vh;
+  }
+}
+.order_history_sm_parent_div {
+  border:15px solid #faf8f9;
 }

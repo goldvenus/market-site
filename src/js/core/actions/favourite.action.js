@@ -1,21 +1,25 @@
 import constants from "../types";
-import { handleError, handleInfo } from "./common.action";
+import {clearMsg, handleError, handleInfo} from "./common.action";
 import store from '../../store';
 import { get, post } from "../api/index";
 const dispatch = store.dispatch;
 
 const addFavourites = async (data) => {
+    clearMsg();
     dispatch({
         type: constants.ADD_FAVOURITE_REQUEST,
     });
     try {
         let response = await post('addUserFavouriteGear', data);
-        dispatch({
-            type: constants.ADD_FAVOURITE_SUCCESS,
-            payload: response.data
-        });
-        handleInfo('Gear was added to favorite');
-        return response;
+        if (response.data.status === 'success') {
+            dispatch({
+                type: constants.ADD_FAVOURITE_SUCCESS,
+                payload: response.data.data
+            });
+            handleInfo('Gear was added to favorite');
+        } else {
+            handleError('Gear was not added to favorite');
+        }
     } catch (error) {
         dispatch({
             type: constants.ADD_FAVOURITE_FAILED,
@@ -45,6 +49,7 @@ const getFavourites = async () => {
 };
 
 const deleteFavourite = async (data) => {
+    clearMsg();
     dispatch({
         type: constants.DELETE_FAVOURITE_REQUEST,
     });

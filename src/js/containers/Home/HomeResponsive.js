@@ -29,7 +29,6 @@ class Home extends React.Component {
     searchLocationResult: [],
   };
 
-
   handleChangeSearchValue = e => {
     this.setState({
       searchValue: (e && e.target && e.target.value) || '',
@@ -71,6 +70,7 @@ class Home extends React.Component {
     $window.trigger('scroll');
 
     newArrivals();
+    newArrivals();
 
     //facebook login
     let href = window.location.href;
@@ -90,7 +90,6 @@ class Home extends React.Component {
       socialLogin(idToken, accessToken);
     }
   }
-
 
   render() {
     const {
@@ -120,12 +119,9 @@ class Home extends React.Component {
     prevNextButtons: true,
     pageDots: true,
     draggable: false
-
-
-}
+  }
 
     return (
-
       <div className="page home-page home">
         <div className="section section-hero">
           <div className="container">
@@ -202,7 +198,6 @@ class Home extends React.Component {
 
           </div>
         </div>
-
 
         <div className="home-body">
           {/* cards container for the large screen */}

@@ -174,7 +174,7 @@ class CartModal2 extends Component {
                         <button className='cart-control-left-button theme-btn theme-btn-primary' onClick={(e) => this.handleClose(e)}>{btn_label1}</button>
                         <div className='cart-button-space'></div>
                         <button className='cart-control-right-button theme-btn theme-btn-primary'
-                            onClick={() => {dlg_model === 1 ? this.handleAddToCart() : onSubmit();}}
+                            onClick={() => {dlg_model === 1 ? this.handleAddToCart() : onSubmit()}}
                             disabled={this.state.busy ? 'disabled' : ''}
                         >
                             {

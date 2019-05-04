@@ -15,20 +15,22 @@ import PeriodDeleteModal from "./PeriodDeleteModal"
 import DayPicker from "react-day-picker";
 import './style.css';
 import Helmet from 'react-helmet';
+import Rodal from 'rodal';
+import 'rodal/lib/rodal.css';
 import { days } from '../../../core/helper';
 import { getListGears } from "../../../core/actions/gear.action";
 import { formatDate } from "../../../core/helper";
 import { handleError } from "../../../core/actions/common.action";
 import { getGearRentState, setBlockPeriod } from '../../../core/actions/dashboard.action'
 import AboutPeriod from "./AboutPeriod";
-import BarLoader from "react-bar-loader";
 import CustomSpinner from "../../../components/CustomSpinner";
+import Modal from "react-responsive-modal";
 
 let global_events = [];
 let global_cal_item_delete = false;
 const localizer = BigCalendar.momentLocalizer(moment);
 
-class Calendar extends React.Component {
+class RentalCalendarModal extends React.Component {
     constructor(props) {
         super(props);
 
@@ -47,8 +49,16 @@ class Calendar extends React.Component {
         };
     }
 
+    componentDidMount() {
+        console.log(this.props.gearid);
+        let cur_gear_num = this.props.listGears.reduce((a, item, key) => item.gearid === this.props.gearid ? key : a, 0);
+        this.setState(() => ({cur_gear_num: cur_gear_num}), () => {
+            this.handleSelectGear(cur_gear_num);
+        });
+    }
+
     shouldComponentUpdate(state, props) {
-        if(this.state !== state || this.props !== props){
+        if(this.state !== state || this.props !== props) {
             UpdateMydata_calendar();
             return true;
         }
@@ -66,7 +76,6 @@ class Calendar extends React.Component {
     onCloseModal = () => {
         this.setState({open: 0});
     };
-
 
     // handleDayClick(day, { selected }) {
     //     if (selected) {
@@ -102,7 +111,6 @@ class Calendar extends React.Component {
         const range = this.getSearchRange(this.state.cur_date, 3);
         this.setState({loading: true});
         const ret = await getGearRentState({gearid, start_date: range.start_date, end_date: range.end_date});
-        // update calendar
         global_events = ret;
         UpdateMydata_calendar();
         this.setState({cur_gear_num: gear_num, gear_rent_info_list: ret, loading: false});
@@ -120,7 +128,6 @@ class Calendar extends React.Component {
         const gearid = this.props.listGears[this.state.cur_gear_num].gearid;
         this.setState({loading: true});
         const ret = await getGearRentState({gearid, start_date: range.start_date, end_date: range.end_date});
-        // update calendar
         global_events = ret;
         UpdateMydata_calendar();
         await getListGears();
@@ -150,6 +157,8 @@ class Calendar extends React.Component {
 
         try {
             let period_arr = this.props.listGears[this.state.cur_gear_num].blockPeriod;
+            if (period_arr === undefined)
+                period_arr = [];
             let gearid = this.props.listGears[this.state.cur_gear_num].gearid;
             if (mode === 2)
                 period_arr = period_arr.filter((item, key) => this.state.cur_block_num !== key);
@@ -240,9 +249,9 @@ class Calendar extends React.Component {
     }
 
     render() {
-        const { listGears } = this.props;
-        if (!listGears) {
-            return <BarLoader color="#F82462" height="5"/>;
+        const { listGears, onClose } = this.props;
+        if (!listGears || this.state.loading) {
+            return <CustomSpinner/>;
         }
 
         const cur_gear = listGears[this.state.cur_gear_num];
@@ -258,10 +267,7 @@ class Calendar extends React.Component {
         UpdateMydata_calendar();
 
         return (
-            <div>
-                {
-                    this.state.loading ? <CustomSpinner/> : null
-                }
+            <Modal open={true} onClose={onClose} center classNames={{modal: "rental-calendar-modal"}}>
                 <div className="calendar_dropdown_div">
                     <p className="dropdown_calendar_gearname">SELECT GEAR</p>
                     <div className="calendar_dropdown_div_bottom">
@@ -336,7 +342,7 @@ class Calendar extends React.Component {
                         })}
                     />
                 </div>
-            </div>
+            </Modal>
         );
     }
 }
@@ -368,14 +374,15 @@ const UpdateMydata_calendar = () => {
 
         let resize_index=true;
         function Append_Rent_Data(filter_e, time_s, time_e, real_time) {
-            let close_btn = "<div class='rbc-event-custom-data-cross' gearid='"+filter_e.gearid+"'></div>";
+            let close_btn = "<i class='rbc-event-custom-data-cross fa fa-times'></i>";
             if (filter_e.title !== 'Owner' + real_time)
                 close_btn = '';
+
             return (
             "<div class='rbc-event-custom-data'>" +
                 "<div class='rbc-event-custom-data-top'>" +
                     "<div class='rbc-event-item-wrapper'><img class='rent_user' src="+filter_e.img_url+" >" +
-                    "<p>"+filter_e.title+"</p></div>" + close_btn +
+                    "<p>"+filter_e.renter_name+"</p></div>" + close_btn +
                 "</div>" +
                 "<div class='rbc-event-custom-data-bottom'>" +
                     "<p class='rbc-event-custom-data-bottom-date'>"+time_s+" - "+time_e+"</p>" +
@@ -418,4 +425,4 @@ const UpdateMydata_calendar = () => {
     });
 };
 
-export default Calendar;
+export default RentalCalendarModal;

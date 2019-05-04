@@ -119,7 +119,7 @@ export default class MyRentals extends React.Component {
             <h4 className="tab-title">My Rentals</h4>
             <Link to='/listGear' className="theme-btn theme-btn-primary ml-auto mb-3">Rent Gear</Link>
           </div>
-          <div className="wrraper">
+          <div className="wrraper_dashboard">
           {(currentPage <= 0) ?<EmptyRental/> : <RentNotEmpty currentPage={currentPage} list={list}/>}
             
           </div>

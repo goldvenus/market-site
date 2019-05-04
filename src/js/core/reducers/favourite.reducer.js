@@ -1,10 +1,11 @@
 import producer from 'immer';
 import constants from "../types";
+import { getUniqueObjectArray } from "../helper";
 
 const initialState = {
     favourites: null,
     isLoading: false,
-    isDeleting: false
+    isChanging: false
 };
 
 export default (state = initialState, action) => {
@@ -22,25 +23,25 @@ export default (state = initialState, action) => {
                 break;
 
             case constants.ADD_FAVOURITE_REQUEST:
-                draft.isLoading = true;
+                draft.isChanging = true;
                 break;
             case constants.ADD_FAVOURITE_SUCCESS:
-                draft.isLoading = false;
-                draft.favorites = [...draft.favorites, action.payload];
+                draft.isChanging = false;
+                draft.favourites = getUniqueObjectArray([...draft.favourites, action.payload]);
                 break;
             case constants.ADD_FAVOURITE_FAILED:
-                draft.isLoading = false;
+                draft.isChanging = false;
                 break;
 
             case constants.DELETE_FAVOURITE_REQUEST:
-                draft.isDeleting = true;
+                draft.isChanging = true;
                 break;
             case constants.DELETE_FAVOURITE_SUCCESS:
-                draft.favorites = draft.favorites.filter(item => item.gearid !== action.payload);
-                draft.isDeleting = false;
+                draft.favourites = draft.favourites.filter(item => item.gearid !== action.payload);
+                draft.isChanging = false;
                 break;
             case constants.DELETE_FAVOURITE_FAILED:
-                draft.isDeleting = false;
+                draft.isChanging = false;
                 break;
 
             default:
