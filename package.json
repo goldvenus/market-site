@@ -63,8 +63,9 @@
     "styled-components": "^4.2.0"
   },
   "scripts": {
-    "build-css": "node-sass-chokidar src/scss/index.scss src/index.css --watch",
-    "app": "npm-run-all -p build-css start",
+    "build-css-watch": "node-sass-chokidar src/scss/index.scss src/index.css --watch",
+    "build-css": "node-sass-chokidar src/scss/index.scss src/index.css",
+    "app": "npm-run-all -p build-css-watch start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
