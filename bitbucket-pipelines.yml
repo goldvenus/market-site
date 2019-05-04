@@ -8,7 +8,6 @@ image: node:6.9.4
 pipelines:
   default:
     - step:
-        deployment: develop
         caches:
           - node
         script: # Modify the commands below to build your repository.
