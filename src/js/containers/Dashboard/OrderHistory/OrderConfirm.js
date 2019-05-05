@@ -4,7 +4,6 @@ import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import Modal from "react-responsive-modal";
 import { days, getDateStr } from "../../../core/helper"
 import { Link } from "react-router-dom";
-import Rating from "react-rating";
 
 class OrderConfirm extends Component {
     constructor(props) {

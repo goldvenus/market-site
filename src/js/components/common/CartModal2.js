@@ -85,7 +85,7 @@ class CartModal2 extends Component {
     };
 
     render() {
-        const { open, dlg_model, onClose, onSubmit, gear } = this.props;
+        const { open, dlg_model, onSubmit, gear } = this.props;
         const { brand, model, pricePerDay } = gear;
         const duration = calcDaysDiff(this.state.startDate, this.state.endDate) + 1;
         const start_date_str = getDateStr(this.state.startDate);

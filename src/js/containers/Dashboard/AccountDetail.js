@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import VMC from '../../../assets/images/VMC.jpg';
-import { Card, Button, CardTitle, Row, Col } from 'reactstrap';
+import { Card, CardTitle, Row, Col } from 'reactstrap';
 import { Form, FormGroup } from 'reactstrap';
 import TextField from "@material-ui/core/TextField/TextField";
 import connect from "react-redux/es/connect/connect";
@@ -14,12 +14,12 @@ class AccountDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fullname: null,
-      email: null,
-      phone: null,
-      curPwd: null,
-      newPwd: null,
-      confirmPwd: null
+      fullname: '',
+      email: '',
+      phone: '',
+      curPwd: '',
+      newPwd: '',
+      confirmPwd: ''
     };
   }
 

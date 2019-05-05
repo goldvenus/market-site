@@ -49,7 +49,7 @@ class Register extends Component {
       if (password !== confirmPassword) {
         handleError('Password and confirm password do not match');
       } else {
-        let response = await register({
+        await register({
           fullName,
           username,
           password,

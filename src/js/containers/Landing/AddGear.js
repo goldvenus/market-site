@@ -121,13 +121,10 @@ class AddGear extends Component {
                            type="text"/>
             </div>
             <div className="theme-form-field category_first">
-                {/*<Textarea className="ELBLI_desc" label="DESCRIPTION" onChange = {(value) => this.setState({ description : value })} defaultValue={gear.description} floatingLabel={true}/>*/}
-
-
               <Textarea className="category_description_ta" label='Description' floatingLabel={true}
-                           onChange={(e) => {
-                             this.setState({ description: e.target.value })
-                           }} type="text"/>
+                  onChange={(e) => {
+                    this.setState({ description: e.target.value })
+                  }} type="text"/>
             </div>
           </div>
           <div className="theme-column info-right-container " id="new-tabs" width="35%">
@@ -145,7 +142,7 @@ class AddGear extends Component {
               </div>
               <div className="theme-form-field" id="kit-style">
                   <div className="input_svg pretty p-svg p-plain">
-                      <input type="checkbox" onChange={(e) => this.setState({ isKit: e.target.checked })}/>
+                      <input type="checkbox" value={isKit} onChange={(e) => this.setState({ isKit: e.target.checked })}/>
                       <div className="state">
                           <img className="svg check_svg" src="/images/Icons/task.svg"/>
                       </div>
@@ -179,21 +176,19 @@ class AddGear extends Component {
       <div className="add-gear-images">
         {mappedImages}
           {
-              this.state.numberOfUserImage.length>0 ?
-                  <div className="add-gear-addimage file-input-container">
-                      <i className="fas fa-plus-circle"></i>
-                      <input type="file" onChange={this.addImage.bind(this)}/>
-                  </div>
-                  :
-                   <div className="add-gear-addimage file-input-container empty_page_addgear">
-                       <img  src="/images/Icons/uploadimage.svg">
-                       </img>
-                        <p className="empty_page_addgear_img">Upload Photos</p>
-                        <p>Upload only png, jpg or jpeg</p>
-                       <i><button className="theme-btn theme-btn-primary empty_addgear_btn">Upload</button></i>
-                        <input type='file' onChange={this.addImage.bind(this)}></input>
-                   </div>
-
+            this.state.numberOfUserImage.length>0 ?
+              <div className="add-gear-addimage file-input-container">
+                <i className="fas fa-plus-circle"/>
+                <input type="file" onChange={this.addImage.bind(this)}/>
+              </div>
+              :
+              <div className="add-gear-addimage file-input-container empty_page_addgear">
+                <img  src="/images/Icons/uploadimage.svg" alt=''/>
+                <p className="empty_page_addgear_img">Upload Photos</p>
+                <p>Upload only png, jpg or jpeg</p>
+                <i><button className="theme-btn theme-btn-primary empty_addgear_btn">Upload</button></i>
+                <input type='file' onChange={this.addImage.bind(this)}/>
+              </div>
           }
       </div>
     </div>);
@@ -203,13 +198,10 @@ class AddGear extends Component {
     try {
       let image = await readFileData(event);
       let { numberOfUserImage } = this.state;
-
       numberOfUserImage.push(image);
-
       this.setState({
         numberOfUserImage
       });
-
     } catch {
       handleError('Please upload a valid image');
     }
@@ -353,22 +345,24 @@ class AddGear extends Component {
 
   renderContent() {
     const { progressStep } = this.state;
+    let ui = '';
     switch (progressStep) {
       case 0:
-        return this.renderInfo();
+        ui = this.renderInfo();
         break;
       case 1:
-        return this.renderPhotos();
+        ui = this.renderPhotos();
         break;
       case 2:
-        return this.renderAddress();
+        ui = this.renderAddress();
         break;
       case 3:
-        return this.renderPrice();
+        ui = this.renderPrice();
         break;
       default:
-
+        break;
     }
+    return ui;
   }
 
   previousStep() {
@@ -393,10 +387,8 @@ class AddGear extends Component {
           return true;
         }
         break;
-
       case 1:
         const { numberOfUserImage } = this.state;
-
         if (numberOfUserImage && numberOfUserImage.length > 0) {
           return true;
         }
@@ -415,7 +407,6 @@ class AddGear extends Component {
         break;
       default:
     }
-
     handleError('Please provide the required details');
     return false;
   }

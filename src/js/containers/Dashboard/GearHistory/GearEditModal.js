@@ -176,12 +176,7 @@ class GearEditModal extends Component {
     }
 
     renderPhotos () {
-        const {gear} = this.props;
         const {numberOfUserImage} = this.state;
-
-        this.setState({
-            numberOfUserImage: gear.numberOfUserImage
-        });
 
         const mappedImages = numberOfUserImage.map((image, index) => (
             <div className="add-gear-image" key={'gear-image-' + index}>

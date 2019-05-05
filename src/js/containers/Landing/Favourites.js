@@ -5,7 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
 import { getGear } from "../../core/actions/gear.action";
 import { deleteFavourite } from "../../core/actions/favourite.action";
-import { handleError, handleInfo } from "../../core/actions/common.action";
+import { handleError } from "../../core/actions/common.action";
 import { addCart } from "../../core/actions/cart.action";
 import { formatDate } from "../../core/helper";
 import CartModal1 from "../../components/common/CartModal1";
@@ -91,7 +91,6 @@ class Favourites extends Component {
 
   renderFavouritesItems() {
     const { favourites } = this.props;
-    const { ratingstate } = this.state;
 
     return (
       favourites.map((listItem, index) => (
