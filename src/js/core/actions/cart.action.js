@@ -16,9 +16,19 @@ const addCart = (data) => {
                     type: constants.ADD_TO_CART_SUCCESS,
                     payload: response.data.data
                 });
+                if (response.data.removed) {
+                    // if gear was removed from favor
+                    dispatch({
+                        type: constants.DELETE_FAVOURITE_SUCCESS,
+                        payload: data.gearid
+                    });
+                }
                 handleInfo('Gear was added to cart');
+            } else {
+                console.log(response.data.data);
+                handleError(response.data.errorMessage);
             }
-            resolve(response.data);
+            resolve(response.data.data);
         } catch (error) {
             dispatch({
                 type: constants.ADD_TO_CART_FAILED
@@ -59,10 +69,10 @@ const deleteCartItem = async (data) => {
                     type: constants.DELETE_CART_ITEM_SUCCESS,
                     payload: data.gearid
                 });
-                handleInfo('Gear was removed from cart');
+                handleInfo('Gear was removed from cart successfully!');
             } else {
                 resolve(false);
-                handleError('Gear was not removed');
+                handleError('Removing was failed!');
             }
         } catch (error) {
             handleError(error);

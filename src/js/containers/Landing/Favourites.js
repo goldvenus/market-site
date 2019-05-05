@@ -180,7 +180,7 @@ class Favourites extends Component {
   }
 
   render() {
-    const { favourites, isChanging } = this.props;
+    const { favourites, isChanging, isGettingGearInfo } = this.props;
     if (!favourites) {
       return <BarLoader color="#F82462" height="5" />;
     }
@@ -188,7 +188,7 @@ class Favourites extends Component {
     return (
       <React.Fragment>
         {
-          isChanging ? <CustomSpinner/> : null
+          isChanging || isGettingGearInfo ? <CustomSpinner/> : null
         }
         <div className="cart_view centered-content">
           <Breadcrumb className= "card_content_path">
@@ -256,6 +256,7 @@ const mapStateToProps = state => ({
   gear: state.gear.gear,
   favourites: state.favourite.favourites,
   isChanging: state.favourite.isChanging,
+  isGettingGearInfo: state.gear.isLoading,
   carts: state.cart.carts
 });
 

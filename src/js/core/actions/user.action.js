@@ -43,27 +43,30 @@ const login = async (data) => {
     });
     try {
         let response = await post('signin', data);
-        if (response && response.data) {
+        if (response.data.status === 'success') {
             dispatch({
                 type: constants.LOGIN_SUCCESS,
-                payload: response.data.userAttributes
+                payload: response.data.data.userAttributes
             });
             handleInfo("Welcome to our site!");
             // store the token
-            const { accessToken, idToken, refreshToken } = response.data.tokens;
+            const { accessToken, idToken, refreshToken } = response.data.data.tokens;
             localStorage.accessToken = accessToken;
             localStorage.idToken = idToken;
             localStorage.refreshToken = refreshToken;
-            localStorage.userId = response.data.userAttributes.userid;
+            localStorage.userId = response.data.data.userAttributes.userid;
             localStorage.userEmail = data.username;
-            await getCarts();
-            await getFavourites();
-            return response;
+            getCarts();
+            getFavourites();
+        } else {
+            dispatch({
+                type: constants.LOGIN_FAILED
+            });
+            handleError(response.data.errorMessage);
         }
     } catch (error) {
         dispatch({
-            type: constants.LOGIN_FAILED,
-            payload: error
+            type: constants.LOGIN_FAILED
         });
         handleError(error);
     }

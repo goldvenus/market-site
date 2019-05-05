@@ -57,7 +57,6 @@ export default (state = initialState, action) => {
                 break;
             case constants.GET_GEAR_FAILED:
                 draft.isLoading = false;
-                draft.gear = null;
                 break;
 
             case constants.DELETE_GEAR_REQUEST:
