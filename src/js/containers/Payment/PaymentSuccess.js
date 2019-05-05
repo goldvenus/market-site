@@ -27,9 +27,6 @@ class Payment extends Component {
       loading: false
     };
 
-    const checkout_id = this.props.match.params.id;
-    const payment_id = this.props.match.params.tid;
-
 
     // this.getUserPaidItems({checkout_id, payment_id});
   }

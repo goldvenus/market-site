@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardTitle, CardText, CardImg, CardImgOverlay, CardFooter } from 'reactstrap';
+import { Card, CardText, CardImg, CardFooter } from 'reactstrap';
 import { Link } from 'react-router-dom';
 const ThemeCardTwo = ({ story: { story_img, auth_name, auth_img, views, story_title, story_desc } }) => {
   return (

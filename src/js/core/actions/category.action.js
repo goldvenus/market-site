@@ -1,5 +1,4 @@
 import constants from '../types'
-import { API_URL } from "../constants";
 import { handleError } from "./common.action";
 import { get } from "../api"
 import store from '../../store';

@@ -14,7 +14,7 @@ import '@trendmicro/react-dropdown/dist/react-dropdown.css';
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import $ from "jquery";
 import CustomSpinner from "../../components/CustomSpinner";
-import Urllink_class from "../../components/Urllink_class";
+import UrllinkClass from "../../components/UrllinkClass";
 import { getUniqueObjectArray } from "../../core/helper/index";
 import { handleError } from "../../core/actions/common.action";
 
@@ -160,7 +160,7 @@ class Checkout extends Component {
         <div className="checkout-head">
           <div className='container'>
             <Breadcrumb className= "card_content_path">
-              <Urllink_class name="Home"/>
+              <UrllinkClass name="Home"/>
               <span className="space_slash_span">/</span>
               <BreadcrumbItem active>Checkout</BreadcrumbItem>
             </Breadcrumb>

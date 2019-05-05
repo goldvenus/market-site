@@ -12,8 +12,8 @@ import BarLoader from "react-bar-loader";
 
 const MyListingItem = ({ listItem, openEdit, openCalendar}) => (
   <tr>
-    <td width="5%" className="d-md-none d-none d-lg-table-cell listing-data-image">{<img src={listItem.numberOfUserImage[0]} className="gear-img"/>}</td>
-    <td width="20%" className="d-lg-none d-md-table-cell listing-data-image">{<img src={listItem.numberOfUserImage[0]} className="gear-img"/>}</td>
+    <td width="5%" className="d-md-none d-none d-lg-table-cell listing-data-image">{<img src={listItem.numberOfUserImage[0]} className="gear-img" alt="Number of User" />}</td>
+    <td width="20%" className="d-lg-none d-md-table-cell listing-data-image">{<img src={listItem.numberOfUserImage[0]} className="gear-img" alt="Number of User" />}</td>
     <td className="d-none d-lg-table-cell" width="20%">
       <p >{listItem.brand}</p>
       <p className="theme-text-small text-muted">{listItem.categoryName}</p>

@@ -1,7 +1,6 @@
 import Modal from "react-responsive-modal";
 import React, {Component} from "react";
 import { withRouter } from 'react-router-dom';
-import { Inline } from '@zendeskgarden/react-loaders'
 
 /*
     Pickup Confirm Modal
