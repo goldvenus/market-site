@@ -122,9 +122,7 @@ class Favourites extends Component {
               className="close"
               aria-hidden="true"
               onClick={async () => {
-                let ret = await deleteFavourite({ gearid: listItem.gearid });
-                if (!ret) handleError("Removing failed!");
-                else handleInfo("Successfully removed!");
+                await deleteFavourite({ gearid: listItem.gearid });
               }}/>
           </td>
         </tr>

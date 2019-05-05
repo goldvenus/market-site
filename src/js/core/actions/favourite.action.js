@@ -1,11 +1,10 @@
 import constants from "../types";
-import {clearMsg, handleError, handleInfo} from "./common.action";
+import { handleError, handleInfo } from "./common.action";
+import { get, post } from "../api";
 import store from '../../store';
-import { get, post } from "../api/index";
 const dispatch = store.dispatch;
 
 const addFavourites = async (data) => {
-    clearMsg();
     dispatch({
         type: constants.ADD_FAVOURITE_REQUEST,
     });
@@ -34,48 +33,44 @@ const getFavourites = async () => {
     });
     try {
         let response = await get('viewUserFavouriteGear');
-        if (response) {
+        if (response.data) {
             dispatch({
                 type: constants.GET_FAVOURITES_SUCCESS,
                 payload: response.data.Items
             });
         }
     } catch (error) {
-        handleError(error);
         dispatch({
             type: constants.GET_FAVOURITES_FAILED,
         });
+        handleError(error);
     }
 };
 
 const deleteFavourite = async (data) => {
-    clearMsg();
     dispatch({
         type: constants.DELETE_FAVOURITE_REQUEST,
     });
-    return new Promise(async (resolve, reject) => {
-        try {
-            let response = await post('deleteUserFavouriteGear', data);
-            if (response.data.status === 'success') {
-                dispatch({
-                    type: constants.DELETE_FAVOURITE_SUCCESS,
-                    payload: data.gearid
-                });
-                handleInfo('Gear was removed from favorite');
-            } else {
-                dispatch({
-                    type: constants.DELETE_FAVOURITE_FAILED,
-                });
-                handleError('Gear was not removed');
-                resolve(false);
-            }
-        } catch (error) {
+    try {
+        let response = await post('deleteUserFavouriteGear', data);
+        if (response.data.status === 'success') {
+            dispatch({
+                type: constants.DELETE_FAVOURITE_SUCCESS,
+                payload: data.gearid
+            });
+            handleInfo('Gear was removed from favorite');
+        } else {
             dispatch({
                 type: constants.DELETE_FAVOURITE_FAILED,
             });
-            handleError(error);
+            handleError('Gear was not removed');
         }
-    });
+    } catch (error) {
+        dispatch({
+            type: constants.DELETE_FAVOURITE_FAILED,
+        });
+        handleError(error);
+    }
 };
 
 export {

@@ -15,12 +15,11 @@ import PeriodDeleteModal from "./PeriodDeleteModal"
 import DayPicker from "react-day-picker";
 import './style.css';
 import Helmet from 'react-helmet';
-import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
 import { days } from '../../../core/helper';
 import { getListGears } from "../../../core/actions/gear.action";
 import { formatDate } from "../../../core/helper";
-import { handleError } from "../../../core/actions/common.action";
+import { handleError, handleInfo } from "../../../core/actions/common.action";
 import { getGearRentState, setBlockPeriod } from '../../../core/actions/dashboard.action'
 import AboutPeriod from "./AboutPeriod";
 import CustomSpinner from "../../../components/CustomSpinner";
@@ -167,7 +166,7 @@ class RentalCalendarModal extends React.Component {
             let res = await setBlockPeriod({period_arr, gearid});
             if (res.status === 'success') {
                 await getListGears();
-                handleError("Period was set successfully!");
+                handleInfo("Period was set successfully!");
                 this.setState({open: 0});
             } else {
                 handleError("Period was not set!");

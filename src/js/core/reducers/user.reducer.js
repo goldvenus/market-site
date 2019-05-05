@@ -14,6 +14,7 @@ const initialState = {
     isConfirmedFWD: false,
     isConfirmingFWDFailed: false,
     isLoading: false,
+    isUpdating: false,
     user: null
 };
 
@@ -49,21 +50,38 @@ export default (state = initialState, action) => {
                 draft.isRegisteringFailed = true;
                 break;
 
+            case constants.GET_USER_SUCCESS:
+                draft.user = action.payload;
+                break;
+
+            case constants.UPDATE_USER_REQUEST:
+                draft.isUpdating = true;
+                break;
+            case constants.UPDATE_USER_SUCCESS:
+                draft.isUpdating = false;
+                draft.user = action.payload;
+                break;
+            case constants.UPDATE_USER_FAILED:
+                draft.isUpdating = false;
+                break;
+
             case constants.RESET_PWD_REQUEST:
+                draft.isUpdating = true;
                 draft.isSendingFWDEmail = true;
                 draft.isSentFWDEmail = false;
                 draft.isSendingFWDEmailFailed = false;
                 break;
             case constants.RESET_PWD_SUCCESS:
+                draft.isUpdating = false;
                 draft.isSendingFWDEmail = false;
                 draft.isSentFWDEmail = true;
                 draft.isSendingFWDEmailFailed = false;
                 break;
             case constants.RESET_PWD_FAILED:
+                draft.isUpdating = false;
                 draft.isSendingFWDEmail = false;
                 draft.isSentFWDEmail = false;
                 draft.isSendingFWDEmailFailed = true;
-                draft.errMsg = action.payload;
                 break;
 
             case constants.USER_LOGOUT:

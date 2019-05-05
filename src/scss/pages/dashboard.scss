@@ -93,17 +93,12 @@
     .chart {
       .wrraper_dashboard {
         background-color: $gray-light;
-        padding: 3rem;
+        padding: 30px;
         text-align: center;
 
         .line-chart {
           background-color: $white;
         }
-
-        img {
-          //width: 100%;
-        }
-
         .totel-listing, .totel-rental, .avaiable {
           background-color: $white;
           margin-top: 1rem;
@@ -116,9 +111,40 @@
     .account-detail {
       .wrraper_dashboard {
         background-color: $gray-light;
-        padding: 3rem;
+        padding: 30px;
         text-align: center;
+        display: flex;
 
+        button {
+          width: 100%;
+          margin: 0 !important;
+        }
+        .account-detail-left {
+          width: 50%;
+          padding-right: 15px;
+
+          .forgot-pwd-btn {
+            float: right;
+            font-family: Helvetica Neue;
+            font-size: 12px;
+            line-height: 18px;
+            text-align: center;
+            letter-spacing: 0.03em;
+            color: #F74377;
+            border-bottom: 1px solid rgba(247, 67, 119, .2);
+            font-weight: 100;
+          }
+          .card-body:last-child {
+            margin-bottom: 0 !important;
+          }
+        }
+        .account-detail-right {
+          width: 50%;
+          padding-left: 15px;
+          .card-body {
+            height: 100%;
+          }
+        }
         img {
           width: 100%;
         }
@@ -203,9 +229,13 @@
 
       .wrraper_dashboard {
         background-color: $gray-light;
-        padding: 3rem;
+        padding: 30px;
         text-align: center;
 
+        .col-sm-12 {
+          padding: 0;
+          background-color: white;
+        }
         .listing-data-slice {
           background-color: $white !important;
           text-align: left;
@@ -232,7 +262,6 @@
             }
 
             .listing-data-image{
-
               width:auto !important;
             }
             tr{
@@ -297,16 +326,16 @@
       .my-rental {
         .wrraper_dashboard {
           background-color: $gray-light;
-          padding: 3rem;
+          padding: 30px;
           text-align: center;
+
+          padding: 0;
+          background-color: white;
         }
       }
       .empety-img {
         margin-bottom: 1.5rem;
-
       }
-
-
     }
     .my-listing-tabs {
       .react-tabs__tab-list{
@@ -434,6 +463,9 @@ color: #fff
   }
 }
 .order-history-container {
+  .order-history-table {
+    border: 30px solid #FAF8F9 !important;
+  }
   tr {
     cursor: pointer;
 
@@ -916,13 +948,18 @@ span.edit_my_gear {
 
   .wrraper_dashboard {
     padding: 18px !important;
-      .react-tabs__tab-panel {
-        .table-responsive {
-          margin-bottom: -14px;
-          .listing-data-slice {
-          }
+
+    .col-sm-12 {
+      padding: 0;
+      background-color: white;
+    }
+    .react-tabs__tab-panel {
+      .table-responsive {
+        margin-bottom: -14px;
+        .listing-data-slice {
         }
       }
+    }
     .listing-temp-right{
       padding: 1px !important;
       height: 140px;

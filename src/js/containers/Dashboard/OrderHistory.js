@@ -196,7 +196,7 @@ class OrderHistory extends Component {
                                     (null
                                     ) :(
                                         <div>
-                                        <Table className="theme-table table">
+                                        <Table className="theme-table table order-history-table">
                                             <thead className= "d-none d-lg-table">
                                                 <tr>
                                                     <th></th>

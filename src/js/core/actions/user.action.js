@@ -81,6 +81,66 @@ const logout = () => {
     });
 };
 
+const updateUser = async (data) => {
+    dispatch({
+        type: constants.UPDATE_USER_REQUEST
+    });
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response = await post('updateUser', data);
+            if (response.data.status === 'success') {
+                dispatch({
+                    type: constants.UPDATE_USER_SUCCESS,
+                    payload: response.data.data
+                });
+                handleInfo('Updated successfully!');
+            } else {
+                dispatch({
+                    type: constants.UPDATE_USER_FAILED
+                });
+                handleError(response.data.errorMessage);
+            }
+            resolve(response);
+        } catch (error) {
+            dispatch({
+                type: constants.SIGNUP_FAILED
+            });
+            handleError(error);
+            reject(error);
+        }
+    });
+};
+
+const updatePassword = async (data) => {
+    dispatch({
+        type: constants.RESET_PWD_REQUEST
+    });
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response = await post('updatePassword', data);
+            if (response.data.status === 'success') {
+                dispatch({
+                    type: constants.RESET_PWD_SUCCESS
+                });
+                handleInfo('Password was reset successfully!');
+            } else {
+                dispatch({
+                    type: constants.RESET_PWD_FAILED
+                });
+                handleError(response.data.errorMessage);
+            }
+            resolve(response);
+        } catch (error) {
+            console.log(error);
+            dispatch({
+                type: constants.SIGNUP_FAILED
+            });
+            handleError(error);
+            reject(error);
+        }
+    });
+};
+
 const sendResetPasswordEmail = async (data) => {
     dispatch({
         type: constants.RESET_PWD_REQUEST
@@ -150,6 +210,10 @@ const getUser = async () => {
             if (token) {
                 let response = await get('getUserInfo');
                 if (response && response.data) {
+                    dispatch({
+                        type: constants.GET_USER_SUCCESS,
+                        payload: response.data.userAttributes
+                    });
                     await getCarts();
                     await getFavourites();
                 }
@@ -211,6 +275,8 @@ export {
     login,
     logout,
     getUser,
+    updateUser,
+    updatePassword,
     register,
     confirmUser,
     refreshToken,

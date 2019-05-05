@@ -15,6 +15,16 @@ export default keyMirror({
     SIGNUP_FAILED: null,
     SIGNUP_LOAD: null,
 
+    // get user
+    GET_USER_REQUEST: null,
+    GET_USER_SUCCESS: null,
+    GET_USER_FAILED: null,
+
+    // update user
+    UPDATE_USER_REQUEST: null,
+    UPDATE_USER_SUCCESS: null,
+    UPDATE_USER_FAILED: null,
+
     // reset pwd request
     RESET_PWD_REQUEST: null,
     RESET_PWD_SUCCESS: null,
@@ -145,8 +155,4 @@ export default keyMirror({
     GET_ORDER_DETAIL_SUCCESS: null,
     GET_ORDER_DETAIL_FAILED: null,
 
-    // ==== common ==== //
-    ERROR: null,
-    INFO: null,
-    CLEAR_MSG: null
 });

@@ -31,20 +31,20 @@ const payment = data => {
 const getPaymentCards = data => {
     return new Promise(async (resolve, reject) => {
         dispatch({
-            type: constants.DO_PAYMENT_REQUEST
+            type: constants.GET_PAY_CARDS_REQUEST
         });
         try {
             let response = await post('getpaycards', {user_id: data});
             resolve(response.data);
             dispatch({
-                type: constants.DO_PAYMENT_SUCCESS,
+                type: constants.GET_PAY_CARDS_SUCCESS,
                 payload: response.data
             });
         } catch (error) {
             handleError(error);
             reject(error);
             dispatch({
-                type: constants.DO_PAYMENT_FAILED
+                type: constants.GET_PAY_CARDS_FAILED
             });
         }
     });

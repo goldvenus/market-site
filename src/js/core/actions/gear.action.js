@@ -1,11 +1,10 @@
 import constants from "../types";
-import { clearMsg, handleError, handleInfo } from "./common.action";
+import { handleError, handleInfo } from "./common.action";
 import { post, get} from "../api/index";
 import store from '../../store';
 const dispatch = store.dispatch;
 
 const addGear = async (data) => {
-    clearMsg();
     dispatch({
         type: constants.ADD_GEAR_REQUEST,
     });
@@ -26,7 +25,6 @@ const addGear = async (data) => {
 };
 
 const editGear = async (data) => {
-    clearMsg();
     dispatch({
         type: constants.EDIT_GEAR_REQUEST,
     });

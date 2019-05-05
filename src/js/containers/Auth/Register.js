@@ -66,14 +66,13 @@ class Register extends Component {
   }
 
   render() {
-    const { password, confirmPassword, username, fullName, fileName } = this.state;
-    const { isRegistered, isRegistering, isRegisteringFailed, errMsg } = this.props;
+    const { password, confirmPassword, username, fullName, fileName, phoneNumber } = this.state;
+    const { isRegistered, isRegistering } = this.props;
     return (
       <div className="auth-container theme-navbar">
         <AuthSideMenu/>
         {
           isRegistering ? <CustomSpinner/> : null
-          // isRegisteringFailed ? handleError(errMsg) : null
         }
         {
           isRegistered ? (
@@ -124,6 +123,10 @@ class Register extends Component {
                                onChange={(value) => this.setState({ username: value })}/>
                 </div>
                 <div className="theme-form-field">
+                  <CustomInput placeholder='Phone Number' type="text" required="required" value={phoneNumber}
+                               onChange={(value) => this.setState({ phoneNumber: value })}/>
+                </div>
+                <div className="theme-form-field">
                   <CustomInput placeholder='Password' type="Password" required="required" value={password}
                                onChange={(value) => this.setState({ password: value })}/>
                 </div>
@@ -159,8 +162,7 @@ class Register extends Component {
 function mapStateToProps(state) {
     return {
         isRegistering: state.user.isRegistering,
-        isRegistered: state.user.isRegistered,
-        isRegisteringFailed: state.user.isRegisteringFailed
+        isRegistered: state.user.isRegistered
     };
 }
 

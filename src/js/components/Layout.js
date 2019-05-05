@@ -6,13 +6,13 @@ import routes from '../routes';
 import Header from './Header';
 import Footer from './Footer';
 import { CartIcon, HeartIcon } from './common/IconComponent';
-import { createNotification } from "./common/CustomNotification";
-import CustomNotification from "./common/CustomNotification";
+import { NotificationContainer } from "react-notifications";
+import 'react-notifications/lib/notifications.css';
 
-const Layout = ({ location, error, info, carts, favourites, isAuthenticated }) => {
+const Layout = ({ location, carts, favourites, isAuthenticated }) => {
   const showHeader = ['/login', '/register', '/forgotpassword', '/confirm'].indexOf(location.pathname) === -1;
+  let output = null;
 
-  let output = null
   if(isAuthenticated) {
     output = <React.Fragment>
     <div className="fixed-sidebar">
@@ -56,20 +56,12 @@ const Layout = ({ location, error, info, carts, favourites, isAuthenticated }) =
 
       {showHeader && <Footer/>}
 
-      {!!error && (
-         <CustomNotification info = "error" title = {String(error)}/>
-      )}
-
-      {!!info && (
-        <CustomNotification info = "info" title = {String(info)}/>
-      )}
+      <NotificationContainer/>
     </React.Fragment>
   );
 };
 
 const mapStateToProps = store => ({
-  error: store.common.errorMsg,
-  info: store.common.infoMsg,
   carts: store.cart.carts,
   favourites: store.favourite.favourites,
   isAuthenticated: store.user.isAuthenticated

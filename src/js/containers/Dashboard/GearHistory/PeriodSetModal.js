@@ -176,4 +176,5 @@ class PeriodSetModal extends Component {
         )
     }
 }
+
 export default withRouter(PeriodSetModal);

@@ -1,25 +1,11 @@
-import constants from '../types';
-import store from "../../store";
-const dispatch = store.dispatch;
+import { NotificationManager } from "react-notifications";
 
 const handleInfo = (info) => {
-    dispatch({
-        type: constants.INFO,
-        payload: info
-    });
-};
-
-const clearMsg = () => {
-    dispatch({
-        type: constants.CLEAR_MSG
-    });
+    NotificationManager.info(info, 'Info', 5000);
 };
 
 const handleError = (error) => {
-    dispatch({
-        type: constants.ERROR,
-        payload: error || 'Something went wrong'
-    });
+    NotificationManager.error(String(error), 'Error', 5000);
 };
 
 const readFileData = (event) => {
@@ -39,5 +25,5 @@ const readFileData = (event) => {
 };
 
 export {
-    handleError, readFileData, handleInfo, clearMsg
+    handleError, readFileData, handleInfo
 }

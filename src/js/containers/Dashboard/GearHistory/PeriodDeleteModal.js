@@ -53,6 +53,6 @@ class PeriodDeleteModal extends Component {
             </Modal>
         )
     }
-};
+}
 
 export default PeriodDeleteModal;
