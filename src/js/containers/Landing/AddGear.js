@@ -92,7 +92,7 @@ class AddGear extends Component {
   }
 
   renderInfo() {
-    const { selectedType, brand, model, description, isKit, categoryName, accessories } = this.state;
+    const { selectedType, brand, model, isKit, categoryName, accessories } = this.state;
     const { categories } = this.props;
 
     return (
@@ -144,7 +144,7 @@ class AddGear extends Component {
                   <div className="input_svg pretty p-svg p-plain">
                       <input type="checkbox" value={isKit} onChange={(e) => this.setState({ isKit: e.target.checked })}/>
                       <div className="state">
-                          <img className="svg check_svg" src="/images/Icons/task.svg"/>
+                          <img className="svg check_svg" src="/images/Icons/task.svg" alt="Check" />
                       </div>
                   </div>
                   <Label for="is-kit">Is this a Kit?</Label>
@@ -169,7 +169,7 @@ class AddGear extends Component {
   renderPhotos() {
     const mappedImages = this.state.numberOfUserImage.map((image, index) => (
       <div className="add-gear-image" key={'gear-image-' + index}>
-        <img src={image}/>
+        <img src={image} alt="Add Gear" />
       </div>
     ));
     return (<div className="add-gear-photos">
@@ -366,15 +366,17 @@ class AddGear extends Component {
   }
 
   previousStep() {
-    this.setState({
-      progressStep: --this.state.progressStep
-    });
+      let { progressStep } = this.state;
+      this.setState({
+          progressStep: --progressStep
+      });
   }
 
   nextStep() {
+      let { progressStep } = this.state;
     if (this.validate()) {
       this.setState({
-        progressStep: ++this.state.progressStep
+        progressStep: ++progressStep
       });
     }
   }

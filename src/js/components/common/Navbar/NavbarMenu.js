@@ -6,7 +6,6 @@ import Transition from 'react-transition-group/Transition';
 import { Container, Row, Col } from 'reactstrap';
 
 import { addEndListener } from '../../../utils/animation';
-import imgLogo from './logo-sm.png';
 import {
   animateMenuIn,
   animateMenuOut,

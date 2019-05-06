@@ -6,9 +6,6 @@ import $ from 'jquery';
 import {Link} from "react-router-dom";
 
 class Sidebar extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   categoryhandler() {
     if($('.category-mobile').hasClass('active')){

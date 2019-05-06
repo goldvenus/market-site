@@ -6,10 +6,6 @@ import { days, getDateStr } from "../../../core/helper"
 import { Link } from "react-router-dom";
 
 class OrderConfirm extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     handleClose = () => {
         this.props.close();
     };
@@ -43,7 +39,7 @@ class OrderConfirm extends Component {
                                         <div className='buyer-info-left'>
                                             <div className='category-name'>{localStorage.username}</div>
                                             <div className='buyer-profile owner-profile'>
-                                                <img src={listItem.numberOfUserImage[0]}></img>
+                                                <img src={listItem.numberOfUserImage[0]} alt="Number of User" />
                                                 <div>
                                                     <span>Jakob Storm</span>
                                                     <span>+1 (123) 562-42-11</span>
@@ -137,7 +133,7 @@ class OrderConfirm extends Component {
                                     return <div key={`cart-item-${index}`} className="paid-item d-block">
                                         <div className='pay-info pay-info-history'>
                                             <div className='item-info d-block'>
-                                                <img src={listItem.numberOfUserImage[0]}></img>
+                                                <img src={listItem.numberOfUserImage[0]} alt="Number of User" />
                                                 <div className="order_history_gear_name_sm">
                                                     <div className='category-name'>{listItem.categoryName}</div>
                                                     <div className='brand-model'>{listItem.brand + ' ' + listItem.model}</div>
@@ -147,7 +143,7 @@ class OrderConfirm extends Component {
                                             <div className='buyer-info'>
                                                 <div className='buyer-info-left'>
                                                     <div className='buyer-profile owner-profile'>
-                                                        <img src={listItem.numberOfUserImage[0]}></img>
+                                                        <img src={listItem.numberOfUserImage[0]} alt="Number of User" />
                                                         <div>
                                                             <span>Jakob Storm</span>
                                                         </div>
