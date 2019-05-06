@@ -24,7 +24,6 @@ pipelines:
              script: # Modify the commands below to build your repository.
                - npm install
                - npm run build-css
-               - npm test
                - npm run build
              artifacts:
                - build/**
