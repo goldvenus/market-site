@@ -1,6 +1,5 @@
 import axios from "axios";
 import { API_URL } from '../constants';
-import {handleError} from "../actions/common.action";
 
 const getAPIUrl = (url) => API_URL + url;
 
@@ -29,17 +28,17 @@ const tokenAxiosConfig = () => {
         }
     };
 
-    // if (localStorage.accessToken) {
-    //   config['headers']['AccessToken'] = localStorage.accessToken;
-    // }
+    if (localStorage.accessToken) {
+      config['headers']['AccessToken'] = localStorage.accessToken;
+    }
 
     if (localStorage.refreshToken) {
         config['headers']['refreshToken'] = localStorage.refreshToken;
     }
 
-    // if (localStorage.idToken) {
-    //   config['headers']['Authorization'] = localStorage.idToken;
-    // }
+    if (localStorage.idToken) {
+      config['headers']['Authorization'] = localStorage.idToken;
+    }
 
     return config;
 };
@@ -47,7 +46,6 @@ const tokenAxiosConfig = () => {
 const get = async (url) => {
     return await axios.get(getAPIUrl(url), axiosConfig()).then((res) => res)
         .catch(err => {
-            handleError("Network Error!");
             return false;
         });
 };
@@ -55,7 +53,6 @@ const get = async (url) => {
 const post = async (url, data) => {
     return axios.post(getAPIUrl(url), data, axiosConfig()).then((res) => res)
         .catch(err => {
-            handleError("Network Error!");
             return false;
         });
 };

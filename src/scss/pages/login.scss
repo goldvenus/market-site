@@ -29,13 +29,11 @@
 }
 
 .forgot-password {
-
   .header {
     font-size: 35px !important;
     margin-bottom: 25px;
     font-weight: 800;
   }
-
   .login-or-divider {
     text-transform: none !important;
     max-width: 100%;
@@ -47,6 +45,20 @@
 
   .theme-btn-submit {
     padding: 7px !important
+  }
+
+  .theme-form-field > div {
+    width: 100%;
+    .MuiInput-underline-27:before {
+      border-bottom: 1px solid #E9E9E9;
+    }
+    .MuiInput-underline-27:after {
+      //border-bottom: none !important;
+    }
+    input, label {
+      margin-left: 15px;
+      font-size: 14px;
+    }
   }
 }
 
@@ -124,11 +136,14 @@
     line-height: 27px;
     color: #252525;
 
+    div:before {
+      border-bottom: 1px solid #E9E9E9;
+    }
     .MuiInput-underline-27:before {
       border-bottom: 1px solid #E9E9E9;
     }
     .MuiInput-underline-27:after {
-      border-bottom: none !important;
+      //border-bottom: none !important;
     }
 
     input, label {

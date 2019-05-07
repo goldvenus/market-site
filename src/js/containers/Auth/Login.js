@@ -28,7 +28,9 @@ class Login extends Component {
 
   submit = e => {
       e.preventDefault();
+      console.log(e.target);
       const data = formSerialize(e.target, {hash: true});
+      console.log("aaaaaaa", data);
       this.props.login(data);
   };
 
@@ -78,6 +80,7 @@ class Login extends Component {
               <div className="theme-form-field auth-input-wrapper">
                 <TextField
                   id="standard-with-placeholder"
+                  name="username"
                   label="EMAIL"
                   type="text"
                   value={username}
@@ -90,6 +93,7 @@ class Login extends Component {
                 <div className="theme-form-field auth-input-wrapper">
                   <TextField
                     id="standard-password-input"
+                    name="password"
                     label="PASSWORD"
                     type="password"
                     value={password}

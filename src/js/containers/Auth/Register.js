@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import CustomInput from '../../components/CustomInput';
 import AuthSideMenu from '../../components/AuthSideMenu';
 import { handleError, readFileData } from "../../core/actions/common.action";
 import { register } from '../../core/actions/user.action';
 import { bindActionCreators } from "redux";
 import CustomSpinner from "../../components/CustomSpinner";
+import TextField from "@material-ui/core/TextField/TextField";
 
 class Register extends Component {
   constructor() {
@@ -115,24 +115,54 @@ class Register extends Component {
               <div className="login-or-divider">Or</div>
               <Form className="theme-form">
                 <div className="theme-form-field">
-                  <CustomInput placeholder='Name' type="text" required="required" value={fullName}
-                               onChange={(value) => this.setState({ fullName: value })}/>
+                    <TextField
+                        id="standard-with-placeholder"
+                        label="Name"
+                        type="text"
+                        value={fullName}
+                        maxLength='50'
+                        onChange={(e) => this.setState({ fullName: (e && e.target && e.target.value) || ''})}
+                    />
                 </div>
                 <div className="theme-form-field">
-                  <CustomInput placeholder='Email' type="email" required="required" value={username}
-                               onChange={(value) => this.setState({ username: value })}/>
+                    <TextField
+                        id="standard-with-placeholder"
+                        label="Email"
+                        type="email"
+                        value={username}
+                        maxLength='50'
+                        onChange={(e) => this.setState({ username: (e && e.target && e.target.value) || ''})}
+                    />
                 </div>
                 <div className="theme-form-field">
-                  <CustomInput placeholder='Phone Number' type="text" required="required" value={phoneNumber}
-                               onChange={(value) => this.setState({ phoneNumber: value })}/>
+                    <TextField
+                        id="standard-with-placeholder"
+                        label="Phone Number"
+                        type="text"
+                        value={phoneNumber}
+                        maxLength='50'
+                        onChange={(e) => this.setState({ phoneNumber: (e && e.target && e.target.value) || ''})}
+                    />
                 </div>
                 <div className="theme-form-field">
-                  <CustomInput placeholder='Password' type="Password" required="required" value={password}
-                               onChange={(value) => this.setState({ password: value })}/>
+                    <TextField
+                        id="standard-with-placeholder"
+                        label="Password"
+                        type="password"
+                        value={password}
+                        maxLength='50'
+                        onChange={(e) => this.setState({ password: (e && e.target && e.target.value) || ''})}
+                    />
                 </div>
                 <div className="theme-form-field">
-                  <CustomInput placeholder='Confirm Password' type="Password" required="required"
-                               value={confirmPassword} onChange={(value) => this.setState({ confirmPassword: value })}/>
+                    <TextField
+                        id="standard-with-placeholder"
+                        label="Confirm Password"
+                        type="password"
+                        value={confirmPassword}
+                        maxLength='50'
+                        onChange={(e) => this.setState({ confirmPassword: (e && e.target && e.target.value) || ''})}
+                    />
                 </div>
                 <div className="flex-row  upload-photo-row">
                   <div className="theme-form-field">

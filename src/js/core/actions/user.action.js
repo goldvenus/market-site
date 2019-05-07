@@ -27,7 +27,6 @@ const register = async (data) => {
             }
             resolve(response);
         } catch (error) {
-            console.log(error);
             dispatch({
                 type: constants.SIGNUP_FAILED
             });
@@ -132,7 +131,6 @@ const updatePassword = async (data) => {
             }
             resolve(response);
         } catch (error) {
-            console.log(error);
             dispatch({
                 type: constants.SIGNUP_FAILED
             });
@@ -147,8 +145,8 @@ const sendResetPasswordEmail = async (data) => {
         type: constants.RESET_PWD_REQUEST
     });
     try {
-        let response = await post('sendCodeForgotPaswordUser', data)
-        if(response && response.status === 200) {
+        let response = await post('sendCodeForgotPaswordUser', data);
+        if(response && response.data.status === 'success') {
             dispatch({
                 type: constants.RESET_PWD_SUCCESS
             });
@@ -156,14 +154,13 @@ const sendResetPasswordEmail = async (data) => {
         }
         dispatch({
             type: constants.RESET_PWD_FAILED,
-            payload: 'Something went wrong'
         });
+        handleError(response.data.errorMessage.message);
         return false;
     } catch (error) {
         dispatch({
             type: constants.RESET_PWD_FAILED
         });
-        handleError(error);
         return false;
     }
 };

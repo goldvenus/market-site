@@ -34,6 +34,12 @@
   justify-content: center;
   flex: 1;
 
+  .theme-form-field {
+    margin-right: 0 !important;
+    div {
+      width: 100%;
+    }
+  }
   .btn-photo-upload {
     margin-left: 15px;
   }
@@ -52,6 +58,9 @@
       color: #a4a8ab;
       padding-left: 15px;
 
+      div {
+        width: 100%;
+      }
       label {
         margin-bottom: 3px;
       }
@@ -152,7 +161,11 @@
     margin-left: 0;
 
     .theme-form-field {
-      margin: 25px 0
+      margin: 25px 0;
+
+      div {
+        width: 100%;
+      }
     }
 
     .flex-row.signin-link {
