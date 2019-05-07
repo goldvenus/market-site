@@ -1,5 +1,6 @@
 import axios from "axios";
 import { API_URL } from '../constants';
+import {handleError} from "../actions/common.action";
 
 const getAPIUrl = (url) => API_URL + url;
 
@@ -46,14 +47,16 @@ const tokenAxiosConfig = () => {
 const get = async (url) => {
     return await axios.get(getAPIUrl(url), axiosConfig()).then((res) => res)
         .catch(err => {
-            //handleError(err.response && err.response.data.errorMessage)
+            handleError("Network Error!");
+            return false;
         });
 };
 
 const post = async (url, data) => {
     return axios.post(getAPIUrl(url), data, axiosConfig()).then((res) => res)
         .catch(err => {
-            // handleError(err.response.data.errorMessage);
+            handleError("Network Error!");
+            return false;
         });
 };
 

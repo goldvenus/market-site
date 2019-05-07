@@ -41,34 +41,32 @@ const login = async (data) => {
     dispatch({
         type: constants.LOGIN_REQUEST
     });
-    try {
-        let response = await post('signin', data);
-        if (response.data.status === 'success') {
-            dispatch({
-                type: constants.LOGIN_SUCCESS,
-                payload: response.data.data.userAttributes
-            });
-            handleInfo("Welcome to our site!");
-            // store the token
-            const { accessToken, idToken, refreshToken } = response.data.data.tokens;
-            localStorage.accessToken = accessToken;
-            localStorage.idToken = idToken;
-            localStorage.refreshToken = refreshToken;
-            localStorage.userId = response.data.data.userAttributes.userid;
-            localStorage.userEmail = data.username;
-            getCarts();
-            getFavourites();
-        } else {
-            dispatch({
-                type: constants.LOGIN_FAILED
-            });
-            handleError(response.data.errorMessage);
-        }
-    } catch (error) {
+
+    let response = await post('signin', data);
+    if (!!response && response.data.status === 'success') {
+        dispatch({
+            type: constants.LOGIN_SUCCESS,
+            payload: response.data.data.userAttributes
+        });
+        handleInfo("Welcome to our site!");
+        // store the token
+        const { accessToken, idToken, refreshToken } = response.data.data.tokens;
+        localStorage.accessToken = accessToken;
+        localStorage.idToken = idToken;
+        localStorage.refreshToken = refreshToken;
+        localStorage.userId = response.data.data.userAttributes.userid;
+        localStorage.userEmail = data.username;
+        getCarts();
+        getFavourites();
+    } else {
         dispatch({
             type: constants.LOGIN_FAILED
         });
-        handleError(error);
+        let error = "";
+        if (response && response.data.errorMessage)
+            error = response.data.errorMessage;
+        if (error)
+            handleError(error);
     }
 };
 
