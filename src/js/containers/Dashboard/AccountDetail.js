@@ -118,7 +118,7 @@ class AccountDetail extends Component {
                     </div>
                   </Card>
                   <Card body>
-                    <CardTitle className="text-muted">CHANGE PASSWORD<Link className="theme-form-link forgot-pwd-btn" to="/forgotpassword">Forgot password?</Link></CardTitle>
+                    <CardTitle className="text-muted">CHANGE <br className="d-block d-sm-none"/>PASSWORD<Link className="theme-form-link forgot-pwd-btn" to="/forgotpassword">Forgot password?</Link></CardTitle>
                     <div className="card-text">
                       <Form>
                         <FormGroup>

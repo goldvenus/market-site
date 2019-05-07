@@ -28,9 +28,7 @@ class Login extends Component {
 
   submit = e => {
       e.preventDefault();
-      console.log(e.target);
       const data = formSerialize(e.target, {hash: true});
-      console.log("aaaaaaa", data);
       this.props.login(data);
   };
 
