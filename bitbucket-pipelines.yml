@@ -29,7 +29,7 @@ pipelines:
                - build/**
        - step:
            name: Deploy
-           deployment: production
+           deployment: staging
            caches:
              - node
            script: # Modify the commands below to build your repository.
