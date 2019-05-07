@@ -3,7 +3,7 @@ import constants from "../types";
 
 const initialState = {
     gear: null,
-    listGears: null,
+    listGears: [],
     productList: null,
     newArrivals: null,
     searchResults: null,

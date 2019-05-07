@@ -15,6 +15,7 @@ import Textarea from "muicss/lib/react/textarea";
 import UrllinkClass from "../../components/UrllinkClass";
 import CustomSpinner from "../../components/CustomSpinner";
 import BarLoader from "react-bar-loader";
+import TextField from "@material-ui/core/TextField/TextField";
 
 class AddGear extends Component {
   constructor() {
@@ -113,12 +114,24 @@ class AddGear extends Component {
               </DropdownMenu>
             </Dropdown>
             <div className="theme-form-field category_first">
-              <CustomInput required="required" value={brand} onChange={(value) => this.setState({ brand: value })}
-                           placeholder='Brand' type="text"/>
+                <TextField
+                    id="standard-with-placeholder1"
+                    label="Brand"
+                    type="text"
+                    value={brand}
+                    maxLength='50'
+                    onChange={(e) => this.setState({ brand: (e && e.target && e.target.value) || ''})}
+                />
             </div>
             <div className="theme-form-field category_first">
-              <CustomInput placeholder='Model' value={model} onChange={(value) => this.setState({ model: value })}
-                           type="text"/>
+                <TextField
+                    id="standard-with-placeholder2"
+                    label="Model"
+                    type="text"
+                    value={model}
+                    maxLength='50'
+                    onChange={(e) => this.setState({ model: (e && e.target && e.target.value) || ''})}
+                />
             </div>
             <div className="theme-form-field category_first">
               <Textarea className="category_description_ta" label='Description' floatingLabel={true}
@@ -131,14 +144,14 @@ class AddGear extends Component {
             <div className="info-right-newtabs-left">
               <div className="type-tabs">
                 <input name="type" id="new" type="radio" value="new" onChange={this.onTypeChange}/>
-                <label className={selectedType === 'new' ? 'active' : ''} htmlFor="new">New</label>
+                <label className={selectedType === 'new' ? 'active new' : 'new'} htmlFor="new">New</label>
                 <input name="type" id="like-new" type="radio" value="like_new" onChange={this.onTypeChange}/>
-                <label className={selectedType === 'like_new' ? 'active' : ''} htmlFor="like-new">Like New</label>
+                <label className={selectedType === 'like_new' ? 'active like-new' : 'like-new'} htmlFor="like-new">Like New</label>
                 <input name="type" id="slightly-worn" type="radio" value="slightly_worn" onChange={this.onTypeChange}/>
-                <label className={selectedType === 'slightly_worn' ? 'active' : ''} htmlFor="slightly-worn">Slightly
+                <label className={selectedType === 'slightly_worn' ? 'active slightly_worn' : 'slightly_worn'} htmlFor="slightly-worn">Slightly
                   Worn</label>
                 <input name="type" id="worn" type="radio" value="worn" onChange={this.onTypeChange}/>
-                <label className={selectedType === 'worn' ? 'active' : ''} htmlFor="worn">Worn</label>
+                <label className={selectedType === 'worn' ? 'active worn' : 'worn'} htmlFor="worn">Worn</label>
               </div>
               <div className="theme-form-field" id="kit-style">
                   <div className="input_svg pretty p-svg p-plain">
@@ -203,7 +216,7 @@ class AddGear extends Component {
         numberOfUserImage
       });
     } catch {
-      handleError('Please upload a valid image');
+      handleError('Please upload a valid image!');
     }
   }
 
@@ -212,21 +225,45 @@ class AddGear extends Component {
 
     return (
       <Form className="theme-form add-gear-address">
-        <div className="theme-form-field">
-          <CustomInput placeholder='City' type="text" value={city}
-                       onChange={(value) => this.setState({ city: value })}/>
+        <div className="theme-form-field text-wrapper">
+            <TextField
+                id="standard-with-placeholder1"
+                label="City"
+                type="text"
+                value={city}
+                maxLength='50'
+                onChange={(e) => this.setState({ city: (e && e.target && e.target.value) || ''})}
+            />
         </div>
-        <div className="theme-form-field">
-          <CustomInput placeholder='Region' type="text" value={region}
-                       onChange={(value) => this.setState({ region: value })}/>
+        <div className="theme-form-field text-wrapper">
+            <TextField
+                id="standard-with-placeholder2"
+                label="Region"
+                type="text"
+                value={region}
+                maxLength='50'
+                onChange={(e) => this.setState({ region: (e && e.target && e.target.value) || ''})}
+            />
         </div>
-        <div className="theme-form-field">
-          <CustomInput placeholder='Address' type="text" value={address}
-                       onChange={(value) => this.setState({ address: value })}/>
+        <div className="theme-form-field text-wrapper">
+            <TextField
+                id="standard-with-placeholder3"
+                label="Address"
+                type="text"
+                value={address}
+                maxLength='50'
+                onChange={(e) => this.setState({ address: (e && e.target && e.target.value) || ''})}
+            />
         </div>
-        <div className="theme-form-field">
-          <CustomInput placeholder='Postal Code' type="text" value={postalCode}
-                       onChange={(value) => this.setState({ postalCode: value })}/>
+        <div className="theme-form-field text-wrapper">
+            <TextField
+                id="standard-with-placeholder4"
+                label="Postal Code"
+                type="text"
+                value={postalCode}
+                maxLength='50'
+                onChange={(e) => this.setState({ postalCode: (e && e.target && e.target.value) || ''})}
+            />
         </div>
       </Form>
     );
@@ -234,8 +271,8 @@ class AddGear extends Component {
 
   async addGearDetails() {
     try {
-      const { categoryName, brand, model, description, selectedType, isKit, accessories, numberOfUserImage, city, region, address, postalCode, replacementValue, pricePerDay } = this.state;
-
+      let { categoryName, brand, model, description, selectedType, isKit, accessories, numberOfUserImage, city, region, address, postalCode, replacementValue, pricePerDay } = this.state;
+      isKit = !!isKit;
       const data = {
         categoryName,
         brand,
@@ -253,14 +290,22 @@ class AddGear extends Component {
         pricePerDay
       };
 
+      if (!categoryName || !brand || !model || !description || !selectedType || !accessories ||
+          !numberOfUserImage || !city || !region || !address || !postalCode || !replacementValue || !pricePerDay) {
+          handleError("Please provide required details!");
+          return;
+      }
       this.setState({busy: true});
       let gearId = await addGear(data);
-
       if (gearId) {
         this.setState({
           busy: false,
           isGearAdded: true,
           gearId
+        });
+      } else {
+        this.setState({
+          busy: false
         });
       }
     } catch (e) {
@@ -281,14 +326,14 @@ class AddGear extends Component {
 
           <div className="price-type-tabs">
               <input id="new" type="radio" value="new"/>
-              <label className={selectedType === 'new' ? 'active' : ''} htmlFor="new">New</label>
+              <label className={selectedType === 'new' ? 'active new type-tab' : 'new type-tab'} htmlFor="new">New</label>
               <input id="like-new" type="radio" value="like_new"/>
-              <label className={selectedType === 'like_new' ? 'active' : ''} htmlFor="like-new">Like New</label>
+              <label className={selectedType === 'like_new' ? 'active like-new type-tab type-tab2' : 'like-new type-tab type-tab2'} htmlFor="like-new">Like New</label>
               <input id="slightly-worn" type="radio" value="slightly_worn"/>
-              <label className={selectedType === 'slightly_worn' ? 'active' : ''} htmlFor="slightly-worn">Slightly
+              <label className={selectedType === 'slightly_worn' ? 'active slightly-worn type-tab type-tab3' : 'slightly-worn type-tab type-tab3'} htmlFor="slightly-worn">Slightly
                   Worn</label>
               <input id="worn" type="radio" value="worn"/>
-              <label className={selectedType === 'worn' ? 'active' : ''} htmlFor="worn">Worn</label>
+              <label className={selectedType === 'worn' ? 'active worn type-tab type-tab4' : 'worn type-tab type-tab4'} htmlFor="worn">Worn</label>
           </div>
 
         <div className="gear-carousel">
@@ -409,7 +454,7 @@ class AddGear extends Component {
         break;
       default:
     }
-    handleError('Please provide the required details');
+    handleError('Please provide required details!');
     return false;
   }
 
@@ -436,7 +481,7 @@ class AddGear extends Component {
             </div>
             <div>
               <div className="theme-text-small">Price per day</div>
-              <div>${pricePerDay}</div>
+              <div className="price-per-day-value">${pricePerDay}</div>
             </div>
           </div>
 
@@ -466,6 +511,7 @@ class AddGear extends Component {
             this.renderProgress()
           }
         </div>
+        <div className="connect-line"></div>
         {
           this.renderContent()
         }
