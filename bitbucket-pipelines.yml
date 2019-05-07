@@ -8,20 +8,69 @@ image: node:8.11.1
 pipelines:
   default:
     - step:
+        name: Build and Test
         caches:
           - node
         script: # Modify the commands below to build your repository.
           - npm install
           - npm run build-css
           - npm run build
-          - echo "Deploy Finished."
   branches:
-     develop:
-       - step:
-           caches:
-             - node
-           script: # Modify the commands below to build your repository.
-             - npm install
-             - npm run build-css
-             - npm run build
-             - echo "Deploy Finished on Staging."
+      master:
+         - step:
+             name: Build and Test
+             caches:
+               - node
+             script: # Modify the commands below to build your repository.
+               - npm install
+               - npm run build-css
+               - npm run build
+             artifacts:
+               - build/**
+         - step:
+             name: Deploy
+             deployment: production
+             caches:
+               - node
+             script: # Modify the commands below to build your repository.
+               - pipe: atlassian/aws-s3-deploy:0.2.1
+                 variables:
+                   AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                   AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                   AWS_DEFAULT_REGION: "us-east-1"
+                   S3_BUCKET: "www.creative.market"
+                   LOCAL_PATH: "build"
+                   ACL: "public-read"
+                   CACHE_CONTROL: "max-age=3600"
+                   EXPIRES: "2018-10-01T00:00:00+00:00"
+                   DELETE_FLAG: "true"
+                   EXTRA_ARGS: "--follow-symlinks"
+      develop:
+         - step:
+             name: Build and Test
+             caches:
+               - node
+             script:
+               - npm install
+               - npm run build-css
+               - npm run build
+             artifacts:
+               - build/**
+         - step:
+             name: Deploy
+             deployment: staging
+             caches:
+               - node
+             script:
+               - pipe: atlassian/aws-s3-deploy:0.2.1
+                 variables:
+                   AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                   AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                   AWS_DEFAULT_REGION: "us-east-1"
+                   S3_BUCKET: "staging.creative.market"
+                   LOCAL_PATH: "build"
+                   ACL: "public-read"
+                   CACHE_CONTROL: "max-age=3600"
+                   EXPIRES: "2018-10-01T00:00:00+00:00"
+                   DELETE_FLAG: "true"
+                   EXTRA_ARGS: "--follow-symlinks"
