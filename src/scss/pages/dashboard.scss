@@ -965,10 +965,10 @@ span.edit_my_gear {
     }
   }
 
-.react-tabs__tab-list{
-  width:111px;
-  height:44px;
-}
+  .react-tabs__tab-list{
+    width:111px;
+    height:44px;
+  }
   .table-content-name{
     font-size: 12px !important;
     opacity: 60%;
@@ -1001,6 +1001,8 @@ span.edit_my_gear {
       .table-responsive {
         margin-bottom: -14px;
         .listing-data-slice {
+          border-left: solid 17px #aaa;
+          border-right: solid 17px #aaa;
         }
       }
     }
@@ -1349,6 +1351,7 @@ span.edit_my_gear {
      background-color: white;
    }
 }
+
 @media (min-width: 1099px) {
   .container {
     min-width: 1000px !important;
@@ -1358,6 +1361,7 @@ span.edit_my_gear {
 @media (max-width: 767px) {
   .wrraper_dashboard {
     padding: 0 !important;
+    margin-top: 10px;
 
     .account-detail-left {
       margin-bottom: 0 !important;
@@ -1379,7 +1383,6 @@ span.edit_my_gear {
         margin: 0 !important;
       }
     }
-
     .payment-card {
       width: 100% !important;
       margin-bottom: 20px;
@@ -1387,6 +1390,11 @@ span.edit_my_gear {
     .add-payment-method {
       min-height: 150px !important;
       margin: 0 !important;
+    }
+
+    .listing-data-slice {
+      border-left: 17px solid #faf8f9;
+      border-right: 17px solid #faf8f9;
     }
   }
 }
@@ -1402,4 +1410,66 @@ span.edit_my_gear {
 }
 .order_history_sm_parent_div {
   border:15px solid #faf8f9;
+}
+
+.order_history_sm_parent_div {
+  border:15px solid #faf8f9;
+}
+.mylistingitem_sm_parent_div {
+  border-top: 17px solid #faf8f9;
+  .mlspd_first {
+    padding:20px;
+    border-bottom:1px solid #faf8f9;
+  }
+  .mlspdf_name_tag {
+    padding:20px;
+  }
+  .mlspds_child {
+    padding:20px;
+  }
+
+  .mlspd_second_first {
+    border-right: 1px solid #faf8f9;
+  }
+  .slspd_third {
+    padding:20px;
+    border-top:1px solid #faf8f9;
+    div {
+      font-family: Gotham Pro;
+      font-size: 20px;
+      line-height: 25px;
+      color: #252525;
+    }
+    .slspdt_rental_btn {
+      width: 80%;
+    }
+    .slspdt_edit_icon {
+      width: 20%;
+      .edit_my_gear {
+        margin: 5px 0 0 19px;
+      }
+    }
+  }
+  .mlspdf_name_tag_categoryName {
+    font-family: Helvetica Neue;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 28px;
+    color: #252525;
+  }
+  .mlspdf_name_tag_brandName {
+    font-family: Helvetica Neue;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.03em;
+    color: #3A3A3A;
+    opacity: 0.5;
+  }
+  .mlspd_second_replacementValue {
+    font-family: Gotham Pro;
+    font-size: 20px;
+    line-height: 25px;
+    font-weight: 800;
+    color: #252525;
+  }
 }

@@ -70,7 +70,9 @@ const getListGears = async () => {
     });
     try {
         let response = await get('viewUserGearList');
+        console.log(response);
         if (response && response.data) {
+            console.log(response.data);
             dispatch({
                 type: constants.LIST_GEARS_SUCCESS,
                 payload: response.data.Items
