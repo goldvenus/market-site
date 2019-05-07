@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
-import NavbarLeft from './Navbar/NavbarLeft';
+import Navbar from './common/Navbar/Navbar';
 
 class AuthSideMenu extends Component {
   render() {
     return (
       <div className="auth-sidemenu">
-        <NavbarLeft />
+        <header>
+            <Navbar/>
+        </header>
       </div>
     );
   }
 }
 
-export default connect((store) => {
-  return {
-  };
-})(AuthSideMenu);
+export default AuthSideMenu;

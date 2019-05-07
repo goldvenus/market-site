@@ -24,3 +24,6 @@ yarn-error.log*
 
 # ignore index.css
 /src/index.css
+
+/.idea
+package-lock.json

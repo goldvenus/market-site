@@ -1,0 +1,282 @@
+.cart_view {
+  padding:24px;
+  margin-top: 43px;
+  li {
+    font-family: Helvetica Neue;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.03em;
+  }
+  .cart-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 43px;
+    align-items: center;
+    .theme-page-title{
+      font-size: 49px;
+      line-height: normal;
+      color: #252525;
+    }
+    .flex-row {
+      .theme-btn-secondery{
+        border: 1px #d3d3d3 solid;
+      }
+    }
+
+    button:nth-child(n+2) {
+      margin-left: 15px;
+    }
+  }
+  .theme-table {
+    border: 30px #faf8f9 solid;
+    th {
+      padding-top: 39px;
+      padding-bottom: 25px;
+      font-size: 16px;
+      line-height: 27px;
+      border:0;
+      color: #767676;
+      padding-left: 14px;
+
+    }
+    thead {
+      border-bottom: 1px #d3d3d3 solid;
+    }
+    tbody {
+      tr {
+        td {
+          padding: 18px;
+          border: 0;
+
+          img {
+            object-fit: contain;
+            width: 70px;
+            height: 70px;
+          }
+
+        }
+        .tb_brand_model_name {
+          font-size: 17px;
+          font-weight: 600;
+          color: #252525;
+        }
+        .tb_categories_name {
+          font-size: 12px;
+          line-height: 18px;
+          letter-spacing: 0.03em;
+
+          color: #3A3A3A;
+
+          /* Gray */
+          opacity: 0.5;
+        }
+        .tb_time_name {
+          font-size: 17px;
+          color: #252525;
+        }
+        .tb_pay_per {
+          font-size: 17px;
+          font-weight: 600;
+          color: #252525;
+        }
+        .edit_gear_td {
+          padding-right: 0
+        }
+        .edit_gear{
+          display: inline-block;
+          width: 30px;
+          height: 30px;
+          margin:0;
+          vertical-align: middle;
+          cursor: pointer;
+          background-image: url('/images/Icons/cart/edit-p.svg');
+        }
+        .close {
+          float: left;
+          display: inline-block;
+          width: 30px;
+          height: 30px;
+          vertical-align: middle;
+          background-image: url('/images/Icons/cart/cross-p.svg');
+        }
+      }
+    }
+  }
+}
+@media(max-width: 1050px) {
+  .cart_view {
+    .cart-header{
+      margin-bottom:25px !important;
+    }
+    margin-top: 43px !important;
+    .cart-table-div{
+      background-color: #faf8f9;
+      padding:20px;
+      padding-bottom: 0;
+      .seclt_icon_group {
+        display: flex;
+      }
+      .theme-table {
+        border: 0;
+        margin:0;
+      }
+      .sm-table-cart {
+        border-bottom: #faf8f9 20px solid;
+        .sm-category-list-top{
+          display: flex;
+          margin:18px;
+          align-items: center;
+          p{
+            margin: 0;
+          }
+          .tb_brand_model_name {
+            font-size: 17px;
+            font-weight: 600;
+            color: #252525;
+          }
+          .tb_categories_name {
+            font-size: 12px;
+            line-height: 18px;
+            letter-spacing: 0.03em;
+            color: #3A3A3A;
+            opacity: 0.5;
+          }
+          .sclt_img{
+            magin-right:21px;
+          }
+          .seclt_edit_icon {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            margin:0;
+            margin-right: 12px;
+            vertical-align: middle;
+            cursor: pointer;
+            background-image: url('/images/Icons/cart/edit-b.svg');
+          }
+          .seclt_del_icon {
+            float: left;
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            vertical-align: middle;
+            background-image: url('/images/Icons/cart/cross-p.svg');
+          }
+        }
+        .sm-category-list-bottom {
+          display: flex;
+          .sm-bottom-second-row {
+            display: flex;
+            margin: 0;
+            padding: 0;
+            border-top: 0;
+          }
+          p {
+            margin:0 !important;
+            padding: 0;
+          }
+          div {
+            border-top: 1px #f5f5f5 solid;
+            padding: 18px;
+          }
+          .cart-bottom-title {
+            font-size: 16px;
+            line-height: 23px;
+            font-weight: 200;
+          }
+          .cart-bottom-title1 {
+            font-size: 12px;
+            line-height: 15px;
+            letter-spacing: 0.03em;
+            color: #3A3A3A;
+            opacity: 0.5;
+          }
+          .cart-bottom-content {
+            font-size: 12px;
+            line-height: 15px;
+            letter-spacing: 0.03em;
+            color: #3A3A3A;
+            opacity: 0.5;
+          }
+          .cart-bottom-content1 {
+            font-size: 16px;
+            line-height: 20px;
+            color: #252525;
+          }
+          .cart-bottom-content2 {
+            font-size: 16px;
+            line-height: 20px;
+            color: #252525;
+            font-weight: 700;
+          }
+          .cart-bottom-second, .cart-bottom-third {
+            border-left:1px #f5f5f5 solid;
+          }
+        }
+      }
+    }
+  .flex-row {
+    justify-content: center;
+    padding-top:24px;
+  }
+  }
+  .theme-page-title {
+    justify-content: center;
+    display: flex;
+    width: 100%;
+  }
+
+
+}
+.breadcrumb-item.active {
+  color: #000;
+}
+@media (min-width: 1200px) {
+  .d-lg-table {
+    display: contents !important;
+  }
+}
+
+@media (max-width: 750px) {
+  .cart_view {
+    padding:15px !important;
+    margin-top:24px !important;
+    .cart-header {
+      margin-bottom:25px !important;
+      .theme-page-title{
+        font-size:27px !important;
+      }
+    }
+    .cart-table-div {
+      padding:15px;
+      .seclt_icon_group {
+        display: block;
+        .seclt_edit_icon{
+          margin:0 !important;
+          margin-bottom:10px !important;
+
+        }
+      }
+      .sm-category-list-bottom {
+        display: block !important;
+        .sm-bottom-second-row {
+          display: flex;
+
+        }
+      }
+    }
+    .flex-row {
+        justify-content: center;
+        padding-top:24px;
+      .theme-btn-secondery{
+        padding:8px;
+      }
+      .theme-btn-primary {
+        margin: 0 !important;
+        padding:0;
+        margin-left:5px !important;
+      }
+    }
+  }
+}

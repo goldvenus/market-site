@@ -1,0 +1,321 @@
+
+.list-gear {
+  .list-gear-head {
+    padding-top: 3rem;
+    margin-bottom: 2rem;
+
+    .theme-page-title {
+      margin-bottom: 0;
+      font-size: 49px;
+      font-family: 'Gotham Pro';
+    }
+  }
+
+  .list-gear-body {
+    .list-gear-wrapper {
+      background-color: $gray-light;
+      padding: 30px;
+      text-align: center;
+
+      .listing-data-slice {
+        background-color: $white;
+        text-align: left;
+
+        th {
+          font-family: Helvetica Neue;
+          font-size: 16px;
+          padding: 1.7rem 0rem;
+          font-weight: bold;
+        }
+
+        td {
+          padding: .5rem 1rem;
+          border-top: none !important;
+          vertical-align: middle;
+
+          p {
+            font-size: 14px;
+          }
+
+          .gear-img {
+            object-fit: contain;
+            width: 70px !important;
+            height: 70px !important;
+          }
+          .gear_name_first{
+            font-family: Helvetica Neue !important;
+            font-weight: bold;
+            font-size: 17px;
+            line-height: 28px;
+            font-weight: 600;
+            color: #252525;
+            padding:0 !important;
+
+          }
+          .gear_button_available{
+            width: 84px !important;
+            height: 25px !important;
+            color: #1CDB74;
+            font-size: 12px;
+            border:1px solid #1CDB74;
+          }
+          .gear_price_day{
+            display:inline;
+            font-size: 16px;
+            color: #252525;
+          }
+          .gear_price_amount{
+            display: inline;
+            font-size: 21px;
+            line-height: 37px;
+            color: #252525;
+            font-weight: bold;
+          }
+          .gear_name_second{
+            font-family: Helvetica Neue;
+            font-size: 12px;
+            line-height: 18px;
+            letter-spacing: 0.03em;
+            color: #3A3A3A;
+            opacity: 0.5;
+            .a{
+              padding:0;
+            }
+          }
+
+        }
+        table {
+          border-collapse: collapse;
+
+        }
+        table tbody {
+          border: 20px solid transparent;
+        }
+        td {
+          padding:0;
+          padding-bottom:18px;
+        }
+
+        td:first-child {
+          padding-left:25px;
+        }
+
+
+
+        .gear {
+          p {
+            margin: 0rem ;
+            text-align: left;
+            padding:0 !important;
+          }
+        }
+
+      }
+
+      .pagination {
+        justify-content: center;
+
+        .page-link {
+          color: $secondary-light-color;
+          background-color: transparent;
+          border: none;
+
+          &:focus {
+            box-shadow: none;
+          }
+        }
+
+        .page-item.active .page-link {
+          color: $primary-color;
+          border: none;
+          border-bottom: 2px solid $primary-color;
+        }
+      }
+    }
+  }
+  tbody:before {
+    height: 18px;
+    content: '';
+    display: block;
+  }
+  .edit_gear{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin:0;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: url('/images/Icons/cart/edit-p.svg');
+  }
+  .close {
+    float: left;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    background-image: url('/images/Icons/cart/cross-p.svg');
+  }
+
+}
+
+.listing-data-slice {
+  th {
+    border: none;
+  }
+}
+.table thead th {
+  border-bottom: 2px solid #f0f0f0 !important;
+}
+
+.button-tablet button ,
+.span-tablet span{
+  display: none;
+}
+@media(max-width: 1050px) {
+  .list-gear-title {
+    justify-content: center;
+    margin-bottom: 40px !important;
+  } 
+  .add-gear-btn {
+    width: 100%;
+  }
+  .list-gear tbody:before {
+    height: 0px !important;
+    content: '';
+    display: block;
+  }
+  .list-gear-large td{
+    padding-bottom:25px !important;
+    padding-top:25px !important;
+  }
+  .table-head {
+    display: none;
+    border-bottom: 6px solid #dee2e6;
+  }
+  .pagination {
+    display: none;
+  }
+  .theme-btn {
+    min-height: 25px !important;
+    min-width: 118px;
+  }
+ 
+  .gear-img {
+    width: 70px ;
+    height: 70px ;
+    object-fit: contain;
+
+  }
+
+  .button-tablet button ,
+  .span-tablet span{
+    display:inline-block
+  }
+  .button-tablet button {
+    height: 20px;
+  }
+  .span-tablet{
+    text-align: center;
+    font-weight: bold;
+  }
+  .span-tablet span{
+    font-weight: normal;
+    font-size: 12px;
+    display: block;
+    color: #6c757d;
+    padding-top: 34px;
+  }
+  .button-desktop{
+    display: none
+  }
+  .gear p > a {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .gear p {
+    font-size: 12px !important;
+  }
+  .list-gear .list-gear-body .list-gear-wrapper .listing-data-slice td {
+    border-top: 18px solid #faf8f9 !important;
+  }
+  .list-gear .list-gear-body .list-gear-wrapper {
+    padding: 5px 10px;
+    margin-bottom: 5rem;
+  }
+ .gear_price_day{
+   font-family: Gotham Pro;
+   font-size: 20px;
+   line-height: 25px;
+   color: #252525;
+ }
+
+  .close {
+    display: inline-block !important;
+    width: 30px;
+    height: 30px;
+    margin:0;
+    vertical-align: middle!important;
+    cursor: pointer;
+    background-image: url('/images/Icons/cart/cross-p.svg') !important;
+  }
+  .edit_gear{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin:0;
+   vertical-align: middle !important;
+    margin-bottom: 12px !important;
+    cursor: pointer;
+    background-image: url('/images/Icons/cart/edit-b.svg') !important;
+  }
+  .button_md_edit_del{
+    padding-top: 10px !important;
+  }
+}
+
+@media(max-width: 767px) {
+  .list-gear-mobile {
+    .list-gear-item-wrapper {
+      width: 100%;
+      border: solid 16px #faf8f9;
+      border-top: none;
+      padding: 16px;
+
+      .list-gear-item-info {
+        padding: 16px;
+        display: flex;
+        justify-content: space-between;
+
+        .list-gear-item-img {
+
+        }
+        .list-gear-item-props {
+          display: grid;
+          align-items: center;
+
+          .gear_name_first {
+            font-family: Helvetica Neue;
+            font-size: 16px;
+            line-height: 20px;
+            color: #252525;
+          }
+          .gear_name_second {
+            font-family: Helvetica Neue;
+            font-size: 12px;
+            line-height: 18px;
+            letter-spacing: 0.03em;
+            color: #3A3A3A;
+            opacity: 0.5;
+          }
+        }
+        .list-gear-item-control {
+          align-items: center;
+          display: grid;
+        }
+      }
+    }
+  }
+  .list-gear-item-wrapper:first-child {
+    border-top: solid 16px #faf8f9;;
+  }
+}

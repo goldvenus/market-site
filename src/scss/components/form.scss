@@ -1,0 +1,17 @@
+.theme-form {
+  margin: 15px 0;
+
+  .theme-form-field {
+    margin: 15px 0px;
+    display: flex;
+    width: 330px;
+  }
+
+  input[type="checkbox"] {
+    height: 20px;
+    width: 20px;
+    position: inherit;
+    margin: 0;
+    margin-right: 5px;
+  }
+}

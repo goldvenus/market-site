@@ -1,61 +1,70 @@
-import React, { Component } from 'react';
-import { connect } from "react-redux";
-import { Badge } from 'reactstrap';
+import React from 'react';
+import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import routes from "../config/routes";
+
+import routes from '../routes';
 import Header from './Header';
 import Footer from './Footer';
-import { clearError } from '../actions/app.actions';
+import { CartIcon, HeartIcon } from './common/IconComponent';
+import { NotificationContainer } from "react-notifications";
+import 'react-notifications/lib/notifications.css';
 
-class Layout extends Component {
-  render() {
-    const { match, location, history, selectedView, error, carts, favourites } = this.props;
-    let hideHeader = ['/login', '/register', '/forgotpassword', '/confirm'].indexOf(location.pathname) > -1;
-    return (
-      <div>
-        <div className="fixed">
-          <Link to="/cart">
-          <div className="cart">
-            {
-              carts && carts.length ? <Badge color="light"> {carts.length} </Badge> : null
-            }
-            <span className="cart-icon"></span>
-            <span>CART</span>
+const Layout = ({ location, carts, favourites, isAuthenticated }) => {
+  const showHeader = ['/login', '/register', '/forgotpassword', '/confirm'].indexOf(location.pathname) === -1;
+  let output = null;
+
+  if(isAuthenticated) {
+    output = <React.Fragment>
+    <div className="fixed-sidebar">
+      <Link to="/cart">
+        <div className="sidebar-item">
+          <div className="sidebar-item__icon">
+            <CartIcon/>
           </div>
-          </Link>
-          <Link to="/favourites">
-          <div className="fav">
-          {
-            favourites && favourites.Items.length ? <Badge color="light"> {favourites.Items.length} </Badge> : null
+          <span className="sidebar-item__title">CART</span>
+          {!!(carts && carts.length > 0) &&
+          <span className="sidebar-item__badge">{carts.length}</span>
           }
-            <span className="fav-icon"></span>
-            <span>FAVORITES</span>
-          </div>
-          </Link>
+          <div className="sidebar-item__bg"/>
         </div>
-        {
-          hideHeader ? null : <Header />
-        }
-        { routes }
-        {
-          hideHeader ? null : <Footer />
-        }
-        {
-          error ?
-          <div className="alert alert-danger app-error" role="alert">
-            <div className="app-error-text">{ String(error) }</div>
-            <div className="app-error-close" onClick={ clearError }>X</div>
-          </div> : null
-        }
-      </div>
-    );
-  }
-}
+      </Link>
 
-export default withRouter(connect((store) => {
-  return {
-    error: store.app.error,
-    carts: store.app.carts,
-    favourites: store.app.favourites,
-  };
-})(Layout));
+      <Link to="/favourites">
+        <div className="sidebar-item">
+          <div className="sidebar-item__icon">
+            <HeartIcon/>
+          </div>
+          <span className="sidebar-item__title">FAVORITES</span>
+          {!!(favourites && favourites.length > 0) &&
+          <span className="sidebar-item__badge">{favourites.length}</span>
+          }
+          <div className="sidebar-item__bg"/>
+        </div>
+      </Link>
+    </div>
+    </React.Fragment>
+  }
+
+  return (
+    <React.Fragment>
+
+      {output}
+
+      {showHeader && <Header/>}
+
+      {routes}
+
+      {showHeader && <Footer/>}
+
+      <NotificationContainer/>
+    </React.Fragment>
+  );
+};
+
+const mapStateToProps = store => ({
+  carts: store.cart.carts,
+  favourites: store.favourite.favourites,
+  isAuthenticated: store.user.isAuthenticated
+});
+
+export default withRouter(connect(mapStateToProps)(Layout));

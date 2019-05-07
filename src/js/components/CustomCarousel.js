@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
-import { Carousel, CarouselItem, CarouselControl, CarouselIndicators,
-  CarouselCaption } from 'reactstrap';
+import { Carousel, CarouselItem, CarouselIndicators } from 'reactstrap';
 
 class CustomCarousel extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       activeIndex: 0,
@@ -46,7 +44,7 @@ class CustomCarousel extends Component {
   }
 
   render() {
-    const {activeIndex, selectedType} = this.state;
+    const {activeIndex} = this.state;
     const { items } = this.props;
 
     const slides = items.map((item, index) => {
@@ -57,7 +55,7 @@ class CustomCarousel extends Component {
           key={index}
         >
           <div className="carousel-image-container">
-            <img src={item} alt="Image" />
+            <img src={item} alt="carousel" />
           </div>
         </CarouselItem>
       );
@@ -69,16 +67,19 @@ class CustomCarousel extends Component {
          next={this.next}
          previous={this.previous}
        >
-       <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
        {slides}
-       <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
-       <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
+        <div className="carousel-control-prev" role="button" tabIndex="0" onClick={this.previous}>
+          <i className="fa fa-angle-left"></i>
+          <span className="sr-only">Previous</span>
+        </div>
+        <div href="#" className="carousel-control-next" role="button" tabIndex="0" onClick={this.next}>
+          <i className="fa fa-angle-right"></i>
+          <span className="sr-only">Next</span>
+        </div>
       </Carousel>
+      <CarouselIndicators className='d-lg-none' items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex}/>
     </div>
   }
 }
 
-export default connect((store) => {
-  return {
-  };
-})(CustomCarousel);
+export default CustomCarousel;

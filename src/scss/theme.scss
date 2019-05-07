@@ -1,0 +1,58 @@
+.theme-form-group {
+  display: flex;
+  padding-right: 4rem;
+}
+
+.theme-form-control {
+  display: block;
+  width: 100%;
+  padding: .3rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-image: none;
+  background-clip: padding-box;
+  border: none;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.theme-page-title {
+  @extend h3;
+}
+
+.theme-table {
+  background-color: $white !important;
+  text-align: left;
+  border: 20px solid #FAF8F9;
+  margin-top: 15px;
+
+  th {
+    font-weight: lighter;
+    color: #6c757d !important;
+  }
+
+  .gear, .rental-period {
+    p {
+      margin: 0.25rem;
+      text-align: left;
+    }
+  }
+
+  td {
+    vertical-align: middle;
+
+    .gear-img {
+      width: 70%;
+    }
+
+    .landrord-img {
+      width: 25%;
+      border-radius: 50%;
+    }
+  }
+}

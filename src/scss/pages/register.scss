@@ -1,0 +1,197 @@
+.login.success-message {
+  .header {
+    font-size: 43px !important;
+
+    i {
+      font-size: 35px !important;
+    }
+  }
+
+  .subheader {
+    font-size: 14px;
+    color: #a8a4a4;
+    margin-bottom: 10px;
+
+    br {
+      display: none;
+    }
+  }
+
+  .navigation-buttons {
+    button {
+      padding: 2px 40px;
+      width: 200px;
+      font-weight: 600;
+    }
+  }
+}
+
+.login.register {
+  margin-left: 60px;
+  padding-top: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+
+  .btn-photo-upload {
+    margin-left: 15px;
+  }
+
+  .header {
+    font-size: 35px !important;
+    margin-bottom: 25px;
+    font-weight: 800;
+  }
+
+  .upload-photo-row {
+    margin-top: -6px;
+
+    .theme-form-field {
+      border-bottom: 1px solid #dbdbdb;
+      color: #a4a8ab;
+      padding-left: 15px;
+
+      label {
+        margin-bottom: 3px;
+      }
+    }
+
+    .file-input-container {
+      right: 135px;
+      bottom: 7px;
+
+      button {
+        padding: 5px;
+      }
+    }
+  }
+
+  .subheader {
+    font-size: 14px;
+    color: #a8a4a4;
+    margin-bottom: 10px
+  }
+
+  .custom-input {
+    width: 100%;
+  }
+
+  .login-or-divider {
+    margin-top: 15px;
+    text-transform: lowercase;
+    color: lightgrey
+  }
+
+  .theme-form-link {
+    color: #F74377;
+    font-size: 13px;
+    text-decoration-color: lightgray !important;
+    text-decoration: underline;
+  }
+
+  .theme-btn-submit {
+    padding: 10px !important;
+    font-weight: 600
+  }
+
+  .signin-link {
+    position: absolute;
+    bottom: 20px;
+
+    span {
+      color: #a09e9e;
+      margin-right: 15px;
+      font-size: 13px
+    }
+
+    a {
+      font-size: 13px;
+
+      i {
+        margin-left: 10px
+      }
+    }
+  }
+}
+
+@media(max-width: 500px) {
+  .login.success-message {
+    .subheader {
+        width: 100%;
+        text-align: center;
+        margin: 30px 0;
+        br {
+          display: block;
+        }
+    }
+
+    .navigation-buttons {
+      margin-left: auto;
+      margin-right: auto;
+
+      button {
+        padding: 2px 15px !important;
+        width: 150px;
+      }
+    }
+
+    .theme-btn-submit {
+      width: 90%;
+      margin-left: 5%
+    }
+
+    .theme-btn-primary.theme-btn-submit.theme-btn-link {
+      margin-left: 5% !important;
+      padding: 4px !important
+    }
+  }
+
+  .login.register {
+    padding-top: 0;
+    margin-left: 0;
+
+    .theme-form-field {
+      margin: 25px 0
+    }
+
+    .flex-row.signin-link {
+      width: 90%;
+      margin-left: 5%;
+
+      > span {
+        margin: 0 auto;
+        display: table;
+      }
+
+      > button {
+        margin: 0 auto;
+        display: table;
+        padding: 2px 10px
+      }
+    }
+
+    .theme-btn-submit {
+      width: 90%;
+      margin-left: 5%
+    }
+
+    .subheader {
+      display: none
+    }
+
+    .upload-photo-row {
+      position: relative;
+
+      .file-input-container {
+        position: absolute;
+        top: 8px;
+        right: 23px;
+      }
+    }
+  }
+}
+
+.verification-code {
+  padding-top: 15px;
+}

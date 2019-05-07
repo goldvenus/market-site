@@ -1,0 +1,154 @@
+footer {
+  .footer-bottom {
+    p, a {
+      font-size: 0.75rem;
+      line-height: 126%;
+      color: #999 !important;
+      margin-bottom: 0;
+    }
+
+    .copyright {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+  }
+
+  .footer-nav {
+    .nav {
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+
+      a {
+        font-size: 0.75rem;
+        line-height: 126%;
+        color: $secondary-light-color;
+      }
+    }
+  }
+
+  .hr-light {
+    color: $gray-light;
+  }
+
+  .Social-contects {
+    .email, .phone {
+      display: flex;
+      justify-content: flex-end;
+
+      p {
+        line-height: 1.7em;
+      }
+    }
+
+    .fa-envelope-o, .fa-phone {
+      font-size: 2rem;
+      color: $secondary-light-color;
+    }
+  }
+
+  @media only screen and (max-width: 767px){
+    .logo {
+      display: none;
+    }
+    .email, .phone {
+      justify-content: center !important;
+      margin-top: 10px;
+    }
+    .copyright {
+      padding-top: 10px;
+      text-align: center
+    }
+    .footer-privaci-policy{
+      -webkit-flex-basis: inherit;
+      flex-basis: inherit;
+    }
+    .news-letter {
+      text-align: center;
+      padding-right: 0;
+      margin-bottom: 0 !important;
+    }
+    .news-letter-container {
+      background: #FAF8F9;
+    }
+    .align-items-center > div {
+      margin-top: 40px;
+      font-size: 20px;
+    }
+    .theme-text-small {
+      font-size: 16px;
+      width: 72%;
+      line-height: 144%;
+      margin: 30px auto 30px auto;
+    }
+    .social-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .hr-light {
+      margin-bottom: 1rem !important;
+    }
+    .theme-form-group {
+      padding-right: 0;
+
+    }
+    .subscribe-btn {
+      min-width: 64px;
+    }
+  
+  }
+.news-letter {
+
+  @include media-breakpoint-down(md) {
+  display: initial;
+  }
+}
+
+}
+
+.social-buttons {
+  .btn-social{
+    padding: 0;
+    height: 50px;
+    i{
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &.fa-facebook-f{
+        background: rgba(255, 255, 255, 0.1);
+
+      }
+      &.fa-vimeo-v{
+        background: rgba(255, 255, 255, 0.1);
+      }
+      &.fa-instagram{
+        background: rgba(255, 255, 255, 0.1);
+      }
+      
+    }
+    span{
+      width: calc(100% - 50px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+    }
+  }
+}
+@media (max-width:500px){
+  .social-buttons {
+    .btn-social{
+      width: 260px;
+    }
+  }
+  .social-buttons .btn-social span {
+    margin-left: 25px;
+    justify-content: flex-start !important;
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,68 @@
+@import "../variables";
+
+.date-range-wrapper {
+  position: absolute;
+  width: 100%;
+  background-color: white;
+  z-index: 1;
+  box-shadow: 1px 1px 10px 5px rgba(224, 224, 224, 0.49);
+  margin-left: -21px;
+  margin-top: 46px;
+  border-top: solid 2px #FC92B1;
+}
+.rdrMonthAndYearPickers {
+  position: absolute;
+}
+.rdrMonthAndYearWrapper {
+  padding: 0;
+  height: 45px;
+  border-bottom: solid 1px #EAEAEA;
+}
+.rdrMonth {
+  width: 100%;
+}
+.rdrMonthPicker {
+
+}
+.rdrPprevButton {
+  position: relative;
+  left: 72%;
+  background-color: unset;
+  i {
+  }
+}
+.rdrNextButton {
+  content: "<";
+  background-color: unset;
+  i {
+  }
+}
+.rdrYearPicker {
+  margin-left: -40px;
+}
+.rdrDayNumber:hover {
+  background-color: #fcccd5 !important;
+  span {
+    color: white;
+  }
+}
+.rdrStartEdge, .rdrEndEdge {
+  border-radius: unset !important;
+  background-color: $primary-color;
+}
+.rdrInRange {
+  border-radius: unset !important;
+  background-color: #FC92B1;
+}
+.rdrDayEndPreview {
+  display: none;
+}
+.rdrDayToday .rdrDayNumber span:after {
+  background: $primary-color;
+}
+
+@media (max-width: 1199px) {
+  .date-range-wrapper {
+    margin-left: -257px;
+  }
+}
