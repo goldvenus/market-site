@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import VMC from '../../../assets/images/VMC.jpg';
 import { Card, CardTitle, Row, Col } from 'reactstrap';
 import { Form, FormGroup } from 'reactstrap';
 import TextField from "@material-ui/core/TextField/TextField";
@@ -145,7 +144,19 @@ class AccountDetail extends Component {
                     <div className="card-text">
                       <Row>
                         <Col sm="12">
-                          <img src={VMC} alt="" />
+                          <div className="payment-card">
+                            <div className="flex-row">
+                              <div>
+                                <img src="/images/cards/master-card.svg" alt=""/>
+                                <img src="/images/Icons/cross.svg" alt=""/>
+                              </div>
+                              <div className="payment-card-number">**** **** **** 1938</div>
+                            </div>
+                            <div className="flex-row payment-card-other">
+                              <span>07 / 20</span>
+                              <span>Josh Williams</span>
+                            </div>
+                          </div>
                         </Col>
                         <Col sm="12">
                           <div className="add-payment-method center">

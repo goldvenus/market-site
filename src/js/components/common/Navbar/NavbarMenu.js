@@ -145,10 +145,9 @@ class NavbarMenu extends React.Component {
                     </Link>
                   </li>
                   <li className="animated-menu-item menu-item-sm with-mb">
-                    <Link to="/listgear">
+                    <Link to="/addgear">
                       <h2 onClick={this.toggleNavbar} >
-                        List Gear
-
+                        Add Gear
                       </h2>
                     </Link>
 
