@@ -29,7 +29,7 @@ pipelines:
                - build/**
          - step:
              name: Deploy
-             deployment: staging
+             deployment: production
              caches:
                - node
              script: # Modify the commands below to build your repository.
@@ -38,7 +38,7 @@ pipelines:
                    AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
                    AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
                    AWS_DEFAULT_REGION: "us-east-1"
-                   S3_BUCKET: "staging.creative.market"
+                   S3_BUCKET: "www.creative.market"
                    LOCAL_PATH: "build"
                    ACL: "public-read"
                    CACHE_CONTROL: "max-age=3600"
@@ -67,7 +67,7 @@ pipelines:
                    AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
                    AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
                    AWS_DEFAULT_REGION: "us-east-1"
-                   S3_BUCKET: "www.creative.market"
+                   S3_BUCKET: "staging.creative.market"
                    LOCAL_PATH: "build"
                    ACL: "public-read"
                    CACHE_CONTROL: "max-age=3600"
