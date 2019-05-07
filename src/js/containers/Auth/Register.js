@@ -115,8 +115,9 @@ class Register extends Component {
               <div className="login-or-divider">Or</div>
               <Form className="theme-form">
                 <div className="theme-form-field">
+                    <span className='input-mobile-heading'>FullName</span>
                     <TextField
-                        id="standard-with-placeholder"
+                        id="standard-with-placeholder1"
                         label="Name"
                         type="text"
                         value={fullName}
@@ -125,8 +126,9 @@ class Register extends Component {
                     />
                 </div>
                 <div className="theme-form-field">
+                    <span className='input-mobile-heading'>Email</span>
                     <TextField
-                        id="standard-with-placeholder"
+                        id="standard-with-placeholder2"
                         label="Email"
                         type="email"
                         value={username}
@@ -135,8 +137,9 @@ class Register extends Component {
                     />
                 </div>
                 <div className="theme-form-field">
+                    <span className='input-mobile-heading'>Phone Number</span>
                     <TextField
-                        id="standard-with-placeholder"
+                        id="standard-with-placeholder3"
                         label="Phone Number"
                         type="text"
                         value={phoneNumber}
@@ -145,8 +148,9 @@ class Register extends Component {
                     />
                 </div>
                 <div className="theme-form-field">
+                    <span className='input-mobile-heading'>Password</span>
                     <TextField
-                        id="standard-with-placeholder"
+                        id="standard-with-placeholder4"
                         label="Password"
                         type="password"
                         value={password}
@@ -155,8 +159,9 @@ class Register extends Component {
                     />
                 </div>
                 <div className="theme-form-field">
+                    <span className='input-mobile-heading'>Confirm Password</span>
                     <TextField
-                        id="standard-with-placeholder"
+                        id="standard-with-placeholder5"
                         label="Confirm Password"
                         type="password"
                         value={confirmPassword}
@@ -166,7 +171,7 @@ class Register extends Component {
                 </div>
                 <div className="flex-row  upload-photo-row">
                   <div className="theme-form-field">
-                    <label>{fileName || 'Photo'}</label>
+                    <span>{fileName || 'Photo'}</span>
                   </div>
                   <div className="file-input-container">
                     <button className="theme-btn theme-btn-filled-white btn-photo-upload">Upload</button>
@@ -177,7 +182,7 @@ class Register extends Component {
                 <button className="theme-btn-submit" onClick={this.submit.bind(this)}>Sign up</button>
               </Form>
               <div className="login-or-divider"></div>
-              <div className="flex-row signin-link ">
+              <div className="flex-row signin-link already-signin-wrapper">
                 <span>Already have an account?</span>
                 <button className="theme-btn theme-btn-filled-white theme-btn-link"><Link to="/login">Sign in<i
                   className="fa fa-angle-right"/></Link></button>

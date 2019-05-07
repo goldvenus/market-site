@@ -127,7 +127,11 @@
   }
 }
 
+a.forgot-pwd-link {
+  margin-top: 18px;
+}
 .auth-input-wrapper {
+
   div {
     width: 100%;
     //color: rgba(0, 0, 0, 0.54);
@@ -145,7 +149,6 @@
     .MuiInput-underline-27:after {
       //border-bottom: none !important;
     }
-
     input, label {
       margin-left: 15px;
       font-size: 14px;

@@ -34,10 +34,17 @@
   justify-content: center;
   flex: 1;
 
-  .theme-form-field {
+  .input-mobile-heading {
+    display: none;
+  }
+  .theme-form .theme-form-field {
     margin-right: 0 !important;
     div {
       width: 100%;
+    }
+    input, label {
+      margin-left: 15px;
+      font-size: 14px;
     }
   }
   .btn-photo-upload {
@@ -64,14 +71,18 @@
       label {
         margin-bottom: 3px;
       }
+      input, label {
+        margin-left: 15px;
+        font-size: 14px;
+      }
     }
 
     .file-input-container {
-      right: 135px;
-      bottom: 7px;
+      right: 114px;
+      bottom: 8px;
 
       button {
-        padding: 5px;
+        padding: 5px 15px;
       }
     }
   }
@@ -146,8 +157,7 @@
     }
 
     .theme-btn-submit {
-      width: 90%;
-      margin-left: 5%
+      width: 100%;
     }
 
     .theme-btn-primary.theme-btn-submit.theme-btn-link {
@@ -157,36 +167,59 @@
   }
 
   .login.register {
-    padding-top: 0;
     margin-left: 0;
+    padding: 30px;
+    display: block;
+    text-align: center;
+
+    .input-mobile-heading {
+
+    }
+    .already-signin-wrapper {
+      position: unset !important;
+      display: flex;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .social-buttons {
+      justify-content: center;
+    }
 
     .theme-form-field {
+      width: 100%;
       margin: 25px 0;
+      display: block;
 
+      .input-mobile-heading {
+        font-size: 13px;
+      }
+      input {
+        text-align: center;
+      }
+      label {
+        display: none;
+      }
       div {
         width: 100%;
       }
     }
+    .upload-photo-row {
+      text-align: left;
+    }
 
     .flex-row.signin-link {
-      width: 90%;
-      margin-left: 5%;
-
-      > span {
-        margin: 0 auto;
-        display: table;
-      }
+      width: 100%;
+      justify-content: space-evenly;
 
       > button {
-        margin: 0 auto;
-        display: table;
         padding: 2px 10px
       }
     }
 
     .theme-btn-submit {
-      width: 90%;
-      margin-left: 5%
+      width: 100%;
     }
 
     .subheader {
@@ -199,8 +232,13 @@
       .file-input-container {
         position: absolute;
         top: 8px;
-        right: 23px;
+        right: 0px;
       }
+    }
+
+    .signin-link {
+      position: absolute;
+      bottom: 12px;
     }
   }
 }
