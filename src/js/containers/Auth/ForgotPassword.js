@@ -83,6 +83,7 @@ class ForgotPassword extends Component {
             <div className="theme-form-field">
               <TextField
                 id="standard-with-placeholder"
+                className="custom-beautiful-textfield"
                 label="Verification code"
                 type="text"
                 value={verification_code}
@@ -93,6 +94,7 @@ class ForgotPassword extends Component {
             <div className="theme-form-field">
               <TextField
                 id="standard-with-placeholder"
+                className="custom-beautiful-textfield"
                 label="New password"
                 type="password"
                 value={password}
@@ -103,6 +105,7 @@ class ForgotPassword extends Component {
             <div className="theme-form-field">
               <TextField
                 id="standard-with-placeholder"
+                className="custom-beautiful-textfield"
                 label="Repeat password"
                 type="password"
                 value={password_new}

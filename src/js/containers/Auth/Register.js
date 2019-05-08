@@ -118,6 +118,7 @@ class Register extends Component {
                     <span className='input-mobile-heading'>FullName</span>
                     <TextField
                         id="standard-with-placeholder1"
+                        className="custom-beautiful-textfield"
                         label="Name"
                         type="text"
                         value={fullName}
@@ -129,6 +130,7 @@ class Register extends Component {
                     <span className='input-mobile-heading'>Email</span>
                     <TextField
                         id="standard-with-placeholder2"
+                        className="custom-beautiful-textfield"
                         label="Email"
                         type="email"
                         value={username}
@@ -140,6 +142,7 @@ class Register extends Component {
                     <span className='input-mobile-heading'>Phone Number</span>
                     <TextField
                         id="standard-with-placeholder3"
+                        className="custom-beautiful-textfield"
                         label="Phone Number"
                         type="text"
                         value={phoneNumber}
@@ -151,6 +154,7 @@ class Register extends Component {
                     <span className='input-mobile-heading'>Password</span>
                     <TextField
                         id="standard-with-placeholder4"
+                        className="custom-beautiful-textfield"
                         label="Password"
                         type="password"
                         value={password}
@@ -162,6 +166,7 @@ class Register extends Component {
                     <span className='input-mobile-heading'>Confirm Password</span>
                     <TextField
                         id="standard-with-placeholder5"
+                        className="custom-beautiful-textfield"
                         label="Confirm Password"
                         type="password"
                         value={confirmPassword}

@@ -78,6 +78,7 @@ class Login extends Component {
               <div className="theme-form-field auth-input-wrapper">
                 <TextField
                   id="standard-with-placeholder"
+                  className="custom-beautiful-textfield"
                   name="username"
                   label="EMAIL"
                   type="text"
@@ -91,6 +92,7 @@ class Login extends Component {
                 <div className="theme-form-field auth-input-wrapper">
                   <TextField
                     id="standard-password-input"
+                    className="custom-beautiful-textfield"
                     name="password"
                     label="PASSWORD"
                     type="password"

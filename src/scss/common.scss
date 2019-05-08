@@ -196,6 +196,27 @@ img {
   border-radius: 19px;
 }
 
+.custom-beautiful-textfield {
+  label {
+    color: rgba(0, 0, 0, 0.54) !important;
+  }
+  & > div:hover {
+    //border-bottom: solid 1px #EDCFD7 !important;
+  }
+  & > div:hover:before {
+    border-bottom: solid 1px #EDCFD7 !important;
+  }
+  & > div:before {
+    border-bottom: solid 1px #EDCFD7 !important;
+    &:hover {
+      border-bottom: solid 1px #EDCFD7 !important;
+    }
+  }
+  & > div:after {
+    border-bottom: solid 1px #EDCFD7 !important;
+  }
+}
+
 @media(max-width: 500px) {
   .mt-xs {
     margin-top: 10px;

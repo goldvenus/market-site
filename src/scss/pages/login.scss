@@ -52,9 +52,6 @@
     .MuiInput-underline-27:before {
       border-bottom: 1px solid #E9E9E9;
     }
-    .MuiInput-underline-27:after {
-      //border-bottom: none !important;
-    }
     input, label {
       margin-left: 15px;
       font-size: 14px;
@@ -134,21 +131,11 @@ a.forgot-pwd-link {
 
   div {
     width: 100%;
-    //color: rgba(0, 0, 0, 0.54);
     font-family: Helvetica Neue;
     font-size: 16px;
     line-height: 27px;
     color: #252525;
 
-    div:before {
-      border-bottom: 1px solid #E9E9E9;
-    }
-    .MuiInput-underline-27:before {
-      border-bottom: 1px solid #E9E9E9;
-    }
-    .MuiInput-underline-27:after {
-      //border-bottom: none !important;
-    }
     input, label {
       margin-left: 15px;
       font-size: 14px;

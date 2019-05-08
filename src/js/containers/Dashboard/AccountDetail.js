@@ -102,15 +102,15 @@ class AccountDetail extends Component {
                     <div className="card-text">
                       <Form>
                         <FormGroup>
-                          <TextField className='checkout-textfield' placeholder='NAME' type="text" value={this.state.fullname}
+                          <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='NAME' type="text" value={this.state.fullname}
                               onChange={e => this.handleInputChange(e, 'fullname')}/>
                         </FormGroup>
                         <FormGroup>
-                          <TextField className='checkout-textfield' placeholder='EMAIL' type="text" value={this.state.email}
+                          <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='EMAIL' type="text" value={this.state.email}
                               onChange={e => this.handleInputChange(e, 'email')}/>
                         </FormGroup>
                         <FormGroup>
-                          <TextField className='checkout-textfield' placeholder='PHONE' type="text" value={this.state.phone}
+                          <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='PHONE' type="text" value={this.state.phone}
                               onChange={e => this.handleInputChange(e, 'phone')}/>
                         </FormGroup>
                         <button className='theme-btn theme-btn-primary' onClick={this.handleUserSave}>Save</button>
@@ -122,15 +122,15 @@ class AccountDetail extends Component {
                     <div className="card-text">
                       <Form>
                         <FormGroup>
-                          <TextField className='checkout-textfield' placeholder='Current Password' type="password" value={this.state.curPwd}
+                          <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='Current Password' type="password" value={this.state.curPwd}
                               onChange={e => this.handleInputChange(e, 'curPwd')}/>
                         </FormGroup>
                         <FormGroup>
-                          <TextField className='checkout-textfield' placeholder='New Password' type="password" value={this.state.newPwd}
+                          <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='New Password' type="password" value={this.state.newPwd}
                               onChange={e => this.handleInputChange(e, 'newPwd')}/>
                         </FormGroup>
                         <FormGroup>
-                          <TextField className='checkout-textfield' placeholder='Confirm Password' type="password" value={this.state.confirmPwd}
+                          <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='Confirm Password' type="password" value={this.state.confirmPwd}
                               onChange={e => this.handleInputChange(e, 'confirmPwd')}/>
                         </FormGroup>
                         <button className='theme-btn theme-btn-primary' onClick={this.handlePasswordReset}>Change Password</button>

@@ -116,6 +116,7 @@ class AddGear extends Component {
             <div className="theme-form-field category_first">
                 <TextField
                     id="standard-with-placeholder1"
+                    className="custom-beautiful-textfield"
                     label="Brand"
                     type="text"
                     value={brand}
@@ -126,6 +127,7 @@ class AddGear extends Component {
             <div className="theme-form-field category_first">
                 <TextField
                     id="standard-with-placeholder2"
+                    className="custom-beautiful-textfield"
                     label="Model"
                     type="text"
                     value={model}
@@ -228,6 +230,7 @@ class AddGear extends Component {
         <div className="theme-form-field text-wrapper">
             <TextField
                 id="standard-with-placeholder1"
+                className="custom-beautiful-textfield"
                 label="City"
                 type="text"
                 value={city}
@@ -238,6 +241,7 @@ class AddGear extends Component {
         <div className="theme-form-field text-wrapper">
             <TextField
                 id="standard-with-placeholder2"
+                className="custom-beautiful-textfield"
                 label="Region"
                 type="text"
                 value={region}
@@ -248,6 +252,7 @@ class AddGear extends Component {
         <div className="theme-form-field text-wrapper">
             <TextField
                 id="standard-with-placeholder3"
+                className="custom-beautiful-textfield"
                 label="Address"
                 type="text"
                 value={address}
@@ -258,6 +263,7 @@ class AddGear extends Component {
         <div className="theme-form-field text-wrapper">
             <TextField
                 id="standard-with-placeholder4"
+                className="custom-beautiful-textfield"
                 label="Postal Code"
                 type="text"
                 value={postalCode}
