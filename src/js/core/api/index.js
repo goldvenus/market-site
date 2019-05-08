@@ -11,7 +11,7 @@ const axiosConfig = () => {
     };
 
     if (localStorage.accessToken) {
-        config['headers']['accessToken'] = localStorage.accessToken;
+        config['headers']['AccessToken'] = localStorage.accessToken;
     }
 
     if (localStorage.idToken) {
