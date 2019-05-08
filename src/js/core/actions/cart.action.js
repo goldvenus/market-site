@@ -64,9 +64,14 @@ const deleteCartItem = async (data) => {
     return new Promise(async (resolve, reject) => {
         try {
             let response = await post('deleteGearFromCart', data);
+            console.log(response);
             if (response.data.status === 'success') {
                 dispatch({
                     type: constants.DELETE_CART_ITEM_SUCCESS,
+                    payload: data.gearid
+                });
+                dispatch({
+                    type: constants.ADD_FAVOURITE_SUCCESS,
                     payload: data.gearid
                 });
                 handleInfo('Gear was removed from cart successfully!');

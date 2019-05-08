@@ -143,6 +143,7 @@ class AddGear extends Component {
             </div>
           </div>
           <div className="theme-column info-right-container " id="new-tabs" width="35%">
+              <span>Select the condition of the item</span>
             <div className="info-right-newtabs-left">
               <div className="type-tabs">
                 <input name="type" id="new" type="radio" value="new" onChange={this.onTypeChange}/>
@@ -517,7 +518,6 @@ class AddGear extends Component {
             this.renderProgress()
           }
         </div>
-        <div className="connect-line"></div>
         {
           this.renderContent()
         }

@@ -222,6 +222,9 @@ img {
 .styles_overlay__CLSq- {
   z-index: 1100 !important;
 }
+.dropdown-menu {
+  z-index: 1051;
+}
 
 @media(max-width: 500px) {
   .mt-xs {

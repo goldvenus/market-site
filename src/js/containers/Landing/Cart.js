@@ -40,7 +40,7 @@ class Cart extends Component {
               className="close"
               aria-hidden="true"
               onClick={async () => {
-                let ret = await deleteCartItem({ gearid: listItem.gearid, orderid: listItem.orderid });
+                let ret = await deleteCartItem(listItem);
                 if (!ret) handleError("Removing from cart failed!");
               }}
             />
@@ -54,7 +54,7 @@ class Cart extends Component {
     const { carts } = this.props;
     return (
         carts.map((listItem, index) => (
-            <tr key={`cart-item-${index}`} className="d-lg-none d-md-block sm-table-cart">
+            <tr key={`cart-item-${index}`} className="sm-table-cart">
                <td className="sm-category-list-top">
                    <div className='sclt_img'>{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
                     src={listItem.numberOfUserImage[0]} className="gear-img" alt=''/> : null}
@@ -74,7 +74,7 @@ class Cart extends Component {
                                 className="close"
                                 aria-hidden="true"
                                 onClick={async () => {
-                                    let ret = await deleteCartItem({ gearid: listItem.gearid, orderid: listItem.orderid });
+                                    let ret = await deleteCartItem(listItem);
                                     if (!ret) handleError("Removing from cart failed!");
                                 }}
                             />
@@ -136,7 +136,7 @@ class Cart extends Component {
                   <EmptyActivity e_name="Add from Favourites" e_path="/favourites" e_title="YOUR CART IS EMPTY" e_img_name = "cart"/>
               ) :(
             <Table className="theme-table">
-              <thead>
+              <thead className="cart-table-header">
                   <tr className= "d-none d-lg-table">
                     <th/>
                     <th>Name & Category</th>
