@@ -9,6 +9,7 @@ import { login } from '../../core/actions/user.action';
 import { FACEBOOK_LOGIN_URL } from '../../core/constants';
 import CustomSpinner from "../../components/CustomSpinner";
 import TextField from "@material-ui/core/TextField/TextField";
+import Navbar from "../../components/common/Navbar/Navbar";
 
 class Login extends Component {
   constructor(props) {
@@ -42,6 +43,12 @@ class Login extends Component {
     const { isAuthorizing } = this.props;
     const { username, password, saveState } = this.state;
     return (
+      <React.Fragment>
+      <div className="auth-nav-bar">
+        <header>
+          <Navbar/>
+        </header>
+      </div>
       <div className="auth-container">
         {
           isAuthorizing ? <CustomSpinner/> : null
@@ -74,7 +81,6 @@ class Login extends Component {
           <div className="login-or-divider">Or</div>
           <div className="login-form-wrapper">
             <form className="theme-form" method="POST" onSubmit={this.submit}>
-              <span>EMAIL</span>
               <div className="theme-form-field auth-input-wrapper">
                 <TextField
                   id="standard-with-placeholder"
@@ -87,7 +93,6 @@ class Login extends Component {
                   onChange={(e) => this.setState({ username: (e && e.target && e.target.value) || ''})}
                 />
               </div>
-              <span>PASSWORD</span>
               <div className="flex-row">
                 <div className="theme-form-field auth-input-wrapper">
                   <TextField
@@ -134,6 +139,7 @@ class Login extends Component {
           </div>
         </div>
       </div>
+      </React.Fragment>
     );
   }
 }

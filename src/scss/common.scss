@@ -197,8 +197,14 @@ img {
 }
 
 .custom-beautiful-textfield {
+  input {
+    text-align: center;
+  }
   label {
     color: rgba(0, 0, 0, 0.54) !important;
+    position: unset;
+    margin-bottom: -20px;
+    transform-origin: top !important;
   }
   & > div:hover {
   }

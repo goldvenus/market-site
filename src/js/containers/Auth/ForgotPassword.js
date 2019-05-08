@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import AuthSideMenu from '../../components/AuthSideMenu';
 import { sendResetPasswordEmail, confirmResetPassword } from '../../core/actions/user.action';
 import TextField from "@material-ui/core/TextField/TextField";
+import Navbar from "../../components/common/Navbar/Navbar";
+import CustomSpinner from "../../components/CustomSpinner";
 
 class ForgotPassword extends Component {
   constructor() {
@@ -60,7 +62,7 @@ class ForgotPassword extends Component {
     const { isSentFWDEmail, isSendingFWDEmail } = this.props;
 
     let content;
-    if(isConfirmed) {
+    if (isConfirmed) {
       content = (
         <div className="login success-message">
           <h1 class="header"><i className="fa fa-check-circle primary-color"/> Successfully</h1>
@@ -70,7 +72,7 @@ class ForgotPassword extends Component {
           </button>
         </div>
       )
-    } else if(isSentFWDEmail){
+    } else if (isSentFWDEmail){
       content = (
         <div className="login forgot-password">
           <h1 className="header">Confirm your password</h1>
@@ -161,10 +163,18 @@ class ForgotPassword extends Component {
 
 
     return (
+    <React.Fragment>
+      {isSendingFWDEmail && <CustomSpinner/>}
+      <div className="auth-nav-bar">
+        <header>
+          <Navbar/>
+        </header>
+      </div>
       <div className="auth-container theme-navbar">
         <AuthSideMenu/>
           {content}
       </div>
+    </React.Fragment>
     );
   }
 }

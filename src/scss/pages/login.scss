@@ -49,6 +49,7 @@
 
   .theme-form-field > div {
     width: 100%;
+    text-align: center;
   }
 }
 
@@ -121,7 +122,6 @@ a.forgot-pwd-link {
   margin-top: 18px;
 }
 .auth-input-wrapper {
-
   div {
     width: 100%;
     font-family: Helvetica Neue;
@@ -136,27 +136,87 @@ a.forgot-pwd-link {
   }
 }
 
+.auth-nav-bar {
+  display: none;
+}
 
 @media(max-width: 1077px) {
   .login {
     padding-top: 0;
     padding-left: 0;
-    margin: 0 auto;
-    flex: none;
-  }
-}
+    margin: 0 auto !important;
+    display: flex;
+    align-items: center;
 
-@media(max-width: 500px) {
-  .auth-sidemenu {
-    width: 100%;
-    display: none
-  }
-  .social-buttons .btn-social span {
-    margin: 0;
-  }
+    .header {
+      margin: 100px 0 40px !important;
+    }
+    .login-form-wrapper {
+      margin: 20px 0;
+      width: 100%;
 
-  .login.register {
-    padding: 20px !important;
+      .theme-form {
+        .theme-form-field {
+          margin: 20px 0 !important;
+          width: 100%;
+          align-items: center;
+          font-size: 16px;
+          text-align: center;
+
+
+        }
+      }
+      .flex-row {
+        justify-content: center;
+        .forgot-pwd-link {
+          margin: 0 !important;
+          font-family: HelveticaNeueCyr;
+          font-size: 12px;
+          line-height: 15px;
+          text-align: center;
+          letter-spacing: 0.03em;
+        }
+      }
+      .save-addr-btn {
+        justify-content: center;
+        label {
+          margin: 0 !important;
+        }
+      }
+      .theme-btn-submit {
+        width: 100%;
+      }
+    }
+    .social-buttons {
+      button {
+        width: unset !important;
+        min-width: unset !important;
+      }
+    }
+    .signup-link {
+      width: 100% !important;
+      position: unset !important;
+      justify-content: center;
+
+      button {
+        padding: 5px 5px !important;
+        margin-left: 0 !important;
+      }
+      span {
+        margin-right: 22px;
+      }
+    }
+  }
+  .auth-nav-bar {
+    display: block !important;
+  }
+  .auth-container {
+    position: unset;
+    display: block;
+    padding: 0 86px;
+  }
+  .login-or-divider {
+    margin-top: 40px;
   }
 
   .forgot-password {
@@ -167,22 +227,101 @@ a.forgot-pwd-link {
     }
     .theme-form-field {
       width: 100% !important;
-      input {
-        text-align: center;
-      }
-      label {
-        margin-left: 44% !important;
-      }
     }
 
     .theme-btn-submit {
       width: 100% !important;
     }
+
+    form {
+      width: 100%;
+    }
   }
+  .social-buttons .btn-social {
+    margin-right: 30px !important;
+    &:last-child {
+      margin-right: 0 !important;
+    }
+    span {
+      margin: 0;
+      width: 100%;
+      justify-content: space-evenly;
+      i {
+        background: none !important;
+        margin-right: 0 !important;
+      }
+      span {
+        display: none;
+      }
+    }
+  }
+
+  .signin-link {
+    span {
+      color: #a09e9e;
+      margin-right: 5px !important;
+      font-size: 12px
+    }
+    a {
+      font-size: 12px;
+      i {
+        margin-left: 5px !important;
+      }
+    }
+  }
+}
+
+@media(max-width: 767px) {
+  .auth-sidemenu {
+    width: 100%;
+    display: none
+  }
+  .auth-container {
+    padding: 0 36px;
+
+  }
+  .signin-link {
+    font-size: 12px;
+    span {
+      margin-right: 5px;
+    }
+    button {
+      width: 100px !important;;
+    }
+  }
+  .signup-link {
+    width: 100% !important;
+    position: unset !important;
+
+    button {
+      padding: 5px 5px !important;
+      margin-left: 0 !important;
+    }
+    span {
+      margin-right: 0;
+    }
+  }
+  .social-buttons .btn-social {
+    span {
+      margin: 0;
+      width: 100%;
+      justify-content: space-evenly;
+      i {
+        background: none !important;
+      }
+    }
+  }
+
+  .login-remember-input {
+    width: 100% !important;
+    .save-addr-btn {
+      font-size: 14px;
+    }
+  }
+
 
   .login {
     margin: 0;
-    padding: 20px;
     width: 100%;
 
     .header {
@@ -210,15 +349,10 @@ a.forgot-pwd-link {
         }
 
         > span {
-          margin: -13px 0 0 -13px;
+          margin: -13px -13px 0 -13px;
           span {
             display: none
           }
-        }
-
-        &.btn-twitter {
-          margin-left: 40px !important;
-          margin-right: 50px
         }
       }
     }
@@ -291,13 +425,6 @@ a.forgot-pwd-link {
       .auth-input-wrapper {
         margin: 0 0 13px;
         width: 100%;
-
-        div > div {
-          margin: 0;
-        }
-        label {
-          display: none;
-        }
         div input {
           text-align: center;
           margin: 0;
@@ -305,6 +432,21 @@ a.forgot-pwd-link {
       }
       button {
         width: 100%;
+      }
+    }
+  }
+}
+
+@media(max-width: 500px) {
+  .signin-link, .signup-link {
+    span {
+      font-size: 11px !important;
+      margin-right: 3px !important;
+    }
+    button {
+      padding: 5px 0 !important;
+      a {
+        padding: 0 !important;
       }
     }
   }

@@ -150,12 +150,14 @@ const sendResetPasswordEmail = async (data) => {
             dispatch({
                 type: constants.RESET_PWD_SUCCESS
             });
+            handleError("Successfully Send!");
             return true;
         }
         dispatch({
             type: constants.RESET_PWD_FAILED,
         });
-        handleError(response.data.errorMessage.message);
+        if (response && response.data.errorMessage)
+            handleError(response.data.errorMessage.message);
         return false;
     } catch (error) {
         dispatch({

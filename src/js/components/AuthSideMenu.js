@@ -6,7 +6,7 @@ class AuthSideMenu extends Component {
     return (
       <div className="auth-sidemenu">
         <header>
-            <Navbar/>
+          <Navbar/>
         </header>
       </div>
     );

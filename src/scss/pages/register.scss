@@ -1,6 +1,6 @@
 .login.success-message {
   .header {
-    font-size: 43px !important;
+    font-size: 43px;
 
     i {
       font-size: 35px !important;
@@ -141,6 +141,9 @@
 
 @media(max-width: 1077px) {
   .login.success-message {
+    height: 70vh;
+    border: none !important;
+
     .subheader {
       width: 100%;
       text-align: center;
@@ -172,7 +175,7 @@
 
   .login.register {
     margin-left: 0;
-    padding: 30px 50px;
+    padding: 0 !important;
     display: block;
     text-align: center;
 
@@ -202,7 +205,8 @@
         text-align: center;
       }
       label {
-        display: none;
+        transform-origin: top !important;
+        margin-bottom: -20px;
       }
       div {
         width: 100%;
@@ -265,4 +269,28 @@
       display: none;
     }
   }
+}
+
+@media (max-width: 767px) {
+  .success-message {
+    border: none !important;
+    .header {
+      font-family: Gotham Pro;
+      font-size: 27px !important;
+      line-height: 39px;
+      text-align: center;
+      color: #3A3A3A;
+    }
+  }
+  .navigation-buttons {
+    button {
+      width: 100% !important;
+      padding: 2px 40px;
+      font-weight: 600;
+      &:last-child {
+        margin: 10px 0 !important;
+      }
+    }
+  }
+
 }

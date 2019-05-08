@@ -8,10 +8,11 @@ import { register } from '../../core/actions/user.action';
 import { bindActionCreators } from "redux";
 import CustomSpinner from "../../components/CustomSpinner";
 import TextField from "@material-ui/core/TextField/TextField";
+import Navbar from "../../components/common/Navbar/Navbar";
 
 class Register extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       password: '',
@@ -69,6 +70,12 @@ class Register extends Component {
     const { password, confirmPassword, username, fullName, fileName, phoneNumber } = this.state;
     const { isRegistered, isRegistering } = this.props;
     return (
+    <React.Fragment>
+      <div className="auth-nav-bar">
+        <header>
+          <Navbar/>
+        </header>
+      </div>
       <div className="auth-container theme-navbar">
         <AuthSideMenu/>
         {
@@ -86,11 +93,11 @@ class Register extends Component {
               <div className="flex-row navigation-buttons">
                 <button className="theme-btn theme-btn-secondery theme-btn-link"><Link to="/">Home Page</Link></button>
                 <button className="theme-btn theme-btn-primary theme-btn-link"><Link
-                  to={{ pathname: '/confirm', state: { email: username } }}>Confirm</Link></button>
+                  to={{ pathname: '/confirm', state: { email: username } }}>Sign In</Link></button>
               </div>
             </div>) : (
             <div className="login register">
-              <h1 className="header">Register</h1>
+              <h2 className="header">Register</h2>
               <div className="subheader">Register via social networks</div>
               <div className="social-buttons">
                 <button className="theme-btn btn-social btn-fb">
@@ -115,7 +122,6 @@ class Register extends Component {
               <div className="login-or-divider">Or</div>
               <Form className="theme-form">
                 <div className="theme-form-field">
-                    <span className='input-mobile-heading'>FullName</span>
                     <TextField
                         id="standard-with-placeholder1"
                         className="custom-beautiful-textfield"
@@ -127,7 +133,6 @@ class Register extends Component {
                     />
                 </div>
                 <div className="theme-form-field">
-                    <span className='input-mobile-heading'>Email</span>
                     <TextField
                         id="standard-with-placeholder2"
                         className="custom-beautiful-textfield"
@@ -139,7 +144,6 @@ class Register extends Component {
                     />
                 </div>
                 <div className="theme-form-field">
-                    <span className='input-mobile-heading'>Phone Number</span>
                     <TextField
                         id="standard-with-placeholder3"
                         className="custom-beautiful-textfield"
@@ -151,7 +155,6 @@ class Register extends Component {
                     />
                 </div>
                 <div className="theme-form-field">
-                    <span className='input-mobile-heading'>Password</span>
                     <TextField
                         id="standard-with-placeholder4"
                         className="custom-beautiful-textfield"
@@ -163,7 +166,6 @@ class Register extends Component {
                     />
                 </div>
                 <div className="theme-form-field">
-                    <span className='input-mobile-heading'>Confirm Password</span>
                     <TextField
                         id="standard-with-placeholder5"
                         className="custom-beautiful-textfield"
@@ -195,6 +197,7 @@ class Register extends Component {
             </div>)
         }
       </div>
+    </React.Fragment>
     );
   }
 }
