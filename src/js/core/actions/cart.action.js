@@ -25,7 +25,6 @@ const addCart = (data) => {
                 }
                 handleInfo('Gear was added to cart');
             } else {
-                console.log(response.data.data);
                 handleError(response.data.errorMessage);
             }
             resolve(response.data.data);
@@ -64,20 +63,19 @@ const deleteCartItem = async (data) => {
     return new Promise(async (resolve, reject) => {
         try {
             let response = await post('deleteGearFromCart', data);
-            console.log(response);
             if (response.data.status === 'success') {
                 dispatch({
                     type: constants.DELETE_CART_ITEM_SUCCESS,
                     payload: data.gearid
                 });
                 dispatch({
-                    type: constants.ADD_FAVOURITE_SUCCESS,
-                    payload: data.gearid
+                    type: constants.GET_FAVOURITES_SUCCESS,
+                    payload: response.data.data
                 });
                 handleInfo('Gear was removed from cart successfully!');
             } else {
                 resolve(false);
-                handleError('Removing was failed!');
+                handleError('Gear was not removed!');
             }
         } catch (error) {
             handleError(error);

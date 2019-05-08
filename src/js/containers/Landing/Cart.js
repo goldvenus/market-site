@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
 import { formatDate, days } from '../../core/helper';
-import { handleError } from '../../core/actions/common.action'
 import { deleteCartItem } from '../../core/actions/cart.action'
 import BarLoader from "react-bar-loader";
 import EmptyActivity from '../../components/EmptyActivity'
@@ -40,8 +39,7 @@ class Cart extends Component {
               className="close"
               aria-hidden="true"
               onClick={async () => {
-                let ret = await deleteCartItem(listItem);
-                if (!ret) handleError("Removing from cart failed!");
+                await deleteCartItem(listItem);
               }}
             />
           </td>
@@ -50,7 +48,7 @@ class Cart extends Component {
     );
   }
 
-  renderCartItems_table() {
+  renderCartItemsTable() {
     const { carts } = this.props;
     return (
         carts.map((listItem, index) => (
@@ -74,8 +72,7 @@ class Cart extends Component {
                                 className="close"
                                 aria-hidden="true"
                                 onClick={async () => {
-                                    let ret = await deleteCartItem(listItem);
-                                    if (!ret) handleError("Removing from cart failed!");
+                                    await deleteCartItem(listItem);
                                 }}
                             />
                         </div>
@@ -149,7 +146,7 @@ class Cart extends Component {
               </thead>
               <tbody>
               {this.renderCartItems()}
-              {this.renderCartItems_table()}
+              {this.renderCartItemsTable()}
               </tbody>
             </Table>)}
           </div>
