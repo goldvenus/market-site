@@ -80,7 +80,7 @@ class OrderHistory extends Component {
                             </div>
                             <div className="tb_pay_per d-block col-12">
                                 <p className="order_history_pay_title">Amount</p>
-                                <p className="prder_history_amount_content">{`$${listItem.Amount}`}</p>
+                                <p className="prder_history_amount_content">{`$${parseFloat(listItem.Amount).toFixed(2)}`}</p>
                             </div>
                         </div>
                         </div>
@@ -120,7 +120,7 @@ class OrderHistory extends Component {
                                 <div className="status-bar status-bar3">Return</div>
                             </div>
                         </td>
-                        <td className="tb_pay_per" width="17.5%">{`$${listItem.Amount}`}</td>
+                        <td className="tb_pay_per" width="17.5%">{`$${parseFloat(listItem.Amount).toFixed(2)}`}</td>
                         <td><div className="to-payment-detail"><Link to={`/dashboard/order/detail/${listItem.PaymentId}`}><i className="fa fa-angle-right"/></Link></div></td>
                     </tr>
                 )

@@ -24,6 +24,15 @@ class Sidebar extends Component {
     }
   }
 
+  componentDidMount() {
+    $(function() {
+      $(".rent-gear-sidebar-link").click(function () {
+        $(".category-mobile").removeClass('active');
+        $(".catagory-header .category-action-btn").html($(this).html() + "<i className='fa fa-angle-down' aria-hidden='false'></i>");
+      })
+    });
+  }
+
   render() {
     const { categories, category } = this.props;
     if (!categories || !category)
@@ -38,7 +47,7 @@ class Sidebar extends Component {
           <ListGroup>
             {categories.map((element, index) =>
               <ListGroupItem value={element} key={index}>
-                <Link className={`${this.props.category === element.replace(' ', '') ? 'item-active' : ''}`} to={`/rentgear/${element.replace(` `, ``)}`}>
+                <Link className={`${this.props.category === element.replace(' ', '') ? 'item-active rent-gear-sidebar-link' : ''}`} to={`/rentgear/${element.replace(` `, ``)}`}>
                   {element}
                 </Link>
               </ListGroupItem>
@@ -49,7 +58,7 @@ class Sidebar extends Component {
           <div className="catagory-header">
             <button className="sidebar-title   category-action-btn" onClick={this.categoryhandler}>
               All Categories
-              <i className="fa fa-angle-down" aria-hidden="true"></i>
+              <i className="fa fa-angle-up" aria-hidden="true"></i>
 
             </button>
             <button className="sidebar-title   search-action-btn" onClick={this.searchhandler}>
@@ -61,7 +70,7 @@ class Sidebar extends Component {
           <ListGroup>
             {categories.map((element, index) =>
               <ListGroupItem value={element} key={index}>
-                <Link className={`${this.props.sideid === index ? 'item-active' : ''}`} to={`/rentgear/${element.replace(` `, ``)}`}>
+                <Link className={`${this.props.sideid === index ? 'item-active rent-gear-sidebar-link' : 'rent-gear-sidebar-link'}`} to={`/rentgear/${element.replace(` `, ``)}`}>
                   {element}
                 </Link>
               </ListGroupItem>

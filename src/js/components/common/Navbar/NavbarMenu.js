@@ -76,7 +76,7 @@ class NavbarMenu extends React.Component {
 
     let output = null
 
-    if(this.props.isAuthenticated === true) {
+    if (this.props.isAuthenticated === true) {
       output = <React.Fragment>
       <li className="navbar-sm__sidebar-item ml-auto">
         <Link to="/cart">
@@ -145,10 +145,9 @@ class NavbarMenu extends React.Component {
                     </Link>
                   </li>
                   <li className="animated-menu-item menu-item-sm with-mb">
-                    <Link to="/listgear">
+                    <Link to="/addgear">
                       <h2 onClick={this.toggleNavbar} >
-                        List Gear
-
+                        Add Gear
                       </h2>
                     </Link>
 

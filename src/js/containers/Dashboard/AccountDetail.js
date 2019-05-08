@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import VMC from '../../../assets/images/VMC.jpg';
 import { Card, CardTitle, Row, Col } from 'reactstrap';
 import { Form, FormGroup } from 'reactstrap';
 import TextField from "@material-ui/core/TextField/TextField";
@@ -103,15 +102,15 @@ class AccountDetail extends Component {
                     <div className="card-text">
                       <Form>
                         <FormGroup>
-                          <TextField className='checkout-textfield' placeholder='NAME' type="text" value={this.state.fullname}
+                          <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='NAME' type="text" value={this.state.fullname}
                               onChange={e => this.handleInputChange(e, 'fullname')}/>
                         </FormGroup>
                         <FormGroup>
-                          <TextField className='checkout-textfield' placeholder='EMAIL' type="text" value={this.state.email}
+                          <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='EMAIL' type="text" value={this.state.email}
                               onChange={e => this.handleInputChange(e, 'email')}/>
                         </FormGroup>
                         <FormGroup>
-                          <TextField className='checkout-textfield' placeholder='PHONE' type="text" value={this.state.phone}
+                          <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='PHONE' type="text" value={this.state.phone}
                               onChange={e => this.handleInputChange(e, 'phone')}/>
                         </FormGroup>
                         <button className='theme-btn theme-btn-primary' onClick={this.handleUserSave}>Save</button>
@@ -119,19 +118,19 @@ class AccountDetail extends Component {
                     </div>
                   </Card>
                   <Card body>
-                    <CardTitle className="text-muted">CHANGE PASSWORD<Link className="theme-form-link forgot-pwd-btn" to="/forgotpassword">Forgot password?</Link></CardTitle>
+                    <CardTitle className="text-muted">CHANGE <br className="d-block d-sm-none"/>PASSWORD<Link className="theme-form-link forgot-pwd-btn" to="/forgotpassword">Forgot password?</Link></CardTitle>
                     <div className="card-text">
                       <Form>
                         <FormGroup>
-                          <TextField className='checkout-textfield' placeholder='Current Password' type="password" value={this.state.curPwd}
+                          <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='Current Password' type="password" value={this.state.curPwd}
                               onChange={e => this.handleInputChange(e, 'curPwd')}/>
                         </FormGroup>
                         <FormGroup>
-                          <TextField className='checkout-textfield' placeholder='New Password' type="password" value={this.state.newPwd}
+                          <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='New Password' type="password" value={this.state.newPwd}
                               onChange={e => this.handleInputChange(e, 'newPwd')}/>
                         </FormGroup>
                         <FormGroup>
-                          <TextField className='checkout-textfield' placeholder='Confirm Password' type="password" value={this.state.confirmPwd}
+                          <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='Confirm Password' type="password" value={this.state.confirmPwd}
                               onChange={e => this.handleInputChange(e, 'confirmPwd')}/>
                         </FormGroup>
                         <button className='theme-btn theme-btn-primary' onClick={this.handlePasswordReset}>Change Password</button>
@@ -145,7 +144,19 @@ class AccountDetail extends Component {
                     <div className="card-text">
                       <Row>
                         <Col sm="12">
-                          <img src={VMC} alt="" />
+                          <div className="payment-card">
+                            <div className="flex-row">
+                              <div>
+                                <img src="/images/cards/master-card.svg" alt=""/>
+                                <img src="/images/Icons/cross.svg" alt=""/>
+                              </div>
+                              <div className="payment-card-number">**** **** **** 1938</div>
+                            </div>
+                            <div className="flex-row payment-card-other">
+                              <span>07 / 20</span>
+                              <span>Josh Williams</span>
+                            </div>
+                          </div>
                         </Col>
                         <Col sm="12">
                           <div className="add-payment-method center">

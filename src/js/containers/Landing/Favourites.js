@@ -132,7 +132,7 @@ class Favourites extends Component {
     const { favourites } = this.props;
     return (
         favourites.map((listItem, index) => (
-            <div key={`cart-item-${index}`} className="d-lg-none d-sm-none d-md-block favo_table_root">
+            <div key={`cart-item-${index}`} className="favo_table_root">
                 <div className="sm_favor_table">
                     <div className="sm_favor_img d-md-flex d-none">{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
                         src={listItem.numberOfUserImage[0]} alt='' className="favor_gear-img"/> : null}

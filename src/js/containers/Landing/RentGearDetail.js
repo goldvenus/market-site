@@ -300,10 +300,13 @@ class RentGearDetail extends Component {
               <div className='d-lg-none d-xl-none d-info-container'>
                   <div className='location-bar-container'>
                       <span>
-                          <span className='breadcrumb-item'>Home</span>
-                          <span className='breadcrumb-item'>Rent Gears</span>
-                          <span className='breadcrumb-item'>{categoryName}</span>
-                          <span className='breadcrumb-item active'>{name}</span>
+                          <UrllinkClass name="Home"/>
+                          <span className="space_slash_span">/</span>
+                          <UrllinkClass name="Rent Gears"/>
+                          <span className="space_slash_span">/</span>
+                          <UrllinkClass name={categoryName}/>
+                          <span className="space_slash_span">/</span>
+                          <BreadcrumbItem active>{name}</BreadcrumbItem>
                       </span>
                   </div>
 

@@ -27,7 +27,6 @@ const register = async (data) => {
             }
             resolve(response);
         } catch (error) {
-            console.log(error);
             dispatch({
                 type: constants.SIGNUP_FAILED
             });
@@ -132,7 +131,6 @@ const updatePassword = async (data) => {
             }
             resolve(response);
         } catch (error) {
-            console.log(error);
             dispatch({
                 type: constants.SIGNUP_FAILED
             });
@@ -147,8 +145,8 @@ const sendResetPasswordEmail = async (data) => {
         type: constants.RESET_PWD_REQUEST
     });
     try {
-        let response = await post('sendCodeForgotPaswordUser', data)
-        if(response && response.status === 200) {
+        let response = await post('sendCodeForgotPaswordUser', data);
+        if(response && response.data.status === 'success') {
             dispatch({
                 type: constants.RESET_PWD_SUCCESS
             });
@@ -156,14 +154,13 @@ const sendResetPasswordEmail = async (data) => {
         }
         dispatch({
             type: constants.RESET_PWD_FAILED,
-            payload: 'Something went wrong'
         });
+        handleError(response.data.errorMessage.message);
         return false;
     } catch (error) {
         dispatch({
             type: constants.RESET_PWD_FAILED
         });
-        handleError(error);
         return false;
     }
 };
@@ -190,14 +187,15 @@ const confirmResetPassword = async (data) => {
 const refreshToken = async () => {
     try {
         let response = await axios.post(getAPIUrl('getUserRefreshTokens'), { username: localStorage.userId }, tokenAxiosConfig());
-
-        if (response && response.data) {
-            const { accessToken, idToken, refreshToken, userName } = response.data;
+        if (response && response.data && response.data.status === 'success') {
+            const { accessToken, idToken, refreshToken, userName } = response.data.data;
             localStorage.accessToken = accessToken.jwtToken;
             localStorage.idToken = idToken.jwtToken;
             localStorage.refreshToken = refreshToken.token;
             localStorage.username = userName;
             return response;
+        } else {
+            handleError(response.data.errorMessage);
         }
     } catch (error) {
         handleError(error);

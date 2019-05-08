@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import CustomInput from '../../components/CustomInput';
 import AuthSideMenu from '../../components/AuthSideMenu';
 import { sendResetPasswordEmail, confirmResetPassword } from '../../core/actions/user.action';
+import TextField from "@material-ui/core/TextField/TextField";
 
 class ForgotPassword extends Component {
   constructor() {
@@ -81,16 +81,37 @@ class ForgotPassword extends Component {
           </div>
           <Form className="theme-form">
             <div className="theme-form-field">
-              <CustomInput placeholder='Verification code' type="text" required="required" value={verification_code}
-                           onChange={(value) => this.setState({ verification_code: value })}/>
+              <TextField
+                id="standard-with-placeholder"
+                className="custom-beautiful-textfield"
+                label="Verification code"
+                type="text"
+                value={verification_code}
+                maxLength='50'
+                onChange={(e) => this.setState({ verification_code: (e && e.target && e.target.value) || ''})}
+              />
             </div>
             <div className="theme-form-field">
-              <CustomInput placeholder='New password' type="password" required="required" value={password}
-                           onChange={(value) => this.setState({ password: value })}/>
+              <TextField
+                id="standard-with-placeholder"
+                className="custom-beautiful-textfield"
+                label="New password"
+                type="password"
+                value={password}
+                maxLength='50'
+                onChange={(e) => this.setState({ password: (e && e.target && e.target.value) || ''})}
+              />
             </div>
             <div className="theme-form-field">
-              <CustomInput placeholder='Repeat password' type="password" required="required" value={password_new}
-                           onChange={(value) => this.setState({ password_new: value })}/>
+              <TextField
+                id="standard-with-placeholder"
+                className="custom-beautiful-textfield"
+                label="Repeat password"
+                type="password"
+                value={password_new}
+                maxLength='50'
+                onChange={(e) => this.setState({ password_new: (e && e.target && e.target.value) || ''})}
+              />
             </div>
             <button className="theme-btn-submit" onClick={this.submit.bind(this)}>Submit</button>
           </Form>
@@ -99,7 +120,7 @@ class ForgotPassword extends Component {
     } else {
       content = (
         <div className="login forgot-password">
-            <h1 class="header">Forgot Password?</h1>
+            <h1 className="header">Forgot Password?</h1>
             <div className="login-or-divider">
                 <span>
                     Enter your email, the instruction will be <br/>sent for password recovery
@@ -107,14 +128,20 @@ class ForgotPassword extends Component {
             </div>
             <Form className="theme-form">
                 <div className="theme-form-field">
-                    <CustomInput placeholder='Email' type="email" required="required" value={email}
-                           onChange={(value) => this.setState({ email: value })}/>
+                    <TextField
+                        id="standard-with-placeholder"
+                        label="Email"
+                        type="text"
+                        value={email}
+                        maxLength='50'
+                        onChange={(e) => this.setState({ email: (e && e.target && e.target.value) || ''})}
+                    />
                 </div>
                 {
                     isSendingFWDEmail ?
                         <button className="theme-btn-submit" disabled={true}>Submitting...</button>
                         :
-                        <button className="theme-btn-submit" disabled={true} onClick={this.submit.bind(this)}>Submit</button>
+                        <button className="theme-btn-submit" disabled={false} onClick={this.submit.bind(this)}>Submit</button>
                 }
 
             </Form>

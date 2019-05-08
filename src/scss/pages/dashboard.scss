@@ -85,8 +85,11 @@
         text-align: center !important;
         font-size:16px;
       }
-      .wrraper_dashboard{
+      .wrraper_dashboard {
         padding: 30px 30px 52px 30px;
+        .row {
+          width: 100% !important;
+        }
       }
     }
 
@@ -115,6 +118,12 @@
         text-align: center;
         display: flex;
 
+        .row {
+          width: 100%;
+        }
+        .chg-pwd-heading-mobile {
+          display: none;
+        }
         button {
           width: 100%;
           margin: 0 !important;
@@ -141,8 +150,21 @@
         .account-detail-right {
           width: 50%;
           padding-left: 15px;
+          display: flex;
+          justify-content: center;
+
           .card-body {
             height: 100%;
+          }
+          .payment-card {
+            padding: 15px;
+            width: 99% !important;
+            background-color: #F7F7F7;
+            border-radius: 4px;
+
+            img {
+              width: 60px;
+            }
           }
         }
         img {
@@ -165,7 +187,7 @@
           .card-text {
             padding: 0 1.5rem;
             margin-bottom: 1rem;
-            text-align: left;
+            text-align: right;
 
             label {
               margin: 0;
@@ -186,6 +208,7 @@
             .add-payment-method {
               border: 2px solid $gray-light;
               height: 100%;
+              margin-left: 10px;
 
               .add {
                 width: 30px;
@@ -904,10 +927,31 @@ span.edit_my_gear {
       }
     }
   }
-
 }
 
-@media (max-width:1050px){
+@media (max-width: 1050px){
+  .dashboard .dashboard-head .nav-tabs .nav-link {
+    padding: 10px 15px !important;
+  }
+  .row {
+    width: 100%;
+  }
+  .wrraper_dashboard {
+    background-color: white !important;
+  }
+  .account-detail-left {
+    width: 100% !important;
+    padding: 0 !important;
+    margin-bottom: 24px;
+  }
+  .account-detail-right {
+    width: 100% !important;
+    padding: 0 !important;
+  }
+  .card-body {
+    border: solid 20px #faf8f9 !important;
+  }
+
   .dashboard-head{
     img{
       width: 141px !important;
@@ -921,10 +965,10 @@ span.edit_my_gear {
     }
   }
 
-.react-tabs__tab-list{
-  width:111px;
-  height:44px;
-}
+  .react-tabs__tab-list{
+    width:111px;
+    height:44px;
+  }
   .table-content-name{
     font-size: 12px !important;
     opacity: 60%;
@@ -957,6 +1001,8 @@ span.edit_my_gear {
       .table-responsive {
         margin-bottom: -14px;
         .listing-data-slice {
+          border-left: solid 17px #aaa;
+          border-right: solid 17px #aaa;
         }
       }
     }
@@ -1028,17 +1074,7 @@ span.edit_my_gear {
 
 }
 
-@media (max-width:550px){
-  //.dashboard .dashboard-head .user-detail img{
-  //  width: 100px;
-  //  height: 100px;
-  //}
-  //.dashboard .dashboard-head .user-detail .user-avatar{
-  //  margin-right: 10px;
-  //}
-  //.dashboard .dashboard-head .user-detail .user-name{
-  //  margin-bottom: 1rem;
-  //}
+@media (max-width:550px) {
   .dashboard{
     .dashboard-head{
       .user-detail{
@@ -1072,8 +1108,6 @@ span.edit_my_gear {
       }
     }
   }
-
-
 
   .dashboard-body{
     .listing-body{
@@ -1119,13 +1153,10 @@ span.edit_my_gear {
               }
             }
           }
-
         }
       }
     }
-
   }
-
 }
 .react-tabs__tab-panel--selected {
   padding:30px;
@@ -1163,8 +1194,8 @@ span.edit_my_gear {
     height: 30px;
     border-radius: 50%;
   }
-
-}.order_history_client_namegroup {
+}
+.order_history_client_namegroup {
    padding-top:12px;
    .order_history_client_first_name {
      font-size: 12px;
@@ -1182,7 +1213,6 @@ span.edit_my_gear {
    p {
      margin:0;
    }
-
  }
  .order_history_payment {
    padding:18px;
@@ -1320,9 +1350,56 @@ span.edit_my_gear {
      padding:15px;
      background-color: white;
    }
+}
 
- }
-@media (max-width:550px) {
+@media (min-width: 1099px) {
+  .container {
+    min-width: 1000px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .wrraper_dashboard {
+    padding: 0 !important;
+    margin-top: 10px;
+
+    .account-detail-left {
+      margin-bottom: 0 !important;
+
+      .card-body {
+        border: solid 10px #faf8f9 !important;
+        margin: 0 !important;
+        border-bottom: none !important;
+
+        .chg-pwd-heading-mobile {
+          display: flex;
+          justify-content: stretch;
+        }
+      }
+    }
+    .account-detail-right {
+      .card-body {
+        border: solid 10px #faf8f9 !important;
+        margin: 0 !important;
+      }
+    }
+    .payment-card {
+      width: 100% !important;
+      margin-bottom: 20px;
+    }
+    .add-payment-method {
+      min-height: 150px !important;
+      margin: 0 !important;
+    }
+
+    .listing-data-slice {
+      border-left: 17px solid #faf8f9;
+      border-right: 17px solid #faf8f9;
+    }
+  }
+}
+
+@media (max-width: 550px) {
   .styles_closeButton__20ID4 {
     top: -36px;
     right: 0 !important;
@@ -1333,4 +1410,66 @@ span.edit_my_gear {
 }
 .order_history_sm_parent_div {
   border:15px solid #faf8f9;
+}
+
+.order_history_sm_parent_div {
+  border:15px solid #faf8f9;
+}
+.mylistingitem_sm_parent_div {
+  border-top: 17px solid #faf8f9;
+  .mlspd_first {
+    padding:20px;
+    border-bottom:1px solid #faf8f9;
+  }
+  .mlspdf_name_tag {
+    padding:20px;
+  }
+  .mlspds_child {
+    padding:20px;
+  }
+
+  .mlspd_second_first {
+    border-right: 1px solid #faf8f9;
+  }
+  .slspd_third {
+    padding:20px;
+    border-top:1px solid #faf8f9;
+    div {
+      font-family: Gotham Pro;
+      font-size: 20px;
+      line-height: 25px;
+      color: #252525;
+    }
+    .slspdt_rental_btn {
+      width: 80%;
+    }
+    .slspdt_edit_icon {
+      width: 20%;
+      .edit_my_gear {
+        margin: 5px 0 0 19px;
+      }
+    }
+  }
+  .mlspdf_name_tag_categoryName {
+    font-family: Helvetica Neue;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 28px;
+    color: #252525;
+  }
+  .mlspdf_name_tag_brandName {
+    font-family: Helvetica Neue;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.03em;
+    color: #3A3A3A;
+    opacity: 0.5;
+  }
+  .mlspd_second_replacementValue {
+    font-family: Gotham Pro;
+    font-size: 20px;
+    line-height: 25px;
+    font-weight: 800;
+    color: #252525;
+  }
 }

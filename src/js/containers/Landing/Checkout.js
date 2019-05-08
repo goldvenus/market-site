@@ -172,9 +172,13 @@ class Checkout extends Component {
             <div className="text-gray">PROJECT NAME</div>
             <div className="text-gray">
               <div className="theme-form-field">
-                <TextField className='checkout-textfield' placeholder='Project name' type="text"
-                      value={project_name}
-                      onChange={e => this.handleInputChange(e, 'project_name')}/>
+                <TextField
+                    className='checkout-textfield custom-beautiful-textfield'
+                    placeholder='Project name'
+                    type="text"
+                    value={project_name}
+                    onChange={e => this.handleInputChange(e, 'project_name')}
+                />
               </div>
             </div>
           </div>
@@ -231,30 +235,30 @@ class Checkout extends Component {
               </div>
               <div className="theme-form">
                 <div className="theme-form-field">
-                  <TextField className='checkout-textfield' placeholder='Full Name' type="text"
+                  <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='Full Name' type="text"
                                value={full_name}
                                onChange={e => this.handleInputChange(e, 'full_name')}/>
                 </div>
                 <div className="flex-row">
                   <div className="theme-form-field flex-md-12">
-                    <TextField className='checkout-textfield' placeholder='Address' type="text"
+                    <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='Address' type="text"
                                value={addr}
                                onChange={e => this.handleInputChange(e, 'addr')}/>
                   </div>
                   <div className="theme-form-field flex-md-12">
-                    <TextField className='checkout-textfield' placeholder='City' type="text"
+                    <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='City' type="text"
                                value={city}
                                onChange={(e) => this.handleInputChange(e, 'city')}/>
                   </div>
                 </div>
                 <div className="flex-row">
                   <div className="theme-form-field flex-md-12">
-                    <TextField className='checkout-textfield' placeholder='Region' type="text"
+                    <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='Region' type="text"
                                value={product_region}
                                onChange={(e) => this.handleInputChange(e, 'product_region')}/>
                   </div>
                   <div className="theme-form-field flex-md-12">
-                    <TextField className='checkout-textfield' placeholder='Zip' type="text"
+                    <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='Zip' type="text"
                                value={zip}
                                onChange={(e) => this.handleInputChange(e, 'zip')}/>
                   </div>

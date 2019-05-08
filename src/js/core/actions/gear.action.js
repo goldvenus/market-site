@@ -8,19 +8,16 @@ const addGear = async (data) => {
     dispatch({
         type: constants.ADD_GEAR_REQUEST,
     });
-    try {
-        let response = await post('addGearItem', data);
-        if (response.data.status) {
-            dispatch({
-                type: constants.ADD_GEAR_SUCCESS,
-            });
-            handleInfo('Gear was added');
-            return response.data.status;
-        } else {
-            handleError('Gear was not added');
-        }
-    } catch (error) {
-        handleError(error);
+    let response = await post('addGearItem', data);
+    if (response && response.data && response.data.status === 'success') {
+        dispatch({
+            type: constants.ADD_GEAR_SUCCESS,
+        });
+        handleInfo('Gear was added successfully!');
+        return response.data.data;
+    } else {
+        handleError('Gear was not added!');
+        return false;
     }
 };
 
