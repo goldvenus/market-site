@@ -34,33 +34,29 @@ class Favourites extends Component {
   }
 
   async onOpenModal(gearid) {
-    try {
-      const { carts } = this.props;
-      const cart = gearid && carts && carts.length > 0 ?
-        carts.filter(item => item.gearid === gearid) : 0;
-      const carted = cart.length;
+    const { carts } = this.props;
+    const cart = gearid && carts && carts.length > 0 ?
+      carts.filter(item => item.gearid === gearid) : 0;
+    const carted = cart.length;
 
-      let res = await getGear(gearid);
-      if (res) {
-        const open_state = carted ? 1 : 2;
-        let start_date = new Date();
-        let end_date = new Date();
-        if (carted) {
-          start_date = new Date(cart[0].startDate);
-          end_date = new Date(cart[0].endDate);
-        }
-        this.setState({
-          modal_open_st: open_state,
-          gear: this.props.gear,
-          carted: carted,
-          cart_info: {
-            start_date: start_date,
-            end_date: end_date
-          }
-        });
+    let res = await getGear(gearid);
+    if (res) {
+      const open_state = carted ? 1 : 2;
+      let start_date = new Date();
+      let end_date = new Date();
+      if (carted) {
+        start_date = new Date(cart[0].startDate);
+        end_date = new Date(cart[0].endDate);
       }
-    } catch {
-      handleError('Cannot get gear.');
+      this.setState({
+        modal_open_st: open_state,
+        gear: this.props.gear,
+        carted: carted,
+        cart_info: {
+          start_date: start_date,
+          end_date: end_date
+        }
+      });
     }
   }
 
@@ -70,7 +66,7 @@ class Favourites extends Component {
 
   addToCart = async ({ gearid, userid, startDate, endDate }) => {
     try {
-      if (startDate && endDate) {
+      if (startDate && endDate && gearid && userid) {
         let res = await addCart({
           gearid: gearid,
           userid: userid,
@@ -179,7 +175,7 @@ class Favourites extends Component {
   }
 
   render() {
-    const { favourites, isChanging, isGettingGearInfo } = this.props;
+    const { favourites, isChanging, isGettingGearInfo, gear } = this.props;
     if (!favourites) {
       return <BarLoader color="#F82462" height="5" />;
     }
@@ -241,9 +237,9 @@ class Favourites extends Component {
           </div>
           {
             this.state.modal_open_st === 2 ?
-              <CartModal2 dlg_model={1} gear={this.state.gear} open={this.state.modal_open_st === 2} onClose={this.onCloseModal} addToCart={this.addToCart}></CartModal2> :
+              <CartModal2 dlg_model={1} gear={gear} open={this.state.modal_open_st === 2} onClose={this.onCloseModal} addToCart={this.addToCart}></CartModal2> :
             this.state.modal_open_st === 1 ?
-              <CartModal1 carted={this.state.carted} gear={this.state.gear} start_date={this.state.cart_info.start_date} end_date={this.state.cart_info.end_date} open={this.state.modal_open_st === 1} onClose={this.onCloseModal}></CartModal1> : null
+              <CartModal1 carted={this.state.carted} gear={gear} start_date={this.state.cart_info.start_date} end_date={this.state.cart_info.end_date} open={this.state.modal_open_st === 1} onClose={this.onCloseModal}></CartModal1> : null
           }
         </div>
       </React.Fragment>
@@ -255,7 +251,7 @@ const mapStateToProps = state => ({
   gear: state.gear.gear,
   favourites: state.favourite.favourites,
   isChanging: state.favourite.isChanging,
-  isGettingGearInfo: state.gear.isLoading,
+  isGettingGearInfo: state.gear.isLoadingGear,
   carts: state.cart.carts
 });
 
