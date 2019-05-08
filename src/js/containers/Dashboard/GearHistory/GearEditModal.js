@@ -41,15 +41,13 @@ class GearEditModal extends Component {
             loadingdata: false
         };
         this.gearid = props.gearid;
-    }
 
-    componentDidMount() {
         getGear(this.gearid);
         fetchCategories();
     }
 
     componentWillReceiveProps(props) {
-        if (!!props.gear) {
+        if (!!props.gear && !this.state.gearid) {
             this.setState({
                 gearid: this.gearid,
                 categoryName: props.gear.categoryName,

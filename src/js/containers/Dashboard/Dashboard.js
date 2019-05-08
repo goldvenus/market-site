@@ -39,7 +39,7 @@ class Dashboard extends Component {
     const { user, isAuthenticated, dashboard } = this.props;
     let series;
 
-    if ( !dashboard) {
+    if (!user) {
       return <BarLoader color="#F82462" height="5"/>;
     }
 

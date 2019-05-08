@@ -196,30 +196,30 @@ class OrderHistory extends Component {
                                     (null
                                     ) :(
                                         <div>
-                                        <Table className="theme-table table order-history-table">
-                                            <thead className= "d-none d-lg-table">
-                                                <tr>
-                                                    <th></th>
-                                                    <th>Project Name</th>
-                                                    <th>Rental Period</th>
-                                                    <th>Status</th>
-                                                    <th>Amount</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
+                                            <Table className="theme-table table order-history-table">
+                                                <thead className= "d-none d-lg-table">
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>Project Name</th>
+                                                        <th>Rental Period</th>
+                                                        <th>Status</th>
+                                                        <th>Amount</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
 
-                                            <tbody>
-                                            {
-                                              this.renderOrderHistoryItems()
-                                            }
+                                                <tbody>
+                                                {
+                                                  this.renderOrderHistoryItems()
+                                                }
 
-                                            </tbody>
+                                                </tbody>
 
-                                        </Table>
-                                        <div className="order_history_sm_parent_div">
-                                            {this.renderOrderHistoryItems_sm()}
+                                            </Table>
+                                            <div className="order_history_sm_parent_div">
+                                                {this.renderOrderHistoryItems_sm()}
+                                            </div>
                                         </div>
-                                </div>
                                     )}
                             {
                                 this.renderHistoriesItems_md()

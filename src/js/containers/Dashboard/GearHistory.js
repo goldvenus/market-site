@@ -146,9 +146,11 @@ class MyListings extends React.Component {
                                                         (currentPage + 1) * this.pageSize
                                                     )
                                                     .map((data, i) =>
-                                                        <MyListingItem listItem={data} key={i}
-                                                                       openEdit={this.handleOpenGearEdit}
-                                                                       openCalendar={this.handleOpenRentalCalendar}/>
+                                                        <MyListingItem
+                                                            listItem={data} key={i}
+                                                            openEdit={this.handleOpenGearEdit}
+                                                            openCalendar={this.handleOpenRentalCalendar}
+                                                        />
                                                     ) : ""}
                                                 {list ? list
                                                     .slice(

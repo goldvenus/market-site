@@ -14,6 +14,7 @@ import PeriodSetModal from "./PeriodSetModal"
 import PeriodDeleteModal from "./PeriodDeleteModal"
 import DayPicker from "react-day-picker";
 import './style.css';
+import 'react-day-picker/lib/style.css';
 import Helmet from 'react-helmet';
 import { days } from '../../../core/helper';
 import { getListGears } from "../../../core/actions/gear.action";
@@ -270,8 +271,15 @@ class RentalCalendarModal extends React.Component {
             return {after : after_day, before : before_day}
         });
         let blockArr = [];
-        if (!cur_gear.blockPeriod)
-            blockArr = cur_gear.blockPeriod.map((item) => ({before: item.start_date, after: item.end_date}));
+        if (cur_gear && cur_gear.blockPeriod) {
+            blockArr = cur_gear.blockPeriod.map((item) => {
+                let after_day = new Date(item.start_date);
+                after_day.setHours(after_day.getHours()-24);
+                let before_day = new Date(item.end_date);
+                before_day.setHours(before_day.getHours()+ 24);
+                return {after : after_day, before : before_day}
+            });
+        }
         dateArr = [...dateArr, ...blockArr];
         console.log(dateArr);
 
