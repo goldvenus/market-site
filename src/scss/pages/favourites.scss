@@ -42,7 +42,7 @@
 
 @media(max-width: 1050px) {
   .cart-table-div {
-    .theme-table {
+    .favor-theme-table {
       display: none !important;
     }
   }
@@ -125,7 +125,9 @@
   .favo_table_root {
     display: block;
     padding: 0;
-
+    &:last-child {
+      border-bottom: none !important;
+    }
     .sm_favor_table {
       display: flex;
       .sm_favor_name_closeicon{

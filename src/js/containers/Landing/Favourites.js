@@ -211,7 +211,7 @@ class Favourites extends Component {
               !favourites.length ?
                 (<EmptyActivity e_name="  Cart  " e_path="/cart" e_title="THE ITEMS YOU LIKE APPEAR HERE" e_img_name = "favouri"/>
               ) :(
-                <Table className="theme-table table">
+                <Table className="theme-table table favor-theme-table">
                   <thead className= "d-none d-lg-table">
                     <tr>
                       <th></th>

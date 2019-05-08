@@ -39,7 +39,6 @@ export default (state = initialState, action) => {
             case constants.DELETE_CART_ITEM_SUCCESS:
                 draft.carts = draft.carts.filter(item => item.gearid !== action.payload);
                 draft.isDeleting = false;
-                console.log(draft.carts);
                 break;
             case constants.DELETE_CART_ITEM_FAILED:
                 draft.isDeleting = false;

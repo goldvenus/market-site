@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
 import { formatDate, days } from '../../core/helper';
-import { handleError } from '../../core/actions/common.action'
 import { deleteCartItem } from '../../core/actions/cart.action'
 import BarLoader from "react-bar-loader";
 import EmptyActivity from '../../components/EmptyActivity'
@@ -40,8 +39,7 @@ class Cart extends Component {
               className="close"
               aria-hidden="true"
               onClick={async () => {
-                let ret = await deleteCartItem({ gearid: listItem.gearid, orderid: listItem.orderid });
-                if (!ret) handleError("Removing from cart failed!");
+                await deleteCartItem(listItem);
               }}
             />
           </td>
@@ -50,11 +48,11 @@ class Cart extends Component {
     );
   }
 
-  renderCartItems_table() {
+  renderCartItemsTable() {
     const { carts } = this.props;
     return (
         carts.map((listItem, index) => (
-            <tr key={`cart-item-${index}`} className="d-lg-none d-md-block sm-table-cart">
+            <tr key={`cart-item-${index}`} className="sm-table-cart">
                <td className="sm-category-list-top">
                    <div className='sclt_img'>{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
                     src={listItem.numberOfUserImage[0]} className="gear-img" alt=''/> : null}
@@ -74,8 +72,7 @@ class Cart extends Component {
                                 className="close"
                                 aria-hidden="true"
                                 onClick={async () => {
-                                    let ret = await deleteCartItem({ gearid: listItem.gearid, orderid: listItem.orderid });
-                                    if (!ret) handleError("Removing from cart failed!");
+                                    await deleteCartItem(listItem);
                                 }}
                             />
                         </div>
@@ -136,7 +133,7 @@ class Cart extends Component {
                   <EmptyActivity e_name="Add from Favourites" e_path="/favourites" e_title="YOUR CART IS EMPTY" e_img_name = "cart"/>
               ) :(
             <Table className="theme-table">
-              <thead>
+              <thead className="cart-table-header">
                   <tr className= "d-none d-lg-table">
                     <th/>
                     <th>Name & Category</th>
@@ -149,7 +146,7 @@ class Cart extends Component {
               </thead>
               <tbody>
               {this.renderCartItems()}
-              {this.renderCartItems_table()}
+              {this.renderCartItemsTable()}
               </tbody>
             </Table>)}
           </div>

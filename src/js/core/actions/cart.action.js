@@ -25,7 +25,6 @@ const addCart = (data) => {
                 }
                 handleInfo('Gear was added to cart');
             } else {
-                console.log(response.data.data);
                 handleError(response.data.errorMessage);
             }
             resolve(response.data.data);
@@ -69,10 +68,14 @@ const deleteCartItem = async (data) => {
                     type: constants.DELETE_CART_ITEM_SUCCESS,
                     payload: data.gearid
                 });
+                dispatch({
+                    type: constants.GET_FAVOURITES_SUCCESS,
+                    payload: response.data.data
+                });
                 handleInfo('Gear was removed from cart successfully!');
             } else {
                 resolve(false);
-                handleError('Removing was failed!');
+                handleError('Gear was not removed!');
             }
         } catch (error) {
             handleError(error);

@@ -63,7 +63,7 @@ const deleteFavourite = async (data) => {
             dispatch({
                 type: constants.DELETE_FAVOURITE_FAILED,
             });
-            handleError('Removing failed!');
+            handleError('Gear was not removed!');
         }
     } catch (error) {
         dispatch({

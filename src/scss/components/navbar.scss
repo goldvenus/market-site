@@ -594,3 +594,9 @@ header {
     }
   }
 
+@media (max-width: 1077px) {
+  li.navbar-drop-menu.logged-in .dropdown-toggle {
+    padding-left: 5px !important;
+  }
+}
+
