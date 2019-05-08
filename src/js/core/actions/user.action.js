@@ -187,9 +187,9 @@ const confirmResetPassword = async (data) => {
 const refreshToken = async () => {
     try {
         let response = await axios.post(getAPIUrl('getUserRefreshTokens'), { username: localStorage.userId }, tokenAxiosConfig());
-
+        console.log(response);
         if (response && response.data && response.data.status === 'success') {
-            const { accessToken, idToken, refreshToken, userName } = response.data;
+            const { accessToken, idToken, refreshToken, userName } = response.data.data;
             localStorage.accessToken = accessToken.jwtToken;
             localStorage.idToken = idToken.jwtToken;
             localStorage.refreshToken = refreshToken.token;

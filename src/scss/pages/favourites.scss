@@ -33,7 +33,19 @@
   text-align: center;
 }
 
-@media(max-width: 1050px){
+.Raykjavik_span{
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0.03em;
+  color: #3A3A3A;
+}
+
+@media(max-width: 1050px) {
+  .cart-table-div {
+    .theme-table {
+      display: none !important;
+    }
+  }
   .favo_table_root {
     display: block;
     padding:0;
@@ -102,16 +114,12 @@
   .md_show_buttons{
     margin-bottom: 30px;
     margin-top:70px;
+    justify-content: space-between;
+
     .theme-btn-primary {
       margin-left: 30px;
     }
   }
-}
-.Raykjavik_span{
-  font-size: 12px;
-  line-height: 18px;
-  letter-spacing: 0.03em;
-  color: #3A3A3A;
 }
 @media(max-width: 750px) {
   .favo_table_root {
