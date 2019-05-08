@@ -52,6 +52,7 @@ export default (state = initialState, action) => {
 
             case constants.GET_USER_SUCCESS:
                 draft.user = action.payload;
+                draft.isAuthenticated = true;
                 break;
 
             case constants.UPDATE_USER_REQUEST:

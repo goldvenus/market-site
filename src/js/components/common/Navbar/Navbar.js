@@ -6,7 +6,6 @@ import NavbarMenu from './NavbarMenu';
 const Navbar = () => (
   <React.Fragment>
     <div className="navbar-wrapper">
-      
       <NavbarMenu/>
       <NavbarRight/>
     </div>

@@ -76,7 +76,7 @@ class NavbarMenu extends React.Component {
 
     let output = null
 
-    if(this.props.isAuthenticated === true) {
+    if (this.props.isAuthenticated === true) {
       output = <React.Fragment>
       <li className="navbar-sm__sidebar-item ml-auto">
         <Link to="/cart">

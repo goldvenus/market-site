@@ -216,6 +216,9 @@ img {
     border-bottom: solid 1px #EDCFD7 !important;
   }
 }
+.breadcrumb-item {
+  list-style: none;
+}
 
 @media(max-width: 500px) {
   .mt-xs {

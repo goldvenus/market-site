@@ -194,6 +194,7 @@ const refreshToken = async () => {
             localStorage.idToken = idToken.jwtToken;
             localStorage.refreshToken = refreshToken.token;
             localStorage.username = userName;
+
             return response;
         }
     } catch (error) {
