@@ -188,14 +188,15 @@ const refreshToken = async () => {
     try {
         let response = await axios.post(getAPIUrl('getUserRefreshTokens'), { username: localStorage.userId }, tokenAxiosConfig());
 
-        if (response && response.data) {
+        if (response && response.data && response.data.status === 'success') {
             const { accessToken, idToken, refreshToken, userName } = response.data;
             localStorage.accessToken = accessToken.jwtToken;
             localStorage.idToken = idToken.jwtToken;
             localStorage.refreshToken = refreshToken.token;
             localStorage.username = userName;
-
             return response;
+        } else {
+            handleError(response.data.errorMessage);
         }
     } catch (error) {
         handleError(error);

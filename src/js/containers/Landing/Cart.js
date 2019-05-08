@@ -15,7 +15,7 @@ class Cart extends Component {
     const { carts } = this.props;
     return (
       carts.map((listItem, index) => (
-        <tr key={`cart-item-${index}`}>
+        <tr key={`cart-item-${index}`} className="cart-item-row-lg">
           <td width="10%">{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
             src={listItem.numberOfUserImage[0]} className="gear-img" alt=''/> : null}</td>
           <td  width="32%" className="gear" >
@@ -155,7 +155,7 @@ class Cart extends Component {
           </div>
           <div className="flex-row d-flex d-lg-none" >
             <button className="theme-btn theme-btn-secondery col-9"><Link to="/favourites">Favorites</Link></button>
-            <button className="theme-btn theme-btn-primary theme-btn-link col-14"><Link to="/checkout">Continue Shopping</Link></button>
+            <button className="theme-btn theme-btn-primary theme-btn-link col-14 continue-shpping-mobile-btn"><Link to="/checkout">Continue Shopping</Link></button>
           </div>
         </div>
       </React.Fragment>

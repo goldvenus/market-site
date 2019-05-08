@@ -219,6 +219,9 @@ img {
 .breadcrumb-item {
   list-style: none;
 }
+.styles_overlay__CLSq- {
+  z-index: 1100 !important;
+}
 
 @media(max-width: 500px) {
   .mt-xs {
