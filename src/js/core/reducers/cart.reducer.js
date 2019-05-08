@@ -17,7 +17,6 @@ export default (state = initialState, action) => {
             case constants.ADD_TO_CART_SUCCESS:
                 draft.carts = getUniqueObjectArray([...draft.carts, action.payload]);
                 draft.isLoading = false;
-                console.log(draft.carts);
                 break;
             case constants.ADD_TO_CART_FAILED:
                 draft.isLoading = false;
