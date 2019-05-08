@@ -1424,6 +1424,9 @@ span.edit_my_gear {
 }
 .mylistingitem_sm_parent_div {
   border-top: 17px solid #faf8f9;
+  &:last-child {
+    border-bottom: 17px solid #faf8f9;
+  }
   .mlspd_first {
     padding:20px;
     border-bottom:1px solid #faf8f9;

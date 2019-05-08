@@ -593,7 +593,11 @@ header {
       }
     }
   }
-
+@media (min-width: 768px) {
+  ul.navbar-menu__navbar-sm .navbar-sm__sidebar-item {
+    display: none !important;
+  }
+}
 @media (max-width: 1077px) {
   li.navbar-drop-menu.logged-in .dropdown-toggle {
     padding-left: 5px !important;

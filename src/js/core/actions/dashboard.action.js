@@ -10,7 +10,6 @@ const viewUserDashboard = async () => {
     });
     try {
         let response = await get('viewUserDashboard');
-
         if (response) {
             dispatch({
                 type: constants.GET_USER_DASHBOARD_SUCCESS,

@@ -4,7 +4,7 @@ import { Form, FormGroup } from 'reactstrap';
 import TextField from "@material-ui/core/TextField/TextField";
 import connect from "react-redux/es/connect/connect";
 import BarLoader from "react-bar-loader";
-import { updatePassword, updateUser } from "../../core/actions/user.action";
+import {getUser, updatePassword, updateUser} from "../../core/actions/user.action";
 import { handleError } from "../../core/actions/common.action";
 import CustomSpinner from "../../components/CustomSpinner";
 import {Link} from "react-router-dom";
@@ -20,15 +20,18 @@ class AccountDetail extends Component {
       newPwd: '',
       confirmPwd: ''
     };
+
+    getUser();
   }
 
-  componentDidMount() {
-    let curUser = this.props.user;
-    this.setState({
-      fullname: curUser.given_name,
-      email: curUser.email,
-      phone: curUser.phoneNumber
-    })
+  componentWillReceiveProps(props) {
+    if (props.user) {
+      this.setState({
+        fullname: props.user.given_name,
+        email: props.user.email,
+        phone: props.user.phoneNumber
+      });
+    }
   }
 
   handleInputChange = (e, v) => {
@@ -83,8 +86,8 @@ class AccountDetail extends Component {
   };
 
   render() {
-    const { user, isUpdating } = this.props;
-    if (!user) {
+    const { isUpdating } = this.props;
+    if (!this.state.email) {
       return <BarLoader color="#F82462" height="5"/>;
     }
 

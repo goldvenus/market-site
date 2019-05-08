@@ -57,7 +57,7 @@ class RentalCalendarModal extends React.Component {
 
     shouldComponentUpdate(state, props) {
         if(this.state !== state || this.props !== props) {
-            UpdateMydata_calendar();
+            UpdateMydataCalendar();
             return true;
         }
         else return false;
@@ -110,7 +110,7 @@ class RentalCalendarModal extends React.Component {
         this.setState({loading: true});
         const ret = await getGearRentState({gearid, start_date: range.start_date, end_date: range.end_date});
         global_events = ret;
-        UpdateMydata_calendar();
+        UpdateMydataCalendar();
         this.setState({cur_gear_num: gear_num, gear_rent_info_list: ret, loading: false});
     };
 
@@ -127,7 +127,7 @@ class RentalCalendarModal extends React.Component {
         this.setState({loading: true});
         const ret = await getGearRentState({gearid, start_date: range.start_date, end_date: range.end_date});
         global_events = ret;
-        UpdateMydata_calendar();
+        UpdateMydataCalendar();
         await getListGears();
         this.setState({gear_rent_info_list: ret, cur_rent_info_num: 0, loading: false});
     };
@@ -262,14 +262,27 @@ class RentalCalendarModal extends React.Component {
         let period2 = this.getBlockPeriodItems(cur_gear.blockPeriod);
         let period_arr = [...period1, ...period2];
         global_events = period_arr;
-        UpdateMydata_calendar();
+        let dateArr = this.state.gear_rent_info_list.map((item) => {
+            let after_day = new Date(item.start);
+            after_day.setHours(after_day.getHours()-24);
+            let before_day = new Date(item.end);
+            before_day.setHours(before_day.getHours()+ 24);
+            return {after : after_day, before : before_day}
+        });
+        let blockArr = [];
+        if (!cur_gear.blockPeriod)
+            blockArr = cur_gear.blockPeriod.map((item) => ({before: item.start_date, after: item.end_date}));
+        dateArr = [...dateArr, ...blockArr];
+        console.log(dateArr);
+
+        UpdateMydataCalendar();
 
         return (
             <Modal open={true} onClose={onClose} center classNames={{modal: "rental-calendar-modal"}}>
                 <div className="calendar_dropdown_div">
                     <p className="dropdown_calendar_gearname">SELECT GEAR</p>
                     <div className="calendar_dropdown_div_bottom">
-                        <Dropdown className=" calendar_dropdown" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                        <Dropdown className="calendar_dropdown" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                             <DropdownToggle caret>
                                 {gear_name}
                             </DropdownToggle>
@@ -323,7 +336,8 @@ class RentalCalendarModal extends React.Component {
                             `}</style>
                     </Helmet>
 
-                    <DayPicker className="d-lg-none d-md-none d-sm-block"
+                    <DayPicker
+                        className="d-lg-none d-md-none d-sm-block"
                         initialMonth={new Date(2019, 4)}
                         onDayClick={this.handleDayClick}
                         modifiers={{startday: this.state.gear_rent_info_list.map((item) => {
@@ -331,13 +345,7 @@ class RentalCalendarModal extends React.Component {
                             }), endday: this.state.gear_rent_info_list.map((item) =>{
                                 return new Date(item.end);
                             })}}
-                        selectedDays = {this.state.gear_rent_info_list.map((item) => {
-                            let after_day = new Date(item.start);
-                            after_day.setHours(after_day.getHours()-24);
-                            let before_day = new Date(item.end);
-                            before_day.setHours(before_day.getHours()+ 24);
-                            return {after : after_day, before : before_day}
-                        })}
+                        selectedDays = {dateArr}
                     />
                 </div>
             </Modal>
@@ -351,16 +359,16 @@ class CalendarToolBar extends React.PureComponent {
         return (
             <Toolbar>
                 <div className="rbc-toobar-menu" style={{ width: '100%', textAlign: 'right' }}>
-                    <IconButton onClick={() => {onNavigate('PREV'); UpdateMydata_calendar();}}><LeftArrowIcon /></IconButton>
+                    <IconButton onClick={() => {onNavigate('PREV'); UpdateMydataCalendar();}}><LeftArrowIcon /></IconButton>
                     <Typography variant="headline" style={{ textTransform: 'capitalize', width: '100%' }}>{label}</Typography>
-                    <IconButton onClick={() => {onNavigate('NEXT'); UpdateMydata_calendar();}}><RightArrowIcon/></IconButton>
+                    <IconButton onClick={() => {onNavigate('NEXT'); UpdateMydataCalendar();}}><RightArrowIcon/></IconButton>
                 </div>
             </Toolbar>
         );
     }
 }
 
-const UpdateMydata_calendar = () => {
+const UpdateMydataCalendar = () => {
     $(document).ready(function () {
         // #f74377
         $(".rbc-date-cell").each(function() {
