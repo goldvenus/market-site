@@ -42,6 +42,7 @@ const login = async (data) => {
     });
 
     let response = await post('signin', data);
+    console.log(response);
     if (!!response && response.data.status === 'success') {
         dispatch({
             type: constants.LOGIN_SUCCESS,
@@ -50,7 +51,7 @@ const login = async (data) => {
         handleInfo("Welcome to our site!");
         // store the token
         const { accessToken, idToken, refreshToken } = response.data.data.tokens;
-        localStorage.accessToken = accessToken;
+        localStorage.accesstoken = accessToken;
         localStorage.idToken = idToken;
         localStorage.refreshToken = refreshToken;
         localStorage.userId = response.data.data.userAttributes.userid;
@@ -70,7 +71,7 @@ const login = async (data) => {
 };
 
 const logout = () => {
-    delete localStorage.accessToken;
+    delete localStorage.accesstoken;
     delete localStorage.idToken;
     delete localStorage.refreshToken;
     delete localStorage.userid;
@@ -189,7 +190,7 @@ const refreshToken = async () => {
         let response = await axios.post(getAPIUrl('getUserRefreshTokens'), { username: localStorage.userId }, tokenAxiosConfig());
         if (response && response.data && response.data.status === 'success') {
             const { accessToken, idToken, refreshToken, userName } = response.data.data;
-            localStorage.accessToken = accessToken.jwtToken;
+            localStorage.accesstoken = accessToken.jwtToken;
             localStorage.idToken = idToken.jwtToken;
             localStorage.refreshToken = refreshToken.token;
             localStorage.username = userName;
@@ -204,7 +205,7 @@ const refreshToken = async () => {
 
 const getUser = async () => {
     try {
-        if (localStorage.accessToken) {
+        if (localStorage.accesstoken) {
             const token = await refreshToken();
             if (token) {
                 let response = await get('getUserInfo');
@@ -223,13 +224,13 @@ const getUser = async () => {
     }
 };
 
-const socialLogin = async (idToken, accessToken) => {
+const socialLogin = async (idToken, accesstoken) => {
     dispatch({
         type: constants.LOGIN_REQUEST
     });
     try {
         localStorage.idToken = idToken;
-        localStorage.accessToken = accessToken;
+        localStorage.accesstoken = accesstoken;
         let response = await get('socialProviderTokenExchange');
         if (response && response.data) {
             dispatch({
@@ -239,7 +240,7 @@ const socialLogin = async (idToken, accessToken) => {
             handleInfo("Welcome to our site!");
             // store the token
             const { accessToken, idToken, refreshToken } = response.data.tokens;
-            localStorage.accessToken = accessToken;
+            localStorage.accesstoken = accessToken;
             localStorage.idToken = idToken;
             localStorage.refreshToken = refreshToken;
             return response;

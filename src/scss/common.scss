@@ -201,19 +201,18 @@ img {
     color: rgba(0, 0, 0, 0.54) !important;
   }
   & > div:hover {
-    //border-bottom: solid 1px #EDCFD7 !important;
   }
   & > div:hover:before {
-    border-bottom: solid 1px #EDCFD7 !important;
+    border-bottom: solid 1px #ffaec4 !important;
   }
   & > div:before {
-    border-bottom: solid 1px #EDCFD7 !important;
+    border-bottom: solid 1px #aaa !important;
     &:hover {
-      border-bottom: solid 1px #EDCFD7 !important;
+      border-bottom: solid 1px #ffaec4 !important;
     }
   }
   & > div:after {
-    border-bottom: solid 1px #EDCFD7 !important;
+    border-bottom: solid 1px #ffaec4 !important;
   }
 }
 .breadcrumb-item {

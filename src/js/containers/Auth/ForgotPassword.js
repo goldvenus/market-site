@@ -130,6 +130,7 @@ class ForgotPassword extends Component {
                 <div className="theme-form-field">
                     <TextField
                         id="standard-with-placeholder"
+                        className="custom-beautiful-textfield"
                         label="Email"
                         type="text"
                         value={email}

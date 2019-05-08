@@ -901,6 +901,7 @@ span.edit_my_gear {
   }
 }
 
+
 @media(min-width: 500px)  {
   .navbar-wrapper{
     flex-wrap: nowrap;
@@ -908,8 +909,7 @@ span.edit_my_gear {
       width: 35%;
       display: flex;
       flex-direction: row-reverse;
-      .logged-in ,
-      .navbar-sm__sidebar-item{
+      .logged-in {
         display: none !important;
       }
     }
@@ -930,6 +930,13 @@ span.edit_my_gear {
 }
 
 @media (max-width: 1050px){
+  .listing-data-thead {
+    display: none !important;
+  }
+  .order-history-table {
+    display: none !important;
+  }
+
   .dashboard .dashboard-head .nav-tabs .nav-link {
     padding: 10px 15px !important;
   }

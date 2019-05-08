@@ -10,8 +10,8 @@ const axiosConfig = () => {
         }
     };
 
-    if (localStorage.accessToken) {
-        config['headers']['accessToken'] = localStorage.accessToken;
+    if (localStorage.accesstoken) {
+        config['headers']['accesstoken'] = localStorage.accesstoken;
     }
 
     if (localStorage.idToken) {
@@ -28,8 +28,8 @@ const tokenAxiosConfig = () => {
         }
     };
 
-    if (localStorage.accessToken) {
-      config['headers']['AccessToken'] = localStorage.accessToken;
+    if (localStorage.accesstoken) {
+      config['headers']['accesstoken'] = localStorage.accesstoken;
     }
 
     if (localStorage.refreshToken) {
