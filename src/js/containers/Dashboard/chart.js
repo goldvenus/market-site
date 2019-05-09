@@ -53,7 +53,7 @@ export default function ({dashboard}) {
             <Col>
               <div className="totel-rental">
                 <h2>{dashboard.rented}</h2>
-                <p className="theme-text-small-bold">Out On Rent</p>
+                <p className="theme-text-small-bold">Out on Rent</p>
               </div>
             </Col>
             <Col>

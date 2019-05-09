@@ -9,6 +9,7 @@ import AccountDetail from './AccountDetail';
 import MyListings from './GearHistory';
 import OrderHistory from './OrderHistory';
 import BarLoader from "react-bar-loader";
+import PaymentDashboard from "./PaymentDashboard";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -61,8 +62,11 @@ class Dashboard extends Component {
               <TabPane tabId="3">
                 <MyListings/>
               </TabPane>
-              <TabPane tabId="5" id="#order">
+              <TabPane tabId="4" id="#order">
                 <OrderHistory/>
+              </TabPane>
+              <TabPane tabId="5">
+                <PaymentDashboard/>
               </TabPane>
             </TabContent>
           </Container>
