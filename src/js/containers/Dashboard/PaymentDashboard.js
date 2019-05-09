@@ -5,6 +5,10 @@ import { Card, CardTitle, Row, Col } from 'reactstrap';
 class PaymentDetail extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+        hello: 'hi'
+    }
   }
 
   render() {
