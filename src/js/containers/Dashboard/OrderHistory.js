@@ -79,7 +79,7 @@ class OrderHistory extends Component {
                                 <p className="order_history_pay_perday_content">{`$${listItem.SoldItems[0].pricePerDay}`}</p>
                             </div>
                             <div className="tb_pay_per d-block col-12">
-                                <p className="order_history_pay_title">Amount</p>
+                                <p className="order_history_pay_title">Amouth</p>
                                 <p className="prder_history_amount_content">{`$${parseFloat(listItem.Amount).toFixed(2)}`}</p>
                             </div>
                         </div>
@@ -184,7 +184,7 @@ class OrderHistory extends Component {
                 <div className="row order-history-container">
                     <div className="col-sm-24">
                         <div className="cart-header ">
-                            <h4>Order History</h4>
+                            <h4 className="tab-title">Order History</h4>
                         </div>
                         <div className="d-md-flex d-lg-none d-none md_show_buttons" >
                             <button className="theme-btn theme-btn-secondery col-md-9"><Link to="/cart">Continue Shopping2</Link></button>

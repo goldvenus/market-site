@@ -11,34 +11,50 @@ import GearEditModal from "./GearHistory/GearEditModal";
 import BarLoader from "react-bar-loader";
 
 const MyListingItem = ({ listItem, openEdit, openCalendar }) => (
-    <tr className="d-lg-table-row d-md-none d-sm-none d-none">
-        <td width="5%" className="d-md-none d-none d-lg-table-cell listing-data-image">{<img
-            src={listItem.numberOfUserImage[0]} className="gear-img" alt="Number of User"/>}</td>
-        <td width="20%" className="d-lg-none d-md-table-cell listing-data-image">{<img
-            src={listItem.numberOfUserImage[0]} className="gear-img" alt="Number of User"/>}</td>
-        <td className="d-none d-lg-table-cell" width="20%">
-            <p>{listItem.brand}</p>
-            <p className="theme-text-small text-muted">{listItem.categoryName}</p>
-        </td>
-        <td className="listing-p d-lg-none d-md-table-cell" width="40%">
-            <p className="theme-text-small text-muted table-content-name">{listItem.categoryName}</p>
-            <p className="table-content-name-body">{listItem.brand}</p>
-        </td>
-        <td className="d-none d-lg-table-cell" width="15%">${listItem.pricePerDay} </td>
-        <td className="d-none d-lg-table-cell" width="15%">${listItem.replacementValue}</td>
-        <td className="d-none d-lg-table-cell" width="15%">
-            <button className='theme-btn rent-cal-btn' onClick={() => openCalendar(listItem.gearid)}>Rental
-                Calendar
-            </button>
-        </td>
-        <td width="15%" className="edit-gear-td">
-            <span className="edit_my_gear" onClick={() => openEdit(listItem.gearid)}/>
-        </td>
-    </tr>
+    <React.Fragment>
+        <tr className="desktop-gear-item">
+            <td width="5%" className="d-md-none d-none d-lg-table-cell listing-data-image">{<img
+                src={listItem.numberOfUserImage[0]} className="gear-img" alt="Number of User"/>}</td>
+            <td width="20%" className="d-lg-none d-md-table-cell listing-data-image">{<img
+                src={listItem.numberOfUserImage[0]} className="gear-img" alt="Number of User"/>}</td>
+            <td className="d-none d-lg-table-cell" width="20%">
+                <p className="gear-brand">{listItem.brand}</p>
+                <p className="theme-text-small gear-category text-muted">{listItem.categoryName}</p>
+            </td>
+            <td className="listing-p d-lg-none d-md-table-cell" width="40%">
+                <p className="theme-text-small gear-category text-muted table-content-name">{listItem.categoryName}</p>
+                <p className="table-content-name-body gear-brand">{listItem.brand}</p>
+            </td>
+            <td className="d-none d-lg-table-cell gear-price-per-day" width="15%">${listItem.pricePerDay} </td>
+            <td className="d-none d-lg-table-cell gear-replacement-value" width="15%">${listItem.replacementValue}</td>
+            <td className="d-none d-lg-table-cell" width="15%">
+                <button className='theme-btn rent-cal-btn' onClick={() => openCalendar(listItem.gearid)}>Rental Calendar</button>
+            </td>
+            <td width="15%" className="edit-gear-td">
+                <span className="edit_my_gear" onClick={() => openEdit(listItem.gearid)}/>
+            </td>
+        </tr>
+        <tr className="tablet-gear-item">
+            <td width="5%" className="listing-data-image">{<img
+                src={listItem.numberOfUserImage[0]} className="gear-img" alt="Number of User"/>}</td>
+            <td className="" width="20%">
+                <p className="gear-brand">{listItem.brand}</p>
+                <p className="theme-text-small gear-category text-muted">{listItem.categoryName}</p>
+            </td>
+            <td className="gear-price-per-day" width="15%">${listItem.pricePerDay} </td>
+            <td className="gear-replacement-value" width="15%">${listItem.replacementValue}</td>
+            <td className="" width="15%">
+                <button className='theme-btn rent-cal-btn' onClick={() => openCalendar(listItem.gearid)}>Rental Calendar</button>
+            </td>
+            <td width="15%" className="edit-gear-td">
+                <span className="edit_my_gear" onClick={() => openEdit(listItem.gearid)}/>
+            </td>
+        </tr>
+    </React.Fragment>
 );
 
 const MyListingItemSm = ({ listItem, openEdit, openCalendar }) => (
-    <div className="d-sm-block d-lg-none d-md-none mylistingitem_sm_parent_div">
+    <div className="mylistingitem_sm_parent_div">
         <div className="d-flex mlspd_first">
             <div  className="listing-data-image">
                 {<img src={listItem.numberOfUserImage[0]} className="gear-img" alt="Number of User"/>}
@@ -60,11 +76,11 @@ const MyListingItemSm = ({ listItem, openEdit, openCalendar }) => (
         </div>
         <div className="d-flex slspd_third">
             <div className="slspdt_rental_btn">
-                <button className='theme-btn rent-cal-btn col-md-19' onClick={() => openCalendar(listItem.gearid)}>Rental Calendar
+                <button className='theme-btn rent-cal-btn' onClick={() => openCalendar(listItem.gearid)}>Rental Calendar
                 </button>
             </div>
             <div className="edit-gear-td slspdt_edit_icon">
-                <span className="edit_my_gear col-md-5" onClick={() => openEdit(listItem.gearid)}/>
+                <span className="edit_my_gear" onClick={() => openEdit(listItem.gearid)}/>
             </div>
         </div>
     </div>
@@ -128,16 +144,15 @@ class MyListings extends React.Component {
                                     <React.Fragment>
                                         <div className="table-responsive">
                                             <Table className="listing-data-slice">
-                                                <thead
-                                                    className="d-md-none d-lg-table d-sm-none d-none list-table-head">
-                                                <tr className="text-muted theme-text-bold listing-data-thead">
-                                                    <th></th>
-                                                    <th>Name & Category</th>
-                                                    <th>Price Per day</th>
-                                                    <th>Value</th>
-                                                    <th></th>
-                                                    <th></th>
-                                                </tr>
+                                                <thead className="list-table-head">
+                                                    <tr className="text-muted theme-text-bold listing-data-thead">
+                                                        <th></th>
+                                                        <th>Name & Category</th>
+                                                        <th>Price Per day</th>
+                                                        <th>Value</th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
                                                 </thead>
                                                 <tbody className="listing-data-tbody">
                                                 {list ? list

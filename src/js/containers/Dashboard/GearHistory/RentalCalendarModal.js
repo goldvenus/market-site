@@ -49,7 +49,6 @@ class RentalCalendarModal extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props.gearid);
         let cur_gear_num = this.props.listGears.reduce((a, item, key) => item.gearid === this.props.gearid ? key : a, 0);
         this.setState(() => ({cur_gear_num: cur_gear_num}), () => {
             this.handleSelectGear(cur_gear_num);
@@ -150,7 +149,7 @@ class RentalCalendarModal extends React.Component {
             }
         });
         if (!available) {
-            handleError("The period you selected is not allowed!");
+            handleError("Period you selected intersects with other periods");
             return -1;
         }
 
@@ -165,14 +164,14 @@ class RentalCalendarModal extends React.Component {
 
             let res = await setBlockPeriod({period_arr, gearid});
             if (res.status === 'success') {
-                await getListGears();
-                handleInfo("Period was set successfully!");
+                // await getListGears();
+                handleInfo("Period was set successfully");
                 this.setState({open: 0});
             } else {
-                handleError("Period was not set!");
+                handleError("Period was not set");
             }
         } catch {
-            handleError('Period was not set!');
+            handleError('Period was not set');
         }
     };
 
@@ -264,9 +263,9 @@ class RentalCalendarModal extends React.Component {
         let period_arr = [...period1, ...period2];
         global_events = period_arr;
         let dateArr = this.state.gear_rent_info_list.map((item) => {
-            let after_day = new Date(item.start);
+            let after_day = new Date(item.startDate);
             after_day.setHours(after_day.getHours()-24);
-            let before_day = new Date(item.end);
+            let before_day = new Date(item.endDate);
             before_day.setHours(before_day.getHours()+ 24);
             return {after : after_day, before : before_day}
         });
@@ -281,7 +280,6 @@ class RentalCalendarModal extends React.Component {
             });
         }
         dateArr = [...dateArr, ...blockArr];
-        console.log(dateArr);
 
         UpdateMydataCalendar();
 
