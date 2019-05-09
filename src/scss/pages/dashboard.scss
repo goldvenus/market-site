@@ -100,13 +100,79 @@
         text-align: center;
 
         .line-chart {
-          background-color: $white;
+          background-color: #faf8f9;
+          display: flex;
+          margin-bottom: 30px;
+
+          .chart-wrapper-left {
+            width: 77%;
+            background-color: white;
+            border-right: solid 10px #faf8f9;
+          }
+          .chart-wrapper-right {
+            width: 23%;
+            .chart-detail-wrapper {
+              background-color: white;
+              padding: 25px 26px;
+              height: 32%;
+              vertical-align: center;
+              align-items: center;
+
+              &:first-child {
+                border-left: solid 3px #F82462;
+                margin-bottom: 9px;
+              }
+              &:nth-child(2) {
+                border-left: solid 3px #B037CE;
+                margin-bottom: 9px;
+              }
+              &:last-child {
+                border-left: solid 3px #3C6BE2;
+              }
+              p {
+                margin: 0;
+              }
+              .total-detail-heading {
+                font-family: Helvetica Neue;
+                font-size: 16px;
+                line-height: 27px;
+                color: #3A3A3A;
+                opacity: 0.3;
+              }
+              .total-detail-value {
+                font-family: Gotham Pro;
+                font-size: 36px;
+                line-height: 53px;
+                color: #252525;
+                font-weight: 900;
+              }
+              .total-detail-compare-value {
+                font-family: Helvetica Neue;
+                font-size: 16px;
+                line-height: 27px;
+                color: #70CE37;
+              }
+            }
+          }
         }
-        .totel-listing, .totel-rental, .avaiable {
-          background-color: $white;
-          margin-top: 1rem;
-          padding: 2rem 1.5rem;
-          text-align: left;
+        .total-count-wrapper {
+          & > div {
+            padding: 0;
+            border-right: solid 30px #faf8f9;
+          }
+          .totel-listing, .totel-rental, .avaiable {
+            padding: 36px 54px 30px;
+            background-color: $white;
+            text-align: left;
+
+            p {
+              font-size: 16px;
+              color: #252525;
+            }
+          }
+          .available {
+            border: none;
+          }
         }
       }
     }
@@ -118,6 +184,9 @@
         text-align: center;
         display: flex;
 
+        .text-muted {
+          color: #A4A4A4 !important;
+        }
         .row {
           width: 100%;
         }
@@ -1170,8 +1239,9 @@ span.edit_my_gear {
     padding: 0 !important;
   }
   .gear-edit-modal {
-    max-width: 530px !important;
+    max-width: 100% !important;
     height: auto !important;
+    padding: 15px !important;
 
     .gear-edit-modal-header {
       text-align: center;
@@ -1185,6 +1255,7 @@ span.edit_my_gear {
       display: block !important;
       & > div {
         flex: none;
+        padding: 0 !important;
       }
       .edit_listgear_body_left {
         .ELBL_info {

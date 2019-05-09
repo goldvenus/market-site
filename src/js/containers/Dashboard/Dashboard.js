@@ -37,9 +37,13 @@ class Dashboard extends Component {
   render() {
     // const Listing_Items = this.props.userListings;
     const { user, isAuthenticated, dashboard } = this.props;
-    let series;
+    let series = {
+      totalEarnings: [],
+      monthlyAverage: [],
+      inventory: []
+    };
 
-    if (!user) {
+    if (!user || !dashboard) {
       return <BarLoader color="#F82462" height="5"/>;
     }
 

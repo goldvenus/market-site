@@ -9,26 +9,41 @@ export default function ( props) {
         <h4 className="tab-title">Dashboard</h4>
         <div className="wrraper_dashboard">
           <Row className="line-chart">
-            <Col>
+            <div className="chart-wrapper-left">
               <LineChart series={props.series} />
-            </Col>
+            </div>
+            <div className="chart-wrapper-right">
+              <div className="chart-detail-wrapper">
+                <p className="total-detail-heading">Total Earnings</p>
+                <p className="total-detail-value">$2039</p>
+              </div>
+              <div className="chart-detail-wrapper">
+                <p className="total-detail-heading">Monthly Average</p>
+                <p className="total-detail-value">$2039</p>
+                <p className="total-detail-compare-value">% compared to last month</p>
+              </div>
+              <div className="chart-detail-wrapper">
+                <p className="total-detail-heading">Inventory Value</p>
+                <p className="total-detail-value">$2039</p>
+              </div>
+            </div>
           </Row>
-          <Row>
+          <Row className="total-count-wrapper">
             <Col>
               <div className="totel-listing">
-                <h3>10</h3>
+                <h2>10</h2>
                 <p className="theme-text-small-bold">Total Listing</p>
               </div>
             </Col>
             <Col>
               <div className="totel-rental">
-                <h3>4</h3>
+                <h2>4</h2>
                 <p className="theme-text-small-bold">Out On Rent</p>
               </div>
             </Col>
             <Col>
               <div className="avaiable">
-                <h3>6</h3>
+                <h2>6</h2>
                 <p className="theme-text-small-bold">Avaiable</p>
               </div>
             </Col>
