@@ -69,7 +69,6 @@ class Register extends Component {
   render() {
     const { password, confirmPassword, username, fullName, fileName, phoneNumber } = this.state;
     let { isRegistered, isRegistering } = this.props;
-    isRegistered = true;
     return (
     <React.Fragment>
       <div className="auth-nav-bar">

@@ -3,7 +3,7 @@ import { Form, FormGroup } from 'reactstrap';
 import TextField from "@material-ui/core/TextField/TextField";
 import connect from "react-redux/es/connect/connect";
 import BarLoader from "react-bar-loader";
-import { Card, CardTitle, Row, Col } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import {getUser, updatePassword, updateUser} from "../../core/actions/user.action";
 import { handleError } from "../../core/actions/common.action";
 import CustomSpinner from "../../components/CustomSpinner";
@@ -97,47 +97,81 @@ class AccountDetail extends Component {
           <Col sm="24">
             <h4 className="tab-title">Account Details</h4>
             <div className="wrapper-detail">
-              <div className='account-detail-left'>
-                <Card body>
-                  <CardTitle className="text-muted" >INFO</CardTitle>
-                  <div className="card-text">
-                    <Form>
-                      <FormGroup>
-                        <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='NAME' type="text" value={this.state.fullname}
-                            onChange={e => this.handleInputChange(e, 'fullname')}/>
-                      </FormGroup>
-                      <FormGroup>
-                        <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='EMAIL' type="text" value={this.state.email}
-                            onChange={e => this.handleInputChange(e, 'email')}/>
-                      </FormGroup>
-                      <FormGroup>
-                        <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='PHONE' type="text" value={this.state.phone}
-                            onChange={e => this.handleInputChange(e, 'phone')}/>
-                      </FormGroup>
-                      <button className='theme-btn theme-btn-primary' onClick={this.handleUserSave}>Save</button>
-                    </Form>
+              <div className="detail-left-wrapper">
+                <div className="account-detail-heading" >INFO</div>
+                <div className="account-detail-body">
+                  <Form>
+                    <FormGroup>
+                      <TextField
+                        id="standard-password-input11"
+                        className='custom-beautiful-textfield'
+                        label='NAME'
+                        type="text"
+                        value={this.state.fullname}
+                        onChange={e => this.handleInputChange(e, 'fullname')}
+                      />
+                    </FormGroup>
+                    <FormGroup>
+                      <TextField
+                        id="standard-password-input1"
+                        className='custom-beautiful-textfield'
+                        label='EMAIL'
+                        type="text"
+                        value={this.state.email}
+                        onChange={e => this.handleInputChange(e, 'email')}
+                      />
+                    </FormGroup>
+                    <FormGroup>
+                      <TextField
+                        id="standard-password-input2"
+                        className='custom-beautiful-textfield'
+                        label='PHONE'
+                        type="text"
+                        value={this.state.phone}
+                        onChange={e => this.handleInputChange(e, 'phone')}
+                      />
+                    </FormGroup>
+                    <button className='theme-btn theme-btn-primary' onClick={this.handleUserSave}>Save</button>
+                  </Form>
                   </div>
-                </Card>
-                <Card body>
-                  <CardTitle className="text-muted">CHANGE <br className="d-block d-sm-none"/>PASSWORD<Link className="theme-form-link forgot-pwd-btn" to="/forgotpassword">Forgot password?</Link></CardTitle>
-                  <div className="card-text">
-                    <Form>
-                      <FormGroup>
-                        <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='Current Password' type="password" value={this.state.curPwd}
-                            onChange={e => this.handleInputChange(e, 'curPwd')}/>
-                      </FormGroup>
-                      <FormGroup>
-                        <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='New Password' type="password" value={this.state.newPwd}
-                            onChange={e => this.handleInputChange(e, 'newPwd')}/>
-                      </FormGroup>
-                      <FormGroup>
-                        <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='Confirm Password' type="password" value={this.state.confirmPwd}
-                            onChange={e => this.handleInputChange(e, 'confirmPwd')}/>
-                      </FormGroup>
-                      <button className='theme-btn theme-btn-primary' onClick={this.handlePasswordReset}>Change Password</button>
-                    </Form>
-                  </div>
-                </Card>
+              </div>
+              <div className="detail-right-wrapper">
+                <div className="account-detail-heading">CHANGE <br className="d-block d-sm-none"/>PASSWORD<Link className="theme-form-link forgot-pwd-btn" to="/forgotpassword">Forgot password?</Link></div>
+                <div className="account-detail-body">
+                  <Form>
+                    <FormGroup>
+                      <TextField
+                        id="standard-password-input3"
+                        className=' custom-beautiful-textfield'
+                        label='Current Password'
+                        type="password"
+                        value={this.state.curPwd}
+                        onChange={e => this.handleInputChange(e, 'curPwd')}
+                      />
+                    </FormGroup>
+                    <FormGroup>
+                      <TextField
+                        id="standard-password-input4"
+                        className=' custom-beautiful-textfield'
+                        label='New Password'
+                        type="password"
+                        value={this.state.newPwd}
+                        onChange={e => this.handleInputChange(e, 'newPwd')}
+                      />
+                    </FormGroup>
+                    <FormGroup>
+                      <TextField
+                        id="standard-password-input5"
+                        className=' custom-beautiful-textfield'
+                        label='Confirm Password'
+                        type="password"
+                        value={this.state.confirmPwd}
+                        onChange={e => this.handleInputChange(e, 'confirmPwd')}
+                      />
+                    </FormGroup>
+                    <button className='theme-btn theme-btn-primary' onClick={this.handlePasswordReset}>Change Password</button>
+                  </Form>
+              </div>
               </div>
             </div>
           </Col>

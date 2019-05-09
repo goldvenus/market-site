@@ -71,7 +71,6 @@
 
     }
   }
-
   .dashboard-body {
     padding: 23px 0px 44px 0px !important;
     .listing-data-pagenation{
@@ -160,6 +159,9 @@
           & > div {
             padding: 0;
             border-right: solid 30px #faf8f9;
+            &:last-child {
+              border-right: none !important;
+            }
           }
           .totel-listing, .totel-rental, .avaiable {
             padding: 36px 54px 30px;
@@ -179,96 +181,61 @@
     }
 
     .account-detail {
-      .wrraper_dashboard {
-        background-color: $gray-light;
+      .account-detail-heading {
+        text-align: left;
+        font-family: Gotham Pro;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 23px;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        border-bottom: 1px solid #f8f8f8;
         padding: 30px;
+        color: #A4A4A4;
+        .forgot-pwd-btn {
+          float: right;
+          margin-top: 8px;
+          font-family: Helvetica Neue;
+          font-size: 12px;
+          line-height: 18px;
+          text-align: center;
+          letter-spacing: 0.03em;
+          color: #F74377;
+          text-decoration: underline;
+        }
+      }
+      .wrapper-detail {
         text-align: center;
         display: flex;
+        background-color: white;
+        border: solid 30px #faf8f9;
+
+        .detail-left-wrapper {
+          width: 50%;
+          border-right: solid 15px #faf8f9;
+        }
+        .detail-right-wrapper {
+          width: 50%;
+          border-left: solid 15px #faf8f9;
+        }
+        .account-detail-body {
+          padding: 26px;
+          .custom-beautiful-textfield {
+            width: 100%;
+          }
+          .form-group {
+            margin-bottom: 28px;
+          }
+          label, input {
+            margin-left: 15px;
+          }
+        }
 
         .text-muted {
           color: #A4A4A4 !important;
         }
         .row {
           width: 100%;
-        }
-        .chg-pwd-heading-mobile {
-          display: none;
-        }
-        button {
-          width: 100%;
-          margin: 0 !important;
-        }
-
-        .card-body {
-          border: none;
-          margin-bottom: 1.5rem;
-          padding: 0 0 1.5rem;
-
-          .card-title {
-            text-align: left;
-            padding: 1rem 1.5rem;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            border-bottom: 1px solid $gray-lighten;
-          }
-
-          .card-text {
-            padding: 0 1.5rem;
-            margin-bottom: 1rem;
-            text-align: right;
-
-            label {
-              margin: 0;
-            }
-
-            .form-control {
-              border: none;
-              border-bottom: 2px solid $gray-light;
-              border-radius: 0;
-              height: calc(2rem + 2px);
-
-              &:focus {
-                outline: none;
-                box-shadow: none;
-              }
-            }
-
-            .add-payment-method {
-              border: 2px solid $gray-light;
-              height: 100%;
-              margin-left: 10px;
-
-              .add {
-                width: 30px;
-                height: 30px;
-                background-color: $primary-color;
-                border-radius: 50%;
-
-                .fa {
-                  color: $white;
-                }
-              }
-
-              &:hover {
-                background-color: $primary-color;
-
-                .add {
-                  background-color: $white;
-
-                  .fa {
-                    color: $primary-color;
-                  }
-                }
-              }
-            }
-          }
-
-          button {
-            background-color: $primary-color;
-            margin: 0 2rem;
-            border: none;
-            border-radius: 0;
-          }
         }
       }
     }
@@ -436,6 +403,10 @@ color: #fff
     }
 
   }
+  .tab-title {
+    font-size: 27px;
+    margin-18ttom: 17px;
+  }
 }
 .wrraper_dashboard .empety-list{
   padding:40px;
@@ -445,7 +416,7 @@ color: #fff
   width: 100%;
 }
 
-// OrderHistory history
+/* order history */
 .owner-profile img {
   border-radius: 18px;
 }
@@ -723,7 +694,7 @@ color: #fff
   }
 }
 
-// OrderHistory pickup modal
+/* order history pickup modal */
 .pickup-modal {
   .pickup-success-header {
     height: 320px !important;
@@ -788,8 +759,7 @@ color: #fff
   }
 }
 
-
-// OrderHistory detail page
+/* OrderHistory detail page */
 .order-detail-container {
   .detail-top-button-container {
     display: flex;
@@ -871,11 +841,10 @@ color: #fff
   }
 }
 
-// Gear History
+/* Gear History */
 .react-tabs__tab-panel--selected {
   padding:30px;
 }
-
 button.rent-cal-btn {
   border: solid 1px #F82462;
   color: #F82462;
@@ -899,7 +868,6 @@ span.edit_my_gear {
     background-image: url('/images/Icons/cart/edit-p.svg') !important;
   }
 }
-
 .gear-edit-modal {
   max-width: 1200px !important;
   height: 1400px;
@@ -928,7 +896,6 @@ span.edit_my_gear {
     margin-right: 25px;
   }
 }
-
 
 @media(min-width: 500px)  {
   .navbar-wrapper{
@@ -969,15 +936,6 @@ span.edit_my_gear {
   }
   .row {
     width: 100%;
-  }
-  .account-detail-left {
-    width: 100% !important;
-    padding: 0 !important;
-    margin-bottom: 24px;
-  }
-  .account-detail-right {
-    width: 100% !important;
-    padding: 0 !important;
   }
   .card-body {
     border: solid 20px #faf8f9 !important;
@@ -1319,7 +1277,7 @@ span.edit_my_gear {
      margin:0;
    }
  }
- .order_history_payment {
+.order_history_payment {
    padding:18px;
    border:1px solid #F5F5F5;
    p{
@@ -1350,11 +1308,10 @@ span.edit_my_gear {
      font-weight: 500;
    }
  }
- .order_mobile_parent_div {
+.order_mobile_parent_div {
    border-bottom:20px solid #faf8f9;
  }
-
- .order_rating_dialog_sm_parent {
+.order_rating_dialog_sm_parent {
    .order-modal-header{
      padding:5px;
      padding-right:0;
@@ -1456,7 +1413,6 @@ span.edit_my_gear {
      background-color: white;
    }
 }
-
 .order_history_sm_parent_div {
   border:15px solid #faf8f9;
   display: none;
@@ -1521,10 +1477,6 @@ span.edit_my_gear {
     font-weight: 800;
     color: #252525;
   }
-}
-
-.wrapper-detail {
-  border: solid 30px #faf8f9;
 }
 
 @media (min-width: 1078px) {
@@ -1601,6 +1553,53 @@ span.edit_my_gear {
       }
     }
   }
+  .account-detail {
+    .account-detail-heading {
+      padding: 34px 0 0 48px;
+
+      .forgot-pwd-btn {
+        float: right;
+        margin-top: 8px;
+        font-family: Helvetica Neue;
+        font-size: 12px;
+        line-height: 18px;
+        text-align: center;
+        letter-spacing: 0.03em;
+        color: #F74377;
+        text-decoration: underline;
+      }
+    }
+    .wrapper-detail {
+      text-align: left !important;
+      display: block !important;
+      border: none !important;
+
+      .detail-left-wrapper {
+        width: 100% !important;
+        border: solid 18px #faf8f9 !important;
+        margin-bottom: 31px;
+      }
+      .detail-right-wrapper {
+        width: 100% !important;
+        border: solid 18px #faf8f9 !important;
+      }
+      .account-detail-body {
+        padding: 28px;
+        label, input {
+          margin-left: 15px !important;
+        }
+        input {
+          text-align: left;
+        }
+        label {
+          transform-origin: top left !important;
+        }
+        button {
+          width: 100%;
+        }
+      }
+    }
+  }
 }
 
 @media (max-width: 767px) {
@@ -1609,26 +1608,6 @@ span.edit_my_gear {
     margin-top: 10px;
     border: solid 10px #faf8f9;
 
-    .account-detail-left {
-      margin-bottom: 0 !important;
-
-      .card-body {
-        border: solid 10px #faf8f9 !important;
-        margin: 0 !important;
-        border-bottom: none !important;
-
-        .chg-pwd-heading-mobile {
-          display: flex;
-          justify-content: stretch;
-        }
-      }
-    }
-    .account-detail-right {
-      .card-body {
-        border: solid 10px #faf8f9 !important;
-        margin: 0 !important;
-      }
-    }
     .payment-card {
       width: 100% !important;
       margin-bottom: 20px;
@@ -1706,6 +1685,7 @@ span.edit_my_gear {
       }
     }
   }
+
   .wrapper-detail {
     border: solid 10px #faf8f9 !important;
     .card-body {
@@ -1722,6 +1702,34 @@ span.edit_my_gear {
         letter-spacing: 0.03em;
         color: #F74377;
         text-decoration: underline;
+      }
+    }
+
+    .account-detail-heading {
+      padding: 25px 22px 10px;
+    }
+    .detail-left-wrapper {
+      width: 100% !important;
+      border: solid 10px #faf8f9 !important;
+      margin-bottom: 31px;
+    }
+    .detail-right-wrapper {
+      width: 100% !important;
+      border: solid 18px #faf8f9 !important;
+    }
+    .account-detail-body {
+      padding: 16px;
+      label, input {
+        margin-left: 15px !important;
+      }
+      input {
+        text-align: left;
+      }
+      label {
+        transform-origin: top left !important;
+      }
+      button {
+        width: 100%;
       }
     }
   }
