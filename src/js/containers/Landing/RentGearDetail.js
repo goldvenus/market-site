@@ -640,9 +640,23 @@ class RentGearDetail extends Component {
               </footer>
               {
                   this.state.modal_open_st === 2 ?
-                      <CartModal2 dlg_model={1} gear={this.state.gear} open={true} onClose={this.onCloseModal} addToCart={() => this.addToCart()}/> :
+                      <CartModal2
+                          dlg_model={1}
+                          gear={this.state.gear}
+                          open={true}
+                          onClose={this.onCloseModal}
+                          addToCart={() => this.addToCart()}
+                      /> :
                   this.state.modal_open_st === 1 ?
-                      <CartModal1 carted={carted} gear={{...gear, start_date_str, end_date_str}} start_date={this.state.startDate} end_date={this.state.endDate} open={true} onClose={this.onCloseModal} addToCart={carted => this.addToCart(carted)}/> : null
+                      <CartModal1
+                          carted={carted}
+                          gear={{...gear, start_date_str, end_date_str}}
+                          start_date={this.state.startDate}
+                          end_date={this.state.endDate}
+                          open={true}
+                          onClose={this.onCloseModal}
+                          addToCart={carted => this.addToCart(carted)}
+                      /> : null
               }
             </div>
           </React.Fragment>

@@ -2,14 +2,45 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
-import { formatDate, days } from '../../core/helper';
-import { deleteCartItem } from '../../core/actions/cart.action'
+import {formatDate, days} from '../../core/helper';
+import { deleteCartItem, editCart } from '../../core/actions/cart.action'
 import BarLoader from "react-bar-loader";
 import EmptyActivity from '../../components/EmptyActivity'
 import CustomSpinner from "../../components/CustomSpinner";
 import UrllinkClass from "../../components/UrllinkClass";
+import CartModal2 from "../../components/common/CartModal2";
 
 class Cart extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isModalOpen: false,
+      gear: null
+    };
+  }
+
+  handleEdit = (listItem) => {
+    this.setState({
+      isModalOpen: true,
+      gear: listItem
+    });
+  };
+
+  handleClose = () => {
+    this.setState({isModalOpen: false});
+  };
+
+  savePeriod = async (startDate, endDate) => {
+    let newGear = {...this.state.gear, startDate: formatDate(startDate), endDate: formatDate(endDate)};
+    let ret = await editCart(newGear);
+    ret ? this.setState({
+        isModalOpen: false,
+        gear: newGear
+      }) : this.setState({
+        isModalOpen: false
+      })
+  };
+
   renderCartItems() {
     const { carts } = this.props;
     return (
@@ -32,7 +63,7 @@ class Cart extends Component {
           <td width="17.5%">{`$${listItem.pricePerDay}`}</td>
           <td className="tb_pay_per">{`$${listItem.pricePerDay * days(listItem.startDate, listItem.endDate)}`}</td>
           <td  className="d-md-none d-lg-table-cell edit_gear_td">
-            <Link to={`/editgear/${listItem.gearid}`}><span className="edit_gear"/></Link>
+            <span className="edit_gear" onClick={() => this.handleEdit(listItem)}/>
           </td>
           <td >
             <i
@@ -105,7 +136,7 @@ class Cart extends Component {
   }
 
   render() {
-  const { carts, isLoading, isDeleting } = this.props;
+    const { carts, isLoading, isDeleting } = this.props;
     if (!carts) {
       return <BarLoader color="#F82462" height="5" />;
     }
@@ -113,7 +144,7 @@ class Cart extends Component {
     return (
       <React.Fragment>
         {
-            (isDeleting || isLoading) && <CustomSpinner/>
+          (isDeleting || isLoading) && <CustomSpinner/>
         }
         <div className="cart_view centered-content">
           <Breadcrumb className= "card_content_path">
@@ -129,20 +160,20 @@ class Cart extends Component {
             </div>
           </div>
           <div className="cart-table-div">
-              { !carts.length ? (
-                  <EmptyActivity e_name="Add from Favourites" e_path="/favourites" e_title="YOUR CART IS EMPTY" e_img_name = "cart"/>
-              ) :(
+            { !carts.length ? (
+              <EmptyActivity e_name="Add from Favourites" e_path="/favourites" e_title="YOUR CART IS EMPTY" e_img_name = "cart"/>
+            ) : (
             <Table className="theme-table">
               <thead className="cart-table-header">
-                  <tr className= "d-none d-lg-table">
-                    <th/>
-                    <th>Name & Category</th>
-                    <th>Rental Period</th>
-                    <th>Price Per Day</th>
-                    <th>Amount</th>
-                    <th></th>
-                    <th/>
-                  </tr>
+                <tr className= "d-none d-lg-table">
+                  <th/>
+                  <th>Name & Category</th>
+                  <th>Rental Period</th>
+                  <th>Price Per Day</th>
+                  <th>Amount</th>
+                  <th></th>
+                  <th/>
+                </tr>
               </thead>
               <tbody>
               {this.renderCartItems()}
@@ -155,6 +186,18 @@ class Cart extends Component {
             <button className="theme-btn theme-btn-primary theme-btn-link col-14 continue-shpping-mobile-btn"><Link to="/rentgear">Continue Shopping</Link></button>
           </div>
         </div>
+        {
+          this.state.isModalOpen &&
+          <CartModal2
+            open={true}
+            dlg_model={2}
+            onClose={this.handleClose}
+            setPeriod={this.savePeriod}
+            startDate={this.state.startDate}
+            endDate={this.state.endDate}
+            gear={this.state.gear}
+          />
+        }
       </React.Fragment>
     );
   }

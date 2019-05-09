@@ -22,6 +22,15 @@ class CartModal2 extends Component {
         };
     }
 
+    componentDidMount() {
+        const { dlg_model, gear } = this.props;
+        dlg_model === 2 &&
+            this.setState({
+                startDate: new Date(gear.startDate),
+                endDate: new Date(gear.endDate)
+            });
+    }
+
     setOpenState = (ost1, ost2) => {
         this.setState({
             open_date_picker1: ost1,
@@ -77,6 +86,11 @@ class CartModal2 extends Component {
         });
     };
 
+    handleEdit = () => {
+        this.setState({busy: true});
+        this.props.setPeriod(this.state.startDate, this.state.endDate);
+    };
+
     handleClose = (e) => {
         if (this.state.busy)
             e.preventDefault();
@@ -85,7 +99,7 @@ class CartModal2 extends Component {
     };
 
     render() {
-        const { open, dlg_model, onSubmit, gear } = this.props;
+        const { open, dlg_model, gear } = this.props;
         const { brand, model, pricePerDay } = gear;
         const duration = calcDaysDiff(this.state.startDate, this.state.endDate) + 1;
         const start_date_str = getDateStr(this.state.startDate);
@@ -104,7 +118,7 @@ class CartModal2 extends Component {
             btn_label2 = 'Add to Cart';
         } else {
             btn_label1 = 'Cancel';
-            btn_label2 = 'submit';
+            btn_label2 = 'Submit';
             dlg_heading = 'Edit';
         }
 
@@ -171,12 +185,20 @@ class CartModal2 extends Component {
                         </div>
                     </div>
                     <div className='modal-cart-control row'>
-                        <button className='cart-control-left-button theme-btn theme-btn-primary' onClick={(e) => this.handleClose(e)}>{btn_label1}</button>
+                        <button
+                            className='cart-control-left-button theme-btn theme-btn-primary'
+                            onClick={(e) => this.handleClose(e)}>
+                                {btn_label1}
+                        </button>
                         <div className='cart-button-space'></div>
-                        <button className='cart-control-right-button theme-btn theme-btn-primary'
-                            onClick={() => {dlg_model === 1 ? this.handleAddToCart() : onSubmit()}}
-                            disabled={this.state.busy ? 'disabled' : ''}
-                        >
+                        <button
+                            className='cart-control-right-button theme-btn theme-btn-primary'
+                            onClick={() => {
+                                dlg_model === 1 ?
+                                    this.handleAddToCart() :
+                                    this.handleEdit()}
+                            }
+                            disabled={this.state.busy ? 'disabled' : ''}>
                             {
                                 this.state.busy ? <Inline size={64} color={"#fff"} /> : btn_label2
                             }

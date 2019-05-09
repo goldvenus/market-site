@@ -68,7 +68,8 @@ class Register extends Component {
 
   render() {
     const { password, confirmPassword, username, fullName, fileName, phoneNumber } = this.state;
-    const { isRegistered, isRegistering } = this.props;
+    let { isRegistered, isRegistering } = this.props;
+    isRegistered = true;
     return (
     <React.Fragment>
       <div className="auth-nav-bar">
@@ -83,17 +84,19 @@ class Register extends Component {
         }
         {
           isRegistered ? (
-            <div className="login success-message">
-              <h1 className="header"><i className="fa fa-check-circle primary-color"></i> Successfully</h1>
-              <div className="subheader">
-                <span>
-                  To confirm your account,<br/> check your email for verification code
-                </span>
-              </div>
-              <div className="flex-row navigation-buttons">
-                <button className="theme-btn theme-btn-secondery theme-btn-link"><Link to="/">Home Page</Link></button>
-                <button className="theme-btn theme-btn-primary theme-btn-link"><Link
-                  to={{ pathname: '/confirm', state: { email: username } }}>Sign In</Link></button>
+            <div className="success-message-container">
+              <div className="login success-message register-success-message">
+                <h1 className="header"><i className="fa fa-check-circle primary-color"></i> Successfully</h1>
+                <div className="subheader">
+                  <span>
+                    To confirm your account,<br/> check your email for verification code
+                  </span>
+                </div>
+                <div className="flex-row navigation-buttons">
+                  <button className="theme-btn theme-btn-secondery theme-btn-link"><Link to="/">Home Page</Link></button>
+                  <button className="theme-btn theme-btn-primary theme-btn-link"><Link
+                    to={{ pathname: '/confirm', state: { email: username } }}>Sign In</Link></button>
+                </div>
               </div>
             </div>) : (
             <div className="login register">

@@ -237,9 +237,22 @@ class Favourites extends Component {
           </div>
           {
             this.state.modal_open_st === 2 ?
-              <CartModal2 dlg_model={1} gear={gear} open={this.state.modal_open_st === 2} onClose={this.onCloseModal} addToCart={this.addToCart}></CartModal2> :
+              <CartModal2
+                  dlg_model={1}
+                  gear={gear}
+                  open={true}
+                  onClose={this.onCloseModal}
+                  addToCart={this.addToCart}
+              /> :
             this.state.modal_open_st === 1 ?
-              <CartModal1 carted={this.state.carted} gear={gear} start_date={this.state.cart_info.start_date} end_date={this.state.cart_info.end_date} open={this.state.modal_open_st === 1} onClose={this.onCloseModal}></CartModal1> : null
+              <CartModal1
+                  carted={this.state.carted}
+                  gear={gear}
+                  start_date={this.state.cart_info.start_date}
+                  end_date={this.state.cart_info.end_date}
+                  open={true}
+                  onClose={this.onCloseModal}
+              /> : null
           }
         </div>
       </React.Fragment>

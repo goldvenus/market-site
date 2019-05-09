@@ -282,10 +282,22 @@ class Main extends Component {
               </TabContent>
                 {
                     this.state.modal_open_st === 2 ?
-                        <CartModal2 dlg_model={1} gear={this.state.gear} open={this.state.modal_open_st === 2} onClose={this.onCloseModal} addToCart={this.addToCart} /> :
+                        <CartModal2
+                            dlg_model={1}
+                            gear={this.state.gear}
+                            open={true}
+                            onClose={this.onCloseModal}
+                            addToCart={this.addToCart}
+                        /> :
                     this.state.modal_open_st === 1 ?
-                        <CartModal1 carted={this.state.carted} gear={this.state.gear} start_date={this.state.cart_info.start_date} end_date={this.state.cart_info.end_date} open={this.state.modal_open_st === 1} onClose={this.onCloseModal} /> :
-                        null
+                        <CartModal1
+                            carted={this.state.carted}
+                            gear={this.state.gear}
+                            start_date={this.state.cart_info.start_date}
+                            end_date={this.state.cart_info.end_date}
+                            open={true}
+                            onClose={this.onCloseModal}
+                        /> : null
                 }
             </React.Fragment>
         }

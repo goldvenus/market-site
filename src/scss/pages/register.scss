@@ -1,9 +1,16 @@
+.success-message-container {
+  padding: 60px;
+}
 .login.success-message {
+  padding: 0 !important;
+  display: block;
+  margin-top: 35vh;
+
   .header {
     font-size: 43px;
 
     i {
-      font-size: 35px !important;
+      font-size: 43px;
     }
   }
 
@@ -19,9 +26,13 @@
 
   .navigation-buttons {
     button {
-      padding: 2px 40px;
+      padding: 5px 40px;
+      border: solid 1px #ddd !important;
       width: 200px;
       font-weight: 600;
+      &:last-child {
+        border: solid 1px #f82462 !important;
+      }
     }
   }
 }
@@ -52,13 +63,16 @@
   }
 
   .header {
-    font-size: 35px !important;
+    font-size: 43px;
     margin-bottom: 25px;
     font-weight: 800;
   }
 
   .upload-photo-row {
     margin-top: -6px;
+    span {
+      color: #252525 !important;
+    }
 
     .theme-form-field {
       border-bottom: 1px solid #dbdbdb;
@@ -83,6 +97,7 @@
 
       button {
         padding: 5px 15px;
+        margin-bottom: 5px;
       }
     }
   }
@@ -144,6 +159,13 @@
     height: 70vh;
     border: none !important;
 
+    .header {
+      font-size: 34px;
+
+      i {
+        font-size: 34px;
+      }
+    }
     .subheader {
       width: 100%;
       text-align: center;
@@ -158,7 +180,7 @@
       margin-right: auto;
 
       button {
-        padding: 2px 15px !important;
+        padding: 8px 15px;
         width: 150px;
       }
     }
@@ -272,8 +294,17 @@
 }
 
 @media (max-width: 767px) {
+  .success-message-container {
+    padding: 0 !important;
+    display: flex;
+  }
+  .register-success-message {
+    margin: 0 !important;
+  }
   .success-message {
     border: none !important;
+    width: 100%;
+
     .header {
       font-family: Gotham Pro;
       font-size: 27px !important;
@@ -284,13 +315,20 @@
   }
   .navigation-buttons {
     button {
-      width: 100% !important;
-      padding: 2px 40px;
+      width: 48% !important;
+      padding: 2px 0px !important;
       font-weight: 600;
+      min-width: 100px !important;
+      margin: 0 !important;
+
       &:last-child {
         margin: 10px 0 !important;
       }
     }
   }
-
+  .flex-row.signin-link {
+    button {
+      min-width: 100px !important;
+    }
+  }
 }
