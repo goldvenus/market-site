@@ -186,7 +186,7 @@ class CartModal2 extends Component {
                     </div>
                     <div className='modal-cart-control row'>
                         <button
-                            className='cart-control-left-button theme-btn theme-btn-primary'
+                            className='cart-control-left-button theme-btn theme-btn-secondary'
                             onClick={(e) => this.handleClose(e)}>
                                 {btn_label1}
                         </button>

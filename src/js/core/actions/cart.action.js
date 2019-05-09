@@ -12,7 +12,7 @@ const addCart = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       let response = await post('addGearIntoCart', data);
-      if (response.data.status === 'success') {
+      if (response && response.data && response.data.status === 'success') {
         dispatch({
           type: constants.ADD_TO_CART_SUCCESS,
           payload: response.data.data
@@ -26,7 +26,19 @@ const addCart = (data) => {
         }
         handleInfo('Gear was added to cart');
       } else {
-        handleError('Adding to cart was failed');
+        let msg = 'Adding to cart was failed';
+        if (response.data && response.data.errorMessage) {
+          msg = response.data.errorMessage;
+          if (response.data.data.blocked) {
+              msg += " Gear is unavailable on these days: ";
+              msg += response.data.data.blocked.map((item) => (item.start_date + " - " + item.end_date)).join(", ");
+          }
+          if (response.data.data.booked.length > 0) {
+              msg += " Gear is in renting on these days: ";
+              msg += response.data.data.booked.map((item) => (item.start_date + " - " + item.end_date)).join(", ");
+          }
+        }
+        handleError(msg);
       }
       resolve(response.data.data);
     } catch (error) {
@@ -44,10 +56,26 @@ const editCart = async (data) => {
     try {
       let response = await post('editGearInCart', data);
       if (response.data.status === 'success') {
-        handleInfo('Gear was added to cart');
+        dispatch({
+          type: constants.EDIT_CART_ITEM_SUCCESS,
+          payload: data
+        });
+        handleInfo('Edited successfully');
         resolve(true);
       } else {
-        handleError('Cart edit was filed');
+        let msg = "Editing failed! ";
+        if (response.data && response.data.errorMessage) {
+          msg = response.data.errorMessage;
+          if (response.data.data.blocked) {
+              msg += " Gear is unavailable on these days: ";
+              msg += response.data.data.blocked.map((item) => (item.start_date + " - " + item.end_date)).join(", ");
+          }
+          if (response.data.data.booked.length > 0) {
+              msg += " Gear is in renting on these days: ";
+              msg += response.data.data.booked.map((item) => (item.start_date + " - " + item.end_date)).join(", ");
+          }
+        }
+        handleError(msg);
         resolve(false);
       }
     } catch (error) {

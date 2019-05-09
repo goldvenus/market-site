@@ -59,7 +59,7 @@ class CartModal1 extends Component {
                         </div>
                     </div>
                     <div className='modal-cart-control row'>
-                        <button className='cart-control-left-button theme-btn theme-btn-primary' onClick={() => {
+                        <button className='cart-control-left-button theme-btn theme-btn-secondary' onClick={() => {
                             !carted ? onClose() : history.push('/cart');
                         }}>{btn_label1}</button>
                         <div className='cart-button-space'></div>

@@ -22,6 +22,16 @@ export default (state = initialState, action) => {
                 draft.isLoading = false;
                 break;
 
+            case constants.EDIT_CART_ITEM_SUCCESS:
+                draft.carts = draft.carts.map((item) =>
+                    item.orderid === action.payload.orderid ? {
+                            ...item,
+                            startDate: action.payload.startDate,
+                            endDate: action.payload.endDate
+                        } : item
+                );
+                break;
+
             case constants.GET_CARTS_REQUEST:
                 draft.isLoading = true;
                 break;

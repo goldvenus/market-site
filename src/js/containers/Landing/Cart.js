@@ -32,7 +32,13 @@ class Cart extends Component {
 
   savePeriod = async (startDate, endDate) => {
     let newGear = {...this.state.gear, startDate: formatDate(startDate), endDate: formatDate(endDate)};
-    let ret = await editCart(newGear);
+    let ret = await editCart({
+        gearid: newGear.gearid,
+        orderid: newGear.orderid,
+        ownerid: newGear.ownerUserid,
+        startDate: newGear.startDate,
+        endDate: newGear.endDate
+    });
     ret ? this.setState({
         isModalOpen: false,
         gear: newGear

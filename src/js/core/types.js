@@ -75,6 +75,9 @@ export default keyMirror({
     ADD_TO_CART_SUCCESS: null,
     ADD_TO_CART_FAILED: null,
 
+    // edit cart
+    EDIT_CART_ITEM_SUCCESS: null,
+
     // delete cart
     DELETE_CART_ITEM_REQUEST: null,
     DELETE_CART_ITEM_SUCCESS: null,
