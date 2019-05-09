@@ -216,8 +216,6 @@ const getUser = async () => {
                         type: constants.GET_USER_SUCCESS,
                         payload: response.data.userAttributes
                     });
-                    await getCarts();
-                    await getFavourites();
                 }
             }
         }

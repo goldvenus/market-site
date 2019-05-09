@@ -8,14 +8,13 @@ class LineChart extends Component {
     this.ctx = 'lineChart';
   }
 
-  componentDidUpdate() {
+  componentDidMount() {
     const { series } = this.props;
-    console.log(series);
     if(series) {
       const COLORS = [
-      	'#4dc9f6',
-      	'#f67019',
-      	'#f53794',
+      	'#F82462',
+      	'#B037CE',
+      	'#3C6BE2',
       	'#537bc4',
       	'#acc236',
       	'#166a8f',

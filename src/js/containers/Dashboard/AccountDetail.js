@@ -20,7 +20,6 @@ class AccountDetail extends Component {
       newPwd: '',
       confirmPwd: ''
     };
-
     getUser();
   }
 

@@ -37,22 +37,8 @@ class Dashboard extends Component {
   render() {
     // const Listing_Items = this.props.userListings;
     const { user, isAuthenticated, dashboard } = this.props;
-    let series = {
-      totalEarnings: [],
-      monthlyAverage: [],
-      inventory: []
-    };
-
     if (!user || !dashboard) {
       return <BarLoader color="#F82462" height="5"/>;
-    }
-
-    if (dashboard && dashboard.monthlyTotalEarning) {
-      series = {
-        totalEarnings: dashboard.monthlyTotalEarning,
-        monthlyAverage: dashboard.monthlyTotalAvarageEarning,
-        inventory: dashboard.monthlyProductsValue
-      };
     }
 
     return (
@@ -67,7 +53,7 @@ class Dashboard extends Component {
           <Container>
             <TabContent activeTab={this.state.activeTab}>
               <TabPane tabId="1">
-                <Chart series={series}/>
+                <Chart dashboard={dashboard}/>
               </TabPane>
               <TabPane tabId="2">
                 <AccountDetail/>
