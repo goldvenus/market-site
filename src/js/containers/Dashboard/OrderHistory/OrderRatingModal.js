@@ -6,7 +6,7 @@ import { getDateStr, days } from "../../../core/helper"
 import Rating from "react-rating";
 import { Link } from "react-router-dom";
 
-class OrderRating extends Component {
+class OrderRatingModal extends Component {
     constructor(props) {
         super(props);
 
@@ -26,7 +26,7 @@ class OrderRating extends Component {
         return (
 
                 <Modal open={this.state.open} onClose={this.handleClose} center classNames={{modal: "order-modal"}}>
-                    <div className="d-lg-block d-md-none d-sm-none d-none">
+                    <div className="order-modal-desktop-tablet">
                         <div className="order-modal-header">
                             <span>{info.ProjectName}<i className="edit_icon"/></span>
                         </div>
@@ -42,19 +42,17 @@ class OrderRating extends Component {
                                             return <div key={`cart-item-${index}`} className="paid-item">
                                                 <div className='pay-info pay-info-history'>
                                                     <div className='item-info'>
-                                                        <div>
-                                                            <div className='category-name'>{listItem.categoryName}</div>
-                                                            <div className='brand-model'>{listItem.brand + ' ' + listItem.model}</div>
-                                                        </div>
+                                                        <span className='category-name'>{listItem.categoryName}</span>
+                                                        <span className='brand-model'>{listItem.brand + ' ' + listItem.model}</span>
                                                     </div>
                                                     <div className='buyer-info'>
                                                         <div className='buyer-info-left'>
-                                                            <div className='category-name'>Owner Name</div>
+                                                            <div className='category-name'>Landlord</div>
                                                             <div className='buyer-profile owner-profile'>
                                                                 <img src={listItem.numberOfUserImage[0]} alt="number of user" ></img>
                                                                 <div>
-                                                                    <span>Jakob Storm</span>
-                                                                    <span>+1 (123) 562-42-11</span>
+                                                                    <span className="duration">Jakob Storm</span>
+                                                                    <span className="phone-number">+1 (123) 562-42-11</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -69,13 +67,13 @@ class OrderRating extends Component {
                                                     <div className='payment-info'>
                                                         <div>
                                                             <div className="category-name">Period</div>
-                                                            <div>
+                                                            <div className="duration">
                                                                 {getDateStr(listItem.startDate)} - {getDateStr(listItem.endDate)}
                                                             </div>
                                                         </div>
                                                         <div>
                                                             <div className="category-name">Price</div>
-                                                            <div>
+                                                            <div className="total-detail-value">
                                                                 <b>${listItem.pricePerDay * days(Date(listItem.startDate), Date(listItem.endDate))}</b> for <b>{days(listItem.startDate, listItem.endDate)}</b> days
                                                             </div>
                                                         </div>
@@ -156,7 +154,7 @@ class OrderRating extends Component {
                             <button className='theme-btn theme-btn-primary'><Link to='/dashboard/#rent'>Rent History</Link></button>
                         </div>
                     </div>
-                    <div className="d-sm-block d-md-none d-lg-none order_rating_dialog_sm_parent">
+                    <div className="order-modal-mobile">
                         <div className="order-modal-header">
                             <span>{info.ProjectName}<i className="edit_icon"/></span>
                         </div>
@@ -198,12 +196,12 @@ class OrderRating extends Component {
                                                 </div>
                                                 <div className='payment-info d-block'>
                                                     <div>
-                                                        <div>
+                                                        <div className="duration">
                                                             {getDateStr(listItem.startDate)} - {getDateStr(listItem.endDate)}
                                                         </div>
                                                     </div>
                                                     <div>
-                                                        <div>
+                                                        <div className="total-detail-value">
                                                             <b>${listItem.pricePerDay * days(Date(listItem.startDate), Date(listItem.endDate))}</b> for <b>{days(listItem.startDate, listItem.endDate)}</b> days
                                                         </div>
                                                     </div>
@@ -289,4 +287,4 @@ class OrderRating extends Component {
     }
 }
 
-export default OrderRating
+export default OrderRatingModal

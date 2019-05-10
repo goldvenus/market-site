@@ -5,7 +5,7 @@ import Modal from "react-responsive-modal";
 import { days, getDateStr } from "../../../core/helper"
 import { Link } from "react-router-dom";
 
-class OrderConfirm extends Component {
+class OrderConfirmModal extends Component {
     handleClose = () => {
         this.props.close();
     };
@@ -30,24 +30,22 @@ class OrderConfirm extends Component {
                                 return <div key={`cart-item-${index}`} className="paid-item">
                                 <div className='pay-info pay-info-history'>
                                     <div className='item-info'>
-                                        <div>
-                                            <div className='category-name'>{listItem.categoryName}</div>
-                                            <div className='brand-model'>{listItem.brand + ' ' + listItem.model}</div>
-                                        </div>
+                                        <span className='category-name'>{listItem.categoryName}</span>
+                                        <span className='brand-model'>{listItem.brand + ' ' + listItem.model}</span>
                                     </div>
                                     <div className='buyer-info'>
                                         <div className='buyer-info-left'>
-                                            <div className='category-name'>{localStorage.username}</div>
+                                            <div className='grey-small-text'>Landlord</div>
                                             <div className='buyer-profile owner-profile'>
                                                 <img src={listItem.numberOfUserImage[0]} alt="Number of User" />
                                                 <div>
-                                                    <span>Jakob Storm</span>
-                                                    <span>+1 (123) 562-42-11</span>
+                                                    <span className="duration">Jakob Storm</span>
+                                                    <span className="phone-number">+1 (123) 562-42-11</span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className='buyer-info-right'>
-                                            <div className='category-name'>Address</div>
+                                            <div className='grey-small-text'>Address</div>
                                             <div className='period-price'>
                                                 <div>{info.Addr},</div>
                                                 <div>{info.Zip} {info.Region}</div>
@@ -56,13 +54,13 @@ class OrderConfirm extends Component {
                                     </div>
                                     <div className='payment-info'>
                                         <div>
-                                            <div className="category-name">Period</div>
-                                            <div>
+                                            <div className="grey-small-text">Period</div>
+                                            <div className="duration">
                                                 {getDateStr(listItem.startDate)} - {getDateStr(listItem.endDate)}
                                             </div>
                                         </div>
                                         <div>
-                                            <div className="category-name">Price</div>
+                                            <div className="grey-small-text">Price</div>
                                             <div>
                                                 <b>${listItem.pricePerDay * days(Date(listItem.startDate), Date(listItem.endDate))}</b> for <b>{days(listItem.startDate, listItem.endDate)}</b> days
                                             </div>
@@ -95,13 +93,13 @@ class OrderConfirm extends Component {
                             <div>
                                 <div><span className="text-gray">Paid with</span></div>
                                 <div className="payment-card">
-                                    <div className="flex-row">
+                                    <div className="flex-row payment-card-info">
                                         <img src="/images/cards/master-card.svg" alt=""/>
                                         <div className="payment-card-number">**** {info.CardNumber.substr(-4, 4)}</div>
                                     </div>
                                     <div className="flex-row payment-card-other">
                                         <span>{expiration_date}</span>
-                                        <span>{info.CardHolder}</span>
+                                        <span className="card-holder">{info.CardHolder}</span>
                                     </div>
                                 </div>
                             </div>
@@ -221,4 +219,4 @@ class OrderConfirm extends Component {
     }
 }
 
-export default OrderConfirm
+export default OrderConfirmModal

@@ -6,8 +6,8 @@ import { Table } from 'reactstrap';
 import { getOrderHistory } from '../../core/actions/dashboard.action';
 import { days, getDateStr } from "../../core/helper";
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
-import OrderConfirm from "./OrderHistory/OrderConfirm"
-import OrderRating from "./OrderHistory/OrderRating"
+import OrderConfirmModal from "./OrderHistory/OrderConfirmModal"
+import OrderRatingModal from "./OrderHistory/OrderRatingModal"
 import BarLoader from "react-bar-loader";
 import $ from "jquery";
 import {Pagination, PaginationItem, PaginationLink} from 'reactstrap';
@@ -96,7 +96,7 @@ class OrderHistory extends Component {
                             <span className='grey-small-text'>{days(Date(first_item.startDate), Date(first_item.endDate))} days</span>
                         </div>
                         <div className="owner">
-                            <span className="grey-small-text">Landrord</span>
+                            <span className="grey-small-text">Landlord</span>
                             <span className="owner-name">Josh Stapleton</span>
                         </div>
                         <div className="order-item-bottom">
@@ -203,7 +203,7 @@ class OrderHistory extends Component {
                                 <span className='grey-small-text'>{days(Date(first_item.startDate), Date(first_item.endDate))} days</span>
                             </div>
                             <div className="owner">
-                                <span className="grey-small-text">Landrord</span>
+                                <span className="grey-small-text">Landlord</span>
                                 <span className="owner-name">Josh Stapleton</span>
                             </div>
                             <div className="order-price-per-day">
@@ -302,9 +302,9 @@ class OrderHistory extends Component {
                     }
                     {
                         this.state.modal_open_st === 1 ?
-                            <OrderConfirm info={this.props.histories[this.state.cur_proj]} close={this.handleClose}/> :
+                            <OrderConfirmModal info={this.props.histories[this.state.cur_proj]} close={this.handleClose}/> :
                         this.state.modal_open_st === 2 ?
-                            <OrderRating info={this.props.histories[this.state.cur_proj]} close={this.handleClose}/> : null
+                            <OrderRatingModal info={this.props.histories[this.state.cur_proj]} close={this.handleClose}/> : null
                     }
                 </div>
             </React.Fragment>
