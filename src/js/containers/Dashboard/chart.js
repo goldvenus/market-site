@@ -19,10 +19,9 @@ export default function ({dashboard}) {
   let monthlyProductsValue = dashboard.monthlyProductsValue.reduce((total, item) => total + item.Value, 0);
 
   return (
-    <Row className="chart">
-      <Col sm="24">
-        <h4 className="tab-title">Dashboard</h4>
-        <div className="wrraper_dashboard">
+    <div className="chart">
+      <h4 className="tab-title">Dashboard</h4>
+      <div className="wrraper_dashboard dashboard-chart-wrapper">
           <Row className="line-chart">
             <div className="chart-wrapper-left">
               <LineChart series={series} />
@@ -64,7 +63,6 @@ export default function ({dashboard}) {
             </Col>
           </Row>
         </div>
-      </Col>
-    </Row>
+    </div>
   );
 }

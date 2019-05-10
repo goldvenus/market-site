@@ -3,7 +3,6 @@ import { Form, FormGroup } from 'reactstrap';
 import TextField from "@material-ui/core/TextField/TextField";
 import connect from "react-redux/es/connect/connect";
 import BarLoader from "react-bar-loader";
-import { Row, Col } from 'reactstrap';
 import {getUser, updatePassword, updateUser} from "../../core/actions/user.action";
 import { handleError } from "../../core/actions/common.action";
 import CustomSpinner from "../../components/CustomSpinner";
@@ -93,10 +92,9 @@ class AccountDetail extends Component {
     return (
       <React.Fragment>
         {isUpdating && <CustomSpinner/>}
-        <Row className="account-detail">
-          <Col sm="24">
-            <h4 className="tab-title">Account Details</h4>
-            <div className="wrapper-detail">
+        <div className="account-detail">
+          <h4 className="tab-title">Account Details</h4>
+          <div className="wrapper-detail">
               <div className="detail-left-wrapper">
                 <div className="account-detail-heading" >INFO</div>
                 <div className="account-detail-body">
@@ -174,8 +172,7 @@ class AccountDetail extends Component {
               </div>
               </div>
             </div>
-          </Col>
-        </Row>
+        </div>
       </React.Fragment>
     )
   }

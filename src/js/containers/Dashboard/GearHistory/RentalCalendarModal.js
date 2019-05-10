@@ -164,7 +164,7 @@ class RentalCalendarModal extends React.Component {
 
             let res = await setBlockPeriod({period_arr, gearid});
             if (res.status === 'success') {
-                // await getListGears();
+                await getListGears();
                 handleInfo("Period was set successfully");
                 this.setState({open: 0});
             } else {

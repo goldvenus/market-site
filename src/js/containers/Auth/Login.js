@@ -10,6 +10,7 @@ import { FACEBOOK_LOGIN_URL } from '../../core/constants';
 import CustomSpinner from "../../components/CustomSpinner";
 import TextField from "@material-ui/core/TextField/TextField";
 import Navbar from "../../components/common/Navbar/Navbar";
+import {handleError} from "../../core/actions/common.action";
 
 class Login extends Component {
   constructor(props) {
@@ -29,6 +30,10 @@ class Login extends Component {
 
   submit = e => {
       e.preventDefault();
+      if (!e.target.username.value || !e.target.password.value) {
+          handleError("Please input email and password");
+          return;
+      }
       const data = formSerialize(e.target, {hash: true});
       this.props.login(data);
   };

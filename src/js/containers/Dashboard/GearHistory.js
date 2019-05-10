@@ -1,5 +1,5 @@
 import React from 'react';
-import {Row, Col} from 'reactstrap';
+import {Row} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import {Pagination, PaginationItem, PaginationLink, Table} from 'reactstrap';
 import "react-tabs/style/react-tabs.css";
@@ -9,25 +9,21 @@ import connect from "react-redux/es/connect/connect";
 import RentalCalendarModal from "./GearHistory/RentalCalendarModal";
 import GearEditModal from "./GearHistory/GearEditModal";
 import BarLoader from "react-bar-loader";
+import $ from 'jquery';
 
 const MyListingItem = ({ listItem, openEdit, openCalendar }) => (
     <React.Fragment>
         <tr className="desktop-gear-item">
-            <td width="5%" className="d-md-none d-none d-lg-table-cell listing-data-image">{<img
-                src={listItem.numberOfUserImage[0]} className="gear-img" alt="Number of User"/>}</td>
-            <td width="20%" className="d-lg-none d-md-table-cell listing-data-image">{<img
-                src={listItem.numberOfUserImage[0]} className="gear-img" alt="Number of User"/>}</td>
-            <td className="d-none d-lg-table-cell" width="20%">
+            <td width="5%" className="d-lg-table-cell listing-data-image">
+                <img src={listItem.numberOfUserImage[0]} className="gear-img" alt="Number of User"/>
+            </td>
+            <td className="d-lg-table-cell" width="20%">
                 <p className="gear-brand">{listItem.brand}</p>
                 <p className="theme-text-small gear-category text-muted">{listItem.categoryName}</p>
             </td>
-            <td className="listing-p d-lg-none d-md-table-cell" width="40%">
-                <p className="theme-text-small gear-category text-muted table-content-name">{listItem.categoryName}</p>
-                <p className="table-content-name-body gear-brand">{listItem.brand}</p>
-            </td>
-            <td className="d-none d-lg-table-cell gear-price-per-day" width="15%">${listItem.pricePerDay} </td>
-            <td className="d-none d-lg-table-cell gear-replacement-value" width="15%">${listItem.replacementValue}</td>
-            <td className="d-none d-lg-table-cell" width="15%">
+            <td className="d-lg-table-cell gear-price-per-day" width="15%">${listItem.pricePerDay} </td>
+            <td className="d-lg-table-cell gear-replacement-value" width="15%">${listItem.replacementValue}</td>
+            <td className="d-lg-table-cell" width="15%">
                 <button className='theme-btn rent-cal-btn' onClick={() => openCalendar(listItem.gearid)}>Rental Calendar</button>
             </td>
             <td width="15%" className="edit-gear-td">
@@ -35,19 +31,30 @@ const MyListingItem = ({ listItem, openEdit, openCalendar }) => (
             </td>
         </tr>
         <tr className="tablet-gear-item">
-            <td width="5%" className="listing-data-image">{<img
-                src={listItem.numberOfUserImage[0]} className="gear-img" alt="Number of User"/>}</td>
-            <td className="" width="20%">
-                <p className="gear-brand">{listItem.brand}</p>
-                <p className="theme-text-small gear-category text-muted">{listItem.categoryName}</p>
+            <td width="15%" className="listing-data-image">
+                <img src={listItem.numberOfUserImage[0]} className="gear-img" alt="Number of User"/>
             </td>
-            <td className="gear-price-per-day" width="15%">${listItem.pricePerDay} </td>
-            <td className="gear-replacement-value" width="15%">${listItem.replacementValue}</td>
-            <td className="" width="15%">
-                <button className='theme-btn rent-cal-btn' onClick={() => openCalendar(listItem.gearid)}>Rental Calendar</button>
+            <td width="45%">
+                <div className="brand-category-wrapper">
+                    <p className="gear-brand">{listItem.brand}</p>
+                    <p className="theme-text-small gear-category text-muted">{listItem.categoryName}</p>
+                </div>
             </td>
-            <td width="15%" className="edit-gear-td">
-                <span className="edit_my_gear" onClick={() => openEdit(listItem.gearid)}/>
+            <td width="40%">
+                <div className="price-wrapper">
+                    <div>
+                        <div className="gear-category">Price per day</div>
+                        <div className="gear-price-per-day">${listItem.pricePerDay}</div>
+                    </div>
+                    <div>
+                        <div className="gear-category">Amouth</div>
+                        <div className="gear-replacement-value">${listItem.replacementValue}</div>
+                    </div>
+                </div>
+                <div className="control-wrapper">
+                    <span className='edit-rental-calendar' onClick={() => openCalendar(listItem.gearid)}/>
+                    <span className="edit_my_gear" onClick={() => openEdit(listItem.gearid)}/>
+                </div>
             </td>
         </tr>
     </React.Fragment>
@@ -76,8 +83,7 @@ const MyListingItemSm = ({ listItem, openEdit, openCalendar }) => (
         </div>
         <div className="d-flex slspd_third">
             <div className="slspdt_rental_btn">
-                <button className='theme-btn rent-cal-btn' onClick={() => openCalendar(listItem.gearid)}>Rental Calendar
-                </button>
+                <span className='edit-rental-calendar' onClick={() => openCalendar(listItem.gearid)}/>
             </div>
             <div className="edit-gear-td slspdt_edit_icon">
                 <span className="edit_my_gear" onClick={() => openEdit(listItem.gearid)}/>
@@ -98,6 +104,13 @@ class MyListings extends React.Component {
             cur_gear: null
         };
         getListGears();
+    }
+
+    componentDidUpdate() {
+        $(function () {
+            $(".pagination .page-item:first-child a").html("<");
+            $(".pagination .page-item:last-child a").html(">");
+        })
     }
 
     handleOpenRentalCalendar = (gearid) => {
@@ -131,7 +144,7 @@ class MyListings extends React.Component {
         return (
             <div>
                 <Row className="my-listing my-listing-tabs gear-history-top-panel">
-                    <Col sm="24" className="listing-body calendar_all_parent">
+                    <div className="listing-body calendar_all_parent">
                         <div className="d-flex align-items-center">
                             <h4 className="tab-title tab-title-listings">My Gear</h4>
                             <button className="theme-btn theme-btn-primary ml-auto"><Link to="/addgear">Add Gear</Link>
@@ -183,8 +196,7 @@ class MyListings extends React.Component {
                                                 </tbody>
                                             </Table>
                                         </div>
-                                        <Pagination aria-label="Page navigation example"
-                                                    className="listing-data-pagenation">
+                                        <Pagination aria-label="Page navigation example" className="dashboard-pagination">
                                             <PaginationItem disabled={currentPage <= 0}>
                                                 <PaginationLink
                                                     onClick={e => this.handleClick(e, currentPage - 1)}
@@ -214,7 +226,7 @@ class MyListings extends React.Component {
                                 )
                             }
                         </div>
-                    </Col>
+                    </div>
                 </Row>
                 {
                     this.state.modal_open_st === 2 ?

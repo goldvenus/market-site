@@ -1,6 +1,8 @@
 .dashboard {
   width: 100%;
-
+  .tab-content {
+    padding: 0 15px;
+  }
   .dashboard-head {
     padding: 2.5rem 0 0;
     background-color: $gray-light;
@@ -73,10 +75,9 @@
   }
   .dashboard-body {
     padding: 23px 0px 44px 0px !important;
-    .listing-data-pagenation{
+    .dashboard-pagination {
       margin-top: 15px;
     }
-
     .fa-table-selected{
       margin-top: -50px;
       .react-tabs__tab-list{
@@ -233,7 +234,6 @@
             width: 100%;
           }
         }
-
         .text-muted {
           color: #A4A4A4 !important;
         }
@@ -242,12 +242,13 @@
         }
       }
     }
-
     .my-listing {
+      .listing-body {
+        width: 100%;
+      }
       a.theme-btn-primary {
         padding-top: 9px !important;
       }
-
       .wrraper_dashboard {
         background-color: $gray-light;
         padding: 30px;
@@ -327,34 +328,47 @@
               }
             }
           }
-
           th {
             font-weight: lighter;
           }
-
           .gear, .rental-period {
             p {
               margin: 0.25rem;
-              //text-align: left;
             }
           }
-
           td {
             vertical-align: middle;
-
             .gear-img {
               width: 70%;
             }
-
             .landrord-img {
               width: 25%;
               border-radius: 50%;
             }
           }
         }
-
         .pagination {
+          display: flex !important;
           justify-content: center;
+          font-family: Gotham Pro;
+          font-size: 16px;
+          line-height: 23px;
+          letter-spacing: 0.09em;
+          text-transform: uppercase;
+          color: #252525;
+
+          .page-item {
+            &:first-child {
+              .page-link {
+                span {
+                  visibility: hidden;
+                }
+              }
+            }
+            &:last-child a {
+              content: "\u003C";
+            }
+          }
 
           .page-link {
             color: $secondary-light-color;
@@ -376,10 +390,7 @@
 
       .my-rental {
         .wrraper_dashboard {
-          background-color: $gray-light;
-          padding: 30px;
           text-align: center;
-
           padding: 0;
           background-color: white;
         }
@@ -397,6 +408,7 @@
         margin: 0px auto 0px auto;
         max-width: 269px;
         height: 40px;
+
         li{
           width: 50%;
           padding-top: 10px;
@@ -404,6 +416,8 @@
           transition: all 0.3s;
           bottom: auto;
           color: #f74962;
+          border:none;
+          background: transparent;
 
           .list-menu-letter{
             margin: 0 auto !important;
@@ -411,20 +425,15 @@
           .list-calendar-letter{
             margin: 0 auto !important;
           }
-
-i{
-  margin-right: 5px;
-  font-size: 13px;
-}
-          border:none;
-          background: transparent;
-          &.react-tabs__tab--selected{
-background: #f74962;
-border-radius: 30px;
-color: #fff
-
+          i{
+            margin-right: 5px;
+            font-size: 13px;
           }
-
+          &.react-tabs__tab--selected {
+            background: #f74962;
+            border-radius: 30px;
+            color: #fff;
+          }
         }
       }
     }
@@ -1191,6 +1200,11 @@ span.edit_my_gear {
 .tablet-gear-item {
   display: none;
 }
+.desktop-gear-item {
+  td {
+    border-top: none;
+  }
+}
 
 @media (min-width: 1078px) {
   .container {
@@ -1201,7 +1215,7 @@ span.edit_my_gear {
   }
 }
 
-@media(min-width: 500px)  {
+@media(min-width: 500px) {
   .navbar-wrapper{
     flex-wrap: nowrap;
     .navbar-menu{
@@ -1419,13 +1433,9 @@ span.edit_my_gear {
       display: none;
     }
   }
-
   .wrraper_dashboard .listing-data-slice tr td {
     border: none;
   }
-}
-
-@media (max-width: 1078px){
   .listing-data-thead {
     display: none !important;
   }
@@ -1441,16 +1451,10 @@ span.edit_my_gear {
   .card-body {
     border: solid 20px #f5f5f5 !important;
   }
-  .dashboard-head{
+  .dashboard-head {
     img{
       width: 141px !important;
       height: 141px !important;
-    }
-  }
-  .wrraper_dashboard {
-    img {
-      width: 90px !important;
-      height: 90px !important;
     }
   }
   .react-tabs__tab-list{
@@ -1477,7 +1481,13 @@ span.edit_my_gear {
     }
   }
   .wrraper_dashboard {
-    padding: 18px !important;
+    padding: 0px !important;
+    background-color: white !important;
+
+    img {
+      width: 90px !important;
+      height: 90px !important;
+    }
     .col-sm-12 {
       padding: 0;
       background-color: white;
@@ -1532,18 +1542,94 @@ span.edit_my_gear {
 
       }
     }
+
+    .listing-data-slice {
+      border-bottom: none !important;
+    }
+
+    .tablet-gear-item {
+      display: flex;
+      border: solid 16px #faf8f9;
+      border-bottom: none;
+      text-align: center;
+
+      &:last-child {
+        border-bottom: solid 16px #faf8f9 !important;
+      }
+      td {
+        display: grid;
+        align-items: center;
+        &:last-child {
+          border-left: solid 1px #f5f5f5;
+          padding: 0 !important;
+        }
+        p {
+          display: block;
+        }
+        .control-wrapper {
+          padding: 10px 20px !important;
+          display: flex;
+          justify-content: space-evenly;
+          align-items: center;
+        }
+        .price-wrapper {
+          display: flex;
+          border-bottom: solid 1px #f5f5f5;
+          padding: 10px 20px !important;
+          div {
+            width: 50% !important;
+            div {
+              width: 100% !important;
+            }
+          }
+          .gear-replacement-value, .gear-price-per-day {
+            font-size: 16px !important;
+          }
+        }
+        .gear-brand {
+          order: 2;
+        }
+      }
+      .gear-price-per-day, .gear-replacement-value {
+        font-family: HelveticaNeueCyr;
+        font-size: 16px;
+        line-height: 23px;
+        color: #252525;
+      }
+      .gear-replacement-value {
+        font-weight: 600;
+      }
+    }
+
+    .edit-rental-calendar {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      vertical-align: middle !important;
+      cursor: pointer;
+      background-image: url('/images/Icons/calendar/calendar.svg') !important;
+      background-repeat: no-repeat;
+      margin-top: 3px !important;
+
+      &:hover {
+        background-image: url('/images/Icons/calendar/calendar1.svg') !important;
+      }
+    }
   }
 
-  .tablet-gear-item {
-    display: flex;
+  .listing-data-tbody {
+    border-bottom: solid 16px #faf8f9 !important;
+  }
+
+  .dashboard-chart-wrapper {
+    border: solid 18px #faf8f9;
+    background-color: #faf8f9 !important;
   }
 }
 
 @media (max-width: 767px) {
   .wrraper_dashboard {
     padding: 0 !important;
-    margin-top: 10px;
-    border: solid 16px #faf8f9 !important;
 
     .payment-card {
       width: 100% !important;
@@ -1556,6 +1642,9 @@ span.edit_my_gear {
     .listing-data-slice {
       border-left: 17px solid #faf8f9;
       border-right: 17px solid #faf8f9;
+      .tablet-gear-item {
+        display: none;
+      }
     }
 
     .line-chart {
@@ -1566,6 +1655,7 @@ span.edit_my_gear {
       width: 100% !important;
       border: none !important;
       order: 2;
+      overflow: hidden;
     }
     .chart-wrapper-right {
       width: 100% !important;
@@ -1679,16 +1769,8 @@ span.edit_my_gear {
     border: none !important;
     margin-bottom: none !important;
   }
-  .mylistingitem_sm_parent_div {
-    border-top: none !important;
-    border-bottom: solid 16px #faf8f9 !important;
-    &:last-child {
-      border-bottom: none !important;
-    }
-  }
-
-  .wrraper-region {
-    padding: 0px 18px !important;
+  .table-responsive {
+    background: white;
   }
   .listing-data-image {
     margin: auto !important;
@@ -1701,15 +1783,21 @@ span.edit_my_gear {
   }
   .mylistingitem_sm_parent_div {
     display: grid;
-    border-bottom: none !important;
+    border: solid 10px #faf8f9 !important;
+    border-bottom: 0 !important;
+    text-align: center;
+
     &:last-child {
-      border-bottom: solid 17px #faf8f9;
+      border-bottom: solid 16px #faf8f9 !important;
     }
     .listing-data-image {
       width: 25%;
     }
     .mlspdf_name_tag {
       width: 75%;
+    }
+    .slspdt_rental_btn, .slspdt_edit_icon {
+      width: 50% !important;
     }
     .mlspdf_name_tag_categoryName {
       font-family: Helvetica Neue;
@@ -1736,6 +1824,18 @@ span.edit_my_gear {
         width: 50% !important;
       }
     }
+  }
+
+  .listing-data-tbody {
+    border-bottom: 0 !important;
+  }
+  .table-responsive {
+    margin-bottom: 0 !important;
+  }
+  .dashboard-chart-wrapper {
+    background-color: #faf8f9 !important;
+    border: solid 10px #faf8f9;
+    width: 100%;
   }
 }
 
@@ -1792,20 +1892,18 @@ span.edit_my_gear {
 
 
         }
-        .wrraper_dashboard{
+        .wrraper_dashboard {
           padding: 0px 16px !important;
 
-          .react-tabs__tab-panel{
-            .table-responsive{
-              .listing-data-slice{
+          .react-tabs__tab-panel {
+            .table-responsive {
+              .listing-data-slice {
                 width:340px !important;
-                .list-table-head{
+                .list-table-head {
                   display: none;
                 }
-                .listing-data-tbody{
+                .listing-data-tbody {
                   tr {
-                    width: 340px !important;
-                    height: 356px !important;
                     td {
                       border-top: 16px solid #f3f3f3 !important;
                       &:last-child {
