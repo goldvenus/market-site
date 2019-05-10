@@ -10,17 +10,30 @@ import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import OrderConfirm from "./OrderHistory/OrderConfirm"
 import OrderRating from "./OrderHistory/OrderRating"
 import BarLoader from "react-bar-loader";
+import $ from "jquery";
+import {Pagination, PaginationItem, PaginationLink} from 'reactstrap';
+import EmpetyList from "./Empety_list";
 
 class OrderHistory extends Component {
     constructor(props) {
         super(props);
 
+        this.pageSize = 3;
+        this.pagesCount = 0;
         this.state = {
+            currentPage: 0,
             modal_open_st: 0,
             cur_proj: 0
         };
 
         getOrderHistory();
+    }
+
+    componentDidUpdate() {
+        $(function () {
+            $(".pagination .page-item:first-child a").html("<");
+            $(".pagination .page-item:last-child a").html(">");
+        })
     }
 
     handleControl = (val) => {
@@ -34,11 +47,24 @@ class OrderHistory extends Component {
     handleClose = () => {
         this.setState({modal_open_st: 0});
     };
+
+    handleClick(e, index) {
+        e.preventDefault();
+        this.setState({
+            currentPage: index
+        });
+    }
+
     renderOrderHistoryItems_sm() {
-        const { histories } = this.props;
+        let { histories } = this.props;
+        let { currentPage } = this.state;
         if (!histories) {
             return <BarLoader color="#F82462" height="5"/>;
         }
+        histories = histories.slice(
+            currentPage * this.pageSize,
+            (currentPage + 1) * this.pageSize
+        );
 
         return (
             histories.map((listItem, index) => {
@@ -58,7 +84,7 @@ class OrderHistory extends Component {
                         <div className="status-bar-container">
                             <div className="status-bar status-bar1">Payment</div>
                             <div className="status-bar status-bar2">Pickup</div>
-                            <div className="status-bar status-bar3">Return</div>
+                            <div className="status-bar3">Return</div>
                         </div>
                         <div className="order_history_sm_gear_days">
                             <div className='history-rental-period' onClick={() => this.handleRating(index)}>{getDateStr(first_item.startDate)} - {getDateStr(first_item.endDate)}</div>
@@ -89,11 +115,17 @@ class OrderHistory extends Component {
             })
         );
     }
+
     renderOrderHistoryItems() {
-        const { histories } = this.props;
+        let { histories } = this.props;
+        let { currentPage } = this.state;
         if (!histories) {
             return <BarLoader color="#F82462" height="5"/>;
         }
+        histories = histories.slice(
+            currentPage * this.pageSize,
+            (currentPage + 1) * this.pageSize
+        );
 
         return (
             histories.map((listItem, index) => {
@@ -117,7 +149,7 @@ class OrderHistory extends Component {
                             <div className="status-bar-container">
                                 <div className="status-bar status-bar1">Payment</div>
                                 <div className="status-bar status-bar2">Pickup</div>
-                                <div className="status-bar status-bar3">Return</div>
+                                <div className="status-bar3">Return</div>
                             </div>
                         </td>
                         <td className="tb_pay_per" width="17.5%">{`$${parseFloat(listItem.Amount).toFixed(2)}`}</td>
@@ -127,8 +159,18 @@ class OrderHistory extends Component {
             })
         );
     }
+
     renderHistoriesItems_md() {
-        const { histories } = this.props;
+        let { histories } = this.props;
+        let { currentPage } = this.state;
+        if (!histories) {
+            return <BarLoader color="#F82462" height="5"/>;
+        }
+        histories = histories.slice(
+            currentPage * this.pageSize,
+            (currentPage + 1) * this.pageSize
+        );
+
         return (
             histories.map((listItem, index) => (
                 <div key={`cart-item-${index}`} className="d-lg-none d-sm-none d-md-block favo_table_root">
@@ -173,70 +215,94 @@ class OrderHistory extends Component {
     }
 
     render() {
+        const { currentPage } = this.state;
         const { histories } = this.props;
 
         if (!histories || histories.length < 1) {
             return null;
         }
+        this.pagesCount = Math.ceil(histories ? histories.length / this.pageSize : "");
 
         return (
             <React.Fragment>
-                <div className="row order-history-container">
-                    <div className="col-sm-24">
-                        <div className="cart-header ">
-                            <h4 className="tab-title">Order History</h4>
-                        </div>
-                        <div className="d-md-flex d-lg-none d-none md_show_buttons" >
-                            <button className="theme-btn theme-btn-secondery col-md-9"><Link to="/cart">Continue Shopping2</Link></button>
-                            <button className="theme-btn theme-btn-primary theme-btn-link col-md-14"><Link to="/checkout">Cart</Link></button>
-                        </div>
-                        <div className="cart-table-div">
-                            {
-                                !histories.length ?
-                                    (null
-                                    ) :(
-                                        <div>
-                                            <Table className="theme-table table order-history-table">
-                                                <thead className= "d-none d-lg-table">
-                                                    <tr>
-                                                        <th></th>
-                                                        <th>Project Name</th>
-                                                        <th>Rental Period</th>
-                                                        <th>Status</th>
-                                                        <th>Amount</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-
-                                                <tbody>
-                                                {
-                                                  this.renderOrderHistoryItems()
-                                                }
-
-                                                </tbody>
-
-                                            </Table>
-                                            <div className="order_history_sm_parent_div">
-                                                {this.renderOrderHistoryItems_sm()}
-                                            </div>
-                                        </div>
-                                    )}
-                            {
-                                this.renderHistoriesItems_md()
-                            }
-                        </div>
-
-                        <div className="d-flex d-md-none d-lg-none md_show_buttons" >
-                            <button className="theme-btn theme-btn-secondery col-md-14"><Link to="/cart">Continue Shopping</Link></button>
-                            <button className="theme-btn theme-btn-primary theme-btn-link col-md-9"><Link to="/checkout">Cart</Link></button>
-                        </div>
-                        {
-                            this.state.modal_open_st === 1 ?
-                                <OrderConfirm info={this.props.histories[this.state.cur_proj]} close={this.handleClose}/> :
-                            this.state.modal_open_st === 2 ?
-                                <OrderRating info={this.props.histories[this.state.cur_proj]} close={this.handleClose}/> : null
-                        }
+                <div className="order-history-container">
+                    <div className="cart-header ">
+                        <h4 className="tab-title">Order History</h4>
                     </div>
+                    <div className="d-md-flex d-lg-none d-none md_show_buttons" >
+                        <button className="theme-btn theme-btn-secondery col-md-9"><Link to="/cart">Continue Shopping2</Link></button>
+                        <button className="theme-btn theme-btn-primary theme-btn-link col-md-14"><Link to="/checkout">Cart</Link></button>
+                    </div>
+                    <div className="cart-table-div">
+                        { !histories.length ?
+                            ( <EmpetyList/> ) : (
+                                <div className="table-responsive">
+                                    <Table className="theme-table table order-history-table">
+                                        <thead className= "d-none d-lg-table">
+                                            <tr className="listing-data-thead">
+                                                <th></th>
+                                                <th>Project Name</th>
+                                                <th>Rental Period</th>
+                                                <th>Status</th>
+                                                <th>Amount</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        {
+                                          this.renderOrderHistoryItems()
+                                        }
+
+                                        </tbody>
+
+                                    </Table>
+                                    <div className="order_history_sm_parent_div">
+                                        {this.renderOrderHistoryItems_sm()}
+                                    </div>
+                                </div>
+                            )}
+                        { this.renderHistoriesItems_md() }
+                    </div>
+                    { histories.length > 0 &&
+                        <Pagination aria-label="Page navigation example" className="dashboard-pagination">
+                            <PaginationItem disabled={currentPage <= 0}>
+                                <PaginationLink
+                                    onClick={e => this.handleClick(e, currentPage - 1)}
+                                    previous
+                                    href="#"
+                                />
+                            </PaginationItem>
+
+                            {[...Array(this.pagesCount)].map((page, i) =>
+                                <PaginationItem active={i === currentPage} key={i}>
+                                    <PaginationLink onClick={e => this.handleClick(e, i)} href="#">
+                                        {i + 1}
+                                    </PaginationLink>
+                                </PaginationItem>
+                            )}
+
+                            <PaginationItem disabled={currentPage >= this.pagesCount - 1}>
+                                <PaginationLink
+                                    onClick={e => this.handleClick(e, currentPage + 1)}
+                                    next
+                                    href="#"
+                                />
+                            </PaginationItem>
+
+                        </Pagination>
+                    }
+
+                    <div className="d-flex d-md-none d-lg-none md_show_buttons" >
+                        <button className="theme-btn theme-btn-secondery col-md-14"><Link to="/cart">Continue Shopping</Link></button>
+                        <button className="theme-btn theme-btn-primary theme-btn-link col-md-9"><Link to="/checkout">Cart</Link></button>
+                    </div>
+                    {
+                        this.state.modal_open_st === 1 ?
+                            <OrderConfirm info={this.props.histories[this.state.cur_proj]} close={this.handleClose}/> :
+                        this.state.modal_open_st === 2 ?
+                            <OrderRating info={this.props.histories[this.state.cur_proj]} close={this.handleClose}/> : null
+                    }
                 </div>
             </React.Fragment>
         );

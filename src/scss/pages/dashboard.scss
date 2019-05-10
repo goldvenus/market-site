@@ -77,6 +77,8 @@
     padding: 23px 0px 44px 0px !important;
     .dashboard-pagination {
       margin-top: 15px;
+      width: 100%;
+      background-color: #faf8f9;
     }
     .fa-table-selected{
       margin-top: -50px;
@@ -267,18 +269,6 @@
             width: 36px !important;
             height: 36px !important;
           }
-          .listing-data-thead {
-            height:82px;
-            text-align: center;
-            th {
-              padding-bottom: 26px;
-              text-align: left;
-              font-family: Helvetica Neue;
-              font-size: 16px;
-              line-height: 27px;
-              color: #767676;
-            }
-          }
           .listing-data-tbody {
             .gear-brand {
               font-family: Helvetica Neue;
@@ -339,51 +329,14 @@
           td {
             vertical-align: middle;
             .gear-img {
-              width: 70%;
+              width: 70px;
+              height: 70px;
+              object-fit: contain;
             }
             .landrord-img {
               width: 25%;
               border-radius: 50%;
             }
-          }
-        }
-        .pagination {
-          display: flex !important;
-          justify-content: center;
-          font-family: Gotham Pro;
-          font-size: 16px;
-          line-height: 23px;
-          letter-spacing: 0.09em;
-          text-transform: uppercase;
-          color: #252525;
-
-          .page-item {
-            &:first-child {
-              .page-link {
-                span {
-                  visibility: hidden;
-                }
-              }
-            }
-            &:last-child a {
-              content: "\u003C";
-            }
-          }
-
-          .page-link {
-            color: $secondary-light-color;
-            background-color: transparent;
-            border: none;
-
-            &:focus {
-              box-shadow: none;
-            }
-          }
-
-          .page-item.active .page-link {
-            color: $primary-color;
-            border: none;
-            border-bottom: 2px solid $primary-color;
           }
         }
       }
@@ -452,6 +405,58 @@
   .list-table-head {
     display: contents;
   }
+  .listing-data-thead {
+    height:82px;
+    text-align: center;
+    th {
+      padding-bottom: 26px;
+      text-align: left;
+      font-family: Helvetica Neue;
+      font-size: 16px;
+      line-height: 27px;
+      color: #767676;
+      border-top: none;
+    }
+  }
+  .pagination {
+    display: flex !important;
+    justify-content: center;
+    font-family: Gotham Pro;
+    font-size: 16px;
+    line-height: 23px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: #252525;
+
+    .page-item {
+      &:first-child {
+        .page-link {
+          span {
+            visibility: hidden;
+          }
+        }
+      }
+      &:last-child a {
+        content: "\u003C";
+      }
+    }
+
+    .page-link {
+      color: $secondary-light-color;
+      background-color: transparent;
+      border: none;
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+
+    .page-item.active .page-link {
+      color: $primary-color;
+      border: none;
+      border-bottom: 2px solid $primary-color;
+    }
+  }
 }
 .wrraper_dashboard .empety-list{
   padding:40px;
@@ -503,6 +508,14 @@
     opacity: 0.5;
     width: 84px;
     height: 25px;
+    font-family: Helvetica Neue;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+    letter-spacing: 0.03em;
+    align-items: center;
+    display: flex;
+    justify-content: center;
   }
 
   .rotated-square {
@@ -530,8 +543,38 @@
   }
 }
 .order-history-container {
+  .cart-table-div {
+    padding: 30px;
+    background: #faf8f9;
+  }
   .order-history-table {
-    border: 30px solid #FAF8F9 !important;
+    margin: 0 !important;
+    border: none !important;
+    tr {
+      .tb-project-name {
+        font-family: Helvetica Neue;
+        font-size: 16px;
+        line-height: 28px;
+        color: #252525;
+        font-weight: 600;
+      }
+      .tb_pay_per {
+        font-family: Helvetica Neue;
+        font-size: 21px;
+        line-height: 37px;
+        color: #252525;
+        font-weight: 600;
+      }
+      img {
+        width: 70px;
+        height: 70px;
+        object-fit: contain;
+      }
+    }
+  }
+  .dashboard-pagination {
+    margin: 0 !important;
+    padding: 0 0 25px !important;
   }
   tr {
     cursor: pointer;
@@ -1331,12 +1374,12 @@ span.edit_my_gear {
 
       .detail-left-wrapper {
         width: 100% !important;
-        border: solid 18px #f5f5f5;
+        border: solid 18px #faf8f9;
         margin-bottom: 31px;
       }
       .detail-right-wrapper {
         width: 100% !important;
-        border: solid 18px #f5f5f5;
+        border: solid 18px #faf8f9;
       }
       .account-detail-body {
         padding: 28px;
