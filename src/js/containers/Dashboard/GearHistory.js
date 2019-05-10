@@ -3,7 +3,7 @@ import {Row} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import {Pagination, PaginationItem, PaginationLink, Table} from 'reactstrap';
 import "react-tabs/style/react-tabs.css";
-import EmpetyList from './Empety_list'
+import EmptyList from './GearHistory/EmptyList'
 import {getListGears} from '../../core/actions/gear.action';
 import connect from "react-redux/es/connect/connect";
 import RentalCalendarModal from "./GearHistory/RentalCalendarModal";
@@ -96,7 +96,7 @@ class MyListings extends React.Component {
     constructor(props) {
         super(props);
         // Data set of random length
-        this.pageSize = 3;
+        this.pageSize = 5;
         this.pagesCount = 0;
         this.state = {
             currentPage: 0,
@@ -152,7 +152,7 @@ class MyListings extends React.Component {
                         </div>
 
                         <div className="wrraper_dashboard wrraper-region">
-                            {(list.length <= 0) ? <EmpetyList/> :
+                            {(list.length <= 0) ? <EmptyList/> :
                                 (
                                     <React.Fragment>
                                         <div className="table-responsive">

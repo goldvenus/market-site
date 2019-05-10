@@ -3,7 +3,7 @@ import { Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Pagination, PaginationItem, PaginationLink, Table } from 'reactstrap';
 import moment from 'moment';
-import EmptyRental from './Empty_Rental';
+import EmptyRental from './OrderHistory/EmptyRental';
 
 const MyRentalItem = ({ rentItem }) => (
     <tr>

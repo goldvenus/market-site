@@ -474,6 +474,7 @@
   width: 100%;
   font-size: 20px;
   display: flex;
+  justify-content: center;
 
   & > .status-bar {
     font-family: Helvetica Neue;
@@ -1000,10 +1001,6 @@ span.edit_my_gear {
 }
 .order_history_sm_gear_name {
   padding-top:3vh;
-}
-.status-bar-container {
-  padding:18px;
-  justify-content: center;
 }
 .order_history_sm_gear_days {
   padding:18px;
@@ -1667,6 +1664,90 @@ span.edit_my_gear {
   .dashboard-chart-wrapper {
     border: solid 18px #faf8f9;
     background-color: #faf8f9 !important;
+  }
+
+  .dashboard-pagination {
+    background-color: white !important;
+    margin: 0 !important;
+  }
+
+  .order-history-container {
+    .dashboard-pagination {
+      margin-top: 44px !important;
+    }
+    .cart-table-div {
+      padding: 0 !important;
+      background: #faf8f9;
+      .tablet-gear-item {
+        border: solid 16px #faf8f9;
+        border-bottom: none;
+        background-color: white;
+        &:last-child {
+          border-bottom: solid 16px #faf8f9 !important;
+        }
+        & > div {
+          padding: 15px 20px;
+          display: flex;
+        }
+        .grey-small-text {
+          font-family: Helvetica Neue;
+          font-size: 12px;
+          line-height: 18px;
+          text-align: center;
+          letter-spacing: 0.03em;
+          color: #3A3A3A;
+          opacity: 0.5;
+          text-align: left;
+        }
+        .order-item-top {
+          border: solid 1px #f5f5f5;
+          .order-item-img-wrapper {
+            width: 15%;
+            img {
+              width: 70px;
+              height: 70px;
+              object-fit: contain;
+            }
+          }
+          .order-item-name-category {
+            width: 40%;
+          }
+          .order-item-state {
+            display: flex;
+            align-items: center;
+            width: 45%;
+          }
+        }
+        .order-item-bottom {
+          & > div {
+            display: grid;
+          }
+          .duration {
+            width: 34%;
+            .history-rental-period {
+              font-family: Helvetica Neue;
+              font-size: 16px;
+              line-height: 27px;
+              text-align: center;
+              color: #252525;
+              text-align: left;
+            }
+          }
+          .owner {
+            width: 33%;
+          }
+          .order-price-per-day {
+            width: 16%;
+          }
+          .amouth {
+            width: 17%;
+            .gear-amouth-value {
+              font-weight: 600;
+            }
+          }
+        }
+      }
+    }
   }
 }
 
