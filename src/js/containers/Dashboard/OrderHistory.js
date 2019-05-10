@@ -54,7 +54,8 @@ class OrderHistory extends Component {
         });
     }
 
-    renderOrderHistoryItems_sm() {
+
+    renderItemsMobile() {
         let { histories } = this.props;
         let { currentPage } = this.state;
         if (!histories) {
@@ -70,42 +71,42 @@ class OrderHistory extends Component {
                 const first_item = listItem.SoldItems[0];
                 let product_name = listItem.SoldItems[0].brand + ' ' + listItem.SoldItems[0].model;
                 product_name = product_name.substr(0, 13) + '...';
+
                 return (
-                    <div key={`cart-item-${index}`} className="d-sm-block d-lg-none d-md-none order_mobile_parent_div">
-                        <div className="d-flex">
-                            <div width="50%" className="order_history_sm_gearimage">{first_item.numberOfUserImage && first_item.numberOfUserImage.length > 0 ? <img
-                                src={first_item.numberOfUserImage[0]} alt='' className="gear-img"/> : null}</div>
-                            <div className="gear order_history_sm_gear_name" width="50%">
+                    <div key={`cart-item-${index}`} className="mobile-gear-item">
+                        <div className="order-item-top">
+                            <div className="order-item-img-wrapper">
+                                {first_item.numberOfUserImage && first_item.numberOfUserImage.length > 0 &&
+                                <img src={first_item.numberOfUserImage[0]} alt='' className="order-item-img"/>}
+                            </div>
+                            <div className="order-item-name-category">
                                 <p className="tb-project-name" onClick={() => this.handleControl(index)}>listItem.ProjectName</p>
                                 <p className="theme-text-small text-muted tb-category-name"><span>{listItem.SoldItems.length} Items:</span> {product_name}</p>
                             </div>
                         </div>
-                        <div className="status-bar-container">
-                            <div className="status-bar status-bar1">Payment</div>
-                            <div className="status-bar status-bar2">Pickup</div>
-                            <div className="status-bar3">Return</div>
-                        </div>
-                        <div className="order_history_sm_gear_days">
-                            <div className='history-rental-period' onClick={() => this.handleRating(index)}>{getDateStr(first_item.startDate)} - {getDateStr(first_item.endDate)}</div>
-                            <div className='history-rental-duration'>{days(Date(first_item.startDate), Date(first_item.endDate))} days</div>
-                        </div>
-                        <div className="d-flex">
-                            <div className="order_history_client_image">
-                                <img src={first_item.numberOfUserImage[0]} alt='' />
-                            </div>
-                            <div className="d-block order_history_client_namegroup">
-                                <p className="order_history_client_first_name" >Landrord</p>
-                                <p className="order_history_client_second_name">Josh Stapleton</p>
+                        <div className="order-item-state">
+                            <div className="status-bar-container">
+                                <div className="status-bar status-bar1">Payment</div>
+                                <div className="status-bar status-bar2">Pickup</div>
+                                <div className="status-bar3">Return</div>
                             </div>
                         </div>
-                        <div className="d-flex order_history_payment">
-                            <div className="order_history_pay_group d-block col-12">
-                                <p className="order_history_pay_title">Price per day</p>
-                                <p className="order_history_pay_perday_content">${listItem.SoldItems[0].pricePerDay}</p>
+                        <div className="duration">
+                            <span className='history-rental-period' onClick={() => this.handleRating(index)}>{getDateStr(first_item.startDate)} - {getDateStr(first_item.endDate)}</span>
+                            <span className='grey-small-text'>{days(Date(first_item.startDate), Date(first_item.endDate))} days</span>
+                        </div>
+                        <div className="owner">
+                            <span className="grey-small-text">Landrord</span>
+                            <span className="owner-name">Josh Stapleton</span>
+                        </div>
+                        <div className="order-item-bottom">
+                            <div className="order-price-per-day">
+                                <span className="grey-small-text">Price per day</span>
+                                <span className="gear-price-per-day-value">${listItem.SoldItems[0].pricePerDay}</span>
                             </div>
-                            <div className="tb_pay_per d-block col-12">
-                                <p className="order_history_pay_title">Amouth</p>
-                                <p className="prder_history_amount_content">${parseFloat(listItem.Amount).toFixed(2)}</p>
+                            <div className="amouth">
+                                <span className="grey-small-text">Amouth</span>
+                                <span className="gear-amouth-value">${parseFloat(listItem.Amount).toFixed(2)}</span>
                             </div>
                         </div>
                     </div>
@@ -114,7 +115,7 @@ class OrderHistory extends Component {
         );
     }
 
-    renderOrderHistoryItems() {
+    renderItemsDesktop() {
         let { histories } = this.props;
         let { currentPage } = this.state;
         if (!histories) {
@@ -131,36 +132,36 @@ class OrderHistory extends Component {
                 let product_name = listItem.SoldItems[0].brand + ' ' + listItem.SoldItems[0].model;
                 product_name = product_name.substr(0, 13) + '...';
                 return (
-                    <tr key={`cart-item-${index}`} className="d-lg-table-row d-md-none d-sm-none d-none">
+                    <tr key={`cart-item-${index}`}>
                         <td width="10%">
                             {first_item.numberOfUserImage && first_item.numberOfUserImage.length > 0 &&
                             <img src={first_item.numberOfUserImage[0]} alt='' className="gear-img"/>}
                         </td>
-                        <td className="gear" width="29%">
+                        <td className="gear" width="25%">
                             <p className="tb-project-name" onClick={() => this.handleControl(index)}>listItem.ProjectName</p>
                             <p className="theme-text-small text-muted tb-category-name"><span>{listItem.SoldItems.length} Items:</span> {product_name}</p>
                         </td>
-                        <td width="20.5%">
+                        <td width="30%">
                             <div className='history-rental-period' onClick={() => this.handleRating(index)}>{getDateStr(first_item.startDate)} - {getDateStr(first_item.endDate)}</div>
                             <div className='history-rental-duration'>{days(Date(first_item.startDate), Date(first_item.endDate))} days</div>
                         </td>
 
-                        <td width="17.5%">
+                        <td width="15%">
                             <div className="status-bar-container">
                                 <div className="status-bar status-bar1">Payment</div>
                                 <div className="status-bar status-bar2">Pickup</div>
                                 <div className="status-bar3">Return</div>
                             </div>
                         </td>
-                        <td className="tb_pay_per" width="17.5%">${parseFloat(listItem.Amount).toFixed(2)}</td>
-                        <td><div className="to-payment-detail"><Link to={`/dashboard/order/detail/${listItem.PaymentId}`}><i className="fa fa-angle-right"/></Link></div></td>
+                        <td className="tb_pay_per" width="15%">${parseFloat(listItem.Amount).toFixed(2)}</td>
+                        <td width="5%"><div className="to-payment-detail"><Link to={`/dashboard/order/detail/${listItem.PaymentId}`}><i className="fa fa-angle-right"/></Link></div></td>
                     </tr>
                 )
             })
         );
     }
 
-    renderHistoriesItems_md() {
+    renderItemsTablet() {
         let { histories } = this.props;
         let { currentPage } = this.state;
         if (!histories) {
@@ -178,7 +179,7 @@ class OrderHistory extends Component {
                 product_name = product_name.substr(0, 13) + '...';
 
                 return (
-                    <div key={`cart-item-${index}`} className="tablet-gear-item favo_table_root">
+                    <div key={`cart-item-${index}`} className="tablet-gear-item">
                         <div className="order-item-top">
                             <div className="order-item-img-wrapper">
                                 {first_item.numberOfUserImage && first_item.numberOfUserImage.length > 0 &&
@@ -235,12 +236,12 @@ class OrderHistory extends Component {
                     <div className="cart-header ">
                         <h4 className="tab-title">Order History</h4>
                     </div>
-                    <div className="cart-table-div">
-                        { !histories.length ?
+                    <div className="order-history-body">
+                        {!histories.length ?
                             ( <EmptyRental/> ) : (
                                 <div className="table-responsive">
                                     <Table className="theme-table table order-history-table">
-                                        <thead className= "d-none d-lg-table">
+                                        <thead>
                                             <tr className="listing-data-thead">
                                                 <th></th>
                                                 <th>Project Name</th>
@@ -253,18 +254,23 @@ class OrderHistory extends Component {
 
                                         <tbody>
                                         {
-                                          this.renderOrderHistoryItems()
+                                          this.renderItemsDesktop()
                                         }
 
                                         </tbody>
 
                                     </Table>
-                                    <div className="order_history_sm_parent_div">
-                                        {this.renderOrderHistoryItems_sm()}
+                                    <div className="tablet-mobile-wrapper">
+                                        {
+                                            this.renderItemsTablet()
+                                        }
+                                        {
+                                            this.renderItemsMobile()
+                                        }
                                     </div>
                                 </div>
-                            )}
-                        { this.renderHistoriesItems_md() }
+                            )
+                        }
                     </div>
                     { histories.length > 0 &&
                         <Pagination aria-label="Page navigation example" className="dashboard-pagination">
@@ -294,11 +300,6 @@ class OrderHistory extends Component {
 
                         </Pagination>
                     }
-
-                    <div className="d-flex d-md-none d-lg-none md_show_buttons" >
-                        <button className="theme-btn theme-btn-secondery col-md-14"><Link to="/cart">Continue Shopping</Link></button>
-                        <button className="theme-btn theme-btn-primary theme-btn-link col-md-9"><Link to="/checkout">Cart</Link></button>
-                    </div>
                     {
                         this.state.modal_open_st === 1 ?
                             <OrderConfirm info={this.props.histories[this.state.cur_proj]} close={this.handleClose}/> :

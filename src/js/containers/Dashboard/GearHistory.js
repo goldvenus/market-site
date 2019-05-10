@@ -151,7 +151,7 @@ class MyListings extends React.Component {
                             </button>
                         </div>
 
-                        <div className="wrraper_dashboard wrraper-region">
+                        <div className="wrraper_dashboard wrraper-region gear-history-body">
                             {(list.length <= 0) ? <EmptyList/> :
                                 (
                                     <React.Fragment>
