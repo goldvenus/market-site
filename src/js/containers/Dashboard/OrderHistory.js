@@ -69,7 +69,7 @@ class OrderHistory extends Component {
         return (
             histories.map((listItem, index) => {
                 const first_item = listItem.SoldItems[0];
-                let product_name = listItem.SoldItems[0].brand + ' ' + listItem.SoldItems[0].model;
+                let product_name = first_item.brand + ' ' + first_item.model;
                 product_name = product_name.substr(0, 13) + '...';
 
                 return (
@@ -80,7 +80,7 @@ class OrderHistory extends Component {
                                 <img src={first_item.numberOfUserImage[0]} alt='' className="order-item-img"/>}
                             </div>
                             <div className="order-item-name-category">
-                                <p className="tb-project-name" onClick={() => this.handleControl(index)}>listItem.ProjectName</p>
+                                <p className="tb-project-name" onClick={() => this.handleControl(index)}>{listItem.ProjectName}</p>
                                 <p className="theme-text-small text-muted tb-category-name"><span>{listItem.SoldItems.length} Items:</span> {product_name}</p>
                             </div>
                         </div>
@@ -96,13 +96,16 @@ class OrderHistory extends Component {
                             <span className='grey-small-text'>{days(Date(first_item.startDate), Date(first_item.endDate))} days</span>
                         </div>
                         <div className="owner">
-                            <span className="grey-small-text">Landlord</span>
-                            <span className="owner-name">Josh Stapleton</span>
+                            <img src={first_item.OwnerInfo.picture} alt={first_item.OwnerInfo.given_name}/>
+                            <div>
+                                <span className="grey-small-text">Landlord</span>
+                                <span className="owner-name">{first_item.OwnerInfo.given_name}</span>
+                            </div>
                         </div>
                         <div className="order-item-bottom">
                             <div className="order-price-per-day">
                                 <span className="grey-small-text">Price per day</span>
-                                <span className="gear-price-per-day-value">${listItem.SoldItems[0].pricePerDay}</span>
+                                <span className="gear-price-per-day-value">${first_item.pricePerDay}</span>
                             </div>
                             <div className="amouth">
                                 <span className="grey-small-text">Amouth</span>
@@ -129,7 +132,7 @@ class OrderHistory extends Component {
         return (
             histories.map((listItem, index) => {
                 const first_item = listItem.SoldItems[0];
-                let product_name = listItem.SoldItems[0].brand + ' ' + listItem.SoldItems[0].model;
+                let product_name = first_item.brand + ' ' + first_item.model;
                 product_name = product_name.substr(0, 13) + '...';
                 return (
                     <tr key={`cart-item-${index}`}>
@@ -138,22 +141,22 @@ class OrderHistory extends Component {
                             <img src={first_item.numberOfUserImage[0]} alt='' className="gear-img"/>}
                         </td>
                         <td className="gear" width="25%">
-                            <p className="tb-project-name" onClick={() => this.handleControl(index)}>listItem.ProjectName</p>
+                            <p className="tb-project-name" onClick={() => this.handleControl(index)}>{listItem.ProjectName}</p>
                             <p className="theme-text-small text-muted tb-category-name"><span>{listItem.SoldItems.length} Items:</span> {product_name}</p>
                         </td>
-                        <td width="30%">
+                        <td width="25%">
                             <div className='history-rental-period' onClick={() => this.handleRating(index)}>{getDateStr(first_item.startDate)} - {getDateStr(first_item.endDate)}</div>
                             <div className='history-rental-duration'>{days(Date(first_item.startDate), Date(first_item.endDate))} days</div>
                         </td>
 
-                        <td width="15%">
+                        <td width="25%">
                             <div className="status-bar-container">
                                 <div className="status-bar status-bar1">Payment</div>
                                 <div className="status-bar status-bar2">Pickup</div>
                                 <div className="status-bar3">Return</div>
                             </div>
                         </td>
-                        <td className="tb_pay_per" width="15%">${parseFloat(listItem.Amount).toFixed(2)}</td>
+                        <td className="tb_pay_per" width="10%">${parseFloat(listItem.Amount).toFixed(2)}</td>
                         <td width="5%"><div className="to-payment-detail"><Link to={`/dashboard/order/detail/${listItem.PaymentId}`}><i className="fa fa-angle-right"/></Link></div></td>
                     </tr>
                 )
@@ -175,7 +178,7 @@ class OrderHistory extends Component {
         return (
             histories.map((listItem, index) => {
                 const first_item = listItem.SoldItems[0];
-                let product_name = listItem.SoldItems[0].brand + ' ' + listItem.SoldItems[0].model;
+                let product_name = first_item.brand + ' ' + first_item.model;
                 product_name = product_name.substr(0, 13) + '...';
 
                 return (
@@ -186,7 +189,7 @@ class OrderHistory extends Component {
                                     <img src={first_item.numberOfUserImage[0]} alt='' className="order-item-img"/>}
                             </div>
                             <div className="order-item-name-category">
-                                <p className="tb-project-name" onClick={() => this.handleControl(index)}>listItem.ProjectName</p>
+                                <p className="tb-project-name" onClick={() => this.handleControl(index)}>{listItem.ProjectName}</p>
                                 <p className="theme-text-small text-muted tb-category-name"><span>{listItem.SoldItems.length} Items:</span> {product_name}</p>
                             </div>
                             <div className="order-item-state">
@@ -203,12 +206,15 @@ class OrderHistory extends Component {
                                 <span className='grey-small-text'>{days(Date(first_item.startDate), Date(first_item.endDate))} days</span>
                             </div>
                             <div className="owner">
-                                <span className="grey-small-text">Landlord</span>
-                                <span className="owner-name">Josh Stapleton</span>
+                                <img src={first_item.OwnerInfo.picture} alt={first_item.OwnerInfo.given_name}/>
+                                <div>
+                                    <span className="grey-small-text">Landlord</span>
+                                    <span className="owner-name">{first_item.OwnerInfo.given_name}</span>
+                                </div>
                             </div>
                             <div className="order-price-per-day">
                                 <span className="grey-small-text">Price per day</span>
-                                <span className="gear-price-per-day-value">${listItem.SoldItems[0].pricePerDay}</span>
+                                <span className="gear-price-per-day-value">${first_item.pricePerDay}</span>
                             </div>
                             <div className="amouth">
                                 <span className="grey-small-text">Amouth</span>

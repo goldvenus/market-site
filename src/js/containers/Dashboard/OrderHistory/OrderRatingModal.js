@@ -171,7 +171,7 @@ class OrderRatingModal extends Component {
                                             <div className='pay-info pay-info-history'>
                                                 <div className='item-info d-block'>
                                                     <img src={listItem.numberOfUserImage[0]} alt="number of user" />
-                                                    <div className="order_history_gear_name_sm">
+                                                    <div className="gear-info">
                                                         <div className='category-name'>{listItem.categoryName}</div>
                                                         <div className='brand-model'>{listItem.brand + ' ' + listItem.model}</div>
                                                         <div className='category-name'>Tripod Anti-glare-lenses</div>
@@ -270,7 +270,7 @@ class OrderRatingModal extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="order_history_competed_div_sm">
+                                <div className="payment-status-container">
                                     <div className="text-gray">Payment status</div>
                                     <div className="payment-status">COMPLETED</div>
                                 </div>
@@ -278,7 +278,7 @@ class OrderRatingModal extends Component {
                         </div>
                         <div className="order-modal-footer">
                             <button className='view-receipt-btn theme-btn theme-btn-secondery theme-btn-primary'>View Recipt</button>
-                            <div className='space-between'></div>
+                            <div className='space-between'/>
                             <button className='theme-btn theme-btn-primary'><Link to='/dashboard/#rent'>Rent History</Link></button>
                         </div>
                     </div>

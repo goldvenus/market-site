@@ -144,10 +144,10 @@ class MyListings extends React.Component {
         return (
             <div>
                 <Row className="my-listing my-listing-tabs gear-history-top-panel">
-                    <div className="listing-body calendar_all_parent">
+                    <div className="listing-body">
                         <div className="d-flex align-items-center">
                             <h4 className="tab-title tab-title-listings">My Gear</h4>
-                            <button className="theme-btn theme-btn-primary ml-auto"><Link to="/addgear">Add Gear</Link>
+                            <button className="theme-btn theme-btn-primary ml-auto add-gear-btn"><Link to="/addgear">Add Gear</Link>
                             </button>
                         </div>
 
