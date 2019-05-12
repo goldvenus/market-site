@@ -140,21 +140,21 @@ class Home extends React.Component {
                 <div className="hero-categories d-none d-md-flex">
                   Rent&nbsp;
                   <Link to="/rentgear/Cameras">
-                    <button className="hero-categories__btn" href="/rentgear/Cameras">
+                    <button className="hero-categories__btn">
                       <IconBtnCamera className="btn__icon"/>
                       Cameras
                     </button>
                   </Link>
                   <Link to="/rentgear/Drones">
-                    <button className="hero-categories__btn" href="/rentgear/Drones">
+                    <button className="hero-categories__btn">
                       <IconBtnDrone className="btn__icon"/>
                       Drones
                     </button>
                   </Link>
-                  <Link to="/rentgear/TS&R">
-                    <button className="hero-categories__btn" href="/rentgear/TS&R">
+                  <Link to="/rentgear/Lightings">
+                    <button className="hero-categories__btn">
                       <IconBtnLight className="btn__icon"/>
-                      TS&R
+                      Lights
                     </button>
                   </Link>
                   <span className="d-lg-none">and more</span>

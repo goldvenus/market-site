@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
+import withSizes from 'react-sizes'
 import Transition from 'react-transition-group/Transition';
 
 import { Container, Row, Col } from 'reactstrap';
@@ -16,6 +17,7 @@ import imgMenuClose from './menu-close.svg';
 import imgLogoSm from './logo-sm.png';
 import NavbarDropdown from './NavbarDropdown';
 import { CartIcon, HeartIcon } from "../IconComponent";
+import {compose} from "redux";
 
 const CollapseMenu = ({ isOpen, children }) => (
   <Transition
@@ -72,9 +74,12 @@ class NavbarMenu extends React.Component {
     const {
       carts,
       favourites,
+      isMobile,
+      location: {pathname}
     } = this.props;
+    const isHome = pathname === '/home' || pathname === '/';
 
-    let output = null
+    let output = null;
 
     if (this.props.isAuthenticated === true) {
       output = <React.Fragment>
@@ -105,9 +110,8 @@ class NavbarMenu extends React.Component {
     return (
       <div className="navbar-menu">
         {/* sm only navbar */}
-
+        {isHome && isMobile &&
         <ul className="navbar-menu__navbar-sm">
-
           {collapsed
             ? (
               <React.Fragment>
@@ -117,14 +121,13 @@ class NavbarMenu extends React.Component {
 
                 {output}
               </React.Fragment>
-            )
-            : (
+            ) : (
               <React.Fragment>
                 <NavbarDropdown/>
               </React.Fragment>
             )
           }
-        </ul>
+        </ul>}
         {/* sm only navbar end */}
 
         <NavbarToggleButton onClick={this.toggleNavbar} isOpen={!collapsed}/>
@@ -222,4 +225,12 @@ const mapStateToProps = store => ({
   isAuthenticated: store.user.isAuthenticated
 });
 
-export default withRouter(connect(mapStateToProps)(NavbarMenu));
+const mapSizesToProps = ({ width }) => ({
+    isMobile: width < 768,
+});
+
+export default compose(
+    withRouter,
+    withSizes(mapSizesToProps),
+    connect(mapStateToProps)
+)(NavbarMenu);
