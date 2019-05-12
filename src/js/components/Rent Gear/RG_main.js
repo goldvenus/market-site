@@ -53,8 +53,9 @@ class Main extends Component {
 
   loadProductList = async (category) => {
     this.setState({loading: true});
+    console.log('category:', category);
     let ret = await rentGearProductList({
-      categoryName: category,
+      categoryName: category === 'all' ? '' : category,
       product_region: this.state.locationText,
       brand: this.state.searchText
     });
@@ -210,7 +211,7 @@ class Main extends Component {
                   onClick={() => { this.toggle('1'); }}
                 >
                   <div className="card-view">
-                    <i className="fa fa-th"></i>
+                    <i className="fa fa-th"/>
                   </div>
                 </NavLink>
               </NavItem>
@@ -220,7 +221,7 @@ class Main extends Component {
                   onClick={() => { this.toggle('2'); }}
                 >
                   <div className="list-view">
-                    <i className="fa fa-list"></i>
+                    <i className="fa fa-list"/>
                   </div>
                 </NavLink>
               </NavItem>
@@ -230,8 +231,8 @@ class Main extends Component {
                   onClick={() => { this.toggle('3'); }}
                 >
                   <div className="table-view ">
-                    <i className="fa fa-grip-lines"></i>
-                    <i className="fa fa-grip-lines"></i>
+                    <i className="fa fa-grip-lines"/>
+                    <i className="fa fa-grip-lines"/>
                   </div>
                 </NavLink>
               </NavItem>
@@ -247,23 +248,31 @@ class Main extends Component {
             <React.Fragment>
               <TabContent activeTab={this.state.activeTab}>
                 <TabPane tabId="1">
-                    <Row>
-                        {
-                            product_list.map((gear, index) => {
-                                const gear_state = this.isCartedFavored(gear.gearid);
-                                return <CardView gear_detail={gear} key={index} {...gear_state}
-                                                 onOpenModal={this.onOpenModal}/>
-                            })
-                        }
-                    </Row>
+                  <Row>
+                    {
+                      product_list.map((gear, index) => {
+                        const gear_state = this.isCartedFavored(gear.gearid);
+                        return <CardView
+                            gear_detail={gear}
+                            key={index}
+                            {...gear_state}
+                            onOpenModal={this.onOpenModal}
+                        />
+                      })
+                    }
+                  </Row>
                 </TabPane>
                 <TabPane tabId="2">
                     <Row>
                         {
                             product_list.map((gear, index) => {
                                 const gear_state = this.isCartedFavored(gear.gearid);
-                                return <ListView gear_detail={gear} key={index} {...gear_state}
-                                                 onOpenModal={this.onOpenModal}/>
+                                return <ListView
+                                    gear_detail={gear}
+                                    key={index}
+                                    {...gear_state}
+                                    onOpenModal={this.onOpenModal}
+                                />
                             })
                         }
                     </Row>
@@ -273,8 +282,12 @@ class Main extends Component {
                         {
                             product_list.map((gear, index) => {
                                 const gear_state = this.isCartedFavored(gear.gearid);
-                                return <TableView gear_detail={gear} key={index} {...gear_state}
-                                                  onOpenModal={this.onOpenModal}/>
+                                return <TableView
+                                    gear_detail={gear}
+                                    key={index}
+                                    {...gear_state}
+                                    onOpenModal={this.onOpenModal}
+                                />
                             })
                         }
                     </Row>

@@ -33,7 +33,7 @@ class RentGear extends React.Component {
             <Row>
               <Col>
                 <Breadcrumb>
-                  <UrllinkClass name="Home Page"></UrllinkClass>
+                  <UrllinkClass name="Home Page"/>
                   <span className="space_slash_span">/</span>
                   <BreadcrumbItem active>Rent Gear </BreadcrumbItem>
                 </Breadcrumb>
@@ -62,7 +62,7 @@ class RentGear extends React.Component {
       </div>
     )
   }
-};
+}
 
 export default connect(state => {
   return {

@@ -96,7 +96,12 @@ const rentGearProductList = async (catDetail) => {
     return new Promise(async (resolve, reject) => {
         try {
             let response = await post('showRentGearProductsList', catDetail);
-            resolve(response.data);
+            if (response.data.status === 'success') {
+                resolve(response.data.data);
+            } else {
+                resolve(false);
+                handleError(response.data.errorMessage);
+            }
         } catch (error) {
             handleError(error);
             reject(error);

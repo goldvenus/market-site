@@ -194,11 +194,13 @@ const refreshToken = async () => {
             localStorage.accessToken = accessToken.jwtToken;
             localStorage.idToken = idToken.jwtToken;
             localStorage.refreshToken = refreshToken.token;
-            localStorage.username = userName;
             return response;
         } else {
-            handleError(response.data.errorMessage);
-
+            // logout when expired
+            delete localStorage.accessToken;
+            delete localStorage.idToken;
+            delete localStorage.refreshToken;
+            window.location.href = '/home';
         }
     } catch (error) {
         handleError(error);

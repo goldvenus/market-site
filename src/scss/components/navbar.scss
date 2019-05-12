@@ -564,6 +564,8 @@ header {
     .dropdown-menu {
       padding: 0;
       width: 100%;
+      top: -3px !important;
+      left: 7px !important;
 
       .dropdown-item {
         display: flex;

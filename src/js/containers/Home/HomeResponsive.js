@@ -42,19 +42,19 @@ class Home extends React.Component {
   };
 
   componentDidMount() {
-    var $animation_elements = $('.animation-element');
-    var $window = $(window);
+    let $animation_elements = $('.animation-element');
+    let $window = $(window);
 
     function check_if_in_view() {
-      var window_height = $window.height();
-      var window_top_position = $window.scrollTop();
-      var window_bottom_position = (window_top_position + window_height);
+      let window_height = $window.height();
+      let window_top_position = $window.scrollTop();
+      let window_bottom_position = (window_top_position + window_height);
 
       $.each($animation_elements, function () {
-        var $element = $(this);
-        var element_height = $element.outerHeight();
-        var element_top_position = $element.offset().top;
-        var element_bottom_position = (element_top_position + element_height);
+        let $element = $(this);
+        let element_height = $element.outerHeight();
+        let element_top_position = $element.offset().top;
+        let element_bottom_position = (element_top_position + element_height);
 
         //check to see if this current container is within viewport
         if ((element_bottom_position >= window_top_position) &&
