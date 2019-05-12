@@ -4,10 +4,37 @@ import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import Modal from "react-responsive-modal";
 import { days, getDateStr } from "../../../core/helper"
 import { Link } from "react-router-dom";
+import PickupConfirmModal from "./PickupConfirmModal";
+import PickupSuccessModal from "./PickupSuccessModal";
 
 class OrderConfirmModal extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            curItem: null,
+            modalOpenState: 0
+        }
+    }
+
     handleClose = () => {
         this.props.close();
+    };
+
+    handleClosePickup = () => {
+        this.setState({modalOpenState: 0});
+    };
+
+    handlePickupConfirm = (item) => {
+        this.setState({
+            modalOpenState: 1,
+            curItem: item
+        });
+    };
+
+    handlePickupSuccess = () => {
+        this.setState({
+            modalOpenState: 2
+        });
     };
 
     render() {
@@ -69,7 +96,7 @@ class OrderConfirmModal extends Component {
                                 </div>
                                 <div className='pickup-btn-container'>
                                     <div>
-                                        <button className={`theme-btn pickup-btn ${pick_status < 1 ? 'warning-btn' : 'success-btn disabled'}`}>{btn_label1}</button>
+                                        <button className={`theme-btn pickup-btn ${pick_status < 1 ? 'warning-btn' : 'success-btn disabled'}`} onClick={() => this.handlePickupConfirm(listItem)}>{btn_label1}</button>
                                         <button className={`theme-btn return-btn ${pick_status < 1 ? 'disabled disabled-btn' : 'active-btn'}`}>{btn_label2}</button>
                                     </div>
                                 </div>
@@ -169,7 +196,7 @@ class OrderConfirmModal extends Component {
                                         </div>
                                         <div className='pickup-btn-container'>
                                             <div>
-                                                <button className={`theme-btn pickup-btn ${pick_status < 1 ? 'warning-btn' : 'success-btn disabled'}`}>{btn_label1}</button>
+                                                <button className={`theme-btn pickup-btn ${pick_status < 1 ? 'warning-btn' : 'success-btn disabled'}`} onClick={() => this.handlePickupConfirm(listItem)}>{btn_label1}</button>
                                                 <button className={`theme-btn return-btn ${pick_status < 1 ? 'disabled disabled-btn' : 'active-btn'}`}>{btn_label2}</button>
                                             </div>
                                         </div>
@@ -260,7 +287,10 @@ class OrderConfirmModal extends Component {
                         <button className='theme-btn theme-btn-primary'><Link to='/dashboard/#rent'>Rent History</Link></button>
                     </div>
                 </div>
-        </Modal>)
+                {this.state.modalOpenState === 1 && <PickupConfirmModal info={this.state.curItem} onClose={this.handleClosePickup} onSuccess={this.handlePickupSuccess}/>}
+                {this.state.modalOpenState === 2 && <PickupSuccessModal info={this.state.curItem} onClose={this.handleClosePickup} onSuccess={this.handlePickupSuccess}/>}
+            </Modal>
+        )
     }
 }
 

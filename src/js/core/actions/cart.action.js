@@ -29,11 +29,11 @@ const addCart = (data) => {
         let msg = 'Adding to cart was failed';
         if (response.data && response.data.errorMessage) {
           msg = response.data.errorMessage;
-          if (response.data.data.blocked) {
+          if (response.data.data.blocked && response.data.data.blocked.length > 0) {
               msg += " Gear is unavailable on these days: ";
               msg += response.data.data.blocked.map((item) => (item.start_date + " - " + item.end_date)).join(", ");
           }
-          if (response.data.data.booked.length > 0) {
+          if (response.data.data.booked && response.data.data.booked.length > 0) {
               msg += " Gear is in renting on these days: ";
               msg += response.data.data.booked.map((item) => (item.start_date + " - " + item.end_date)).join(", ");
           }
@@ -63,14 +63,14 @@ const editCart = async (data) => {
         handleInfo('Edited successfully');
         resolve(true);
       } else {
-        let msg = "Editing failed! ";
+        let msg = "Editing failed";
         if (response.data && response.data.errorMessage) {
           msg = response.data.errorMessage;
-          if (response.data.data.blocked) {
+          if (response.data.data.blocked && response.data.data.blocked.length) {
               msg += " Gear is unavailable on these days: ";
               msg += response.data.data.blocked.map((item) => (item.start_date + " - " + item.end_date)).join(", ");
           }
-          if (response.data.data.booked.length > 0) {
+          if (response.data.data.booked && response.data.data.booked.length) {
               msg += " Gear is in renting on these days: ";
               msg += response.data.data.booked.map((item) => (item.start_date + " - " + item.end_date)).join(", ");
           }
@@ -119,10 +119,10 @@ const deleteCartItem = async (data) => {
           type: constants.GET_FAVOURITES_SUCCESS,
           payload: response.data.data
         });
-        handleInfo('Gear was removed from cart successfully!');
+        handleInfo('Gear was removed from cart successfully');
       } else {
         resolve(false);
-        handleError('Gear was not removed!');
+        handleError('Gear was not removed');
       }
     } catch (error) {
         handleError(error);

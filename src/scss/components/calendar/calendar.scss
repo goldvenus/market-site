@@ -478,9 +478,9 @@
             border-bottom: 2px solid #faf8f9;
         }
     }
-    .cart-control-left-button{
+    .cart-control-left-button {
         width: 100% !important;
-        padding:10px;
+        padding: 10px;
         background-color: white;
         color: #000;
         margin-bottom: 10px;
@@ -492,6 +492,8 @@
     }
     .modal-cart-control {
         padding: 10px 21px;
+        display: flex;
+        justify-content: space-between;
     }
     .DayPicker {
         width: 100%;

@@ -83,10 +83,12 @@ modal css
   border-bottom: solid 1px #F4F4F4;
 }
 .modal-cart-control {
-  padding: 27px 50px;
+  display: flex;
+  justify-content: space-between;
+  padding: 27px 21px;
 }
 .cart-control-left-button, .cart-control-right-button {
-  width: 45%;
+  width: 48%;
   padding: 10px 0;
   background-color: white;
   cursor: pointer;
@@ -152,6 +154,8 @@ modal css
   }
   .modal-cart-control {
     padding: 0;
+    display: flex;
+    justify-content: space-between;
   }
   .date-range-wrapper {
     margin-left: -222px !important;

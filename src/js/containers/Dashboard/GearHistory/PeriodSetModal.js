@@ -162,7 +162,6 @@ class PeriodSetModal extends Component {
 
                     <div className='modal-cart-control row'>
                         <button className='cart-control-left-button theme-btn theme-btn-primary' onClick={(e) => this.handleClose(e)}>{btn_label1}</button>
-                        <div className='cart-button-space'></div>
                         <button className='cart-control-right-button theme-btn theme-btn-primary' onClick={this.handleAddToPeriod}
                             disabled={this.state.busy ? 'disabled' : ''}
                         >

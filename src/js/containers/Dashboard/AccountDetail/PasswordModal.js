@@ -61,7 +61,6 @@ class PasswordModal extends Component {
                     <div className='delete-period-button-container row'>
                         <button className='cart-control-left-button theme-btn theme-btn-primary' onClick={(e) => this.handleClose(e)} disabled={this.state.busy ? 'disabled' : ''}
                         >CANCEL</button>
-                        <div className='cart-button-space'></div>
                         <button className='cart-control-right-button theme-btn theme-btn-primary' onClick={this.handleChange}
                                 disabled={this.state.busy ? 'disabled' : ''}
                         >

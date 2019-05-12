@@ -81,7 +81,7 @@ class Favourites extends Component {
         }
       }
     } catch {
-      handleError('Gear adding failed!');
+      handleError('Adding to cart was failed!');
     }
   };
 

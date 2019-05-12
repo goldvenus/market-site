@@ -13,8 +13,8 @@ class OrderDetail extends Component {
         super(props);
         this.state = {
             history: null,
-            modal_open_st: 0,
-            cur_proj: 0
+            modalOpenState: 0,
+            curItem: 0
         };
         this.getHistory();
     }
@@ -25,15 +25,15 @@ class OrderDetail extends Component {
     };
 
     confirmPickup = (val) => {
-        this.setState({modal_open_st: 1, cur_proj: val});
+        this.setState({modalOpenState: 1, curItem: val});
     };
 
     successPickup = (val) => {
-        this.setState({modal_open_st: 2, cur_proj: val});
+        this.setState({modalOpenState: 2, curItem: val});
     };
 
     handleClose = () => {
-        this.setState({modal_open_st: 0});
+        this.setState({modalOpenState: 0});
     };
 
     render() {
@@ -155,8 +155,8 @@ class OrderDetail extends Component {
                     <button className='theme-btn theme-btn-primary'><Link to='/dashboard/#rent'>Rent History</Link></button>
                 </div>
                 {
-                    this.state.modal_open_st === 1 ? <PickupConfirmModal onClose={this.handleClose} info={this.state.history.SoldItems[this.state.cur_proj]}/> :
-                    this.state.modal_open_st === 2 ? <PickupSuccessModal onClose={this.handleClose} info={this.state.history.SoldItems[this.state.cur_proj]}/> : null
+                    this.state.modalOpenState === 1 ? <PickupConfirmModal onClose={this.handleClose} info={this.state.history.SoldItems[this.state.curItem]}/> :
+                    this.state.modalOpenState === 2 ? <PickupSuccessModal onClose={this.handleClose} info={this.state.history.SoldItems[this.state.curItem]}/> : null
                 }
             </div>)
     }

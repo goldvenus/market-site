@@ -101,9 +101,14 @@ class MyListings extends React.Component {
         this.state = {
             currentPage: 0,
             modal_open_st: 0,
-            cur_gear: null
+            cur_gear: null,
+            isFirstLoading: true
         };
-        getListGears();
+    }
+
+    async componentDidMount() {
+        await getListGears();
+        this.setState({isFirstLoading: false});
     }
 
     componentDidUpdate() {
@@ -133,16 +138,16 @@ class MyListings extends React.Component {
     }
 
     render() {
-        const {currentPage} = this.state;
+        const {currentPage, isFirstLoading} = this.state;
         const {list, isLoading} = this.props;
-        if (isLoading) {
+        if (isLoading && isFirstLoading) {
             return <BarLoader color="#F82462" height="5"/>;
         }
 
         this.pagesCount = Math.ceil(list ? list.length / this.pageSize : "");
 
         return (
-            <div>
+            <React.Fragment>
                 <Row className="my-listing my-listing-tabs gear-history-top-panel">
                     <div className="listing-body">
                         <div className="d-flex align-items-center">
@@ -242,7 +247,7 @@ class MyListings extends React.Component {
                             listGears={list}
                         /> : null
                 }
-            </div>
+            </React.Fragment>
         )
     }
 }

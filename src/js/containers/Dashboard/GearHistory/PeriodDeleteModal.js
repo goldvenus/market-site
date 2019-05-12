@@ -26,7 +26,7 @@ class PeriodDeleteModal extends Component {
 
     render() {
         let dlg_heading = 'Delete Period';
-        let { gear_info } = this.props;
+        let { gear_info, date_obj } = this.props;
         return (
             <Modal open={true} onClose={this.handleClose} center classNames={{modal: "cart-modal"}}>
                 <div className='period-cart-header'>
@@ -35,12 +35,11 @@ class PeriodDeleteModal extends Component {
                 <div className='period-cart-body-1'>
                     <div className='about-period-container row'>
                         <span className='period-carted-product-name'>{gear_info.brand} {gear_info.categoryName}</span>
-                        <span className='period-carted-product-name'>{getDateStr(new Date(gear_info.startDate))} - {getDateStr(new Date(gear_info.endDate))}</span>
+                        <span className='period-carted-product-name'>{getDateStr(new Date(date_obj.start_date))} - {getDateStr(new Date(date_obj.end_date))}</span>
                     </div>
                     <div className='delete-period-button-container row'>
                         <button className='cart-control-left-button theme-btn theme-btn-primary' onClick={(e) => this.handleClose(e)} disabled={this.state.busy ? 'disabled' : ''}
                         >CANCEL</button>
-                        <div className='cart-button-space'></div>
                         <button className='cart-control-right-button theme-btn theme-btn-primary' onClick={this.handleDelete}
                             disabled={this.state.busy ? 'disabled' : ''}
                         >

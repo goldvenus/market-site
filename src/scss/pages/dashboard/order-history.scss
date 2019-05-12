@@ -67,38 +67,6 @@
         letter-spacing: 0.03em;
         color: #B1B1B1;
       }
-      .payment-card {
-        width: auto;
-        min-height: 140px !important;
-        padding: 11px 16px 16px;
-        box-shadow: 0 2px 22px -2px rgba(173, 173, 173, 0.2);
-        border-radius: 10px;
-        display: grid;
-
-        .payment-card-other {
-          justify-content: space-between;
-          opacity: 0.6;
-          font-size: 12px;
-          .card-holder {
-            text-align: right;
-          }
-        }
-        .payment-card-info {
-          justify-content: space-between;
-          .payment-card-number {
-            font-weight: bold;
-            margin-top: 7px;
-            min-height: 25px;
-            font-family: Gotham Pro;
-            font-size: 18px;
-            line-height: 25px;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: #000000;
-            text-align: center;
-          }
-        }
-      }
       .rating-select-container {
         width: 50%;
         display: flex;
@@ -188,7 +156,38 @@
         display: inline-block;
         padding: 3px 0;
       }
+      .payment-card {
+        width: auto;
+        min-height: 140px !important;
+        padding: 11px 16px 16px;
+        box-shadow: 0 2px 22px -2px rgba(173, 173, 173, 0.2);
+        border-radius: 10px;
+        display: grid;
 
+        .payment-card-other {
+          justify-content: space-between;
+          opacity: 0.6;
+          font-size: 12px;
+          .card-holder {
+            text-align: right;
+          }
+        }
+        .payment-card-info {
+          justify-content: space-between;
+          .payment-card-number {
+            font-weight: bold;
+            margin-top: 7px;
+            min-height: 25px;
+            font-family: Gotham Pro;
+            font-size: 18px;
+            line-height: 25px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #000000;
+            text-align: center;
+          }
+        }
+      }
       .payment-status {
         padding: 5px 10px;
         font-family: Gotham Pro;
@@ -200,7 +199,6 @@
         background-color: #1CDB74;
         color: #FFFFFF;
       }
-
       .checkout-amount {
         margin-top: 10px;
         padding-top: 10px;
@@ -245,6 +243,7 @@
     text-align: center;
     color: #FFFFFF;
     display: flex;
+    font-weight: 600;
 
     .pickup-heading {
       margin: 20px;
@@ -272,9 +271,10 @@
       font-size: 27px;
       line-height: 34px;
       color: #252525;
+      font-weight: 600;
     }
     .pickup-control {
-      justify-content: center;
+      justify-content: space-between;
       display: flex;
     }
     .pickup-confirm-time {

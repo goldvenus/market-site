@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from "redux";
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Table } from 'reactstrap';
 import { getOrderHistory } from '../../core/actions/dashboard.action';
 import { days, getDateStr } from "../../core/helper";
@@ -73,14 +73,14 @@ class OrderHistory extends Component {
                 product_name = product_name.substr(0, 13) + '...';
 
                 return (
-                    <div key={`cart-item-${index}`} className="mobile-gear-item">
+                    <div key={`cart-item-${index}`} className="mobile-gear-item" onClick={() => this.handleControl(index)}>
                         <div className="order-item-top">
                             <div className="order-item-img-wrapper">
                                 {first_item.numberOfUserImage && first_item.numberOfUserImage.length > 0 &&
                                 <img src={first_item.numberOfUserImage[0]} alt='' className="order-item-img"/>}
                             </div>
                             <div className="order-item-name-category">
-                                <p className="tb-project-name" onClick={() => this.handleControl(index)}>{listItem.ProjectName}</p>
+                                <p className="tb-project-name">{listItem.ProjectName}</p>
                                 <p className="theme-text-small text-muted tb-category-name"><span>{listItem.SoldItems.length} Items:</span> {product_name}</p>
                             </div>
                         </div>
@@ -135,17 +135,17 @@ class OrderHistory extends Component {
                 let product_name = first_item.brand + ' ' + first_item.model;
                 product_name = product_name.substr(0, 13) + '...';
                 return (
-                    <tr key={`cart-item-${index}`}>
+                    <tr key={`cart-item-${index}`} onClick={() => this.handleControl(index)}>
                         <td width="10%">
                             {first_item.numberOfUserImage && first_item.numberOfUserImage.length > 0 &&
                             <img src={first_item.numberOfUserImage[0]} alt='' className="gear-img"/>}
                         </td>
                         <td className="gear" width="25%">
-                            <p className="tb-project-name" onClick={() => this.handleControl(index)}>{listItem.ProjectName}</p>
+                            <p className="tb-project-name">{listItem.ProjectName}</p>
                             <p className="theme-text-small text-muted tb-category-name"><span>{listItem.SoldItems.length} Items:</span> {product_name}</p>
                         </td>
                         <td width="25%">
-                            <div className='history-rental-period' onClick={() => this.handleRating(index)}>{getDateStr(first_item.startDate)} - {getDateStr(first_item.endDate)}</div>
+                            <div className='history-rental-period'>{getDateStr(first_item.startDate)} - {getDateStr(first_item.endDate)}</div>
                             <div className='history-rental-duration'>{days(Date(first_item.startDate), Date(first_item.endDate))} days</div>
                         </td>
 
@@ -157,7 +157,7 @@ class OrderHistory extends Component {
                             </div>
                         </td>
                         <td className="tb_pay_per" width="10%">${parseFloat(listItem.Amount).toFixed(2)}</td>
-                        <td width="5%"><div className="to-payment-detail"><Link to={`/dashboard/order/detail/${listItem.PaymentId}`}><i className="fa fa-angle-right"/></Link></div></td>
+                        <td width="5%"><div className="to-payment-detail"><i className="fa fa-angle-right"/></div></td>
                     </tr>
                 )
             })
@@ -182,14 +182,14 @@ class OrderHistory extends Component {
                 product_name = product_name.substr(0, 13) + '...';
 
                 return (
-                    <div key={`cart-item-${index}`} className="tablet-gear-item">
+                    <div key={`cart-item-${index}`} className="tablet-gear-item" onClick={() => this.handleControl(index)}>
                         <div className="order-item-top">
                             <div className="order-item-img-wrapper">
                                 {first_item.numberOfUserImage && first_item.numberOfUserImage.length > 0 &&
                                     <img src={first_item.numberOfUserImage[0]} alt='' className="order-item-img"/>}
                             </div>
                             <div className="order-item-name-category">
-                                <p className="tb-project-name" onClick={() => this.handleControl(index)}>{listItem.ProjectName}</p>
+                                <p className="tb-project-name">{listItem.ProjectName}</p>
                                 <p className="theme-text-small text-muted tb-category-name"><span>{listItem.SoldItems.length} Items:</span> {product_name}</p>
                             </div>
                             <div className="order-item-state">
