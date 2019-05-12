@@ -35,7 +35,7 @@ class PeriodDeleteModal extends Component {
                 <div className='period-cart-body-1'>
                     <div className='about-period-container row'>
                         <span className='period-carted-product-name'>{gear_info.brand} {gear_info.categoryName}</span>
-                        <span className='period-carted-product-name'>{getDateStr(new Date(date_obj.start_date))} - {getDateStr(new Date(date_obj.end_date))}</span>
+                        <span className='period-days'>{getDateStr(new Date(date_obj.start_date))} - {getDateStr(new Date(date_obj.end_date))}</span>
                     </div>
                     <div className='delete-period-button-container row'>
                         <button className='cart-control-left-button theme-btn theme-btn-primary' onClick={(e) => this.handleClose(e)} disabled={this.state.busy ? 'disabled' : ''}

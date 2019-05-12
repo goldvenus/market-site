@@ -138,9 +138,9 @@ class PeriodSetModal extends Component {
                                     <img src="/images/Icons/calendar/calendar.svg" alt=''/>
                             }
                         </div>
-                        <div className='col-md-2'></div>
+                        <div className='col-md-2'/>
                         <div className='col-md-11 date-range-container'>
-                            <TextField id="date-range-input1" className="date-range-input" type="text" inputProps={300} label={'END DATE'} defaultValue={end_date_str}
+                            <TextField id="date-range-input1" className="date-range-input" type="text" inputProps={300} label={'END DATE'}
                                     onFocus={() => this.setOpenState(false, true)} value={end_date_str}/>
                             {
                                 this.state.open_date_picker2 ?

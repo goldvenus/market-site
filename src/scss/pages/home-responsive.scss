@@ -312,9 +312,12 @@
         display: block;
 
         .desc {
-          display: flex;
           justify-content: space-between;
           flex-direction: row;
+
+          button {
+            padding: 10px 50px;
+          }
         }
 
         span {

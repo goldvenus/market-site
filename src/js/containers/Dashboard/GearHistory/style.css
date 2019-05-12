@@ -301,3 +301,12 @@
 .Calendar_parent_div .rbc-now a {
     padding: 10px 14px !important;
 }
+
+@media (max-width: 767px) {
+    .about-period-button-container {
+        padding: 20px 16px;
+    }
+    .about-period-button-container button {
+        margin: 0;
+    }
+}

@@ -25,9 +25,9 @@ import AboutPeriod from "./AboutPeriod";
 import CustomSpinner from "../../../components/CustomSpinner";
 import Modal from "react-responsive-modal";
 
-let global_events = [];
+let global_events = [], global_cur_date = new Date();
 let global_cal_item_delete = false;
-const localizer = BigCalendar.momentLocalizer(moment);
+let localizer = BigCalendar.momentLocalizer(moment);
 
 class RentalCalendarModal extends React.Component {
     constructor(props) {
@@ -57,7 +57,7 @@ class RentalCalendarModal extends React.Component {
 
     shouldComponentUpdate(state, props) {
         if(this.state !== state || this.props !== props) {
-            UpdateMydataCalendar();
+            updateDesktopCalendar();
             return true;
         }
         else return false;
@@ -75,16 +75,15 @@ class RentalCalendarModal extends React.Component {
         this.setState({open: 0});
     };
 
-    handleDayClick(day, { selected }) {
+    handleDayClick = (day, { selected }) =>  {
+        console.log(day, selected);
         if (selected) {
-            $(function () {
-                // $(".DayPicker-Week").
-            })
+            this.setState({open: 2});
         }
-    }
+    };
 
     eventColors(event) {
-        var backgroundColor = "event-";
+        let backgroundColor = "event-";
         event.color
             ? (backgroundColor = backgroundColor + event.color)
             : (backgroundColor = backgroundColor + "default");
@@ -127,7 +126,7 @@ class RentalCalendarModal extends React.Component {
         this.setState({loading: true});
         const ret = await getGearRentState({gearid, start_date: range.start_date, end_date: range.end_date});
         global_events = ret;
-        UpdateMydataCalendar();
+        updateDesktopCalendar();
         await getListGears();
         this.setState({gear_rent_info_list: ret, cur_rent_info_num: 0, loading: false});
     };
@@ -140,7 +139,6 @@ class RentalCalendarModal extends React.Component {
         let block_period = this.props.listGears[this.state.cur_gear_num].blockPeriod;
         block_period = block_period === undefined ? [] : block_period;
         block_period = [...block_period, ...this.state.gear_rent_info_list.map((item) => ({start_date: item.startDate, end_date: item.endDate}))];
-        console.log(block_period);
         block_period.forEach((item, key) => {
             if (!(mode === 2 && key === this.state.cur_block_num)) {
                 if ((start_date >= item.start_date && start_date <= item.end_date) ||
@@ -256,7 +254,7 @@ class RentalCalendarModal extends React.Component {
 
         const cur_gear = listGears[this.state.cur_gear_num];
         const gear_name = cur_gear.brand + " " + cur_gear.categoryName;
-        let cur_rent = this.state.gear_rent_info_list.length > 0 ?
+        let cur_rent = this.state.gear_rent_info_list && this.state.gear_rent_info_list.length > 0 ?
             this.state.gear_rent_info_list[this.state.cur_rent_info_num] : {};
 
         // prepare gear renting history, block period
@@ -283,7 +281,8 @@ class RentalCalendarModal extends React.Component {
         }
         dateArr = [...dateArr, ...blockArr];
 
-        UpdateMydataCalendar();
+        updateDesktopCalendar();
+        updateMobileCalendar();
 
         return (
             <Modal open={true} onClose={onClose} center classNames={{modal: "rental-calendar-modal"}}>
@@ -345,14 +344,9 @@ class RentalCalendarModal extends React.Component {
                     </Helmet>
 
                     <DayPicker
-                        className="d-lg-none d-md-none d-sm-block"
-                        initialMonth={new Date(2019, 4)}
+                        className="mobile-rental-calendar"
+                        month={this.state.cur_date}
                         onDayClick={this.handleDayClick}
-                        modifiers={{startday: this.state.gear_rent_info_list.map((item) => {
-                                return new Date(item.start);
-                            }), endday: this.state.gear_rent_info_list.map((item) =>{
-                                return new Date(item.end);
-                            })}}
                         selectedDays = {dateArr}
                     />
                 </div>
@@ -367,18 +361,17 @@ class CalendarToolBar extends React.PureComponent {
         return (
             <Toolbar>
                 <div className="rbc-toobar-menu" style={{ width: '100%', textAlign: 'right' }}>
-                    <IconButton onClick={() => {onNavigate('PREV'); UpdateMydataCalendar();}}><LeftArrowIcon /></IconButton>
+                    <IconButton onClick={() => {onNavigate('PREV'); updateDesktopCalendar();}}><LeftArrowIcon /></IconButton>
                     <Typography variant="headline" style={{ textTransform: 'capitalize', width: '100%' }}>{label}</Typography>
-                    <IconButton onClick={() => {onNavigate('NEXT'); UpdateMydataCalendar();}}><RightArrowIcon/></IconButton>
+                    <IconButton onClick={() => {onNavigate('NEXT'); updateDesktopCalendar();}}><RightArrowIcon/></IconButton>
                 </div>
             </Toolbar>
         );
     }
 }
 
-const UpdateMydataCalendar = () => {
+const updateDesktopCalendar = () => {
     $(document).ready(function () {
-        console.log(global_events);
         let reduceZero = function() {
             $(".rbc-date-cell").each(function() {
                 let day_number = $(this).find("a").html();
@@ -441,6 +434,22 @@ const UpdateMydataCalendar = () => {
             }
         });
     });
+};
+
+const updateMobileCalendar = () => {
+    $(function () {
+        $(".DayPicker-Day--selected").each(function () {
+            let day = $(this).html();
+            day = formatDate(global_cur_date.setDate(day));
+            global_events.forEach((item) => {
+                if (item.startDate === day) {
+                    $(this).addClass('period-start-day');
+                } else if (item.endDate === day) {
+                    $(this).addClass('period-end-day');
+                }
+            })
+        });
+    })
 };
 
 export default RentalCalendarModal;

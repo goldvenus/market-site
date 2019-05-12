@@ -139,18 +139,24 @@ class Home extends React.Component {
 
                 <div className="hero-categories d-none d-md-flex">
                   Rent&nbsp;
-                  <button className="hero-categories__btn">
-                    <IconBtnCamera className="btn__icon"/>
-                    Cameras
-                  </button>
-                  <button className="hero-categories__btn">
-                    <IconBtnDrone className="btn__icon"/>
-                    Drones
-                  </button>
-                  <button className="hero-categories__btn">
-                    <IconBtnLight className="btn__icon"/>
-                    Drones
-                  </button>
+                  <Link to="/rentgear/Cameras">
+                    <button className="hero-categories__btn" href="/rentgear/Cameras">
+                      <IconBtnCamera className="btn__icon"/>
+                      Cameras
+                    </button>
+                  </Link>
+                  <Link to="/rentgear/Drones">
+                    <button className="hero-categories__btn" href="/rentgear/Drones">
+                      <IconBtnDrone className="btn__icon"/>
+                      Drones
+                    </button>
+                  </Link>
+                  <Link to="/rentgear/TS&R">
+                    <button className="hero-categories__btn" href="/rentgear/TS&R">
+                      <IconBtnLight className="btn__icon"/>
+                      TS&R
+                    </button>
+                  </Link>
                   <span className="d-lg-none">and more</span>
                   <span className="d-none d-lg-inline-block">and more from people around you.</span>
                 </div>
@@ -207,9 +213,9 @@ class Home extends React.Component {
                   <p id="camera"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>CAMERA</span>
-                    <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/cameras">View</Link>
-                    </button>
+                    <Link to="/rentgear/Cameras">
+                      <button className="theme-btn theme-btn-outline-pink">View</button>
+                    </Link>
                   </div>
                 </div>
                 <div className="block-bg"/>
@@ -220,9 +226,9 @@ class Home extends React.Component {
                   <p id="computer_electronic"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>COMPUTER & ELECTRONICS</span>
-                    <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/cameras">View</Link>
-                    </button>
+                    <Link to="/rentgear/Computers">
+                      <button className="theme-btn theme-btn-outline-pink">View</button>
+                    </Link>
                   </div>
                 </div>
                 <div className="block-bg"/>
@@ -233,9 +239,9 @@ class Home extends React.Component {
                   <p id="drones"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>DRONES</span>
-                    <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/cameras">View</Link>
-                    </button>
+                    <Link to="/rentgear/Drones">
+                      <button className="theme-btn theme-btn-outline-pink">View</button>
+                    </Link>
                   </div>
                 </div>
                 <div className="block-bg"/>
@@ -248,9 +254,9 @@ class Home extends React.Component {
                   <p id="lenses"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>LENSES</span>
-                    <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/lenses">View</Link>
-                    </button>
+                    <Link to="/rentgear/CameraLenses">
+                      <button className="theme-btn theme-btn-outline-pink">View</button>
+                    </Link>
                   </div>
                 </div>
                 <div className="block-bg"/>
@@ -261,9 +267,9 @@ class Home extends React.Component {
                   <p id="lighting"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>LIGHTING</span>
-                    <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/lighting">View</Link>
-                    </button>
+                    <Link to="/rentgear/Lightings">
+                      <button className="theme-btn theme-btn-outline-pink">View</button>
+                    </Link>
                   </div>
                 </div>
                 <div className="block-bg"/>
@@ -273,9 +279,9 @@ class Home extends React.Component {
                   <p id="audio"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>AUDIO</span>
-                    <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/audio">View</Link>
-                    </button>
+                    <Link to="/rentgear/Audios">
+                      <button className="theme-btn theme-btn-outline-pink">View</button>
+                    </Link>
                   </div>
                 </div>
                 <div className="block-bg"/>
@@ -286,9 +292,9 @@ class Home extends React.Component {
                   <p id="tripods_stabilization_rigs"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>TRIPODS STABILIZATION & RIGS</span>
-                    <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/TS&R">View</Link>
-                    </button>
+                    <Link to="/rentgear/TS&R">
+                      <button className="theme-btn theme-btn-outline-pink">View</button>
+                    </Link>
                   </div>
                 </div>
                 <div className="block-bg"/>
@@ -301,9 +307,9 @@ class Home extends React.Component {
                   <p id="camera_accessories"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>CAMERA ACCESSORIES</span>
-                    <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/camera_accessories">View</Link>
-                    </button>
+                    <Link to="/rentgear/CameraAccessories">
+                      <button className="theme-btn theme-btn-outline-pink">View</button>
+                    </Link>
                   </div>
                 </div>
                 <div className="block-bg"/>
@@ -314,9 +320,9 @@ class Home extends React.Component {
                   <p id="studio_spaces"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>STUDIO SPACES</span>
-                    <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/studio_spaces">View</Link>
-                    </button>
+                    <Link to="/rentgear/StudioSpaces">
+                      <button className="theme-btn theme-btn-outline-pink">View</button>
+                    </Link>
                   </div>
                 </div>
                 <div className="block-bg"/>
@@ -327,9 +333,9 @@ class Home extends React.Component {
                   <p id="office_spaces"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>OFFICE SPACES</span>
-                    <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/office_spaces">View</Link>
-                    </button>
+                    <Link to="/rentgear/OfficeSpaces">
+                      <button className="theme-btn theme-btn-outline-pink">View</button>
+                    </Link>
                   </div>
                 </div>
                 <div className="block-bg"/>
@@ -339,9 +345,9 @@ class Home extends React.Component {
                   <p id="others"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>OTHER</span>
-                    <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/office_spaces">View</Link>
-                    </button>
+                    <Link to="/rentgear/other">
+                      <button className="theme-btn theme-btn-outline-pink">View</button>
+                    </Link>
                   </div>
                 </div>
                 <div className="block-bg"/>
@@ -366,7 +372,7 @@ class Home extends React.Component {
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>CAMERA</span>
                     <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/cameras"><i className="fa fa-chevron-right"></i></Link>
+                      <Link to="/rentgear/Camera"><i className="fa fa-chevron-right"/></Link>
                       </button>
                     </div>
                   </div>
@@ -377,7 +383,7 @@ class Home extends React.Component {
                     <div className="desc">
                       <span style={{ fontWeight: 'bold' }}>COMPUTER & ELECTRONICS</span>
                       <button className="theme-btn theme-btn-outline-white">
-                        <Link to="/cameras"><i className="fa fa-chevron-right"></i></Link>
+                        <Link to="/rentgear/Computer"><i className="fa fa-chevron-right"/></Link>
                       </button>
                     </div>
                   </div>
@@ -388,7 +394,7 @@ class Home extends React.Component {
                     <div className="desc">
                       <span style={{ fontWeight: 'bold' }}>DRONES</span>
                       <button className="theme-btn theme-btn-outline-white">
-                        <Link to="/cameras"><i className="fa fa-chevron-right"></i></Link>
+                        <Link to="/rentgear/Drones"><i className="fa fa-chevron-right"/></Link>
                       </button>
                     </div>
                   </div>
@@ -399,7 +405,7 @@ class Home extends React.Component {
                     <div className="desc">
                       <span style={{ fontWeight: 'bold' }}>LENSES</span>
                       <button className="theme-btn theme-btn-outline-white">
-                        <Link to="/lenses"><i className="fa fa-chevron-right"></i></Link>
+                        <Link to="/rentgear/CameraLenses"><i className="fa fa-chevron-right"/></Link>
                       </button>
                     </div>
                   </div>
@@ -410,7 +416,7 @@ class Home extends React.Component {
                     <div className="desc">
                       <span style={{ fontWeight: 'bold' }}>CAMERA ACCESSORIES</span>
                       <button className="theme-btn theme-btn-outline-white">
-                        <Link to="/camera_accessories"><i className="fa fa-chevron-right"></i></Link>
+                        <Link to="/rentgear/CameraAccessories"><i className="fa fa-chevron-right"/></Link>
                       </button>
                     </div>
                   </div>
@@ -421,7 +427,7 @@ class Home extends React.Component {
                     <div className="desc">
                       <span style={{ fontWeight: 'bold' }}>OFFICE SPACES</span>
                       <button className="theme-btn theme-btn-outline-white">
-                        <Link to="/office_spaces"><i className="fa fa-chevron-right"></i></Link>
+                        <Link to="/rentgear/OfficeSpaces"><i className="fa fa-chevron-right"/></Link>
                       </button>
                     </div>
                   </div>
@@ -432,7 +438,7 @@ class Home extends React.Component {
                     <div className="desc">
                       <span style={{ fontWeight: 'bold' }}>OTHER</span>
                       <button className="theme-btn theme-btn-outline-white">
-                        <Link to="/office_spaces"><i className="fa fa-chevron-right"></i></Link>
+                        <Link to="/rentgear/OfficeSpaces"><i className="fa fa-chevron-right"/></Link>
                       </button>
                     </div>
                   </div>

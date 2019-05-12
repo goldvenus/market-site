@@ -139,7 +139,6 @@
 }
 .rbc-calendar {
     background-color: white;
-
 }
 .rbc-month-view{
     border:25px solid #faf8f9;
@@ -250,7 +249,8 @@
 .react-tabs__tab {
     padding-top: 7px !important;
 }
-.period-carted-product-name {
+.period-cart-body-1 {
+  .period-carted-product-name {
     font-family: Gotham Pro;
     font-size: 27px;
     width: 100%;
@@ -258,9 +258,40 @@
     line-height: 39px;
     color: #252525;
     font-weight: 800;
+  }
+  .about-period-container {
+    display: grid;
+    .period-days {
+      font-family: Helvetica Neue, sans-serif;
+      font-size: 16px;
+      line-height: 28px;
+      text-align: center;
+      color: #252525;
+      font-weight: 600;
+      opacity: 0.7;
+    }
+    .period-days-count {
+      font-family: Helvetica Neue, sans-serif;
+      font-size: 12px;
+      line-height: 18px;
+      text-align: center;
+      letter-spacing: 0.03em;
+      color: #252525;
+      opacity: 0.5;
+    }
+  }
+  .about-period-button-container {
+    padding: 0 27px 30px;
+  }
+}
+.mobile-rental-calendar {
+  display: none;
+}
+.mobile-about-modal-btn {
+  display: none;
 }
 
-@media(max-width: 1050px){
+@media(max-width: 1077px){
     .Calendar_parent_div {
         display: flex;
         .calendar_first_div {
@@ -386,19 +417,71 @@
         }
     }
 }
-@media (max-width: 550px) {
+
+@media (max-width: 767px) {
+    .mobile-rental-calendar {
+      display: block;
+      .mobile-about-modal-btn {
+        display: block;
+      }
+      .period-days {
+        font-family: Helvetica Neue, sans-serif;
+        font-size: 16px;
+        line-height: 28px;
+        text-align: center;
+        color: #252525;
+      }
+      .period-days-count {
+        font-family: Helvetica Neue, sans-serif;
+        font-size: 12px;
+        line-height: 18px;
+        text-align: center;
+        letter-spacing: 0.03em;
+        color: #252525;
+        opacity: 0.5;
+      }
+    }
     .Calendar_parent_div {
         display: flex;
+        border: 16px #faf8f9 solid;
+      .DayPicker-Month {
+        margin: 0;
+        .DayPicker-Caption {
+          padding: 16px;
+          margin: 0;
+        }
+        .DayPicker-Body {
+          .DayPicker-Day:hover {
+            color: white;
+            background-color: #fb6692 !important;
+          }
+          .DayPicker-Day--selected {
+            background-color: #fb6692;
+            &:hover {
+              background-color: #f82462;
+            }
+          }
+          .DayPicker-Day--today {
+            color: #f82462;
+          }
+          .period-start-day {
+            border-radius: 20px 0 0 20px;
+            background-color: #f82462;
+          }
+          .period-end-day {
+            border-radius: 0 20px 20px 0;
+            background-color: #f82462;
+          }
+        }
+      }
     }
-    .calendar_dropdown_div{
-        border-top: 16px #faf8f9 solid;
-        border-bottom: 0!important;
-        border-left: 0!important;
-        border-right: 0!important;
-        padding-right: 25px;
-        .calendar_dropdown_div_bottom{
+    .calendar_dropdown_div {
+        border: solid 16px #faf8f9;
+        border-bottom: 0;
+        padding: 16px;
+        .calendar_dropdown_div_bottom {
             display: block;
-            margin-bottom:13px;
+            margin: 0 !important;
         }
     }
     .calendar_dropdown {
@@ -425,11 +508,12 @@
             background-color: white;
         }
     }
-    .calendar_dropdown_bottom_button{
+    .calendar_dropdown_bottom_button {
         width: 100% !important;
-        margin:14px 25px 14px 0 !important;
         padding:10px !important;
-
+        font-weight: 600 !important;
+        border-radius: unset;
+        margin: 0 !important;
     }
     .rbc-calendar{
         border:16px solid #faf8f9;
@@ -447,9 +531,6 @@
     .rbc-date-cell {
         padding:0 !important;
     }
-    .DayPicker-Day {
-
-    }
     .DayPicker-wrapper {
         background-color: white;
         padding-bottom: 0 !important;
@@ -457,8 +538,8 @@
             border-radius: 0;
         }
         .DayPicker-Months{
-            margin:0;
-            border-bottom: 13px solid #faf8f9;
+            margin: 0;
+            border-bottom: 0;
         }
     }
     .Period-cart-header {
@@ -469,13 +550,15 @@
         }
     }
     .period-cart-body-1 {
-
-        .period-carted-product-name {
-            font-size: 16px !important;
-            font-weight: 600 !important;
-            width: 100%;
-            padding: 15px!important;
-            border-bottom: 2px solid #faf8f9;
+        .about-period-container {
+            display: grid;
+            .period-carted-product-name {
+              font-size: 16px !important;
+              font-weight: 600 !important;
+              width: 100%;
+              padding: 15px!important;
+              border-bottom: 2px solid #faf8f9;
+            }
         }
     }
     .cart-control-left-button {
