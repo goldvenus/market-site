@@ -197,10 +197,10 @@ const refreshToken = async () => {
             return response;
         } else {
             // logout when expired
-            delete localStorage.accessToken;
-            delete localStorage.idToken;
-            delete localStorage.refreshToken;
-            window.location.href = '/home';
+            // delete localStorage.accessToken;
+            // delete localStorage.idToken;
+            // delete localStorage.refreshToken;
+            // window.location.href = '/home';
         }
     } catch (error) {
         handleError(error);
@@ -213,10 +213,10 @@ const getUser = async () => {
             const token = await refreshToken();
             if (token) {
                 let response = await get('getUserInfo');
-                if (response && response.data) {
+                if (response && response.data && response.data.status && response.data.status === 'success') {
                     dispatch({
                         type: constants.GET_USER_SUCCESS,
-                        payload: response.data.userAttributes
+                        payload: response.data.data.userAttributes
                     });
                 }
             }

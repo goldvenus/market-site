@@ -178,6 +178,7 @@
 
   button {
     display: block;
+    padding: 10px 35px;
   }
 
   #camera {
@@ -254,6 +255,10 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+
+    button {
+      padding: 10px 35px;
+    }
   }
 
   #camera {
