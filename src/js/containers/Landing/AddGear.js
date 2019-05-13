@@ -9,26 +9,29 @@ import Chips from 'react-chips';
 import CustomInput from '../../components/CustomInput';
 import CustomCarousel from '../../components/CustomCarousel';
 import { handleError, readFileData } from '../../core/actions/common.action';
-import { addGear } from '../../core/actions/gear.action';
+import { addGear, getUsedNames } from '../../core/actions/gear.action';
 import { fetchCategories } from "../../core/actions/category.action";
 import Textarea from "muicss/lib/react/textarea";
 import UrllinkClass from "../../components/UrllinkClass";
 import CustomSpinner from "../../components/CustomSpinner";
 import BarLoader from "react-bar-loader";
 import TextField from "@material-ui/core/TextField/TextField";
+import CustomAutosuggest from "../../components/common/CustomAutosuggest"
 
 class AddGear extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.progressSteps = ['Info', 'Photo', 'Address', 'Price'];
+    this.usedNames = [];
+    this.suggestions = [];
+
     this.state = {
       progressStep: 0,
       dropdownOpen: false,
       selectedType: 'new',
       isGearAdded: false,
       gearId: '',
-
       categoryName: 'Category',
       brand: '',
       model: '',
@@ -42,6 +45,8 @@ class AddGear extends Component {
       postalCode: '',
       replacementValue: '',
       pricePerDay: '',
+      productName: '',
+      isDoubled: false,
       busy: false
     };
 
@@ -49,8 +54,54 @@ class AddGear extends Component {
     this.onTypeChange = this.onTypeChange.bind(this);
   }
 
-  componentDidMount() {
-    fetchCategories();
+  async componentDidMount() {
+    await fetchCategories();
+    this.usedNames = await getUsedNames();
+    this.autoGenerateSuggestions();
+  }
+
+  autoGenerateSuggestions = () => {
+    let suggestions = this.suggestions;
+    let namesFromCategories = this.props.categories.map((item) => item.categoryName);
+    suggestions = [...suggestions, ...namesFromCategories, ...this.usedNames];
+    this.suggestions = [...new Set(suggestions)];
+    this.forceUpdate();
+  };
+
+  addSuggestions = () => {
+    let {categoryName, brand, model} = this.state;
+    let suggestions = this.suggestions;
+
+    if (categoryName !== '' && brand !== '' && model !== '')
+      suggestions = [categoryName + ' ' + brand + ' ' + model, ...suggestions];
+    if (categoryName !== '' && brand !== '')
+      suggestions = [categoryName + ' ' + brand, ...suggestions];
+    if (categoryName !== '' && model !== '')
+      suggestions = [categoryName + ' ' + model, ...suggestions];
+    if (brand !== '' && model !== '')
+      suggestions = [brand + ' ' + model, ...suggestions];
+    if (brand !== '')
+      suggestions = [brand, ...suggestions];
+    if (model !== '')
+      suggestions = [model, ...suggestions];
+
+    this.suggestions = [...new Set(suggestions)];
+    this.forceUpdate();
+  };
+
+  handleChangeProductName = (newValue) => {
+    let isDoubled = this.usedNames.indexOf(newValue) >= 0;
+    this.setState({productName: newValue, isDoubled: isDoubled});
+  };
+
+  onTypeChange(e) {
+    this.setState({
+        selectedType: e.target.value
+    });
+}
+
+  changeCategory(e) {
+    this.setState({ categoryName: e.target.textContent }, () => this.addSuggestions());
   }
 
   toggle() {
@@ -82,16 +133,6 @@ class AddGear extends Component {
     ));
   }
 
-  onTypeChange(e) {
-    this.setState({
-      selectedType: e.target.value
-    });
-  }
-
-  changeCategory(e) {
-    this.setState({ categoryName: e.target.textContent });
-  }
-
   renderInfo() {
     const { selectedType, brand, model, isKit, categoryName, accessories } = this.state;
     const { categories } = this.props;
@@ -108,38 +149,48 @@ class AddGear extends Component {
                 {
                   categories.map((ele, index) => {
                     return <DropdownItem key={index}
-                                         onClick={this.changeCategory.bind(this)}>{ele.categoryName}</DropdownItem>;
+                      onClick={this.changeCategory.bind(this)}>{ele.categoryName}</DropdownItem>;
                   })
                 }
               </DropdownMenu>
             </Dropdown>
             <div className="theme-form-field category_first">
-                <TextField
-                    id="standard-with-placeholder1"
-                    className="custom-beautiful-textfield"
-                    label="Brand"
-                    type="text"
-                    value={brand}
-                    maxLength='50'
-                    onChange={(e) => this.setState({ brand: (e && e.target && e.target.value) || ''})}
-                />
+              <TextField
+                id="standard-with-placeholder1"
+                className="custom-beautiful-textfield"
+                label="Brand"
+                type="text"
+                value={brand}
+                maxLength='50'
+                onBlur={this.addSuggestions}
+                onChange={(e) => this.setState({ brand: (e && e.target && e.target.value) || ''})}
+              />
             </div>
             <div className="theme-form-field category_first">
-                <TextField
-                    id="standard-with-placeholder2"
-                    className="custom-beautiful-textfield"
-                    label="Model"
-                    type="text"
-                    value={model}
-                    maxLength='50'
-                    onChange={(e) => this.setState({ model: (e && e.target && e.target.value) || ''})}
-                />
+              <TextField
+                id="standard-with-placeholder2"
+                className="custom-beautiful-textfield"
+                label="Model"
+                type="text"
+                value={model}
+                maxLength='50'
+                onBlur={this.addSuggestions}
+                onChange={(e) => this.setState({ model: (e && e.target && e.target.value) || ''})}
+              />
+            </div>
+            <div className="theme-form-field category_first">
+              <CustomAutosuggest
+                suggestions={this.suggestions}
+                handleChange={this.handleChangeProductName}
+                isDoubled={this.state.isDoubled}
+              />
             </div>
             <div className="theme-form-field category_first">
               <Textarea className="category_description_ta" label='Description' floatingLabel={true}
-                  onChange={(e) => {
-                    this.setState({ description: e.target.value })
-                  }} type="text"/>
+                onChange={(e) => {
+                  this.setState({ description: e.target.value })
+                }} type="text"
+              />
             </div>
           </div>
           <div className="theme-column info-right-container " id="new-tabs" width="35%">
@@ -278,8 +329,25 @@ class AddGear extends Component {
 
   async addGearDetails() {
     try {
-      let { categoryName, brand, model, description, selectedType, isKit, accessories, numberOfUserImage, city, region, address, postalCode, replacementValue, pricePerDay } = this.state;
+      let {
+          categoryName,
+          brand,
+          model,
+          description,
+          selectedType,
+          isKit,
+          accessories,
+          numberOfUserImage,
+          city,
+          region,
+          address,
+          postalCode,
+          replacementValue,
+          productName,
+          pricePerDay
+      } = this.state;
       isKit = !!isKit;
+
       const data = {
         categoryName,
         brand,
@@ -294,10 +362,11 @@ class AddGear extends Component {
         address,
         postalCode,
         replacementValue,
-        pricePerDay
+        pricePerDay,
+        productName
       };
 
-      if (!categoryName || !brand || !model || !description || !selectedType || !accessories ||
+      if (!categoryName || !brand || !model || !description || !selectedType || !accessories || !productName ||
           !numberOfUserImage || !city || !region || !address || !postalCode || !replacementValue || !pricePerDay) {
           handleError("Please provide required details!");
           return;
@@ -468,13 +537,13 @@ class AddGear extends Component {
   render() {
     const { isGearAdded, replacementValue, pricePerDay, brand, model, categoryName, gearId } = this.state;
     const { isLoadingCategories } = this.props;
-    if (isLoadingCategories) {
+    if (isLoadingCategories || this.suggestions.length < 1) {
       return <BarLoader color="#F82462" height="5" />;
     }
 
     if (isGearAdded) {
       return <div className="add-gear">
-        <h1><i className="fa fa-check-circle primary-color"></i></h1>
+        <h1><i className="fa fa-check-circle primary-color"/></h1>
         <h3 className="success_gear_htag">Gear Added Successfully</h3>
 
         <div className="success-message">
@@ -508,7 +577,7 @@ class AddGear extends Component {
           this.state.busy ? <CustomSpinner/> : null
         }
         <Breadcrumb>
-          <UrllinkClass name="Home"></UrllinkClass>
+          <UrllinkClass name="Home"/>
             <span className="space_slash_span">/</span>
           <BreadcrumbItem active>Add Gear</BreadcrumbItem>
         </Breadcrumb>

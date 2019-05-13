@@ -9,6 +9,9 @@
     font-size: 46px;
   }
 
+  .doubled-status {
+    background-color: red;
+  }
   .empty_page_addgear_img {
     font-family: Gotham Pro;
     font-size: 20px;
@@ -45,15 +48,18 @@
       .btn-secondary{
         width: 100%;
       }
-      .category_description_ta{
+      .category_description_ta {
         width: 91%;
         border: 1px solid rgba(31, 34, 38, 0.3);
         textarea {
           width: 100%;
           border-bottom:0;
+          padding-left: 15px;
+          padding-top: 5px;
 
           &:focus~label {
             line-height: 32px;
+            font-size: 14px;
           }
         }
       }

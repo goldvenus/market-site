@@ -13,10 +13,10 @@ const addGear = async (data) => {
         dispatch({
             type: constants.ADD_GEAR_SUCCESS,
         });
-        handleInfo('Gear was added successfully!');
+        handleInfo('Gear was added successfully');
         return response.data.data;
     } else {
-        handleError('Gear was not added!');
+        handleError('Gear adding was failed');
         return false;
     }
 };
@@ -75,10 +75,10 @@ const getListGears = async () => {
     });
     try {
         let response = await get('viewUserGearList');
-        if (response && response.data) {
+        if (response && response.data && response.data.status === 'success') {
             dispatch({
                 type: constants.LIST_GEARS_SUCCESS,
-                payload: response.data.Items
+                payload: response.data.data
             });
         }
     } catch (error) {
@@ -86,6 +86,19 @@ const getListGears = async () => {
             type: constants.LIST_GEARS_FAILED
         });
         handleError(error);
+    }
+};
+
+const getUsedNames = async () => {
+    try {
+        let response = await get('getGearUsedNames');
+        if (response && response.data && response.data.status === 'success') {
+            return response.data.data;
+        }
+        return false;
+    } catch (error) {
+        handleError(error);
+        return false;
     }
 };
 
@@ -179,5 +192,5 @@ const searchHome = async (brand, product_region) => {
 };
 
 export {
-    newArrivals, addGear, deleteGear, getGear, rentGearProductList, getListGears, searchHome, editGear
+    newArrivals, addGear, deleteGear, getGear, rentGearProductList, getListGears, searchHome, editGear, getUsedNames
 };
