@@ -565,7 +565,7 @@ class Home extends React.Component {
                     <span className="slot-value">1405</span>
                   </div>
                 </div>
-                <div className="arrival-timer-find-btn">Find Gear</div>
+                  <div className="arrival-timer-find-btn"><Link to='/rentgear/all'>Find Gear</Link></div>
               </div>
             </div>
 

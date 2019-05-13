@@ -53,7 +53,6 @@ class Main extends Component {
 
   loadProductList = async (category) => {
     this.setState({loading: true});
-    console.log('category:', category);
     let ret = await rentGearProductList({
       categoryName: category === 'all' ? '' : category,
       product_region: this.state.locationText,

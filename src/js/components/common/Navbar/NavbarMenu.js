@@ -17,7 +17,8 @@ import imgMenuClose from './menu-close.svg';
 import imgLogoSm from './logo-sm.png';
 import NavbarDropdown from './NavbarDropdown';
 import { CartIcon, HeartIcon } from "../IconComponent";
-import {compose} from "redux";
+import { compose } from "redux";
+import { throttle } from "lodash";
 
 const CollapseMenu = ({ isOpen, children }) => (
   <Transition
@@ -61,6 +62,23 @@ const NavbarToggleButton = ({ onClick, isOpen }) => {
 class NavbarMenu extends React.Component {
   state = {
     collapsed: true,
+    scrolledDown: false
+  };
+
+  componentDidMount() {
+    window.addEventListener('scroll', throttle(this.handleScroll, 200, {trailing: true, leading: false}));
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll = () => {
+    if (window.scrollY >= 200) {
+      this.setState({scrolledDown: true});
+    } else {
+      this.setState({scrolledDown: false});
+    }
   };
 
   toggleNavbar = () => {
@@ -70,7 +88,7 @@ class NavbarMenu extends React.Component {
   };
 
   render() {
-    const { collapsed } = this.state;
+    const { collapsed, scrolledDown } = this.state;
     const {
       carts,
       favourites,
@@ -109,8 +127,10 @@ class NavbarMenu extends React.Component {
 
     return (
       <div className="navbar-menu">
+        <NavbarToggleButton onClick={this.toggleNavbar} isOpen={!collapsed}/>
+
         {/* sm only navbar */}
-        {isHome && isMobile &&
+        {(!isHome || (isHome && (isMobile || scrolledDown))) &&
         <ul className="navbar-menu__navbar-sm">
           {collapsed
             ? (
@@ -129,8 +149,6 @@ class NavbarMenu extends React.Component {
           }
         </ul>}
         {/* sm only navbar end */}
-
-        <NavbarToggleButton onClick={this.toggleNavbar} isOpen={!collapsed}/>
 
         <CollapseMenu isOpen={!collapsed}>
           <Container>
