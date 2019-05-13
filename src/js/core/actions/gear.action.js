@@ -33,9 +33,10 @@ const editGear = async (data) => {
                 payload: data
             });
             handleInfo('Gear was edited');
-            return response.data.status;
+            return true;
         } else {
-            handleError('Gear was not edited');
+            handleError('Gear editing was failed');
+            return false;
         }
     } catch (error) {
         handleError(error);

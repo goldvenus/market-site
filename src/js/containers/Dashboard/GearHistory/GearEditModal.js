@@ -13,6 +13,7 @@ import { handleError, readFileData } from "../../../core/actions/common.action";
 import { fetchCategories } from '../../../core/actions/category.action';
 import CustomSpinner from "../../../components/CustomSpinner";
 import Modal from "react-responsive-modal";
+import ConfirmModal from "../../../components/common/ConfirmModal";
 
 class GearEditModal extends Component {
     constructor(props) {
@@ -22,7 +23,6 @@ class GearEditModal extends Component {
             selectedType: '',
             isGearAdded: false,
             gearid: '',
-
             categoryName: 'Category',
             brand: '',
             model: '',
@@ -30,6 +30,8 @@ class GearEditModal extends Component {
             isKit: false,
             accessories: [],
             numberOfUserImage: [],
+            numberOfUserImageNew: [],
+            numberOfUserImageRemoved: [],
             city: '',
             region: '',
             address: '',
@@ -38,7 +40,9 @@ class GearEditModal extends Component {
             pricePerDay: '',
             startDate: new Date(),
             endDate: new Date(),
-            loadingdata: false
+            busy: false,
+            curImage: null,
+            isOpenConfirm: false
         };
         this.gearid = props.gearid;
 
@@ -47,7 +51,7 @@ class GearEditModal extends Component {
     }
 
     componentWillReceiveProps(props) {
-        if (!!props.gear && !this.state.gearid) {
+        if (!!props.gear) {
             this.setState({
                 gearid: this.gearid,
                 categoryName: props.gear.categoryName,
@@ -70,7 +74,7 @@ class GearEditModal extends Component {
 
     dataSave = async () => {
         try {
-            const { categoryName, brand, model, description, selectedType, isKit, accessories, numberOfUserImage, city, region, address, postalCode, replacementValue, pricePerDay } = this.state;
+            const { categoryName, brand, model, description, selectedType, isKit, accessories, numberOfUserImage, numberOfUserImageNew, numberOfUserImageRemoved, city, region, address, postalCode, replacementValue, pricePerDay } = this.state;
             const data = {
                 gearid: this.gearid,
                 categoryName,
@@ -81,6 +85,8 @@ class GearEditModal extends Component {
                 isKit,
                 accessories,
                 numberOfUserImage,
+                numberOfUserImageRemoved,
+                numberOfUserImageNew,
                 city,
                 product_region: region,
                 address,
@@ -88,7 +94,10 @@ class GearEditModal extends Component {
                 replacementValue,
                 pricePerDay
             };
+
+            this.setState({busy: true});
             await editGear(data);
+            this.setState({busy: false});
             this.props.onClose();
         } catch (e) {
         }
@@ -113,33 +122,40 @@ class GearEditModal extends Component {
     async addImage(event) {
         try {
             let image = await readFileData(event);
-            let { numberOfUserImage } = this.state;
-
-            numberOfUserImage.push(image);
-
+            let { numberOfUserImageNew } = this.state;
+            numberOfUserImageNew.push(image);
             this.setState({
-                numberOfUserImage
+                numberOfUserImageNew
             });
-
         } catch {
             handleError('Please upload a valid image');
         }
     }
 
+    handleDeleteImage = () => {
+        const image = this.state.curImage;
+        let newArr1 = this.state.numberOfUserImage.reduce((arr, item) => (item !== image ? [...arr, item] : arr), []);
+        let newArr2 = this.state.numberOfUserImageNew.reduce((arr, item) => (item !== image ? [...arr, item] : arr), []);
+        let newArr3 = newArr1.length < this.state.numberOfUserImage.length
+            ? [...this.state.numberOfUserImageRemoved, image]
+            : this.state.numberOfUserImageRemoved;
+
+        this.setState({
+            isOpenConfirm: false,
+            numberOfUserImage: newArr1,
+            numberOfUserImageNew: newArr2,
+            numberOfUserImageRemoved: newArr3
+        });
+    };
+
+    handleCloseConfirm = () => {
+        this.setState({isOpenConfirm: false});
+    };
+
     renderInfo () {
-        const { brand, model,categoryName } = this.state;
-        const { categories ,gear } = this.props;
-        if(categoryName === 'Category'){
-            this.setState({
-                categoryName: gear.categoryName
-            });
-        }
-        if(model === ''){
-            this.setState({
-                model: gear.model,
-                brand: gear.brand
-            });
-        }
+        const { brand, model, categoryName } = this.state;
+        const { categories } = this.props;
+
         return (
             <Form className="theme-form add-gear-info d-sm-none d-lg-block">
                 <div className="flex-row">
@@ -174,18 +190,18 @@ class GearEditModal extends Component {
     }
 
     renderPhotos () {
-        const {numberOfUserImage} = this.state;
+        const {numberOfUserImage, numberOfUserImageNew} = this.state;
 
-        const mappedImages = numberOfUserImage.map((image, index) => (
+        const mappedImages = [...numberOfUserImage, ...numberOfUserImageNew].map((image, index) => (
             <div className="add-gear-image" key={'gear-image-' + index}>
-                <img src={image} alt="add gear" />
+                <img src={image} alt="add gear" onClick={() => {this.setState({curImage: image, isOpenConfirm: true})}} />
             </div>
         ));
         return (<div className="add-gear-photos">
             <div className="add-gear-images">
                 {mappedImages}
                 <div className="add-gear-addimage file-input-container">
-                    <i className="fas fa-plus-circle"></i>
+                    <i className="fas fa-plus-circle"/>
                     <input type="file" onChange={this.addImage.bind(this)}/>
                 </div>
             </div>
@@ -233,6 +249,14 @@ class GearEditModal extends Component {
 
         return (
             <Modal open={true} onClose={onClose} center classNames={{modal: "gear-edit-modal"}}>
+              {this.state.busy && <CustomSpinner/>}
+              {this.state.isOpenConfirm &&
+                <ConfirmModal
+                  onClose={this.handleCloseConfirm}
+                  onConfirm={this.handleDeleteImage}
+                  heading={"Delete Image"}
+                />
+              }
               <div className="gear-edit-modal-header">
                 <h2>Edit Gear</h2>
               </div>
@@ -319,7 +343,7 @@ class GearEditModal extends Component {
                                     <button className="ed_save" onClick={() => this.dataSave()}>save</button>
                                     <button onClick={() => onCalendar(this.state.gearid)}>Calendar</button>
                                 </div>
-                                <div className="ELBLPC_bottom"></div>
+                                <div className="ELBLPC_bottom"/>
                             </div>
                         </div>
                     </div>

@@ -150,10 +150,12 @@
                 display: inline-block;
                 border-radius: 30px;
                 margin-right: 5px;
+                cursor: pointer;
 
                 &.active {
                   color: white;
                   background-color: #00F077;
+                  border: 1px solid #00F077;
                 }
               }
             }
