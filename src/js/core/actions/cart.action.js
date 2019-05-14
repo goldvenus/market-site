@@ -91,13 +91,15 @@ const getCarts = async () => {
   });
   try {
     let response = await get('viewUserCart');
-    dispatch({
+    if (response && response.data && response.data.status === 'success') {
+      dispatch({
         type: constants.GET_CARTS_SUCCESS,
-        payload: response.data
-    });
+        payload: response.data.data
+      });
+    }
   } catch (error) {
     dispatch({
-        type: constants.GET_CARTS_FAILED
+      type: constants.GET_CARTS_FAILED
     });
     handleError(error);
   }

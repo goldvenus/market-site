@@ -12,7 +12,7 @@ class Footer extends Component {
         <footer >
           <div className="news-letter mb-5 py-5">
             <Container className="news-letter-container">
-              <Row className="align-items-center">
+              <Row className="align-items-center news-letter-content">
                 <Col sm="12">
                   <h5>EMAIL NEWSLETTERS</h5>
                   <p className="theme-text-small">Keep me up to date with content ,updates ,and offers from Athena</p>
@@ -22,11 +22,10 @@ class Footer extends Component {
                   </div>
                   <div className="theme-form-group d-flex d-sm-none">
                     <input placeholder="Your email..." className="theme-form-control" />
-                    <button className="theme-btn theme-btn-primary subscribe-btn"><i className="fas fa-arrow-right"></i></button>
+                    <button className="theme-btn theme-btn-primary subscribe-btn"><i className="fas fa-arrow-right"/></button>
                   </div>
                 </Col>
                 <Col sm="6" className="text-xs-center mt-xs">
-                <hr className="hr-light mb-5 d-block d-sm-none"/>
                   <h3 className="theme-text-primary">12233</h3>
                   <p>Community Members</p>
                 </Col>
@@ -74,7 +73,6 @@ class Footer extends Component {
               </div>
             </Container>
           </div>
-          <hr className="hr-light mb-5 d-sm-none d-block"/>
           <div className="Social-contects mb-3">
             <Container>
               <div className="row">

@@ -118,7 +118,10 @@ class Login extends Component {
                   <div className="input_svg pretty p-svg p-plain">
                     <input
                       type="checkbox"
-                      onClick={() => this.setState({saveState: !saveState})} value={saveState} checked={saveState ? 'checked' : ''}
+                      onClick={() => this.setState({saveState: !saveState})}
+                      value={saveState}
+                      checked={saveState ? 'checked' : ''}
+                      onChange={() => {}}
                     />
                     <div className="state">
                       <img className="svg check_svg" alt="" src="/images/Icons/task.svg"/>
