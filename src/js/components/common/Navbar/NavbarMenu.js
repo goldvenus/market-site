@@ -141,11 +141,11 @@ class NavbarMenu extends React.Component {
 
                 {output}
               </React.Fragment>
-            ) : (
+            ) : isMobile ? (
               <React.Fragment>
                 <NavbarDropdown/>
               </React.Fragment>
-            )
+            ) : null
           }
         </ul>
         {/* sm only navbar end */}

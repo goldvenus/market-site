@@ -54,7 +54,7 @@ const login = async (data) => {
         localStorage.idToken = idToken;
         localStorage.refreshToken = refreshToken;
         localStorage.userId = response.data.data.userAttributes.userid;
-        localStorage.userEmail = data.username;
+        console.log("login result: ", response.data.data.tokens);
         getCarts();
         getFavourites();
     } else {
@@ -188,7 +188,10 @@ const confirmResetPassword = async (data) => {
 
 const refreshToken = async () => {
     try {
-        let response = await axios.post(getAPIUrl('getUserRefreshTokens'), { username: localStorage.userId }, tokenAxiosConfig());
+        let config = tokenAxiosConfig();
+        console.log("config: ", config);
+        let response = await axios.post(getAPIUrl('getUserRefreshTokens'), { username: localStorage.userId }, config);
+        console.log("refresh response: ", response);
         if (response && response.data && response.data.status === 'success') {
             const { accessToken, idToken, refreshToken } = response.data.data;
             localStorage.accessToken = accessToken.jwtToken;

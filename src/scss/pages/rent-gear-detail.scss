@@ -44,9 +44,6 @@
 .view-gear-detail {
   margin-bottom: 60px;
 }
-.star-white {
-  color: white;
-}
 .breadcrumb {
   padding: 0 0 15px 0;
   border-bottom: solid 1px #f4f4f4;
@@ -439,6 +436,12 @@
   & span span span:hover {
     width: 100% !important;
   }
+  .star-white {
+    color: white;
+  }
+  .star-selected {
+    color: #F74377;
+  }
 }
 .gear-address-container {
   align-items: center;
@@ -532,9 +535,6 @@
         position: absolute;
         color: red;
       }
-    }
-    .star-selected {
-      color: #F74377;
     }
     .type-tabs {
       padding: 10px;

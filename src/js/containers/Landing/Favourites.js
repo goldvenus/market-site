@@ -98,12 +98,12 @@ class Favourites extends Component {
             <p className="theme-text-small text-muted tb_categories_name">{listItem.categoryName}</p>
           </td>
           <td width="20.5%">
-              <Rating
-                  initialRating={3}
-                 emptySymbol={<img src="/images/Icons/star/star_icon_d.png" alt='' className="icon" />}
-                 fullSymbol={<img src="/images/Icons/star/star_icon_a.png" alt='' className="icon" />}
-                    onChange={(rate) => {}}/>
-              <p>{this.state.ratingstate[index]}</p>
+              <span className="star-wrapper">
+                  {[1, 2, 3, 4, 5].map(i =>
+                      <i className="fa fa-star star-selected" key={i}/>)
+                  }
+                  {this.state.ratingstate[index]}
+              </span>
           </td>
 
             <td width="17.5%"><div><div className="favouri_link_icon"/><span className="Raykjavik_span">Raykjavik</span></div></td>
@@ -124,6 +124,7 @@ class Favourites extends Component {
       ))
     );
   }
+
   renderFavouritesItems_md() {
     const { favourites } = this.props;
     return (
@@ -210,13 +211,13 @@ class Favourites extends Component {
                 <Table className="theme-table table favor-theme-table">
                   <thead className= "d-none d-lg-table">
                     <tr>
-                      <th></th>
+                      <th/>
                       <th>Name & Category</th>
                       <th>Rating</th>
                       <th>Location</th>
                       <th>Price per day</th>
-                      <th></th>
-                      <th></th>
+                      <th/>
+                      <th/>
                     </tr>
                   </thead>
                   <tbody>
