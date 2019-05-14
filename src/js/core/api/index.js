@@ -5,6 +5,9 @@ import {logout} from "../actions/user.action";
 const getAPIUrl = (url) => API_URL + url;
 
 const axiosConfig = () => {
+    // origin: ["*"],
+    //     headers: ["Access-Control-Allow-Origin","Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type", "CORELATION_ID"],
+    //     credentials: true
     let config = {
         'headers': {
             'Content-Type': 'application/json'
@@ -47,9 +50,10 @@ const tokenAxiosConfig = () => {
 const get = async (url) => {
     return await axios.get(getAPIUrl(url), axiosConfig()).then((res) => {
         if (res.data && res.data.status === 'fail' && res.data.errorMessage === 'Access Token has expired') {
-            logout();
+            // logout();
             console.log("Access Token has expired, logging out");
         } else {
+            res.data.errorMessage && console.log(res.data.errorMessage);
             return res;
         }
     }).catch(err => {
