@@ -15,7 +15,7 @@ const MyListingItem = ({ listItem, openEdit, openCalendar }) => (
     <React.Fragment>
         <tr className="desktop-gear-item">
             <td width="5%" className="d-lg-table-cell listing-data-image">
-                <img src={listItem.numberOfUserImage[0]} className="gear-img" alt="Number of User"/>
+                <img src={listItem.numberOfUserImage[0]} className="gear-img" alt="Image"/>
             </td>
             <td className="d-lg-table-cell" width="20%">
                 <p className="gear-brand">{listItem.brand}</p>
@@ -32,7 +32,7 @@ const MyListingItem = ({ listItem, openEdit, openCalendar }) => (
         </tr>
         <tr className="tablet-gear-item">
             <td width="15%" className="listing-data-image">
-                <img src={listItem.numberOfUserImage[0]} className="gear-img" alt="Number of User"/>
+                <img src={listItem.numberOfUserImage[0]} className="gear-img" alt="Image"/>
             </td>
             <td width="45%">
                 <div className="brand-category-wrapper">
@@ -64,7 +64,7 @@ const MyListingItemSm = ({ listItem, openEdit, openCalendar }) => (
     <div className="mylistingitem_sm_parent_div">
         <div className="d-flex mlspd_first">
             <div  className="listing-data-image">
-                {<img src={listItem.numberOfUserImage[0]} className="gear-img" alt="Number of User"/>}
+                {<img src={listItem.numberOfUserImage[0]} className="gear-img" alt="Image"/>}
             </div>
             <div className="d-block mlspdf_name_tag">
                 <p className="theme-text-small text-muted mlspdf_name_tag_categoryName">{listItem.categoryName}</p>

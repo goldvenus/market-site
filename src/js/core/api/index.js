@@ -1,5 +1,6 @@
 import axios from "axios";
 import { API_URL } from '../constants';
+import {logout} from "../actions/user.action";
 
 const getAPIUrl = (url) => API_URL + url;
 
@@ -11,7 +12,7 @@ const axiosConfig = () => {
     };
 
     if (localStorage.accessToken) {
-        config['headers']['accesstoken'] = localStorage.accessToken;
+        config['headers']['accessToken'] = localStorage.accessToken;
     }
 
     if (localStorage.idToken) {
@@ -29,7 +30,7 @@ const tokenAxiosConfig = () => {
     };
 
     if (localStorage.accessToken) {
-      config['headers']['accesstoken'] = localStorage.accessToken;
+      config['headers']['accessToken'] = localStorage.accessToken;
     }
 
     if (localStorage.refreshToken) {
@@ -44,17 +45,29 @@ const tokenAxiosConfig = () => {
 };
 
 const get = async (url) => {
-    return await axios.get(getAPIUrl(url), axiosConfig()).then((res) => res)
-        .catch(err => {
-            return false;
-        });
+    return await axios.get(getAPIUrl(url), axiosConfig()).then((res) => {
+        if (res.data && res.data.status === 'fail' && res.data.errorMessage === 'Access Token has expired') {
+            logout();
+            console.log("Access Token has expired, logging out");
+        } else {
+            return res;
+        }
+    }).catch(err => {
+        return false;
+    });
 };
 
 const post = async (url, data) => {
-    return axios.post(getAPIUrl(url), data, axiosConfig()).then((res) => res)
-        .catch(err => {
-            return false;
-        });
+    return axios.post(getAPIUrl(url), data, axiosConfig()).then((res) => {
+        if (res.data && res.data.status === 'fail' && res.data.errorMessage === 'Access Token has expired') {
+            logout();
+            console.log("Access Token has expired, logging out");
+        } else {
+            return res;
+        }
+    }).catch(err => {
+        return false;
+    });
 };
 
 // export default {

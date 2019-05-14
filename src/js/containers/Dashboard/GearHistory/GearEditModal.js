@@ -377,7 +377,7 @@ class GearEditModal extends Component {
         const { selectedType, replacementValue, pricePerDay ,accessories, isKit} = this.state;
 
         return (
-            <Modal open={true} onClose={onClose} center classNames={{modal: "gear-edit-modal"}}>
+            <Modal open={true} onClose={onClose} center classNames={{modal: "gear-edit-modal gear-delete-modal"}}>
               {this.state.busy && <CustomSpinner/>}
               {this.state.isOpenConfirm &&
                 <ConfirmModal

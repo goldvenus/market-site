@@ -573,7 +573,7 @@ class AddGear extends Component {
           <div className="flex-row buttons-container">
             <button className="theme-btn theme-btn-secondery theme-btn-link success_first_button"><Link to="/dashboard">My Gear</Link>
             </button>
-            <button className="theme-btn theme-btn-primary theme-btn-link success_sencond_button"><Link to={`/gear/detail/${this.state.categoryName.replace(' ', '')}/${gearId}`}>View Gear</Link>
+            <button className="theme-btn theme-btn-primary theme-btn-link success_sencond_button"><Link to={`/gear/detail/${gearId}`}>View Gear</Link>
             </button>
           </div>
         </div>

@@ -212,9 +212,9 @@ const refreshToken = async () => {
 
 const getUser = async () => {
     try {
-        if (localStorage.accessToken) {
-            const token = await refreshToken();
-            if (token) {
+        // if (localStorage.accessToken) {
+        //     const token = await refreshToken();
+        //     if (token) {
                 let response = await get('getUserInfo');
                 if (response && response.data && response.data.status && response.data.status === 'success') {
                     dispatch({
@@ -222,8 +222,8 @@ const getUser = async () => {
                         payload: response.data.data.userAttributes
                     });
                 }
-            }
-        }
+        //     }
+        // }
     } catch (error) {
         handleError(error);
     }
