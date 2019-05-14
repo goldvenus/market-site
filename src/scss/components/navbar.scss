@@ -55,6 +55,16 @@ header {
       width: 100%;
       z-index: 555;
 
+      &.visible-logo {
+        opacity: 1;
+        transition: opacity 0.2s ease;
+      }
+      &.hidden-logo {
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+
+
       @include media-breakpoint-down(sm) {
         display: flex !important;
       }

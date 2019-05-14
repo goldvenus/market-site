@@ -345,7 +345,7 @@ class Home extends React.Component {
                   <p id="others"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>OTHER</span>
-                    <Link to="/rentgear/other">
+                    <Link to="/rentgear/Other">
                       <button className="theme-btn theme-btn-outline-pink">View</button>
                     </Link>
                   </div>

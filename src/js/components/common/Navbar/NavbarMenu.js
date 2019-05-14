@@ -96,6 +96,7 @@ class NavbarMenu extends React.Component {
       location: {pathname}
     } = this.props;
     const isHome = pathname === '/home' || pathname === '/';
+    const logoClassName = (!isHome || (isHome && (isMobile || scrolledDown))) ? 'visible-logo' : 'hidden-logo';
 
     let output = null;
 
@@ -130,8 +131,7 @@ class NavbarMenu extends React.Component {
         <NavbarToggleButton onClick={this.toggleNavbar} isOpen={!collapsed}/>
 
         {/* sm only navbar */}
-        {(!isHome || (isHome && (isMobile || scrolledDown))) &&
-        <ul className="navbar-menu__navbar-sm">
+        <ul className={`navbar-menu__navbar-sm ${logoClassName}`}>
           {collapsed
             ? (
               <React.Fragment>
@@ -147,7 +147,7 @@ class NavbarMenu extends React.Component {
               </React.Fragment>
             )
           }
-        </ul>}
+        </ul>
         {/* sm only navbar end */}
 
         <CollapseMenu isOpen={!collapsed}>
@@ -158,11 +158,9 @@ class NavbarMenu extends React.Component {
                   {/* sm only menu */}
                   <li className="animated-menu-item menu-item-sm">
                     <Link to="/rentgear">
-
                       <h2 onClick={this.toggleNavbar} >
                         Rent Gear
                       </h2>
-
                     </Link>
                   </li>
                   <li className="animated-menu-item menu-item-sm with-mb">
@@ -171,7 +169,6 @@ class NavbarMenu extends React.Component {
                         Add Gear
                       </h2>
                     </Link>
-
                   </li>
                   {/* sm only menu end */}
 
