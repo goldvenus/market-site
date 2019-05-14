@@ -61,15 +61,17 @@ class CustomAutosuggest extends Component {
         super(props);
 
         this.state = {
-            value: '',
+            value: this.props.value,
             suggestions: this.props.suggestions
         };
         suggestions = this.props.suggestions;
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.suggestions)
+        if (nextProps.suggestions && nextProps.value !== undefined) {
             suggestions = nextProps.suggestions;
+            this.setState({value: nextProps.value});
+        }
     }
 
     onSuggestionsFetchRequested = ({ value }) => {
@@ -85,7 +87,7 @@ class CustomAutosuggest extends Component {
     };
 
     handleChange = (event, { newValue, method }) => {
-        this.setState({value: newValue});
+        // this.setState({value: newValue});
         this.props.handleChange(newValue);
     };
 

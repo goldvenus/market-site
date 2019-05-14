@@ -12,6 +12,7 @@ const addGear = async (data) => {
     if (response && response.data && response.data.status === 'success') {
         dispatch({
             type: constants.ADD_GEAR_SUCCESS,
+            payload: response.data.data
         });
         handleInfo('Gear was added successfully');
         return response.data.data;
@@ -27,10 +28,10 @@ const editGear = async (data) => {
     });
     try {
         let response = await post('editGearItem', data);
-        if (response.data.status === 'success' ) {
+        if (response && response.data && response.data.status === 'success' ) {
             dispatch({
                 type: constants.EDIT_GEAR_SUCCESS,
-                payload: data
+                payload: response.data.data
             });
             handleInfo('Gear was edited');
             return true;

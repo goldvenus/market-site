@@ -7,17 +7,22 @@ import {
 import Textarea from 'muicss/lib/react/textarea';
 import 'muicss/dist/css/mui.min.css';
 import Chips from 'react-chips';
-import CustomInput from '../../../components/CustomInput';
-import { getGear, editGear } from '../../../core/actions/gear.action'
+import {getGear, editGear, getUsedNames} from '../../../core/actions/gear.action'
 import { handleError, readFileData } from "../../../core/actions/common.action";
 import { fetchCategories } from '../../../core/actions/category.action';
 import CustomSpinner from "../../../components/CustomSpinner";
 import Modal from "react-responsive-modal";
 import ConfirmModal from "../../../components/common/ConfirmModal";
+import CustomAutosuggest from "../../../components/common/CustomAutosuggest";
+import TextField from "@material-ui/core/TextField/TextField";
 
 class GearEditModal extends Component {
     constructor(props) {
         super(props);
+
+        this.usedNames = [];
+        this.suggestions = [];
+
         this.state = {
             dropdownOpen: false,
             selectedType: '',
@@ -38,6 +43,9 @@ class GearEditModal extends Component {
             postalCode: '',
             replacementValue: '',
             pricePerDay: '',
+            productName: '',
+            isDoubled: false,
+
             startDate: new Date(),
             endDate: new Date(),
             busy: false,
@@ -45,9 +53,18 @@ class GearEditModal extends Component {
             isOpenConfirm: false
         };
         this.gearid = props.gearid;
+    }
 
-        getGear(this.gearid);
-        fetchCategories();
+    async componentDidMount() {
+        await getGear(this.gearid);
+        await fetchCategories();
+        this.usedNames = await getUsedNames();
+
+        // remove current produc name from used list
+        if (this.props.gear.productName)
+            this.usedNames = this.usedNames.filter(item => item !== this.props.gear.productName);
+
+        this.autoGenerateSuggestions();
     }
 
     componentWillReceiveProps(props) {
@@ -67,44 +84,106 @@ class GearEditModal extends Component {
                 address: props.gear.address,
                 postalCode: props.gear.postalCode,
                 replacementValue: props.gear.replacementValue,
-                pricePerDay: props.gear.pricePerDay
-            });
+                pricePerDay: props.gear.pricePerDay,
+                productName: props.gear.productName ? props.gear.productName : ''
+            }, this.addSuggestions);
         }
     }
 
-    dataSave = async () => {
-        try {
-            const { categoryName, brand, model, description, selectedType, isKit, accessories, numberOfUserImage, numberOfUserImageNew, numberOfUserImageRemoved, city, region, address, postalCode, replacementValue, pricePerDay } = this.state;
-            const data = {
-                gearid: this.gearid,
-                categoryName,
-                brand,
-                model,
-                description,
-                type: selectedType,
-                isKit,
-                accessories,
-                numberOfUserImage,
-                numberOfUserImageRemoved,
-                numberOfUserImageNew,
-                city,
-                product_region: region,
-                address,
-                postalCode,
-                replacementValue,
-                pricePerDay
-            };
+    autoGenerateSuggestions = () => {
+        let suggestions = this.suggestions;
+        let namesFromCategories = this.props.categories.map((item) => item.categoryName);
+        suggestions = [...suggestions, ...namesFromCategories];
+        this.suggestions = [...new Set(suggestions)];
+        this.forceUpdate();
+    };
 
-            this.setState({busy: true});
-            await editGear(data);
-            this.setState({busy: false});
-            this.props.onClose();
-        } catch (e) {
+    addSuggestions = () => {
+        let {categoryName, brand, model} = this.state;
+        let suggestions = this.suggestions;
+
+        if (categoryName !== '' && brand !== '' && model !== '')
+            suggestions = [categoryName + ' ' + brand + ' ' + model, ...suggestions];
+        if (categoryName !== '' && brand !== '')
+            suggestions = [categoryName + ' ' + brand, ...suggestions];
+        if (categoryName !== '' && model !== '')
+            suggestions = [categoryName + ' ' + model, ...suggestions];
+        if (brand !== '' && model !== '')
+            suggestions = [brand + ' ' + model, ...suggestions];
+        if (brand !== '')
+            suggestions = [brand, ...suggestions];
+        if (model !== '')
+            suggestions = [model, ...suggestions];
+
+        this.suggestions = [...new Set(suggestions)];
+        this.forceUpdate();
+    };
+
+    handleChangeProductName = (newValue) => {
+        let isDoubled = this.usedNames.indexOf(newValue) >= 0;
+        this.setState({productName: newValue, isDoubled});
+    };
+
+    dataSave = async () => {
+        if (this.state.isDoubled) {
+            handleError("Please input another product name");
+            return;
         }
+        const {
+            categoryName,
+            brand,
+            model,
+            productName,
+            description,
+            selectedType,
+            isKit,
+            accessories,
+            numberOfUserImage,
+            numberOfUserImageNew,
+            numberOfUserImageRemoved,
+            city,
+            region,
+            address,
+            postalCode,
+            replacementValue,
+            pricePerDay
+        } = this.state;
+
+        if (categoryName === '' || brand === '' || model === '' || productName === '' || description === '' ||
+                selectedType === '' || city === '' || region === '' || address === '' || postalCode === '' ||
+                    replacementValue === '' || pricePerDay === '') {
+            handleError("Please input required information");
+            return;
+        }
+        const data = {
+            gearid: this.gearid,
+            categoryName,
+            brand,
+            model,
+            description,
+            type: selectedType,
+            isKit,
+            accessories,
+            numberOfUserImage,
+            numberOfUserImageRemoved,
+            numberOfUserImageNew,
+            city,
+            product_region: region,
+            address,
+            postalCode,
+            replacementValue,
+            pricePerDay,
+            productName: productName
+        };
+
+        this.setState({busy: true});
+        await editGear(data);
+        this.setState({busy: false});
+        this.props.onClose();
     };
 
     changeCategory = (e) => {
-        this.setState({ categoryName: e.target.textContent });
+        this.setState({ categoryName: e.target.textContent }, () => this.addSuggestions());
     };
 
     onTypeChange = (e) => {
@@ -128,7 +207,7 @@ class GearEditModal extends Component {
                 numberOfUserImageNew
             });
         } catch {
-            handleError('Please upload a valid image');
+            handleError('Please upload a valid1 image');
         }
     }
 
@@ -153,36 +232,59 @@ class GearEditModal extends Component {
     };
 
     renderInfo () {
-        const { brand, model, categoryName } = this.state;
-        const { categories } = this.props;
+        let { brand, model, categoryName, productName, isDoubled } = this.state;
+        let { categories } = this.props;
 
         return (
             <Form className="theme-form add-gear-info d-sm-none d-lg-block">
                 <div className="flex-row">
-                    <div className="ELBL_info_column">
-                        <div className="col-lg-8 ELBLIC_div">
-                            <p className="info_header">CATEGORIES</p>
-                            <Dropdown  className="theme-form-field theme-form-dropdown " isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                                <DropdownToggle caret >
-                                    {categoryName}
-                                </DropdownToggle>
-                                <DropdownMenu right>
-                                    {
-                                        categories.map((ele, index) => {
-                                            return <DropdownItem key={index}
-                                                                 onClick={this.changeCategory.bind(this)}>{ele.categoryName}</DropdownItem>;
-                                        })
-                                    }
-                                </DropdownMenu>
-                            </Dropdown>
-                        </div>
-                        <div className="col-lg-8 ELBLIC_div">
-                            <p className="info_header">Brand</p>
-                            <CustomInput required="required" value={brand} onChange={(value) => this.setState({ brand: value })} type="text"/>
-                        </div>
-                        <div className="col-lg-8 ELBLIC_div3">
-                            <p className="info_header">Model</p>
-                           <CustomInput required="required" value={model} onChange={(value) => this.setState({ model: value })} type="text"/>
+                    <div className="col-lg-12 ELBLIC_div">
+                        <p className="info_header">CATEGORIES</p>
+                        <Dropdown  className="theme-form-field theme-form-dropdown " isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                            <DropdownToggle caret >
+                                {categoryName}
+                            </DropdownToggle>
+                            <DropdownMenu right>
+                                {
+                                    categories.map((ele, index) => {
+                                        return <DropdownItem  key={index} onClick={this.changeCategory.bind(this)}>{ele.categoryName}</DropdownItem>;
+                                    })
+                                }
+                            </DropdownMenu>
+                        </Dropdown>
+                    </div>
+                    <div className="col-lg-12 ELBLIC_div">
+                        <TextField
+                            id="standard-with-placeholder1"
+                            className="custom-beautiful-textfield"
+                            label='Brand'
+                            type="text"
+                            value={brand}
+                            onBlur={this.addSuggestions}
+                            onChange={(e) => this.setState({ brand: (e && e.target && e.target.value) || ''})}
+                        />
+                    </div>
+                </div>
+                <div className="flex-row">
+                    <div className="col-lg-12 ELBLIC_div">
+                        <TextField
+                            id="standard-with-placeholder2"
+                            className="custom-beautiful-textfield"
+                            label='Model'
+                            type="text"
+                            value={model}
+                            onBlur={this.addSuggestions}
+                            onChange={(e) => this.setState({ model: (e && e.target && e.target.value) || ''})}
+                        />
+                    </div>
+                    <div className="col-lg-12 ELBLIC_div">
+                        <p className="info_header">Product Name</p>
+                        <div className={`custom-auto-suggest-container ${isDoubled ? "doubled" : ""}`}>
+                            <CustomAutosuggest
+                                value={productName}
+                                suggestions={this.suggestions}
+                                handleChange={this.handleChangeProductName}
+                            />
                         </div>
                     </div>
                 </div>
@@ -224,17 +326,44 @@ class GearEditModal extends Component {
             <Form className="theme-form add-gear-address">
                 <p className="type_title_css">Address</p>
                 <div className='address-wrapper'>
-                    <CustomInput placeholder='City' type="text" value={city}
-                                 onChange={(value) => this.setState({ city: value })}/>
-                    <CustomInput placeholder='Region' type="text" value={region}
-                                 onChange={(value) => this.setState({ region: value })}/>
+                    <TextField
+                        id="standard-with-placeholder4"
+                        className="custom-beautiful-textfield"
+                        label='City'
+                        type="text"
+                        value={city}
+                        floatingLabel={true}
+                        onChange={(e) => this.setState({ city: (e && e.target && e.target.value) || ''})}
+                    />
+                    <TextField
+                        id="standard-with-placeholder5"
+                        className="custom-beautiful-textfield"
+                        label='Region'
+                        type="text"
+                        value={region}
+                        floatingLabel={true}
+                        onChange={(e) => this.setState({ region: (e && e.target && e.target.value) || ''})}
+                    />
                 </div>
                 <div className='address-wrapper'>
-                    <CustomInput placeholder='Address' type="text" value={address}
-                                 onChange={(value) => this.setState({ address: value })}/>
-
-                    <CustomInput placeholder='Postal Code' type="text" value={postalCode}
-                                 onChange={(value) => this.setState({ postalCode: value })}/>
+                    <TextField
+                        id="standard-with-placeholder5"
+                        className="custom-beautiful-textfield"
+                        label='Address'
+                        type="text"
+                        value={address}
+                        floatingLabel={true}
+                        onChange={(e) => this.setState({ address: (e && e.target && e.target.value) || ''})}
+                    />
+                    <TextField
+                        id="standard-with-placeholder6"
+                        className="custom-beautiful-textfield"
+                        label='Postal Code'
+                        type="text"
+                        value={postalCode}
+                        floatingLabel={true}
+                        onChange={(e) => this.setState({ postalCode: (e && e.target && e.target.value) || ''})}
+                    />
                 </div>
             </Form>
         );

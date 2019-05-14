@@ -32,7 +32,7 @@ class AddGear extends Component {
       selectedType: 'new',
       isGearAdded: false,
       gearId: '',
-      categoryName: 'Category',
+      categoryName: '',
       brand: '',
       model: '',
       description: '',
@@ -65,7 +65,11 @@ class AddGear extends Component {
     let namesFromCategories = this.props.categories.map((item) => item.categoryName);
     suggestions = [...suggestions, ...namesFromCategories];
     this.suggestions = [...new Set(suggestions)];
-    this.forceUpdate();
+    if (this.props.categories && this.props.categories.length > 0) {
+        this.setState({categoryName: this.props.categories[0].categoryName});
+    } else {
+        this.forceUpdate();
+    }
   };
 
   addSuggestions = () => {
@@ -91,14 +95,14 @@ class AddGear extends Component {
 
   handleChangeProductName = (newValue) => {
     let isDoubled = this.usedNames.indexOf(newValue) >= 0;
-    this.setState({productName: newValue, isDoubled: isDoubled});
+    this.setState({productName: newValue, isDoubled});
   };
 
   onTypeChange(e) {
     this.setState({
         selectedType: e.target.value
     });
-}
+  }
 
   changeCategory(e) {
     this.setState({ categoryName: e.target.textContent }, () => this.addSuggestions());
@@ -134,13 +138,13 @@ class AddGear extends Component {
   }
 
   renderInfo() {
-    const { selectedType, brand, model, isKit, categoryName, accessories, isDoubled, dropdownOpen } = this.state;
+    const { selectedType, brand, model, isKit, categoryName, accessories, isDoubled, dropdownOpen, productName } = this.state;
     const { categories } = this.props;
 
     return (
       <Form className="theme-form add-gear-info container add-gear-info-cusvenus" id="tablet-form">
         <div className="flex-row d-md-block d-lg-flex">
-          <div className="theme-column category_first" width="35%">
+          <div className="theme-column category_first">
             <Dropdown className="theme-form-field theme-form-dropdown category_first" isOpen={dropdownOpen} toggle={this.toggle}>
               <DropdownToggle caret>
                 {categoryName}
@@ -148,8 +152,7 @@ class AddGear extends Component {
               <DropdownMenu right>
                 {
                   categories.map((ele, index) => {
-                    return <DropdownItem key={index}
-                      onClick={this.changeCategory.bind(this)}>{ele.categoryName}</DropdownItem>;
+                    return <DropdownItem  key={index} onClick={this.changeCategory.bind(this)}>{ele.categoryName}</DropdownItem>;
                   })
                 }
               </DropdownMenu>
@@ -181,21 +184,26 @@ class AddGear extends Component {
             <div className="theme-form-field category_first">
               <div className={`custom-auto-suggest-container ${isDoubled ? "doubled" : ""}`}>
                 <CustomAutosuggest
+                  value={productName}
                   suggestions={this.suggestions}
                   handleChange={this.handleChangeProductName}
                 />
               </div>
             </div>
             <div className="theme-form-field category_first">
-              <Textarea className="category_description_ta" label='Description' floatingLabel={true}
+              <Textarea
+                className="category_description_ta"
+                label='Description'
+                type="text"
+                floatingLabel={true}
                 onChange={(e) => {
                   this.setState({ description: e.target.value })
-                }} type="text"
+                }}
               />
             </div>
           </div>
-          <div className="theme-column info-right-container " id="new-tabs" width="35%">
-              <span>Select the condition of the item</span>
+          <div className="theme-column info-right-container" id="new-tabs">
+            <span>Select the condition of the item</span>
             <div className="info-right-newtabs-left">
               <div className="type-tabs">
                 <input name="type" id="new" type="radio" value="new" onChange={this.onTypeChange}/>
@@ -373,12 +381,12 @@ class AddGear extends Component {
           return;
       }
       this.setState({busy: true});
-      let gearId = await addGear(data);
-      if (gearId) {
+      let gear = await addGear(data);
+      if (gear) {
         this.setState({
           busy: false,
           isGearAdded: true,
-          gearId
+          gearId: gear.gearid
         });
       } else {
         this.setState({
@@ -506,8 +514,8 @@ class AddGear extends Component {
   validate() {
     switch (this.state.progressStep) {
       case 0:
-        const { categoryName, brand, model, description, selectedType } = this.state;
-        if (categoryName && brand && model && description && selectedType) {
+        const { categoryName, brand, model, description, selectedType, productName, isDoubled } = this.state;
+        if (categoryName && brand && model && description && selectedType && productName && !isDoubled) {
           return true;
         }
         break;
@@ -563,9 +571,9 @@ class AddGear extends Component {
           </div>
 
           <div className="flex-row buttons-container">
-            <button className="theme-btn theme-btn-secondery theme-btn-link success_first_button"><Link to="/listgear">List Gear</Link>
+            <button className="theme-btn theme-btn-secondery theme-btn-link success_first_button"><Link to="/dashboard">My Gear</Link>
             </button>
-            <button className="theme-btn theme-btn-primary theme-btn-link success_sencond_button"><Link to={`/editgear/${gearId}`}>View Gear</Link>
+            <button className="theme-btn theme-btn-primary theme-btn-link success_sencond_button"><Link to={`/gear/detail/${this.state.categoryName.replace(' ', '')}/${gearId}`}>View Gear</Link>
             </button>
           </div>
         </div>
@@ -598,9 +606,9 @@ class AddGear extends Component {
               <div className="flex-row buttons-container">
                 {
                   this.state.progressStep !== 0 ?
-                    <button className="theme-btn theme-btn-secondary theme-back-btn" onClick={this.previousStep.bind(this)}><span
-                      className="fa fa-angle-left"/> Back  </button> :
-                    null
+                    <button className="theme-btn theme-btn-secondary theme-back-btn" onClick={this.previousStep.bind(this)}>
+                        <span className="fa fa-angle-left"/> Back
+                    </button> : null
                 }
 
                 <button className="theme-btn theme-btn-primary theme-continue-btn" onClick={this.nextStep.bind(this)}>Continue <span

@@ -3,7 +3,7 @@
   border-bottom: solid 1px #eaeaea;
 }
 .custom-auto-suggest-container.doubled {
-  border: solid 1px #F82462;
+  border: solid 1px #F82462 !important;
 }
 .react-autosuggest__container {
   position: relative;
@@ -61,11 +61,6 @@
   padding: 0;
   list-style-type: none;
 }
-//.react-autosuggest__suggestions-list
-//{
-//  height: 200px;
-//  overflow-y: auto;
-//}
 
 .react-autosuggest__suggestion {
   cursor: pointer;
