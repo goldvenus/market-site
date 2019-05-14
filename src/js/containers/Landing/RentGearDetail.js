@@ -94,7 +94,7 @@ class RentGearDetail extends Component {
                         />
                         {
                             carted > 0 ?
-                                <div className="card-checked"><i className="fas fa-check-circle icon-carted"></i></div> : null
+                                <div className="card-checked"><i className="fas fa-check-circle icon-carted"/></div> : null
                         }
                         <CardBody>
                             <CardTitle>{brand}</CardTitle>
@@ -104,7 +104,7 @@ class RentGearDetail extends Component {
                                         <span>
                                         {
                                             [1, 2, 3, 4, 5].map(i =>
-                                                <i className="fa fa-star star-selected" key={i}></i>
+                                                <i className="fa fa-star star-selected" key={i}/>
                                             )
                                         }
                                         </span>
@@ -126,7 +126,7 @@ class RentGearDetail extends Component {
                                 </button>
                                 <button className="fav" onClick={() => {
                                     favored > 0 ? deleteFavourite({gearid}) : addFavourites({gearid})
-                                }}><i className={favored ? "fas fa-heart" : "far fa-heart"}></i></button>
+                                }}><i className={favored ? "fas fa-heart" : "far fa-heart"}/></button>
                             </div>
                         </CardBody>
                     </Card>
@@ -172,7 +172,6 @@ class RentGearDetail extends Component {
         </ItemsCarousel>);
     };
 
-    // modal
     onOpenModal = async () => {
         try {
             const { carts } = this.props;
@@ -332,23 +331,23 @@ class RentGearDetail extends Component {
                   </div>
 
                   <div className='row rating-container'>
-                      <div className='col-sm-5'></div>
+                      <div className='col-sm-5'/>
                       <div className='col-sm-7 col-12'>
                           <span>
                               {
                                   star_arr.map((item, key) =>
                                       key < 6 ?
-                                          <i className="fa fa-star star-selected" key={key}></i> :
-                                          <i className="fa fa-star" key={key}></i>)
+                                          <i className="fa fa-star star-selected" key={key}/> :
+                                          <i className="fa fa-star" key={key}/>)
                               }
                           </span>
                           <span> {rating} ({total_rating})</span>
                       </div>
                       <div className="gear-address-container col-sm-7 col-12 row">
-                          <div className='marker-icon'></div>
+                          <div className='marker-icon'/>
                           <span className='gear-address'>{city}</span>
                       </div>
-                      <div className='col-sm-5'></div>
+                      <div className='col-sm-5'/>
                   </div>
 
                   <div className="carousel-top-container">
@@ -407,7 +406,7 @@ class RentGearDetail extends Component {
                                               <object type="image/svg+xml" data="/images/Icons/calendar/calendar.svg">abc</object>
                                       }
                                   </div>
-                                  <div className='col-md-2'></div>
+                                  <div className='col-md-2'/>
                                   <div className='col-md-11 date-range-container'>
                                       <TextField id="date-range-input1" className="date-range-input" type="text" label={'RETURN DATE'}
                                           onFocus={() => this.setOpenState(false, true)} value={end_date_str}/>
@@ -439,7 +438,7 @@ class RentGearDetail extends Component {
                           </button>
                           <button className="theme-btn theme-btn-secondery btn-favor" onClick={() => {
                               favored>0 ? deleteFavourite({ gearid }) : addFavourites({ gearid })}}>
-                              <i className={`${favored ? 'fas' : 'far'} fa-heart`}></i>
+                              <i className={`${favored ? 'fas' : 'far'} fa-heart`}/>
                           </button>
                       </div>
                   </div>
@@ -493,7 +492,7 @@ class RentGearDetail extends Component {
                                       { name }
                                       {
                                           carted > 0 ?
-                                              <i className="fas fa-check-circle"></i> : null
+                                              <i className="fas fa-check-circle"/> : null
                                       }
                                   </span>
                                   <div className="type-tabs d-none d-lg-block">
@@ -530,14 +529,14 @@ class RentGearDetail extends Component {
                                               star_rating > 0 ?
                                                   star_arr.map((item, key) =>
                                                       key < 6 ?
-                                                          <i className="fa fa-star star-selected" key={key}></i> :
-                                                          <i className="fa fa-star" key={key}></i>) :
+                                                          <i className="fa fa-star star-selected" key={key}/> :
+                                                          <i className="fa fa-star" key={key}/>) :
                                                   null
                                           }
                                       </span>
                                       <span className="theme-form-small">&nbsp;{rating} ({total_rating})</span>
                                       <div className="gear-address-container row">
-                                          <div className='marker-icon'></div>
+                                          <div className='marker-icon'/>
                                           <span className='gear-address'>{city}</span>
                                       </div>
                                   </div>
@@ -608,7 +607,7 @@ class RentGearDetail extends Component {
                                       </button>
                                       <button className="theme-btn theme-btn-secondery btn-favor" onClick={() => {
                                           favored>0 ? deleteFavourite({ gearid }) : addFavourites({ gearid })}}>
-                                          <i className={`${favored ? 'fas' : 'far'} fa-heart`}></i>
+                                          <i className={`${favored ? 'fas' : 'far'} fa-heart`}/>
                                       </button>
                                   </div>
                               </div>
@@ -643,6 +642,8 @@ class RentGearDetail extends Component {
                       <CartModal2
                           dlg_model={1}
                           gear={this.state.gear}
+                          start_date={this.state.startDate}
+                          end_date={this.state.endDate}
                           open={true}
                           onClose={this.onCloseModal}
                           addToCart={() => this.addToCart()}

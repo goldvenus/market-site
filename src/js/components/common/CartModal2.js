@@ -13,9 +13,11 @@ class CartModal2 extends Component {
     // model1: Add to Cart, model2: Edit
     constructor(props) {
         super(props);
+        let start_date = this.props.start_date;
+        let end_date = this.props.end_date;
         this.state = {
-            startDate: new Date(),
-            endDate: new Date(),
+            startDate: start_date ? start_date : new Date(),
+            endDate: end_date ? end_date : new Date(),
             open_date_picker1: false,
             open_date_picker2: false,
             busy: false
@@ -152,7 +154,7 @@ class CartModal2 extends Component {
                                     <img src="/images/Icons/calendar/calendar.svg" alt=''/>
                             }
                         </div>
-                        <div className='col-md-2'></div>
+                        <div className='col-md-2'/>
                         <div className='col-md-11 date-range-container'>
                             <TextField id="date-range-input1" className="date-range-input" type="text" label={'RETURN DATE'}
                                        onFocus={() => this.setOpenState(false, true)} value={end_date_str}/>
