@@ -93,17 +93,17 @@ class Home extends Component {
     if (href.indexOf('id_token') > 0) {
       let token1 = href.split('#')[1].split('&')[0];
       let token2 = href.split('#')[1].split('&')[1];
-      let idToken, accessToken;
+      let idToken, accesstoken;
 
       if (token1.indexOf('id_token') > 0) {
         idToken = token1.replace('id_token=', '');
-        accessToken = token2.replace('access_token=', '');
+        accesstoken = token2.replace('access_token=', '');
       } else {
-        accessToken = token1.replace('access_token=', '');
+        accesstoken = token1.replace('access_token=', '');
         idToken = token2.replace('id_token=', '');
       }
 
-      socialLogin(idToken, accessToken);
+      socialLogin(idToken, accesstoken);
     }
   }
 
