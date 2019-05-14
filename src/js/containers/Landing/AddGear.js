@@ -63,7 +63,7 @@ class AddGear extends Component {
   autoGenerateSuggestions = () => {
     let suggestions = this.suggestions;
     let namesFromCategories = this.props.categories.map((item) => item.categoryName);
-    suggestions = [...suggestions, ...namesFromCategories, ...this.usedNames];
+    suggestions = [...suggestions, ...namesFromCategories];
     this.suggestions = [...new Set(suggestions)];
     this.forceUpdate();
   };
@@ -134,14 +134,14 @@ class AddGear extends Component {
   }
 
   renderInfo() {
-    const { selectedType, brand, model, isKit, categoryName, accessories } = this.state;
+    const { selectedType, brand, model, isKit, categoryName, accessories, isDoubled, dropdownOpen } = this.state;
     const { categories } = this.props;
 
     return (
       <Form className="theme-form add-gear-info container add-gear-info-cusvenus" id="tablet-form">
         <div className="flex-row d-md-block d-lg-flex">
           <div className="theme-column category_first" width="35%">
-            <Dropdown className="theme-form-field theme-form-dropdown category_first" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+            <Dropdown className="theme-form-field theme-form-dropdown category_first" isOpen={dropdownOpen} toggle={this.toggle}>
               <DropdownToggle caret>
                 {categoryName}
               </DropdownToggle>
@@ -179,11 +179,12 @@ class AddGear extends Component {
               />
             </div>
             <div className="theme-form-field category_first">
-              <CustomAutosuggest
-                suggestions={this.suggestions}
-                handleChange={this.handleChangeProductName}
-                isDoubled={this.state.isDoubled}
-              />
+              <div className={`custom-auto-suggest-container ${isDoubled ? "doubled" : ""}`}>
+                <CustomAutosuggest
+                  suggestions={this.suggestions}
+                  handleChange={this.handleChangeProductName}
+                />
+              </div>
             </div>
             <div className="theme-form-field category_first">
               <Textarea className="category_description_ta" label='Description' floatingLabel={true}

@@ -1,3 +1,10 @@
+.custom-auto-suggest-container {
+  border: solid 1px white;
+  border-bottom: solid 1px #eaeaea;
+}
+.custom-auto-suggest-container.doubled {
+  border: solid 1px #F82462;
+}
 .react-autosuggest__container {
   position: relative;
   width: 100%;
@@ -11,12 +18,11 @@
   font-weight: 300;
   font-size: 16px;
   border: none;
-  border-bottom: 1px solid rgb(204, 204, 204);
-  border-radius: unset;
   margin: 0 !important;
 
-  &.duplicated {
-    border: 1px solid red;
+  &::placeholder {
+    font-size: 14px;
+
   }
 }
 
@@ -36,7 +42,7 @@
 .react-autosuggest__suggestions-container--open {
   display: block;
   position: absolute;
-  top: 30px;
+  top: 33px;
   width: 100%;
   border: 1px solid #aaa;
   background-color: #fff;
@@ -47,7 +53,7 @@
   border-bottom-right-radius: 4px;
   z-index: 2;
   max-height: 250px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .react-autosuggest__suggestions-list {

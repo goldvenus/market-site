@@ -217,17 +217,17 @@ img {
   }
   & > div:hover {
   }
-  & > div:hover:before {
+  & > div:hover::before {
     border-bottom: solid 1px #ffaec4 !important;
   }
-  & > div:before {
-    border-bottom: solid 1px #ddd !important;
+  & > div::before {
+    border-bottom: solid 1px #eaeaea !important;
     &:hover {
       border-bottom: solid 1px #ffaec4 !important;
     }
   }
-  & > div:after {
-    border-bottom: solid 1px #ffaec4 !important;
+  & > div::after {
+    border-bottom: solid 2px #ffaec4 !important;
   }
 }
 

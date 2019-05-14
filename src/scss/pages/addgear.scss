@@ -50,18 +50,20 @@
       }
       .category_description_ta {
         width: 91%;
-        border: 1px solid rgba(31, 34, 38, 0.3);
+        border: 1px solid rgb(204, 204, 204);
         textarea {
           width: 100%;
           border-bottom:0;
           padding-left: 15px;
           padding-top: 5px;
-
           &:focus~label {
-            line-height: 32px;
+            line-height: 32px !important;
             font-size: 14px;
           }
         }
+      }
+      .mui--is-not-empty~label {
+        line-height: 32px !important;
       }
     }
   }
@@ -113,7 +115,7 @@
   .add-gear-progress {
     display: flex;
     width: 500px;
-    margin-bottom: 15px;
+    //margin-bottom: 15px;
     z-index: 0;
     margin: 20px;
 
@@ -127,7 +129,7 @@
       position: relative;
 
       i {
-        font-size: 32px;
+        font-size: 35px;
         position: relative;
         z-index: 1000;
         background-color: white;
@@ -135,6 +137,12 @@
 
       &.active {
         opacity: 1;
+        & > div {
+          color: #252525;
+        }
+      }
+      & > div {
+        margin-top: 5px;
       }
 
       &:nth-child(n+2):before {
@@ -157,7 +165,7 @@
     label {
       background: white;
       color: orange;
-      padding: 5px 15px;
+      padding: 7px 15px;
       border: 1px solid #F8F1E8;
       display: inline-block;
       border-radius: 30px;
@@ -165,8 +173,8 @@
 
       &.active {
         color: white;
-        background-color: #00F077;
-        border: 1px solid #00F077;
+        background-color: #1CDB74;
+        border: 1px solid #1CDB74;
       }
     }
 
@@ -221,7 +229,6 @@
     }
   }
   .info-right-container {
-    padding-top: 15px;
     margin-left: 15px;
     height: 100%;
 
@@ -306,12 +313,10 @@
           display: none;
         }
       }
-
       .theme-btn-primary {
         flex: 1;
       }
     }
-
     .custom-input {
       width: auto;
       flex: 1;
@@ -431,9 +436,7 @@
     div {
       color:#F82462;
     }
-
     & > div{
-      //border:1px solid #fe8e74 !important;
       -webkit-border-radius: 0px !important;
       -moz-border-radius: 0px !important;
       border-radius: 0px !important;
@@ -963,11 +966,9 @@
 
     }
 
-
     & > * {
       margin-top: 10px;
     }
-
     .flex-row {
       justify-content: space-around;
       width: 100%;
