@@ -16,7 +16,7 @@ import {
 } from './images/index';
 
 import data from '../../components/dummydata';
-import ThemeCardTwo from '../../components/Theme-Cards/ThemeCardTwo';
+// import ThemeCardTwo from '../../components/Theme-Cards/ThemeCardTwo';
 import ArrivalItem from './ArrivalItem';
 import $ from 'jquery';
 
@@ -112,13 +112,13 @@ class Home extends React.Component {
       prevNextButtons: false,
       pageDots: false
   }
-  const flickityOptions2 = {
-    contain: true,
-    // able previous & next buttons and dots
-    prevNextButtons: true,
-    pageDots: true,
-    draggable: false
-  }
+  // const flickityOptions2 = {
+  //   contain: true,
+  //   // able previous & next buttons and dots
+  //   prevNextButtons: true,
+  //   pageDots: true,
+  //   draggable: false
+  // }
 
     return (
       <div className="page home-page home">
@@ -595,66 +595,66 @@ class Home extends React.Component {
             <div className="arrival-timer-frame arrival-timer-find-btn custom-button-find"><i className="fa fa-search" ></i> Find Gear</div>
           </div>
 
-          <div className="stories d-none d-lg-block">
-            <Container>
-              <Row>
-                <Col>
-                  <h2 className="text-center mb-5">Stories</h2>
-                </Col>
-              </Row>
-              <Row>
-                {
-                  data.stories.map((item, index) => {
-                    return <Col sm="8" key={index}>
-                      <ThemeCardTwo story={item}/>
-                    </Col>;
-                  })
-                }
-              </Row>
-              <Row>
-                <Col className="text-center">
-                  <button className="theme-btn theme-btn-primary mt-5">
-                    View All
-                  </button>
-                </Col>
-              </Row>
-            </Container>
-          </div>
-          <div className="stories d-bloke d-lg-none slider-3">
-            <Container>
-              <Row>
-                <Col>
-                  <h2 className="text-center mb-5">Stories</h2>
-                </Col>
-              </Row>
-              <Flickity
-              className={'carousel'} // default ''
-              elementType={'div'} // default 'div'
-              options={flickityOptions2} // takes flickity options {}
-              disableImagesLoaded={false} // default false
-              reloadOnUpdate // default false
-            >
+          {/*<div className="stories d-none d-lg-block">*/}
+            {/*<Container>*/}
+              {/*<Row>*/}
+                {/*<Col>*/}
+                  {/*<h2 className="text-center mb-5">Stories</h2>*/}
+                {/*</Col>*/}
+              {/*</Row>*/}
+              {/*<Row>*/}
+                {/*{*/}
+                  {/*data.stories.map((item, index) => {*/}
+                    {/*return <Col sm="8" key={index}>*/}
+                      {/*<ThemeCardTwo story={item}/>*/}
+                    {/*</Col>;*/}
+                  {/*})*/}
+                {/*}*/}
+              {/*</Row>*/}
+              {/*<Row>*/}
+                {/*<Col className="text-center">*/}
+                  {/*<button className="theme-btn theme-btn-primary mt-5">*/}
+                    {/*View All*/}
+                  {/*</button>*/}
+                {/*</Col>*/}
+              {/*</Row>*/}
+            {/*</Container>*/}
+          {/*</div>*/}
+          {/*<div className="stories d-bloke d-lg-none slider-3">*/}
+            {/*<Container>*/}
+              {/*<Row>*/}
+                {/*<Col>*/}
+                  {/*<h2 className="text-center mb-5">Stories</h2>*/}
+                {/*</Col>*/}
+              {/*</Row>*/}
+              {/*<Flickity*/}
+              {/*className={'carousel'} // default ''*/}
+              {/*elementType={'div'} // default 'div'*/}
+              {/*options={flickityOptions2} // takes flickity options {}*/}
+              {/*disableImagesLoaded={false} // default false*/}
+              {/*reloadOnUpdate // default false*/}
+            {/*>*/}
 
-              {
-                data.stories.map((item, index) => {
-                  return <div className="slide" key={index}>
-                    <Row sm="8">
-                      <ThemeCardTwo story={item}/>
-                    </Row>
-                  </div>
-                })
-              }
+              {/*{*/}
+                {/*data.stories.map((item, index) => {*/}
+                  {/*return <div className="slide" key={index}>*/}
+                    {/*<Row sm="8">*/}
+                      {/*<ThemeCardTwo story={item}/>*/}
+                    {/*</Row>*/}
+                  {/*</div>*/}
+                {/*})*/}
+              {/*}*/}
 
-              </Flickity>
-              <Row>
-                <Col className="text-center">
-                  <button className="mt-5 custom-button-find">
-                    View All
-                  </button>
-                </Col>
-              </Row>
-            </Container>
-          </div>
+              {/*</Flickity>*/}
+              {/*<Row>*/}
+                {/*<Col className="text-center">*/}
+                  {/*<button className="mt-5 custom-button-find">*/}
+                    {/*View All*/}
+                  {/*</button>*/}
+                {/*</Col>*/}
+              {/*</Row>*/}
+            {/*</Container>*/}
+          {/*</div>*/}
 
           <Row className="paySection">
             <Col xs={24} sm={24} md={12} className="paySection1">

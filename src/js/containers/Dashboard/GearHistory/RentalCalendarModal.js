@@ -163,7 +163,7 @@ class RentalCalendarModal extends React.Component {
             period_arr.push({start_date, end_date});
 
             let res = await setBlockPeriod({period_arr, gearid});
-            if (res.status === 'success') {
+            if (res) {
                 handleInfo("Period was set successfully");
                 await getListGears();
                 this.setState({open: 0});
@@ -182,7 +182,7 @@ class RentalCalendarModal extends React.Component {
             period_arr = period_arr.filter((item, key) => this.state.cur_block_num !== key);
 
             let res = await setBlockPeriod({period_arr, gearid});
-            if (res.status === 'success') {
+            if (res) {
                 await getListGears();
                 handleInfo("Period was removed successfully!");
                 this.setState({open: 0, cur_block_num: 0});

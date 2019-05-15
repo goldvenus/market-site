@@ -111,7 +111,7 @@ class RentGearDetail extends Component {
                                         <span className='rating-text'> {rating} ({total_rating})</span>
                                     </div>
                                     <div className="gear-address-container col-sm-12 col-12 row">
-                                        <div className='marker-icon'></div>
+                                        <div className='marker-icon'/>
                                         <span className='gear-address'>{city}</span>
                                     </div>
                                 </div>
@@ -285,16 +285,18 @@ class RentGearDetail extends Component {
         const start_date_str = getDateStr(this.state.startDate);
         const end_date_str = getDateStr(this.state.endDate);
         const duration = calcDaysDiff(this.state.startDate, this.state.endDate) + 1;
-        const total_price = duration * pricePerDay;
         const busy = this.state.busy;
         const star_rating = gear.starRating;
         let star_arr = Array.apply(null, Array(5));
+        let total = pricePerDay * duration;
+        let tax = total * 0.21;
+        let fee = total * 0.15;
+        let amount = parseFloat(total + tax + fee).toFixed(2);
+        let actualPrice = parseFloat(amount / duration).toFixed(2);
 
         return (
           <React.Fragment>
-            {
-              isChangingFavor && <CustomSpinner/>
-            }
+            {isChangingFavor && <CustomSpinner/>}
             <div className="detail-container container">
               <div className='d-lg-none d-xl-none d-info-container'>
                   <div className='location-bar-container'>
@@ -314,7 +316,7 @@ class RentGearDetail extends Component {
                   <span className='category-name'>
                       { name }
                       {
-                          carted > 0 ? <i className="fas fa-check-circle icon-carted"></i> : null
+                          carted > 0 ? <i className="fas fa-check-circle icon-carted"/> : null
                       }
                   </span>
 
@@ -379,7 +381,7 @@ class RentGearDetail extends Component {
                               <div className="replacement-content">${replacementValue}</div>
                           </div>
                           <div className='col-md-12 tablet-price-container'>
-                              <div className="price-per-day">${pricePerDay}<span className='price-slash'> / </span><span className="price-per-day-text">per day</span></div>
+                              <div className="price-per-day">${actualPrice}<span className='price-slash'> / </span><span className="price-per-day-text">per day</span></div>
                           </div>
                       </div>
                       {
@@ -432,9 +434,7 @@ class RentGearDetail extends Component {
                       }
                       <div className="bottom-buttons">
                           <button className="theme-btn theme-btn-primary btn-cart" onClick={() => this.onOpenModal()}>
-                              {
-                                  busy ? <Inline size={64} color={"#fff"} /> : 'Add to Cart'
-                              }
+                              {busy ? <Inline size={64} color={"#fff"} /> : 'Add to Cart'}
                           </button>
                           <button className="theme-btn theme-btn-secondery btn-favor" onClick={() => {
                               favored>0 ? deleteFavourite({ gearid }) : addFavourites({ gearid })}}>
@@ -545,7 +545,7 @@ class RentGearDetail extends Component {
                                       <div className="replacement-content">${replacementValue}</div>
                                   </div>
                                   <div>
-                                      <div className="price-per-day">${pricePerDay}<span className='price-slash'> / </span><span className="price-per-day-text">per day</span></div>
+                                      <div className="price-per-day">${actualPrice}<span className='price-slash'> / </span><span className="price-per-day-text">per day</span></div>
                                   </div>
                                   {
                                       user && this.state.userid !== userid ?
@@ -595,7 +595,7 @@ class RentGearDetail extends Component {
                                           : null
                                   }
                                   <div className="cost-container">
-                                      ${total_price}
+                                      ${amount}
                                       <span className="cost-for"> for </span>
                                       {duration} days
                                   </div>

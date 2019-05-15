@@ -51,7 +51,7 @@ const getGear = async (gearid) => {
     return new Promise(async (resolve, reject) => {
         try {
             let response = await post('viewAddedGearItem', { gearid });
-            if (response.data.status === 'success') {
+            if (response && response.data && response.data.status === 'success') {
                 dispatch({
                     type: constants.GET_GEAR_SUCCESS,
                     payload: response.data.data

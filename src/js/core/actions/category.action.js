@@ -10,10 +10,12 @@ const fetchCategories = async () => {
   });
   try {
     let response = await get('getAllProductsCategory');
-    dispatch({
-      type: constants.GET_CATEGORIES_SUCCESS,
-      payload: response.data
-    });
+    if (response && response.data && response.data.status === 'success') {
+      dispatch({
+        type: constants.GET_CATEGORIES_SUCCESS,
+        payload: response.data.data
+      });
+    }
   } catch (error) {
     dispatch({
       type: constants.GET_CATEGORIES_FAILED,

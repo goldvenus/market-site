@@ -9,8 +9,8 @@ import Navbar from "../../components/common/Navbar/Navbar";
 import CustomSpinner from "../../components/CustomSpinner";
 
 class ForgotPassword extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
 
@@ -84,7 +84,7 @@ class ForgotPassword extends Component {
           <Form className="theme-form">
             <div className="theme-form-field">
               <TextField
-                id="standard-with-placeholder"
+                id="standard-with-placeholder1"
                 className="custom-beautiful-textfield"
                 label="Verification code"
                 type="text"
@@ -95,7 +95,7 @@ class ForgotPassword extends Component {
             </div>
             <div className="theme-form-field">
               <TextField
-                id="standard-with-placeholder"
+                id="standard-with-placeholder2"
                 className="custom-beautiful-textfield"
                 label="New password"
                 type="password"
@@ -131,7 +131,7 @@ class ForgotPassword extends Component {
             <Form className="theme-form">
                 <div className="theme-form-field">
                     <TextField
-                        id="standard-with-placeholder"
+                        id="standard-with-placeholder3"
                         className="custom-beautiful-textfield"
                         label="Email"
                         type="text"
@@ -146,7 +146,6 @@ class ForgotPassword extends Component {
                         :
                         <button className="theme-btn-submit" disabled={false} onClick={this.submit.bind(this)}>Submit</button>
                 }
-
             </Form>
           <div className="login-or-divider"/>
           <div className="flex-row signup-link">
@@ -161,20 +160,19 @@ class ForgotPassword extends Component {
       )
     }
 
-
     return (
-    <React.Fragment>
-      {isSendingFWDEmail && <CustomSpinner/>}
-      <div className="auth-nav-bar">
-        <header>
-          <Navbar/>
-        </header>
-      </div>
-      <div className="auth-container theme-navbar">
-        <AuthSideMenu/>
-          {content}
-      </div>
-    </React.Fragment>
+      <React.Fragment>
+        {isSendingFWDEmail && <CustomSpinner/>}
+        <div className="auth-nav-bar">
+          <header>
+            <Navbar/>
+          </header>
+        </div>
+        <div className="auth-container theme-navbar">
+          <AuthSideMenu/>
+            {content}
+        </div>
+      </React.Fragment>
     );
   }
 }

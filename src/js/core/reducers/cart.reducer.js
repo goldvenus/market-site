@@ -15,6 +15,8 @@ export default (state = initialState, action) => {
                 draft.isLoading = true;
                 break;
             case constants.ADD_TO_CART_SUCCESS:
+                if (!draft.carts)
+                    draft.carts = [];
                 draft.carts = getUniqueObjectArray([...draft.carts, action.payload]);
                 draft.isLoading = false;
                 break;

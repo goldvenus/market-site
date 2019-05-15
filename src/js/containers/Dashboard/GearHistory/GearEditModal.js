@@ -94,6 +94,8 @@ class GearEditModal extends Component {
         let suggestions = this.suggestions;
         let namesFromCategories = this.props.categories.map((item) => item.categoryName);
         suggestions = [...suggestions, ...namesFromCategories];
+        if (this.props.gear.productName)
+            suggestions = [this.props.gear.productName, ...suggestions];
         this.suggestions = [...new Set(suggestions)];
         this.forceUpdate();
     };
@@ -370,8 +372,8 @@ class GearEditModal extends Component {
     }
 
     render() {
-        const { gear, categories, onClose, onCalendar } = this.props;
-        if (!gear || !categories) {
+        const { gear, onClose, onCalendar, isLoadingCategories } = this.props;
+        if (!gear || isLoadingCategories) {
             return <CustomSpinner/>;
         }
         const { selectedType, replacementValue, pricePerDay ,accessories, isKit} = this.state;
@@ -485,8 +487,8 @@ class GearEditModal extends Component {
 
 const mapStateToProps = state => ({
     categories: state.category.categories,
+    isLoadingCategories: state.category.isLoading,
     gear: state.gear.gear,
-    user: state.user.user,
 });
 
 export default connect(mapStateToProps)(GearEditModal);

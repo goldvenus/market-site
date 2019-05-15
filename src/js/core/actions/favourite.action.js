@@ -28,6 +28,10 @@ const addFavourites = async (data) => {
 };
 
 const getFavourites = async () => {
+    if (!localStorage.accessToken) {
+        return;
+    }
+
     dispatch({
         type: constants.GET_FAVOURITES_REQUEST
     });

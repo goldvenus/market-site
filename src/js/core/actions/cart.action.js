@@ -25,6 +25,7 @@ const addCart = (data) => {
           });
         }
         handleInfo('Gear was added to cart');
+        resolve(response.data.data);
       } else {
         let msg = 'Adding to cart was failed';
         if (response.data && response.data.errorMessage) {
@@ -39,8 +40,8 @@ const addCart = (data) => {
           }
         }
         handleError(msg);
+        resolve(false);
       }
-      resolve(response.data.data);
     } catch (error) {
       dispatch({
         type: constants.ADD_TO_CART_FAILED
@@ -55,7 +56,7 @@ const editCart = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       let response = await post('editGearInCart', data);
-      if (response.data.status === 'success') {
+      if (response && response.data && response.data.status === 'success') {
         dispatch({
           type: constants.EDIT_CART_ITEM_SUCCESS,
           payload: data
@@ -86,6 +87,9 @@ const editCart = async (data) => {
 };
 
 const getCarts = async () => {
+  if (!localStorage.accessToken) {
+    return;
+  }
   dispatch({
     type: constants.GET_CARTS_REQUEST
   });
@@ -112,7 +116,7 @@ const deleteCartItem = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       let response = await post('deleteGearFromCart', data);
-      if (response.data.status === 'success') {
+      if (response && response.data && response.data.status === 'success') {
         dispatch({
           type: constants.DELETE_CART_ITEM_SUCCESS,
           payload: data.gearid

@@ -5,7 +5,6 @@ import {days} from "../../../core/helper";
 
 const AboutPeriod = ({ open, onClose, gear_info }) => {
     let btn_label1 = 'Close';
-    console.log(gear_info);
 
     return (
         <Modal open={open} onClose={onClose} center classNames={{modal: "cart-modal"}}>
@@ -16,7 +15,7 @@ const AboutPeriod = ({ open, onClose, gear_info }) => {
                 <div className='about-period-container row'>
                     <span className='period-carted-product-name'>{gear_info.brand} {gear_info.categoryName}</span>
                     <img src={gear_info.img_url} alt=''/>
-                    <span className='owner-name'></span>
+                    <span className='owner-name'/>
                     <span className='period-days'>{getDateStr(new Date(gear_info.startDate))} - {getDateStr(new Date(gear_info.endDate))}</span>
                     <span className='period-days-count'>{days(gear_info.startDate, gear_info.endDate)} days</span>
                 </div>

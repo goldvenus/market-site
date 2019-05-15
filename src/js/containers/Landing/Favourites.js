@@ -80,7 +80,9 @@ class Favourites extends Component {
           this.setState({
             modal_open_st: 0
           });
+          return true;
         }
+        return false;
       }
     } catch {
       handleError('Adding to cart was failed!');

@@ -74,11 +74,11 @@ const logout = () => {
   delete localStorage.idToken;
   delete localStorage.refreshToken;
   delete localStorage.userid;
-
   dispatch({
     type: constants.USER_LOGOUT,
     payload: null
   });
+  window.location.href = "/login";
 };
 
 const updateUser = async (data) => {
@@ -190,6 +190,7 @@ const refreshToken = async () => {
   try {
     let config = tokenAxiosConfig();
     let response = await axios.post(getAPIUrl('getUserRefreshTokens'), { username: localStorage.userId }, config);
+    console.log("refresh token: ", response);
     if (response && response.data && response.data.status === 'success') {
       const { accessToken, idToken, refreshToken } = response.data.data;
       localStorage.accessToken = accessToken.jwtToken;
@@ -202,7 +203,6 @@ const refreshToken = async () => {
       delete localStorage.accessToken;
       delete localStorage.idToken;
       delete localStorage.refreshToken;
-      // window.location.href = '/home';
     }
   } catch (error) {
     handleError(error);
@@ -212,8 +212,8 @@ const refreshToken = async () => {
 const getUser = async () => {
   try {
     if (localStorage.accessToken) {
-      let token = await refreshToken();
-      if (token) {
+      // let token = await refreshToken();
+      // if (token) {
         let response = await get('getUserInfo');
         if (response && response.data && response.data.status && response.data.status === 'success') {
           dispatch({
@@ -221,7 +221,7 @@ const getUser = async () => {
             payload: response.data.data.userAttributes
           });
         }
-      }
+      // }
     }
   } catch (error) {
     handleError(error);
@@ -236,10 +236,10 @@ const socialLogin = async (idToken, accessToken) => {
     localStorage.idToken = idToken;
     localStorage.accessToken = accessToken;
     let response = await get('socialProviderTokenExchange');
-    if (response && response.data) {
+    if (response && response.data && response.data.status ==='success') {
       dispatch({
         type: constants.LOGIN_SUCCESS,
-        payload: response.data.userAttributes
+        payload: response.data.data.userAttributes
       });
       handleInfo("Welcome to Creative Market!");
       // store the token

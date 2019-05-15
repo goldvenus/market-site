@@ -78,14 +78,17 @@ class CartModal2 extends Component {
         }
     };
 
-    handleAddToCart = () => {
+    handleAddToCart = async () => {
         this.setState({busy: true});
-        this.props.addToCart({
+        let ret = await this.props.addToCart({
             gearid: this.props.gear.gearid,
             userid: this.props.gear.userid,
             startDate: this.state.startDate,
             endDate: this.state.endDate
         });
+        if (!ret) {
+            this.setState({busy: false});
+        }
     };
 
     handleEdit = () => {
