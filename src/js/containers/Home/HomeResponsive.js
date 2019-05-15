@@ -209,148 +209,137 @@ class Home extends React.Component {
           <Container className="d-none d-lg-block">
             <div className="row">
               <div className="block-el block-e1-size col animation-element slide-left testimonial">
+                <Link to="/rentgear/Cameras">
                 <div className="block-content">
                   <p id="camera"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>CAMERA</span>
-                    <Link to="/rentgear/Cameras">
-                      <button className="theme-btn theme-btn-outline-pink">View</button>
-                    </Link>
                   </div>
                 </div>
                 <div className="block-bg"/>
+                </Link>
               </div>
 
               <div className="block-el block-e1-size col animation-element slide-left testimonial">
+                <Link to="/rentgear/Computers">
                 <div className="block-content">
                   <p id="computer_electronic"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>COMPUTER & ELECTRONICS</span>
-                    <Link to="/rentgear/Computers">
-                      <button className="theme-btn theme-btn-outline-pink">View</button>
-                    </Link>
                   </div>
                 </div>
                 <div className="block-bg"/>
+                </Link>
               </div>
 
               <div className="block-el block-e1-size col animation-element slide-left testimonial">
+                <Link to="/rentgear/Drones">
                 <div className="block-content ">
                   <p id="drones"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>DRONES</span>
-                    <Link to="/rentgear/Drones">
-                      <button className="theme-btn theme-btn-outline-pink">View</button>
-                    </Link>
                   </div>
                 </div>
                 <div className="block-bg"/>
+                </Link>
               </div>
             </div>
 
             <div className="row">
               <div className="block-el block-e2-size col animation-element slide-left testimonial">
-                <div className="block-content">
+                <Link to="/rentgear/CameraLenses">
+                  <div className="block-content">
                   <p id="lenses"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>LENSES</span>
-                    <Link to="/rentgear/CameraLenses">
-                      <button className="theme-btn theme-btn-outline-pink">View</button>
-                    </Link>
                   </div>
                 </div>
                 <div className="block-bg"/>
+                </Link>
               </div>
 
               <div className="block-el block-e2-size col animation-element slide-left testimonial">
+                <Link to="/rentgear/Lightings">
                 <div className="block-content">
                   <p id="lighting"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>LIGHTING</span>
-                    <Link to="/rentgear/Lightings">
-                      <button className="theme-btn theme-btn-outline-pink">View</button>
-                    </Link>
                   </div>
                 </div>
                 <div className="block-bg"/>
+                </Link>
               </div>
               <div className="block-el block-e2-size col animation-element slide-left testimonial">
+                <Link to="/rentgear/Audios">
                 <div className="block-content">
                   <p id="audio"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>AUDIO</span>
-                    <Link to="/rentgear/Audios">
-                      <button className="theme-btn theme-btn-outline-pink">View</button>
-                    </Link>
                   </div>
                 </div>
                 <div className="block-bg"/>
+                </Link>
               </div>
 
               <div className="block-el block-e2-size col animation-element slide-left testimonial">
+                <Link to="/rentgear/TS&R">
                 <div className="block-content">
                   <p id="tripods_stabilization_rigs"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>TRIPODS STABILIZATION & RIGS</span>
-                    <Link to="/rentgear/TS&R">
-                      <button className="theme-btn theme-btn-outline-pink">View</button>
-                    </Link>
                   </div>
                 </div>
                 <div className="block-bg"/>
+                </Link>
               </div>
             </div>
 
             <div className="row">
               <div className="block-el block-e2-size col animation-element slide-left testimonial">
-                <div className="block-content">
-                  <p id="camera_accessories"/>
-                  <div className="desc">
-                    <span style={{ fontWeight: 'bold' }}>CAMERA ACCESSORIES</span>
-                    <Link to="/rentgear/CameraAccessories">
-                      <button className="theme-btn theme-btn-outline-pink">View</button>
-                    </Link>
+                <Link to="/rentgear/CameraAccessories">
+                  <div className="block-content">
+                    <p id="camera_accessories"/>
+                    <div className="desc">
+                      <span style={{ fontWeight: 'bold' }}>CAMERA ACCESSORIES</span>
+                    </div>
                   </div>
-                </div>
-                <div className="block-bg"/>
+                  <div className="block-bg"/>
+                </Link>
               </div>
 
               <div className="block-el block-e2-size col animation-element slide-left testimonial">
-                <div className="block-content">
-                  <p id="studio_spaces"/>
-                  <div className="desc">
-                    <span style={{ fontWeight: 'bold' }}>STUDIO SPACES</span>
-                    <Link to="/rentgear/StudioSpaces">
-                      <button className="theme-btn theme-btn-outline-pink">View</button>
-                    </Link>
+                <Link to="/rentgear/StudioSpaces">
+                  <div className="block-content">
+                    <p id="studio_spaces"/>
+                    <div className="desc">
+                      <span style={{ fontWeight: 'bold' }}>STUDIO SPACES</span>
+                    </div>
                   </div>
-                </div>
-                <div className="block-bg"/>
+                  <div className="block-bg"/>
+                </Link>
               </div>
 
               <div className="block-el block-e2-size col animation-element slide-left testimonial">
-                <div className="block-content">
-                  <p id="office_spaces"/>
-                  <div className="desc">
-                    <span style={{ fontWeight: 'bold' }}>OFFICE SPACES</span>
-                    <Link to="/rentgear/OfficeSpaces">
-                      <button className="theme-btn theme-btn-outline-pink">View</button>
-                    </Link>
+                <Link to="/rentgear/OfficeSpaces">
+                  <div className="block-content">
+                    <p id="office_spaces"/>
+                    <div className="desc">
+                      <span style={{ fontWeight: 'bold' }}>OFFICE SPACES</span>
+                    </div>
                   </div>
-                </div>
-                <div className="block-bg"/>
+                  <div className="block-bg"/>
+                </Link>
               </div>
               <div className="block-el block-e2-size col animation-element slide-left testimonial">
+                <Link to="/rentgear/Other">
                 <div className="block-content">
                   <p id="others"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>OTHER</span>
-                    <Link to="/rentgear/Other">
-                      <button className="theme-btn theme-btn-outline-pink">View</button>
-                    </Link>
                   </div>
                 </div>
                 <div className="block-bg"/>
+                </Link>
               </div>
             </div>
 
@@ -373,7 +362,7 @@ class Home extends React.Component {
                     <span style={{ fontWeight: 'bold' }}>CAMERA</span>
                     <button className="theme-btn theme-btn-outline-white">
                       <Link to="/rentgear/Camera"><i className="fa fa-chevron-right"/></Link>
-                      </button>
+                    </button>
                     </div>
                   </div>
               </div>
@@ -539,43 +528,57 @@ class Home extends React.Component {
           */}
 
           <div className="home-new-arrival d-none d-lg-flex">
-            <div className="arrival-timer">
-              <h2 className="arrival-timer-title">
-                New arrivals
-              </h2>
-
-              <div className="arrival-timer-frame">
-                <div className="arrival-timer-slot-row">
-                  <div className="arrival-timer-slot">
-                    <span className="slot-heading">Daily</span>
-                    <span className="slot-value">11</span>
-                  </div>
-                  <div className="arrival-timer-slot">
-                    <span className="slot-heading">Weekly</span>
-                    <span className="slot-value">40</span>
-                  </div>
-                </div>
-                <div className="arrival-timer-slot-row">
-                  <div className="arrival-timer-slot">
-                    <span className="slot-heading">Monthly</span>
-                    <span className="slot-value">221</span>
-                  </div>
-                  <div className="arrival-timer-slot">
-                    <span className="slot-heading">Yearly</span>
-                    <span className="slot-value">1405</span>
+            <div className="container">
+              <div className="faq-left">
+                <div className="faq-form">
+                  <h2 className="arrival-timer-title">
+                      FAQs
+                  </h2>
+                  <div className="faq-wrapper">
+                    <div>
+                      <span>Got questions? Our FAQ pages will most likely have the answers.
+                      If not make sure to submit your question through the form so we can
+                      get back to you right away!</span>
+                    </div>
+                    <div>
+                      <button className="theme-btn theme-btn-primary">View FAQs</button>
+                    </div>
                   </div>
                 </div>
-                  <div className="arrival-timer-find-btn"><Link to='/rentgear/all'>Find Gear</Link></div>
-              </div>
-            </div>
 
-            <div className="arrival-items">
-              <div className="arrival-items-inner-wrapper">
-                {data.arrivals.map((val, key) => (
-                  <ArrivalItem key={key} {...val}/>
-                ))}
-              </div>
-              <div className="arrival-items-glow"/>
+                  {/*<div className="arrival-timer-frame">*/}
+                    {/*<div className="arrival-timer-slot-row">*/}
+                      {/*<div className="arrival-timer-slot">*/}
+                        {/*<span className="slot-heading">Daily</span>*/}
+                        {/*<span className="slot-value">11</span>*/}
+                      {/*</div>*/}
+                      {/*<div className="arrival-timer-slot">*/}
+                        {/*<span className="slot-heading">Weekly</span>*/}
+                        {/*<span className="slot-value">40</span>*/}
+                      {/*</div>*/}
+                    {/*</div>*/}
+                    {/*<div className="arrival-timer-slot-row">*/}
+                      {/*<div className="arrival-timer-slot">*/}
+                        {/*<span className="slot-heading">Monthly</span>*/}
+                        {/*<span className="slot-value">221</span>*/}
+                      {/*</div>*/}
+                      {/*<div className="arrival-timer-slot">*/}
+                        {/*<span className="slot-heading">Yearly</span>*/}
+                        {/*<span className="slot-value">1405</span>*/}
+                      {/*</div>*/}
+                    {/*</div>*/}
+                      {/*<div className="arrival-timer-find-btn"><Link to='/rentgear/all'>Find Gear</Link></div>*/}
+                  {/*</div>*/}
+                </div>
+
+                <div className="arrival-items">
+                  <div className="arrival-items-inner-wrapper">
+                    {data.arrivals.map((val, key) => (
+                      <ArrivalItem key={key} {...val}/>
+                    ))}
+                  </div>
+                  <div className="arrival-items-glow"/>
+                </div>
             </div>
           </div>
 
@@ -658,12 +661,13 @@ class Home extends React.Component {
 
           <Row className="paySection">
             <Col xs={24} sm={24} md={12} className="paySection1">
-              <h2 className="pay-section1__title">
-                Fast, safe and secure<br/>Two-way inscurance included
+              <h2 className="pay-section-title">
+                Rentals are fast, <br/>safe and secure
               </h2>
 
               <span className="pay-section1__desc">
-                Creative Market’s photo verification system verifies the condition of items when picked up and returned. Both by owner and renter.
+                Creative Market requires owners and renters to verify the condition of each item, both when picked up and returned.
+                Making the whole process transparent and disputes easier to solve.
               </span>
 
               <div className="pay-section1__cta">
