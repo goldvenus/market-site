@@ -39,7 +39,6 @@ const CollapseMenu = ({ isOpen, children }) => (
         <div className="menu-bg"/>
       </div>
 
-      <i className="fa fa-arrow-right"/>
     </div>
   </Transition>
 );
