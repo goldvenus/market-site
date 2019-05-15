@@ -15,6 +15,11 @@
     .favoiurites_add_icon{
       padding: 0;
     }
+    .tb_brand_model_name {
+      i {
+        color: #f82462;
+      }
+    }
   }
   .favouri_link_icon {
     background-image: url('/images/Icons/marker/marker.svg');
@@ -44,7 +49,7 @@
   display: none;
 }
 
-@media(max-width: 1050px) {
+@media(max-width: 1067px) {
   .cart-table-div {
     .favor-theme-table {
       display: none !important;
@@ -62,16 +67,18 @@
         width: 139px;
         height: 139px;
         margin:22px;
-
       }
-      .sm_favor_table_top{
+      .sm_favor_table_top {
         display: block;
         width: 100%;
-        .sm_favor_name_closeicon{
+        .sm_favor_name_closeicon {
            display: flex;
             padding-top:34px;
-          .tb_brand_model_name{
+          .tb_brand_model_name {
             margin-bottom: 0;
+            i {
+              color: #f82462;
+            }
           }
           div {
             padding: 0;
@@ -104,11 +111,12 @@
             padding-left: 0;
           }
         }
+        .star-selected {
+          color: #f82462;
+        }
       }
-  
     }
     .favoiurites_add_icon {
-
       button {
         width:100%;
         justify-content: center;
@@ -135,12 +143,12 @@
     }
     .sm_favor_table {
       display: flex;
-      .sm_favor_name_closeicon{
+      .sm_favor_name_closeicon {
         padding-top: 0 !important;
-        .favourites_close_icon{
+        .favourites_close_icon {
             padding:10px!important;
-       }
-        .favourites_close_text{
+        }
+        .favourites_close_text {
           margin-top:20px;
         }
       }
@@ -148,7 +156,6 @@
         width: 70px;
         height: 70px;
         margin: 16px;
-
       }
       .bottom_left {
         padding-left: 16px !important;

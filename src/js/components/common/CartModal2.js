@@ -106,7 +106,12 @@ class CartModal2 extends Component {
         const duration = calcDaysDiff(this.state.startDate, this.state.endDate) + 1;
         const start_date_str = getDateStr(this.state.startDate);
         const end_date_str = getDateStr(this.state.endDate);
-        const total_price = pricePerDay * duration;
+        const total = pricePerDay * duration;
+        const tax = total * 0.21;
+        const fee = total * 0.15;
+        const amount = parseFloat(total + tax + fee).toFixed(2);
+        const actualPrice = parseFloat(amount/duration).toFixed(2);
+
         const selectionRange = {
             startDate: this.state.startDate,
             endDate: this.state.endDate,
@@ -177,11 +182,11 @@ class CartModal2 extends Component {
                     </div>
                     <div className='modal-cart-price-container row'>
                         <div className='modal-cart-price-left'>
-                            <span className="price-value">${pricePerDay}</span>
+                            <span className="price-value">${actualPrice}</span>
                             <span className='price-text'> per day</span>
                         </div>
                         <div className='modal-cart-price-right'>
-                            <span className="price-value">${total_price}</span>
+                            <span className="price-value">${amount}</span>
                             <span className='price-text'> for </span>
                             <span className="price-value">{duration} days</span>
                         </div>

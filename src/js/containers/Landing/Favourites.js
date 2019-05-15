@@ -11,7 +11,6 @@ import { formatDate } from "../../core/helper";
 import CartModal1 from "../../components/common/CartModal1";
 import CartModal2 from "../../components/common/CartModal2";
 import BarLoader from "react-bar-loader";
-import Rating from "react-rating"
 import EmptyActivity from "../../components/EmptyActivity";
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import CustomSpinner from "../../components/CustomSpinner";
@@ -33,25 +32,28 @@ class Favourites extends Component {
     }
   }
 
-  async onOpenModal(gearid) {
-    const { carts } = this.props;
-    const cart = gearid && carts && carts.length > 0 ?
-      carts.filter(item => item.gearid === gearid) : 0;
-    const carted = cart.length;
+  isCarted = (gearid) => {
+      let { carts } = this.props;
+      let cart = gearid && carts && carts.length > 0 ?
+          carts.filter(item => item.gearid === gearid) : false;
+      return cart;
+  };
 
+  async onOpenModal(gearid) {
+    let carted = this.isCarted(gearid);
     let res = await getGear(gearid);
     if (res) {
-      const open_state = carted ? 1 : 2;
+      const open_state = carted && carted.length > 0 ? 1 : 2;
       let start_date = new Date();
       let end_date = new Date();
-      if (carted) {
-        start_date = new Date(cart[0].startDate);
-        end_date = new Date(cart[0].endDate);
+      if (carted && carted.length > 0) {
+        start_date = new Date(carted[0].startDate);
+        end_date = new Date(carted[0].endDate);
       }
       this.setState({
         modal_open_st: open_state,
         gear: this.props.gear,
-        carted: carted,
+        carted: carted && carted.length > 0,
         cart_info: {
           start_date: start_date,
           end_date: end_date
@@ -89,89 +91,119 @@ class Favourites extends Component {
     const { favourites } = this.props;
 
     return (
-      favourites.map((listItem, index) => (
-        <tr key={`cart-item-${index}`}>
-          <td width="10%">{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
-            src={listItem.numberOfUserImage[0]} alt='' className="gear-img"/> : null}</td>
-          <td className="gear" width="29%">
-            <p className="tb_brand_model_name">{listItem.brand + ' ' + listItem.model}</p>
-            <p className="theme-text-small text-muted tb_categories_name">{listItem.categoryName}</p>
-          </td>
-          <td width="20.5%">
+      favourites.map((listItem, index) => {
+        let pricePerDay = listItem.pricePerDay;
+        pricePerDay *= (1 + 0.21 + 0.15);
+        let carted = this.isCarted(listItem.gearid);
+        carted = carted && carted.length > 0;
+
+        return (
+          <tr key={`cart-item-${index}`}>
+            <td width="10%">
+              {listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 &&
+                <img src={listItem.numberOfUserImage[0]} alt='' className="gear-img"/>}
+            </td>
+            <td className="gear" width="29%">
+              <p className="tb_brand_model_name">
+                {listItem.brand + ' ' + listItem.model + ' '}
+                {carted > 0 && <i className="fas fa-check-circle"/>}
+              </p>
+              <p className="theme-text-small text-muted tb_categories_name">{listItem.categoryName}</p>
+            </td>
+            <td width="20.5%">
               <span className="star-wrapper">
-                  {[1, 2, 3, 4, 5].map(i =>
-                      <i className="fa fa-star star-selected" key={i}/>)
-                  }
-                  {this.state.ratingstate[index]}
+              {[1, 2, 3, 4, 5].map(i =>
+                <i className="fa fa-star star-selected" key={i}/>)
+              }
+              {this.state.ratingstate[index]}
               </span>
-          </td>
+            </td>
 
             <td width="17.5%"><div><div className="favouri_link_icon"/><span className="Raykjavik_span">Raykjavik</span></div></td>
-            <td className="tb_pay_per" width="17.5%">{`$${listItem.pricePerDay}`}</td>
-          <td className="favoiurites_add_icon">
-            <button className="theme-btn theme-btn-primary add-to-cart-btn" onClick={() => this.onOpenModal(listItem.gearid)}>Add to Cart</button>
-          </td>
+            <td className="tb_pay_per" width="17.5%">${parseFloat(pricePerDay).toFixed(2)}</td>
+            <td className="favoiurites_add_icon">
+              <button className="theme-btn theme-btn-primary add-to-cart-btn" onClick={() => this.onOpenModal(listItem.gearid)}>Add to Cart</button>
+            </td>
 
-          <td className="favourites_close_icon">
-            <i
-              className="close"
-              aria-hidden="true"
-              onClick={async () => {
-                await deleteFavourite({ gearid: listItem.gearid });
-              }}/>
-          </td>
+            <td className="favourites_close_icon">
+              <i
+                className="close"
+                aria-hidden="true"
+                onClick={async () => {
+                  await deleteFavourite({ gearid: listItem.gearid });
+                }}
+              />
+            </td>
         </tr>
-      ))
+        )
+      })
     );
   }
 
   renderFavouritesItems_md() {
     const { favourites } = this.props;
     return (
-        favourites.map((listItem, index) => (
-            <div key={`cart-item-${index}`} className="favo_table_root">
-                <div className="sm_favor_table sm-favor-table-only">
-                    <div className="sm_favor_img d-md-flex d-none">{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
-                        src={listItem.numberOfUserImage[0]} alt='' className="favor_gear-img"/> : null}
-                    </div>
-                    <div className="sm_favor_table_top">
-                         <div className="sm_favor_name_closeicon">
-                             <div className="sm_favor_img d-sm-flex d-md-none">{listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 ? <img
-                                 src={listItem.numberOfUserImage[0]} alt='' className="favor_gear-img"/> : null}
-                             </div>
-                            <div className="col-md-22 favourites_close_text">
-                                <p className="tb_brand_model_name">{listItem.brand + ' ' + listItem.model}</p>
-                                <p className="theme-text-small text-muted tb_categories_name">{listItem.categoryName}</p>
-                            </div>
-                            <div className="favourites_close_icon">
-                                <i
-                                    className="close"
-                                    aria-hidden="true"
-                                    onClick={async () => {
-                                        deleteFavourite({ gearid: listItem.gearid });
-                                    }}/>
-                            </div>
-                         </div>
-                        <div className="sm_favor_bottom">
-                            <div className="bottom_left col-md-8">
-                                <Rating
-                                    initialRating={3}
-                                    emptySymbol={<img src="/images/Icons/star/star_icon_d.png" alt='' className="icon" />}
-                                    fullSymbol={<img src="/images/Icons/star/star_icon_a.png" alt='' className="icon" />}/>
-                                <div><div className="favouri_link_icon"/><span className="Raykjavik_span">Raykjavik</span></div>
-                            </div>
-                            <div className="sm_favor_bottom_right col-md-14">
-                                <p>Price per day</p>
-                                 <div className="tb_pay_per">{`$${listItem.pricePerDay}`}</div>
-                            </div>
-                        </div>
-                     </div>
-                 </div>
-                <div className="favoiurites_add_icon">
-                    <button className="theme-btn theme-btn-primary theme-btn-link add-to-cart-btn" onClick={() => this.onOpenModal(listItem.gearid)}>Add to Cart</button>
+      favourites.map((listItem, index) => {
+        let pricePerDay = listItem.pricePerDay;
+        pricePerDay *= (1 + 0.21 + 0.15);
+        let carted = this.isCarted(listItem.gearid);
+        carted = carted && carted.length > 0;
+        return (
+          <div key={`cart-item-${index}`} className="favo_table_root">
+            <div className="sm_favor_table sm-favor-table-only">
+              <div className="sm_favor_img d-md-flex d-none">
+                {listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 &&
+                  <img src={listItem.numberOfUserImage[0]} alt='' className="favor_gear-img"/>}
+              </div>
+              <div className="sm_favor_table_top">
+                <div className="sm_favor_name_closeicon">
+                  <div className="sm_favor_img d-sm-flex d-md-none">
+                    {listItem.numberOfUserImage && listItem.numberOfUserImage.length > 0 &&
+                      <img src={listItem.numberOfUserImage[0]} alt='' className="favor_gear-img"/>}
+                  </div>
+                  <div className="col-md-22 favourites_close_text">
+                    <p className="tb_brand_model_name">
+                      {listItem.brand + ' ' + listItem.model}
+                      {carted > 0 && <div className="card-checked"><i className="fas fa-check-circle"/></div>}
+                    </p>
+                    <p className="theme-text-small text-muted tb_categories_name">{listItem.categoryName}</p>
+                  </div>
+                  <div className="favourites_close_icon">
+                    <i
+                      className="close"
+                      aria-hidden="true"
+                      onClick={async () => {
+                        deleteFavourite({gearid: listItem.gearid});
+                      }}
+                    />
+                  </div>
                 </div>
+                <div className="sm_favor_bottom">
+                  <div className="bottom_left col-md-8">
+                    {[1, 2, 3, 4, 5].map(i =>
+                      <i className="fa fa-star star-selected" key={i}/>)
+                    }
+                    {this.state.ratingstate[index]}
+                    <div>
+                      <div className="favouri_link_icon"/>
+                      <span className="Raykjavik_span">Raykjavik</span>
+                    </div>
+                  </div>
+                  <div className="sm_favor_bottom_right col-md-14">
+                      <p>Price per day</p>
+                      <div className="tb_pay_per">${parseFloat(pricePerDay).toFixed(2)}</div>
+                  </div>
+                </div>
+              </div>
             </div>
-        ))
+            <div className="favoiurites_add_icon">
+              <button className="theme-btn theme-btn-primary theme-btn-link add-to-cart-btn"
+                onClick={() => this.onOpenModal(listItem.gearid)}>Add to Cart
+              </button>
+            </div>
+          </div>
+        )
+      })
     );
   }
 
@@ -183,9 +215,7 @@ class Favourites extends Component {
 
     return (
       <React.Fragment>
-        {
-          isChanging || isGettingGearInfo ? <CustomSpinner/> : null
-        }
+        {(isChanging || isGettingGearInfo) && <CustomSpinner/>}
         <div className="cart_view centered-content">
           <Breadcrumb className= "card_content_path">
               <UrllinkClass name="Home"/>

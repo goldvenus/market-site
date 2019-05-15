@@ -59,7 +59,7 @@ class RentGear extends React.Component {
           </Row>
         </Container>
       </div>
-      </div>
+    </div>
     )
   }
 }

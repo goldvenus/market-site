@@ -76,21 +76,25 @@
           color: #252525;
         }
         .tb_pay_per {
-          font-size: 17px;
+          font-size: 21px;
           font-weight: 600;
           color: #252525;
         }
         .edit_gear_td {
           padding-right: 0
         }
-        .edit_gear{
+        .edit_gear {
           display: inline-block;
           width: 30px;
           height: 30px;
           margin:0;
           vertical-align: middle;
           cursor: pointer;
-          background-image: url('/images/Icons/cart/edit-p.svg');
+          background-image: url('/images/Icons/cart/edit-b.svg');
+
+          &:hover {
+            background-image: url('/images/Icons/cart/edit-p.svg');
+          }
         }
         .close {
           float: left;
@@ -175,7 +179,6 @@
             margin-right: 12px;
             vertical-align: middle;
             cursor: pointer;
-            background-image: url('/images/Icons/cart/edit-b.svg');
           }
           .seclt_del_icon {
             float: left;

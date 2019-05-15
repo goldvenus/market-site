@@ -56,17 +56,23 @@ class AddGear extends Component {
 
   async componentDidMount() {
     await fetchCategories();
-    this.usedNames = await getUsedNames();
+    let ret = await getUsedNames();
+    if (ret) {
+      this.usedNames = ret;
+    }
     this.autoGenerateSuggestions();
   }
 
   autoGenerateSuggestions = () => {
     let suggestions = this.suggestions;
-    let namesFromCategories = this.props.categories.map((item) => item.categoryName);
+    let { categories } = this.props;
+    if (!categories)
+        categories = [];
+    let namesFromCategories = categories.map((item) => item.categoryName);
     suggestions = [...suggestions, ...namesFromCategories];
     this.suggestions = [...new Set(suggestions)];
-    if (this.props.categories && this.props.categories.length > 0) {
-        this.setState({categoryName: this.props.categories[0].categoryName});
+    if (categories && categories.length > 0) {
+        this.setState({categoryName: categories[0].categoryName});
     } else {
         this.forceUpdate();
     }

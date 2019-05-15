@@ -1,6 +1,7 @@
 /*
-modal css
+ * modal style
  */
+
 // model 1
 .cart-modal {
   width: 100%;
@@ -36,6 +37,10 @@ modal css
   span {
     vertical-align: middle;
     margin-left: 4%;
+  }
+
+  @media (max-width: 767px) {
+    height: 100px;
   }
 }
 .modal-cart-body {
@@ -115,9 +120,9 @@ modal css
 // model 2
 .modal-cart-body-1 {
   padding: 30px;
-  //max-height: 360px;
-  //overflow: hidden;
-
+  @media (max-width: 767px) {
+    padding: 15px;
+  }
   .modal-cart-info {
     padding: 10px;
     justify-content: center;
@@ -149,7 +154,6 @@ modal css
     line-height: 27px;
     text-align: center;
     color: #F82462;
-    /* Pink - Main Color */
     opacity: 0.6;
   }
   .modal-cart-control {
@@ -161,6 +165,3 @@ modal css
     margin-left: -222px !important;
   }
 }
-
-
-/* ... style */
