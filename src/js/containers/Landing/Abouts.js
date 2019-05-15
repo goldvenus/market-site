@@ -33,31 +33,29 @@ class About extends Component {
     return (
       <div className="about-us">
         <div className="about-us-head">
-          <Container>
-            <Row>
-              <Col sm="12">
-                <Breadcrumb className="theme-text-small">
-                  <BreadcrumbItem>Home </BreadcrumbItem>
-                  <BreadcrumbItem active>About Us</BreadcrumbItem>
-                </Breadcrumb>
-                <h1>About Us</h1>
-                <h4 className="intro">
-                  <span className="bold">Creative Market</span>&nbsp;
-                  <span>Introduction</span>
-                </h4>
-                <p className="theme-text-small about-desc">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, consequuntur vitae ipsum doloribus
-                  repellendus dolorum aliquid odio aspernatur at labore voluptatem laudantium ducimus libero inventore
-                  eos odit magni! Nesciunt, quos.dolorum aliquid odio aspernatur at labore voluptatem laudantium ducimus
-                  libero inventore eos odit magni! Nesciunt, quos.
-                </p>
-              </Col>
-              <Col sm="12">
-                <img src={aboutCM} alt="About Us" className="about-cm"/>
-              </Col>
-            </Row>
-          </Container>
-          <div>
+          <div className="head-container">
+              <div className="head-left">
+                  <Breadcrumb className="theme-text-small">
+                      <BreadcrumbItem>Home </BreadcrumbItem>
+                      <BreadcrumbItem active>About Us</BreadcrumbItem>
+                  </Breadcrumb>
+                  <h1>About Us</h1>
+                  <h4 className="intro">
+                      <span className="bold">Creative Market</span>&nbsp;
+                      <span>Introduction</span>
+                  </h4>
+                  <p className="theme-text-small about-desc">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, consequuntur vitae ipsum doloribus
+                      repellendus dolorum aliquid odio aspernatur at labore voluptatem laudantium ducimus libero inventore
+                      eos odit magni! Nesciunt, quos.dolorum aliquid odio aspernatur at labore voluptatem laudantium ducimus
+                      libero inventore eos odit magni! Nesciunt, quos.
+                  </p>
+              </div>
+              <div className="head-right">
+                  <img src={aboutCM} alt="About Us" className="about-cm"/>
+              </div>
+          </div>
+          <div className="about-us-watermark">
             <p className="theme-big-text">Creative Market</p>
           </div>
         </div>
@@ -80,14 +78,10 @@ class About extends Component {
           </div>
           <div className="press">
             <Container>
-              <Row>
-                <Col>
-                  <h2 className="press-title">Press</h2>
-                </Col>
-                <Col className="text-center">
-                  <img src={press} alt=""/>
-                </Col>
-              </Row>
+              <h2 className="press-title">Press</h2>
+              <Col className="text-center">
+                <img src={press} alt=""/>
+              </Col>
             </Container>
           </div>
         </div>
