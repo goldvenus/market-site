@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { compose } from "redux";
 import { Link, withRouter } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
-import { getGear } from "../../core/actions/gear.action";
 import { deleteFavourite } from "../../core/actions/favourite.action";
 import { handleError } from "../../core/actions/common.action";
 import { addCart } from "../../core/actions/cart.action";
@@ -39,27 +38,20 @@ class Favourites extends Component {
       return cart;
   };
 
-  async onOpenModal(gearid) {
-    let carted = this.isCarted(gearid);
-    let res = await getGear(gearid);
-    if (res) {
-      const open_state = carted && carted.length > 0 ? 1 : 2;
-      let start_date = new Date();
-      let end_date = new Date();
-      if (carted && carted.length > 0) {
-        start_date = new Date(carted[0].startDate);
-        end_date = new Date(carted[0].endDate);
+  onOpenModal(gear, carted) {
+    const open_state = carted ? 1 : 2;
+    let start_date = new Date(gear.startDate);
+    let end_date = new Date(gear.endDate);
+
+    this.setState({
+      modal_open_st: open_state,
+      gear: gear,
+      carted: carted,
+      cart_info: {
+        start_date: start_date,
+        end_date: end_date
       }
-      this.setState({
-        modal_open_st: open_state,
-        gear: this.props.gear,
-        carted: carted && carted.length > 0,
-        cart_info: {
-          start_date: start_date,
-          end_date: end_date
-        }
-      });
-    }
+    });
   }
 
   onCloseModal = () => {
@@ -97,6 +89,8 @@ class Favourites extends Component {
         let pricePerDay = listItem.pricePerDay;
         pricePerDay *= (1 + 0.21 + 0.15);
         let carted = this.isCarted(listItem.gearid);
+        let cart_info = carted && carted.length > 0 ? carted[0] : {};
+        cart_info = {...cart_info, ...listItem};
         carted = carted && carted.length > 0;
 
         return (
@@ -107,8 +101,8 @@ class Favourites extends Component {
             </td>
             <td className="gear" width="29%">
               <p className="tb_brand_model_name">
-                {listItem.brand + ' ' + listItem.model + ' '}
-                {carted > 0 && <i className="fas fa-check-circle"/>}
+                {listItem.brand + ' ' + listItem.productName + ' '}
+                {carted && <i className="fas fa-check-circle"/>}
               </p>
               <p className="theme-text-small text-muted tb_categories_name">{listItem.categoryName}</p>
             </td>
@@ -124,7 +118,7 @@ class Favourites extends Component {
             <td width="17.5%"><div><div className="favouri_link_icon"/><span className="Raykjavik_span">Raykjavik</span></div></td>
             <td className="tb_pay_per" width="17.5%">${parseFloat(pricePerDay).toFixed(2)}</td>
             <td className="favoiurites_add_icon">
-              <button className="theme-btn theme-btn-primary add-to-cart-btn" onClick={() => this.onOpenModal(listItem.gearid)}>Add to Cart</button>
+              <button className="theme-btn theme-btn-primary add-to-cart-btn" onClick={() => this.onOpenModal(cart_info, carted)}>Add to Cart</button>
             </td>
 
             <td className="favourites_close_icon">
@@ -149,7 +143,10 @@ class Favourites extends Component {
         let pricePerDay = listItem.pricePerDay;
         pricePerDay *= (1 + 0.21 + 0.15);
         let carted = this.isCarted(listItem.gearid);
+        let cart_info = carted && carted.length > 0 ? carted[0] : {};
+        cart_info = {...listItem, ...cart_info};
         carted = carted && carted.length > 0;
+
         return (
           <div key={`cart-item-${index}`} className="favo_table_root">
             <div className="sm_favor_table sm-favor-table-only">
@@ -166,7 +163,7 @@ class Favourites extends Component {
                   <div className="col-md-22 favourites_close_text">
                     <p className="tb_brand_model_name">
                       {listItem.brand + ' ' + listItem.model}
-                      {carted > 0 && <div className="card-checked"><i className="fas fa-check-circle"/></div>}
+                      {carted && <div className="card-checked"><i className="fas fa-check-circle"/></div>}
                     </p>
                     <p className="theme-text-small text-muted tb_categories_name">{listItem.categoryName}</p>
                   </div>
@@ -200,7 +197,7 @@ class Favourites extends Component {
             </div>
             <div className="favoiurites_add_icon">
               <button className="theme-btn theme-btn-primary theme-btn-link add-to-cart-btn"
-                onClick={() => this.onOpenModal(listItem.gearid)}>Add to Cart
+                onClick={() => this.onOpenModal(cart_info, carted)}>Add to Cart
               </button>
             </div>
           </div>
@@ -210,14 +207,15 @@ class Favourites extends Component {
   }
 
   render() {
-    const { favourites, isChanging, isGettingGearInfo, gear } = this.props;
+    const { favourites, isChanging } = this.props;
+    const { gear } = this.state;
     if (!favourites) {
       return <BarLoader color="#F82462" height="5" />;
     }
 
     return (
       <React.Fragment>
-        {(isChanging || isGettingGearInfo) && <CustomSpinner/>}
+        {isChanging && <CustomSpinner/>}
         <div className="cart_view centered-content">
           <Breadcrumb className= "card_content_path">
               <UrllinkClass name="Home"/>
@@ -294,10 +292,8 @@ class Favourites extends Component {
 }
 
 const mapStateToProps = state => ({
-  gear: state.gear.gear,
   favourites: state.favourite.favourites,
   isChanging: state.favourite.isChanging,
-  isGettingGearInfo: state.gear.isLoadingGear,
   carts: state.cart.carts
 });
 

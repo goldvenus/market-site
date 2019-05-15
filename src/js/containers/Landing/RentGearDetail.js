@@ -263,8 +263,8 @@ class RentGearDetail extends Component {
             return <BarLoader color="#F82462" height="5" />;
 
         const { numberOfUserImage, gearid, brand, rating, total_rating, city, replacementValue,
-            pricePerDay, model, description, newArrival_Index, categoryName, accessories, userid } = gear;
-        const name = brand + ' ' + model;
+            pricePerDay, productName, description, newArrival_Index, categoryName, accessories, userid } = gear;
+        const name = brand + ' ' + productName;
         const selectedType = newArrival_Index;
         const carted_item = gearid && carts && carts.length > 0 ?
             carts.filter(item => item.gearid === gearid) : 0;
@@ -315,9 +315,7 @@ class RentGearDetail extends Component {
 
                   <span className='category-name'>
                       { name }
-                      {
-                          carted > 0 ? <i className="fas fa-check-circle icon-carted"/> : null
-                      }
+                      {carted > 0 ? <i className="fas fa-check-circle icon-carted"/> : null}
                   </span>
 
                   <div className="type-tabs">

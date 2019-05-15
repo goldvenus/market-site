@@ -7,7 +7,7 @@ import {
 import { withRouter } from 'react-router-dom';
 import { addFavourites, deleteFavourite } from '../../core/actions/favourite.action';
 
-const CardView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city, rating, pricePerDay, gearid},
+const CardView = ({ gear_detail: { numberOfUserImage, brand, productName, total_rating, city, rating, pricePerDay, gearid},
     history, favored, carted, onOpenModal }) => {
   return (
     <Col md="8" className="cardz">
@@ -18,7 +18,7 @@ const CardView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city,
         />
         {carted > 0 && <div className="card-checked"><i className="fas fa-check-circle"/></div>}
         <CardBody>
-          <CardTitle>{brand}</CardTitle>
+          <CardTitle>{brand}<br/>{productName}</CardTitle>
           <CardSubtitle>
             <span className="stars">
               {

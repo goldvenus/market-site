@@ -7,7 +7,7 @@ import {
 import { withRouter } from 'react-router-dom';
 import { addFavourites, deleteFavourite } from '../../core/actions/favourite.action';
 
-const TableView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city, rating, pricePerDay, gearid},
+const TableView = ({ gear_detail: { numberOfUserImage, brand, productName, total_rating, city, rating, pricePerDay, gearid},
     history, favored, carted, onOpenModal }) => {
   return (
     <Col sm="24">
@@ -19,8 +19,8 @@ const TableView = ({ gear_detail: { numberOfUserImage, brand, total_rating, city
         <CardBody>
           <div className="card-center">
             <CardTitle>
-              {brand}&nbsp;
-              {carted && <i className="fas fa-check-circle"/>}
+              {brand}<br/>{productName}&nbsp;
+              {carted > 0 && <i className="fas fa-check-circle"/>}
             </CardTitle>
             <CardSubtitle>
               <span className="stars">

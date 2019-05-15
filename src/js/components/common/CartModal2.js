@@ -105,7 +105,7 @@ class CartModal2 extends Component {
 
     render() {
         const { open, dlg_model, gear } = this.props;
-        const { brand, model, pricePerDay } = gear;
+        const { brand, productName, pricePerDay } = gear;
         const duration = calcDaysDiff(this.state.startDate, this.state.endDate) + 1;
         const start_date_str = getDateStr(this.state.startDate);
         const end_date_str = getDateStr(this.state.endDate);
@@ -139,12 +139,18 @@ class CartModal2 extends Component {
                 </div>
                 <div className='modal-cart-body-1'>
                     <div className='modal-cart-info row'>
-                        <span className='modal-carted-product-name'>{brand} {model}</span>
+                        <span className='modal-carted-product-name'>{brand}<br/>{productName}</span>
                     </div>
                     <div className="pickup-date-container row">
                         <div className='col-md-11 date-range-container'>
-                            <TextField id="date-range-input1" className="date-range-input" type="text" label={'PICKUP DATE'}
-                                       onFocus={() => this.setOpenState(true, false)} value={start_date_str}/>
+                            <TextField
+                                id="date-range-input1"
+                                className="date-range-input"
+                                type="text"
+                                label={'PICKUP DATE'}
+                                onFocus={() => this.setOpenState(true, false)}
+                                value={start_date_str}
+                            />
                             {
                                 this.state.open_date_picker1 ?
                                     <DateRange
@@ -153,8 +159,7 @@ class CartModal2 extends Component {
                                         onChange={this.handleSelect}
                                         rangeColors={['#F74377']}
                                         showDateDisplay={false}
-                                    />
-                                    : null
+                                    /> : null
                             }
                             {
                                 this.state.open_date_picker1 ?
@@ -164,8 +169,14 @@ class CartModal2 extends Component {
                         </div>
                         <div className='col-md-2'/>
                         <div className='col-md-11 date-range-container'>
-                            <TextField id="date-range-input1" className="date-range-input" type="text" label={'RETURN DATE'}
-                                       onFocus={() => this.setOpenState(false, true)} value={end_date_str}/>
+                            <TextField
+                                id="date-range-input1"
+                                className="date-range-input"
+                                type="text"
+                                label={'RETURN DATE'}
+                                onFocus={() => this.setOpenState(false, true)}
+                                value={end_date_str}
+                            />
                             {
                                 this.state.open_date_picker2 ?
                                     <DateRange
@@ -208,9 +219,7 @@ class CartModal2 extends Component {
                                     this.handleEdit()}
                             }
                             disabled={this.state.busy ? 'disabled' : ''}>
-                            {
-                                this.state.busy ? <Inline size={64} color={"#fff"} /> : btn_label2
-                            }
+                            {this.state.busy ? <Inline size={64} color={"#fff"} /> : btn_label2}
                         </button>
                     </div>
                 </div>

@@ -17,7 +17,7 @@ class CartModal1 extends Component {
 
     render() {
         const { gear, carted, start_date, end_date, open, onClose, addToCart, history } = this.props;
-        const { brand, model, pricePerDay } = gear;
+        const { brand, pricePerDay, productName } = gear;
         const duration = calcDaysDiff(start_date, end_date) + 1;
         const start_date_str = getDateStr(start_date);
         const end_date_str = getDateStr(end_date);
@@ -42,14 +42,12 @@ class CartModal1 extends Component {
         return (
             <Modal open={open} onClose={onClose} center classNames={{modal: "cart-modal"}}>
                 <div className='modal-cart-header'>
-                    {
-                        carted ? <i className='fas fa-check-circle'/> : null
-                    }
+                    {carted ? <i className='fas fa-check-circle'/> : null}
                     <span>{dlg_heading}</span>
                 </div>
                 <div className='modal-cart-body'>
                     <div className='modal-cart-info row'>
-                        <span className='modal-carted-product-name'>{brand} {model}</span>
+                        <span className='modal-carted-product-name'>{brand}<br/>{productName}</span>
                         <span className='modal-carted-days'>{duration} DAYS</span>
                         <span className='modal-carted-duration'>{start_date_str} - {end_date_str}</span>
                     </div>

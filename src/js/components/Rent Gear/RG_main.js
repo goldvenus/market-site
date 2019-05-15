@@ -164,15 +164,16 @@ class Main extends Component {
         </div>;
 
     let { product_list } = this.state;
-    if (product_list === undefined)
-      return <div className="circle-loader">
-          <Loader
-              type="Oval"
-              color="#F82462"
-              height="60"
-              width="60"
-          />
-      </div>;
+    if (product_list === undefined) {
+        return <div className="circle-loader">
+            <Loader
+                type="Oval"
+                color="#F82462"
+                height="60"
+                width="60"
+            />
+        </div>
+    };
 
     this.initProductList(category);
 

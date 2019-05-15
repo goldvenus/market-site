@@ -65,7 +65,7 @@ class Cart extends Component {
                 <img src={listItem.numberOfUserImage[0]} className="gear-img" alt=''/> : null}
             </td>
             <td width="32%" className="gear">
-              <p className="tb_brand_model_name">{listItem.brand + ' ' + listItem.model}</p>
+              <p className="tb_brand_model_name">{listItem.brand + ' ' + listItem.productName}</p>
               <p className="theme-text-small text-muted tb_categories_name">{listItem.categoryName}</p>
             </td>
             <td className="rental-period" width="25.6%">
