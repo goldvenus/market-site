@@ -2,17 +2,24 @@
   width: 100%;
 
   .about-us-head {
-    background-color: $primary-color;
-    padding: 2.6rem 0;
+    background-color: #f82462;
+    padding: 2.6rem 0 0;
     overflow: hidden;
     position: relative;
     z-index: 1;
 
+    .heading-mobile, .heading-body-mobile {
+      display: none;
+    }
     .head-container {
       display: flex;
+      background-image: url(/images/aboutus/1.png);
+      background-repeat: no-repeat;
+      background-position: right;
+      height: 355px;
+
       .head-left {
         width: 50%;
-        padding-left: 140px;
       }
       .head-right {
         width: 50%;
@@ -22,9 +29,10 @@
       }
     }
     .about-us-watermark {
-      background-color: #f82462;
-      height: 195px;
-      opacity: 0.3;
+      background-image: url('/images/home/creative.svg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      height: 145px;
 
       .theme-big-text {
         margin: 0;
@@ -96,7 +104,6 @@
 
   .about-us-body {
     position: relative;
-    margin-top: -90px;
     z-index: 5;
     background-color: white;
 
@@ -127,11 +134,105 @@
     }
 
     .press {
-      margin-bottom: 4rem;
+      margin: 4rem 0;
 
       h2.press-title {
         text-align: center;
         margin-bottom: 3rem;
+      }
+      .press-container {
+        overflow-x: auto;
+      }
+    }
+  }
+}
+
+@media (max-width: 1067px) {
+  .head-container {
+    display: block;
+
+    .head-left {
+      visibility: hidden !important;
+    }
+    .head-right {
+      width: 100%;
+      position: absolute;
+    }
+  }
+  .about-us {
+    .heading-mobile {
+      text-align: center;
+      display: block !important;
+    }
+    .heading-body-mobile {
+      display: block !important;
+      & > div {
+        width: 70%;
+        margin: 0 auto;
+        text-align: center;
+        .intro {
+          margin: 35px;
+        }
+        .about-desc {
+          margin: 0 auto 45px;
+          width: 100%;
+        }
+      }
+    }
+    .about-us-watermark {
+      background-size: contain !important;
+      height: 80px;
+    }
+    .about-us-body {
+      margin-top: -20px;
+      .team-members {
+        .container {
+          padding-top: 0;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .about-us {
+    .head-container {
+      background-size: contain;
+    }
+    .heading-mobile {
+      margin: 0 auto;
+      nav {
+        margin: 0 auto;
+      }
+    }
+    .heading-body-mobile {
+      margin-top: 25px;
+      & > div {
+        width: 90%;
+        margin: 0 auto;
+        text-align: center;
+        p:nth-child(1) {
+          margin: 0;
+        }
+        p:nth-child(2) {
+          font-size: 20px;
+        }
+      }
+    }
+    .about-us-watermark {
+      height: 50px !important;
+    }
+    .about-us-body {
+      margin-top: -20px;
+      .team-members {
+        .container {
+          padding-top: 0;
+          .our-tem {
+            text-align: center;
+            margin-top: 3rem;
+            margin-bottom: 2rem;
+          }
+        }
       }
     }
   }
