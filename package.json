@@ -26,6 +26,7 @@
     "moment": "^2.22.2",
     "muicss": "^0.9.41",
     "owl.carousel2": "^2.2.1",
+    "postscribe": "^2.0.8",
     "pretty-checkbox": "^3.0.3",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",

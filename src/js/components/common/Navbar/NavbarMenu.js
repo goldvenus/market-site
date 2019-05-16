@@ -207,15 +207,15 @@ class NavbarMenu extends React.Component {
                   <li className="menu-info-item animated-menu-item">
                     <span className="info__title">Phone</span>
                     <h5 className="info__content">
-                      +1 3456 7890 <br/>
-                      +1 3456 7890
+                      +354 787-0000<br />
+                      +354 775-5666
                     </h5>
                   </li>
                   <li className="menu-info-item animated-menu-item">
                     <span className="info__title">Email</span>
                     <h5 className="info__content">
-                      support@creativemarket.com <br/>
-                      info@creativemarket.com
+                      support@creative.market <br/>
+                      info@creative.market
                     </h5>
                   </li>
                   <li className="menu-info-item-links animated-menu-item">

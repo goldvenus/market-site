@@ -16,7 +16,6 @@ import {
 } from './images/index';
 
 import data from '../../components/dummydata';
-// import ThemeCardTwo from '../../components/Theme-Cards/ThemeCardTwo';
 import ArrivalItem from './ArrivalItem';
 import $ from 'jquery';
 

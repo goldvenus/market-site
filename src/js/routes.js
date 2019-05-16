@@ -19,6 +19,7 @@ import SearchResults from './containers/Landing/SearchResults';
 import Favourites from './containers/Landing/Favourites';
 import Partner from './containers/Landing/Partner';
 import FAQ from './containers/Landing/FAQ';
+import nummus from './containers/Landing/TestNummus';
 
 export default (
   <div className="app-content">
@@ -44,6 +45,7 @@ export default (
       <Route exact path='/favourites' component={Favourites}/>
       <Route exact path='/partners' component={Partner}/>
       <Route exact path='/FAQ' component={FAQ}/>
+      <Route exact path='/nummus' component={nummus}/>
     </Switch>
   </div>
 );
