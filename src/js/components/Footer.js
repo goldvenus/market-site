@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Container, Row, Col } from 'reactstrap'
-import logo from '../../assets/images/logo-1.png';
 import { Link } from 'react-router-dom';
 
 class Footer extends Component {
@@ -15,7 +14,7 @@ class Footer extends Component {
               <Row className="align-items-center news-letter-content">
                 <Col sm="12">
                   <h5>EMAIL NEWSLETTERS</h5>
-                  <p className="theme-text-small">Keep me up to date with content ,updates ,and offers from Athena</p>
+                  <p className="theme-text-small">Keep me up to date with content ,updates ,and offers from Creative Market</p>
                   <div className="theme-form-group d-none d-md-flex">
                     <input placeholder="Your email..." className="theme-form-control" />
                     <button className="theme-btn theme-btn-primary subscribe-btn">Subscribe</button>
@@ -40,7 +39,7 @@ class Footer extends Component {
             <Container style={{    marginTop: -35}}>
               <div className="row">
                 <div className="col">
-                  <img src={logo} alt="logo" className="logo"/>
+                  <img src="/images/Logo.svg" alt="logo" className="logo"/>
                 </div>
                 <div className="row">
                   <ul className="nav text-xs-right">
@@ -93,9 +92,9 @@ class Footer extends Component {
                   <div className="email" style={{ marginRight: -80 }}>
                     <img src={'/images/email_icon.png'} style={{ width: 44, height: 33, marginTop: 4 }} alt="" />&nbsp;&nbsp;
                     <p className="theme-text-small">
-                      support@creativemarket.com
+                      support@creative.market
                       <br />
-                      info@creativemarket.com
+                      info@creative.market
                     </p>
                   </div>
                 </div>
@@ -103,8 +102,8 @@ class Footer extends Component {
                   <div className="phone">
                     <img src={'/images/phone_icon.png'} style={{ width: 39, height: 38, marginTop: 4 }} alt="" />&nbsp;&nbsp;&nbsp;&nbsp;
                     <p className="theme-text-small">
-                      +1 3456 7890<br />
-                      +1 3427 7670
+                      +354 787-0000<br />
+                      +354 775-5666
                     </p>
                   </div>
                 </div>

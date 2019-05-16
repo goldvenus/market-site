@@ -355,10 +355,76 @@
 }
 
 .paySection {
-  min-height: 600px;
+  min-height: 650px;
   width: 100%;
+  padding: 4em 0 1em;
+
+  .container {
+    display: flex;
+    .paySection2-container {
+      flex: 0 0 100%;
+      max-width: 40%;
+      align-items: center;
+      display: flex;
+
+      @media (max-width: 1067px) {
+        max-width: 100%;
+        .paySection2 {
+          display: block;
+        }
+      }
+    }
+    @media (max-width: 1067px) {
+      padding-bottom: 0;
+      display: block;
+      .paySection2-container {
+        & > div {
+          display: flex;
+          width: 100%;
+        }
+      }
+      .paySection1 {
+        width: 100%;
+        .pay-container {
+          width: 75%;
+          text-align: center;
+          p {
+            text-align: center !important;
+          }
+        }
+      }
+    }
+  }
   .pay-section-title {
     font-size: 40px;
+  }
+  .pay-section-back-img {
+    width: 55%;
+    height: 535px;
+    position: absolute;
+    left: 45%;
+    background-image: url('/images/home/new-arrival-bg.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-x: right;
+    @media (max-width: 1067px) {
+      height: 685px;
+      display: none;
+    }
+  }
+  .pay-section-back-img-sm {
+    display: none;
+    @media (max-width: 1067px) {
+      background-position-x: -110px;
+      background-repeat: no-repeat;
+      height: 500px;
+      width: 100%;
+      display: block;
+      position: absolute;
+      margin-top: 154px;
+      background-size: 116%;
+      background-image: url('/images/home/new-arrival-bg.svg');
+    }
   }
 }
 
@@ -376,23 +442,21 @@
   justify-content: flex-start;
   min-height: 600px;
   text-align: center;
-  padding: 130px 0;
+  padding: 80px 0;
+  z-index: 100;
 
-  background-image: url('/images/home/faq-bg.jpg');
-  background-size: cover;
-  background-position: center;
-
+  .pay-container {
+    width: 53%;
+    text-align: left;
+  }
   .pay-section1__title {
     margin: 105px 0 50px 180px;
   }
 
   .pay-section1__desc {
     font-size: 16px;
-    margin: 0 0 60px 180px;
-  }
-
-  .pay-section1__cta {
-    margin: 0 0 0 180px;
+    text-align: left !important;
+    margin: 50px 0 !important;
   }
 
   @media screen and (max-width: 1300px) {
@@ -429,7 +493,6 @@
 
 .paySection2 {
   display: flex;
-  flex-direction: row;
 }
 
 .search-results-container {
@@ -520,10 +583,17 @@
   padding: 0;
   width: 100%;
   height: 721px;
-  background-image: url('/images/home/faq-bg.jpg');
-  background-size: 40% 100%;
-  background-repeat: no-repeat;
 
+  .faq-background-img {
+    width: 45%;
+    height: 721px;
+    position: absolute;
+    background-image: url('/images/home/faq-bg.svg');
+    background-repeat: no-repeat;
+    background-position-x: left;
+    background-size: cover;
+    z-index: -1;
+  }
   .container {
     display: flex;
   }
@@ -545,13 +615,17 @@
         }
         button {
           width: 100%;
+          height: 45px;
+        }
+        i {
+          opacity: 0.5;
         }
       }
     }
   }
   .arrival-items {
     width: 60%;
-    margin-left: 115px;
+    margin-left: 74px;
   }
 
   .arrival-timer {
@@ -565,10 +639,6 @@
     width: 100%;
     height: 721px;
     z-index: 1;
-    background-image: url('/images/home/new-arrival-bg.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
 
     .arrival-timer-title {
       margin-bottom: 50px;
@@ -797,6 +867,76 @@
       background: linear-gradient(270deg, #fff 0%, #fff 20%, rgba(255, 255, 255, 0) 100%);
       z-index: 3;
       pointer-events: none;
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1077px) {
+  .paySection {
+    height: 500px;
+    width: 100%;
+    display: block;
+
+    .container {
+      display: grid;
+      padding: 0;
+
+      .paySection2-container {
+        order: 2;
+        .paySection2 {
+          margin-top: 30px;
+        }
+      }
+      .paySection1 {
+        padding: 45px 0;
+        min-height: auto;
+        background-position-x: -110px;
+        background-position-y: bottom;
+        background-repeat: no-repeat;
+        width: 100%;
+        display: flex;
+        background-image: url('/images/home/new-arrival-bg.svg');
+        .pay-container {
+          width: 75%;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .paySection {
+    .container {
+      display: grid;
+      padding: 0;
+
+      .paySection2-container {
+        order: 2;
+        & > div {
+          display: block;
+        }
+        .paySection2 {
+          display: flex;
+          text-align: left;
+        }
+      }
+      .paySection1 {
+        background-position-x: -110px;
+        background-position-y: bottom;
+        background-repeat: no-repeat;
+        width: 100%;
+        //display: flex;
+        background-image: url('/images/home/new-arrival-bg.svg');
+        button {
+          width: 100%;
+        }
+      }
+    }
+  }
+  .news-letter-container {
+    margin-top: 0 !important;
+    div {
+
     }
   }
 }

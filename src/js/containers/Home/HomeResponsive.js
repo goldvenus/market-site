@@ -111,7 +111,7 @@ class Home extends React.Component {
       // disable previous & next buttons and dots
       prevNextButtons: false,
       pageDots: false
-  }
+    }
   // const flickityOptions2 = {
   //   contain: true,
   //   // able previous & next buttons and dots
@@ -528,6 +528,7 @@ class Home extends React.Component {
           */}
 
           <div className="home-new-arrival d-none d-lg-flex">
+            <div className="faq-background-img"/>
             <div className="container">
               <div className="faq-left">
                 <div className="faq-form">
@@ -536,12 +537,14 @@ class Home extends React.Component {
                   </h2>
                   <div className="faq-wrapper">
                     <div>
-                      <span>Got questions? Our FAQ pages will most likely have the answers.
+                      <p>Got questions? Our FAQ pages will most likely have the answers.
                       If not make sure to submit your question through the form so we can
-                      get back to you right away!</span>
+                      get back to you right away!</p>
                     </div>
                     <div>
-                      <button className="theme-btn theme-btn-primary">View FAQs</button>
+                      <Link to="/FAQ">
+                        <button className="theme-btn theme-btn-primary"><i className="fa fa-search"/>&nbsp;&nbsp;View FAQs</button>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -595,7 +598,7 @@ class Home extends React.Component {
                 ))}
 
             </Flickity>
-            <div className="arrival-timer-frame arrival-timer-find-btn custom-button-find"><i className="fa fa-search" ></i> Find Gear</div>
+            <div className="arrival-timer-frame arrival-timer-find-btn custom-button-find"><i className="fa fa-search" /> FAQ</div>
           </div>
 
           {/*<div className="stories d-none d-lg-block">*/}
@@ -660,61 +663,66 @@ class Home extends React.Component {
           {/*</div>*/}
 
           <Row className="paySection">
-            <Col xs={24} sm={24} md={12} className="paySection1">
-              <h2 className="pay-section-title">
-                Rentals are fast, <br/>safe and secure
-              </h2>
+            <div className="container">
+              <Col className="paySection2-container">
+                  <div>
+                      <div className="paySection2">
+                          <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Choose-Gear.svg'} alt="drone"/>
+                          <div style={{ alignSelf: 'center' }}>
+                              <div>
+                                  <span style={{ fontWeight: 'bold',fontSize:18 }}>CHOOSE GEAR</span>
+                              </div>
+                              <div>
+                                  <span style={{ fontSize: 16 }}>Find the gear you need and add to cart.</span>
+                              </div>
+                          </div>
+                      </div>
+                      <div className="paySection2">
+                          <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Pay.svg'} alt="drone"/>
+                          <div style={{ alignSelf: 'center' }}>
+                              <div>
+                                  <span style={{ fontWeight: 'bold',fontSize:18 }}>PAY</span>
+                              </div>
+                              <div>
+                                  <span style={{ fontSize: 16 }}>Complete secure payment via 2checkout</span>
+                              </div>
+                          </div>
+                      </div>
+                      <div className="paySection2">
+                          <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Enjoy.svg'} alt="drone"/>
+                          <div style={{ alignSelf: 'center' }}>
+                              <div>
+                                  <span style={{ fontWeight: 'bold',fontSize:18 }}>ENJOY</span>
+                              </div>
+                              <div>
+                                  <span style={{ fontSize: 16 }}>Pick up the gear and start creating!</span>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </Col>
+              <Col className="paySection1">
+                <div className="pay-container">
+                  <h2 className="pay-section-title">
+                    Rentals are fast, <br/>safe and secure
+                  </h2>
 
-              <span className="pay-section1__desc">
-                Creative Market requires owners and renters to verify the condition of each item, both when picked up and returned.
-                Making the whole process transparent and disputes easier to solve.
-              </span>
+                  <p className="pay-section1__desc">
+                    Creative Market requires owners and renters to verify the condition of each item, both when picked up and returned.
+                    Making the whole process transparent and disputes easier to solve!
+                  </p>
 
-              <div className="pay-section1__cta">
-                <button className="faq-button">
-                  <span>FAQ</span>
-                </button>
-              </div>
-            </Col>
-
-
-            <Col xs={24} sm={24} md={12}>
-              <div style={{ marginTop: 54, width: "90%", marginBottom:40 }}>
-                <div className="paySection2">
-                  <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Choose-Gear.svg'} alt="drone"/>
-                  <div style={{ alignSelf: 'center' }}>
-                    <div>
-                      <span style={{ fontWeight: 'bold',fontSize:18 }}>CHOOSE GEAR</span>
-                    </div>
-                    <div>
-                      <span style={{ fontSize: 16 }}>Find the gear you need and add to cart.</span>
-                    </div>
+                  <div className="pay-section1__cta">
+                    <Link to="/rentgear">
+                      <button className="faq-button theme-btn theme-btn-primary">
+                        <span>Rent Gear</span>
+                      </button>
+                    </Link>
                   </div>
                 </div>
-                <div className="paySection2" style={{ marginTop: 40 }}>
-                  <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Pay.svg'} alt="drone"/>
-                  <div style={{ alignSelf: 'center' }}>
-                    <div>
-                      <span style={{ fontWeight: 'bold',fontSize:18 }}>PAY</span>
-                    </div>
-                    <div>
-                      <span style={{ fontSize: 16 }}>Complete secure payment via 2checkout</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="paySection2" style={{ marginTop: 46 }}>
-                  <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Enjoy.svg'} alt="drone"/>
-                  <div style={{ alignSelf: 'center' }}>
-                    <div>
-                      <span style={{ fontWeight: 'bold',fontSize:18 }}>ENJOY</span>
-                    </div>
-                    <div>
-                      <span style={{ fontSize: 16 }}>Pick up the gear and start creating!</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Col>
+              </Col>
+            </div>
+            <div className="pay-section-back-img"/>
           </Row>
         </div>
       </div>

@@ -22,7 +22,7 @@ class RentGear extends React.Component {
 
     categories = categories.reduce((arr, item) => arr.concat(item.categoryName), []);
     if (category === undefined) {
-      this.props.history.push('/rentgear/' + categories[0]);
+      this.props.history.push('/rentgear/all');
       return null;
     }
 

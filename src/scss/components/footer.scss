@@ -6,6 +6,7 @@ footer {
   .news-letter-container {
     background-color: #F8F8F8;
     margin: 0 auto;
+    margin-top: 40px;
     max-width: 100%;
 
     .news-letter-content {
@@ -233,7 +234,6 @@ footer {
   }
   .theme-form-group {
     padding-right: 0;
-
   }
   .subscribe-btn {
     min-width: 64px;
@@ -263,6 +263,9 @@ footer {
           &:last-child {
             padding-bottom: 20px !important;
           }
+        }
+        .theme-form-group {
+          width: 100%;
         }
       }
     }
