@@ -194,47 +194,47 @@
   }
 
   #camera {
-    background-image: url('/images/Icons/catogories/h11.svg');
+    background-image: url('/images/Icons/catogories/h12.png');
   }
 
   #computer_electronic {
-    background-image: url('/images/Icons/catogories/h21.svg');
+    background-image: url('/images/Icons/catogories/h22.png');
   }
 
   #drones {
-    background-image: url('/images/Icons/catogories/h31.svg');
+    background-image: url('/images/Icons/catogories/h32.png');
   }
 
   #lenses {
-    background-image: url('/images/Icons/catogories/h41.svg');
+    background-image: url('/images/Icons/catogories/h42.png');
   }
 
   #lighting {
-    background-image: url('/images/Icons/catogories/h51.svg');
+    background-image: url('/images/Icons/catogories/h52.png');
   }
 
   #audio {
-    background-image: url('/images/Icons/catogories/h61.svg');
+    background-image: url('/images/Icons/catogories/h62.png');
   }
 
   #tripods_stabilization_rigs {
-    background-image: url('/images/Icons/catogories/h71.svg');
+    background-image: url('/images/Icons/catogories/h72.png');
   }
 
   #camera_accessories {
-    background-image: url('/images/Icons/catogories/h81.svg');
+    background-image: url('/images/Icons/catogories/h82.png');
   }
 
   #studio_spaces {
-    background-image: url('/images/Icons/catogories/h91.svg');
+    background-image: url('/images/Icons/catogories/h92.png');
   }
 
   #office_spaces {
-    background-image: url('/images/Icons/catogories/ha1.svg');
+    background-image: url('/images/Icons/catogories/ha2.png');
   }
 
   #others {
-    background-image: url('/images/Icons/catogories/hb1.svg');
+    background-image: url('/images/Icons/catogories/hb2.png');
   }
 }
 
@@ -277,47 +277,47 @@
   }
 
   #camera {
-    background-image: url('/images/Icons/catogories/h12.svg');
+    background-image: url('/images/Icons/catogories/h11.png');
   }
 
   #computer_electronic {
-    background-image: url('/images/Icons/catogories/h22.svg');
+    background-image: url('/images/Icons/catogories/h21.png');
   }
 
   #drones {
-    background-image: url('/images/Icons/catogories/h32.svg');
+    background-image: url('/images/Icons/catogories/h31.png');
   }
 
   #lenses {
-    background-image: url('/images/Icons/catogories/h42.svg');
+    background-image: url('/images/Icons/catogories/h41.png');
   }
 
   #lighting {
-    background-image: url('/images/Icons/catogories/h52.svg');
+    background-image: url('/images/Icons/catogories/h51.png');
   }
 
   #audio {
-    background-image: url('/images/Icons/catogories/h62.svg');
+    background-image: url('/images/Icons/catogories/h61.png');
   }
 
   #tripods_stabilization_rigs {
-    background-image: url('/images/Icons/catogories/h72.svg');
+    background-image: url('/images/Icons/catogories/h71.png');
   }
 
   #camera_accessories {
-    background-image: url('/images/Icons/catogories/h82.svg');
+    background-image: url('/images/Icons/catogories/h81.png');
   }
 
   #studio_spaces {
-    background-image: url('/images/Icons/catogories/h92.svg');
+    background-image: url('/images/Icons/catogories/h91.png');
   }
 
   #office_spaces {
-    background-image: url('/images/Icons/catogories/ha2.svg');
+    background-image: url('/images/Icons/catogories/ha1.png');
   }
 
   #others {
-    background-image: url('/images/Icons/catogories/hb2.svg');
+    background-image: url('/images/Icons/catogories/hb1.png');
   }
 }
 
@@ -403,10 +403,10 @@
     height: 535px;
     position: absolute;
     left: 45%;
-    background-image: url('/images/home/new-arrival-bg.svg');
-    background-size: cover;
-    background-repeat: no-repeat;
+    background: url('/images/home/new-arrival-bg.svg');
     background-position-x: right;
+    background-size: cover;
+
     @media (max-width: 1067px) {
       height: 685px;
       display: none;
@@ -493,6 +493,9 @@
 
 .paySection2 {
   display: flex;
+  img {
+    margin-right: 20px;
+  }
 }
 
 .search-results-container {
@@ -884,7 +887,10 @@
       .paySection2-container {
         order: 2;
         .paySection2 {
-          margin-top: 30px;
+          margin-top: 50px;
+          img {
+            margin-right: 0;
+          }
         }
       }
       .paySection1 {

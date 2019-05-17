@@ -575,9 +575,17 @@ class Home extends React.Component {
 
                 <div className="arrival-items">
                   <div className="arrival-items-inner-wrapper">
-                    {data.arrivals.map((val, key) => (
-                      <ArrivalItem key={key} {...val}/>
-                    ))}
+                    {/*<Flickity*/}
+                      {/*className={'carousel'}        // default ''*/}
+                      {/*elementType={'div'}           // default 'div'*/}
+                      {/*options={flickityOptions}     // takes flickity options {}*/}
+                      {/*disableImagesLoaded={false}   // default false*/}
+                      {/*reloadOnUpdate                // default false*/}
+                    {/*>*/}
+                      {data.faqs.map((val, key) => (
+                        <ArrivalItem key={key} {...val}/>
+                      ))}
+                    {/*</Flickity>*/}
                   </div>
                   <div className="arrival-items-glow"/>
                 </div>
@@ -585,17 +593,16 @@ class Home extends React.Component {
           </div>
 
           <div className="home-new-arrival d-inline d-lg-none slider-2">
-          <Flickity
-              className={'carousel'} // default ''
-              elementType={'div'} // default 'div'
-              options={flickityOptions} // takes flickity options {}
-              disableImagesLoaded={false} // default false
-              reloadOnUpdate // default false
-            >
-                {data.arrivals.map((val, key) => (
-                  <div key={key} className="arrival-items arrival-items-inner-wrapper"><ArrivalItem {...val}/></div>
-                ))}
-
+            <Flickity
+                className={'carousel'}        // default ''
+                elementType={'div'}           // default 'div'
+                options={flickityOptions}     // takes flickity options {}
+                disableImagesLoaded={false}   // default false
+                reloadOnUpdate                // default false
+              >
+              {data.faqs.map((val, key) => (
+                <div key={key} className="arrival-items arrival-items-inner-wrapper"><ArrivalItem {...val}/></div>
+              ))}
             </Flickity>
             <div className="arrival-timer-frame arrival-timer-find-btn custom-button-find"><i className="fa fa-search" /> FAQ</div>
           </div>
@@ -666,7 +673,7 @@ class Home extends React.Component {
               <Col className="paySection2-container">
                   <div>
                       <div className="paySection2">
-                          <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Choose-Gear.svg'} alt="drone"/>
+                          <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Choose-Gear.png'} alt="drone"/>
                           <div style={{ alignSelf: 'center' }}>
                               <div>
                                   <span style={{ fontWeight: 'bold',fontSize:18 }}>CHOOSE GEAR</span>
@@ -677,18 +684,18 @@ class Home extends React.Component {
                           </div>
                       </div>
                       <div className="paySection2">
-                          <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Pay.svg'} alt="drone"/>
+                          <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Pay.png'} alt="drone"/>
                           <div style={{ alignSelf: 'center' }}>
                               <div>
                                   <span style={{ fontWeight: 'bold',fontSize:18 }}>PAY</span>
                               </div>
                               <div>
-                                  <span style={{ fontSize: 16 }}>Complete secure payment via 2checkout</span>
+                                  <span style={{ fontSize: 16 }}>Securely checkout via PayPal or Card</span>
                               </div>
                           </div>
                       </div>
                       <div className="paySection2">
-                          <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Enjoy.svg'} alt="drone"/>
+                          <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Enjoy.png'} alt="drone"/>
                           <div style={{ alignSelf: 'center' }}>
                               <div>
                                   <span style={{ fontWeight: 'bold',fontSize:18 }}>ENJOY</span>

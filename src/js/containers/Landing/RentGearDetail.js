@@ -141,7 +141,7 @@ class RentGearDetail extends Component {
         // make img objects for bottom carousel
         const children = img_arr.map((item, i) => (
             <div key={i} className='carousel-image-container'>
-                <img src={item} alt="" />
+                <img src={item} alt=""/>
             </div>
         ));
         return (<ItemsCarousel
@@ -152,7 +152,7 @@ class RentGearDetail extends Component {
             placeholderItem={<div style={{ height: 200, background: '#900' }}>Placeholder</div>}
 
             // Carousel configurations
-            numberOfCards={5}
+            numberOfCards={4}
             gutter={12}
             showSlither={true}
             firstAndLastGutter={true}
@@ -314,7 +314,7 @@ class RentGearDetail extends Component {
                   <div className="theme-form-small text-gray category">{categoryName} </div>
 
                   <span className='category-name'>
-                      { name }
+                      {name}
                       {carted > 0 ? <i className="fas fa-check-circle icon-carted"/> : null}
                   </span>
 
@@ -386,8 +386,13 @@ class RentGearDetail extends Component {
                           user && this.state.userid !== userid ?
                               <div className="pickup-date-container row">
                                   <div className='col-md-11 date-range-container'>
-                                      <TextField id="date-range-input1" className="date-range-input" type="text" label={'PICKUP DATE'}
-                                          onFocus={() => this.setOpenState(true, false)} value={start_date_str}/>
+                                      <TextField
+                                          id="date-range-input1"
+                                          className="date-range-input"
+                                          type="text"
+                                          label={'PICKUP DATE'}
+                                          onFocus={() => this.setOpenState(true, false)} value={start_date_str}
+                                      />
                                       {
                                           this.state.open_date_picker1 ?
                                               <DateRange
@@ -402,14 +407,19 @@ class RentGearDetail extends Component {
                                       }
                                       {
                                           this.state.open_date_picker1 ?
-                                              <object type="image/svg+xml" data="/images/Icons/calendar/calendar1.svg">abc</object> :
-                                              <object type="image/svg+xml" data="/images/Icons/calendar/calendar.svg">abc</object>
+                                              <img src="/images/Icons/calendar/calendar1.svg" alt=''/> :
+                                              <img src="/images/Icons/calendar/calendar.svg" alt=''/>
                                       }
                                   </div>
                                   <div className='col-md-2'/>
                                   <div className='col-md-11 date-range-container'>
-                                      <TextField id="date-range-input1" className="date-range-input" type="text" label={'RETURN DATE'}
-                                          onFocus={() => this.setOpenState(false, true)} value={end_date_str}/>
+                                      <TextField
+                                          id="date-range-input1"
+                                          className="date-range-input"
+                                          type="text"
+                                          label={'RETURN DATE'}
+                                          onFocus={() => this.setOpenState(false, true)} value={end_date_str}
+                                      />
                                       {
                                           this.state.open_date_picker2 ?
                                               <DateRange
@@ -423,8 +433,8 @@ class RentGearDetail extends Component {
                                       }
                                       {
                                           this.state.open_date_picker2 ?
-                                              <object type="image/svg+xml" data="/images/Icons/calendar/calendar1.svg">abc</object> :
-                                              <object type="image/svg+xml" data="/images/Icons/calendar/calendar.svg">abc</object>
+                                              <img src="/images/Icons/calendar/calendar1.svg" alt=''/> :
+                                              <img src="/images/Icons/calendar/calendar.svg" alt=''/>
                                       }
                                   </div>
                               </div>
@@ -467,9 +477,7 @@ class RentGearDetail extends Component {
                           <CustomCarousel items={numberOfUserImage}/>
                       </div>
                       <div className="carousel-bottom-container">
-                          {
-                              this.renderCarousel(numberOfUserImage)
-                          }
+                          {this.renderCarousel(numberOfUserImage)}
                       </div>
                   </div>
                   <div className="right-container col-lg-15">

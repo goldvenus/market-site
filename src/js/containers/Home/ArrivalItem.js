@@ -6,11 +6,11 @@ const ArrowIcon = () => (
   </svg>
 );
 
-const ArrivalItem = ({ category, title, price, priceTime, photo, link }) => (
-  <div className="arrival-item" style={{ backgroundImage: `url(${photo})` }}>
+const ArrivalItem = ({ text, imgPath, link }) => (
+  <div className="arrival-item" style={{ backgroundImage: `url(${imgPath})` }}>
     <div className="arrival-item-info-bottom">
       <div className="info-price-wrapper">
-        <span className="info-price">{title}</span>
+        <span className="info-price">{text}</span>
       </div>
       <a className="info-bottom-go-btn" href={link} target="_blank" rel="noopener noreferrer">
         <ArrowIcon/>

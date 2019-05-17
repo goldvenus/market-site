@@ -10,6 +10,7 @@ import RentalCalendarModal from "./GearHistory/RentalCalendarModal";
 import GearEditModal from "./GearHistory/GearEditModal";
 import BarLoader from "react-bar-loader";
 import $ from 'jquery';
+import {fetchCategories} from "../../core/actions/category.action";
 
 const MyListingItem = ({ listItem, openEdit, openCalendar }) => (
     <React.Fragment>
@@ -108,6 +109,7 @@ class MyListings extends React.Component {
 
     async componentDidMount() {
         await getListGears();
+        await fetchCategories();
         this.setState({isFirstLoading: false});
     }
 
@@ -138,9 +140,9 @@ class MyListings extends React.Component {
     }
 
     render() {
-        const {currentPage, isFirstLoading} = this.state;
-        const {list, isLoading} = this.props;
-        if (isLoading && isFirstLoading) {
+        const { currentPage, isFirstLoading } = this.state;
+        const { list, isLoading, isLoadingCategories } = this.props;
+        if (isLoading && isFirstLoading && isLoadingCategories) {
             return <BarLoader color="#F82462" height="5"/>;
         }
 
@@ -164,12 +166,12 @@ class MyListings extends React.Component {
                                             <Table className="listing-data-slice">
                                                 <thead className="list-table-head">
                                                     <tr className="text-muted theme-text-bold listing-data-thead">
-                                                        <th></th>
+                                                        <th/>
                                                         <th>Name & Category</th>
                                                         <th>Price Per day</th>
                                                         <th>Value</th>
-                                                        <th></th>
-                                                        <th></th>
+                                                        <th/>
+                                                        <th/>
                                                     </tr>
                                                 </thead>
                                                 <tbody className="listing-data-tbody">
@@ -254,7 +256,8 @@ class MyListings extends React.Component {
 
 const mapStateToProps = state => ({
     list: state.gear.listGears,
-    isLoading: state.gear.isLoading
+    isLoading: state.gear.isLoading,
+    isLoadingCategories: state.category.isLoading
 });
 
 export default connect(mapStateToProps)(MyListings);
