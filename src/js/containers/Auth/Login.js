@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import { Label, Input } from 'reactstrap';
+import { Label } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import formSerialize from "form-serialize";
-import CustomInput from '../../components/CustomInput';
 import AuthSideMenu from '../../components/AuthSideMenu';
 import { login } from '../../core/actions/user.action';
 import { FACEBOOK_LOGIN_URL } from '../../core/constants';
 import CustomSpinner from "../../components/CustomSpinner";
+import TextField from "@material-ui/core/TextField/TextField";
+import Navbar from "../../components/common/Navbar/Navbar";
+import {handleError} from "../../core/actions/common.action";
 
 class Login extends Component {
   constructor(props) {
@@ -20,13 +22,18 @@ class Login extends Component {
 
     this.state = {
       password: '',
-      username: ''
+      username: '',
+      saveState: false
     };
 
   }
 
   submit = e => {
       e.preventDefault();
+      if (!e.target.username.value || !e.target.password.value) {
+          handleError("Please input email and password");
+          return;
+      }
       const data = formSerialize(e.target, {hash: true});
       this.props.login(data);
   };
@@ -39,8 +46,14 @@ class Login extends Component {
 
   render() {
     const { isAuthorizing } = this.props;
-    const { username, password } = this.state;
+    const { username, password, saveState } = this.state;
     return (
+      <React.Fragment>
+      <div className="auth-nav-bar">
+        <header>
+          <Navbar/>
+        </header>
+      </div>
       <div className="auth-container">
         {
           isAuthorizing ? <CustomSpinner/> : null
@@ -71,30 +84,61 @@ class Login extends Component {
             </button>
           </div>
           <div className="login-or-divider">Or</div>
-          <form className="theme-form" method="POST" onSubmit={this.submit}>
-            <div className="theme-form-field">
-              <CustomInput placeholder='EMAIL' type="email" name="username" required="required" value={username}
-                           onChange={(value) => this.setState({ username: value })}/>
-            </div>
-            <div className="flex-row">
-              <div className="theme-form-field">
-                <CustomInput placeholder='PASSWORD' type="Password" name="password" required="required" value={password}
-                             onChange={(value) => this.setState({ password: value })}/>
+          <div className="login-form-wrapper">
+            <form className="theme-form" method="POST" onSubmit={this.submit}>
+              <div className="theme-form-field auth-input-wrapper">
+                <TextField
+                  id="standard-with-placeholder"
+                  className="custom-beautiful-textfield"
+                  name="username"
+                  label="EMAIL"
+                  type="text"
+                  value={username}
+                  maxLength='50'
+                  onChange={(e) => this.setState({ username: (e && e.target && e.target.value) || ''})}
+                />
               </div>
-              <Link className="theme-form-link" to="/forgotpassword">Forgot password?</Link>
-            </div>
-            <div className="theme-form-field login-remember-input">
-              <Input type="checkbox" id="login-remember"/>
-              <Label for="login-remember">Remember me on this device</Label>
-            </div>
-              {
-                  isAuthorizing ?
-                      <button type="submit" disabled className="theme-btn-submit">Sign In</button>
-                      :
-                      <button type="submit" className="theme-btn-submit">Sign In</button>
-              }
+              <div className="flex-row">
+                <div className="theme-form-field auth-input-wrapper">
+                  <TextField
+                    id="standard-password-input"
+                    className="custom-beautiful-textfield"
+                    name="password"
+                    label="PASSWORD"
+                    type="password"
+                    value={password}
+                    maxLength='50'
+                    onChange={e => this.setState({ password: (e && e.target && e.target.value) || ''})}
+                  />
+                </div>
+                <Link className="theme-form-link forgot-pwd-link" to="/forgotpassword">Forgot password?</Link>
+              </div>
+              <div className="theme-form-field login-remember-input">
+                <div className="theme-form-field save-addr-btn">
+                  <div className="input_svg pretty p-svg p-plain">
+                    <input
+                      type="checkbox"
+                      onClick={() => this.setState({saveState: !saveState})}
+                      value={saveState}
+                      checked={saveState ? 'checked' : ''}
+                      onChange={() => {}}
+                    />
+                    <div className="state">
+                      <img className="svg check_svg" alt="" src="/images/Icons/task.svg"/>
+                    </div>
+                  </div>
+                  <Label for="save-address" className='checkbox-label'>Remember on this device</Label>
+                </div>
+              </div>
+                {
+                    isAuthorizing ?
+                        <button type="submit" disabled className="theme-btn-submit">Sign In</button>
+                        :
+                        <button type="submit" className="theme-btn-submit">Sign In</button>
+                }
 
-          </form>
+            </form>
+          </div>
           <div className="login-or-divider"></div>
           <div className="flex-row signup-link">
             <span>Don't have an account?</span>
@@ -103,6 +147,7 @@ class Login extends Component {
           </div>
         </div>
       </div>
+      </React.Fragment>
     );
   }
 }

@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, TabContent, TabPane } from 'reactstrap';
-import { dashboardMyListing, dashboardMyRentals, viewUserDashboard } from '../../core/actions/dashboard.action';
+import { viewUserDashboard } from '../../core/actions/dashboard.action';
 import Head from './head';
 import Tabs from './tabs';
 import Chart from './chart';
 import AccountDetail from './AccountDetail';
 import MyListings from './GearHistory';
-import OrderHistory from './OrderHistory'
+import OrderHistory from './OrderHistory';
 import BarLoader from "react-bar-loader";
+import PaymentDashboard from "./PaymentDashboard";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -21,8 +22,8 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    dashboardMyListing();
-    dashboardMyRentals();
+    //dashboardMyListing();
+    //dashboardMyRentals();
     viewUserDashboard();
   }
 
@@ -35,20 +36,10 @@ class Dashboard extends Component {
   }
 
   render() {
-    const Rental_Items = this.props.userRentals;
-    const Listing_Items = this.props.userListings;
+    // const Listing_Items = this.props.userListings;
     const { user, isAuthenticated, dashboard } = this.props;
-    let series;
-
-    if (!Rental_Items || !Listing_Items) {
+    if (!user || !dashboard) {
       return <BarLoader color="#F82462" height="5"/>;
-    }
-    if (dashboard && dashboard.monthlyTotalEarning) {
-      series = {
-        totalEarnings: dashboard.monthlyTotalEarning,
-        monthlyAverage: dashboard.monthlyTotalAvarageEarning,
-        inventory: dashboard.monthlyProductsValue
-      };
     }
 
     return (
@@ -63,16 +54,19 @@ class Dashboard extends Component {
           <Container>
             <TabContent activeTab={this.state.activeTab}>
               <TabPane tabId="1">
-                <Chart series={series}/>
+                <Chart dashboard={dashboard}/>
               </TabPane>
               <TabPane tabId="2">
                 <AccountDetail/>
               </TabPane>
               <TabPane tabId="3">
-                <MyListings list={Listing_Items}/>
+                <MyListings/>
               </TabPane>
-              <TabPane tabId="5" id="#order">
-                <OrderHistory list={OrderHistory}/>
+              <TabPane tabId="4" id="#order">
+                <OrderHistory/>
+              </TabPane>
+              <TabPane tabId="5">
+                <PaymentDashboard/>
               </TabPane>
             </TabContent>
           </Container>
@@ -84,7 +78,6 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => ({
   userListings: state.dashboard.userListings,
-  userRentals: state.dashboard.userRentals,
   dashboard: state.dashboard.dashboard,
   user: state.user.user,
   isAuthenticated: state.user.isAuthenticated,

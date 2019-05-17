@@ -11,17 +11,20 @@ const checkout = data => {
         });
         try {
             let response = await post('docheckout', data);
-            resolve(response.data);
-            dispatch({
-                type: constants.DO_CHECKOUT_SUCCESS,
-                payload: response.data
-            });
+            if (response && response.data && response.data.status === 'success') {
+                dispatch({
+                    type: constants.DO_CHECKOUT_SUCCESS,
+                    payload: response.data.data
+                });
+                resolve(response.data.data);
+            }
+            reject(false);
         } catch (error) {
-            handleError(error);
-            reject(error);
             dispatch({
                 type: constants.DO_CHECKOUT_FAILED
             });
+            handleError(error);
+            reject(error);
         }
     });
 };

@@ -6,9 +6,11 @@ const calcDaysDiff = (date1, date2) => {
   return Math.ceil(timeDiff / (1000 * 3600 * 24));
 };
 
-const getDateStr = date_obj => {
-    return date_obj && moment(date_obj).format('DD.MM.YYYY');
+const getDateStr = date => {
+    return date && moment(date).format('DD.MM.YYYY');
 };
+
+const getUTCDateFormat = (date) => ((date.getUTCMonth()+1) + '.' + date.getUTCDate() + '.' + date.getUTCFullYear()) + ' ' + date.getUTCHours() + ':' + date.getUTCMinutes() + ' GMT';
 
 const formatDate = (date) => {
     return date && moment(date).format('YYYY-MM-DD');
@@ -77,6 +79,6 @@ const checkDigitSpace = value => {
 };
 
 export {
-    calcDaysDiff, getDateStr, formatDate, days, getUniqueObjectArray,
-    validateCard, cc_format, checkDigitSpace
+    calcDaysDiff, getDateStr, formatDate, days, getUTCDateFormat,
+    getUniqueObjectArray, validateCard, cc_format, checkDigitSpace
 }

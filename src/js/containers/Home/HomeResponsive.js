@@ -16,7 +16,6 @@ import {
 } from './images/index';
 
 import data from '../../components/dummydata';
-import ThemeCardTwo from '../../components/Theme-Cards/ThemeCardTwo';
 import ArrivalItem from './ArrivalItem';
 import $ from 'jquery';
 
@@ -42,19 +41,19 @@ class Home extends React.Component {
   };
 
   componentDidMount() {
-    var $animation_elements = $('.animation-element');
-    var $window = $(window);
+    let $animation_elements = $('.animation-element');
+    let $window = $(window);
 
     function check_if_in_view() {
-      var window_height = $window.height();
-      var window_top_position = $window.scrollTop();
-      var window_bottom_position = (window_top_position + window_height);
+      let window_height = $window.height();
+      let window_top_position = $window.scrollTop();
+      let window_bottom_position = (window_top_position + window_height);
 
       $.each($animation_elements, function () {
-        var $element = $(this);
-        var element_height = $element.outerHeight();
-        var element_top_position = $element.offset().top;
-        var element_bottom_position = (element_top_position + element_height);
+        let $element = $(this);
+        let element_height = $element.outerHeight();
+        let element_top_position = $element.offset().top;
+        let element_bottom_position = (element_top_position + element_height);
 
         //check to see if this current container is within viewport
         if ((element_bottom_position >= window_top_position) &&
@@ -70,24 +69,23 @@ class Home extends React.Component {
     $window.trigger('scroll');
 
     newArrivals();
-    newArrivals();
 
     //facebook login
     let href = window.location.href;
     if (href.indexOf('id_token') > 0) {
       let token1 = href.split('#')[1].split('&')[0];
       let token2 = href.split('#')[1].split('&')[1];
-      let idToken, accessToken;
+      let idToken, accesstoken;
 
       if (token1.indexOf('id_token') > 0) {
         idToken = token1.replace('id_token=', '');
-        accessToken = token2.replace('access_token=', '');
+        accesstoken = token2.replace('access_token=', '');
       } else {
-        accessToken = token1.replace('access_token=', '');
+        accesstoken = token1.replace('access_token=', '');
         idToken = token2.replace('id_token=', '');
       }
 
-      socialLogin(idToken, accessToken);
+      socialLogin(idToken, accesstoken);
     }
   }
 
@@ -112,14 +110,14 @@ class Home extends React.Component {
       // disable previous & next buttons and dots
       prevNextButtons: false,
       pageDots: false
-  }
-  const flickityOptions2 = {
-    contain: true,
-    // able previous & next buttons and dots
-    prevNextButtons: true,
-    pageDots: true,
-    draggable: false
-  }
+    }
+  // const flickityOptions2 = {
+  //   contain: true,
+  //   // able previous & next buttons and dots
+  //   prevNextButtons: true,
+  //   pageDots: true,
+  //   draggable: false
+  // }
 
     return (
       <div className="page home-page home">
@@ -140,18 +138,24 @@ class Home extends React.Component {
 
                 <div className="hero-categories d-none d-md-flex">
                   Rent&nbsp;
-                  <button className="hero-categories__btn">
-                    <IconBtnCamera className="btn__icon"/>
-                    Cameras
-                  </button>
-                  <button className="hero-categories__btn">
-                    <IconBtnDrone className="btn__icon"/>
-                    Drones
-                  </button>
-                  <button className="hero-categories__btn">
-                    <IconBtnLight className="btn__icon"/>
-                    Drones
-                  </button>
+                  <Link to="/rentgear/Cameras">
+                    <button className="hero-categories__btn">
+                      <IconBtnCamera className="btn__icon"/>
+                      Cameras
+                    </button>
+                  </Link>
+                  <Link to="/rentgear/Drones">
+                    <button className="hero-categories__btn">
+                      <IconBtnDrone className="btn__icon"/>
+                      Drones
+                    </button>
+                  </Link>
+                  <Link to="/rentgear/Lightings">
+                    <button className="hero-categories__btn">
+                      <IconBtnLight className="btn__icon"/>
+                      Lights
+                    </button>
+                  </Link>
                   <span className="d-lg-none">and more</span>
                   <span className="d-none d-lg-inline-block">and more from people around you.</span>
                 </div>
@@ -204,148 +208,137 @@ class Home extends React.Component {
           <Container className="d-none d-lg-block">
             <div className="row">
               <div className="block-el block-e1-size col animation-element slide-left testimonial">
+                <Link to="/rentgear/Cameras">
                 <div className="block-content">
                   <p id="camera"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>CAMERA</span>
-                    <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/cameras">View</Link>
-                    </button>
                   </div>
                 </div>
                 <div className="block-bg"/>
+                </Link>
               </div>
 
               <div className="block-el block-e1-size col animation-element slide-left testimonial">
+                <Link to="/rentgear/Computers">
                 <div className="block-content">
                   <p id="computer_electronic"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>COMPUTER & ELECTRONICS</span>
-                    <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/cameras">View</Link>
-                    </button>
                   </div>
                 </div>
                 <div className="block-bg"/>
+                </Link>
               </div>
 
               <div className="block-el block-e1-size col animation-element slide-left testimonial">
+                <Link to="/rentgear/Drones">
                 <div className="block-content ">
                   <p id="drones"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>DRONES</span>
-                    <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/cameras">View</Link>
-                    </button>
                   </div>
                 </div>
                 <div className="block-bg"/>
+                </Link>
               </div>
             </div>
 
             <div className="row">
               <div className="block-el block-e2-size col animation-element slide-left testimonial">
-                <div className="block-content">
+                <Link to="/rentgear/CameraLenses">
+                  <div className="block-content">
                   <p id="lenses"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>LENSES</span>
-                    <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/lenses">View</Link>
-                    </button>
                   </div>
                 </div>
                 <div className="block-bg"/>
+                </Link>
               </div>
 
               <div className="block-el block-e2-size col animation-element slide-left testimonial">
+                <Link to="/rentgear/Lightings">
                 <div className="block-content">
                   <p id="lighting"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>LIGHTING</span>
-                    <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/lighting">View</Link>
-                    </button>
                   </div>
                 </div>
                 <div className="block-bg"/>
+                </Link>
               </div>
               <div className="block-el block-e2-size col animation-element slide-left testimonial">
+                <Link to="/rentgear/Audios">
                 <div className="block-content">
                   <p id="audio"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>AUDIO</span>
-                    <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/audio">View</Link>
-                    </button>
                   </div>
                 </div>
                 <div className="block-bg"/>
+                </Link>
               </div>
 
               <div className="block-el block-e2-size col animation-element slide-left testimonial">
+                <Link to="/rentgear/TS&R">
                 <div className="block-content">
                   <p id="tripods_stabilization_rigs"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>TRIPODS STABILIZATION & RIGS</span>
-                    <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/TS&R">View</Link>
-                    </button>
                   </div>
                 </div>
                 <div className="block-bg"/>
+                </Link>
               </div>
             </div>
 
             <div className="row">
               <div className="block-el block-e2-size col animation-element slide-left testimonial">
-                <div className="block-content">
-                  <p id="camera_accessories"/>
-                  <div className="desc">
-                    <span style={{ fontWeight: 'bold' }}>CAMERA ACCESSORIES</span>
-                    <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/camera_accessories">View</Link>
-                    </button>
+                <Link to="/rentgear/CameraAccessories">
+                  <div className="block-content">
+                    <p id="camera_accessories"/>
+                    <div className="desc">
+                      <span style={{ fontWeight: 'bold' }}>CAMERA ACCESSORIES</span>
+                    </div>
                   </div>
-                </div>
-                <div className="block-bg"/>
+                  <div className="block-bg"/>
+                </Link>
               </div>
 
               <div className="block-el block-e2-size col animation-element slide-left testimonial">
-                <div className="block-content">
-                  <p id="studio_spaces"/>
-                  <div className="desc">
-                    <span style={{ fontWeight: 'bold' }}>STUDIO SPACES</span>
-                    <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/studio_spaces">View</Link>
-                    </button>
+                <Link to="/rentgear/StudioSpaces">
+                  <div className="block-content">
+                    <p id="studio_spaces"/>
+                    <div className="desc">
+                      <span style={{ fontWeight: 'bold' }}>STUDIO SPACES</span>
+                    </div>
                   </div>
-                </div>
-                <div className="block-bg"/>
+                  <div className="block-bg"/>
+                </Link>
               </div>
 
               <div className="block-el block-e2-size col animation-element slide-left testimonial">
-                <div className="block-content">
-                  <p id="office_spaces"/>
-                  <div className="desc">
-                    <span style={{ fontWeight: 'bold' }}>OFFICE SPACES</span>
-                    <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/office_spaces">View</Link>
-                    </button>
+                <Link to="/rentgear/OfficeSpaces">
+                  <div className="block-content">
+                    <p id="office_spaces"/>
+                    <div className="desc">
+                      <span style={{ fontWeight: 'bold' }}>OFFICE SPACES</span>
+                    </div>
                   </div>
-                </div>
-                <div className="block-bg"/>
+                  <div className="block-bg"/>
+                </Link>
               </div>
               <div className="block-el block-e2-size col animation-element slide-left testimonial">
+                <Link to="/rentgear/Other">
                 <div className="block-content">
                   <p id="others"/>
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>OTHER</span>
-                    <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/office_spaces">View</Link>
-                    </button>
                   </div>
                 </div>
                 <div className="block-bg"/>
+                </Link>
               </div>
             </div>
 
@@ -367,8 +360,8 @@ class Home extends React.Component {
                   <div className="desc">
                     <span style={{ fontWeight: 'bold' }}>CAMERA</span>
                     <button className="theme-btn theme-btn-outline-white">
-                      <Link to="/cameras"><i className="fa fa-chevron-right"></i></Link>
-                      </button>
+                      <Link to="/rentgear/Camera"><i className="fa fa-chevron-right"/></Link>
+                    </button>
                     </div>
                   </div>
               </div>
@@ -378,7 +371,7 @@ class Home extends React.Component {
                     <div className="desc">
                       <span style={{ fontWeight: 'bold' }}>COMPUTER & ELECTRONICS</span>
                       <button className="theme-btn theme-btn-outline-white">
-                        <Link to="/cameras"><i className="fa fa-chevron-right"></i></Link>
+                        <Link to="/rentgear/Computer"><i className="fa fa-chevron-right"/></Link>
                       </button>
                     </div>
                   </div>
@@ -389,7 +382,7 @@ class Home extends React.Component {
                     <div className="desc">
                       <span style={{ fontWeight: 'bold' }}>DRONES</span>
                       <button className="theme-btn theme-btn-outline-white">
-                        <Link to="/cameras"><i className="fa fa-chevron-right"></i></Link>
+                        <Link to="/rentgear/Drones"><i className="fa fa-chevron-right"/></Link>
                       </button>
                     </div>
                   </div>
@@ -400,7 +393,7 @@ class Home extends React.Component {
                     <div className="desc">
                       <span style={{ fontWeight: 'bold' }}>LENSES</span>
                       <button className="theme-btn theme-btn-outline-white">
-                        <Link to="/lenses"><i className="fa fa-chevron-right"></i></Link>
+                        <Link to="/rentgear/CameraLenses"><i className="fa fa-chevron-right"/></Link>
                       </button>
                     </div>
                   </div>
@@ -411,7 +404,7 @@ class Home extends React.Component {
                     <div className="desc">
                       <span style={{ fontWeight: 'bold' }}>CAMERA ACCESSORIES</span>
                       <button className="theme-btn theme-btn-outline-white">
-                        <Link to="/camera_accessories"><i className="fa fa-chevron-right"></i></Link>
+                        <Link to="/rentgear/CameraAccessories"><i className="fa fa-chevron-right"/></Link>
                       </button>
                     </div>
                   </div>
@@ -422,7 +415,7 @@ class Home extends React.Component {
                     <div className="desc">
                       <span style={{ fontWeight: 'bold' }}>OFFICE SPACES</span>
                       <button className="theme-btn theme-btn-outline-white">
-                        <Link to="/office_spaces"><i className="fa fa-chevron-right"></i></Link>
+                        <Link to="/rentgear/OfficeSpaces"><i className="fa fa-chevron-right"/></Link>
                       </button>
                     </div>
                   </div>
@@ -433,7 +426,7 @@ class Home extends React.Component {
                     <div className="desc">
                       <span style={{ fontWeight: 'bold' }}>OTHER</span>
                       <button className="theme-btn theme-btn-outline-white">
-                        <Link to="/office_spaces"><i className="fa fa-chevron-right"></i></Link>
+                        <Link to="/rentgear/OfficeSpaces"><i className="fa fa-chevron-right"/></Link>
                       </button>
                     </div>
                   </div>
@@ -534,178 +527,208 @@ class Home extends React.Component {
           */}
 
           <div className="home-new-arrival d-none d-lg-flex">
-            <div className="arrival-timer">
-              <h2 className="arrival-timer-title">
-                New arrivals
-              </h2>
-
-              <div className="arrival-timer-frame">
-                <div className="arrival-timer-slot-row">
-                  <div className="arrival-timer-slot">
-                    <span className="slot-heading">Daily</span>
-                    <span className="slot-value">11</span>
-                  </div>
-                  <div className="arrival-timer-slot">
-                    <span className="slot-heading">Weekly</span>
-                    <span className="slot-value">40</span>
-                  </div>
-                </div>
-                <div className="arrival-timer-slot-row">
-                  <div className="arrival-timer-slot">
-                    <span className="slot-heading">Monthly</span>
-                    <span className="slot-value">221</span>
-                  </div>
-                  <div className="arrival-timer-slot">
-                    <span className="slot-heading">Yearly</span>
-                    <span className="slot-value">1405</span>
+            <div className="faq-background-img"/>
+            <div className="container">
+              <div className="faq-left">
+                <div className="faq-form">
+                  <h2 className="arrival-timer-title">
+                      FAQs
+                  </h2>
+                  <div className="faq-wrapper">
+                    <div>
+                      <p>Got questions? Our FAQ pages will most likely have the answers.
+                      If not make sure to submit your question through the form so we can
+                      get back to you right away!</p>
+                    </div>
+                    <div>
+                      <Link to="/FAQ">
+                        <button className="theme-btn theme-btn-primary"><i className="fa fa-search"/>&nbsp;&nbsp;View FAQs</button>
+                      </Link>
+                    </div>
                   </div>
                 </div>
-                <div className="arrival-timer-find-btn">Find Gear</div>
-              </div>
-            </div>
 
-            <div className="arrival-items">
-              <div className="arrival-items-inner-wrapper">
-                {data.arrivals.map((val, key) => (
-                  <ArrivalItem key={key} {...val}/>
-                ))}
-              </div>
-              <div className="arrival-items-glow"/>
+                  {/*<div className="arrival-timer-frame">*/}
+                    {/*<div className="arrival-timer-slot-row">*/}
+                      {/*<div className="arrival-timer-slot">*/}
+                        {/*<span className="slot-heading">Daily</span>*/}
+                        {/*<span className="slot-value">11</span>*/}
+                      {/*</div>*/}
+                      {/*<div className="arrival-timer-slot">*/}
+                        {/*<span className="slot-heading">Weekly</span>*/}
+                        {/*<span className="slot-value">40</span>*/}
+                      {/*</div>*/}
+                    {/*</div>*/}
+                    {/*<div className="arrival-timer-slot-row">*/}
+                      {/*<div className="arrival-timer-slot">*/}
+                        {/*<span className="slot-heading">Monthly</span>*/}
+                        {/*<span className="slot-value">221</span>*/}
+                      {/*</div>*/}
+                      {/*<div className="arrival-timer-slot">*/}
+                        {/*<span className="slot-heading">Yearly</span>*/}
+                        {/*<span className="slot-value">1405</span>*/}
+                      {/*</div>*/}
+                    {/*</div>*/}
+                      {/*<div className="arrival-timer-find-btn"><Link to='/rentgear/all'>Find Gear</Link></div>*/}
+                  {/*</div>*/}
+                </div>
+
+                <div className="arrival-items">
+                  <div className="arrival-items-inner-wrapper">
+                    {/*<Flickity*/}
+                      {/*className={'carousel'}        // default ''*/}
+                      {/*elementType={'div'}           // default 'div'*/}
+                      {/*options={flickityOptions}     // takes flickity options {}*/}
+                      {/*disableImagesLoaded={false}   // default false*/}
+                      {/*reloadOnUpdate                // default false*/}
+                    {/*>*/}
+                      {data.faqs.map((val, key) => (
+                        <ArrivalItem key={key} {...val}/>
+                      ))}
+                    {/*</Flickity>*/}
+                  </div>
+                  <div className="arrival-items-glow"/>
+                </div>
             </div>
           </div>
 
           <div className="home-new-arrival d-inline d-lg-none slider-2">
-          <Flickity
-              className={'carousel'} // default ''
-              elementType={'div'} // default 'div'
-              options={flickityOptions} // takes flickity options {}
-              disableImagesLoaded={false} // default false
-              reloadOnUpdate // default false
-            >
-                {data.arrivals.map((val, key) => (
-                  <div key={key} className="arrival-items arrival-items-inner-wrapper"><ArrivalItem {...val}/></div>
-                ))}
-
+            <Flickity
+                className={'carousel'}        // default ''
+                elementType={'div'}           // default 'div'
+                options={flickityOptions}     // takes flickity options {}
+                disableImagesLoaded={false}   // default false
+                reloadOnUpdate                // default false
+              >
+              {data.faqs.map((val, key) => (
+                <div key={key} className="arrival-items arrival-items-inner-wrapper"><ArrivalItem {...val}/></div>
+              ))}
             </Flickity>
-            <div className="arrival-timer-frame arrival-timer-find-btn custom-button-find"><i className="fa fa-search" ></i> Find Gear</div>
+            <div className="arrival-timer-frame arrival-timer-find-btn custom-button-find"><i className="fa fa-search" /> FAQ</div>
           </div>
 
-          <div className="stories d-none d-lg-block">
-            <Container>
-              <Row>
-                <Col>
-                  <h2 className="text-center mb-5">Stories</h2>
-                </Col>
-              </Row>
-              <Row>
-                {
-                  data.stories.map((item, index) => {
-                    return <Col sm="8" key={index}>
-                      <ThemeCardTwo story={item}/>
-                    </Col>;
-                  })
-                }
-              </Row>
-              <Row>
-                <Col className="text-center">
-                  <button className="theme-btn theme-btn-primary mt-5">
-                    View All
-                  </button>
-                </Col>
-              </Row>
-            </Container>
-          </div>
-          <div className="stories d-bloke d-lg-none slider-3">
-            <Container>
-              <Row>
-                <Col>
-                  <h2 className="text-center mb-5">Stories</h2>
-                </Col>
-              </Row>
-              <Flickity
-              className={'carousel'} // default ''
-              elementType={'div'} // default 'div'
-              options={flickityOptions2} // takes flickity options {}
-              disableImagesLoaded={false} // default false
-              reloadOnUpdate // default false
-            >
+          {/*<div className="stories d-none d-lg-block">*/}
+            {/*<Container>*/}
+              {/*<Row>*/}
+                {/*<Col>*/}
+                  {/*<h2 className="text-center mb-5">Stories</h2>*/}
+                {/*</Col>*/}
+              {/*</Row>*/}
+              {/*<Row>*/}
+                {/*{*/}
+                  {/*data.stories.map((item, index) => {*/}
+                    {/*return <Col sm="8" key={index}>*/}
+                      {/*<ThemeCardTwo story={item}/>*/}
+                    {/*</Col>;*/}
+                  {/*})*/}
+                {/*}*/}
+              {/*</Row>*/}
+              {/*<Row>*/}
+                {/*<Col className="text-center">*/}
+                  {/*<button className="theme-btn theme-btn-primary mt-5">*/}
+                    {/*View All*/}
+                  {/*</button>*/}
+                {/*</Col>*/}
+              {/*</Row>*/}
+            {/*</Container>*/}
+          {/*</div>*/}
+          {/*<div className="stories d-bloke d-lg-none slider-3">*/}
+            {/*<Container>*/}
+              {/*<Row>*/}
+                {/*<Col>*/}
+                  {/*<h2 className="text-center mb-5">Stories</h2>*/}
+                {/*</Col>*/}
+              {/*</Row>*/}
+              {/*<Flickity*/}
+              {/*className={'carousel'} // default ''*/}
+              {/*elementType={'div'} // default 'div'*/}
+              {/*options={flickityOptions2} // takes flickity options {}*/}
+              {/*disableImagesLoaded={false} // default false*/}
+              {/*reloadOnUpdate // default false*/}
+            {/*>*/}
 
-              {
-                data.stories.map((item, index) => {
-                  return <div className="slide" key={index}>
-                    <Row sm="8">
-                      <ThemeCardTwo story={item}/>
-                    </Row>
-                  </div>
-                })
-              }
+              {/*{*/}
+                {/*data.stories.map((item, index) => {*/}
+                  {/*return <div className="slide" key={index}>*/}
+                    {/*<Row sm="8">*/}
+                      {/*<ThemeCardTwo story={item}/>*/}
+                    {/*</Row>*/}
+                  {/*</div>*/}
+                {/*})*/}
+              {/*}*/}
 
-              </Flickity>
-              <Row>
-                <Col className="text-center">
-                  <button className="mt-5 custom-button-find">
-                    View All
-                  </button>
-                </Col>
-              </Row>
-            </Container>
-          </div>
+              {/*</Flickity>*/}
+              {/*<Row>*/}
+                {/*<Col className="text-center">*/}
+                  {/*<button className="mt-5 custom-button-find">*/}
+                    {/*View All*/}
+                  {/*</button>*/}
+                {/*</Col>*/}
+              {/*</Row>*/}
+            {/*</Container>*/}
+          {/*</div>*/}
 
           <Row className="paySection">
-            <Col xs={24} sm={24} md={12} className="paySection1">
-              <h2 className="pay-section1__title">
-                Fast, safe and secure<br/>Two-way inscurance included
-              </h2>
+            <div className="container">
+              <Col className="paySection2-container">
+                  <div>
+                      <div className="paySection2">
+                          <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Choose-Gear.png'} alt="drone"/>
+                          <div style={{ alignSelf: 'center' }}>
+                              <div>
+                                  <span style={{ fontWeight: 'bold',fontSize:18 }}>CHOOSE GEAR</span>
+                              </div>
+                              <div>
+                                  <span style={{ fontSize: 16 }}>Find the gear you need and add to cart.</span>
+                              </div>
+                          </div>
+                      </div>
+                      <div className="paySection2">
+                          <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Pay.png'} alt="drone"/>
+                          <div style={{ alignSelf: 'center' }}>
+                              <div>
+                                  <span style={{ fontWeight: 'bold',fontSize:18 }}>PAY</span>
+                              </div>
+                              <div>
+                                  <span style={{ fontSize: 16 }}>Securely checkout via PayPal or Card</span>
+                              </div>
+                          </div>
+                      </div>
+                      <div className="paySection2">
+                          <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Enjoy.png'} alt="drone"/>
+                          <div style={{ alignSelf: 'center' }}>
+                              <div>
+                                  <span style={{ fontWeight: 'bold',fontSize:18 }}>ENJOY</span>
+                              </div>
+                              <div>
+                                  <span style={{ fontSize: 16 }}>Pick up the gear and start creating!</span>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </Col>
+              <Col className="paySection1">
+                <div className="pay-container">
+                  <h2 className="pay-section-title">
+                    Rentals are fast, <br/>safe and secure
+                  </h2>
 
-              <span className="pay-section1__desc">
-                Creative Market’s photo verification system verifies the condition of items when picked up and returned. Both by owner and renter.
-              </span>
+                  <p className="pay-section1__desc">
+                    Creative Market requires owners and renters to verify the condition of each item, both when picked up and returned.
+                    Making the whole process transparent and disputes easier to solve!
+                  </p>
 
-              <div className="pay-section1__cta">
-                <button className="faq-button">
-                  <span>FAQ</span>
-                </button>
-              </div>
-            </Col>
-
-
-            <Col xs={24} sm={24} md={12}>
-              <div style={{ marginTop: 54, width: "90%", marginBottom:40 }}>
-                <div className="paySection2">
-                  <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Choose-Gear.svg'} alt="drone"/>
-                  <div style={{ alignSelf: 'center' }}>
-                    <div>
-                      <span style={{ fontWeight: 'bold',fontSize:18 }}>CHOOSE GEAR</span>
-                    </div>
-                    <div>
-                      <span style={{ fontSize: 16 }}>Find the gear you need and add to cart.</span>
-                    </div>
+                  <div className="pay-section1__cta">
+                    <Link to="/rentgear">
+                      <button className="faq-button theme-btn theme-btn-primary">
+                        <span>Rent Gear</span>
+                      </button>
+                    </Link>
                   </div>
                 </div>
-                <div className="paySection2" style={{ marginTop: 40 }}>
-                  <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Pay.svg'} alt="drone"/>
-                  <div style={{ alignSelf: 'center' }}>
-                    <div>
-                      <span style={{ fontWeight: 'bold',fontSize:18 }}>PAY</span>
-                    </div>
-                    <div>
-                      <span style={{ fontSize: 16 }}>Complete secure payment via 2checkout</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="paySection2" style={{ marginTop: 46 }}>
-                  <img style={{ width: 101, height: 118 }} src={'/images/Icons/Stages/Enjoy.svg'} alt="drone"/>
-                  <div style={{ alignSelf: 'center' }}>
-                    <div>
-                      <span style={{ fontWeight: 'bold',fontSize:18 }}>ENJOY</span>
-                    </div>
-                    <div>
-                      <span style={{ fontSize: 16 }}>Pick up the gear and start creating!</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Col>
+              </Col>
+            </div>
+            <div className="pay-section-back-img"/>
           </Row>
         </div>
       </div>

@@ -8,13 +8,13 @@ class LineChart extends Component {
     this.ctx = 'lineChart';
   }
 
-  componentDidUpdate() {
+  componentDidMount() {
     const { series } = this.props;
     if(series) {
       const COLORS = [
-      	'#4dc9f6',
-      	'#f67019',
-      	'#f53794',
+      	'#F82462',
+      	'#B037CE',
+      	'#3C6BE2',
       	'#537bc4',
       	'#acc236',
       	'#166a8f',
@@ -27,7 +27,7 @@ class LineChart extends Component {
 
       const datasets = [];
 
-      for (var serie in series) {
+      for (let serie in series) {
         if (series.hasOwnProperty(serie)) {
           	const newColor = COLORS[datasets.length % COLORS.length];
 

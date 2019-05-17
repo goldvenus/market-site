@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap';
-import aboutCM from '../../../assets/images/01.png';
 import press from '../../../assets/images/press.jpg';
 import { Card, CardTitle, CardText, CardImg, CardImgOverlay } from 'reactstrap';
 
@@ -33,9 +32,16 @@ class About extends Component {
     return (
       <div className="about-us">
         <div className="about-us-head">
-          <Container>
-            <Row>
-              <Col sm="12">
+          <div className="heading-mobile">
+              <Breadcrumb className="theme-text-small">
+                  <BreadcrumbItem>Home </BreadcrumbItem>
+                  <BreadcrumbItem active>About Us</BreadcrumbItem>
+              </Breadcrumb>
+              <h1>About Us</h1>
+          </div>
+          <div className="head-container">
+            <div className="container">
+              <div className="head-left">
                 <Breadcrumb className="theme-text-small">
                   <BreadcrumbItem>Home </BreadcrumbItem>
                   <BreadcrumbItem active>About Us</BreadcrumbItem>
@@ -51,15 +57,24 @@ class About extends Component {
                   eos odit magni! Nesciunt, quos.dolorum aliquid odio aspernatur at labore voluptatem laudantium ducimus
                   libero inventore eos odit magni! Nesciunt, quos.
                 </p>
-              </Col>
-              <Col sm="12">
-                <img src={aboutCM} alt="About Us" className="about-cm"/>
-              </Col>
-            </Row>
-          </Container>
-          <div>
-            <p className="theme-big-text">Creative Market</p>
+              </div>
+            </div>
           </div>
+          <div className="heading-body-mobile">
+            <div>
+              <p className="intro">
+                Creative Market
+              </p>
+              <p>Introduction</p>
+              <p className="theme-text-small about-desc">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, consequuntur vitae ipsum doloribus
+                repellendus dolorum aliquid odio aspernatur at labore voluptatem laudantium ducimus libero inventore
+                eos odit magni! Nesciunt, quos.dolorum aliquid odio aspernatur at labore voluptatem laudantium ducimus
+                libero inventore eos odit magni! Nesciunt, quos.
+              </p>
+            </div>
+          </div>
+          <div className="about-us-watermark"/>
         </div>
         <div className="about-us-body">
           <div className="team-members">
@@ -80,14 +95,10 @@ class About extends Component {
           </div>
           <div className="press">
             <Container>
-              <Row>
-                <Col>
-                  <h2 className="press-title">Press</h2>
-                </Col>
-                <Col className="text-center">
-                  <img src={press} alt=""/>
-                </Col>
-              </Row>
+              <h2 className="press-title">Press</h2>
+              <Col className="text-center press-container">
+                <img src={press} alt=""/>
+              </Col>
             </Container>
           </div>
         </div>

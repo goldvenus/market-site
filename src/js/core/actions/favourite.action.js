@@ -28,15 +28,19 @@ const addFavourites = async (data) => {
 };
 
 const getFavourites = async () => {
+    if (!localStorage.accessToken) {
+        return;
+    }
+
     dispatch({
         type: constants.GET_FAVOURITES_REQUEST
     });
     try {
         let response = await get('viewUserFavouriteGear');
-        if (response.data) {
+        if (response && response.data && response.data.status && response.data.status === 'success' ) {
             dispatch({
                 type: constants.GET_FAVOURITES_SUCCESS,
-                payload: response.data.Items
+                payload: response.data.data
             });
         }
     } catch (error) {
@@ -63,7 +67,7 @@ const deleteFavourite = async (data) => {
             dispatch({
                 type: constants.DELETE_FAVOURITE_FAILED,
             });
-            handleError('Removing failed!');
+            handleError('Gear was not removed!');
         }
     } catch (error) {
         dispatch({

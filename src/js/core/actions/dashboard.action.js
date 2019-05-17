@@ -10,11 +10,10 @@ const viewUserDashboard = async () => {
     });
     try {
         let response = await get('viewUserDashboard');
-
-        if (response) {
+        if (response && response.data && response.data.status === 'success') {
             dispatch({
                 type: constants.GET_USER_DASHBOARD_SUCCESS,
-                payload: response.data
+                payload: response.data.data
             });
         }
     } catch (error) {
@@ -69,7 +68,7 @@ const getOrderHistory = async () => {
     });
     try {
         let response = await get('getorderhistory');
-        if (response.data.status === 'success') {
+        if (response && response.data && response.data.status === 'success') {
             dispatch({
                 type: constants.GET_ORDER_HISTORY_SUCCESS,
                 payload: response.data.data
@@ -90,10 +89,10 @@ const getOrderDetail = async (data) => {
     return new Promise(async (resolve, reject) => {
         try {
             let response = await post('getorderdetail', data);
-            dispatch({
-                type: constants.GET_ORDER_DETAIL_SUCCESS
-            });
-            if (response.data.status === 'success') {
+            if (response && response.data && response.data.status === 'success') {
+                dispatch({
+                    type: constants.GET_ORDER_DETAIL_SUCCESS
+                });
                 resolve(response.data.data);
             } else {
                 reject(false);
@@ -112,7 +111,10 @@ const getGearRentState = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
             let response = await post('getGearRentState', data);
-            resolve(response.data.data);
+            if (response && response.data && response.data.status === 'success') {
+                resolve(response.data.data);
+            }
+            reject(false);
         } catch (error) {
             handleError(error);
             reject(false);
@@ -124,7 +126,10 @@ const setBlockPeriod = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
             let response = await post('setBlockPeriod', data);
-            resolve(response.data);
+            if (response && response.data && response.data.status === 'success') {
+                resolve(true);
+            }
+            reject(false);
         } catch (error) {
             handleError(error);
             reject(false);

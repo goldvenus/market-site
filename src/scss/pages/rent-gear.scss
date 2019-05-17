@@ -51,15 +51,16 @@
           .list-group-item > .item-active {
             background-color: $primary-color;
             color: $white;
+            padding: 14px 1.25rem;
 
             &::after {
               content: "";
               position: absolute;
               right: -17px;
-              top: 7px;
+              top: 8px;
               z-index: 444;
-              border: 17px solid;
-              border-color: $primary-color $primary-color transparent transparent;
+              border: 18px solid;
+              border-color: #f82462 #f82462 transparent transparent;
               transform: rotate(45deg);
             }
           }
@@ -438,6 +439,10 @@
       }
     }
   }
+
+  .rent-gear-sidebar-link {
+
+  }
 }
 
 .gear_card_view {
@@ -668,7 +673,7 @@
     background: #fff;
     width: 100%;
     left: 0;
-    z-index: 100000;
+    z-index: 1000;
     &.active{
       bottom: 0
     }
@@ -678,6 +683,7 @@
     justify-content: space-between;
     position: relative;
     padding: 10px;
+    align-items: center;
 
     .search{
       position: absolute;

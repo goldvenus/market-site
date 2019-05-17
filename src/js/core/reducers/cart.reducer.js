@@ -15,12 +15,23 @@ export default (state = initialState, action) => {
                 draft.isLoading = true;
                 break;
             case constants.ADD_TO_CART_SUCCESS:
+                if (!draft.carts)
+                    draft.carts = [];
                 draft.carts = getUniqueObjectArray([...draft.carts, action.payload]);
                 draft.isLoading = false;
-                console.log(draft.carts);
                 break;
             case constants.ADD_TO_CART_FAILED:
                 draft.isLoading = false;
+                break;
+
+            case constants.EDIT_CART_ITEM_SUCCESS:
+                draft.carts = draft.carts.map((item) =>
+                    item.orderid === action.payload.orderid ? {
+                            ...item,
+                            startDate: action.payload.startDate,
+                            endDate: action.payload.endDate
+                        } : item
+                );
                 break;
 
             case constants.GET_CARTS_REQUEST:
@@ -40,7 +51,6 @@ export default (state = initialState, action) => {
             case constants.DELETE_CART_ITEM_SUCCESS:
                 draft.carts = draft.carts.filter(item => item.gearid !== action.payload);
                 draft.isDeleting = false;
-                console.log(draft.carts);
                 break;
             case constants.DELETE_CART_ITEM_FAILED:
                 draft.isDeleting = false;

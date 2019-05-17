@@ -93,17 +93,17 @@ class Home extends Component {
     if (href.indexOf('id_token') > 0) {
       let token1 = href.split('#')[1].split('&')[0];
       let token2 = href.split('#')[1].split('&')[1];
-      let idToken, accessToken;
+      let idToken, accesstoken;
 
       if (token1.indexOf('id_token') > 0) {
         idToken = token1.replace('id_token=', '');
-        accessToken = token2.replace('access_token=', '');
+        accesstoken = token2.replace('access_token=', '');
       } else {
-        accessToken = token1.replace('access_token=', '');
+        accesstoken = token1.replace('access_token=', '');
         idToken = token2.replace('id_token=', '');
       }
 
-      socialLogin(idToken, accessToken);
+      socialLogin(idToken, accesstoken);
     }
   }
 
@@ -500,33 +500,43 @@ class Home extends Component {
           <div className="home-new-arrival">
             <div className="arrival-timer">
               <h2 className="arrival-timer-title">
-                New arrivals
+                FAQs
               </h2>
+                <div className="faq-wrapper">
+                    <div>
+                        <span>Got questions? Our FAQ pages will most likely have the answers.
+                        If not make sure to submit your question through the form so we can
+                        get back to you right away!</span>
+                    </div>
+                    <div>
+                        <button className="theme-btn theme-btn-primary">View FAQs</button>
+                    </div>
+                </div>
 
-              <div className="arrival-timer-frame">
-                <div className="arrival-timer-slot-row">
-                  <div className="arrival-timer-slot">
-                    <span className="slot-heading">Daily</span>
-                    <span className="slot-value">11</span>
-                  </div>
-                  <div className="arrival-timer-slot">
-                    <span className="slot-heading">Weekly</span>
-                    <span className="slot-value">40</span>
-                  </div>
-                </div>
-                <div className="arrival-timer-slot-row">
-                  <div className="arrival-timer-slot">
-                    <span className="slot-heading">Monthly</span>
-                    <span className="slot-value">221</span>
-                  </div>
-                  <div className="arrival-timer-slot">
-                    <span className="slot-heading">Yearly</span>
-                    <span className="slot-value">1405</span>
-                  </div>
-                </div>
-                <div className="arrival-timer-find-btn">Find Gear</div>
-              </div>
-            </div>
+              {/*<div className="arrival-timer-frame">*/}
+                {/*<div className="arrival-timer-slot-row">*/}
+                  {/*<div className="arrival-timer-slot">*/}
+                    {/*<span className="slot-heading">Daily</span>*/}
+                    {/*<span className="slot-value">11</span>*/}
+                  {/*</div>*/}
+                  {/*<div className="arrival-timer-slot">*/}
+                    {/*<span className="slot-heading">Weekly</span>*/}
+                    {/*<span className="slot-value">40</span>*/}
+                  {/*</div>*/}
+                {/*</div>*/}
+                {/*<div className="arrival-timer-slot-row">*/}
+                  {/*<div className="arrival-timer-slot">*/}
+                    {/*<span className="slot-heading">Monthly</span>*/}
+                    {/*<span className="slot-value">221</span>*/}
+                  {/*</div>*/}
+                  {/*<div className="arrival-timer-slot">*/}
+                    {/*<span className="slot-heading">Yearly</span>*/}
+                    {/*<span className="slot-value">1405</span>*/}
+                  {/*</div>*/}
+                {/*</div>*/}
+                {/*<div className="arrival-timer-find-btn">Find Gear</div>*/}
+              {/*</div>*/}
+            {/*</div>*/}
 
             <div className="arrival-items">
               <div className="arrival-items-inner-wrapper">

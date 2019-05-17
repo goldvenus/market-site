@@ -14,6 +14,7 @@ import PeriodSetModal from "./PeriodSetModal"
 import PeriodDeleteModal from "./PeriodDeleteModal"
 import DayPicker from "react-day-picker";
 import './style.css';
+import 'react-day-picker/lib/style.css';
 import Helmet from 'react-helmet';
 import { days } from '../../../core/helper';
 import { getListGears } from "../../../core/actions/gear.action";
@@ -24,16 +25,15 @@ import AboutPeriod from "./AboutPeriod";
 import CustomSpinner from "../../../components/CustomSpinner";
 import Modal from "react-responsive-modal";
 
-let global_events = [];
+let global_events = [], global_cur_date = new Date();
 let global_cal_item_delete = false;
-const localizer = BigCalendar.momentLocalizer(moment);
+let localizer = BigCalendar.momentLocalizer(moment);
 
 class RentalCalendarModal extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            alert: null,
             cur_gear_num: 0,
             gear_rent_info_list: [],
             block_period: [{start_date: '2019-04-01', end_date: '2019-04-05'}],
@@ -43,12 +43,12 @@ class RentalCalendarModal extends React.Component {
             dropdownOpen: false,
             open: 0,
             cur_date: new Date(),
-            loading: false
+            loading: false,
+            rentLoadedHistory: {start_date: new Date(), end_date: new Date()}   // to avoid reload of renting history
         };
     }
 
     componentDidMount() {
-        console.log(this.props.gearid);
         let cur_gear_num = this.props.listGears.reduce((a, item, key) => item.gearid === this.props.gearid ? key : a, 0);
         this.setState(() => ({cur_gear_num: cur_gear_num}), () => {
             this.handleSelectGear(cur_gear_num);
@@ -57,7 +57,7 @@ class RentalCalendarModal extends React.Component {
 
     shouldComponentUpdate(state, props) {
         if(this.state !== state || this.props !== props) {
-            UpdateMydata_calendar();
+            updateDesktopCalendar();
             return true;
         }
         else return false;
@@ -75,14 +75,15 @@ class RentalCalendarModal extends React.Component {
         this.setState({open: 0});
     };
 
-    // handleDayClick(day, { selected }) {
-    //     if (selected) {
-    //         // do sth...
-    //     }
-    // }
+    handleDayClick = (day, { selected }) =>  {
+        console.log(day, selected);
+        if (selected) {
+            this.setState({open: 2});
+        }
+    };
 
     eventColors(event) {
-        var backgroundColor = "event-";
+        let backgroundColor = "event-";
         event.color
             ? (backgroundColor = backgroundColor + event.color)
             : (backgroundColor = backgroundColor + "default");
@@ -99,7 +100,7 @@ class RentalCalendarModal extends React.Component {
         let date_obj = new Date(start_point);
         date_obj.setMonth(date_obj.getMonth() - month_offset);
         let start_date = moment(date_obj).format('YYYY-MM-DD');
-        date_obj.setMonth(date_obj.getMonth() + month_offset);
+        date_obj.setMonth(date_obj.getMonth() + 2*month_offset);
         let end_date = moment(date_obj).format('YYYY-MM-DD');
         return {start_date, end_date};
     };
@@ -109,8 +110,6 @@ class RentalCalendarModal extends React.Component {
         const range = this.getSearchRange(this.state.cur_date, 3);
         this.setState({loading: true});
         const ret = await getGearRentState({gearid, start_date: range.start_date, end_date: range.end_date});
-        global_events = ret;
-        UpdateMydata_calendar();
         this.setState({cur_gear_num: gear_num, gear_rent_info_list: ret, loading: false});
     };
 
@@ -122,12 +121,12 @@ class RentalCalendarModal extends React.Component {
             cur_date.setMonth(cur_date.getMonth() - 1);
         }
 
-        const range = this.getSearchRange(this.state.cur_date, 3);
+        const range = this.getSearchRange(this.state.cur_date, 2);  // cur-2 ~ cur+2
         const gearid = this.props.listGears[this.state.cur_gear_num].gearid;
         this.setState({loading: true});
         const ret = await getGearRentState({gearid, start_date: range.start_date, end_date: range.end_date});
         global_events = ret;
-        UpdateMydata_calendar();
+        updateDesktopCalendar();
         await getListGears();
         this.setState({gear_rent_info_list: ret, cur_rent_info_num: 0, loading: false});
     };
@@ -139,6 +138,7 @@ class RentalCalendarModal extends React.Component {
         let available = true;
         let block_period = this.props.listGears[this.state.cur_gear_num].blockPeriod;
         block_period = block_period === undefined ? [] : block_period;
+        block_period = [...block_period, ...this.state.gear_rent_info_list.map((item) => ({start_date: item.startDate, end_date: item.endDate}))];
         block_period.forEach((item, key) => {
             if (!(mode === 2 && key === this.state.cur_block_num)) {
                 if ((start_date >= item.start_date && start_date <= item.end_date) ||
@@ -149,7 +149,7 @@ class RentalCalendarModal extends React.Component {
             }
         });
         if (!available) {
-            handleError("The period you selected is not allowed!");
+            handleError("Period you selected intersects with other periods");
             return -1;
         }
 
@@ -163,15 +163,15 @@ class RentalCalendarModal extends React.Component {
             period_arr.push({start_date, end_date});
 
             let res = await setBlockPeriod({period_arr, gearid});
-            if (res.status === 'success') {
+            if (res) {
+                handleInfo("Period was set successfully");
                 await getListGears();
-                handleInfo("Period was set successfully!");
                 this.setState({open: 0});
             } else {
-                handleError("Period was not set!");
+                handleError("Period was not set");
             }
         } catch {
-            handleError('Period was not set!');
+            handleError('Period was not set');
         }
     };
 
@@ -182,9 +182,9 @@ class RentalCalendarModal extends React.Component {
             period_arr = period_arr.filter((item, key) => this.state.cur_block_num !== key);
 
             let res = await setBlockPeriod({period_arr, gearid});
-            if (res.status === 'success') {
+            if (res) {
                 await getListGears();
-                handleError("Period was removed successfully!");
+                handleInfo("Period was removed successfully!");
                 this.setState({open: 0, cur_block_num: 0});
             } else {
                 handleError("Period was not removed!");
@@ -248,13 +248,13 @@ class RentalCalendarModal extends React.Component {
 
     render() {
         const { listGears, onClose } = this.props;
-        if (!listGears || this.state.loading) {
-            return <CustomSpinner/>;
+        if (!listGears) {
+            return null;
         }
 
         const cur_gear = listGears[this.state.cur_gear_num];
         const gear_name = cur_gear.brand + " " + cur_gear.categoryName;
-        let cur_rent = this.state.gear_rent_info_list.length > 0 ?
+        let cur_rent = this.state.gear_rent_info_list && this.state.gear_rent_info_list.length > 0 ?
             this.state.gear_rent_info_list[this.state.cur_rent_info_num] : {};
 
         // prepare gear renting history, block period
@@ -262,21 +262,42 @@ class RentalCalendarModal extends React.Component {
         let period2 = this.getBlockPeriodItems(cur_gear.blockPeriod);
         let period_arr = [...period1, ...period2];
         global_events = period_arr;
-        UpdateMydata_calendar();
+        let dateArr = this.state.gear_rent_info_list.map((item) => {
+            let after_day = new Date(item.startDate);
+            after_day.setHours(after_day.getHours()-24);
+            let before_day = new Date(item.endDate);
+            before_day.setHours(before_day.getHours()+ 24);
+            return {after : after_day, before : before_day}
+        });
+        let blockArr = [];
+        if (cur_gear && cur_gear.blockPeriod) {
+            blockArr = cur_gear.blockPeriod.map((item) => {
+                let after_day = new Date(item.start_date);
+                after_day.setHours(after_day.getHours()-24);
+                let before_day = new Date(item.end_date);
+                before_day.setHours(before_day.getHours()+ 24);
+                return {after : after_day, before : before_day}
+            });
+        }
+        dateArr = [...dateArr, ...blockArr];
+
+        updateDesktopCalendar();
+        updateMobileCalendar();
 
         return (
             <Modal open={true} onClose={onClose} center classNames={{modal: "rental-calendar-modal"}}>
+                {this.state.loading && <CustomSpinner/>}
                 <div className="calendar_dropdown_div">
                     <p className="dropdown_calendar_gearname">SELECT GEAR</p>
                     <div className="calendar_dropdown_div_bottom">
-                        <Dropdown className=" calendar_dropdown" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                        <Dropdown className="calendar_dropdown" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                             <DropdownToggle caret>
                                 {gear_name}
                             </DropdownToggle>
                             <DropdownMenu left="true">
                                 {
                                     listGears.map((ele, index) => {
-                                        return <DropdownItem key={index+1} onClick={() => this.handleSelectGear(index)}>{ele.brand} {ele.categoryName}</DropdownItem>;
+                                        return <DropdownItem key={index+1} onClick={() => index !== this.state.cur_gear_num && this.handleSelectGear(index)}>{ele.brand} {ele.categoryName}</DropdownItem>;
                                     })
                                 }
                             </DropdownMenu>
@@ -290,7 +311,6 @@ class RentalCalendarModal extends React.Component {
                         }
                     </div>
                 </div>
-
                 <div className="Calendar_parent_div">
                     <BigCalendar className="calendar_first_div d-sm-none d-none d-lg-block d-md-block"
                         selectable
@@ -298,7 +318,7 @@ class RentalCalendarModal extends React.Component {
                         events={period_arr}
                         defaultView="month"
                         scrollToTime={new Date(1970, 1, 1, 6)}
-                        defaultDate={new Date()}
+                        defaultDate={this.state.cur_date}
                         onSelectEvent={event => this.selectedEvent(event)}
                         eventPropGetter={this.eventColors}
                         components={{
@@ -323,21 +343,11 @@ class RentalCalendarModal extends React.Component {
                             `}</style>
                     </Helmet>
 
-                    <DayPicker className="d-lg-none d-md-none d-sm-block"
-                        initialMonth={new Date(2019, 4)}
+                    <DayPicker
+                        className="mobile-rental-calendar"
+                        month={this.state.cur_date}
                         onDayClick={this.handleDayClick}
-                        modifiers={{startday: this.state.gear_rent_info_list.map((item) => {
-                                return new Date(item.start);
-                            }), endday: this.state.gear_rent_info_list.map((item) =>{
-                                return new Date(item.end);
-                            })}}
-                        selectedDays = {this.state.gear_rent_info_list.map((item) => {
-                            let after_day = new Date(item.start);
-                            after_day.setHours(after_day.getHours()-24);
-                            let before_day = new Date(item.end);
-                            before_day.setHours(before_day.getHours()+ 24);
-                            return {after : after_day, before : before_day}
-                        })}
+                        selectedDays = {dateArr}
                     />
                 </div>
             </Modal>
@@ -351,33 +361,34 @@ class CalendarToolBar extends React.PureComponent {
         return (
             <Toolbar>
                 <div className="rbc-toobar-menu" style={{ width: '100%', textAlign: 'right' }}>
-                    <IconButton onClick={() => {onNavigate('PREV'); UpdateMydata_calendar();}}><LeftArrowIcon /></IconButton>
+                    <IconButton onClick={() => {onNavigate('PREV'); updateDesktopCalendar();}}><LeftArrowIcon /></IconButton>
                     <Typography variant="headline" style={{ textTransform: 'capitalize', width: '100%' }}>{label}</Typography>
-                    <IconButton onClick={() => {onNavigate('NEXT'); UpdateMydata_calendar();}}><RightArrowIcon/></IconButton>
+                    <IconButton onClick={() => {onNavigate('NEXT'); updateDesktopCalendar();}}><RightArrowIcon/></IconButton>
                 </div>
             </Toolbar>
         );
     }
 }
 
-const UpdateMydata_calendar = () => {
+const updateDesktopCalendar = () => {
     $(document).ready(function () {
-        // #f74377
-        $(".rbc-date-cell").each(function() {
-            let day_number = $(this).find("a").html();
-            if(day_number[0] === '0') {
-                $(this).find("a").html(day_number[1]);
-            }
-        });
+        let reduceZero = function() {
+            $(".rbc-date-cell").each(function() {
+                let day_number = $(this).find("a").html();
+                if(day_number[0] === '0') {
+                    $(this).find("a").html(day_number[1]);
+                }
+            });
+        };
 
         let resize_index=true;
         function Append_Rent_Data(filter_e, time_s, time_e, real_time) {
-            let close_btn = "<i class='rbc-event-custom-data-cross fa fa-times'></i>";
+            let close_btn = "<i class='rbc-event-custom-data-cross fa fa-times'/>";
             if (filter_e.title !== 'Owner' + real_time)
                 close_btn = '';
 
             return (
-            "<div class='rbc-event-custom-data'>" +
+            "<div class='rbc-event-custom'>" +
                 "<div class='rbc-event-custom-data-top'>" +
                     "<div class='rbc-event-item-wrapper'><img class='rent_user' src="+filter_e.img_url+" >" +
                     "<p>"+filter_e.renter_name+"</p></div>" + close_btn +
@@ -390,7 +401,10 @@ const UpdateMydata_calendar = () => {
         }
 
         const update_ui = function() {
+            reduceZero();
+
             $(".rbc-event-content").each(function() {
+                $(this).siblings().remove();
                 const title =  $(this).html();
                 let filterevent = global_events.filter(item => (item.renter_name + item.startDate) === title);
                 if(filterevent.length === 0) {
@@ -402,7 +416,7 @@ const UpdateMydata_calendar = () => {
                 const duration = days(new Date(filterevent[0].startDate), new Date(filterevent[0].endDate));
                 filterevent[0].data_range = duration + " days";
                 filterevent[0].title = filterevent[0].renter_name + filterevent[0].startDate;
-                $(this).parent().prepend(Append_Rent_Data(filterevent[0], start_time, end_time,filterevent[0].startDate ));
+                $(this).parent().prepend(Append_Rent_Data(filterevent[0], start_time, end_time, filterevent[0].startDate ));
                 resize_index = true;
             });
 
@@ -416,10 +430,26 @@ const UpdateMydata_calendar = () => {
         $(window).on('resize', function() {
             if(resize_index) {
                 resize_index = false;
-                setTimeout(update_ui, 400);
+                setTimeout(update_ui, 200);
             }
         });
     });
+};
+
+const updateMobileCalendar = () => {
+    $(function () {
+        $(".DayPicker-Day--selected").each(function () {
+            let day = $(this).html();
+            day = formatDate(global_cur_date.setDate(day));
+            global_events.forEach((item) => {
+                if (item.startDate === day) {
+                    $(this).addClass('period-start-day');
+                } else if (item.endDate === day) {
+                    $(this).addClass('period-end-day');
+                }
+            })
+        });
+    })
 };
 
 export default RentalCalendarModal;

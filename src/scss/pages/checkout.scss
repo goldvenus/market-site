@@ -94,7 +94,7 @@
     margin-top: 15px;
   }
   .btn-edit-order-bottom {
-    padding: 0 20px;
+    padding: 5px 30px;
   }
   .btn-payment {
     padding: 8px 50px;
@@ -131,22 +131,11 @@
   margin-left: 0 !important;
   flex: 1;
 }
+
 .checkout-textfield {
   width: 100%;
-
-  div {
-    border-bottom: 1px solid #EAEAEA !important;
-    padding: 0 10px;
-  }
-  div:before {
-    //border-bottom: 1px solid #EAEAEA !important;
-    border: none !important;
-  }
-  div:after {
-    //border-bottom: solid 1px #bbbbbb;
-    border: none !important;
-  }
 }
+
 .save-addr-btn label {
   cursor: pointer;
 }

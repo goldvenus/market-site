@@ -275,12 +275,12 @@ class Payment extends Component {
                 <div className="flex-row">
                   <div className="theme-form-field flex-md-12">
                     <TextField placeholder='Card Number' type="text" value={card_number} maxLength='20'
-                      className='checkout-textfield'
+                      className='checkout-textfield custom-beautiful-textfield'
                       onChange={e => this.handleInputChange(e, 'card_number')}/>
                   </div>
                   <div className="theme-form-field flex-md-12">
                     <TextField placeholder='Card Holder' type="text" value={card_holder} maxLength='20'
-                      className='checkout-textfield'
+                      className='checkout-textfield custom-beautiful-textfield'
                       onChange={e => this.handleInputChange(e, 'card_holder')}/>
                   </div>
                 </div>
@@ -315,7 +315,7 @@ class Payment extends Component {
                   </div>
 
                   <div className="theme-form-field flex-md-12">
-                    <TextField placeholder="CVV" className='checkout-textfield' value={cvv}
+                    <TextField placeholder="CVV" className='checkout-textfield custom-beautiful-textfield' value={cvv}
                                onChange={e => this.handleInputChange(e, 'cvv')}/>
                   </div>
                 </div>

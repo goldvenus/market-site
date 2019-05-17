@@ -128,7 +128,7 @@
     display: block;
     height: 100%;
     width: 100%;
-    padding: 8px 15px;
+    padding: 2px 15px;
   }
 }
 
@@ -161,9 +161,10 @@
 
 .faq-button {
   width: 189px;
-  height: 50px;
+  height: 45px;
   border: none;
   background-color: #F82462;
+  cursor: pointer;
 
   span {
     color: white;

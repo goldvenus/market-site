@@ -281,8 +281,16 @@
 .rbc-event-item-wrapper {
     display: flex;
 }
+.rbc-event.rbc-event-allday {
+    height: 100px;
+}
+.rbc-event-content {
+    visibility: hidden;
+}
 
 .delete-period-button-container {
+    display: flex;
+    justify-content: space-between;
     padding: 20px;
 }
 
@@ -292,4 +300,13 @@
 
 .Calendar_parent_div .rbc-now a {
     padding: 10px 14px !important;
+}
+
+@media (max-width: 767px) {
+    .about-period-button-container {
+        padding: 20px 16px;
+    }
+    .about-period-button-container button {
+        margin: 0;
+    }
 }

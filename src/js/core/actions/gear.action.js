@@ -8,19 +8,17 @@ const addGear = async (data) => {
     dispatch({
         type: constants.ADD_GEAR_REQUEST,
     });
-    try {
-        let response = await post('addGearItem', data);
-        if (response.data.status) {
-            dispatch({
-                type: constants.ADD_GEAR_SUCCESS,
-            });
-            handleInfo('Gear was added');
-            return response.data.status;
-        } else {
-            handleError('Gear was not added');
-        }
-    } catch (error) {
-        handleError(error);
+    let response = await post('addGearItem', data);
+    if (response && response.data && response.data.status === 'success') {
+        dispatch({
+            type: constants.ADD_GEAR_SUCCESS,
+            payload: response.data.data
+        });
+        handleInfo('Gear was added successfully');
+        return response.data.data;
+    } else {
+        handleError('Gear adding was failed');
+        return false;
     }
 };
 
@@ -30,15 +28,16 @@ const editGear = async (data) => {
     });
     try {
         let response = await post('editGearItem', data);
-        if (response.data.status === 'success' ) {
+        if (response && response.data && response.data.status === 'success' ) {
             dispatch({
                 type: constants.EDIT_GEAR_SUCCESS,
-                payload: data
+                payload: response.data.data
             });
             handleInfo('Gear was edited');
-            return response.data.status;
+            return true;
         } else {
-            handleError('Gear was not edited');
+            handleError('Gear editing was failed');
+            return false;
         }
     } catch (error) {
         handleError(error);
@@ -52,11 +51,15 @@ const getGear = async (gearid) => {
     return new Promise(async (resolve, reject) => {
         try {
             let response = await post('viewAddedGearItem', { gearid });
-            dispatch({
-                type: constants.GET_GEAR_SUCCESS,
-                payload: response.data[0]
-            });
-            resolve(response);
+            if (response && response.data && response.data.status === 'success') {
+                dispatch({
+                    type: constants.GET_GEAR_SUCCESS,
+                    payload: response.data.data
+                });
+                resolve(true);
+            } else {
+                resolve(false);
+            }
         } catch (error) {
             dispatch({
                 type: constants.GET_GEAR_FAILED
@@ -73,10 +76,10 @@ const getListGears = async () => {
     });
     try {
         let response = await get('viewUserGearList');
-        if (response && response.data) {
+        if (response && response.data && response.data.status === 'success') {
             dispatch({
                 type: constants.LIST_GEARS_SUCCESS,
-                payload: response.data.Items
+                payload: response.data.data
             });
         }
     } catch (error) {
@@ -84,6 +87,19 @@ const getListGears = async () => {
             type: constants.LIST_GEARS_FAILED
         });
         handleError(error);
+    }
+};
+
+const getUsedNames = async () => {
+    try {
+        let response = await get('getGearUsedNames');
+        if (response && response.data && response.data.status === 'success') {
+            return response.data.data;
+        }
+        return false;
+    } catch (error) {
+        handleError(error);
+        return false;
     }
 };
 
@@ -95,7 +111,12 @@ const rentGearProductList = async (catDetail) => {
     return new Promise(async (resolve, reject) => {
         try {
             let response = await post('showRentGearProductsList', catDetail);
-            resolve(response.data);
+            if (response.data && response.data.status === 'success') {
+                resolve(response.data.data);
+            } else {
+                resolve(false);
+                response.data && response.data.errorMessage && handleError(response.data.errorMessage);
+            }
         } catch (error) {
             handleError(error);
             reject(error);
@@ -172,5 +193,5 @@ const searchHome = async (brand, product_region) => {
 };
 
 export {
-    newArrivals, addGear, deleteGear, getGear, rentGearProductList, getListGears, searchHome, editGear
+    newArrivals, addGear, deleteGear, getGear, rentGearProductList, getListGears, searchHome, editGear, getUsedNames
 };

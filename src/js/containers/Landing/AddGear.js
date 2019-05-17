@@ -9,26 +9,30 @@ import Chips from 'react-chips';
 import CustomInput from '../../components/CustomInput';
 import CustomCarousel from '../../components/CustomCarousel';
 import { handleError, readFileData } from '../../core/actions/common.action';
-import { addGear } from '../../core/actions/gear.action';
+import { addGear, getUsedNames } from '../../core/actions/gear.action';
 import { fetchCategories } from "../../core/actions/category.action";
 import Textarea from "muicss/lib/react/textarea";
 import UrllinkClass from "../../components/UrllinkClass";
 import CustomSpinner from "../../components/CustomSpinner";
 import BarLoader from "react-bar-loader";
+import TextField from "@material-ui/core/TextField/TextField";
+import CustomAutosuggest from "../../components/common/CustomAutosuggest"
 
 class AddGear extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.progressSteps = ['Info', 'Photo', 'Address', 'Price'];
+    this.usedNames = [];
+    this.suggestions = [];
+
     this.state = {
       progressStep: 0,
       dropdownOpen: false,
       selectedType: 'new',
       isGearAdded: false,
       gearId: '',
-
-      categoryName: 'Category',
+      categoryName: '',
       brand: '',
       model: '',
       description: '',
@@ -41,6 +45,8 @@ class AddGear extends Component {
       postalCode: '',
       replacementValue: '',
       pricePerDay: '',
+      productName: '',
+      isDoubled: false,
       busy: false
     };
 
@@ -48,8 +54,64 @@ class AddGear extends Component {
     this.onTypeChange = this.onTypeChange.bind(this);
   }
 
-  componentDidMount() {
-    fetchCategories();
+  async componentDidMount() {
+    await fetchCategories();
+    let ret = await getUsedNames();
+    if (ret) {
+      this.usedNames = ret;
+    }
+    this.autoGenerateSuggestions();
+  }
+
+  autoGenerateSuggestions = () => {
+    let suggestions = this.suggestions;
+    let { categories } = this.props;
+    if (!categories)
+        categories = [];
+    let namesFromCategories = categories.map((item) => item.categoryName);
+    suggestions = [...suggestions, ...namesFromCategories];
+    this.suggestions = [...new Set(suggestions)];
+    if (categories && categories.length > 0) {
+        this.setState({categoryName: categories[0].categoryName});
+    } else {
+        this.forceUpdate();
+    }
+  };
+
+  addSuggestions = () => {
+    let {categoryName, brand, model} = this.state;
+    let suggestions = this.suggestions;
+
+    if (categoryName !== '' && brand !== '' && model !== '')
+      suggestions = [categoryName + ' ' + brand + ' ' + model, ...suggestions];
+    if (categoryName !== '' && brand !== '')
+      suggestions = [categoryName + ' ' + brand, ...suggestions];
+    if (categoryName !== '' && model !== '')
+      suggestions = [categoryName + ' ' + model, ...suggestions];
+    if (brand !== '' && model !== '')
+      suggestions = [brand + ' ' + model, ...suggestions];
+    if (brand !== '')
+      suggestions = [brand, ...suggestions];
+    if (model !== '')
+      suggestions = [model, ...suggestions];
+
+    this.suggestions = [...new Set(suggestions)];
+    this.forceUpdate();
+  };
+
+  handleChangeProductName = (newValue) => {
+    let isDoubled = this.usedNames.indexOf(newValue) >= 0;
+    this.setState({productName: newValue, isDoubled});
+  };
+
+  onTypeChange(e) {
+    this.setState({
+        selectedType: e.target.value
+    });
+  }
+
+  changeCategory(e) {
+    this.setState({ categoryName: e.target.textContent }, () => this.addSuggestions());
   }
 
   toggle() {
@@ -81,64 +143,84 @@ class AddGear extends Component {
     ));
   }
 
-  onTypeChange(e) {
-    this.setState({
-      selectedType: e.target.value
-    });
-  }
-
-  changeCategory(e) {
-    this.setState({ categoryName: e.target.textContent });
-  }
-
   renderInfo() {
-    const { selectedType, brand, model, isKit, categoryName, accessories } = this.state;
+    const { selectedType, brand, model, isKit, categoryName, accessories, isDoubled, dropdownOpen, productName } = this.state;
     const { categories } = this.props;
 
     return (
       <Form className="theme-form add-gear-info container add-gear-info-cusvenus" id="tablet-form">
         <div className="flex-row d-md-block d-lg-flex">
-          <div className="theme-column category_first" width="35%">
-            <Dropdown className="theme-form-field theme-form-dropdown category_first" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+          <div className="theme-column category_first">
+            <Dropdown className="theme-form-field theme-form-dropdown category_first" isOpen={dropdownOpen} toggle={this.toggle}>
               <DropdownToggle caret>
                 {categoryName}
               </DropdownToggle>
               <DropdownMenu right>
                 {
                   categories.map((ele, index) => {
-                    return <DropdownItem key={index}
-                                         onClick={this.changeCategory.bind(this)}>{ele.categoryName}</DropdownItem>;
+                    return <DropdownItem  key={index} onClick={this.changeCategory.bind(this)}>{ele.categoryName}</DropdownItem>;
                   })
                 }
               </DropdownMenu>
             </Dropdown>
             <div className="theme-form-field category_first">
-              <CustomInput required="required" value={brand} onChange={(value) => this.setState({ brand: value })}
-                           placeholder='Brand' type="text"/>
+              <TextField
+                id="standard-with-placeholder1"
+                className="custom-beautiful-textfield"
+                label="Brand"
+                type="text"
+                value={brand}
+                maxLength='50'
+                onBlur={this.addSuggestions}
+                onChange={(e) => this.setState({ brand: (e && e.target && e.target.value) || ''})}
+              />
             </div>
             <div className="theme-form-field category_first">
-              <CustomInput placeholder='Model' value={model} onChange={(value) => this.setState({ model: value })}
-                           type="text"/>
+              <TextField
+                id="standard-with-placeholder2"
+                className="custom-beautiful-textfield"
+                label="Model"
+                type="text"
+                value={model}
+                maxLength='50'
+                onBlur={this.addSuggestions}
+                onChange={(e) => this.setState({ model: (e && e.target && e.target.value) || ''})}
+              />
             </div>
             <div className="theme-form-field category_first">
-              <Textarea className="category_description_ta" label='Description' floatingLabel={true}
-                  onChange={(e) => {
-                    this.setState({ description: e.target.value })
-                  }} type="text"/>
+              <div className={`custom-auto-suggest-container ${isDoubled ? "doubled" : ""}`}>
+                <CustomAutosuggest
+                  value={productName}
+                  suggestions={this.suggestions}
+                  handleChange={this.handleChangeProductName}
+                />
+              </div>
+            </div>
+            <div className="theme-form-field category_first">
+              <Textarea
+                className="category_description_ta"
+                label='Description'
+                type="text"
+                floatingLabel={true}
+                onChange={(e) => {
+                  this.setState({ description: e.target.value })
+                }}
+              />
             </div>
           </div>
-          <div className="theme-column info-right-container " id="new-tabs" width="35%">
+          <div className="theme-column info-right-container" id="new-tabs">
+            <span>Select the condition of the item</span>
             <div className="info-right-newtabs-left">
               <div className="type-tabs">
                 <input name="type" id="new" type="radio" value="new" onChange={this.onTypeChange}/>
-                <label className={selectedType === 'new' ? 'active' : ''} htmlFor="new">New</label>
+                <label className={selectedType === 'new' ? 'active new' : 'new'} htmlFor="new">New</label>
                 <input name="type" id="like-new" type="radio" value="like_new" onChange={this.onTypeChange}/>
-                <label className={selectedType === 'like_new' ? 'active' : ''} htmlFor="like-new">Like New</label>
+                <label className={selectedType === 'like_new' ? 'active like-new' : 'like-new'} htmlFor="like-new">Like New</label>
                 <input name="type" id="slightly-worn" type="radio" value="slightly_worn" onChange={this.onTypeChange}/>
-                <label className={selectedType === 'slightly_worn' ? 'active' : ''} htmlFor="slightly-worn">Slightly
+                <label className={selectedType === 'slightly_worn' ? 'active slightly_worn' : 'slightly_worn'} htmlFor="slightly-worn">Slightly
                   Worn</label>
                 <input name="type" id="worn" type="radio" value="worn" onChange={this.onTypeChange}/>
-                <label className={selectedType === 'worn' ? 'active' : ''} htmlFor="worn">Worn</label>
+                <label className={selectedType === 'worn' ? 'active worn' : 'worn'} htmlFor="worn">Worn</label>
               </div>
               <div className="theme-form-field" id="kit-style">
                   <div className="input_svg pretty p-svg p-plain">
@@ -203,7 +285,7 @@ class AddGear extends Component {
         numberOfUserImage
       });
     } catch {
-      handleError('Please upload a valid image');
+      handleError('Please upload a valid image!');
     }
   }
 
@@ -212,21 +294,49 @@ class AddGear extends Component {
 
     return (
       <Form className="theme-form add-gear-address">
-        <div className="theme-form-field">
-          <CustomInput placeholder='City' type="text" value={city}
-                       onChange={(value) => this.setState({ city: value })}/>
+        <div className="theme-form-field text-wrapper">
+            <TextField
+                id="standard-with-placeholder1"
+                className="custom-beautiful-textfield"
+                label="City"
+                type="text"
+                value={city}
+                maxLength='50'
+                onChange={(e) => this.setState({ city: (e && e.target && e.target.value) || ''})}
+            />
         </div>
-        <div className="theme-form-field">
-          <CustomInput placeholder='Region' type="text" value={region}
-                       onChange={(value) => this.setState({ region: value })}/>
+        <div className="theme-form-field text-wrapper">
+            <TextField
+                id="standard-with-placeholder2"
+                className="custom-beautiful-textfield"
+                label="Region"
+                type="text"
+                value={region}
+                maxLength='50'
+                onChange={(e) => this.setState({ region: (e && e.target && e.target.value) || ''})}
+            />
         </div>
-        <div className="theme-form-field">
-          <CustomInput placeholder='Address' type="text" value={address}
-                       onChange={(value) => this.setState({ address: value })}/>
+        <div className="theme-form-field text-wrapper">
+            <TextField
+                id="standard-with-placeholder3"
+                className="custom-beautiful-textfield"
+                label="Address"
+                type="text"
+                value={address}
+                maxLength='50'
+                onChange={(e) => this.setState({ address: (e && e.target && e.target.value) || ''})}
+            />
         </div>
-        <div className="theme-form-field">
-          <CustomInput placeholder='Postal Code' type="text" value={postalCode}
-                       onChange={(value) => this.setState({ postalCode: value })}/>
+        <div className="theme-form-field text-wrapper">
+            <TextField
+                id="standard-with-placeholder4"
+                className="custom-beautiful-textfield"
+                label="Postal Code"
+                type="text"
+                value={postalCode}
+                maxLength='50'
+                onChange={(e) => this.setState({ postalCode: (e && e.target && e.target.value) || ''})}
+            />
         </div>
       </Form>
     );
@@ -234,7 +344,24 @@ class AddGear extends Component {
 
   async addGearDetails() {
     try {
-      const { categoryName, brand, model, description, selectedType, isKit, accessories, numberOfUserImage, city, region, address, postalCode, replacementValue, pricePerDay } = this.state;
+      let {
+          categoryName,
+          brand,
+          model,
+          description,
+          selectedType,
+          isKit,
+          accessories,
+          numberOfUserImage,
+          city,
+          region,
+          address,
+          postalCode,
+          replacementValue,
+          productName,
+          pricePerDay
+      } = this.state;
+      isKit = !!isKit;
 
       const data = {
         categoryName,
@@ -250,17 +377,26 @@ class AddGear extends Component {
         address,
         postalCode,
         replacementValue,
-        pricePerDay
+        pricePerDay,
+        productName
       };
 
+      if (!categoryName || !brand || !model || !description || !selectedType || !accessories || !productName ||
+          !numberOfUserImage || !city || !region || !address || !postalCode || !replacementValue || !pricePerDay) {
+          handleError("Please provide required details!");
+          return;
+      }
       this.setState({busy: true});
-      let gearId = await addGear(data);
-
-      if (gearId) {
+      let gear = await addGear(data);
+      if (gear) {
         this.setState({
           busy: false,
           isGearAdded: true,
-          gearId
+          gearId: gear.gearid
+        });
+      } else {
+        this.setState({
+          busy: false
         });
       }
     } catch (e) {
@@ -281,14 +417,14 @@ class AddGear extends Component {
 
           <div className="price-type-tabs">
               <input id="new" type="radio" value="new"/>
-              <label className={selectedType === 'new' ? 'active' : ''} htmlFor="new">New</label>
+              <label className={selectedType === 'new' ? 'active new type-tab' : 'new type-tab'} htmlFor="new">New</label>
               <input id="like-new" type="radio" value="like_new"/>
-              <label className={selectedType === 'like_new' ? 'active' : ''} htmlFor="like-new">Like New</label>
+              <label className={selectedType === 'like_new' ? 'active like-new type-tab type-tab2' : 'like-new type-tab type-tab2'} htmlFor="like-new">Like New</label>
               <input id="slightly-worn" type="radio" value="slightly_worn"/>
-              <label className={selectedType === 'slightly_worn' ? 'active' : ''} htmlFor="slightly-worn">Slightly
+              <label className={selectedType === 'slightly_worn' ? 'active slightly-worn type-tab type-tab3' : 'slightly-worn type-tab type-tab3'} htmlFor="slightly-worn">Slightly
                   Worn</label>
               <input id="worn" type="radio" value="worn"/>
-              <label className={selectedType === 'worn' ? 'active' : ''} htmlFor="worn">Worn</label>
+              <label className={selectedType === 'worn' ? 'active worn type-tab type-tab4' : 'worn type-tab type-tab4'} htmlFor="worn">Worn</label>
           </div>
 
         <div className="gear-carousel">
@@ -384,8 +520,8 @@ class AddGear extends Component {
   validate() {
     switch (this.state.progressStep) {
       case 0:
-        const { categoryName, brand, model, description, selectedType } = this.state;
-        if (categoryName && brand && model && description && selectedType) {
+        const { categoryName, brand, model, description, selectedType, productName, isDoubled } = this.state;
+        if (categoryName && brand && model && description && selectedType && productName && !isDoubled) {
           return true;
         }
         break;
@@ -409,20 +545,20 @@ class AddGear extends Component {
         break;
       default:
     }
-    handleError('Please provide the required details');
+    handleError('Please provide required details!');
     return false;
   }
 
   render() {
     const { isGearAdded, replacementValue, pricePerDay, brand, model, categoryName, gearId } = this.state;
     const { isLoadingCategories } = this.props;
-    if (isLoadingCategories) {
+    if (isLoadingCategories || this.suggestions.length < 1) {
       return <BarLoader color="#F82462" height="5" />;
     }
 
     if (isGearAdded) {
       return <div className="add-gear">
-        <h1><i className="fa fa-check-circle primary-color"></i></h1>
+        <h1><i className="fa fa-check-circle primary-color"/></h1>
         <h3 className="success_gear_htag">Gear Added Successfully</h3>
 
         <div className="success-message">
@@ -436,14 +572,14 @@ class AddGear extends Component {
             </div>
             <div>
               <div className="theme-text-small">Price per day</div>
-              <div>${pricePerDay}</div>
+              <div className="price-per-day-value">${pricePerDay}</div>
             </div>
           </div>
 
           <div className="flex-row buttons-container">
-            <button className="theme-btn theme-btn-secondery theme-btn-link success_first_button"><Link to="/listgear">List Gear</Link>
+            <button className="theme-btn theme-btn-secondery theme-btn-link success_first_button"><Link to="/dashboard">My Gear</Link>
             </button>
-            <button className="theme-btn theme-btn-primary theme-btn-link success_sencond_button"><Link to={`/editgear/${gearId}`}>View Gear</Link>
+            <button className="theme-btn theme-btn-primary theme-btn-link success_sencond_button"><Link to={`/gear/detail/${gearId}`}>View Gear</Link>
             </button>
           </div>
         </div>
@@ -456,7 +592,7 @@ class AddGear extends Component {
           this.state.busy ? <CustomSpinner/> : null
         }
         <Breadcrumb>
-          <UrllinkClass name="Home"></UrllinkClass>
+          <UrllinkClass name="Home"/>
             <span className="space_slash_span">/</span>
           <BreadcrumbItem active>Add Gear</BreadcrumbItem>
         </Breadcrumb>
@@ -476,9 +612,9 @@ class AddGear extends Component {
               <div className="flex-row buttons-container">
                 {
                   this.state.progressStep !== 0 ?
-                    <button className="theme-btn theme-btn-secondary theme-back-btn" onClick={this.previousStep.bind(this)}><span
-                      className="fa fa-angle-left"/> Back  </button> :
-                    null
+                    <button className="theme-btn theme-btn-secondary theme-back-btn" onClick={this.previousStep.bind(this)}>
+                        <span className="fa fa-angle-left"/> Back
+                    </button> : null
                 }
 
                 <button className="theme-btn theme-btn-primary theme-continue-btn" onClick={this.nextStep.bind(this)}>Continue <span

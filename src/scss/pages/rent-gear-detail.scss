@@ -3,13 +3,46 @@
 .detail-container {
   width: 100%;
   padding: 33px 0 0 0;
+
+  .type-tabs {
+    input {
+      display: none;
+    }
+
+    .type-tab {
+      background-color: #fef1e8;
+      color: #1cdb74;
+      font-size: 13px;
+      padding: 3px 18px;
+      border-radius: 0 4px 4px 0;
+
+      &.active {
+        background-color: #1cdb74 !important;
+        color: #FAF5EC;
+        z-index: 1000;
+        border-radius: 4px;
+      }
+      &.type-tab2 {
+        background-color: #f8f1e8;
+        color: #F2C893;
+        z-index: 999;
+      }
+      &.type-tab3 {
+        background-color: #fbe3d9;
+        color: #F5BCA4;
+        z-index: 998;
+      }
+      &.type-tab4 {
+        background-color: #f9dada;
+        color: #F6B3B3;
+        z-index: 997;
+      }
+    }
+  }
 }
 
 .view-gear-detail {
   margin-bottom: 60px;
-}
-.star-white {
-  color: white;
 }
 .breadcrumb {
   padding: 0 0 15px 0;
@@ -109,42 +142,6 @@
     &:hover {
       text-decoration: underline;
       text-decoration-color: #FDBED0;
-    }
-  }
-}
-
-.type-tabs {
-  input {
-    display: none;
-  }
-
-  .type-tab {
-    background-color: #fef1e8;
-    color: #1cdb74;
-    font-size: 13px;
-    padding: 3px 18px;
-    border-radius: 0 4px 4px 0;
-
-    &.active {
-      background-color: #1cdb74 !important;
-      color: #FAF5EC;
-      z-index: 1000;
-      border-radius: 4px;
-    }
-    &.type-tab2 {
-      background-color: #f8f1e8;
-      color: #F2C893;
-      z-index: 999;
-    }
-    &.type-tab3 {
-      background-color: #fbe3d9;
-      color: #F5BCA4;
-      z-index: 998;
-    }
-    &.type-tab4 {
-      background-color: #f9dada;
-      color: #F6B3B3;
-      z-index: 997;
     }
   }
 }
@@ -416,9 +413,6 @@
 .MuiInput-underline-27:hover:not(.MuiInput-disabled-26):not(.MuiInput-focused-25):not(.MuiInput-error-28):before {
   border-bottom: 2px solid rgba(0, 0, 0, 0.87);
 }
-.MuiInput-underline-27:after {
-  border-bottom: 2px solid #EDCFD7 !important;
-}
 #date-range-input1 {
   padding-left: 15px !important;
 }
@@ -441,6 +435,12 @@
   align-items: center;
   & span span span:hover {
     width: 100% !important;
+  }
+  .star-white {
+    color: white;
+  }
+  .star-selected {
+    color: #F74377;
   }
 }
 .gear-address-container {
@@ -535,9 +535,6 @@
         position: absolute;
         color: red;
       }
-    }
-    .star-selected {
-      color: #F74377;
     }
     .type-tabs {
       padding: 10px;
@@ -664,12 +661,6 @@
 
   .flickity-viewport {
     overflow: hidden;
-  }
-
-  .news-letter-container {
-    background-color: #FAF8F9;
-    margin: 0;
-    max-width: 100%;
   }
 
   .rating-container {

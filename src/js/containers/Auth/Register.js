@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import CustomInput from '../../components/CustomInput';
 import AuthSideMenu from '../../components/AuthSideMenu';
 import { handleError, readFileData } from "../../core/actions/common.action";
 import { register } from '../../core/actions/user.action';
 import { bindActionCreators } from "redux";
 import CustomSpinner from "../../components/CustomSpinner";
+import TextField from "@material-ui/core/TextField/TextField";
+import Navbar from "../../components/common/Navbar/Navbar";
 
 class Register extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       password: '',
@@ -67,8 +68,14 @@ class Register extends Component {
 
   render() {
     const { password, confirmPassword, username, fullName, fileName, phoneNumber } = this.state;
-    const { isRegistered, isRegistering } = this.props;
+    let { isRegistered, isRegistering } = this.props;
     return (
+    <React.Fragment>
+      <div className="auth-nav-bar">
+        <header>
+          <Navbar/>
+        </header>
+      </div>
       <div className="auth-container theme-navbar">
         <AuthSideMenu/>
         {
@@ -76,21 +83,23 @@ class Register extends Component {
         }
         {
           isRegistered ? (
-            <div className="login success-message">
-              <h1 className="header"><i className="fa fa-check-circle primary-color"></i> Successfully</h1>
-              <div className="subheader">
-                <span>
-                  To confirm your account,<br/> check your email for verification code
-                </span>
-              </div>
-              <div className="flex-row navigation-buttons">
-                <button className="theme-btn theme-btn-secondery theme-btn-link"><Link to="/">Home Page</Link></button>
-                <button className="theme-btn theme-btn-primary theme-btn-link"><Link
-                  to={{ pathname: '/confirm', state: { email: username } }}>Confirm</Link></button>
+            <div className="success-message-container">
+              <div className="login success-message register-success-message">
+                <h1 className="header"><i className="fa fa-check-circle primary-color"></i> Successfully</h1>
+                <div className="subheader">
+                  <span>
+                    To confirm your account,<br/> check your email for verification code
+                  </span>
+                </div>
+                <div className="flex-row navigation-buttons">
+                  <button className="theme-btn theme-btn-secondery theme-btn-link"><Link to="/">Home Page</Link></button>
+                  <button className="theme-btn theme-btn-primary theme-btn-link"><Link
+                    to={{ pathname: '/confirm', state: { email: username } }}>Sign In</Link></button>
+                </div>
               </div>
             </div>) : (
             <div className="login register">
-              <h1 className="header">Register</h1>
+              <h2 className="header">Register</h2>
               <div className="subheader">Register via social networks</div>
               <div className="social-buttons">
                 <button className="theme-btn btn-social btn-fb">
@@ -115,28 +124,63 @@ class Register extends Component {
               <div className="login-or-divider">Or</div>
               <Form className="theme-form">
                 <div className="theme-form-field">
-                  <CustomInput placeholder='Name' type="text" required="required" value={fullName}
-                               onChange={(value) => this.setState({ fullName: value })}/>
+                    <TextField
+                        id="standard-with-placeholder1"
+                        className="custom-beautiful-textfield"
+                        label="Name"
+                        type="text"
+                        value={fullName}
+                        maxLength='50'
+                        onChange={(e) => this.setState({ fullName: (e && e.target && e.target.value) || ''})}
+                    />
                 </div>
                 <div className="theme-form-field">
-                  <CustomInput placeholder='Email' type="email" required="required" value={username}
-                               onChange={(value) => this.setState({ username: value })}/>
+                    <TextField
+                        id="standard-with-placeholder2"
+                        className="custom-beautiful-textfield"
+                        label="Email"
+                        type="email"
+                        value={username}
+                        maxLength='50'
+                        onChange={(e) => this.setState({ username: (e && e.target && e.target.value) || ''})}
+                    />
                 </div>
                 <div className="theme-form-field">
-                  <CustomInput placeholder='Phone Number' type="text" required="required" value={phoneNumber}
-                               onChange={(value) => this.setState({ phoneNumber: value })}/>
+                    <TextField
+                        id="standard-with-placeholder3"
+                        className="custom-beautiful-textfield"
+                        label="Phone Number"
+                        type="text"
+                        value={phoneNumber}
+                        maxLength='50'
+                        onChange={(e) => this.setState({ phoneNumber: (e && e.target && e.target.value) || ''})}
+                    />
                 </div>
                 <div className="theme-form-field">
-                  <CustomInput placeholder='Password' type="Password" required="required" value={password}
-                               onChange={(value) => this.setState({ password: value })}/>
+                    <TextField
+                        id="standard-with-placeholder4"
+                        className="custom-beautiful-textfield"
+                        label="Password"
+                        type="password"
+                        value={password}
+                        maxLength='50'
+                        onChange={(e) => this.setState({ password: (e && e.target && e.target.value) || ''})}
+                    />
                 </div>
                 <div className="theme-form-field">
-                  <CustomInput placeholder='Confirm Password' type="Password" required="required"
-                               value={confirmPassword} onChange={(value) => this.setState({ confirmPassword: value })}/>
+                    <TextField
+                        id="standard-with-placeholder5"
+                        className="custom-beautiful-textfield"
+                        label="Confirm Password"
+                        type="password"
+                        value={confirmPassword}
+                        maxLength='50'
+                        onChange={(e) => this.setState({ confirmPassword: (e && e.target && e.target.value) || ''})}
+                    />
                 </div>
                 <div className="flex-row  upload-photo-row">
                   <div className="theme-form-field">
-                    <label>{fileName || 'Photo'}</label>
+                    <span>{fileName || 'Photo'}</span>
                   </div>
                   <div className="file-input-container">
                     <button className="theme-btn theme-btn-filled-white btn-photo-upload">Upload</button>
@@ -147,7 +191,7 @@ class Register extends Component {
                 <button className="theme-btn-submit" onClick={this.submit.bind(this)}>Sign up</button>
               </Form>
               <div className="login-or-divider"></div>
-              <div className="flex-row signin-link ">
+              <div className="flex-row signin-link already-signin-wrapper">
                 <span>Already have an account?</span>
                 <button className="theme-btn theme-btn-filled-white theme-btn-link"><Link to="/login">Sign in<i
                   className="fa fa-angle-right"/></Link></button>
@@ -155,6 +199,7 @@ class Register extends Component {
             </div>)
         }
       </div>
+    </React.Fragment>
     );
   }
 }

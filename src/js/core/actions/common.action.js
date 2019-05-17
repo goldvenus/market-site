@@ -5,7 +5,7 @@ const handleInfo = (info) => {
 };
 
 const handleError = (error) => {
-    NotificationManager.error(String(error), 'Error', 5000);
+    NotificationManager.error(String(error), 'Error', 10000);
 };
 
 const readFileData = (event) => {

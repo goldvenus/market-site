@@ -22,17 +22,18 @@
   padding: 0;
   height: 100vh;
   align-items: stretch;
-  justify-content: flex-start;
+
+  .login-form-wrapper span {
+    display: none;
+  }
 }
 
 .forgot-password {
-
   .header {
-    font-size: 35px !important;
+    font-size: 43px;
     margin-bottom: 25px;
     font-weight: 800;
   }
-
   .login-or-divider {
     text-transform: none !important;
     max-width: 100%;
@@ -44,6 +45,11 @@
 
   .theme-btn-submit {
     padding: 7px !important
+  }
+
+  .theme-form-field > div {
+    width: 100%;
+    text-align: center;
   }
 }
 
@@ -57,7 +63,7 @@
   flex: 1;
 
   .header {
-    font-size: 35px !important;
+    font-size: 35px;
     margin-bottom: 25px;
     font-weight: 900;
   }
@@ -75,7 +81,6 @@
   .theme-form-link {
     color: #F74377;
     font-size: 13px;
-    text-decoration-color: lightgray !important;
     text-decoration: underline;
   }
 
@@ -113,18 +118,105 @@
   }
 }
 
-@media(max-width: 769px) {
-  .login {
-    padding-top: 0;
-    padding-left: 0;
-    margin-left: 5px
+a.forgot-pwd-link {
+  margin-top: 18px;
+}
+.auth-input-wrapper {
+  div {
+    width: 100%;
+    font-family: Helvetica Neue;
+    font-size: 16px;
+    line-height: 27px;
+    color: #252525;
+
+    input, label {
+      margin-left: 15px;
+      font-size: 14px;
+    }
   }
 }
 
-@media(max-width: 500px) {
-  .auth-sidemenu {
-    width: 100%;
-    display: none
+.auth-nav-bar {
+  display: none;
+}
+
+@media(max-width: 1077px) {
+  .login {
+    padding-top: 0;
+    padding-left: 0;
+    margin: 0 auto !important;
+    display: flex;
+    align-items: center;
+
+    .header {
+      margin: 100px 0 40px !important;
+    }
+    .login-form-wrapper {
+      margin: 20px 0;
+      width: 100%;
+
+      .theme-form {
+        .theme-form-field {
+          margin: 20px 0 !important;
+          width: 100%;
+          align-items: center;
+          font-size: 16px;
+          text-align: center;
+
+
+        }
+      }
+      .flex-row {
+        justify-content: center;
+        .forgot-pwd-link {
+          margin: 0 !important;
+          font-family: HelveticaNeueCyr;
+          font-size: 12px;
+          line-height: 15px;
+          text-align: center;
+          letter-spacing: 0.03em;
+        }
+      }
+      .save-addr-btn {
+        justify-content: center;
+        label {
+          margin: 0 !important;
+        }
+      }
+      .theme-btn-submit {
+        width: 100%;
+      }
+    }
+    .social-buttons {
+      button {
+        width: unset !important;
+        min-width: unset !important;
+      }
+    }
+    .signup-link {
+      width: 100% !important;
+      position: unset !important;
+      justify-content: center;
+
+      button {
+        padding: 5px 5px !important;
+        margin-left: 0 !important;
+      }
+      span {
+        margin-right: 22px;
+      }
+    }
+  }
+  .auth-nav-bar {
+    display: block !important;
+  }
+  .auth-container {
+    position: unset;
+    display: block;
+    padding: 0 86px;
+  }
+  .login-or-divider {
+    margin-top: 40px;
   }
 
   .forgot-password {
@@ -133,15 +225,104 @@
       text-align: center;
       margin: 20px;
     }
+    .theme-form-field {
+      width: 100% !important;
+    }
 
     .theme-btn-submit {
-      width: 90% !important;
-      margin-left: 5% !important;
+      width: 100% !important;
+    }
+
+    form {
+      width: 100%;
+    }
+  }
+  .login .social-buttons .btn-social {
+    margin-right: 30px !important;
+    &:last-child {
+      margin-right: 0 !important;
+    }
+    span {
+      margin: 0;
+      width: 100%;
+      justify-content: space-evenly;
+      i {
+        background: none !important;
+        margin-right: 0 !important;
+      }
+      span {
+        display: none;
+      }
     }
   }
 
+  .signin-link {
+    span {
+      color: #a09e9e;
+      margin-right: 5px !important;
+      font-size: 12px
+    }
+    a {
+      font-size: 12px;
+      i {
+        margin-left: 5px !important;
+      }
+    }
+  }
+}
+
+@media(max-width: 767px) {
+  .auth-sidemenu {
+    width: 100%;
+    display: none
+  }
+  .auth-container {
+    padding: 0 36px;
+
+  }
+  .signin-link {
+    font-size: 12px;
+    span {
+      margin-right: 5px;
+    }
+    button {
+      width: 100px !important;;
+    }
+  }
+  .signup-link {
+    width: 100% !important;
+    position: unset !important;
+
+    button {
+      padding: 5px 5px !important;
+      margin-left: 0 !important;
+    }
+    span {
+      margin-right: 0;
+    }
+  }
+  .social-buttons .btn-social {
+    span {
+      margin: 0;
+      width: 100%;
+      justify-content: space-evenly;
+      i {
+        background: none !important;
+      }
+    }
+  }
+
+  .login-remember-input {
+    width: 100% !important;
+    .save-addr-btn {
+      font-size: 14px;
+    }
+  }
+
+
   .login {
     margin: 0;
+    width: 100%;
 
     .header {
       font-size: 27px !important;
@@ -160,19 +341,18 @@
         min-width: 50px !important;
         width: 50px !important;
         padding: 12px 5px;
+        justify-content: center;
 
         i {
           margin: 0;
-          font-size: 24px
+          font-size: 18px;
         }
 
-        > span > span {
-          display: none
-        }
-
-        &.btn-twitter {
-          margin-left: 40px !important;
-          margin-right: 50px
+        > span {
+          margin: -13px -13px 0 -13px;
+          span {
+            display: none
+          }
         }
       }
     }
@@ -210,33 +390,63 @@
     }
 
     .login-remember-input {
-      margin: 45px 20% !important;
-      width: 80%
-    }
-
-    .theme-btn-submit {
-      width: 80%;
-      margin-left: 10%
+      margin: 0 !important;
+      width: 100%;
+      justify-content: center;
+      .theme-form-field {
+        width: fit-content;
+      }
     }
 
     .theme-form-link {
       text-align: center !important;
-      width: 90% !important;
+      width: 100% !important;
+      margin: 15px 0 0;
     }
 
     .flex-row.signup-link {
-      width: 90%;
-      margin-left: 5%;
+      width: 88%;
+      display: flex;
+      justify-content: space-evenly
+    }
 
-      > span {
-        margin: 0 auto;
-        display: table;
+    .login-form-wrapper {
+      text-align: center;
+
+      form {
+        margin: 25px 0;
       }
+      span {
+        display: block;
+        font-size: 12px;
+        color: #252525;
+        opacity: 0.6;
+      }
+      .auth-input-wrapper {
+        margin: 0 0 13px;
+        width: 100%;
+        div input {
+          text-align: center;
+          margin: 0;
+        }
+      }
+      button {
+        width: 100%;
+      }
+    }
+  }
+}
 
-      > button {
-        margin: 0 auto;
-        display: table;
-        padding: 2px 10px
+@media(max-width: 500px) {
+  .signin-link, .signup-link {
+    span {
+      font-size: 11px !important;
+      margin-right: 3px !important;
+    }
+    button {
+      padding: 5px 0 !important;
+      a {
+        padding: 0 !important;
       }
     }
   }

@@ -13,13 +13,24 @@ class CartModal2 extends Component {
     // model1: Add to Cart, model2: Edit
     constructor(props) {
         super(props);
+        let start_date = this.props.start_date;
+        let end_date = this.props.end_date;
         this.state = {
-            startDate: new Date(),
-            endDate: new Date(),
+            startDate: start_date ? start_date : new Date(),
+            endDate: end_date ? end_date : new Date(),
             open_date_picker1: false,
             open_date_picker2: false,
             busy: false
         };
+    }
+
+    componentDidMount() {
+        const { dlg_model, gear } = this.props;
+        dlg_model === 2 &&
+            this.setState({
+                startDate: new Date(gear.startDate),
+                endDate: new Date(gear.endDate)
+            });
     }
 
     setOpenState = (ost1, ost2) => {
@@ -67,14 +78,22 @@ class CartModal2 extends Component {
         }
     };
 
-    handleAddToCart = () => {
+    handleAddToCart = async () => {
         this.setState({busy: true});
-        this.props.addToCart({
+        let ret = await this.props.addToCart({
             gearid: this.props.gear.gearid,
             userid: this.props.gear.userid,
             startDate: this.state.startDate,
             endDate: this.state.endDate
         });
+        if (!ret) {
+            this.setState({busy: false});
+        }
+    };
+
+    handleEdit = () => {
+        this.setState({busy: true});
+        this.props.setPeriod(this.state.startDate, this.state.endDate);
     };
 
     handleClose = (e) => {
@@ -85,12 +104,17 @@ class CartModal2 extends Component {
     };
 
     render() {
-        const { open, dlg_model, onSubmit, gear } = this.props;
-        const { brand, model, pricePerDay } = gear;
+        const { open, dlg_model, gear } = this.props;
+        const { brand, productName, pricePerDay } = gear;
         const duration = calcDaysDiff(this.state.startDate, this.state.endDate) + 1;
         const start_date_str = getDateStr(this.state.startDate);
         const end_date_str = getDateStr(this.state.endDate);
-        const total_price = pricePerDay * duration;
+        const total = pricePerDay * duration;
+        const tax = total * 0.21;
+        const fee = total * 0.15;
+        const amount = parseFloat(total + tax + fee).toFixed(2);
+        const actualPrice = parseFloat(amount/duration).toFixed(2);
+
         const selectionRange = {
             startDate: this.state.startDate,
             endDate: this.state.endDate,
@@ -104,7 +128,7 @@ class CartModal2 extends Component {
             btn_label2 = 'Add to Cart';
         } else {
             btn_label1 = 'Cancel';
-            btn_label2 = 'submit';
+            btn_label2 = 'Submit';
             dlg_heading = 'Edit';
         }
 
@@ -115,12 +139,18 @@ class CartModal2 extends Component {
                 </div>
                 <div className='modal-cart-body-1'>
                     <div className='modal-cart-info row'>
-                        <span className='modal-carted-product-name'>{brand} {model}</span>
+                        <span className='modal-carted-product-name'>{brand}<br/>{productName}</span>
                     </div>
                     <div className="pickup-date-container row">
                         <div className='col-md-11 date-range-container'>
-                            <TextField id="date-range-input1" className="date-range-input" type="text" label={'PICKUP DATE'}
-                                       onFocus={() => this.setOpenState(true, false)} value={start_date_str}/>
+                            <TextField
+                                id="date-range-input1"
+                                className="date-range-input"
+                                type="text"
+                                label={'PICKUP DATE'}
+                                onFocus={() => this.setOpenState(true, false)}
+                                value={start_date_str}
+                            />
                             {
                                 this.state.open_date_picker1 ?
                                     <DateRange
@@ -129,8 +159,7 @@ class CartModal2 extends Component {
                                         onChange={this.handleSelect}
                                         rangeColors={['#F74377']}
                                         showDateDisplay={false}
-                                    />
-                                    : null
+                                    /> : null
                             }
                             {
                                 this.state.open_date_picker1 ?
@@ -138,10 +167,16 @@ class CartModal2 extends Component {
                                     <img src="/images/Icons/calendar/calendar.svg" alt=''/>
                             }
                         </div>
-                        <div className='col-md-2'></div>
+                        <div className='col-md-2'/>
                         <div className='col-md-11 date-range-container'>
-                            <TextField id="date-range-input1" className="date-range-input" type="text" label={'RETURN DATE'}
-                                       onFocus={() => this.setOpenState(false, true)} value={end_date_str}/>
+                            <TextField
+                                id="date-range-input1"
+                                className="date-range-input"
+                                type="text"
+                                label={'RETURN DATE'}
+                                onFocus={() => this.setOpenState(false, true)}
+                                value={end_date_str}
+                            />
                             {
                                 this.state.open_date_picker2 ?
                                     <DateRange
@@ -161,25 +196,30 @@ class CartModal2 extends Component {
                     </div>
                     <div className='modal-cart-price-container row'>
                         <div className='modal-cart-price-left'>
-                            <span className="price-value">${pricePerDay}</span>
+                            <span className="price-value">${actualPrice}</span>
                             <span className='price-text'> per day</span>
                         </div>
                         <div className='modal-cart-price-right'>
-                            <span className="price-value">${total_price}</span>
+                            <span className="price-value">${amount}</span>
                             <span className='price-text'> for </span>
                             <span className="price-value">{duration} days</span>
                         </div>
                     </div>
                     <div className='modal-cart-control row'>
-                        <button className='cart-control-left-button theme-btn theme-btn-primary' onClick={(e) => this.handleClose(e)}>{btn_label1}</button>
-                        <div className='cart-button-space'></div>
-                        <button className='cart-control-right-button theme-btn theme-btn-primary'
-                            onClick={() => {dlg_model === 1 ? this.handleAddToCart() : onSubmit()}}
-                            disabled={this.state.busy ? 'disabled' : ''}
-                        >
-                            {
-                                this.state.busy ? <Inline size={64} color={"#fff"} /> : btn_label2
+                        <button
+                            className='cart-control-left-button theme-btn theme-btn-secondary'
+                            onClick={(e) => this.handleClose(e)}>
+                                {btn_label1}
+                        </button>
+                        <button
+                            className='cart-control-right-button theme-btn theme-btn-primary'
+                            onClick={() => {
+                                dlg_model === 1 ?
+                                    this.handleAddToCart() :
+                                    this.handleEdit()}
                             }
+                            disabled={this.state.busy ? 'disabled' : ''}>
+                            {this.state.busy ? <Inline size={64} color={"#fff"} /> : btn_label2}
                         </button>
                     </div>
                 </div>

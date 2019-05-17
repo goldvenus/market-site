@@ -146,6 +146,10 @@
 
 .dropdown-menu.show {
   display: block;
+  width: 100%;
+  button:active {
+    background-color: #A4A4A4;
+  }
 }
 
 // Dropdown section headers

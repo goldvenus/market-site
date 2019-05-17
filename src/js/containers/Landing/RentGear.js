@@ -22,7 +22,7 @@ class RentGear extends React.Component {
 
     categories = categories.reduce((arr, item) => arr.concat(item.categoryName), []);
     if (category === undefined) {
-      this.props.history.push('/rentgear/' + categories[0]);
+      this.props.history.push('/rentgear/all');
       return null;
     }
 
@@ -33,7 +33,7 @@ class RentGear extends React.Component {
             <Row>
               <Col>
                 <Breadcrumb>
-                  <UrllinkClass name="Home Page"></UrllinkClass>
+                  <UrllinkClass name="Home Page"/>
                   <span className="space_slash_span">/</span>
                   <BreadcrumbItem active>Rent Gear </BreadcrumbItem>
                 </Breadcrumb>
@@ -59,10 +59,10 @@ class RentGear extends React.Component {
           </Row>
         </Container>
       </div>
-      </div>
+    </div>
     )
   }
-};
+}
 
 export default connect(state => {
   return {

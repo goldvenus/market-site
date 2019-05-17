@@ -1,5 +1,37 @@
  
 const data = {
+  faqs: [
+    {
+      text: 'GETTING STARTED',
+      imgPath: '/images/faqs/1.png',
+      link: '/faq'
+    },
+    {
+      text: 'VERIFICATION',
+      imgPath: '/images/faqs/2.png',
+      link: '/faq'
+    },
+    {
+      text: 'PRIVACY',
+      imgPath: '/images/faqs/3.png',
+        link: '/faq'
+    },
+    {
+      text: 'FEES AND PAYMENT',
+      imgPath: '/images/faqs/4.png',
+      link: '/faq'
+    },
+    {
+      text: 'INSURANCE',
+      imgPath: '/images/faqs/5.png',
+      link: '/faq'
+    },
+    {
+      text: 'LOCATIONS',
+      imgPath: '/images/faqs/6.png',
+      link: '/faq'
+    }
+  ],
 stories:[
   {
     story_img:'/images/stories/1.jpg',
