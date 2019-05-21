@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Label, ListGroup, ListGroupItem } from 'reactstrap';
-import { getCheckout, checkout } from '../../core/actions/checkout.action';
-import { days } from '../../core/helper';
+import {getCheckout, checkout, saveCheckoutInfo} from '../../core/actions/checkout.action';
+import { days } from '../../core/helper/index';
 import BarLoader from "react-bar-loader";
 import TextField from "@material-ui/core/TextField";
 import Dropdown, {
@@ -23,81 +23,62 @@ class Checkout extends Component {
     super(props);
 
     this.state = {
-      full_name: '',
+      zip: '',
       city: '',
       addr: '',
-      addr_list: [],
-      save_addr: false,
-      product_region: '',
-      zip: '',
-      open: false,
-      loading: true,
-      project_name: ''
+      firstName: '',
+      lastName: '',
+      addrList: [],
+      saveAddr: false,
+      productRegion: '',
+      projectName: '',
+      loading: true
     };
 
     this.getUserCheckoutInfo();
   }
-
+  
   getUserCheckoutInfo = async () => {
-    const ret = await getCheckout(localStorage.userId);
-    const checkout = ret.checkout_info;
-    const addr_list = ret.addr_list !== undefined ? ret.addr_list : [];
+    let res = await getCheckout(localStorage.userId);
+    let checkout = res.checkout_info;
+    let addrList = res.addr_list !== undefined ? res.addr_list : [];
+    
     if (checkout) {
       this.setState({
-        full_name: checkout.FullName,
+        loading: false,
+        zip: checkout.Zip,
         addr: checkout.Addr,
         city: checkout.City,
-        product_region: checkout.ProductRegion,
-        zip: checkout.Zip,
-        addr_list: addr_list,
-        save_addr: checkout.SavedAddr,
-        loading: false,
-        project_name: checkout.ProjectName
+        addrList: addrList,
+        firstName: checkout.FullName.split(' ')[0],
+        lastName: checkout.FullName.split(' ')[1],
+        saveAddr: checkout.SavedAddr,
+        projectName: checkout.ProjectName,
+        productRegion: checkout.ProductRegion
       });
     } else {
       this.setState({
-        addr_list: addr_list,
-        loading: false
+        loading: false,
+        addrList: addrList
       });
     }
   };
 
-  onCheckout = async () => {
-    const { full_name, addr, city, zip, save_addr, product_region, project_name } = this.state;
-    const user_id = localStorage.userId;
-    if (!full_name || !addr || !city || !zip || !product_region || !project_name) {
-      handleError('Please provide required information');
-      return false;
-    }
-
-    const data = { full_name, addr, city, zip, save_addr, product_region, project_name, user_id };
-    this.setState({loading: true});
-    const response = await checkout(data);
-    if (response.status === 'duplicated') {
-        handleError('You should provide another project name!');
-        this.setState({loading: false});
-        return;
-    }
-
-    if (response) {
-      this.props.history.push(`/payment/${response.data}`);
-    }
-  };
-
-  handleAddrChange = (e, element) => {
+  handleAddressChange = (e, element) => {
     e.preventDefault();
     $(".select-addr-btn").trigger('click');
     this.setState({
         addr: element.addr,
-        product_region: element.product_region,
+        productRegion: element.productRegion,
         zip: element.zip,
         city: element.city,
-        full_name: element.full_name
+        firstName: element.fullName.split(' ')[0],
+        lastName: element.fullName.split(' ')[1]
     });
   };
 
   handleSetSaveState = () => {
-    this.setState({save_addr: !this.state.save_addr});
+    this.setState({saveAddr: !this.state.saveAddr});
   };
 
   handleInputChange = (e, val) => {
@@ -112,6 +93,28 @@ class Checkout extends Component {
       $('.addr-dropdown').addClass('active') ;
       $('.addr-dropdown ul').css('display', 'block');
     }
+  };
+  
+  onCheckout = async () => {
+    // 1. input validation
+    let { firstName, lastName, addr, city, zip, saveAddr, productRegion, projectName } = this.state;
+    let userId = localStorage.userId;
+    if (!firstName || !lastName || !addr || !city || !zip || !productRegion || !projectName) {
+      handleError('Please provide required information');
+      return false;
+    }
+    
+    let data = { firstName, lastName, addr, city, zip, saveAddr, productRegion, projectName, userId };
+    this.setState({loading: true});
+    let res = await checkout(data);
+    
+    if (!res) {
+      this.setState({loading: false});
+      return;
+    }
+    
+    await saveCheckoutInfo(data);
+    this.props.history.push('/payment/' + res);
   };
 
   renderCheckoutItems() {
@@ -142,20 +145,18 @@ class Checkout extends Component {
 
     let total = 0;
     carts.forEach(listItem => {
-      const d = days(listItem.startDate, listItem.endDate);
+      let d = days(listItem.startDate, listItem.endDate);
       total += d * listItem.pricePerDay;
     });
-    const tax = total * 0.21;
-    const fee = total * 0.15;
-    const amount = total + tax + fee;
-    const { full_name, addr, city, zip, save_addr, product_region, addr_list, project_name } = this.state;
-    const addr_list_temp = getUniqueObjectArray(addr_list);
+    let tax = total * 0.21;
+    let fee = total * 0.15;
+    let amount = total + tax + fee;
+    let { firstName, lastName, addr, city, zip, saveAddr, productRegion, addrList, projectName } = this.state;
+    let addrList_temp = getUniqueObjectArray(addrList);
 
     return (
       <React.Fragment>
-      {
-        this.state.loading ? <CustomSpinner/> : null
-      }
+      {this.state.loading && <CustomSpinner/>}
       <div className="checkout">
         <div className="checkout-head">
           <div className='container'>
@@ -173,11 +174,11 @@ class Checkout extends Component {
             <div className="text-gray">
               <div className="theme-form-field">
                 <TextField
-                    className='checkout-textfield custom-beautiful-textfield'
-                    placeholder='Project name'
-                    type="text"
-                    value={project_name}
-                    onChange={e => this.handleInputChange(e, 'project_name')}
+                  className='checkout-textfield custom-beautiful-textfield'
+                  placeholder='Project name'
+                  type="text"
+                  value={projectName}
+                  onChange={e => this.handleInputChange(e, 'projectName')}
                 />
               </div>
             </div>
@@ -195,15 +196,13 @@ class Checkout extends Component {
                   <Dropdown.Toggle title="Saved address" className="select-addr-btn"/>
                   <Dropdown.Menu>
                     {
-                      addr_list_temp.length > 0?
-                        addr_list_temp.map((element, index) => (
+                      addrList_temp.length > 0 ?
+                        addrList_temp.map((element, index) => (
                           <React.Fragment key={index}>
-                            <MenuItem onClick={e => this.handleAddrChange(e, element)}>
-                              {element.addr}, {element.zip} {element.product_region}
+                            <MenuItem onClick={e => this.handleAddressChange(e, element)}>
+                              {element.addr}, {element.zip} {element.productRegion}
                             </MenuItem>
-                            {
-                              index === addr_list_temp.length - 1 ? null : <MenuItem divider />
-                            }
+                            {index === addrList_temp.length - 1 ? null : <MenuItem divider />}
                           </React.Fragment>))
                         : null
                     }
@@ -214,15 +213,15 @@ class Checkout extends Component {
                     <div className="catagory-header">
                       <button className="sidebar-title   category-action-btn" onClick={this.handleClickAddrList}>
                         { this.state.addr }
-                        <i className="fa fa-angle-down" aria-hidden="true"></i>
+                        <i className="fa fa-angle-down" aria-hidden="true"/>
                       </button>
                     </div>
 
                     <ListGroup>
                       {
-                        addr_list_temp.length > 0?
-                          addr_list_temp.map((element, index) =>
-                            <ListGroupItem onClick={(e) => this.handleAddrChange(e, element)} value={element.addr} key={index}>
+                        addrList_temp.length > 0?
+                          addrList_temp.map((element, index) =>
+                            <ListGroupItem onClick={(e) => this.handleAddressChange(e, element)} value={element.addr} key={index}>
                               <div className='item-active'>
                                 {element.addr}
                               </div>
@@ -234,38 +233,68 @@ class Checkout extends Component {
                 </aside>
               </div>
               <div className="theme-form">
-                <div className="theme-form-field">
-                  <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='Full Name' type="text"
-                               value={full_name}
-                               onChange={e => this.handleInputChange(e, 'full_name')}/>
+                <div className="flex-row">
+                  <div className="theme-form-field flex-md-12">
+                    <TextField
+                      className='checkout-textfield custom-beautiful-textfield'
+                      placeholder='First Name'
+                      type="text"
+                      value={firstName}
+                      onChange={e => this.handleInputChange(e, 'firstName')}
+                    />
+                  </div>
+                  <div className="theme-form-field flex-md-12">
+                    <TextField
+                      className='checkout-textfield custom-beautiful-textfield'
+                      placeholder='Last Name'
+                      type="text"
+                      value={lastName}
+                      onChange={e => this.handleInputChange(e, 'lastName')}
+                    />
+                  </div>
                 </div>
                 <div className="flex-row">
                   <div className="theme-form-field flex-md-12">
-                    <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='Address' type="text"
-                               value={addr}
-                               onChange={e => this.handleInputChange(e, 'addr')}/>
+                    <TextField
+                      className='checkout-textfield custom-beautiful-textfield'
+                      placeholder='Address'
+                      type="text"
+                      value={addr}
+                      onChange={e => this.handleInputChange(e, 'addr')}
+                    />
                   </div>
                   <div className="theme-form-field flex-md-12">
-                    <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='City' type="text"
-                               value={city}
-                               onChange={(e) => this.handleInputChange(e, 'city')}/>
+                    <TextField
+                      className='checkout-textfield custom-beautiful-textfield'
+                      placeholder='City'
+                      type="text"
+                      value={city}
+                      onChange={(e) => this.handleInputChange(e, 'city')}
+                    />
                   </div>
                 </div>
                 <div className="flex-row">
                   <div className="theme-form-field flex-md-12">
-                    <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='Region' type="text"
-                               value={product_region}
-                               onChange={(e) => this.handleInputChange(e, 'product_region')}/>
+                    <TextField
+                      className='checkout-textfield custom-beautiful-textfield'
+                      placeholder='Region' type="text"
+                      value={productRegion}
+                      onChange={(e) => this.handleInputChange(e, 'productRegion')}
+                    />
                   </div>
                   <div className="theme-form-field flex-md-12">
-                    <TextField className='checkout-textfield custom-beautiful-textfield' placeholder='Zip' type="text"
-                               value={zip}
-                               onChange={(e) => this.handleInputChange(e, 'zip')}/>
+                    <TextField
+                      className='checkout-textfield custom-beautiful-textfield'
+                      placeholder='Zip'
+                      type="text"
+                      value={zip}
+                      onChange={(e) => this.handleInputChange(e, 'zip')}
+                    />
                   </div>
                 </div>
                 <div className="theme-form-field save-addr-btn">
                   <div className="input_svg pretty p-svg p-plain">
-                    <input  type="checkbox" onChange={this.handleSetSaveState} value={save_addr} checked={save_addr ? 'checked' : ''}/>
+                    <input  type="checkbox" onChange={this.handleSetSaveState} value={saveAddr} checked={saveAddr ? 'checked' : ''}/>
                     <div className="state">
                       <img className="svg check_svg" alt="" src="/images/Icons/task.svg"/>
                     </div>

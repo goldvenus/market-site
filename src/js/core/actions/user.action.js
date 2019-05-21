@@ -43,6 +43,7 @@ const login = async (data) => {
 
   let response = await post('signin', data);
   if (!!response && response.data.status === 'success') {
+    console.log(response.data.data);
     dispatch({
       type: constants.LOGIN_SUCCESS,
       payload: response.data.data.userAttributes
@@ -54,7 +55,7 @@ const login = async (data) => {
     localStorage.idToken = idToken;
     localStorage.refreshToken = refreshToken;
     localStorage.userId = response.data.data.userAttributes.userid;
-    console.log("login result: ", response.data.data.tokens);
+
     getCarts();
     getFavourites();
   } else {
@@ -146,11 +147,11 @@ const sendResetPasswordEmail = async (data) => {
   });
   try {
     let response = await post('sendCodeForgotPaswordUser', data);
-    if(response && response.data.status === 'success') {
+    if(response && response.data && response.data.status === 'success') {
       dispatch({
         type: constants.RESET_PWD_SUCCESS
       });
-      handleError("Successfully Send!");
+      handleInfo("Verification code was sent successfully");
       return true;
     }
     dispatch({

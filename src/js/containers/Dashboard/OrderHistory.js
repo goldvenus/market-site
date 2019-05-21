@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import { compose } from "redux";
 import { withRouter } from 'react-router-dom';
 import { Table } from 'reactstrap';
-import { getOrderHistory } from '../../core/actions/dashboard.action';
-import { days, getDateStr } from "../../core/helper";
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
-import OrderConfirmModal from "./OrderHistory/OrderConfirmModal"
-import OrderRatingModal from "./OrderHistory/OrderRatingModal"
 import BarLoader from "react-bar-loader";
 import $ from "jquery";
 import {Pagination, PaginationItem, PaginationLink} from 'reactstrap';
+import { getOrderHistory } from '../../core/actions/dashboard.action';
+import { days, getDateStr } from "../../core/helper";
+import OrderConfirmModal from "./OrderHistory/OrderConfirmModal"
+import OrderRatingModal from "./OrderHistory/OrderRatingModal"
 import EmptyRental from "./OrderHistory/EmptyRental";
 
 class OrderHistory extends Component {
@@ -96,7 +96,7 @@ class OrderHistory extends Component {
                             <span className='grey-small-text'>{days(Date(first_item.startDate), Date(first_item.endDate))} days</span>
                         </div>
                         <div className="owner">
-                            <img src={first_item.OwnerInfo.picture} alt={first_item.OwnerInfo.given_name}/>
+                            <img src={first_item.OwnerInfo.picture} alt=''/>
                             <div>
                                 <span className="grey-small-text">Landlord</span>
                                 <span className="owner-name">{first_item.OwnerInfo.given_name}</span>
@@ -206,7 +206,7 @@ class OrderHistory extends Component {
                                 <span className='grey-small-text'>{days(Date(first_item.startDate), Date(first_item.endDate))} days</span>
                             </div>
                             <div className="owner">
-                                <img src={first_item.OwnerInfo.picture} alt={first_item.OwnerInfo.given_name}/>
+                                <img src={first_item.OwnerInfo.picture} alt=''/>
                                 <div>
                                     <span className="grey-small-text">Landlord</span>
                                     <span className="owner-name">{first_item.OwnerInfo.given_name}</span>

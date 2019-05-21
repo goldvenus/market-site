@@ -112,6 +112,9 @@ export default keyMirror({
     DO_CHECKOUT_REQUEST: null,
     DO_CHECKOUT_SUCCESS: null,
     DO_CHECKOUT_FAILED: null,
+  
+    // save checkout info
+    SAVE_CHECKOUT_INFO: null,
 
     // ==== get payment cards ==== //
     GET_PAY_CARDS_REQUEST: null,

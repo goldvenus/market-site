@@ -9,6 +9,7 @@ import EmptyActivity from '../../components/EmptyActivity'
 import CustomSpinner from "../../components/CustomSpinner";
 import UrllinkClass from "../../components/UrllinkClass";
 import CartModal2 from "../../components/common/CartModal2";
+import {handleError} from "../../core/actions/common.action";
 
 class Cart extends Component {
   constructor(props) {
@@ -45,6 +46,15 @@ class Cart extends Component {
       }) : this.setState({
         isModalOpen: false
       })
+  };
+  
+  proceedToCheckout = () => {
+    const { carts } = this.props;
+    if (carts && carts.length > 0) {
+      this.props.history.push('/checkout');
+    } else {
+      handleError('Your cart is empty');
+    }
   };
 
   renderCartItems() {
@@ -169,9 +179,7 @@ class Cart extends Component {
 
     return (
       <React.Fragment>
-        {
-          (isDeleting || isLoading) && <CustomSpinner/>
-        }
+        { (isDeleting || isLoading) && <CustomSpinner/> }
         <div className="cart_view centered-content">
           <Breadcrumb className= "card_content_path">
             <UrllinkClass name="Home"> </UrllinkClass>
@@ -182,7 +190,7 @@ class Cart extends Component {
             <h2 className="theme-page-title">Cart</h2>
             <div className="flex-row d-none d-lg-flex" >
               <button className="theme-btn theme-btn-secondery"><Link to="/favourites">Favourites</Link></button>
-              <button className="theme-btn theme-btn-primary"><Link to="/checkout">Continue Shopping</Link></button>
+              <button className="theme-btn theme-btn-primary" onClick={this.proceedToCheckout}>Proceed to checkout</button>
             </div>
           </div>
           <div className="cart-table-div">
@@ -209,7 +217,7 @@ class Cart extends Component {
           </div>
           <div className="flex-row d-flex d-lg-none" >
             <button className="theme-btn theme-btn-secondery col-9"><Link to="/favourites">Favorites</Link></button>
-            <button className="theme-btn theme-btn-primary theme-btn-link col-14 continue-shpping-mobile-btn"><Link to="/rentgear">Continue Shopping</Link></button>
+            <button className="theme-btn theme-btn-primary theme-btn-link col-14 continue-shpping-mobile-btn" onClick={this.proceedToCheckout}>Proceed to checkout</button>
           </div>
         </div>
         {
