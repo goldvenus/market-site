@@ -76,7 +76,7 @@ class Payment extends Component {
   }
   
   /**********************\/
-  \/ ***  nummus pay  ***\/
+  \/ ***  nummus pay *** \/
   \/**********************/
   createCustomer = async () => {
     let user = this.props.user;
@@ -86,6 +86,7 @@ class Payment extends Component {
     let lastName = checkoutInfo.lastName;
     let zip = checkoutInfo.zip;
     let billingAddress = checkoutInfo.addr;
+    let city = checkoutInfo.city;
     
     let data = {
       "Email": email,
@@ -96,7 +97,7 @@ class Payment extends Component {
       "BillingZip": zip,
       "BillingCountry": "US",
       "BillingState": "TX",
-      "BillingCity": "Dallas",
+      "BillingCity": city,
     };
     
     let res = await createNummusCustomer({customerInfo: data, signUpInfo: {email: user.email, userType: user.userType}});
@@ -120,11 +121,11 @@ class Payment extends Component {
   
   createCardToken = async () => {
     let checkoutInfo = this.checkoutInfo;
-    let { expiration_month, expiration_year, cvv } = this.state;
+    let { expiration_month, expiration_year, cvv, card_holder } = this.state;
     let model = {
       email: checkoutInfo.email,
-      firstName: checkoutInfo.firstName,
-      lastName: checkoutInfo.lastName,
+      firstName: card_holder.split(' ')[0],
+      lastName: card_holder.split(' ')[1],
       billingAddress: checkoutInfo.addr,
       zip: checkoutInfo.zip,
       number: checkoutInfo.cardNumber,
@@ -133,17 +134,26 @@ class Payment extends Component {
       cvv: cvv
     };
 
-    // get credit card token, register payment method into account
-    window.Nummuspay.SetPublicKey(this.credentials.publicKey);
-    let res = await window.Nummuspay.CreateToken(model);
-    
-    if (res) {
-      this.credentials.creditCardToken = res;
-    } else {
-      handleError("Please provide correct information");
-      res = false;
+    try {
+      // get credit card token, register payment method into account
+      window.Nummuspay.SetPublicKey(this.credentials.publicKey);
+      let res = await window.Nummuspay.CreateToken(model);
+  
+      if (res) {
+        this.credentials.creditCardToken = res;
+      } else {
+        handleError("Please provide correct information");
+        res = false;
+      }
+      return res;
+    } catch (error) {
+      if (!error.response) {
+        // network error
+        handleError("Network Connection Error");
+      } else {
+        handleError(error.response.data.message);
+      }
     }
-    return res;
   };
   
   handleCharge = async () => {
@@ -155,10 +165,10 @@ class Payment extends Component {
       // checks if it really exists in nummuspay, if not, create one
       let customerInfo = await checkExistingNummusCustomer(customerId);
       if (!customerInfo) {
-        // console.log(`customer ${customerId} doesn't exist, will create new one`);
+        console.log(`customer ${customerId} doesn't exist, will create new one`);
         customerId = null;
       } else {
-        // console.log(`customer ${customerId} exists`);
+        console.log(`customer ${customerId} exists`);
       }
     }
     if (!customerId) {
@@ -175,18 +185,17 @@ class Payment extends Component {
     // 2. create card token - register customer's sensitive information
     this.checkoutInfo.customerId = customerId;
     let cardToken = await this.createCardToken();
-    // console.log("==== create card token response: ====", cardToken);
     
     if (cardToken) {
-      handleInfo("Credit card token was created successfully");
+      handleInfo("Billing information was sent successfully");
       let res = await this.chargeCustomer();
-      // console.log("==== payment result: ", res);
       if (res) {
-        // payment successful
         return true;
+      } else {
+        return false;
       }
     } else {
-      handleError("Credit card token was not created");
+      // handleError("Credit card token was not created");
     }
     return false;
   };
@@ -199,6 +208,9 @@ class Payment extends Component {
       return false;
     } else if (!validateCard(card_number)) {
       handleError('Your card is invalid!');
+      return false;
+    } else if (card_holder.split(' ').length < 2) {
+      handleError('Please provide correct cardholder name');
       return false;
     }
     
@@ -229,7 +241,7 @@ class Payment extends Component {
     let payResult = await this.handleCharge();
     if (payResult) {
       let response = await payment(data);
-      // load user's cart info
+      // update user's cart info
       await getCarts();
       this.props.history.push(`/payment/${checkout_id}/${response}`);
     }

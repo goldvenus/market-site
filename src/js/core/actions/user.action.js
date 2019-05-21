@@ -43,7 +43,6 @@ const login = async (data) => {
 
   let response = await post('signin', data);
   if (!!response && response.data.status === 'success') {
-    console.log(response.data.data);
     dispatch({
       type: constants.LOGIN_SUCCESS,
       payload: response.data.data.userAttributes

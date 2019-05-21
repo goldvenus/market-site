@@ -43,7 +43,6 @@ const getCheckout = data => {
         type: constants.GET_CHECKOUT_SUCCESS,
         payload: response.data
       });
-      console.log(response.data);
       resolve(response.data);
     } catch (error) {
       handleError(error);

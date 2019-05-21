@@ -153,6 +153,7 @@ class Checkout extends Component {
     let amount = total + tax + fee;
     let { firstName, lastName, addr, city, zip, saveAddr, productRegion, addrList, projectName } = this.state;
     let addrList_temp = getUniqueObjectArray(addrList);
+    console.log(addrList_temp);
 
     return (
       <React.Fragment>
@@ -277,7 +278,8 @@ class Checkout extends Component {
                   <div className="theme-form-field flex-md-12">
                     <TextField
                       className='checkout-textfield custom-beautiful-textfield'
-                      placeholder='Region' type="text"
+                      placeholder='Region'
+                      type="text"
                       value={productRegion}
                       onChange={(e) => this.handleInputChange(e, 'productRegion')}
                     />

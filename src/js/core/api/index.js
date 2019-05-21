@@ -1,6 +1,7 @@
 import axios from "axios";
 import {API_URL} from '../constants';
 import {logout} from "../actions/user.action";
+import {handleError} from "../actions/common.action";
 
 const getAPIUrl = (url) => API_URL + url;
 
@@ -56,7 +57,13 @@ const get = async (url) => {
         console.log(res.data.errorMessage);
       return res;
     }
-  }).catch(err => {
+  }).catch ((error) => {
+    if (!error.response) {
+      // network error
+      handleError("Network Connection Error");
+    } else {
+      handleError(error.response.data.message);
+    }
     return false;
   });
 };
@@ -72,7 +79,13 @@ const post = async (url, data) => {
         console.log(res.data.errorMessage);
       return res;
     }
-  }).catch(err => {
+  }).catch ((error) => {
+    if (!error.response) {
+      // network error
+      handleError("Network Connection Error");
+    } else {
+      handleError(error.response.data.message);
+    }
     return false;
   });
 };
