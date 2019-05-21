@@ -109,6 +109,9 @@
           button {
             width: 100%;
             font-weight: 600;
+            &:first-child {
+              margin-bottom: 20px;
+            }
           }
           .return-btn {
             background-color: white;
@@ -137,9 +140,9 @@
             color: #DBA61C !important;
           }
           .warning-btn:hover {
-            color: white !important;
-            background-color: #F82462;
-            border: solid 1px #F82462;
+            //color: white !important;
+            //background-color: #F82462;
+            //border: solid 1px #F82462;
           }
         }
       }
@@ -152,7 +155,6 @@
       justify-content: space-between;
 
       span {
-        width: 80px;
         display: inline-block;
         padding: 3px 0;
       }
@@ -365,9 +367,9 @@
             color: #DBA61C !important;
           }
           .warning-btn:hover {
-            color: white !important;
-            background-color: #F82462;
-            border: solid 1px #F82462;
+            //color: white !important;
+            //background-color: #F82462;
+            //border: solid 1px #F82462;
           }
         }
       }
@@ -457,6 +459,7 @@
             text-align: center;
             padding:15px;
             display: grid;
+            width: 100%;
 
             img {
               width:93px;

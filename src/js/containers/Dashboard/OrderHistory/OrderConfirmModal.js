@@ -37,25 +37,34 @@ class OrderConfirmModal extends Component {
     });
   };
   
+  handleReturnConfirm = (item) => {
+    this.setState({
+      modalOpenState: 2,
+      curItem: item
+    });
+  };
+  
   render() {
-    // const {card_number, expiration_year, expiration_month, card_holder, total, tax, fee, amount} = this.props.info;
     let {info} = this.props;
     let expiration_date = info.ExpirationDate.toString();
     let sold_items = info.SoldItems;
     expiration_date = expiration_date.substr(0, 2) + '/' + expiration_date.substr(2, 2);
-    
+
     return (
       <Modal open={true} onClose={this.handleClose} center classNames={{modal: "order-modal"}}>
         <div className="order-modal-desktop-tablet">
-          <div className="order-modal-header"><span>{info.ProjectName}
-            <svg className="edit_icon"/></span></div>
+          <div className="order-modal-header">
+            <span>{info.ProjectName}<svg className="edit_icon"/></span>
+          </div>
           <div className="order-modal-body">
             <div className="paid-items">
               {
                 sold_items.map((listItem, index) => {
-                  const pick_status = 1 * listItem.PickStatus;
-                  const btn_label1 = pick_status < 1 ? "CONFIRM PICKUP" : "PICKUP CONFIRMED";
-                  const btn_label2 = "CONFIRM RETURN";
+                  let pick_status = 1 * listItem.PickStatus;
+                  let btn_label1 = pick_status < 1 ? "CONFIRM PICKUP" : "PICKUP CONFIRMED";
+                  let btn_label2 = "CONFIRM RETURN";
+                  let pickupBtnState = pick_status < 1 ? 'return-btn active-btn'
+                    : pick_status < 2 ? 'warning-btn disabled' : 'success-btn disabled';
                   
                   return <div key={`cart-item-${index}`} className="paid-item">
                     <div className='pay-info pay-info-history'>
@@ -99,11 +108,15 @@ class OrderConfirmModal extends Component {
                     </div>
                     <div className='pickup-btn-container'>
                       <div>
+                        <button className={`theme-btn pickup-btn ${pickupBtnState}`}
+                          onClick={() => pick_status < 1 && this.handlePickupConfirm(listItem)}>
+                          {btn_label1}
+                        </button>
                         <button
-                          className={`theme-btn pickup-btn ${pick_status < 1 ? 'warning-btn' : 'success-btn disabled'}`}
-                          onClick={() => this.handlePickupConfirm(listItem)}>{btn_label1}</button>
-                        <button
-                          className={`theme-btn return-btn ${pick_status < 1 ? 'disabled disabled-btn' : 'active-btn'}`}>{btn_label2}</button>
+                          className={`theme-btn return-btn ${pick_status < 2 ? 'disabled disabled-btn' : 'active-btn'}`}
+                          onClick={() => pick_status > 1 && this.handleReturnConfirm(listItem)}>
+                          {btn_label2}
+                        </button>
                       </div>
                     </div>
                   </div>;
@@ -128,7 +141,7 @@ class OrderConfirmModal extends Component {
                 <div className="payment-card">
                   <div className="flex-row payment-card-info">
                     <img src="/images/cards/master-card.svg" alt=""/>
-                    <div className="payment-card-number">**** {info.CardNumber.substr(-4, 4)}</div>
+                    <div className="payment-card-number">{info.CardNumber}</div>
                   </div>
                   <div className="flex-row payment-card-other">
                     <span>{expiration_date}</span>
@@ -157,9 +170,11 @@ class OrderConfirmModal extends Component {
             <div className="paid-items">
               {
                 sold_items.map((listItem, index) => {
-                  const pick_status = 1 * listItem.PickStatus;
-                  const btn_label1 = pick_status < 1 ? "CONFIRM PICKUP" : "PICKUP CONFIRMED";
-                  const btn_label2 = "CONFIRM RETURN";
+                  let pick_status = 1 * listItem.PickStatus;
+                  let btn_label1 = pick_status < 1 ? "CONFIRM PICKUP" : "PICKUP CONFIRMED";
+                  let btn_label2 = "CONFIRM RETURN";
+                  let pickupBtnState = pick_status < 1 ? 'return-btn active-btn'
+                    : pick_status < 2 ? 'disabled-btn warning-btn disabled' : 'disabled-btn success-btn disabled';
                   
                   return <div key={`cart-item-${index}`} className="paid-item d-block">
                     <div className='pay-info pay-info-history'>
@@ -203,14 +218,17 @@ class OrderConfirmModal extends Component {
                     </div>
                     <div className='pickup-btn-container'>
                       <div>
-                        <button
-                          className={`theme-btn pickup-btn ${pick_status < 1 ? 'warning-btn' : 'success-btn disabled'}`}
-                          onClick={() => this.handlePickupConfirm(listItem)}>{btn_label1}</button>
-                        <button
-                          className={`theme-btn return-btn ${pick_status < 1 ? 'disabled disabled-btn' : 'active-btn'}`}>{btn_label2}</button>
+                        <button className={`theme-btn pickup-btn ${pickupBtnState}`}
+                          onClick={() => pick_status < 1 && this.handlePickupConfirm(listItem)}>
+                          {btn_label1}
+                        </button>
+                        <button className={`theme-btn return-btn ${pick_status < 2 ? 'disabled disabled-btn' : 'active-btn'}`}
+                          onClick={() => pick_status > 1 && this.handleReturnConfirm(listItem)}>
+                          {btn_label2}
+                        </button>
                       </div>
                     </div>
-                  </div>;
+                  </div>
                 })
               }
               {/*<div className='rating-select-container'>*/}
@@ -254,7 +272,7 @@ class OrderConfirmModal extends Component {
                   <div className="payment-card">
                     <div className="flex-row">
                       <img src="/images/cards/master-card.svg" alt=""/>
-                      <div className="payment-card-number">**** {info.CardNumber.substr(-4, 4)}</div>
+                      <div className="payment-card-number">{info.CardNumber}</div>
                     </div>
                     <div className="flex-row payment-card-other">
                       <span>{expiration_date}</span>
@@ -298,11 +316,18 @@ class OrderConfirmModal extends Component {
           </div>
         </div>
         {this.state.modalOpenState === 1 &&
-        <PickupConfirmModal info={this.state.curItem} onClose={this.handleClosePickup}
-                            onSuccess={this.handlePickupSuccess}/>}
+        <PickupConfirmModal
+          info={this.state.curItem}
+          paymentId={info.PaymentId}
+          onClose={this.handleClosePickup}
+          onSuccess={this.handlePickupSuccess}
+        />}
         {this.state.modalOpenState === 2 &&
-        <PickupSuccessModal info={this.state.curItem} onClose={this.handleClosePickup}
-                            onSuccess={this.handlePickupSuccess}/>}
+        <PickupSuccessModal
+          info={this.state.curItem}
+          onClose={this.handleClosePickup}
+          onSuccess={this.handlePickupSuccess}
+        />}
       </Modal>
     )
   }

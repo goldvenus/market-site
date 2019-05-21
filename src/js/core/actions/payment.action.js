@@ -73,7 +73,9 @@ const doNummusCharge = async (data) => {
   if (res && res.data && res.data.status === 'success') {
     return res.data.data;
   } else {
-    handleError(res.data.errorMessage);
+    console.log(res);
+    if (res.data && res.data.errorMessage)
+      handleError(res.data.errorMessage);
     return false;
   }
 };
@@ -83,6 +85,7 @@ const createNummusCustomer = async (data) => {
   if (res && res.data && res.data.status === 'success') {
     return res.data.data;
   } else {
+    console.log(res);
     handleError("Please use another email, there's already someone with the same email as yours");
     return false;
   }

@@ -30,7 +30,7 @@ const getOrderHistory = async () => {
     type: constants.GET_ORDER_HISTORY_REQUEST,
   });
   try {
-    let response = await get('getorderhistory');
+    let response = await get('getOrderHistory');
     if (response && response.data && response.data.status === 'success') {
       dispatch({
         type: constants.GET_ORDER_HISTORY_SUCCESS,
@@ -51,7 +51,7 @@ const getOrderDetail = async (data) => {
   });
   return new Promise(async (resolve, reject) => {
     try {
-      let response = await post('getorderdetail', data);
+      let response = await post('getOrderDetail', data);
       if (response && response.data && response.data.status === 'success') {
         dispatch({
           type: constants.GET_ORDER_DETAIL_SUCCESS
@@ -68,6 +68,15 @@ const getOrderDetail = async (data) => {
       reject(false);
     }
   });
+};
+
+const setPickupState = async (data) => {
+  let res = await post("setPickupState", data);
+  if (res && res.data && res.data.status === 'success') {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 const getGearRentState = (data) => {
@@ -101,6 +110,7 @@ const setBlockPeriod = (data) => {
 };
 
 export {
-  viewUserDashboard, getOrderDetail, getOrderHistory,
-  getGearRentState, setBlockPeriod
+  viewUserDashboard,
+  getGearRentState, setBlockPeriod,
+  getOrderDetail, getOrderHistory, setPickupState
 }

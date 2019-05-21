@@ -160,5 +160,5 @@ export default keyMirror({
     GET_ORDER_DETAIL_REQUEST: null,
     GET_ORDER_DETAIL_SUCCESS: null,
     GET_ORDER_DETAIL_FAILED: null,
-
+    
 });
