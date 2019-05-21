@@ -75,6 +75,7 @@ const setPickupState = async (data) => {
   if (res && res.data && res.data.status === 'success') {
     return true;
   } else {
+    res && res.data && res.data.errorMessage && handleError(res.data.errorMessage);
     return false;
   }
 };

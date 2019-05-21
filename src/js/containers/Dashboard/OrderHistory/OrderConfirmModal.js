@@ -78,7 +78,7 @@ class OrderConfirmModal extends Component {
                           <div className='buyer-profile owner-profile'>
                             <img src={listItem.OwnerInfo.picture} alt=""/>
                             <div>
-                              <span className="duration">{listItem.OwnerInfo.region}</span>
+                              <span className="duration">{listItem.OwnerInfo.given_name}</span>
                               <span className="phone-number">{listItem.OwnerInfo.phone_number}</span>
                             </div>
                           </div>
@@ -101,7 +101,7 @@ class OrderConfirmModal extends Component {
                         <div>
                           <div className="grey-small-text">Price</div>
                           <div>
-                            <b>${listItem.pricePerDay * days(Date(listItem.startDate), Date(listItem.endDate))}</b> for <b>{days(listItem.startDate, listItem.endDate)}</b> days
+                            <b>${listItem.pricePerDay * days(new Date(listItem.startDate), new Date(listItem.endDate))}</b> for <b>{days(listItem.startDate, listItem.endDate)}</b> days
                           </div>
                         </div>
                       </div>
@@ -211,7 +211,7 @@ class OrderConfirmModal extends Component {
                         </div>
                         <div>
                           <div>
-                            <b>${listItem.pricePerDay * days(Date(listItem.startDate), Date(listItem.endDate))}</b> for <b>{days(listItem.startDate, listItem.endDate)}</b> days
+                            <b>${listItem.pricePerDay * days(new Date(listItem.startDate), new Date(listItem.endDate))}</b> for <b>{days(listItem.startDate, listItem.endDate)}</b> days
                           </div>
                         </div>
                       </div>
