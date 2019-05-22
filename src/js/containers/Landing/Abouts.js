@@ -49,7 +49,7 @@ class About extends Component {
                 <h1>About Us</h1>
                 <h4 className="intro">
                   <span className="bold">Creative Market</span>&nbsp;
-                  <span>Introduction</span>
+                  <span className="thin">Introduction</span>
                 </h4>
                 <p className="theme-text-small about-desc">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, consequuntur vitae ipsum doloribus

@@ -4,32 +4,32 @@ const data = {
     {
       text: 'GETTING STARTED',
       imgPath: '/images/faqs/1.png',
-      link: '/faq'
+      link: '/FAQ#'
     },
     {
       text: 'VERIFICATION',
       imgPath: '/images/faqs/2.png',
-      link: '/faq'
+      link: '/FAQ#'
     },
     {
       text: 'PRIVACY',
       imgPath: '/images/faqs/3.png',
-        link: '/faq'
+        link: '/FAQ#'
     },
     {
       text: 'FEES AND PAYMENT',
       imgPath: '/images/faqs/4.png',
-      link: '/faq'
+      link: '/FAQ#'
     },
     {
       text: 'INSURANCE',
       imgPath: '/images/faqs/5.png',
-      link: '/faq'
+      link: '/FAQ#'
     },
     {
       text: 'LOCATIONS',
       imgPath: '/images/faqs/6.png',
-      link: '/faq'
+      link: '/FAQ#'
     }
   ],
 stories:[

@@ -110,7 +110,7 @@ class Home extends React.Component {
       // disable previous & next buttons and dots
       prevNextButtons: false,
       pageDots: false
-    }
+    };
   // const flickityOptions2 = {
   //   contain: true,
   //   // able previous & next buttons and dots
@@ -583,13 +583,13 @@ class Home extends React.Component {
                       {/*reloadOnUpdate                // default false*/}
                     {/*>*/}
                       {data.faqs.map((val, key) => (
-                        <ArrivalItem key={key} {...val}/>
+                        <ArrivalItem itemIndex={key} key={key} {...val}/>
                       ))}
                     {/*</Flickity>*/}
                   </div>
-                  <div className="arrival-items-glow"/>
                 </div>
             </div>
+            {/*<div className="arrival-items-glow"/>*/}
           </div>
 
           <div className="home-new-arrival d-inline d-lg-none slider-2">
@@ -601,7 +601,7 @@ class Home extends React.Component {
                 reloadOnUpdate                // default false
               >
               {data.faqs.map((val, key) => (
-                <div key={key} className="arrival-items arrival-items-inner-wrapper"><ArrivalItem {...val}/></div>
+                <div key={key} className="arrival-items arrival-items-inner-wrapper"><ArrivalItem {...val} itemIndex='0'/></div>
               ))}
             </Flickity>
             <div className="arrival-timer-frame arrival-timer-find-btn custom-button-find"><i className="fa fa-search" /> FAQ</div>
