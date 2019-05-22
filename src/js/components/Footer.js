@@ -9,32 +9,32 @@ class Footer extends Component {
     return (
       <React.Fragment>
         <footer >
-          <div className="news-letter mb-5 py-5">
-            <Container className="news-letter-container">
-              <Row className="align-items-center news-letter-content">
-                <Col sm="12">
-                  <h5>EMAIL NEWSLETTERS</h5>
-                  <p className="theme-text-small">Keep me up to date with content ,updates ,and offers from Creative Market</p>
-                  <div className="theme-form-group d-none d-md-flex">
-                    <input placeholder="Your email..." className="theme-form-control" />
-                    <button className="theme-btn theme-btn-primary subscribe-btn">Subscribe</button>
-                  </div>
-                  <div className="theme-form-group d-flex d-sm-none">
-                    <input placeholder="Your email..." className="theme-form-control" />
-                    <button className="theme-btn theme-btn-primary subscribe-btn"><i className="fas fa-arrow-right"/></button>
-                  </div>
-                </Col>
-                <Col sm="6" className="text-xs-center mt-xs">
-                  <h3 className="theme-text-primary">12233</h3>
-                  <p>Community Members</p>
-                </Col>
-                <Col sm="6" className="text-xs-center">
-                  <h3 className="theme-text-primary">2143</h3>
-                  <p>Products</p>
-                </Col>
-              </Row>
-            </Container>
-          </div>
+          {/*<div className="news-letter mb-5 py-5">*/}
+            {/*<Container className="news-letter-container">*/}
+              {/*<Row className="align-items-center news-letter-content">*/}
+                {/*<Col sm="12">*/}
+                  {/*<h5>EMAIL NEWSLETTERS</h5>*/}
+                  {/*<p className="theme-text-small">Keep me up to date with content ,updates ,and offers from Creative Market</p>*/}
+                  {/*<div className="theme-form-group d-none d-md-flex">*/}
+                    {/*<input placeholder="Your email..." className="theme-form-control" />*/}
+                    {/*<button className="theme-btn theme-btn-primary subscribe-btn">Subscribe</button>*/}
+                  {/*</div>*/}
+                  {/*<div className="theme-form-group d-flex d-sm-none">*/}
+                    {/*<input placeholder="Your email..." className="theme-form-control" />*/}
+                    {/*<button className="theme-btn theme-btn-primary subscribe-btn"><i className="fas fa-arrow-right"/></button>*/}
+                  {/*</div>*/}
+                {/*</Col>*/}
+                {/*<Col sm="6" className="text-xs-center mt-xs">*/}
+                  {/*<h3 className="theme-text-primary">12233</h3>*/}
+                  {/*<p>Community Members</p>*/}
+                {/*</Col>*/}
+                {/*<Col sm="6" className="text-xs-center">*/}
+                  {/*<h3 className="theme-text-primary">2143</h3>*/}
+                  {/*<p>Products</p>*/}
+                {/*</Col>*/}
+              {/*</Row>*/}
+            {/*</Container>*/}
+          {/*</div>*/}
           <div className="footer-nav d-none d-lg-block">
             <Container style={{    marginTop: -35}}>
               <div className="row">
@@ -44,19 +44,19 @@ class Footer extends Component {
                 <div className="row">
                   <ul className="nav text-xs-right">
                     <li className="nav-item">
-                      <Link className="nav-link" to="#"><span style={{ fontSize: 16, color: '#252525' }}>About us</span></Link>
+                      <Link className="nav-link" to="/aboutus"><span style={{ fontSize: 16, color: '#252525' }}>About us</span></Link>
                     </li>
                     {/*<li className="nav-item">*/}
                       {/*<Link className="nav-link" to="#"><span style={{ fontSize: 16, color: '#252525' }}>Stories</span></Link>*/}
                     {/*</li>*/}
                     <li className="nav-item">
-                      <Link className="nav-link" to="#"><span style={{ fontSize: 16, color: '#252525' }}>Blog</span></Link>
+                      <Link className="nav-link" to="/blog"><span style={{ fontSize: 16, color: '#252525' }}>Blog</span></Link>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link " to="#"><span style={{ fontSize: 16, color: '#252525' }}>Contacts</span></Link>
+                      <Link className="nav-link " to="/contacts"><span style={{ fontSize: 16, color: '#252525' }}>Contacts</span></Link>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link " to="#"><span style={{ fontSize: 16, color: '#252525' }}>FAQs</span></Link>
+                      <Link className="nav-link " to="FAQ"><span style={{ fontSize: 16, color: '#252525' }}>FAQs</span></Link>
                     </li>
                   </ul>
                 </div>

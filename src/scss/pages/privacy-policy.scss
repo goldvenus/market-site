@@ -12,7 +12,7 @@
       display: list-item;
     }
   }
-  .legal-ul {
+  .alpha-ul {
     list-style: lower-alpha;
   }
   a {
@@ -23,6 +23,25 @@
     p {
       font-style: italic;
       margin: 1rem 0;
+    }
+  }
+  h4 {
+    margin: 2rem 0 1rem;
+  }
+}
+
+.terms-conditions-body {
+  font-size: 20px;
+  line-height: 1.7;
+  ul {
+    margin-left: 25px;
+    list-style: none;
+
+    li {
+      font-size: 20px !important;
+      margin: 15px 0;
+      line-height: 1.7;
+      display: list-item;
     }
   }
   h4 {

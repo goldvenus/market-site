@@ -65,7 +65,7 @@ const PrivacyPolicy = () => (
             
             <h4>4&nbsp;&nbsp;&nbsp;Legal basis of processing</h4>
             <div>We may process Personal Data relating to Users if one of the following applies:
-              <ul className='legal-ul'>
+              <ul className='alpha-ul'>
                 <li>	Users have given their consent for one or more specific purposes. Note: Under some legislations we may be allowed to process Personal Data until the User objects to such processing (“opt-out”), without having to rely on consent or any other of the following legal bases. This, however, does not apply, whenever the processing of Personal Data is subject to European data protection law;</li>
                 <li>	The delivery of Data is necessary for the performance of an agreement with the User and/or for any pre-contractual obligations thereof;</li>
                 <li>	The processing is necessary in order to comply with a legal obligation to which we are subject;</li>
@@ -121,7 +121,7 @@ const PrivacyPolicy = () => (
               Creative.Market may ask for some Facebook permissions allowing it to perform actions with the User's Facebook account and to retrieve information, including Personal Data, from it. This service allows Creative.Market to connect with the User's account on the Facebook social network, provided by Facebook Inc.
             </p>
             <p>
-              For more information about the following permissions, refer to the <a href='https://developers.facebook.com/docs/facebook-login/permissions'>Facebook permissions documentation</a> and to the <a href="https://www.facebook.com/about/privacy/">Facebook privacy policy</a>.
+              For more information about the following permissions, refer to the <a href='https://developers.facebook.com/docs/facebook-login/permissions' target="_blank" rel="noopener noreferrer">Facebook permissions documentation</a> and to the <a href="https://www.facebook.com/about/privacy/" rel="noopener noreferrer" target="_blank">Facebook privacy policy</a>.
             </p>
             
             <h4>9&nbsp;&nbsp;&nbsp;Device permissions for Personal Data access</h4>
@@ -174,7 +174,7 @@ const PrivacyPolicy = () => (
               Personal Data collected: Cookies and Usage Data.
             </p>
             <p>
-              Place of processing: United States – <a href="https://policies.google.com/privacy?hl=en">Privacy Policy</a> – <a href="https://tools.google.com/dlpage/gaoptout?hl=en">Opt Out</a>. Privacy Shield participant.
+              Place of processing: United States – <a href="https://policies.google.com/privacy?hl=en" target="_blank" rel="noopener noreferrer">Privacy Policy</a> – <a href="https://tools.google.com/dlpage/gaoptout?hl=en" target="_blank" rel="noopener noreferrer">Opt Out</a>. Privacy Shield participant.
             </p>
             
             <h4>13&nbsp;&nbsp;&nbsp;PayPal (PayPal Inc.)</h4>

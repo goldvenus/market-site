@@ -447,9 +447,17 @@
     width: 15px
   }
 }
+
 .row {
   margin-left: 0;
   margin-right: 0;
+}
+
+footer {
+  background-color: #F8F8F8 !important;
+  .footer-bottom {
+    background-color: #EAEAEA !important;
+  }
 }
 
 @media (min-width: 567px) and (max-width: 991.98px) {
