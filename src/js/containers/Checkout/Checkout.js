@@ -176,7 +176,7 @@ class Checkout extends Component {
               <div className="theme-form-field">
                 <TextField
                   className='checkout-textfield custom-beautiful-textfield'
-                  placeholder='Project name'
+                  label='Project name'
                   type="text"
                   value={projectName}
                   onChange={e => this.handleInputChange(e, 'projectName')}
@@ -214,8 +214,8 @@ class Checkout extends Component {
                 <div className="flex-row">
                   <div className="theme-form-field flex-md-12">
                     <TextField
-                      className='checkout-textfield custom-beautiful-textfield'
-                      placeholder='First Name'
+                      className='custom-beautiful-textfield'
+                      label='First Name'
                       type="text"
                       value={firstName}
                       onChange={e => this.handleInputChange(e, 'firstName')}
@@ -223,8 +223,8 @@ class Checkout extends Component {
                   </div>
                   <div className="theme-form-field flex-md-12">
                     <TextField
-                      className='checkout-textfield custom-beautiful-textfield'
-                      placeholder='Last Name'
+                      className='custom-beautiful-textfield'
+                      label='Last Name'
                       type="text"
                       value={lastName}
                       onChange={e => this.handleInputChange(e, 'lastName')}
@@ -234,8 +234,8 @@ class Checkout extends Component {
                 <div className="flex-row">
                   <div className="theme-form-field flex-md-12">
                     <TextField
-                      className='checkout-textfield custom-beautiful-textfield'
-                      placeholder='Address'
+                      className='custom-beautiful-textfield'
+                      label='Address'
                       type="text"
                       value={addr}
                       onChange={e => this.handleInputChange(e, 'addr')}
@@ -243,8 +243,8 @@ class Checkout extends Component {
                   </div>
                   <div className="theme-form-field flex-md-12">
                     <TextField
-                      className='checkout-textfield custom-beautiful-textfield'
-                      placeholder='City'
+                      className='custom-beautiful-textfield'
+                      label='City'
                       type="text"
                       value={city}
                       onChange={(e) => this.handleInputChange(e, 'city')}
@@ -254,8 +254,8 @@ class Checkout extends Component {
                 <div className="flex-row">
                   <div className="theme-form-field flex-md-12">
                     <TextField
-                      className='checkout-textfield custom-beautiful-textfield'
-                      placeholder='Region'
+                      className='custom-beautiful-textfield'
+                      label='Region'
                       type="text"
                       value={productRegion}
                       onChange={(e) => this.handleInputChange(e, 'productRegion')}
@@ -263,8 +263,8 @@ class Checkout extends Component {
                   </div>
                   <div className="theme-form-field flex-md-12">
                     <TextField
-                      className='checkout-textfield custom-beautiful-textfield'
-                      placeholder='Zip'
+                      className='custom-beautiful-textfield'
+                      label='Zip'
                       type="text"
                       value={zip}
                       onChange={(e) => this.handleInputChange(e, 'zip')}
@@ -304,8 +304,8 @@ class Checkout extends Component {
           </div>
           <div className="container flex-row flex-align-stretch ">
             <div className="flex-row bottom-buttons">
-              <button className="theme-btn theme-btn-secondery theme-btn-link btn-edit-order-bottom"><Link to="/cart">Edit Order</Link></button>
-              <button className="theme-btn theme-btn-primary btn-payment" onClick={this.onCheckout}>Payment</button>
+              <button className="theme-btn theme-btn-secondery btn-edit-order-bottom"><Link to="/cart">Back to Cart</Link></button>
+              <button className="theme-btn theme-btn-primary" onClick={this.onCheckout}>Proceed to Payment</button>
             </div>
           </div>
         </div>

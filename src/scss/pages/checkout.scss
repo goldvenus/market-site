@@ -10,6 +10,12 @@
     line-height: normal;
     color: #252525;
   }
+  .custom-beautiful-textfield {
+    width: 100%;
+    input {
+      padding-left: 15px;
+    }
+  }
   .billing-address, .order-info {
     border: 30px solid #faf8f9;
 
@@ -91,7 +97,13 @@
   }
 
   .bottom-buttons {
-    margin-top: 15px;
+    margin: 25px 0;
+    button {
+      padding: 8px 16px;
+    }
+    .theme-btn-primary {
+      border: 1px solid #f82462;
+    }
   }
   .btn-edit-order-bottom {
     padding: 5px 30px;
@@ -130,10 +142,6 @@
   padding: 0 !important;
   margin-left: 0 !important;
   flex: 1;
-}
-
-.checkout-textfield {
-  width: 100%;
 }
 
 .save-addr-btn label {
@@ -212,6 +220,12 @@
     .theme-form {
       padding: 20px 16px 20px !important;
     }
+    .custom-beautiful-textfield {
+      text-align: center;
+      input {
+        padding-left: 0;
+      }
+    }
     .bottom-buttons {
       width: 100%;
       margin: 30px 0;
@@ -241,56 +255,53 @@
       .checkout-header, .address-select {
         padding: 25px 16px;
       }
-      .order-info {
-        width: 100%;
+    }
+    .order-info {
+      width: 100%;
 
-        .order-info-header {
-          padding: 20px 30px !important;
-          font-family: Gotham Pro;
-          font-size: 14px;
-          line-height: 23px;
-          letter-spacing: 0.09em;
-          text-transform: uppercase;
-          color: #AAAAAA;
-        }
-        .btn-edit-order {
-          padding: 0 !important;
-          min-width: 80px !important;
-        }
-        .order-info-body {
-          padding: 0 !important;
-        }
-        .checkout-items {
-          margin: 0;
-          border-bottom: none !important;
-
-          .checkout-item {
-            display: block;
-            padding: 15px 30px !important;
-            border-bottom: 1px solid #EAEAEA !important;
-          }
-        }
-        .checkout-total {
-          padding: 15px 30px !important;
-          border-top: none;
-        }
-        .checkout-amount {
-          padding: 15px 30px !important;
-          margin: 0;
-        }
+      .order-info-header {
+        padding: 16px !important;
+        font-family: Gotham Pro;
+        font-size: 14px;
+        line-height: 23px;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        color: #AAAAAA;
       }
-      .btn-edit-order-bottom {
+      .btn-edit-order {
+        padding: 0 !important;
+        min-width: 80px !important;
+      }
+      .order-info-body {
         padding: 0 !important;
       }
-      .footer-bottom {
-        display: block !important;
+      .checkout-items {
+        margin: 0;
+        border-bottom: none !important;
+
+        .checkout-item {
+          display: block;
+          padding: 15px 30px !important;
+          border-bottom: 1px solid #EAEAEA !important;
+        }
       }
-      .mobile-bottom-margin {
-        display: none !important;
+      .checkout-total {
+        padding: 15px 30px !important;
+        border-top: none;
       }
-      .addr-dropdown {
-        position: unset;
+      .checkout-amount {
+        padding: 15px 30px !important;
+        margin: 0;
       }
+    }
+    .footer-bottom {
+      display: block !important;
+    }
+    .mobile-bottom-margin {
+      display: none !important;
+    }
+    .addr-dropdown {
+      position: unset;
     }
   }
 }

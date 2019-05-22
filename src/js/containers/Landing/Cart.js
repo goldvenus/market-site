@@ -190,7 +190,7 @@ class Cart extends Component {
             <h2 className="theme-page-title">Cart</h2>
             <div className="flex-row d-none d-lg-flex" >
               <button className="theme-btn theme-btn-secondery"><Link to="/favourites">Favourites</Link></button>
-              <button className="theme-btn theme-btn-primary" onClick={this.proceedToCheckout}>Proceed to checkout</button>
+              <button className="theme-btn theme-btn-primary" onClick={this.proceedToCheckout}>Proceed to Checkout</button>
             </div>
           </div>
           <div className="cart-table-div">
@@ -217,7 +217,7 @@ class Cart extends Component {
           </div>
           <div className="flex-row d-flex d-lg-none" >
             <button className="theme-btn theme-btn-secondery col-9"><Link to="/favourites">Favorites</Link></button>
-            <button className="theme-btn theme-btn-primary theme-btn-link col-14 continue-shpping-mobile-btn" onClick={this.proceedToCheckout}>Proceed to checkout</button>
+            <button className="theme-btn theme-btn-primary continue-shpping-mobile-btn col-14" onClick={this.proceedToCheckout}>Proceed to Checkout</button>
           </div>
         </div>
         {

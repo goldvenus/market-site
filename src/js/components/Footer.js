@@ -138,7 +138,7 @@ class Footer extends Component {
             </Container>
           </div>
         </footer>
-        <div className='mobile-bottom-margin'/>
+        {/*<div className='mobile-bottom-margin'/>*/}
       </React.Fragment>
     );
   }
