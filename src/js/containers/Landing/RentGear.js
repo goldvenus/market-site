@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import Sidebar from '../../components/Rent Gear/RG_sidebar';
 import Main from '../../components/Rent Gear/RG_main';
-import UrllinkClass from "../../components/UrllinkClass";
+import BreadCrumbActive from "../../components/BreadCrumbActive";
 import connect from "react-redux/es/connect/connect";
 import BarLoader from "react-bar-loader";
 import { fetchCategories } from "../../core/actions/category.action";
@@ -33,7 +33,7 @@ class RentGear extends React.Component {
             <Row>
               <Col>
                 <Breadcrumb>
-                  <UrllinkClass name="Home Page"/>
+                  <BreadCrumbActive name="Home Page"/>
                   <span className="space_slash_span">/</span>
                   <BreadcrumbItem active>Rent Gear </BreadcrumbItem>
                 </Breadcrumb>

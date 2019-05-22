@@ -4,15 +4,16 @@ import {Link} from 'react-router-dom';
 import {Pagination, PaginationItem, PaginationLink, Table} from 'reactstrap';
 import "react-tabs/style/react-tabs.css";
 import EmptyList from './GearHistory/EmptyList'
-import {getListGears} from '../../core/actions/gear.action';
+import {deleteGear, getListGears} from '../../core/actions/gear.action';
 import connect from "react-redux/es/connect/connect";
 import RentalCalendarModal from "./GearHistory/RentalCalendarModal";
 import GearEditModal from "./GearHistory/GearEditModal";
 import BarLoader from "react-bar-loader";
 import $ from 'jquery';
 import {fetchCategories} from "../../core/actions/category.action";
+import ConfirmModal from "../../components/common/ConfirmModal";
 
-const MyListingItem = ({listItem, openEdit, openCalendar}) => (
+const MyListingItem = ({listItem, openEdit, openDelete, openCalendar}) => (
   <React.Fragment>
     <tr className="desktop-gear-item">
       <td width="5%" className="d-lg-table-cell listing-data-image">
@@ -28,8 +29,11 @@ const MyListingItem = ({listItem, openEdit, openCalendar}) => (
         <button className='theme-btn rent-cal-btn' onClick={() => openCalendar(listItem.gearid)}>Rental Calendar
         </button>
       </td>
-      <td width="15%" className="edit-gear-td">
+      <td width="10%" className="edit-gear-td">
         <span className="edit_my_gear" onClick={() => openEdit(listItem.gearid)}/>
+      </td>
+      <td width="10%" className="edit-gear-td">
+        <span className="delete_my_gear" onClick={() => openDelete(listItem.gearid)}/>
       </td>
     </tr>
     <tr className="tablet-gear-item">
@@ -56,13 +60,14 @@ const MyListingItem = ({listItem, openEdit, openCalendar}) => (
         <div className="control-wrapper">
           <span className='edit-rental-calendar' onClick={() => openCalendar(listItem.gearid)}/>
           <span className="edit_my_gear" onClick={() => openEdit(listItem.gearid)}/>
+          <span className="delete_my_gear" onClick={() => openDelete(listItem.gearid)}/>
         </div>
       </td>
     </tr>
   </React.Fragment>
 );
 
-const MyListingItemSm = ({listItem, openEdit, openCalendar}) => (
+const MyListingItemSm = ({listItem, openEdit, openDelete, openCalendar}) => (
   <div className="mylistingitem_sm_parent_div">
     <div className="d-flex mlspd_first">
       <div className="listing-data-image">
@@ -90,6 +95,9 @@ const MyListingItemSm = ({listItem, openEdit, openCalendar}) => (
       <div className="edit-gear-td slspdt_edit_icon">
         <span className="edit_my_gear" onClick={() => openEdit(listItem.gearid)}/>
       </div>
+      <div className="delete-gear-td slspdt_edit_icon">
+        <span className="delete_my_gear" onClick={() => openDelete(listItem.gearid)}/>
+      </div>
     </div>
   </div>
 );
@@ -104,7 +112,8 @@ class MyListings extends React.Component {
       currentPage: 0,
       modal_open_st: 0,
       cur_gear: null,
-      isFirstLoading: true
+      isFirstLoading: true,
+      isDeleting: false
     };
   }
   
@@ -127,6 +136,21 @@ class MyListings extends React.Component {
   
   handleOpenGearEdit = (gearid) => {
     this.setState({modal_open_st: 2, cur_gear: gearid});
+  };
+  
+  handleGearDelete = async (gearid) => {
+    this.setState({modal_open_st: 3, cur_gear: gearid});
+  };
+  
+  performDelete = async () => {
+    this.setState({isDeleting: true});
+    await deleteGear({gearid: this.state.cur_gear});
+    this.pagesCount = Math.ceil((this.props.list.length-1) / this.pageSize);
+    let curPage = this.state.currentPage;
+    console.log(this.state.currentPage, this.pagesCount);
+    if (this.state.currentPage >= this.pagesCount)
+      curPage = curPage - 1;
+    this.setState({modal_open_st: 0, isDeleting: false, currentPage: curPage});
   };
   
   handleClose = () => {
@@ -173,6 +197,7 @@ class MyListings extends React.Component {
                           <th>Value</th>
                           <th/>
                           <th/>
+                          <th/>
                         </tr>
                         </thead>
                         <tbody className="listing-data-tbody">
@@ -185,6 +210,7 @@ class MyListings extends React.Component {
                             <MyListingItem
                               listItem={data} key={i}
                               openEdit={this.handleOpenGearEdit}
+                              openDelete={this.handleGearDelete}
                               openCalendar={this.handleOpenRentalCalendar}
                             />
                           ) : ""}
@@ -198,6 +224,7 @@ class MyListings extends React.Component {
                               listItem={data}
                               key={i}
                               openEdit={this.handleOpenGearEdit}
+                              openDelete={this.handleGearDelete}
                               openCalendar={this.handleOpenRentalCalendar}
                             />
                           ) : ""}
@@ -248,6 +275,12 @@ class MyListings extends React.Component {
               gearid={this.state.cur_gear}
               onClose={this.handleClose}
               listGears={list}
+            /> :
+          this.state.modal_open_st === 3 ?
+            <ConfirmModal
+              heading='Gear Delete'
+              onConfirm={this.performDelete}
+              onClose={this.handleClose}
             /> : null
         }
       </React.Fragment>
@@ -258,7 +291,7 @@ class MyListings extends React.Component {
 const mapStateToProps = state => ({
   list: state.gear.listGears,
   isLoading: state.gear.isLoading,
-  isLoadingCategories: state.category.isLoading
+  isLoadingCategories: state.category.isLoading,
 });
 
 export default connect(mapStateToProps)(MyListings);

@@ -19,6 +19,8 @@ import SearchResults from './containers/Landing/SearchResults';
 import Favourites from './containers/Landing/Favourites';
 import Partner from './containers/Landing/Partner';
 import FAQ from './containers/Landing/FAQ';
+import PrivacyPolicy from './containers/Landing/PrivacyPolicy'
+import TermsConditions from './containers/Landing/TermsConditions'
 
 export default (
   <div className="app-content" id="nummus-container">
@@ -44,6 +46,8 @@ export default (
       <Route exact path='/favourites' component={Favourites}/>
       <Route exact path='/partners' component={Partner}/>
       <Route exact path='/FAQ' component={FAQ}/>
+      <Route exact path='/PrivacyPolicy' component={PrivacyPolicy}/>
+      <Route exact path='/TermsAndConditions' component={TermsConditions}/>
     </Switch>
   </div>
 );

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, BreadcrumbItem, Label, ListGroup, ListGroupItem } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Label } from 'reactstrap';
 import {getCheckout, checkout, saveCheckoutInfo} from '../../core/actions/checkout.action';
 import { days } from '../../core/helper/index';
 import BarLoader from "react-bar-loader";
@@ -14,7 +14,7 @@ import '@trendmicro/react-dropdown/dist/react-dropdown.css';
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import $ from "jquery";
 import CustomSpinner from "../../components/CustomSpinner";
-import UrllinkClass from "../../components/UrllinkClass";
+import BreadCrumbActive from "../../components/BreadCrumbActive";
 import { getUniqueObjectArray } from "../../core/helper/index";
 import { handleError } from "../../core/actions/common.action";
 
@@ -162,7 +162,7 @@ class Checkout extends Component {
         <div className="checkout-head">
           <div className='container'>
             <Breadcrumb className= "card_content_path">
-              <UrllinkClass name="Home"/>
+              <BreadCrumbActive name="Home"/>
               <span className="space_slash_span">/</span>
               <BreadcrumbItem active>Checkout</BreadcrumbItem>
             </Breadcrumb>
@@ -193,7 +193,7 @@ class Checkout extends Component {
                 <div className="text-gray d-md-block d-lg-none">INFO</div>
               </div>
               <div className="address-select">
-                <Dropdown className='d-none d-lg-block'>
+                <Dropdown className='d-lg-block'>
                   <Dropdown.Toggle title="Saved address" className="select-addr-btn"/>
                   <Dropdown.Menu>
                     {
@@ -209,31 +209,8 @@ class Checkout extends Component {
                     }
                   </Dropdown.Menu>
                 </Dropdown>
-                <aside className="sidebar">
-                  <div className="addr-dropdown d-block d-lg-none">
-                    <div className="catagory-header">
-                      <button className="sidebar-title   category-action-btn" onClick={this.handleClickAddrList}>
-                        { this.state.addr }
-                        <i className="fa fa-angle-down" aria-hidden="true"/>
-                      </button>
-                    </div>
-
-                    <ListGroup>
-                      {
-                        addrList_temp.length > 0?
-                          addrList_temp.map((element, index) =>
-                            <ListGroupItem onClick={(e) => this.handleAddressChange(e, element)} value={element.addr} key={index}>
-                              <div className='item-active'>
-                                {element.addr}
-                              </div>
-                            </ListGroupItem>)
-                          : null
-                      }
-                    </ListGroup>
-                  </div>
-                </aside>
               </div>
-              <div className="theme-form">
+              <div className="theme-form address-info-wrapper">
                 <div className="flex-row">
                   <div className="theme-form-field flex-md-12">
                     <TextField

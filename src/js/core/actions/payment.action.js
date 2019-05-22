@@ -86,7 +86,7 @@ const createNummusCustomer = async (data) => {
     return res.data.data;
   } else {
     console.log(res);
-    handleError("Please use another email, there's already someone with the same email as yours");
+    res && res.data && res.data.errorMessage && handleError(res.data.errorMessage);
     return false;
   }
 };

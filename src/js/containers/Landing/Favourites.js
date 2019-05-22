@@ -13,7 +13,7 @@ import BarLoader from "react-bar-loader";
 import EmptyActivity from "../../components/EmptyActivity";
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import CustomSpinner from "../../components/CustomSpinner";
-import UrllinkClass from "../../components/UrllinkClass";
+import BreadCrumbActive from "../../components/BreadCrumbActive";
 
 class Favourites extends Component {
   constructor(props) {
@@ -218,7 +218,7 @@ class Favourites extends Component {
         {isChanging && <CustomSpinner/>}
         <div className="cart_view centered-content">
           <Breadcrumb className= "card_content_path">
-              <UrllinkClass name="Home"/>
+              <BreadCrumbActive name="Home"/>
               <span className="space_slash_span">/</span>
               <BreadcrumbItem active>Favourites</BreadcrumbItem>
           </Breadcrumb>

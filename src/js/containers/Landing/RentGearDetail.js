@@ -22,7 +22,7 @@ import { formatDate } from "../../core/helper";
 import CartModal1 from '../../components/common/CartModal1'
 import CartModal2 from '../../components/common/CartModal2';
 import { calcDaysDiff, getDateStr } from "../../core/helper";
-import UrllinkClass from "../../components/UrllinkClass";
+import BreadCrumbActive from "../../components/BreadCrumbActive";
 import { Inline } from '@zendeskgarden/react-loaders'
 import CustomSpinner from "../../components/CustomSpinner";
 
@@ -301,11 +301,11 @@ class RentGearDetail extends Component {
               <div className='d-lg-none d-xl-none d-info-container'>
                   <div className='location-bar-container'>
                       <span>
-                          <UrllinkClass name="Home"/>
+                          <BreadCrumbActive name="Home"/>
                           <span className="space_slash_span">/</span>
-                          <UrllinkClass name="Rent Gears"/>
+                          <BreadCrumbActive name="Rent Gears"/>
                           <span className="space_slash_span">/</span>
-                          <UrllinkClass name={categoryName}/>
+                          <BreadCrumbActive name={categoryName}/>
                           <span className="space_slash_span">/</span>
                           <BreadcrumbItem active>{name}</BreadcrumbItem>
                       </span>
@@ -483,11 +483,11 @@ class RentGearDetail extends Component {
                   <div className="right-container col-lg-15">
                       <div className="right-container1 row">
                           <Breadcrumb>
-                              <UrllinkClass name="Home"/>
+                              <BreadCrumbActive name="Home"/>
                               <span className="space_slash_span">/</span>
-                              <UrllinkClass name="Rent Gears"/>
+                              <BreadCrumbActive name="Rent Gears"/>
                               <span className="space_slash_span">/</span>
-                              <UrllinkClass name={categoryName}/>
+                              <BreadCrumbActive name={categoryName}/>
                               <span className="space_slash_span">/</span>
                               <BreadcrumbItem active>{name}</BreadcrumbItem>
                           </Breadcrumb>

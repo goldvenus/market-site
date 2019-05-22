@@ -153,13 +153,15 @@ const deleteGear = async (data) => {
   return new Promise(async (resolve) => {
     try {
       let response = await post('deleteUserGear', data);
-      if (response) {
+      if (response && response.data && response.data.status === 'success') {
         dispatch({
           type: constants.DELETE_GEAR_SUCCESS,
           payload: data.gearid
         });
-        resolve(response.status);
+        handleInfo('Gear was removed successfully');
+        resolve(true);
       }
+      resolve(false);
     } catch (error) {
       dispatch({
         type: constants.DELETE_GEAR_FAILED

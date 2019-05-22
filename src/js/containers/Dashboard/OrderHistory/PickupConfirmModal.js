@@ -43,7 +43,6 @@ class ConfirmModal extends Component {
     let btn_label1 = 'Cancel';
     let btn_label2 = 'Confirm';
     
-    
     return (
       <React.Fragment>
         <Modal open={open} onClose={this.handleClose} center classNames={{modal: "cart-modal pickup-modal"}}>

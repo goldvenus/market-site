@@ -7,7 +7,7 @@ import { deleteCartItem, editCart } from '../../core/actions/cart.action'
 import BarLoader from "react-bar-loader";
 import EmptyActivity from '../../components/EmptyActivity'
 import CustomSpinner from "../../components/CustomSpinner";
-import UrllinkClass from "../../components/UrllinkClass";
+import BreadCrumbActive from "../../components/BreadCrumbActive";
 import CartModal2 from "../../components/common/CartModal2";
 import {handleError} from "../../core/actions/common.action";
 
@@ -182,7 +182,7 @@ class Cart extends Component {
         { (isDeleting || isLoading) && <CustomSpinner/> }
         <div className="cart_view centered-content">
           <Breadcrumb className= "card_content_path">
-            <UrllinkClass name="Home"> </UrllinkClass>
+            <BreadCrumbActive name="Home"> </BreadCrumbActive>
               <span className="space_slash_span">/</span>
             <BreadcrumbItem active>Cart</BreadcrumbItem>
           </Breadcrumb>

@@ -21,7 +21,7 @@ import $ from "jquery";
 import moment from "moment";
 import CustomSpinner from "../../components/CustomSpinner";
 import { getUniqueObjectArray, validateCard, cc_format, checkDigitSpace } from "../../core/helper/index";
-import UrllinkClass from "../../components/UrllinkClass";
+import BreadCrumbActive from "../../components/BreadCrumbActive";
 import {getUser} from "../../core/actions/user.action";
 import {getCarts} from "../../core/actions/cart.action";
 
@@ -361,7 +361,7 @@ class Payment extends Component {
           <div className="payment-head">
             <div className='container'>
               <Breadcrumb className= "card_content_path">
-                <UrllinkClass name="Home"/>
+                <BreadCrumbActive name="Home"/>
                 <span className="space_slash_span">/</span>
                 <BreadcrumbItem active>Payment</BreadcrumbItem>
               </Breadcrumb>

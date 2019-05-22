@@ -632,8 +632,24 @@ span.edit_my_gear {
 
   &:hover {
     background-image: url('/images/Icons/cart/edit-p.svg') !important;
+    transition: .3s !important;
   }
 }
+span.delete_my_gear {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  vertical-align: middle !important;
+  cursor: pointer;
+  background-image: url('/images/Icons/cart/cross-p.svg') !important;
+
+  &:hover {
+    background-image: url('/images/Icons/cart/cross-g.svg') !important;
+    transition: .3s !important;
+  }
+}
+
 .gear-edit-modal {
   max-width: 1200px !important;
   width: 100%;
@@ -1343,6 +1359,12 @@ span.edit_my_gear {
       .tablet-gear-item {
         display: none;
       }
+      .slspd_third > div {
+        width: 33% !important;
+        span {
+          margin: 0 !important;
+        }
+      }
     }
     .line-chart {
       margin-bottom: 10px !important;
@@ -1493,9 +1515,7 @@ span.edit_my_gear {
     .mlspdf_name_tag {
       width: 75%;
     }
-    .slspdt_rental_btn, .slspdt_edit_icon {
-      width: 50% !important;
-    }
+
     .mlspdf_name_tag_categoryName {
       font-family: Helvetica Neue, sans-serif;
       font-size: 16px;

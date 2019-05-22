@@ -121,16 +121,16 @@ class Footer extends Component {
                 <Col className="footer-privaci-policy">
                   <ul className="nav justify-content-end d-none d-md-flex">
                     <li className="nav-item">
-                      <a className="nav-link" href='/localhost:3000'>Privacy Policy</a>
+                      <a className="nav-link" href='/PrivacyPolicy'>Privacy Policy</a>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link" href='/localhost:3000'>Terms &amp; Condition</a>
+                      <a className="nav-link" href='/TermsAndConditions'>Terms &amp; Condition</a>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link" href='/localhost:3000'>Partners</a>
+                      <a className="nav-link" href='/Partners'>Partners</a>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link" href='/localhost:3000'>Help</a>
+                      <a className="nav-link" href='/Help'>Help</a>
                     </li>
                   </ul>
                 </Col>
@@ -138,7 +138,7 @@ class Footer extends Component {
             </Container>
           </div>
         </footer>
-        <div className='mobile-bottom-margin'></div>
+        <div className='mobile-bottom-margin'/>
       </React.Fragment>
     );
   }
