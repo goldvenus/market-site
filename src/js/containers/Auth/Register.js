@@ -231,15 +231,15 @@ class Register extends Component {
           }
         </div>
         
-        {modalOpenState &&
-        <Modal open={true} onClose={this.handleCloseModal} center classNames={{modal: "privacy-modal confirm-modal cart-modal"}}>
+        {modalOpenState ?
+        <Modal open={true} onClose={this.handleCloseModal} center classNames={{modal: "confirm-modal privacy-modal"}}>
           <div className='confirm-modal-header'>
-            <span>{modalOpenState === 1 ? 'Privacy and Cookie Policy' : 'Terms and Conditions'}</span>
+            <span>{modalOpenState === 1 ? 'Terms and Conditions' : 'Privacy and Cookie Policy'}</span>
           </div>
           <div className='confirm-modal-body'>
-            {modalOpenState === 1 ? <PrivacyPolicyComponent/> : <TermsConditionsComponent/>}
+            {modalOpenState === 1 ? <TermsConditionsComponent/> : <PrivacyPolicyComponent/>}
           </div>
-        </Modal>}
+        </Modal> : null}
         
       </React.Fragment>
     );

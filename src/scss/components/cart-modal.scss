@@ -9,6 +9,9 @@
   padding: 0;
   text-align: center;
   flex: none;
+  @media (max-width: 767px) {
+    width: 100%;
+  }
 }
 .styles_closeButton__20ID4 {
   right: -50px;

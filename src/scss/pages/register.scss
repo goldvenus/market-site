@@ -182,6 +182,7 @@
 .privacy-modal {
   max-width: 1150px !important;
   text-align: left !important;
+  padding: 0;
 }
 
 @media(max-width: 1077px) {
@@ -313,6 +314,9 @@
   .auth-sidemenu {
     display: flex;
   }
+  .privacy-modal {
+    width: 85%;
+  }
 }
 
 @media(max-width: 969px) {
@@ -359,6 +363,12 @@
   .flex-row.signin-link {
     button {
       min-width: 100px !important;
+    }
+  }
+  .privacy-modal {
+    width: 100% !important;
+    .confirm-modal-body {
+      padding: 20px 0 0 !important;
     }
   }
 }
