@@ -42,6 +42,17 @@ class CustomCarousel extends Component {
     if (this.animating) return;
     this.setState({ activeIndex: newIndex });
   }
+  
+  shouldComponentUpdate(props, state) {
+    if (props.gotoIndex && props.gotoIndex !== this.state.activeIndex) {
+      this.setState({activeIndex: props.gotoIndex});
+      return true;
+    } else if (this.state.activeIndex !== state.activeIndex) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   render() {
     const {activeIndex} = this.state;
@@ -67,13 +78,13 @@ class CustomCarousel extends Component {
          next={this.next}
          previous={this.previous}
        >
-       {slides}
+        {slides}
         <div className="carousel-control-prev" role="button" tabIndex="0" onClick={this.previous}>
-          <i className="fa fa-angle-left"></i>
+          <i className="fa fa-angle-left"/>
           <span className="sr-only">Previous</span>
         </div>
-        <div href="#" className="carousel-control-next" role="button" tabIndex="0" onClick={this.next}>
-          <i className="fa fa-angle-right"></i>
+        <div className="carousel-control-next" role="button" tabIndex="0" onClick={this.next}>
+          <i className="fa fa-angle-right"/>
           <span className="sr-only">Next</span>
         </div>
       </Carousel>

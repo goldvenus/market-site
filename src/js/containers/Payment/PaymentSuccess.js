@@ -145,7 +145,7 @@ class Payment extends Component {
   renderCarousel = (img_arr) => {
     // make img objects for bottom carousel
     const children = img_arr.map((item, i) => (
-      <div key={i} className='carousel-image-container'>
+      <div key={i} className='payment-carousel-image-container'>
         <img src={item} alt=""/>
       </div>
     ));

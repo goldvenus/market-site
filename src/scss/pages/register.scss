@@ -171,11 +171,28 @@
   }
   .checkbox-label {
     margin-left: 0 !important;
-    .term-view-btn {
-      color: #f82462;
-      text-decoration: underline;
-      cursor: pointer;
+  }
+}
+
+.term-view-btn {
+  color: #f82462;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.rental-terms-container {
+  h4 {
+    margin: 10px 0;
+  }
+  ul {
+    list-style: decimal !important;
+    margin-left: 15px;
+    li {
+      margin: 5px;
     }
+  }
+  .list-style-bullet {
+    list-style: disc;
   }
 }
 

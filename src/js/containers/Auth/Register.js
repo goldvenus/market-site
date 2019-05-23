@@ -3,15 +3,15 @@ import {connect} from 'react-redux';
 import {Form, Label} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import AuthSideMenu from '../../components/AuthSideMenu';
-import {handleError, readFileData} from "../../core/actions/common.action";
+import {handleError} from "../../core/actions/common.action";
 import {register} from '../../core/actions/user.action';
 import {bindActionCreators} from "redux";
 import CustomSpinner from "../../components/CustomSpinner";
 import TextField from "@material-ui/core/TextField/TextField";
 import Navbar from "../../components/common/Navbar/Navbar";
 import Modal from "react-responsive-modal";
-import PrivacyPolicyComponent from "../../components/PrivacyPolicyComponent";
-import TermsConditionsComponent from "../../components/TermsConditionsComponent";
+import PrivacyPolicyComponent from "../TermsAndPolicy/PrivacyPolicyComponent";
+import RentalTermsComponent from "../TermsAndPolicy/RentalTermsComponent";
 
 class Register extends Component {
   constructor(props) {
@@ -25,7 +25,7 @@ class Register extends Component {
       fullName: '',
       gender: '',
       address: '',
-      picture: '',
+      // picture: '',
       fileName: '',
       isChecked: false,
       modalOpenState: 0
@@ -44,24 +44,24 @@ class Register extends Component {
     this.setState({modalOpenState: 0});
   };
   
-  async addImage(event) {
-    try {
-      const fileName = event.target.files && event.target.files.length > 0 && event.target.files[0].name;
-      let image = await readFileData(event);
-      
-      this.setState({
-        picture: image,
-        fileName
-      });
-    } catch {
-      handleError('Please upload a valid image');
-    }
-  }
+  // async addImage(event) {
+  //   try {
+  //     const fileName = event.target.files && event.target.files.length > 0 && event.target.files[0].name;
+  //     let image = await readFileData(event);
+  //
+  //     this.setState({
+  //       picture: image,
+  //       fileName
+  //     });
+  //   } catch {
+  //     handleError('Please upload a valid image');
+  //   }
+  // }
   
   async submit(e) {
-    const {password, confirmPassword, username, phoneNumber, fullName, gender, address, picture} = this.state;
+    const {password, confirmPassword, username, phoneNumber, fullName, gender, address, isChecked} = this.state;
     
-    if (fullName && username && password && confirmPassword && picture) {
+    if (fullName && username && password && confirmPassword && isChecked) {
       e.preventDefault();
       if (password !== confirmPassword) {
         handleError('Password and confirm password do not match');
@@ -72,8 +72,7 @@ class Register extends Component {
           password,
           phoneNumber,
           gender,
-          address,
-          picture
+          address
         });
       }
     } else {
@@ -95,9 +94,7 @@ class Register extends Component {
         </div>
         <div className="auth-container theme-navbar">
           <AuthSideMenu/>
-          {
-            isRegistering ? <CustomSpinner/> : null
-          }
+          {isRegistering ? <CustomSpinner/> : null}
           {
             isRegistered ? (
               <div className="success-message-container">
@@ -234,10 +231,10 @@ class Register extends Component {
         {modalOpenState ?
         <Modal open={true} onClose={this.handleCloseModal} center classNames={{modal: "confirm-modal privacy-modal"}}>
           <div className='confirm-modal-header'>
-            <span>{modalOpenState === 1 ? 'Terms and Conditions' : 'Privacy and Cookie Policy'}</span>
+            <span>{modalOpenState === 1 ? 'Rental Terms and Conditions' : 'Privacy and Cookie Policy'}</span>
           </div>
           <div className='confirm-modal-body'>
-            {modalOpenState === 1 ? <TermsConditionsComponent/> : <PrivacyPolicyComponent/>}
+            {modalOpenState === 1 ? <RentalTermsComponent/> : <PrivacyPolicyComponent/>}
           </div>
         </Modal> : null}
         

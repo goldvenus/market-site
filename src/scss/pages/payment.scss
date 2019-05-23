@@ -34,6 +34,22 @@
   .dropdown-menu-item > div > img {
     width: 40px;
   }
+
+  .card-info-wrapper {
+    .checkbox-container {
+      justify-content: space-between;
+      & > div {
+        display: flex;
+        align-items: center;
+      }
+      .checkbox-label {
+        //margin-top: -9px;
+      }
+      .checkbox-label-agree {
+        //margin-top: -9px;
+      }
+    }
+  }
 }
 
 .payment-success-container {

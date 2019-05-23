@@ -1,7 +1,7 @@
 import React from 'react';
 import {Container, Row, Col, Breadcrumb, BreadcrumbItem} from "reactstrap";
 import BreadCrumbActive from "../../components/BreadCrumbActive";
-import PrivacyPolicyComponent from "../../components/PrivacyPolicyComponent";
+import PrivacyPolicyComponent from "./PrivacyPolicyComponent";
 
 const PrivacyPolicy = () => (
   <div className="cart_view centered-content privacy-policy-container">

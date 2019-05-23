@@ -5,7 +5,6 @@ import { Breadcrumb, BreadcrumbItem, Label, ListGroup, ListGroupItem } from 'rea
 import { days } from '../../core/helper';
 import {handleError, handleInfo} from '../../core/actions/common.action'
 import {payment, getPaymentCards, createNummusCustomer, checkExistingNummusCustomer, doNummusCharge} from '../../core/actions/payment.action';
-import BarLoader from "react-bar-loader";
 import Dropdown, {
     MenuItem,
 } from '@trendmicro/react-dropdown';
@@ -24,6 +23,8 @@ import { getUniqueObjectArray, validateCard, cc_format, checkDigitSpace } from "
 import BreadCrumbActive from "../../components/BreadCrumbActive";
 import {getUser} from "../../core/actions/user.action";
 import {getCarts} from "../../core/actions/cart.action";
+import Modal from "react-responsive-modal";
+import RentalTermsComponent from "../TermsAndPolicy/RentalTermsComponent";
 
 class Payment extends Component {
   constructor(props) {
@@ -44,7 +45,9 @@ class Payment extends Component {
       card_holder: this.props.checkoutInfo.firstName + ' ' + this.props.checkoutInfo.lastName,
       expiration_month: '',
       expiration_year: '',
-      loading: true
+      modalOpenState: 0,
+      isChecked: false,
+      loading: false
     };
   
     this.config = {
@@ -202,7 +205,7 @@ class Payment extends Component {
   
   pay = async () => {
     let { carts } = this.props;
-    let { card_number, expiration_year, expiration_month, cvv, card_holder, save_card } = this.state;
+    let { card_number, expiration_year, expiration_month, cvv, card_holder, save_card, isChecked } = this.state;
     if (!card_number || !card_holder || !expiration_year || !expiration_month || !cvv) {
       handleError('Please provide required information!');
       return false;
@@ -211,6 +214,9 @@ class Payment extends Component {
       return false;
     } else if (card_holder.split(' ').length < 2) {
       handleError('Please provide correct cardholder name');
+      return false;
+    } else if (!isChecked) {
+      handleError("Do you agree with Reltal Terms and Conditions?");
       return false;
     }
     
@@ -251,15 +257,8 @@ class Payment extends Component {
   };
   
   getUserPaymentCards = async () => {
-    let cards = await getPaymentCards(localStorage.userId);
+    await getPaymentCards(localStorage.userId);
     await getUser();
-    
-    if (cards) {
-      this.setState({
-        cards: cards,
-        loading: false
-      });
-    }
   };
 
   handleCardChange = (e, element) => {
@@ -304,6 +303,18 @@ class Payment extends Component {
       }
     }
   };
+  
+  handleOpenModal = (val) => {
+    this.setState({modalOpenState: val});
+  };
+  
+  handleCloseModal = () => {
+    this.setState({modalOpenState: 0});
+  };
+  
+  handleSetRead = () => {
+    this.setState({isChecked: !this.state.isChecked});
+  };
 
   renderCheckoutItems() {
     const { carts } = this.props;
@@ -340,11 +351,16 @@ class Payment extends Component {
 
   render() {
     let { carts, isLoading } = this.props;
-    if (!carts || isLoading) {
-      return <BarLoader color="#F82462" height="5" />;
-    }
-
-    let { card_number, expiration_year, expiration_month, cvv, card_holder, save_card } = this.state;
+    let {
+      card_number,
+      expiration_year,
+      expiration_month,
+      cvv,
+      card_holder,
+      save_card,
+      modalOpenState,
+      isChecked
+    } = this.state;
     let total = 0;
     carts.forEach(listItem => {
       let d = days(listItem.startDate, listItem.endDate);
@@ -356,7 +372,7 @@ class Payment extends Component {
 
     return (
       <React.Fragment>
-        {this.state.loading ? <CustomSpinner/> : null}
+        {isLoading || this.state.loading ? <CustomSpinner/> : null}
         <div className="payment checkout">
           <div className="payment-head">
             <div className='container'>
@@ -482,15 +498,30 @@ class Payment extends Component {
                       />
                     </div>
                   </div>
-                  <div className="theme-form-field">
-                    <div className="input_svg pretty p-svg p-plain">
-                      <input  type="checkbox" onChange={this.handleSetSaveState} value={save_card} checked={save_card ? 'checked' : ''}/>
-                      <div className="state">
-                        <img className="svg check_svg" src="/images/Icons/task.svg" alt=""/>
+                  <div className="theme-form-field checkbox-container">
+                    <div>
+                      <div className="input_svg pretty p-svg p-plain">
+                        <input  type="checkbox" onChange={this.handleSetSaveState} value={save_card} checked={save_card ? 'checked' : ''}/>
+                        <div className="state">
+                          <img className="svg check_svg" src="/images/Icons/task.svg" alt=""/>
+                        </div>
                       </div>
+                      <Label for="save-address" className='checkbox-label'>Save this payment method</Label>
                     </div>
-                    <Label for="save-address" className='checkbox-label'>Save this payment method</Label>
+                    <div>
+                      <div className="input_svg pretty p-svg p-plain">
+                        <input  type="checkbox" onChange={this.handleSetRead} checked={isChecked ? 'checked' : ''}/>
+                        <div className="state">
+                          <img className="svg check_svg" alt="" src="/images/Icons/task.svg"/>
+                        </div>
+                      </div>
+                      <Label className='checkbox-label-agree'>
+                        Yes, I agree to the<br/>
+                        <span className='term-view-btn' onClick={() => this.handleOpenModal(2)}>Rental Terms & Conditions</span>
+                      </Label>
+                    </div>
                   </div>
+                  
                 </div>
               </div>
   
@@ -516,16 +547,27 @@ class Payment extends Component {
                 </div>
               </div>
             </div>
-            <div className="container flex-row flex-align-stretch ">
+  
+            <div className="container flex-row">
               <div className="flex-row bottom-buttons">
                 <button className="theme-btn theme-btn-secondery theme-btn-link btn-edit-order-bottom">
-                  <Link to="/cart">Edit Order</Link>
+                  <Link to="/checkout">Back To Checkout</Link>
                 </button>
                 <button className="theme-btn theme-btn-primary btn-payment" onClick={this.pay}>
                   Pay (${parseFloat(amount).toFixed(2)})
                 </button>
               </div>
             </div>
+            
+            {modalOpenState ?
+              <Modal open={true} onClose={this.handleCloseModal} center classNames={{modal: "confirm-modal privacy-modal"}}>
+                <div className='confirm-modal-header'>
+                  <span>Rental Terms and Conditions</span>
+                </div>
+                <div className='confirm-modal-body'>
+                  <RentalTermsComponent/>
+                </div>
+              </Modal> : null}
           </div>
         </div>
       </React.Fragment>

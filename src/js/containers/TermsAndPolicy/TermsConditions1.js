@@ -1,7 +1,7 @@
 import React from 'react';
 import {Container, Row, Col, Breadcrumb, BreadcrumbItem} from "reactstrap";
 import BreadCrumbActive from "../../components/BreadCrumbActive";
-import TermsConditionsComponent from "../../components/TermsConditionsComponent";
+import WebsiteTermsComponent from "./WebsiteTermsComponent";
 
 const PrivacyPolicy = () => (
   <div className="cart_view centered-content privacy-policy-container">
@@ -14,13 +14,13 @@ const PrivacyPolicy = () => (
               <span className="space_slash_span">/</span>
               <BreadcrumbItem active>Terms and Conditions</BreadcrumbItem>
             </Breadcrumb>
-            <h2>Terms and conditions</h2>
+            <h2>Website Terms and conditions</h2>
           </Col>
         </Row>
       </Container>
     </div>
     <div className="terms-conditions-body">
-      <TermsConditionsComponent/>
+      <WebsiteTermsComponent/>
     </div>
   </div>
 );

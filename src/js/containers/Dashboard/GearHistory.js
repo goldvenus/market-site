@@ -280,7 +280,7 @@ class MyListings extends React.Component {
             /> :
           this.state.modal_open_st === 3 ?
             <ConfirmModal
-              heading='Gear Delete'
+              heading='Delete Gear?'
               onConfirm={this.performDelete}
               onClose={this.handleClose}
             /> : null

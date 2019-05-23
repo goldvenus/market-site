@@ -17,6 +17,8 @@ import CustomSpinner from "../../components/CustomSpinner";
 import BarLoader from "react-bar-loader";
 import TextField from "@material-ui/core/TextField/TextField";
 import CustomAutosuggest from "../../components/common/CustomAutosuggest"
+import Modal from "react-responsive-modal";
+import RentalTermsComponent from "../TermsAndPolicy/RentalTermsComponent";
 
 class AddGear extends Component {
   constructor(props) {
@@ -27,7 +29,7 @@ class AddGear extends Component {
     this.suggestions = [];
     
     this.state = {
-      progressStep: 0,
+      progressStep: 3,
       dropdownOpen: false,
       selectedType: 'new',
       isGearAdded: false,
@@ -47,6 +49,8 @@ class AddGear extends Component {
       pricePerDay: '',
       productName: '',
       isDoubled: false,
+      modalOpenState: false,
+      isChecked: false,
       busy: false
     };
     
@@ -282,19 +286,6 @@ class AddGear extends Component {
     </div>);
   }
   
-  async addImage(event) {
-    try {
-      let image = await readFileData(event);
-      let {numberOfUserImage} = this.state;
-      numberOfUserImage.push(image);
-      this.setState({
-        numberOfUserImage
-      });
-    } catch {
-      handleError('Please upload a valid image!');
-    }
-  }
-  
   renderAddress() {
     const {city, region, address, postalCode} = this.state;
     
@@ -348,70 +339,20 @@ class AddGear extends Component {
     );
   }
   
-  async addGearDetails() {
-    try {
-      let {
-        categoryName,
-        brand,
-        model,
-        description,
-        selectedType,
-        isKit,
-        accessories,
-        numberOfUserImage,
-        city,
-        region,
-        address,
-        postalCode,
-        replacementValue,
-        productName,
-        pricePerDay
-      } = this.state;
-      isKit = !!isKit;
-      
-      const data = {
-        categoryName: categoryName.replace(' ', ''),
-        brand,
-        model,
-        description,
-        type: selectedType,
-        isKit,
-        accessories,
-        numberOfUserImage,
-        city,
-        product_region: region,
-        address,
-        postalCode,
-        replacementValue,
-        pricePerDay,
-        productName
-      };
-      
-      if (!categoryName || !brand || !model || !description || !selectedType || !accessories || !productName ||
-        !numberOfUserImage || !city || !region || !address || !postalCode || !replacementValue || !pricePerDay) {
-        handleError("Please provide required details!");
-        return;
-      }
-      this.setState({busy: true});
-      let gear = await addGear(data);
-      if (gear) {
-        this.setState({
-          busy: false,
-          isGearAdded: true,
-          gearId: gear.gearid
-        });
-      } else {
-        this.setState({
-          busy: false
-        });
-      }
-    } catch (e) {
-    
-    }
-  }
-  
   renderPrice() {
-    const {selectedType, accessories, numberOfUserImage, categoryName, brand, model, address, city, description, replacementValue, pricePerDay} = this.state;
+    const {selectedType,
+      accessories,
+      numberOfUserImage,
+      categoryName,
+      brand,
+      model,
+      address,
+      city,
+      description,
+      replacementValue,
+      pricePerDay,
+      isChecked
+    } = this.state;
     
     let mappedAccessories = accessories.map((accessory, index) => (
       <div key={'accessory-' + index} className="d-md-flex">{accessory}</div>
@@ -477,6 +418,18 @@ class AddGear extends Component {
                            onChange={(value) => this.setState({pricePerDay: value})}/>
             </InputGroup>
           </div>
+        </div>
+        <div>
+          <div className="input_svg pretty p-svg p-plain">
+            <input  type="checkbox" onChange={this.handleSetRead} checked={isChecked ? 'checked' : ''}/>
+            <div className="state">
+              <img className="svg check_svg" alt="" src="/images/Icons/task.svg"/>
+            </div>
+          </div>
+          <Label for="save-address" className='checkbox-label'>
+            Yes, I agree to the<br/>
+            <span className='term-view-btn' onClick={() => this.handleOpenModal(2)}>Rental Terms & Conditions</span>
+          </Label>
         </div>
         <div className="buttons-container">
           <button className="theme-btn theme-btn-secondery" onClick={this.previousStep.bind(this)}><span
@@ -559,8 +512,113 @@ class AddGear extends Component {
     return false;
   }
   
+  async addImage(event) {
+    try {
+      let image = await readFileData(event);
+      let {numberOfUserImage} = this.state;
+      numberOfUserImage.push(image);
+      this.setState({
+        numberOfUserImage
+      });
+    } catch {
+      handleError('Please upload a valid image!');
+    }
+  }
+  
+  async addGearDetails() {
+    try {
+      let {
+        categoryName,
+        brand,
+        model,
+        description,
+        selectedType,
+        isKit,
+        accessories,
+        numberOfUserImage,
+        city,
+        region,
+        address,
+        postalCode,
+        replacementValue,
+        productName,
+        pricePerDay,
+        isChecked
+      } = this.state;
+      
+      isKit = !!isKit;
+      
+      const data = {
+        categoryName: categoryName.replace(' ', ''),
+        brand,
+        model,
+        description,
+        type: selectedType,
+        isKit,
+        accessories,
+        numberOfUserImage,
+        city,
+        product_region: region,
+        address,
+        postalCode,
+        replacementValue,
+        pricePerDay,
+        productName,
+        isChecked
+      };
+      
+      if (!categoryName || !brand || !model || !description || !selectedType
+        || !accessories || !productName || !numberOfUserImage || !city || !region ||
+        !address || !postalCode || !replacementValue || !pricePerDay) {
+        handleError("Please provide required details!");
+        return;
+      } else if (!isChecked) {
+        handleError("Did you read Rental Terms and Conditions?");
+        return;
+      }
+      
+      this.setState({busy: true});
+      let gear = await addGear(data);
+      if (gear) {
+        this.setState({
+          busy: false,
+          isGearAdded: true,
+          gearId: gear.gearid
+        });
+      } else {
+        this.setState({
+          busy: false
+        });
+      }
+    } catch (e) {
+    
+    }
+  }
+  
+  handleOpenModal = (val) => {
+    this.setState({modalOpenState: val});
+  };
+  
+  handleCloseModal = () => {
+    this.setState({modalOpenState: 0});
+  };
+  
+  handleSetRead = () => {
+    this.setState({isChecked: !this.state.isChecked});
+  };
+  
   render() {
-    const {isGearAdded, replacementValue, pricePerDay, brand, model, categoryName, gearId} = this.state;
+    const {
+      isGearAdded,
+      replacementValue,
+      pricePerDay,
+      brand,
+      model,
+      categoryName,
+      gearId,
+      modalOpenState
+    } = this.state;
+    
     const {isLoadingCategories} = this.props;
     if (isLoadingCategories || this.suggestions.length < 1) {
       return <BarLoader color="#F82462" height="5"/>;
@@ -610,6 +668,7 @@ class AddGear extends Component {
         <div className="add-gear-progress">
           {this.renderProgress()}
         </div>
+        
         {this.renderContent()}
         
         {this.state.progressStep < 3 ? (
@@ -629,6 +688,16 @@ class AddGear extends Component {
             </div>
           </div>) : null
         }
+  
+        {modalOpenState ?
+          <Modal open={true} onClose={this.handleCloseModal} center classNames={{modal: "confirm-modal privacy-modal"}}>
+            <div className='confirm-modal-header'>
+              <span>Rental Terms and Conditions</span>
+            </div>
+            <div className='confirm-modal-body'>
+              <RentalTermsComponent/>
+            </div>
+          </Modal> : null}
       </div>);
   }
 }
