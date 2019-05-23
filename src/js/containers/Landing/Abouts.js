@@ -28,10 +28,21 @@ const TeamMember = ({ member: { name, job_title, img }, src }, ...props) => {
 };
 
 class About extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {height: {height: '500px'}};
+  }
+  
+  componentDidMount() {
+    if (this.state.height.height !== window.innerHeight-120 + 'px')
+      this.setState({height: {height: window.innerHeight-120 + 'px'}});
+  }
+  
   render() {
+    console.log(this.state.height);
     return (
       <div className="about-us">
-        <div className="about-us-head">
+        <div className="about-us-head" style={this.state.height}>
           <div className="heading-mobile">
               <Breadcrumb className="theme-text-small">
                   <BreadcrumbItem>Home </BreadcrumbItem>
@@ -39,7 +50,7 @@ class About extends Component {
               </Breadcrumb>
               <h1>About Us</h1>
           </div>
-          <div className="head-container">
+          <div className="head-container" style={{height: '88%'}}>
             <div className="container">
               <div className="head-left">
                 <Breadcrumb className="theme-text-small">
@@ -47,10 +58,10 @@ class About extends Component {
                   <BreadcrumbItem active>About Us</BreadcrumbItem>
                 </Breadcrumb>
                 <h1>About Us</h1>
-                <h4 className="intro">
+                <h3 className="intro">
                   <span className="bold">Creative Market</span>&nbsp;
                   <span className="thin">Introduction</span>
-                </h4>
+                </h3>
                 <p className="theme-text-small about-desc">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, consequuntur vitae ipsum doloribus
                   repellendus dolorum aliquid odio aspernatur at labore voluptatem laudantium ducimus libero inventore
@@ -65,7 +76,7 @@ class About extends Component {
               <p className="intro">
                 Creative Market
               </p>
-              <p>Introduction</p>
+              <p className='introduction'>Introduction</p>
               <p className="theme-text-small about-desc">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, consequuntur vitae ipsum doloribus
                 repellendus dolorum aliquid odio aspernatur at labore voluptatem laudantium ducimus libero inventore
@@ -74,7 +85,7 @@ class About extends Component {
               </p>
             </div>
           </div>
-          <div className="about-us-watermark"/>
+          <div className="about-us-watermark" style={{height: '12%'}}/>
         </div>
         <div className="about-us-body">
           <div className="team-members">

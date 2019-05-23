@@ -35,7 +35,10 @@ const flickityOptions = {
 class RentGearDetail extends Component {
   constructor(props) {
     super(props);
+    
     this.gearid = props.match.params.id;
+    this.gotoIndex = 0;
+    
     this.state = {
       startDate: new Date(),
       endDate: new Date(),
@@ -137,11 +140,11 @@ class RentGearDetail extends Component {
   // carousel
   changeActiveItem = (activeItemIndex) => this.setState({activeItemIndex});
   
-  renderCarousel = (img_arr, onImageClick) => {
+  renderCarousel = (img_arr) => {
     // make img objects for bottom carousel
     const children = img_arr.map((item, i) => (
-      <div key={i} className='carousel-image-container' onClick={() => onImageClick(i+1)}>
-        <img src={item} alt=""/>
+      <div key={i} className='carousel-image-container' onClick={(e) => this.handleImageClick(e, i+1)}>
+        <img src={item.src} alt=""/>
       </div>
     ));
     
@@ -220,8 +223,12 @@ class RentGearDetail extends Component {
     });
   };
   
-  handleImageClick = (gotoIndex) => {
-    this.setState({gotoIndex});
+  handleImageClick = (e, gotoIndex) => {
+    e.preventDefault();
+    e.stopPropagation();
+    this.gotoIndex = gotoIndex;
+    console.log("send: ", gotoIndex);
+    this.forceUpdate();
   };
   
   // date-range-picker
@@ -300,7 +307,8 @@ class RentGearDetail extends Component {
     let fee = total * 0.15;
     let amount = parseFloat(total + tax + fee).toFixed(2);
     let actualPrice = parseFloat(amount / duration).toFixed(2);
-    
+    let carouselItems = numberOfUserImage.map((item, index) => ({src: item, altText: `Slide ${index}`, caption: `Slide ${index}`}));
+  
     return (
       <React.Fragment>
         {isChangingFavor && <CustomSpinner/>}
@@ -359,7 +367,7 @@ class RentGearDetail extends Component {
             </div>
             
             <div className="carousel-top-container">
-              <CustomCarousel items={numberOfUserImage} gotoIndex={this.state.gotoIndex}/>
+              <CustomCarousel items={carouselItems} gotoIndex={this.gotoIndex}/>
             </div>
             
             <div className="gear-info">
@@ -483,10 +491,10 @@ class RentGearDetail extends Component {
           <div className="d-none d-lg-flex d-xl-flex view-gear-detail row">
             <div className="col-lg-9 left-container">
               <div className="carousel-top-container">
-                <CustomCarousel items={numberOfUserImage}/>
+                <CustomCarousel items={carouselItems}/>
               </div>
               <div className="carousel-bottom-container">
-                {this.renderCarousel(numberOfUserImage, this.handleImageClick)}
+                {this.renderCarousel(carouselItems, this.handleImageClick)}
               </div>
             </div>
             <div className="right-container col-lg-15">

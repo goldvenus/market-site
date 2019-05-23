@@ -13,9 +13,10 @@
     }
     .head-container {
       display: flex;
-      background-image: url(/images/aboutus/1.png);
+      background-image: url('/images/aboutus/1.png');
       background-repeat: no-repeat;
       background-position: right;
+      background-size: 53%;
       height: 355px;
 
       .head-left {
@@ -70,7 +71,7 @@
       margin-bottom: 2rem;
     }
 
-    h4.intro, p {
+    .intro, p {
       color: $white;
       font-size: 27px;
 
@@ -89,8 +90,8 @@
       font-family: Helvetica Neue;
       font-style: normal;
       font-weight: normal;
-      font-size: 16px;
-      line-height: 27px;
+      font-size: 30px;
+      line-height: 50px
     }
 
     .about-cm {
@@ -170,17 +171,25 @@
       display: block !important;
     }
     .heading-body-mobile {
+      position: absolute;
+      top: 130px;
+      line-height: 20px;
       display: block !important;
+      font-size: 25px;
+
       & > div {
         width: 70%;
         margin: 0 auto;
         text-align: center;
         .intro {
           margin: 35px;
+          font-size: 35px;
+          font-weight: 600;
         }
         .about-desc {
           margin: 0 auto 45px;
           width: 100%;
+          line-height: 70px;
         }
       }
     }
@@ -212,6 +221,7 @@
     }
     .heading-body-mobile {
       margin-top: 25px;
+      line-height: 50px;
       & > div {
         width: 90%;
         margin: 0 auto;
@@ -222,6 +232,13 @@
         p:nth-child(2) {
           font-size: 20px;
         }
+      }
+      .about-desc {
+        line-height: 45px !important;
+        font-size: 22px !important;
+      }
+      .introduction {
+        font-size: 24px !important;
       }
     }
     .about-us-watermark {

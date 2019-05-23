@@ -202,7 +202,6 @@ class NavbarMenu extends React.Component {
                 <ul className="menu-info-wrapper">
                   <li className="menu-info-item animated-menu-item">
                     <span className="info__title">Address</span>
-                    <h5 className="info__content">Spring Store London Oxford</h5>
                     <h5 className="info__content">Katrinartun 2, Reykjavik, Iceland</h5>
                   </li>
                   <li className="menu-info-item animated-menu-item">
@@ -215,13 +214,11 @@ class NavbarMenu extends React.Component {
                   <li className="menu-info-item animated-menu-item">
                     <span className="info__title">Email</span>
                     <h5 className="info__content">
-                      support@creativemarket.com <br/>
                       support@creative.market
                     </h5>
                   </li>
                   <li className="menu-info-item-links animated-menu-item">
                     <span className="fab fa-facebook-f"/>
-                    <span className="fab fa-vimeo-v"/>
                     <span className="fab fa-instagram"/>
                   </li>
                 </ul>

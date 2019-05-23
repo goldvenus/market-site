@@ -29,6 +29,7 @@ class CustomCarousel extends Component {
     if (this.animating) return;
     const nextIndex = this.state.activeIndex === items.length - 1 ? 0 : this.state.activeIndex + 1;
     this.setState({ activeIndex: nextIndex });
+    console.log("next", this.state.activeIndex);
   }
 
   previous() {
@@ -40,33 +41,32 @@ class CustomCarousel extends Component {
 
   goToIndex(newIndex) {
     if (this.animating) return;
+    console.log("receive", newIndex, "===");
     this.setState({ activeIndex: newIndex });
   }
   
-  shouldComponentUpdate(props, state) {
-    if (props.gotoIndex && props.gotoIndex !== this.state.activeIndex) {
-      this.setState({activeIndex: props.gotoIndex});
-      return true;
-    } else if (this.state.activeIndex !== state.activeIndex) {
-      return true;
-    } else {
-      return false;
+  componentWillReceiveProps(props) {
+    let {gotoIndex} = props;
+    if (gotoIndex && gotoIndex !== this.state.activeIndex) {
+      console.log("will receive prop: ", props.gotoIndex);
+      this.goToIndex(props.gotoIndex);
     }
   }
 
   render() {
     const {activeIndex} = this.state;
-    const { items } = this.props;
+    let {items} = this.props;
 
-    const slides = items.map((item, index) => {
+    console.log(">>",activeIndex, items);
+    const slides = items.map((item) => {
       return (
         <CarouselItem
           onExiting={this.onExiting}
           onExited={this.onExited}
-          key={index}
+          key={item.src}
         >
           <div className="carousel-image-container">
-            <img src={item} alt="carousel" />
+            <img src={item.src} alt={item.altText} />
           </div>
         </CarouselItem>
       );
@@ -83,12 +83,12 @@ class CustomCarousel extends Component {
           <i className="fa fa-angle-left"/>
           <span className="sr-only">Previous</span>
         </div>
-        <div className="carousel-control-next" role="button" tabIndex="0" onClick={this.next}>
+        <div className="carousel-control-next" role="button" tabIndex="1" onClick={this.next}>
           <i className="fa fa-angle-right"/>
           <span className="sr-only">Next</span>
         </div>
       </Carousel>
-      <CarouselIndicators className='d-lg-none' items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex}/>
+      <CarouselIndicators className='' items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex}/>
     </div>
   }
 }

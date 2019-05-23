@@ -122,6 +122,7 @@
   text-align: center;
   opacity: $carousel-control-opacity;
   font-size: 25px;
+  cursor: pointer;
   // We can't have a transition here because WebKit cancels the carousel
   // animation if you trip this while in the middle of another animation.
 
