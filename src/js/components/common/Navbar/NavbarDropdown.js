@@ -35,6 +35,7 @@ class NavbarDropdown extends React.PureComponent {
   };
 
   render() {
+    // let isAuthenticated = !!localStorage.accessToken;
     const { isAuthenticated, user } = this.props;
     const { isDropdownOpen } = this.state;
 

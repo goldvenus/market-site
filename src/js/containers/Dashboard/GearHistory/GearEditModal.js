@@ -156,7 +156,7 @@ class GearEditModal extends Component {
     }
     const data = {
       gearid: this.gearid,
-      categoryName,
+      categoryName: categoryName.replace(' ', ''),
       brand,
       model,
       description,
@@ -373,7 +373,7 @@ class GearEditModal extends Component {
   }
 
   render() {
-    const {gear, onClose, onCalendar, isLoadingCategories, isLoadingGear} = this.props;
+    const {gear, onClose, onCalendar, isLoadingCategories, isLoadingGear, onDelete} = this.props;
     const {gearid} = this.state;
     if (!gear || !gearid || isLoadingCategories) {
       return <CustomSpinner/>;
@@ -482,7 +482,8 @@ class GearEditModal extends Component {
                     </div>
                   </div>
                   <div className="ELBLPC_down">
-                    <button className="ed_save" onClick={() => this.dataSave()}>save</button>
+                    <button className="ed_save" onClick={this.dataSave}>Save</button>
+                    <button className="ed_save" onClick={() => onDelete(this.state.gearid)}>Remove</button>
                     <button onClick={() => onCalendar(this.state.gearid)}>Calendar</button>
                   </div>
                   <div className="ELBLPC_bottom"/>

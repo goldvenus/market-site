@@ -138,16 +138,17 @@ class MyListings extends React.Component {
     this.setState({modal_open_st: 2, cur_gear: gearid});
   };
   
-  handleGearDelete = async (gearid) => {
+  handleGearDelete = (gearid) => {
     this.setState({modal_open_st: 3, cur_gear: gearid});
   };
   
   performDelete = async () => {
     this.setState({isDeleting: true});
+    
     await deleteGear({gearid: this.state.cur_gear});
-    this.pagesCount = Math.ceil((this.props.list.length-1) / this.pageSize);
+    
+    this.pagesCount = Math.ceil(this.props.list.length / this.pageSize);
     let curPage = this.state.currentPage;
-    console.log(this.state.currentPage, this.pagesCount);
     if (this.state.currentPage >= this.pagesCount)
       curPage = curPage - 1;
     this.setState({modal_open_st: 0, isDeleting: false, currentPage: curPage});
@@ -269,6 +270,7 @@ class MyListings extends React.Component {
               gearid={this.state.cur_gear}
               onClose={this.handleClose}
               onCalendar={this.handleOpenRentalCalendar}
+              onDelete={this.handleGearDelete}
             /> :
           this.state.modal_open_st === 1 ?
             <RentalCalendarModal
