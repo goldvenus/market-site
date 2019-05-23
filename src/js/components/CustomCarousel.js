@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Carousel, CarouselItem, CarouselIndicators } from 'reactstrap';
+import ItemsCarousel from "react-items-carousel";
 
 class CustomCarousel extends Component {
   constructor(props) {
@@ -15,6 +16,42 @@ class CustomCarousel extends Component {
     this.onExiting = this.onExiting.bind(this);
     this.onExited = this.onExited.bind(this);
   }
+  
+  renderCarousel = (img_arr) => {
+    // make img objects for bottom carousel
+    const children = img_arr.map((item, i) => (
+      <div key={i} className='carousel-image-container' onClick={() => this.setState({activeIndex: i})}>
+        <img src={item.src} alt=""/>
+      </div>
+    ));
+    
+    return (<ItemsCarousel
+      // Placeholder configurations
+      enablePlaceholder
+      numberOfPlaceholderItems={img_arr.length}
+      minimumPlaceholderTime={1000}
+      placeholderItem={<div style={{height: 200, background: '#900'}}>Placeholder</div>}
+      
+      // Carousel configurations
+      numberOfCards={4}
+      gutter={12}
+      showSlither={true}
+      firstAndLastGutter={true}
+      freeScrolling={false}
+      
+      // Active item configurations
+      requestToChangeActive={(val) => this.setState({activeIndex: val})}
+      activeItemIndex={this.state.activeIndex}
+      activePosition={'center'}
+      
+      chevronWidth={24}
+      rightChevron={'>'}
+      leftChevron={'<'}
+      outsideChevron={false}
+    >
+      {children}
+    </ItemsCarousel>);
+  };
 
   onExiting() {
     this.animating = true;
@@ -29,7 +66,6 @@ class CustomCarousel extends Component {
     if (this.animating) return;
     const nextIndex = this.state.activeIndex === items.length - 1 ? 0 : this.state.activeIndex + 1;
     this.setState({ activeIndex: nextIndex });
-    console.log("next", this.state.activeIndex);
   }
 
   previous() {
@@ -41,23 +77,13 @@ class CustomCarousel extends Component {
 
   goToIndex(newIndex) {
     if (this.animating) return;
-    console.log("receive", newIndex, "===");
     this.setState({ activeIndex: newIndex });
-  }
-  
-  componentWillReceiveProps(props) {
-    let {gotoIndex} = props;
-    if (gotoIndex && gotoIndex !== this.state.activeIndex) {
-      console.log("will receive prop: ", props.gotoIndex);
-      this.goToIndex(props.gotoIndex);
-    }
   }
 
   render() {
     const {activeIndex} = this.state;
     let {items} = this.props;
 
-    console.log(">>",activeIndex, items);
     const slides = items.map((item) => {
       return (
         <CarouselItem
@@ -88,7 +114,11 @@ class CustomCarousel extends Component {
           <span className="sr-only">Next</span>
         </div>
       </Carousel>
-      <CarouselIndicators className='' items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex}/>
+      <CarouselIndicators className='d-lg-none' items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex}/>
+  
+      <div className="carousel-bottom-container">
+        {this.renderCarousel(items)}
+      </div>
     </div>
   }
 }

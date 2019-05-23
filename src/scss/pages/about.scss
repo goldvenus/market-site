@@ -16,7 +16,7 @@
       background-image: url('/images/aboutus/1.png');
       background-repeat: no-repeat;
       background-position: right;
-      background-size: 53%;
+      background-size: 35%;
       height: 355px;
 
       .head-left {
@@ -27,6 +27,10 @@
         img {
           float: right;
         }
+      }
+      .container {
+        align-items: center;
+        display: flex;
       }
     }
     .about-us-watermark {
@@ -90,8 +94,9 @@
       font-family: Helvetica Neue;
       font-style: normal;
       font-weight: normal;
-      font-size: 30px;
-      line-height: 50px
+      font-size: 16px;
+      line-height: 27px;
+      color: #FFFFFF;
     }
 
     .about-cm {

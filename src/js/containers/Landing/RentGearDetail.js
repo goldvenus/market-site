@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Breadcrumb, BreadcrumbItem} from 'reactstrap';
-import ItemsCarousel from 'react-items-carousel';
 import Flickity from 'react-flickity-component'
 import BarLoader from 'react-bar-loader'
 import {
@@ -37,7 +36,6 @@ class RentGearDetail extends Component {
     super(props);
     
     this.gearid = props.match.params.id;
-    this.gotoIndex = 0;
     
     this.state = {
       startDate: new Date(),
@@ -50,8 +48,7 @@ class RentGearDetail extends Component {
       modal_open_st: 0,
       carted: false,
       gear: {},
-      busy: false,
-      gotoIndex: 0
+      busy: false
     };
     
     getGear(this.gearid);
@@ -140,42 +137,6 @@ class RentGearDetail extends Component {
   // carousel
   changeActiveItem = (activeItemIndex) => this.setState({activeItemIndex});
   
-  renderCarousel = (img_arr) => {
-    // make img objects for bottom carousel
-    const children = img_arr.map((item, i) => (
-      <div key={i} className='carousel-image-container' onClick={(e) => this.handleImageClick(e, i+1)}>
-        <img src={item.src} alt=""/>
-      </div>
-    ));
-    
-    return (<ItemsCarousel
-      // Placeholder configurations
-      enablePlaceholder
-      numberOfPlaceholderItems={img_arr.length}
-      minimumPlaceholderTime={1000}
-      placeholderItem={<div style={{height: 200, background: '#900'}}>Placeholder</div>}
-      
-      // Carousel configurations
-      numberOfCards={4}
-      gutter={12}
-      showSlither={true}
-      firstAndLastGutter={true}
-      freeScrolling={false}
-      
-      // Active item configurations
-      requestToChangeActive={this.changeActiveItem}
-      activeItemIndex={this.state.activeItemIndex}
-      activePosition={'center'}
-      
-      chevronWidth={24}
-      rightChevron={'>'}
-      leftChevron={'<'}
-      outsideChevron={false}
-    >
-      {children}
-    </ItemsCarousel>);
-  };
-  
   onOpenModal = async () => {
     try {
       const {carts} = this.props;
@@ -221,14 +182,6 @@ class RentGearDetail extends Component {
       open_date_picker1: ost1,
       open_date_picker2: ost2
     });
-  };
-  
-  handleImageClick = (e, gotoIndex) => {
-    e.preventDefault();
-    e.stopPropagation();
-    this.gotoIndex = gotoIndex;
-    console.log("send: ", gotoIndex);
-    this.forceUpdate();
   };
   
   // date-range-picker
@@ -308,7 +261,8 @@ class RentGearDetail extends Component {
     let amount = parseFloat(total + tax + fee).toFixed(2);
     let actualPrice = parseFloat(amount / duration).toFixed(2);
     let carouselItems = numberOfUserImage.map((item, index) => ({src: item, altText: `Slide ${index}`, caption: `Slide ${index}`}));
-  
+    // let carouselItems = numberOfUserImage.map((item, index) => ({original: item, thumbnail: item}));
+   
     return (
       <React.Fragment>
         {isChangingFavor && <CustomSpinner/>}
@@ -367,7 +321,7 @@ class RentGearDetail extends Component {
             </div>
             
             <div className="carousel-top-container">
-              <CustomCarousel items={carouselItems} gotoIndex={this.gotoIndex}/>
+              <CustomCarousel items={carouselItems} />
             </div>
             
             <div className="gear-info">
@@ -492,9 +446,6 @@ class RentGearDetail extends Component {
             <div className="col-lg-9 left-container">
               <div className="carousel-top-container">
                 <CustomCarousel items={carouselItems}/>
-              </div>
-              <div className="carousel-bottom-container">
-                {this.renderCarousel(carouselItems, this.handleImageClick)}
               </div>
             </div>
             <div className="right-container col-lg-15">

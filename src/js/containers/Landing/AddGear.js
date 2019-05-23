@@ -29,7 +29,7 @@ class AddGear extends Component {
     this.suggestions = [];
     
     this.state = {
-      progressStep: 3,
+      progressStep: 0,
       dropdownOpen: false,
       selectedType: 'new',
       isGearAdded: false,

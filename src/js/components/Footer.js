@@ -42,23 +42,23 @@ class Footer extends Component {
                   <img src="/images/Logo.svg" alt="logo" className="logo"/>
                 </div>
                 <div className="row">
-                  <ul className="nav text-xs-right">
-                    <li className="nav-item">
-                      <Link className="nav-link" to="/aboutus"><span style={{ fontSize: 16, color: '#252525' }}>About us</span></Link>
-                    </li>
+                  {/*<ul className="nav text-xs-right">*/}
+                    {/*<li className="nav-item">*/}
+                      {/*<Link className="nav-link" to="/aboutus"><span style={{ fontSize: 16, color: '#252525' }}>About us</span></Link>*/}
+                    {/*</li>*/}
                     {/*<li className="nav-item">*/}
                       {/*<Link className="nav-link" to="#"><span style={{ fontSize: 16, color: '#252525' }}>Stories</span></Link>*/}
                     {/*</li>*/}
-                    <li className="nav-item">
-                      <Link className="nav-link" to="/blog"><span style={{ fontSize: 16, color: '#252525' }}>Blog</span></Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link " to="/contacts"><span style={{ fontSize: 16, color: '#252525' }}>Contacts</span></Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link " to="FAQ"><span style={{ fontSize: 16, color: '#252525' }}>FAQs</span></Link>
-                    </li>
-                  </ul>
+                    {/*<li className="nav-item">*/}
+                      {/*<Link className="nav-link" to="/blog"><span style={{ fontSize: 16, color: '#252525' }}>Blog</span></Link>*/}
+                    {/*</li>*/}
+                    {/*<li className="nav-item">*/}
+                      {/*<Link className="nav-link " to="/contacts"><span style={{ fontSize: 16, color: '#252525' }}>Contacts</span></Link>*/}
+                    {/*</li>*/}
+                    {/*<li className="nav-item">*/}
+                      {/*<Link className="nav-link " to="FAQ"><span style={{ fontSize: 16, color: '#252525' }}>FAQs</span></Link>*/}
+                    {/*</li>*/}
+                  {/*</ul>*/}
                 </div>
                 {
                   !isAuthenticated ?

@@ -50,7 +50,7 @@ class About extends Component {
               </Breadcrumb>
               <h1>About Us</h1>
           </div>
-          <div className="head-container" style={{height: '88%'}}>
+          <div className="head-container" style={{height: '85%'}}>
             <div className="container">
               <div className="head-left">
                 <Breadcrumb className="theme-text-small">
@@ -85,7 +85,7 @@ class About extends Component {
               </p>
             </div>
           </div>
-          <div className="about-us-watermark" style={{height: '12%'}}/>
+          <div className="about-us-watermark" style={{height: '15%'}}/>
         </div>
         <div className="about-us-body">
           <div className="team-members">

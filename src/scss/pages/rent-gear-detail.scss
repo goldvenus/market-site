@@ -307,6 +307,9 @@
     font-size: 25px;
     font-weight: 800;
     background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 1%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 1) 100%);
+    //&::before {
+    //  content: '\f104';
+    //}
   }
   .hFlKJf {
     cursor: pointer;
@@ -314,6 +317,9 @@
     font-size: 25px;
     font-weight: 800;
     background: linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 1%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 1) 100%);
+    //&::before {
+    //  content: '\f105';
+    //}
   }
   .sc-EHOje {
     margin: 0 25px 0 0;
@@ -648,6 +654,7 @@
     border: none;
     overflow: visible;
   }
+
   .carousel-indicators {
     position: unset;
     margin-bottom: -35px;
@@ -661,6 +668,10 @@
     .active {
       background-color: #F74377;
     }
+  }
+
+  .carousel-bottom-container {
+    display: none;
   }
 
   .flickity-viewport {
