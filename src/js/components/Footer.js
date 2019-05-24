@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 class Footer extends Component {
   render() {
-    const { isAuthenticated } = this.props;
+    // const { isAuthenticated } = this.props;
     return (
       <React.Fragment>
         <footer >
@@ -35,13 +35,13 @@ class Footer extends Component {
               {/*</Row>*/}
             {/*</Container>*/}
           {/*</div>*/}
-          <div className="footer-nav d-none d-lg-block">
-            <Container style={{    marginTop: -35}}>
-              <div className="row">
-                <div className="col">
-                  <img src="/images/Logo.svg" alt="logo" className="logo"/>
-                </div>
-                <div className="row">
+          {/*<div className="footer-nav d-none d-lg-block">*/}
+            {/*<Container style={{    marginTop: -35}}>*/}
+              {/*<div className="row">*/}
+                {/*<div className="col">*/}
+                  {/*<img src="/images/Logo.svg" alt="logo" className="logo"/>*/}
+                {/*</div>*/}
+                {/*<div className="row">*/}
                   {/*<ul className="nav text-xs-right">*/}
                     {/*<li className="nav-item">*/}
                       {/*<Link className="nav-link" to="/aboutus"><span style={{ fontSize: 16, color: '#252525' }}>About us</span></Link>*/}
@@ -59,54 +59,65 @@ class Footer extends Component {
                       {/*<Link className="nav-link " to="FAQ"><span style={{ fontSize: 16, color: '#252525' }}>FAQs</span></Link>*/}
                     {/*</li>*/}
                   {/*</ul>*/}
-                </div>
-                {
-                  !isAuthenticated ?
-                  <div  className=" col d-flex align-items-center justify-content-center justify-content-sm-end">
-                    <button className="theme-btn theme-btn-secondery">Login</button> &nbsp;
-                    <button className="theme-btn theme-btn-primary">Register</button>
-                  </div>
-                  :
-                  ""
-                }
-              </div>
-            </Container>
-          </div>
-          <div className="Social-contects mb-3">
+                {/*</div>*/}
+                {/*{*/}
+                  {/*!isAuthenticated ?*/}
+                  {/*<div  className=" col d-flex align-items-center justify-content-center justify-content-sm-end">*/}
+                    {/*<button className="theme-btn theme-btn-secondery">Login</button> &nbsp;*/}
+                    {/*<button className="theme-btn theme-btn-primary">Register</button>*/}
+                  {/*</div>*/}
+                  {/*:*/}
+                  {/*""*/}
+                {/*}*/}
+              {/*</div>*/}
+            {/*</Container>*/}
+          {/*</div>*/}
+          <div className="Social-contects mb-3 footer-top-container">
             <Container>
-              <div className="row">
-                <div className="col">
-                  <div className="social-buttons">
-                  <button className="theme-btn btn-social btn-fb">
-                      <i className="fab fa-facebook-f"/>
-                      <span>Facebook</span></button> &nbsp;
-                      <button className="theme-btn btn-social btn-vimeo">
-                      <i className="fab fa-vimeo-v"/>
-                      <span>Vimeo</span></button> &nbsp;
-                      <button className="theme-btn btn-social btn-insta">
-                      <i className="fab fa-instagram"/>
-                      <span>Instagram</span></button>
-                  </div>
+              <div className="row footer-top-wrapper">
+                <div>
+                  <Link to='/'><img src='images/Logo.png' alt=''/></Link>
                 </div>
-                <div className="col d-none d-lg-flex">
-                  <div className="email" style={{ marginRight: -80 }}>
-                    <img src={'/images/email_icon.png'} style={{ width: 44, height: 33, marginTop: 4 }} alt="" />&nbsp;&nbsp;
-                    <p className="theme-text-small">
-                      support@creative.market
-                      <br />
-                      info@creative.market
-                    </p>
-                  </div>
+                <div>
+                  <img src='images/Emails.png' alt=''/>
+                  <span className='email'>support@creative.market</span>
                 </div>
-                <div className="col d-none d-lg-flex">
-                  <div className="phone">
-                    <img src={'/images/phone_icon.png'} style={{ width: 39, height: 38, marginTop: 4 }} alt="" />&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p className="theme-text-small">
-                      +354 787-0000<br />
-                      +354 775-5666
-                    </p>
-                  </div>
+                <div>
+                  <i className='fab fa-facebook-f'/>
+                  <i className="fab fa-instagram"/>
                 </div>
+                {/*<div className="col">*/}
+                  {/*<div className="social-buttons">*/}
+                  {/*<button className="theme-btn btn-social btn-fb">*/}
+                      {/*<i className="fab fa-facebook-f"/>*/}
+                      {/*<span>Facebook</span></button> &nbsp;*/}
+                      {/*<button className="theme-btn btn-social btn-vimeo">*/}
+                      {/*<i className="fab fa-vimeo-v"/>*/}
+                      {/*<span>Vimeo</span></button> &nbsp;*/}
+                      {/*<button className="theme-btn btn-social btn-insta">*/}
+                      {/*<i className="fab fa-instagram"/>*/}
+                      {/*<span>Instagram</span></button>*/}
+                  {/*</div>*/}
+                {/*</div>*/}
+                {/*<div className="col d-none d-lg-flex">*/}
+                  {/*<div className="email" style={{ marginRight: -80 }}>*/}
+                    {/*<img src={'/images/email_icon.png'} style={{ width: 44, height: 33, marginTop: 4 }} alt="" />&nbsp;&nbsp;*/}
+                    {/*<p className="theme-text-small">*/}
+                      {/*support@creative.market*/}
+                      {/*<br />*/}
+                      {/*info@creative.market*/}
+                    {/*</p>*/}
+                  {/*</div>*/}
+                {/*</div>*/}
+                {/*<div className="col d-none d-lg-flex">*/}
+                  {/*<div className="phone">*/}
+                    {/*<img src={'/images/phone_icon.png'} style={{ width: 39, height: 38, marginTop: 4 }} alt="" />&nbsp;&nbsp;&nbsp;&nbsp;*/}
+                    {/*<p className="theme-text-small">*/}
+                      {/*+354 787-0000<br />*/}
+                      {/*+354 775-5666*/}
+                    {/*</p>*/}
+                  {/*</div>*/}
+                {/*</div>*/}
               </div>
             </Container>
           </div>
@@ -115,22 +126,19 @@ class Footer extends Component {
               <Row>
                 <Col>
                   <div className="copyright">
-                    <p>© 2018 Creative Market - All Rights Reserved. Made by Ketchup Creative</p>
+                    <p>© 2018 Creative Market - Ketchup Creative ehf.</p>
                   </div>
                 </Col>
                 <Col className="footer-privaci-policy">
                   <ul className="nav justify-content-end d-none d-md-flex">
                     <li className="nav-item">
-                      <Link className="nav-link" to='/PrivacyPolicy'>Privacy Policy</Link>
+                      <Link className="nav-link" to='/PrivacyPolicy'>Privacy and Cookies</Link>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to='/TermsAndConditions/1'>Website Terms &amp; Condition</Link>
+                      <Link className="nav-link" to='/TermsAndConditions/1'>Terms of Use</Link>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to='/TermsAndConditions/2'>Rental Terms &amp; Condition</Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" to='/Help'>Help</Link>
+                      <Link className="nav-link" to='/TermsAndConditions/2'>Terms &amp; Condition</Link>
                     </li>
                   </ul>
                 </Col>

@@ -710,12 +710,12 @@ class Home extends React.Component {
               <Col className="paySection1">
                 <div className="pay-container">
                   <h2 className="pay-section-title">
-                    Rentals are fast, <br/>safe and secure
+                    Renting is fast, <br/>safe and secure
                   </h2>
 
                   <p className="pay-section1__desc">
                     Creative Market requires owners and renters to verify the condition of each item, both when picked up and returned.
-                    Making the whole process transparent and disputes easier to solve!
+                    Making disputes easier to solve!
                   </p>
 
                   <div className="pay-section1__cta">

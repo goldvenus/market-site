@@ -42,12 +42,6 @@
         display: flex;
         align-items: center;
       }
-      .checkbox-label {
-        //margin-top: -9px;
-      }
-      .checkbox-label-agree {
-        //margin-top: -9px;
-      }
     }
   }
 }
@@ -269,6 +263,25 @@
 }
 
 @media (max-width: 767px) {
+  .payment {
+    .checkbox-container {
+      display: block;
+      & > div:first-child {
+        margin-bottom: 15px;
+      }
+    }
+    .bottom-buttons {
+      display: block;
+
+      button {
+        width: 100%;
+
+        &:first-child {
+          margin-bottom: 15px;
+        }
+      }
+    }
+  }
   .payment-card {
     width: 100% !important;
   }

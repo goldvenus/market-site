@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import press from '../../../assets/images/press.jpg';
 import { Card, CardTitle, CardText, CardImg, CardImgOverlay } from 'reactstrap';
+import $ from 'jquery';
 
 const team = [
   { name: 'Joe Stapleton', job_title: 'Co-founder', img: '/images/team/1.jpg' },
@@ -38,8 +39,13 @@ class About extends Component {
       this.setState({height: {height: window.innerHeight-120 + 'px'}});
   }
   
+  handleScrollDown = () => {
+    $(function() {
+      // $('window').animate({ scrollTop: '500px' }, 200);
+    })
+  };
+  
   render() {
-    console.log(this.state.height);
     return (
       <div className="about-us">
         <div className="about-us-head" style={this.state.height}>
@@ -85,7 +91,9 @@ class About extends Component {
               </p>
             </div>
           </div>
-          <div className="about-us-watermark" style={{height: '15%'}}/>
+          <div className="about-us-watermark" style={{height: '15%'}}>
+            <i className='fa fa-angle-down' onClick={this.handleScrollDown}/>
+          </div>
         </div>
         <div className="about-us-body">
           <div className="team-members">

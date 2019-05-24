@@ -5,6 +5,19 @@ import store from '../../store';
 
 const dispatch = store.dispatch;
 
+function compare(a, b) {
+  const genreA = a.RecordCreated;
+  const genreB = b.RecordCreated;
+  
+  let comparison = 0;
+  if (genreA < genreB) {
+    comparison = 1;
+  } else if (genreA > genreB) {
+    comparison = -1;
+  }
+  return comparison;
+}
+
 const viewUserDashboard = async () => {
   dispatch({
     type: constants.GET_USER_DASHBOARD_REQUEST,
@@ -32,6 +45,8 @@ const getOrderHistory = async () => {
   try {
     let response = await get('getOrderHistory');
     if (response && response.data && response.data.status === 'success') {
+      response.data.data.sort(compare);
+      console.log(response.data.data);
       dispatch({
         type: constants.GET_ORDER_HISTORY_SUCCESS,
         payload: response.data.data

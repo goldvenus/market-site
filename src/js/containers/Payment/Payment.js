@@ -111,7 +111,7 @@ class Payment extends Component {
     let checkoutInfo = this.checkoutInfo;
     let cardToken = this.credentials.creditCardToken;
     let amount = checkoutInfo.amount;
-    let currency = 'ISK';
+    let currency = 'USD';
     let carts = this.props.carts;
     let productInfo = carts.map((item) => ({
       productName: item.productName,
@@ -367,7 +367,8 @@ class Payment extends Component {
       total += d * listItem.pricePerDay;
     });
     let tax = total * 0.21;
-    let amount = total + tax;
+    let fee = total * 0.15;
+    let amount = total + tax + fee;
     let cards = getUniqueObjectArray(this.state.cards);
 
     return (
@@ -456,7 +457,6 @@ class Payment extends Component {
                         maxLength='20'
                         className='checkout-textfield custom-beautiful-textfield'
                         onChange={e => this.handleInputChange(e, 'card_holder')}
-                        disabled
                       />
                     </div>
                   </div>
@@ -538,7 +538,7 @@ class Payment extends Component {
                   <div className="checkout-total">
                     <div><span className="text-gray">Total </span> <b>${parseFloat(total).toFixed(2)}</b></div>
                     <div><span className="text-gray">Tax (21%) </span> <b>${parseFloat(tax).toFixed(2)}</b></div>
-                    <div><span className="text-gray">Fee </span> <b>${parseFloat(tax).toFixed(2)}</b></div>
+                    <div><span className="text-gray">Fee (15%) </span> <b>${parseFloat(fee).toFixed(2)}</b></div>
                   </div>
 
                   <div className="checkout-amount">
@@ -550,7 +550,7 @@ class Payment extends Component {
   
             <div className="container flex-row">
               <div className="flex-row bottom-buttons">
-                <button className="theme-btn theme-btn-secondery theme-btn-link btn-edit-order-bottom">
+                <button className="theme-btn theme-btn-secondery btn-edit-order-bottom">
                   <Link to="/checkout">Back To Checkout</Link>
                 </button>
                 <button className="theme-btn theme-btn-primary btn-payment" onClick={this.pay}>

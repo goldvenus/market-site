@@ -28,6 +28,7 @@ class Checkout extends Component {
       addr: '',
       firstName: '',
       lastName: '',
+      company: '',
       addrList: [],
       saveAddr: false,
       productRegion: '',
@@ -53,6 +54,7 @@ class Checkout extends Component {
         firstName: checkout.FullName.split(' ')[0],
         lastName: checkout.FullName.split(' ')[1],
         saveAddr: checkout.SavedAddr,
+        company: checkout.Company,
         projectName: checkout.ProjectName,
         productRegion: checkout.ProductRegion
       });
@@ -84,27 +86,17 @@ class Checkout extends Component {
   handleInputChange = (e, val) => {
     this.setState({[val]: e.target.value});
   };
-
-  handleClickAddrList = () => {
-    if($('.addr-dropdown').hasClass('active')){
-      $('.addr-dropdown').removeClass('active') ;
-      $('.addr-dropdown ul').css('display', 'none');
-    } else {
-      $('.addr-dropdown').addClass('active') ;
-      $('.addr-dropdown ul').css('display', 'block');
-    }
-  };
   
   onCheckout = async () => {
     // 1. input validation
-    let { firstName, lastName, addr, city, zip, saveAddr, productRegion, projectName } = this.state;
+    let { firstName, lastName, addr, city, zip, saveAddr, productRegion, projectName, company } = this.state;
     let userId = localStorage.userId;
-    if (!firstName || !lastName || !addr || !city || !zip || !productRegion || !projectName) {
+    if (!firstName || !lastName || !addr || !city || !zip || !productRegion || !projectName || !company) {
       handleError('Please provide required information');
       return false;
     }
     
-    let data = { firstName, lastName, addr, city, zip, saveAddr, productRegion, projectName, userId };
+    let data = { firstName, lastName, addr, city, zip, saveAddr, productRegion, projectName, userId, company };
     this.setState({loading: true});
     let res = await checkout(data);
     
@@ -151,7 +143,7 @@ class Checkout extends Component {
     let tax = total * 0.21;
     let fee = total * 0.15;
     let amount = total + tax + fee;
-    let { firstName, lastName, addr, city, zip, saveAddr, productRegion, addrList, projectName } = this.state;
+    let { firstName, lastName, addr, city, zip, saveAddr, productRegion, addrList, projectName, company } = this.state;
     let addrList_temp = getUniqueObjectArray(addrList);
     console.log(addrList_temp);
 
@@ -195,7 +187,7 @@ class Checkout extends Component {
               <div className="address-select">
                 <Dropdown className='d-lg-block'>
                   <Dropdown.Toggle title="Saved address" className="select-addr-btn"/>
-                  <Dropdown.Menu>
+                  <Dropdown.Menu className='select-addr-dropdown'>
                     {
                       addrList_temp.length > 0 ?
                         addrList_temp.map((element, index) => (
@@ -230,6 +222,15 @@ class Checkout extends Component {
                       onChange={e => this.handleInputChange(e, 'lastName')}
                     />
                   </div>
+                </div>
+                <div className="flex-row">
+                  <TextField
+                    className='custom-beautiful-textfield'
+                    label='Company'
+                    type="text"
+                    value={company}
+                    onChange={(e) => this.handleInputChange(e, 'company')}
+                  />
                 </div>
                 <div className="flex-row">
                   <div className="theme-form-field flex-md-12">

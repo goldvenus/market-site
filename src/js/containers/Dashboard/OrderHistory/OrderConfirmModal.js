@@ -86,8 +86,8 @@ class OrderConfirmModal extends Component {
                         <div className='buyer-info-right'>
                           <div className='grey-small-text'>Address</div>
                           <div className='period-price'>
-                            <div>{info.Addr},</div>
-                            <div>{info.Zip} {info.Region}</div>
+                            <div>{listItem.address},</div>
+                            <div>{listItem.postalCode} {listItem.city}</div>
                           </div>
                         </div>
                       </div>
@@ -195,11 +195,11 @@ class OrderConfirmModal extends Component {
                             </div>
                           </div>
                         </div>
-                        <span><i className="fa fa-phone" aria-hidden="true"/>{listItem.OwnerInfo.phone_number}</span>
+                        <span>&nbsp;<i className="fa fa-phone" aria-hidden="true"/>{listItem.OwnerInfo.phone_number}</span>
                         <div className='buyer-info-right'>
                           <div className='period-price'>
-                            <i className="fa fa-map-marker" aria-hidden="true"/>
-                            <span> {info.Addr}, {info.Zip} {info.Region}</span>
+                            <i className="fa fa-map-marker" aria-hidden="true"/>&nbsp;
+                            <span> {info.address}, {listItem.postalCode} {listItem.city}</span>
                           </div>
                         </div>
                       </div>
