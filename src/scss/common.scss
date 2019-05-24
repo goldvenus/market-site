@@ -191,14 +191,15 @@ img {
 
 .notification-container {
   width: 40vw;
-  top: 130px;
+  top: 140px;
 
   .notification-error {
-    background-color: #f82462;
+    background-color: #d2003d;
     opacity: 1;
     border: none;
   }
   .notification-info {
+    background-color: #f82462;
     opacity: 0.9;
     border: none;
   }

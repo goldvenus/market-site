@@ -1,54 +1,14 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap';
-import press from '../../../assets/images/press.jpg';
-import { Card, CardTitle, CardText, CardImg, CardImgOverlay } from 'reactstrap';
-import $ from 'jquery';
-
-const team = [
-  { name: 'Joe Stapleton', job_title: 'Co-founder', img: '/images/team/1.jpg' },
-  { name: 'Jakob Storm', job_title: 'Co-founder', img: '/images/team/2.jpg' },
-  { name: 'Josh Kocaurek', job_title: 'CEO', img: '/images/team/3.jpg' },
-  { name: 'Tomass Sola', job_title: 'Lead Sales Manager', img: '/images/team/5.jpg' },
-];
-
-// Functional Component
-const TeamMember = ({ member: { name, job_title, img }, src }, ...props) => {
-  return (
-    <Col sm="8">
-      <Card inverse>
-        <CardImg width="100%" src={img} alt="Card image cap"/>
-        <CardImgOverlay>
-          <CardTitle className="X-center">{name}</CardTitle>
-          <CardText className="X-center">
-            <small className="text-muted">{job_title}</small>
-          </CardText>
-        </CardImgOverlay>
-      </Card>
-    </Col>
-  );
-};
+// import { Card, CardTitle, CardText, CardImg, CardImgOverlay } from 'reactstrap';
+import {Link} from "react-router-dom";
 
 class About extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {height: {height: '500px'}};
-  }
-  
-  componentDidMount() {
-    if (this.state.height.height !== window.innerHeight-120 + 'px')
-      this.setState({height: {height: window.innerHeight-120 + 'px'}});
-  }
-  
-  handleScrollDown = () => {
-    $(function() {
-      // $('window').animate({ scrollTop: '500px' }, 200);
-    })
-  };
   
   render() {
     return (
       <div className="about-us">
-        <div className="about-us-head" style={this.state.height}>
+        <div className="about-us-head">
           <div className="heading-mobile">
               <Breadcrumb className="theme-text-small">
                   <BreadcrumbItem>Home </BreadcrumbItem>
@@ -56,70 +16,45 @@ class About extends Component {
               </Breadcrumb>
               <h1>About Us</h1>
           </div>
-          <div className="head-container" style={{height: '85%'}}>
+          <div className="head-container">
             <div className="container">
               <div className="head-left">
                 <Breadcrumb className="theme-text-small">
                   <BreadcrumbItem>Home </BreadcrumbItem>
                   <BreadcrumbItem active>About Us</BreadcrumbItem>
                 </Breadcrumb>
-                <h1>About Us</h1>
-                <h3 className="intro">
-                  <span className="bold">Creative Market</span>&nbsp;
-                  <span className="thin">Introduction</span>
-                </h3>
-                <p className="theme-text-small about-desc">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, consequuntur vitae ipsum doloribus
-                  repellendus dolorum aliquid odio aspernatur at labore voluptatem laudantium ducimus libero inventore
-                  eos odit magni! Nesciunt, quos.dolorum aliquid odio aspernatur at labore voluptatem laudantium ducimus
-                  libero inventore eos odit magni! Nesciunt, quos.
-                </p>
               </div>
             </div>
           </div>
-          <div className="heading-body-mobile">
-            <div>
-              <p className="intro">
-                Creative Market
-              </p>
-              <p className='introduction'>Introduction</p>
-              <p className="theme-text-small about-desc">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, consequuntur vitae ipsum doloribus
-                repellendus dolorum aliquid odio aspernatur at labore voluptatem laudantium ducimus libero inventore
-                eos odit magni! Nesciunt, quos.dolorum aliquid odio aspernatur at labore voluptatem laudantium ducimus
-                libero inventore eos odit magni! Nesciunt, quos.
-              </p>
-            </div>
-          </div>
-          <div className="about-us-watermark" style={{height: '15%'}}>
-            <i className='fa fa-angle-down' onClick={this.handleScrollDown}/>
-          </div>
         </div>
+        
         <div className="about-us-body">
-          <div className="team-members">
-            <Container>
-              <Row>
-                <Col>
-                  <h2 className="our-team">Our Team</h2>
-                </Col>
-              </Row>
-              <Row>
-                {
-                  team.map((member, index) => {
-                    return <TeamMember member={member} key={index}/>;
-                  })
-                }
-              </Row>
-            </Container>
-          </div>
-          <div className="press">
-            <Container>
-              <h2 className="press-title">Press</h2>
-              <Col className="text-center press-container">
-                <img src={press} alt=""/>
+          <Container>
+            <Row className='home-subsection'>
+              <Col lg='12' md='24' className='order-lg-1 order-md-2'>
+                <h2>Rent the Gear<br/>Your Ideas Need</h2>
+                <p>If you love creating, you are most likely familiar with the problem of feeling limited by your gear. With Creative Market, you can now rent any gear you might need from other creatives around you.</p>
+                <Link to='/rentgear'><button className='theme-btn theme-btn-primary'>RENT GEAR</button></Link>
               </Col>
-            </Container>
-          </div>
+              <Col lg='12' md='24' className='rent-gear-back-img back-img order-lg-2 order-md-1'/>
+            </Row>
+            <Row className='home-subsection'>
+              <Col lg='12' md='24' className='add-gear-back-img back-img'/>
+              <Col lg='12' md='24'>
+                <h2>List Your Own<br/>Gear for Rent</h2>
+                <p>When you’re not renting from others, allow others to rent from you. Making your fancy gear work for you, even when you’re not using it yourself. It’s a win-win situation!</p>
+                <Link to='/addgear'><button className='theme-btn theme-btn-primary'>ADD GEAR</button></Link>
+              </Col>
+            </Row>
+            <Row className='home-subsection'>
+              <Col lg='12' md='24' className='order-lg-1 order-md-2'>
+                <h2>Secure Worldwide<br/>Rental Community</h2>
+                <p>Every member of Creative Market must be verified through our platform before engaging in rentals. Renters must complete payments before gear pickup takes place, and funds are securely held in escrow until owner and renter have both confirmed that the handoff has taken place.</p>
+                <Link to='/login'><button className='theme-btn theme-btn-primary'>SIGN UP</button></Link>
+              </Col>
+              <Col lg='12' md='24' className='secure-back-img back-img order-lg-2 order-md-1'/>
+            </Row>
+          </Container>
         </div>
       </div>
     );

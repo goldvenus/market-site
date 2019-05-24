@@ -47,7 +47,7 @@ const login = async (data) => {
       type: constants.LOGIN_SUCCESS,
       payload: response.data.data.userAttributes
     });
-    handleInfo("Welcome to Creative Market!");
+    // handleInfo("Welcome to Creative Market!");
     // store the token
     const { accessToken, idToken, refreshToken } = response.data.data.tokens;
     localStorage.accessToken = accessToken;
