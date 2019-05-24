@@ -508,18 +508,6 @@ class Payment extends Component {
                       </div>
                       <Label for="save-address" className='checkbox-label'>Save this payment method</Label>
                     </div>
-                    <div>
-                      <div className="input_svg pretty p-svg p-plain">
-                        <input  type="checkbox" onChange={this.handleSetRead} checked={isChecked ? 'checked' : ''}/>
-                        <div className="state">
-                          <img className="svg check_svg" alt="" src="/images/Icons/task.svg"/>
-                        </div>
-                      </div>
-                      <Label className='checkbox-label-agree'>
-                        Yes, I agree to the<br/>
-                        <span className='term-view-btn' onClick={() => this.handleOpenModal(2)}>Rental Terms & Conditions</span>
-                      </Label>
-                    </div>
                   </div>
                   
                 </div>
@@ -547,13 +535,26 @@ class Payment extends Component {
                 </div>
               </div>
             </div>
-  
+            
+            <div className="container flex-row">
+              <div className="input_svg pretty p-svg p-plain">
+                <input  type="checkbox" onChange={this.handleSetRead} checked={isChecked ? 'checked' : ''}/>
+                <div className="state">
+                  <img className="svg check_svg" alt="" src="/images/Icons/task.svg"/>
+                </div>
+              </div>
+              <Label className='checkbox-label-agree'>
+                Yes, I've read, understood and agree<br/>to the
+                <span className='term-view-btn' onClick={() => this.handleOpenModal(2)}> Rental Terms & Conditions</span>
+              </Label>
+            </div>
+            
             <div className="container flex-row">
               <div className="flex-row bottom-buttons">
                 <button className="theme-btn theme-btn-secondery btn-edit-order-bottom">
                   <Link to="/checkout">Back To Checkout</Link>
                 </button>
-                <button className="theme-btn theme-btn-primary btn-payment" onClick={this.pay}>
+                <button className="theme-btn theme-btn-primary btn-payment" onClick={this.pay} disabled={!isChecked ? 'disabled' : ''}>
                   Pay (${parseFloat(amount).toFixed(2)})
                 </button>
               </div>
@@ -562,7 +563,7 @@ class Payment extends Component {
             {modalOpenState ?
               <Modal open={true} onClose={this.handleCloseModal} center classNames={{modal: "confirm-modal privacy-modal"}}>
                 <div className='confirm-modal-header'>
-                  <span>Rental Terms and Conditions</span>
+                  <span>Terms of Use</span>
                 </div>
                 <div className='confirm-modal-body'>
                   <RentalTermsComponent/>

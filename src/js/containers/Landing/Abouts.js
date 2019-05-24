@@ -1,125 +1,51 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap';
-import press from '../../../assets/images/press.jpg';
-import { Card, CardTitle, CardText, CardImg, CardImgOverlay } from 'reactstrap';
-import $ from 'jquery';
+import { Container, Row, Col } from 'reactstrap';
+import {Link} from "react-router-dom";
 
 const team = [
   { name: 'Joe Stapleton', job_title: 'Co-founder', img: '/images/team/1.jpg' },
   { name: 'Jakob Storm', job_title: 'Co-founder', img: '/images/team/2.jpg' },
   { name: 'Josh Kocaurek', job_title: 'CEO', img: '/images/team/3.jpg' },
   { name: 'Tomass Sola', job_title: 'Lead Sales Manager', img: '/images/team/5.jpg' },
+  { name: 'Joe Stapleton', job_title: 'Co-founder', img: '/images/team/1.jpg' },
+  { name: 'Jakob Storm', job_title: 'Co-founder', img: '/images/team/2.jpg' },
+  { name: 'Josh Kocaurek', job_title: 'CEO', img: '/images/team/3.jpg' },
+  { name: 'Tomass Sola', job_title: 'Lead Sales Manager', img: '/images/team/5.jpg' },
 ];
 
-// Functional Component
-const TeamMember = ({ member: { name, job_title, img }, src }, ...props) => {
-  return (
-    <Col sm="8">
-      <Card inverse>
-        <CardImg width="100%" src={img} alt="Card image cap"/>
-        <CardImgOverlay>
-          <CardTitle className="X-center">{name}</CardTitle>
-          <CardText className="X-center">
-            <small className="text-muted">{job_title}</small>
-          </CardText>
-        </CardImgOverlay>
-      </Card>
-    </Col>
-  );
-};
-
 class About extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {height: {height: '500px'}};
-  }
-  
-  componentDidMount() {
-    if (this.state.height.height !== window.innerHeight-120 + 'px')
-      this.setState({height: {height: window.innerHeight-120 + 'px'}});
-  }
-  
-  handleScrollDown = () => {
-    $(function() {
-      // $('window').animate({ scrollTop: '500px' }, 200);
-    })
-  };
   
   render() {
     return (
       <div className="about-us">
-        <div className="about-us-head" style={this.state.height}>
-          <div className="heading-mobile">
-              <Breadcrumb className="theme-text-small">
-                  <BreadcrumbItem>Home </BreadcrumbItem>
-                  <BreadcrumbItem active>About Us</BreadcrumbItem>
-              </Breadcrumb>
-              <h1>About Us</h1>
-          </div>
-          <div className="head-container" style={{height: '85%'}}>
-            <div className="container">
-              <div className="head-left">
-                <Breadcrumb className="theme-text-small">
-                  <BreadcrumbItem>Home </BreadcrumbItem>
-                  <BreadcrumbItem active>About Us</BreadcrumbItem>
-                </Breadcrumb>
-                <h1>About Us</h1>
-                <h3 className="intro">
-                  <span className="bold">Creative Market</span>&nbsp;
-                  <span className="thin">Introduction</span>
-                </h3>
-                <p className="theme-text-small about-desc">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, consequuntur vitae ipsum doloribus
-                  repellendus dolorum aliquid odio aspernatur at labore voluptatem laudantium ducimus libero inventore
-                  eos odit magni! Nesciunt, quos.dolorum aliquid odio aspernatur at labore voluptatem laudantium ducimus
-                  libero inventore eos odit magni! Nesciunt, quos.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="heading-body-mobile">
-            <div>
-              <p className="intro">
-                Creative Market
-              </p>
-              <p className='introduction'>Introduction</p>
-              <p className="theme-text-small about-desc">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, consequuntur vitae ipsum doloribus
-                repellendus dolorum aliquid odio aspernatur at labore voluptatem laudantium ducimus libero inventore
-                eos odit magni! Nesciunt, quos.dolorum aliquid odio aspernatur at labore voluptatem laudantium ducimus
-                libero inventore eos odit magni! Nesciunt, quos.
-              </p>
-            </div>
-          </div>
-          <div className="about-us-watermark" style={{height: '15%'}}>
-            <i className='fa fa-angle-down' onClick={this.handleScrollDown}/>
-          </div>
-        </div>
         <div className="about-us-body">
-          <div className="team-members">
-            <Container>
-              <Row>
-                <Col>
-                  <h2 className="our-team">Our Team</h2>
-                </Col>
-              </Row>
-              <Row>
-                {
-                  team.map((member, index) => {
-                    return <TeamMember member={member} key={index}/>;
-                  })
-                }
-              </Row>
-            </Container>
-          </div>
-          <div className="press">
-            <Container>
-              <h2 className="press-title">Press</h2>
-              <Col className="text-center press-container">
-                <img src={press} alt=""/>
+          <Container>
+            <Row className='home-subsection'>
+              <Col lg='12' md='24' className='order-lg-1 order-md-2'>
+                <h2>About Us</h2>
+                <p>Founded in 2018, Creative Market is a peer-to-peer rental marketplace allowing you to find and rent gear from other creatives around you. Cameras, Musical Instruments, Lights and anything else that comes to mind, Creative Market is the place to find it.</p>
+                <p>Creative Market is a part of Ketchup Creative ehf., a privately held company registered in Iceland.</p>
+                <Link to='/contact'><button className='theme-btn theme-btn-primary contact-btn'>CONTACT</button></Link>
+                <Link to='/termsofuse'><button className='theme-btn theme-btn-filled-white terms-btn'>TERMS OF USE</button></Link>
               </Col>
-            </Container>
-          </div>
+              <Col lg='12' md='24' className='order-lg-2 order-md-1'>
+                <Row className='user-avatar-container'>
+                  {
+                    team.map((item, key) =>
+                      <div className='user-avatar' key={key} style={{'backgroundImage': `url(${item.img})`}}/>)
+                  }
+                </Row>
+              </Col>
+            </Row>
+            <Row className='home-subsection'>
+              <Col lg='12' md='24' className='question-back-img back-img'/>
+              <Col lg='12' md='24'>
+                <h2>Got Questions?</h2>
+                <p>If you have any questions, head on over to our FAQ page and you should find the answers before you even ask! Security, payments, insurance and more imporant topics. If the answer isn’t there, submit a new question through the form and we’ll get back to you as soon as possible.</p>
+                <Link to='/FAQ'><button className='theme-btn theme-btn-primary'>FAQs</button></Link>
+              </Col>
+            </Row>
+          </Container>
         </div>
       </div>
     );

@@ -47,7 +47,7 @@ const login = async (data) => {
       type: constants.LOGIN_SUCCESS,
       payload: response.data.data.userAttributes
     });
-    handleInfo("Welcome to Creative Market!");
+    // handleInfo("Welcome to Creative Market!");
     // store the token
     const { accessToken, idToken, refreshToken } = response.data.data.tokens;
     localStorage.accessToken = accessToken;
@@ -200,9 +200,6 @@ const refreshToken = async () => {
     } else {
       // when expired
       logout();
-      delete localStorage.accessToken;
-      delete localStorage.idToken;
-      delete localStorage.refreshToken;
     }
   } catch (error) {
     handleError(error);

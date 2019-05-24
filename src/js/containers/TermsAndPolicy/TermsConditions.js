@@ -24,7 +24,7 @@ class TermsConditions extends Component {
                   <span className="space_slash_span">/</span>
                   <BreadcrumbItem active>Terms and Conditions</BreadcrumbItem>
                 </Breadcrumb>
-                <h2>{id === 2 ? 'Rental' : 'Website'} Terms and conditions</h2>
+                <h2>{id === 1 ? 'Terms & Conditions' : 'Terms of Use'}</h2>
               </Col>
             </Row>
           </Container>

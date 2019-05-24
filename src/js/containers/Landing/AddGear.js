@@ -434,8 +434,8 @@ class AddGear extends Component {
         <div className="buttons-container">
           <button className="theme-btn theme-btn-secondery" onClick={this.previousStep.bind(this)}><span
             className="fa fa-angle-left d-sm-none d-md-none d-lg-block"/><span
-            class="d-sm-none d-lg-none d-md-block">Back</span></button>
-          <button className="theme-btn theme-btn-primary" onClick={this.addGearDetails.bind(this)}>Submit <span
+            className="d-sm-none d-lg-none d-md-block">Back</span></button>
+          <button className="theme-btn theme-btn-primary" onClick={this.addGearDetails.bind(this)} disabled={!isChecked ? 'disabled' : ''}>Submit <span
             className="fa fa-angle-right"/></button>
         </div>
       </div>

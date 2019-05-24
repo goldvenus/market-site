@@ -7,7 +7,6 @@ const PrivacyPolicyComponent = () => (
       <Col>
         <p>Last update: May 17th  2019</p>
         <p>Creative.Market (“We” or “Us”) collects personal and non-personal data from its Users.</p>
-        <br/>
         
         <h4>1&nbsp;&nbsp;&nbsp;The Data Controller is:</h4>
         <p>

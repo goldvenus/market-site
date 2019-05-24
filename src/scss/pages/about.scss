@@ -12,22 +12,6 @@
       display: none;
     }
     .head-container {
-      display: flex;
-      background-image: url('/images/aboutus/1.png');
-      background-repeat: no-repeat;
-      background-position: right;
-      background-size: 35%;
-      height: 355px;
-
-      .head-left {
-        width: 50%;
-      }
-      .head-right {
-        width: 50%;
-        img {
-          float: right;
-        }
-      }
       .container {
         align-items: center;
         display: flex;
@@ -126,6 +110,58 @@
     z-index: 5;
     background-color: white;
 
+    .home-subsection {
+      margin: 180px 0 !important;
+      align-items: center;
+
+      .back-img {
+        height: 330px;
+        background-size: contain;
+        background-repeat: no-repeat ;
+        background-position: center;
+      }
+      .question-back-img {
+        background-image: url('/images/aboutus/undraw_questions_75e0.png');
+      }
+      .user-avatar-container {
+        display: flex;
+
+        .user-avatar {
+          width: 135px;
+          height: 135px;
+          border-radius: 50%;
+          background-repeat: no-repeat;
+          background-size: cover;
+          margin: 10px;
+          padding: 0;
+        }
+      }
+      h2 {
+        font-family: Gotham Pro;
+        font-size: 43px;
+        line-height: 63px;
+        color: #252525;
+      }
+      p {
+        font-size: 16px;
+        line-height: 27px;
+        color: #252525;
+        margin: 2rem 0;
+        width: 73%;
+      }
+      button {
+        font-size: 16px;
+        line-height: 20px;
+        text-align: center;
+        padding: 12px 30px;
+        vertical-align: middle;
+        width: 180px;
+      }
+      .terms-btn {
+        margin-left: 15px;
+      }
+    }
+
     .team-members {
       background: #faf8f9;
       padding-bottom: 124px;
@@ -217,6 +253,10 @@
           padding-top: 0;
         }
       }
+
+      .home-subsection {
+        margin: 80px 0 !important;
+      }
     }
   }
 }
@@ -267,6 +307,26 @@
             margin-top: 3rem;
             margin-bottom: 2rem;
           }
+        }
+      }
+
+      .home-subsection {
+        margin: 60px 0 !important;
+
+        & > div:last-child {
+          margin-bottom: 30px;
+        }
+        .terms-btn {
+          margin: 0 !important;
+        }
+        .contact-btn {
+          margin-bottom: 20px;
+        }
+        .user-avatar-container {
+          justify-content: center;
+        }
+        button {
+          width: 100%;
         }
       }
     }

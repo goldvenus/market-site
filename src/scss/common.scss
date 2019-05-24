@@ -29,9 +29,10 @@ button:focus, button:active {
 
 button:disabled,
 button[disabled]{
-  border: 1px solid #999999;
-  background-color: #cccccc;
-  color: #666666;
+  //border: 1px solid #999999;
+  //background-color: #cccccc;
+  //color: #666666;
+  opacity: 0.5;
 }
 
 .theme-btn-secondery {
@@ -191,14 +192,15 @@ img {
 
 .notification-container {
   width: 40vw;
-  top: 130px;
+  top: 140px;
 
   .notification-error {
-    background-color: #f82462;
+    background-color: #d2003d;
     opacity: 1;
     border: none;
   }
   .notification-info {
+    background-color: #f82462;
     opacity: 0.9;
     border: none;
   }
