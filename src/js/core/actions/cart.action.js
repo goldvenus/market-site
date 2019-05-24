@@ -27,7 +27,7 @@ const addCart = (data) => {
         handleInfo('Gear was added to cart');
         resolve(response.data.data);
       } else {
-        let msg = 'Adding to cart was failed';
+        let msg = 'Failed ';
         if (response.data && response.data.errorMessage) {
           msg = response.data.errorMessage;
           if (response.data.data.blocked && response.data.data.blocked.length > 0) {
@@ -40,6 +40,9 @@ const addCart = (data) => {
           }
         }
         handleError(msg);
+        dispatch({
+          type: constants.ADD_TO_CART_FAILED
+        });
         resolve(false);
       }
     } catch (error) {
@@ -64,7 +67,7 @@ const editCart = async (data) => {
         handleInfo('Edited successfully');
         resolve(true);
       } else {
-        let msg = "Editing failed";
+        let msg = "Failed ";
         if (response.data && response.data.errorMessage) {
           msg = response.data.errorMessage;
           if (response.data.data.blocked && response.data.data.blocked.length) {
@@ -77,10 +80,16 @@ const editCart = async (data) => {
           }
         }
         handleError(msg);
+        dispatch({
+          type: constants.ADD_TO_CART_FAILED
+        });
         resolve(false);
       }
     } catch (error) {
       handleError(error);
+      dispatch({
+        type: constants.ADD_TO_CART_FAILED
+      });
       reject(false);
     }
   });

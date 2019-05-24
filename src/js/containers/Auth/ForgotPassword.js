@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import AuthSideMenu from '../../components/AuthSideMenu';
 import {sendResetPasswordEmail, confirmResetPassword} from '../../core/actions/user.action';
 import TextField from "@material-ui/core/TextField/TextField";
-import Navbar from "../../components/common/Navbar/Navbar";
+import Navbar from "../../components/Navbar/Navbar";
 import CustomSpinner from "../../components/CustomSpinner";
 
 class ForgotPassword extends Component {

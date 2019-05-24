@@ -184,66 +184,66 @@
     }
 
     .account-detail {
-      .account-detail-heading {
-        text-align: left;
-        font-family: Gotham Pro;
-        font-weight: 600;
-        font-size: 16px;
-        line-height: 23px;
-        letter-spacing: 0.09em;
-        text-transform: uppercase;
-        border-bottom: 1px solid #f8f8f8;
-        padding: 30px;
-        color: #A4A4A4;
-        .forgot-pwd-btn {
-          float: right;
-          margin-top: 8px;
-          font-family: Helvetica Neue, sans-serif;
-          font-size: 12px;
-          line-height: 18px;
-          text-align: center;
-          letter-spacing: 0.03em;
-          color: #F74377;
-          text-decoration: underline;
-        }
-      }
-      .wrapper-detail {
-        text-align: center;
-        display: flex;
-        background-color: white;
-        border: solid 30px #faf8f9;
+       .account-detail-heading {
+         text-align: left;
+         font-family: Gotham Pro;
+         font-weight: 600;
+         font-size: 16px;
+         line-height: 23px;
+         letter-spacing: 0.09em;
+         text-transform: uppercase;
+         border-bottom: 1px solid #f8f8f8;
+         padding: 30px;
+         color: #A4A4A4;
+         .forgot-pwd-btn {
+           float: right;
+           margin-top: 8px;
+           font-family: Helvetica Neue, sans-serif;
+           font-size: 12px;
+           line-height: 18px;
+           text-align: center;
+           letter-spacing: 0.03em;
+           color: #F74377;
+           text-decoration: underline;
+         }
+       }
+       .wrapper-detail {
+         text-align: center;
+         display: flex;
+         background-color: white;
+         border: solid 30px #faf8f9;
 
-        .detail-left-wrapper {
-          width: 50%;
-          border-right: solid 15px #faf8f9;
-        }
-        .detail-right-wrapper {
-          width: 50%;
-          border-left: solid 15px #faf8f9;
-        }
-        .account-detail-body {
-          padding: 26px;
-          .custom-beautiful-textfield {
-            width: 100%;
-          }
-          .form-group {
-            margin-bottom: 28px;
-          }
-          label, input {
-            margin-left: 15px;
-          }
-          button {
-            width: 100%;
-          }
-        }
-        .text-muted {
-          color: #A4A4A4 !important;
-        }
-        .row {
-          width: 100%;
-        }
-      }
-    }
+         .detail-left-wrapper {
+           width: 50%;
+           border-right: solid 15px #faf8f9;
+         }
+         .detail-right-wrapper {
+           width: 50%;
+           border-left: solid 15px #faf8f9;
+         }
+         .account-detail-body {
+           padding: 26px;
+           .custom-beautiful-textfield {
+             width: 100%;
+           }
+           .form-group {
+             margin-bottom: 28px;
+           }
+           label, input {
+             margin-left: 15px;
+           }
+           button {
+             width: 100%;
+           }
+         }
+         .text-muted {
+           color: #A4A4A4 !important;
+         }
+         .row {
+           width: 100%;
+         }
+       }
+     }
     .my-listing {
       .listing-body {
         width: 100%;

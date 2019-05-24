@@ -3,7 +3,7 @@ import {
   createOpacityAnimationConfig,
   triggerAnimationDoneEvent,
   ANIMAITON_DURATION_1, ANIMAITON_DURATION_2,
-} from '../../../utils/animation';
+} from '../../utils/animation';
 
 export const animateMenuIn = menuContainer =>
   anime

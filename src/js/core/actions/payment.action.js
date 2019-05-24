@@ -59,8 +59,23 @@ const getPaymentCards = data => {
 const getPaidItems = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let response = await post('getpaiditems', data);
+      let response = await post('getPaidItems', data);
       resolve(response.data);
+    } catch (error) {
+      handleError(error);
+      reject(error);
+    }
+  });
+};
+
+const getTransHistory = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let response = await post('getTransHistory', data);
+      if (response && response.data && response.data.status === 'success') {
+        resolve(response.data);
+      }
+      resolve(false);
     } catch (error) {
       handleError(error);
       reject(error);
@@ -111,6 +126,6 @@ const checkExistingNummusCustomer = async (data) => {
 };
 
 export {
-  payment, getPaidItems, getPaymentCards,
+  payment, getPaidItems, getPaymentCards, getTransHistory,
   doNummusCharge, createNummusVendor, createNummusCustomer, checkExistingNummusCustomer
 }

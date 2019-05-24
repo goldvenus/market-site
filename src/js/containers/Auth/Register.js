@@ -8,7 +8,7 @@ import {register} from '../../core/actions/user.action';
 import {bindActionCreators} from "redux";
 import CustomSpinner from "../../components/CustomSpinner";
 import TextField from "@material-ui/core/TextField/TextField";
-import Navbar from "../../components/common/Navbar/Navbar";
+import Navbar from "../../components/Navbar/Navbar";
 import Modal from "react-responsive-modal";
 import PrivacyPolicyComponent from "../TermsAndPolicy/PrivacyPolicyComponent";
 import RentalTermsComponent from "../TermsAndPolicy/RentalTermsComponent";
@@ -215,7 +215,7 @@ class Register extends Component {
                     {/*</div>*/}
                   {/*</div>*/}
                   
-                  <button className="theme-btn-submit" onClick={this.submit.bind(this)}>Sign up</button>
+                  <button className="theme-btn-submit" onClick={this.submit.bind(this)} disabled={!isChecked ? 'disabled' : ''}>Sign up</button>
                 </Form>
                 <div className="login-or-divider"/>
                 <div className="flex-row signin-link already-signin-wrapper">

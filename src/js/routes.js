@@ -8,6 +8,7 @@ import RegisterConfirm from './containers/Auth/RegisterConfirm';
 import ForgotPassword from './containers/Auth/ForgotPassword';
 import Dashboard from './containers/Dashboard/Dashboard';
 import OrderDetail from './containers/Dashboard/OrderHistory/OrderDetail';
+import AddMethodContainer from './containers/Dashboard/Payment/AddMethodContainer';
 import AddGear from './containers/Landing/AddGear';
 import Cart from './containers/Landing/Cart';
 import Checkout from './containers/Checkout/Checkout';
@@ -34,6 +35,7 @@ export default (
       <Route exact path="/forgotpassword" component={ForgotPassword}/>
       <Route exact path="/dashboard" component={Dashboard}/>
       <Route exact path="/dashboard/order/detail/:id" component={OrderDetail}/>
+      <Route exact path="/dashboard/methodAdd/:id" component={AddMethodContainer}/>
       <Route exact path="/addgear" component={AddGear}/>
       <Route exact path="/gear/detail/:id" component={RentGearDetail}/>
       <Route exact path="/cart" component={Cart}/>

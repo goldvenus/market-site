@@ -103,6 +103,19 @@
             position: relative;
             margin-right: 15px;
           }
+
+          .custom-beautiful-textfield {
+            width: 100%;
+            & > div {
+              width: 100%;
+              & > div {
+                width: 100%;
+                input {
+                  padding-left: 15px;
+                }
+              }
+            }
+          }
         }
       }
 

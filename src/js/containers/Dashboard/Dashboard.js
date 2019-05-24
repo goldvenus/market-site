@@ -66,7 +66,7 @@ class Dashboard extends Component {
                 <OrderHistory/>
               </TabPane>
               <TabPane tabId="5">
-                <PaymentDashboard/>
+                <PaymentDashboard history={this.props.history}/>
               </TabPane>
             </TabContent>
           </Container>

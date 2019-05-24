@@ -195,15 +195,15 @@ class MyListings extends React.Component {
                     <div className="table-responsive">
                       <Table className="listing-data-slice">
                         <thead className="list-table-head">
-                        <tr className="text-muted theme-text-bold listing-data-thead">
-                          <th/>
-                          <th>Name & Category</th>
-                          <th>Price Per day</th>
-                          <th>Value</th>
-                          <th/>
-                          <th/>
-                          <th/>
-                        </tr>
+                          <tr className="text-muted theme-text-bold listing-data-thead">
+                            <th/>
+                            <th>Name & Category</th>
+                            <th>Price Per day</th>
+                            <th>Value</th>
+                            <th/>
+                            <th/>
+                            <th/>
+                          </tr>
                         </thead>
                         <tbody className="listing-data-tbody">
                         {list ? list

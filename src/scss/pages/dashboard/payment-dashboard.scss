@@ -1,0 +1,389 @@
+.payment-dashboard {
+  .payment-dashboard-heading-wrapper {
+    text-align: left;
+    font-family: Gotham Pro;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 23px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: #A4A4A4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .balance-wrapper {
+      display: flex;
+      width: 374px;
+      padding: 22px;
+      justify-content: space-between;
+      background-color: #faf8f9;
+      align-items: center;
+      .balance-left {
+        p:first-child {
+          font-size: 16px;
+          line-height: 28px;
+          color: #A4A4A4;
+          margin: 0;
+        }
+        p:last-child {
+          font-family: Gotham Pro;
+          font-size: 20px;
+          line-height: 25px;
+          color: #252525;
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .wrapper-detail {
+    text-align: center;
+    display: flex;
+    background-color: white;
+    border: solid 30px #faf8f9;
+
+    .detail-left-wrapper {
+      width: 50%;
+      border-right: solid 15px #faf8f9;
+    }
+    .detail-right-wrapper {
+      width: 50%;
+      border-left: solid 15px #faf8f9;
+    }
+
+    .payment-dashboard-heading {
+      font-family: Gotham Pro;
+      text-align: left;
+      border-bottom: solid 1px #f6f6f6;
+      padding: 25px;
+      font-size: 16px;
+      line-height: 23px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: #A4A4A4;
+      font-weight: 600;
+    }
+    .payment-dashboard-body {
+      padding: 26px;
+      display: flex;
+
+      .card-body {
+        width: 48%;
+        background-color: #f7f7f7;
+        border: none;
+        font-family: Gotham Pro;
+        font-size: 12px;
+        line-height: 14px;
+        letter-spacing: 0.03em;
+        color: #3A3A3A;
+        padding: 17px !important;
+
+        .payment-card {
+          display: flex;
+          flex-direction: column;
+
+          .image-container {
+            display: flex;
+            justify-content: space-between;
+
+            img:last-child {
+              margin-top: -3px;
+              width: 16px;
+              height: 16px;
+              cursor: pointer;
+            }
+          }
+          .payment-card-other {
+            margin: 0 !important;
+          }
+          .payment-card-number {
+            font-family: Gotham Pro;
+            font-size: 18px;
+            line-height: 25px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #252525;
+            text-align: left;
+            font-weight: 600;
+            margin: 15px 0 30px;
+
+            p {
+              margin: 5px 0;
+              &:last-child {
+                font-size: 12px;
+                line-height: 18px;
+                letter-spacing: 0.03em;
+              }
+            }
+          }
+          .swift-text {
+            font-size: 16px;
+            line-height: 27px;
+            color: #252525;
+          }
+        }
+
+        &:first-child {
+          margin-right: 10px;
+        }
+        &:last-child {
+          margin-left: 10px;
+        }
+      }
+      .add-new-card-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid rgba(248, 36, 98, 0.05);
+        background-color: white;
+        background-image: none;
+        cursor: pointer;
+
+        .add-new-card {
+          display: flex;
+          justify-content: center;
+
+          .plus-icon-container {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            color: #f82462;
+            font-size: 40px;
+            font-weight: 600;
+            background-color: #ffeaf0;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+
+            i {
+              font-size: 24px;
+              margin: 0 auto;
+            }
+          }
+          .add-method-text {
+            font-size: 16px;
+            line-height: 27px;
+            text-align: center;
+            color: #FFFFFF;
+            margin: 5px 0 0;
+            display: none;
+          }
+        }
+
+        &:hover {
+          background-color: #f82462;
+          border-radius: unset;
+          transition: all .3s;
+
+          .add-new-card {
+            display: block;
+          }
+          .plus-icon-container {
+            background-color: white;
+            margin: 0 auto;
+          }
+          .add-method-text {
+            display: block;
+          }
+        }
+      }
+      .custom-beautiful-textfield {
+        width: 100%;
+      }
+      .form-group {
+        margin-bottom: 28px;
+      }
+      label, input {
+        margin-left: 15px;
+      }
+      button {
+        width: 100%;
+      }
+    }
+    .text-muted {
+      color: #A4A4A4 !important;
+    }
+    .row {
+      width: 100%;
+    }
+  }
+
+  .wrapper-transaction {
+    border: solid 30px #faf8f9;
+    margin-top: 30px;
+
+    .transaction-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+
+      & > span {
+        font-family: Gotham Pro;
+        font-size: 16px;
+        line-height: 23px;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        color: #A4A4A4;
+        font-weight: 600;
+      }
+      .month-navigation-bar {
+        width: 21%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px;
+
+        i {
+          cursor: pointer;
+          opacity: 0.5;
+          padding: 0 10px;
+        }
+        .left-button {
+          content: '<';
+        }
+        .right-button {
+          content: '>';
+        }
+        .month-year {
+          font-family: Gotham Pro;
+          font-size: 16px;
+          line-height: 19px;
+          letter-spacing: 0.03em;
+          color: #000000;
+        }
+      }
+    }
+    .transaction-body {
+      table {
+        th, td {
+          border-top: none;
+        }
+        thead {
+          background: #FBFBFB;
+          border-top: solid 1px #f6f6f6;
+          border-bottom: solid 1px #f6f6f6;
+        }
+        tbody {
+          font-family: Gotham Pro;
+          font-size: 16px;
+          line-height: 19px;
+          letter-spacing: 0.03em;
+          color: #3A3A3A;
+        }
+      }
+    }
+  }
+}
+
+.add-method-heading {
+  font-family: Gotham Pro;
+  font-size: 27px;
+  line-height: 39px;
+  color: #3A3A3A;
+  margin: 35px 0 20px;
+
+  i {
+    cursor: pointer;
+  }
+}
+.wrapper-add-method {
+  border: solid 30px #faf8f9;
+  padding: 30px;
+
+  .method-select-tab-wrapper {
+    display: flex;
+    height: 70px;
+    align-items: center;
+
+    .tab {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: white;
+      border: 1px solid #eaeaea;
+      color: #f82462;
+      width: 50%;
+      height: 100%;
+      cursor: pointer;
+
+      span:first-child {
+        font-weight: 600;
+      }
+      span:last-child {
+        background: #FDF4F7;
+        padding: 10px 25px;
+        margin-left: 20px;
+      }
+    }
+    .tab-selected {
+      background-color: #f82462;
+      color: white;
+      border: none;
+
+      span:last-child {
+        background: #DC295D;
+        padding: 10px 25px;
+      }
+    }
+    .tab-credit-card {
+
+    }
+  }
+
+  .method-select-tab-content {
+    margin-top: 30px;
+    display: flex;
+
+    .custom-beautiful-textfield {
+      width: 100%;
+      margin: 5px 0;
+
+      input {
+        padding-left: 15px;
+      }
+    }
+
+    .swift-container {
+      text-align: left;
+      height: 313px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      background-color: #fafafa;
+      justify-content: space-between;
+
+      img {
+        width: 54px;
+        height: 54px;
+      }
+      .swift-info-wrapper {
+        font-size: 16px;
+        line-height: 27px;
+        color: #3A3A3A;
+
+        p {
+          margin: 0;
+        }
+      }
+      .view-more-btn {
+        color: #f82462;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .method-select-button-wrapper {
+    margin-top: 20px;
+    .swift-btn {
+      width: 190px;
+      height: 45px;
+      font-size: 16px;
+      line-height: 20px;
+      text-align: center;
+    }
+  }
+}

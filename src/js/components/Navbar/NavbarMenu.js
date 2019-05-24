@@ -6,7 +6,7 @@ import Transition from 'react-transition-group/Transition';
 
 import { Container, Row, Col } from 'reactstrap';
 
-import { addEndListener } from '../../../utils/animation';
+import { addEndListener } from '../../utils/animation';
 import {
   animateMenuIn,
   animateMenuOut,
@@ -16,7 +16,7 @@ import imgMenuIcon from './menu-icon.svg';
 import imgMenuClose from './menu-close.svg';
 import imgLogoSm from './logo-sm.png';
 import NavbarDropdown from './NavbarDropdown';
-import { CartIcon, HeartIcon } from "../IconComponent";
+import { CartIcon, HeartIcon } from "../common/IconComponent";
 import { compose } from "redux";
 import { throttle } from "lodash";
 

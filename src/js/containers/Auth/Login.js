@@ -9,7 +9,7 @@ import { login } from '../../core/actions/user.action';
 import { FACEBOOK_LOGIN_URL } from '../../core/constants';
 import CustomSpinner from "../../components/CustomSpinner";
 import TextField from "@material-ui/core/TextField/TextField";
-import Navbar from "../../components/common/Navbar/Navbar";
+import Navbar from "../../components/Navbar/Navbar";
 import {handleError} from "../../core/actions/common.action";
 
 class Login extends Component {
