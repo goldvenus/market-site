@@ -47,7 +47,7 @@ class Cart extends Component {
         isModalOpen: false
       })
   };
-  
+
   proceedToCheckout = () => {
     const { carts } = this.props;
     if (carts && carts.length > 0) {
@@ -199,7 +199,7 @@ class Cart extends Component {
             ) : (
             <Table className="theme-table">
               <thead className="cart-table-header">
-                <tr className= "d-none d-lg-table">
+                <tr>
                   <th/>
                   <th>Name & Category</th>
                   <th>Rental Period</th>
