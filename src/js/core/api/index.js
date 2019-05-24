@@ -51,7 +51,6 @@ const get = async (url) => {
       console.log(url);
       console.log("Access Token has expired, logging out");
       logout();
-      // window.location.href = "/login";
     } else {
       if (res.data.errorMessage)
         console.log(res.data.errorMessage);
@@ -60,6 +59,7 @@ const get = async (url) => {
   }).catch ((error) => {
     if (!error.response) {
       // network error
+      console.log(error.Error);
       handleError("Network Connection Error");
     } else {
       handleError(error.response.data.message);

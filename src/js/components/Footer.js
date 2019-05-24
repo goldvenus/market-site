@@ -135,10 +135,10 @@ class Footer extends Component {
                       <Link className="nav-link" to='/PrivacyPolicy'>Privacy and Cookies</Link>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to='/TermsAndConditions/1'>Terms of Use</Link>
+                      <Link className="nav-link" to='/TermsAndConditions/2'>Terms of Use</Link>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to='/TermsAndConditions/2'>Terms &amp; Condition</Link>
+                      <Link className="nav-link" to='/TermsAndConditions/1'>Terms &amp; Condition</Link>
                     </li>
                   </ul>
                 </Col>

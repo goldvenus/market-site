@@ -231,7 +231,7 @@ class Register extends Component {
         {modalOpenState ?
         <Modal open={true} onClose={this.handleCloseModal} center classNames={{modal: "confirm-modal privacy-modal"}}>
           <div className='confirm-modal-header'>
-            <span>{modalOpenState === 1 ? 'Rental Terms and Conditions' : 'Privacy and Cookie Policy'}</span>
+            <span>{modalOpenState === 1 ? 'Terms of Use' : 'Privacy and Cookie Policy'}</span>
           </div>
           <div className='confirm-modal-body'>
             {modalOpenState === 1 ? <RentalTermsComponent/> : <PrivacyPolicyComponent/>}

@@ -200,9 +200,6 @@ const refreshToken = async () => {
     } else {
       // when expired
       logout();
-      delete localStorage.accessToken;
-      delete localStorage.idToken;
-      delete localStorage.refreshToken;
     }
   } catch (error) {
     handleError(error);

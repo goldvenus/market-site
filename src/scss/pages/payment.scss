@@ -3,6 +3,12 @@
     padding-top: 3rem;
     margin-bottom: 2rem;
   }
+  .payment-body > .container {
+    margin: 2rem auto 0;
+    &:last-child {
+      margin: 0 auto;
+    }
+  }
   .payment-title {
     margin: 80px 0;
   }

@@ -5,7 +5,6 @@ const RentalTermsComponent = () => (
   <Container>
     <Row>
       <div className='rental-terms-container'>
-        <br/>
         <h4>1	INTRODUCTION AND ACCEPTANCE</h4>
         <ul>
           <li>Introduction. Please read these Rental Terms and Conditions (“Agreement”) carefully. These contain important legal terms that govern your use and access of our website https://www.creative.market, including apps, mobile platforms and/or other digital services we offer (“Services”). This Agreement will be a legally binding agreement between you as a User and Ketchup Creative EHF that operates Creative.Market.</li>
