@@ -1,5 +1,8 @@
 import React, {Component} from 'react'
 import {Table} from "reactstrap";
+import {getTransHistory} from "../../../core/actions/payment.action";
+import connect from "react-redux/es/connect/connect";
+import CustomSpinner from "../../../components/CustomSpinner";
 
 class TransactionHistory extends Component {
   constructor(props) {
@@ -13,22 +16,36 @@ class TransactionHistory extends Component {
     ];
     this.state = {
       curDate: new Date()
-    }
+    };
+  
+    getTransHistory(this.getYearMonthStr(new Date()));
   }
+  
+  getYearMonthStr = (date) => {
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    if (month < 10)
+      month = '0' + month;
+    
+    return {yearMonth: year + '-' + month};
+  };
   
   handleMonthNavigation = (val) => {
     let tempDate = this.state.curDate;
     val === 1 ?
       tempDate.setMonth(tempDate.getMonth() - 1) :
       tempDate.setMonth(tempDate.getMonth() + 1);
-    this.forceUpdate();
+    
+    getTransHistory(this.getYearMonthStr(tempDate));
   };
   
   render() {
     let monthYearStr = this.monthNames[this.state.curDate.getMonth()] + ' ' + this.state.curDate.getFullYear();
+    let {transactions, isLoadingHistory} = this.props;
     
     return (
       <div className='wrapper-transaction'>
+        {isLoadingHistory && <CustomSpinner/>}
         <div className='transaction-header'>
           <span>TRANSACTION HISTORY</span>
           <div className='month-navigation-bar'>
@@ -55,30 +72,32 @@ class TransactionHistory extends Component {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Apr 24, 2019</td>
-                <td>Income</td>
-                <td>123466</td>
-                <td>Marcus Streem</td>
-                <td>$3764.45</td>
-                <td>#351235</td>
-              </tr>
-              <tr>
-                <td>Apr 24, 2019</td>
-                <td>Income</td>
-                <td>123466</td>
-                <td>Marcus Streem</td>
-                <td>$3764.45</td>
-                <td>#351235</td>
-              </tr>
-              <tr>
-                <td>Apr 24, 2019</td>
-                <td>Income</td>
-                <td>123466</td>
-                <td>Marcus Streem</td>
-                <td>$3764.45</td>
-                <td>#351235</td>
-              </tr>
+            {transactions.map((item, index) => {
+              let transDate = new Date(item.TransDate);
+              let type = item.TransType;
+              let contract = item.Contract;
+              let client = item.Client;
+              let amount = item.Amount;
+              let invoice = item.Invoice;
+              let options = { month: 'long', day: 'numeric', year: 'numeric' };
+              transDate = transDate.toLocaleDateString("en-US", options);
+              
+              if (type === 'Refung' || type === 'Withdrawal') {
+                amount = '-$' + parseFloat(amount).toFixed(2);
+              } else {
+                amount = '$' + parseFloat(amount).toFixed(2);
+              }
+
+              return (
+                <tr key={index}>
+                  <td>{transDate}</td>
+                  <td>{type}</td>
+                  <td>{contract}</td>
+                  <td>{client}</td>
+                  <td className='amount'>{amount}</td>
+                  <td className='invoice'>{invoice}</td>
+                </tr>)
+              })}
             </tbody>
           </Table>
         </div>
@@ -87,4 +106,9 @@ class TransactionHistory extends Component {
   }
 }
 
-export default TransactionHistory;
+const mapStateToProps = (state) => ({
+  isLoadingHistory : state.payment.isLoadingHistory,
+  transactions: state.payment.transactions
+});
+
+export default connect(mapStateToProps)(TransactionHistory);

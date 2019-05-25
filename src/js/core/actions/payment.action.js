@@ -1,6 +1,6 @@
 import constants from "../types";
-import {handleError} from "./common.action";
-import {post} from "../api/index";
+import {handleError, handleInfo} from "./common.action";
+import {post, get} from "../api/index";
 import store from '../../store';
 
 const dispatch = store.dispatch;
@@ -69,15 +69,119 @@ const getPaidItems = (data) => {
 };
 
 const getTransHistory = (data) => {
+  dispatch({
+    type: constants.GET_TRANSACTIONS_REQUEST,
+  });
   return new Promise(async (resolve, reject) => {
     try {
       let response = await post('getTransHistory', data);
       if (response && response.data && response.data.status === 'success') {
-        resolve(response.data);
+        dispatch({
+          type: constants.GET_TRANSACTIONS_SUCCESS,
+          payload: response.data.data
+        });
+        resolve(true);
       }
+      dispatch({
+        type: constants.GET_TRANSACTIONS_FAILED,
+      });
+      resolve(false);
+    } catch (error) {
+      dispatch({
+        type: constants.GET_TRANSACTIONS_FAILED,
+      });
+      handleError(error);
+      reject(error);
+    }
+  });
+};
+
+const savePaymentMethod = (data) => {
+  dispatch({
+    type: constants.SAVE_METHOD_REQUEST,
+  });
+  return new Promise(async (resolve, reject) => {
+    try {
+      let response = await post('savePaymentMethod', data);
+      if (response && response.data && response.data.status === 'success') {
+        dispatch({
+          type: constants.SAVE_METHOD_SUCCESS,
+          payload: {...data, methodId: response.data.data}
+        });
+        handleInfo('Method was saved successfully');
+        resolve(true);
+        return;
+      }
+      dispatch({
+        type: constants.SAVE_METHOD_FAILED
+      });
+      handleError('Method was not saved');
       resolve(false);
     } catch (error) {
       handleError(error);
+      dispatch({
+        type: constants.SAVE_METHOD_FAILED
+      });
+      reject(error);
+    }
+  });
+};
+
+const getPaymentMethods = () => {
+  dispatch({
+    type: constants.GET_METHODS_REQUEST,
+  });
+  return new Promise(async (resolve, reject) => {
+    try {
+      let response = await get('getPaymentMethods');
+      if (response && response.data && response.data.status === 'success') {
+        dispatch({
+          type: constants.GET_METHODS_SUCCESS,
+          payload: response.data.data
+        });
+        resolve(true);
+        return;
+      }
+      dispatch({
+        type: constants.GET_METHODS_FAILED
+      });
+      resolve(false);
+    } catch (error) {
+      handleError(error);
+      dispatch({
+        type: constants.GET_METHODS_FAILED
+      });
+      reject(error);
+    }
+  });
+};
+
+const deletePaymentMethod = async (data) => {
+  dispatch({
+    type: constants.REMOVE_METHOD_REQUEST,
+  });
+  return new Promise(async (resolve, reject) => {
+    try {
+      let response = await post('removePaymentMethod', data);
+      if (response && response.data && response.data.status === 'success') {
+        dispatch({
+          type: constants.REMOVE_METHOD_SUCCESS,
+          payload: data.methodId
+        });
+        handleInfo('Method was removed successfully');
+        resolve(true);
+        return;
+      }
+      dispatch({
+        type: constants.REMOVE_METHOD_FAILED
+      });
+      handleError('Method was not removed');
+      resolve(false);
+    } catch (error) {
+      handleError(error);
+      dispatch({
+        type: constants.REMOVE_METHOD_FAILED
+      });
       reject(error);
     }
   });
@@ -88,7 +192,6 @@ const doNummusCharge = async (data) => {
   if (res && res.data && res.data.status === 'success') {
     return res.data.data;
   } else {
-    console.log(res);
     if (res.data && res.data.errorMessage)
       handleError(res.data.errorMessage);
     return false;
@@ -100,7 +203,6 @@ const createNummusCustomer = async (data) => {
   if (res && res.data && res.data.status === 'success') {
     return res.data.data;
   } else {
-    console.log(res);
     res && res.data && res.data.errorMessage && handleError(res.data.errorMessage);
     return false;
   }
@@ -126,6 +228,6 @@ const checkExistingNummusCustomer = async (data) => {
 };
 
 export {
-  payment, getPaidItems, getPaymentCards, getTransHistory,
+  payment, getPaidItems, getPaymentCards, getTransHistory, savePaymentMethod, getPaymentMethods, deletePaymentMethod,
   doNummusCharge, createNummusVendor, createNummusCustomer, checkExistingNummusCustomer
 }

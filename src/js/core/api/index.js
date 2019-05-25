@@ -59,7 +59,6 @@ const get = async (url) => {
   }).catch ((error) => {
     if (!error.response) {
       // network error
-      console.log(error.Error);
       handleError("Network Connection Error");
     } else {
       handleError(error.response.data.message);
