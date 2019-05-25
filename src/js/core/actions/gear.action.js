@@ -171,30 +171,6 @@ const deleteGear = async (data) => {
   });
 };
 
-const searchHome = async (brand, product_region) => {
-  dispatch({
-    type: constants.SEARCH_HOME_REQUEST
-  });
-  try {
-    let response = await post('showHomePageSearch', {
-      brand,
-      product_region
-    });
-    
-    if (response) {
-      dispatch({
-        type: constants.SEARCH_HOME_SUCCESS,
-        payload: response.data
-      });
-    }
-  } catch (error) {
-    handleError(error);
-    dispatch({
-      type: constants.SEARCH_HOME_FAILED,
-    });
-  }
-};
-
 export {
-  newArrivals, addGear, deleteGear, getGear, rentGearProductList, getListGears, searchHome, editGear, getUsedNames
+  newArrivals, addGear, deleteGear, getGear, rentGearProductList, getListGears, editGear, getUsedNames
 };

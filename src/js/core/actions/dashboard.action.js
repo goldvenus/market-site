@@ -46,7 +46,6 @@ const getOrderHistory = async () => {
     let response = await get('getOrderHistory');
     if (response && response.data && response.data.status === 'success') {
       response.data.data.sort(compare);
-      console.log(response.data.data);
       dispatch({
         type: constants.GET_ORDER_HISTORY_SUCCESS,
         payload: response.data.data

@@ -241,11 +241,11 @@
         padding: 16px;
 
         i {
-          cursor: pointer;
           opacity: 0.5;
           padding: 0 10px;
         }
         .left-button {
+          cursor: pointer;
           content: '<';
           border-radius: 50%;
           width: 25px;
@@ -258,6 +258,7 @@
           }
         }
         .right-button {
+          cursor: pointer;
           content: '>';
           border-radius: 50%;
           width: 25px;
