@@ -211,11 +211,18 @@ const getUser = async () => {
     if (localStorage.accessToken) {
       // let token = await refreshToken();
       // if (token) {
+        dispatch({
+          type: constants.GET_USER_REQUEST
+        });
         let response = await get('getUserInfo');
         if (response && response.data && response.data.status && response.data.status === 'success') {
           dispatch({
             type: constants.GET_USER_SUCCESS,
-            payload: response.data.data.userAttributes
+            payload: response.data.data
+          });
+        } else {
+          dispatch({
+            type: constants.GET_USER_FAILED
           });
         }
       // }

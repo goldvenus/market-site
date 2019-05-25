@@ -111,6 +111,8 @@ const savePaymentMethod = (data) => {
         handleInfo('Method was saved successfully');
         resolve(true);
         return;
+      } else if (response && response.data && response.data.errorMessage) {
+        handleInfo(response.data.errorMessage);
       }
       dispatch({
         type: constants.SAVE_METHOD_FAILED

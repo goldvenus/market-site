@@ -122,16 +122,14 @@ class Checkout extends Component {
 
     return (
       <div className="checkout-items">
-        {
-          mappedCarts
-        }
+        {mappedCarts}
       </div>
     );
   }
 
   render() {
-    const { carts, user } = this.props;
-    if (!carts || !user) {
+    const { carts, isLoadingUser } = this.props;
+    if (!carts || isLoadingUser) {
       return <BarLoader color="#F82462" height="5"/>;
     }
 
@@ -145,7 +143,6 @@ class Checkout extends Component {
     let amount = total + tax + fee;
     let { firstName, lastName, addr, city, zip, saveAddr, productRegion, addrList, projectName, company } = this.state;
     let addrList_temp = getUniqueObjectArray(addrList);
-    console.log(addrList_temp);
 
     return (
       <React.Fragment>
@@ -318,6 +315,7 @@ class Checkout extends Component {
 
 const mapStateToProps = state => ({
   carts: state.cart.carts,
+  isLoadingUser: state.user.isLoading,
   user: state.user.user
 });
 

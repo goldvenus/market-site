@@ -50,9 +50,16 @@ export default (state = initialState, action) => {
         draft.isRegisteringFailed = true;
         break;
       
+      case constants.GET_USER_REQUEST:
+        draft.isLoading = true;
+        break;
       case constants.GET_USER_SUCCESS:
         draft.user = action.payload;
+        draft.isLoading = false;
         draft.isAuthenticated = true;
+        break;
+      case constants.GET_USER_FAILED:
+        draft.isLoading = false;
         break;
       
       case constants.UPDATE_USER_REQUEST:

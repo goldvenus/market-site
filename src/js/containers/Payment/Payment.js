@@ -30,7 +30,7 @@ class Payment extends Component {
   constructor(props) {
     super(props);
   
-    if (!this.props.checkoutInfo)
+    if (!this.props.checkoutInfo || !this.props.user)
       window.location.href = "/";
   
     this.state = {
@@ -164,6 +164,7 @@ class Payment extends Component {
   handleCharge = async () => {
     let checkoutInfo = this.checkoutInfo;
     let customerId = checkoutInfo.customerId;
+    console.log("customer ID: ", customerId);
     
     // 1. create nummus account if not exists, or update existing customer info if needed
     if (customerId) {
