@@ -91,7 +91,7 @@ class PaymentDetail extends Component {
                     return <SwiftModel key={index} info={item} onDelete={this.handleDeleteMethod}/>;
                 })}
   
-                <Card body className='add-new-card-container' onClick={() => this.props.history.push('/dashboard/methodAdd/2')}>
+                <Card body className='add-new-card-container card-model-wrapper' onClick={() => this.props.history.push('/dashboard/methodAdd/2')}>
                   <div className="payment-card add-new-card">
                     <div className='plus-icon-container'>
                       <i className='fa fa-plus'/>

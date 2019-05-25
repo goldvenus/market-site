@@ -1,3 +1,121 @@
+.card-model-wrapper {
+  width: 47.5%;
+  background-color: #f7f7f7;
+  border: none;
+  font-family: Gotham Pro;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 0.03em;
+  color: #3A3A3A;
+  padding: 17px !important;
+  margin-bottom: 26px;
+  flex: none;
+
+  .payment-card {
+    display: flex;
+    flex-direction: column;
+
+    .image-container {
+      display: flex;
+      justify-content: space-between;
+
+      img:last-child {
+        margin-top: -3px;
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+      }
+    }
+    .payment-card-other {
+      margin: 0 !important;
+    }
+    .payment-card-number {
+      font-family: Gotham Pro;
+      font-size: 18px;
+      line-height: 25px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #252525;
+      text-align: left;
+      font-weight: 600;
+      margin: 15px 0 30px;
+
+      p {
+        margin: 5px 0;
+        &:last-child {
+          font-size: 12px;
+          line-height: 18px;
+          letter-spacing: 0.03em;
+        }
+      }
+    }
+    .swift-text {
+      font-size: 16px;
+      line-height: 27px;
+      color: #252525;
+    }
+  }
+}
+.add-new-card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(248, 36, 98, 0.05);
+  background-color: white;
+  background-image: none;
+  cursor: pointer;
+  min-height: 175px;
+  max-width: 50%;
+
+  .add-new-card {
+    display: flex;
+    justify-content: center;
+
+    .plus-icon-container {
+      width: 50px;
+      height: 50px;
+      border-radius: 25px;
+      color: #f82462;
+      font-size: 40px;
+      font-weight: 600;
+      background-color: #ffeaf0;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+
+      i {
+        font-size: 24px;
+        margin: 0 auto;
+      }
+    }
+    .add-method-text {
+      font-size: 16px;
+      line-height: 27px;
+      text-align: center;
+      color: #FFFFFF;
+      margin: 5px 0 0;
+      display: none;
+    }
+  }
+
+  &:hover {
+    background-color: #f82462;
+    border-radius: unset;
+    transition: all .3s;
+
+    .add-new-card {
+      display: block;
+    }
+    .plus-icon-container {
+      background-color: white;
+      margin: 0 auto;
+    }
+    .add-method-text {
+      display: block;
+    }
+  }
+}
+
 .payment-dashboard {
   .payment-dashboard-heading-wrapper {
     text-align: left;
@@ -70,129 +188,6 @@
       display: flex;
       justify-content: space-between;
 
-      .card-body {
-        width: 47.5%;
-        background-color: #f7f7f7;
-        border: none;
-        font-family: Gotham Pro;
-        font-size: 12px;
-        line-height: 14px;
-        letter-spacing: 0.03em;
-        color: #3A3A3A;
-        padding: 17px !important;
-        margin-bottom: 26px;
-        flex: none;
-
-        .payment-card {
-          display: flex;
-          flex-direction: column;
-
-          .image-container {
-            display: flex;
-            justify-content: space-between;
-
-            img:last-child {
-              margin-top: -3px;
-              width: 16px;
-              height: 16px;
-              cursor: pointer;
-            }
-          }
-          .payment-card-other {
-            margin: 0 !important;
-          }
-          .payment-card-number {
-            font-family: Gotham Pro;
-            font-size: 18px;
-            line-height: 25px;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: #252525;
-            text-align: left;
-            font-weight: 600;
-            margin: 15px 0 30px;
-
-            p {
-              margin: 5px 0;
-              &:last-child {
-                font-size: 12px;
-                line-height: 18px;
-                letter-spacing: 0.03em;
-              }
-            }
-          }
-          .swift-text {
-            font-size: 16px;
-            line-height: 27px;
-            color: #252525;
-          }
-        }
-
-        &:first-child {
-          margin-right: 10px;
-        }
-        &:last-child {
-          margin-left: 10px;
-        }
-      }
-      .add-new-card-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: 1px solid rgba(248, 36, 98, 0.05);
-        background-color: white;
-        background-image: none;
-        cursor: pointer;
-        min-height: 175px;
-
-        .add-new-card {
-          display: flex;
-          justify-content: center;
-
-          .plus-icon-container {
-            width: 50px;
-            height: 50px;
-            border-radius: 25px;
-            color: #f82462;
-            font-size: 40px;
-            font-weight: 600;
-            background-color: #ffeaf0;
-            align-items: center;
-            display: flex;
-            justify-content: center;
-
-            i {
-              font-size: 24px;
-              margin: 0 auto;
-            }
-          }
-          .add-method-text {
-            font-size: 16px;
-            line-height: 27px;
-            text-align: center;
-            color: #FFFFFF;
-            margin: 5px 0 0;
-            display: none;
-          }
-        }
-
-        &:hover {
-          background-color: #f82462;
-          border-radius: unset;
-          transition: all .3s;
-
-          .add-new-card {
-            display: block;
-          }
-          .plus-icon-container {
-            background-color: white;
-            margin: 0 auto;
-          }
-          .add-method-text {
-            display: block;
-          }
-        }
-      }
       .custom-beautiful-textfield {
         width: 100%;
       }
@@ -331,6 +326,7 @@
     cursor: pointer;
   }
 }
+
 .wrapper-add-method {
   border: solid 30px #faf8f9;
   padding: 30px;
@@ -370,14 +366,40 @@
         padding: 10px 25px;
       }
     }
-    .tab-credit-card {
-
-    }
   }
 
   .method-select-tab-content {
     margin-top: 30px;
     display: flex;
+
+    & > div {
+      padding: 0;
+      &:first-child {
+        padding-right: 15px;
+      }
+    }
+    .card-model-wrapper {
+      width: 54%;
+      background-color: white;
+      box-shadow: 0px 2px 22px -2px rgba(173, 173, 173, 0.2);
+      border-radius: 10px;
+      min-height: 175px;
+      justify-content: center;
+
+      .image-container {
+        img {
+          width: 55px;
+          height: unset;
+        }
+      }
+    }
+
+    .date-select-container {
+      display: flex;
+      & > div {
+        width: 48%;
+      }
+    }
 
     .custom-beautiful-textfield {
       width: 100%;
@@ -424,6 +446,15 @@
       font-size: 16px;
       line-height: 20px;
       text-align: center;
+    }
+
+    .add-method-credit-card-outer-wrapper {
+      .custom-beautiful-textfield {
+        margin: 20px 0;
+      }
+      .date-select-container {
+        margin-top: 15px;
+      }
     }
   }
 }

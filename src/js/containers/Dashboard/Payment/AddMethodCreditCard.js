@@ -1,33 +1,41 @@
 import React, {Component} from 'react';
 import TextField from "@material-ui/core/TextField/TextField";
 import {Col} from "reactstrap";
+import FormControl from "@material-ui/core/FormControl/FormControl";
+import InputLabel from "@material-ui/core/InputLabel/InputLabel";
+import Select from "@material-ui/core/Select/Select";
+import moment from "moment";
+import {MenuItem} from "@trendmicro/react-dropdown";
 
 class AddMethodSwift extends Component {
   constructor(props) {
     super(props);
   
     this.state = {
-      firstName: '',
-      lastName: '',
-      billingAddress1: '',
-      billingAddress2: '',
-      billingAddress3: '',
-      city: '',
-      state: '',
-      postalCode: '',
-      country: '',
-      bankAccountHolderName: '',
-      IBAN: '',
-      swiftCode: '',
-      bankFullName: '',
-      bankBranchCity: '',
-      bankBranchCountry: '',
-      intermediaryBankCode: '',
-      intermediaryBankName: '',
-      intermediaryBankCity: '',
-      intermediaryBankCountry: ''
+      cvv: '',
+      cardNumber: '',
+      cardHolder: '',
+      expirationMonth: '',
+      expirationYear: '',
+      modalOpenState: 0,
     };
   }
+  
+  renderYears = () => {
+    const year = 1*moment(new Date()).format('YY');
+    const arr = Array.apply(null, Array(10));
+    return arr.map((v, i) => (<MenuItem key={i} value={i+year}>{i+year}</MenuItem>));
+  };
+  
+  renderMonths = () => {
+    let arr = Array.apply(null, Array(12));
+    return arr.map((v, i) => {
+      let val = i + 1;
+      if (val < 10)
+        val = '0' + val;
+      return <MenuItem key={i} value={val}>{val}</MenuItem>;
+    });
+  };
   
   handleSaveMethod = () => {
     this.props.onSaveMethod(this.state);
@@ -39,125 +47,94 @@ class AddMethodSwift extends Component {
   };
   
   render() {
+    let {
+      cardNumber,
+      expirationYear,
+      expirationMonth,
+      cvv,
+      cardHolder
+    } = this.state;
+    
     return (
       <React.Fragment>
         <Col lg={12} md={24}>
-        <TextField
-          className='custom-beautiful-textfield'
-          label='First Name'
-          type="text"
-          onChange={e => this.handleInputChange(e, 'firstName')}
-        />
-        <TextField
-          className='custom-beautiful-textfield'
-          label='Last Name'
-          type="text"
-          onChange={e => this.handleInputChange(e, 'lastName')}
-        />
-        <TextField
-          className='custom-beautiful-textfield'
-          label='Billing Address Line 1 *'
-          type="text"
-          onChange={e => this.handleInputChange(e, 'billingAddress1')}
-        />
-        <TextField
-          className='custom-beautiful-textfield'
-          label='Billing Address Line 2'
-          type="text"
-          onChange={e => this.handleInputChange(e, 'billingAddress2')}
-        />
-        <TextField
-          className='custom-beautiful-textfield'
-          label='Billing Address Line 3'
-          type="text"
-          onChange={e => this.handleInputChange(e, 'billingAddress3')}
-        />
-        <TextField
-          className='custom-beautiful-textfield'
-          label='City'
-          type="text"
-          onChange={e => this.handleInputChange(e, 'city')}
-        />
-        <TextField
-          className='custom-beautiful-textfield'
-          label='State'
-          type="text"
-          onChange={e => this.handleInputChange(e, 'state')}
-        />
-        <TextField
-          className='custom-beautiful-textfield'
-          label='Postcode*'
-          type="text"
-          onChange={e => this.handleInputChange(e, 'postalCode')}
-        />
-        <TextField
-          className='custom-beautiful-textfield'
-          label='Country'
-          type="text"
-          onChange={e => this.handleInputChange(e, 'country')}
-        />
-        <TextField
-          className='custom-beautiful-textfield'
-          label="Postcode*Bank Account Holder's Name *"
-          type="text"
-          onChange={e => this.handleInputChange(e, 'bankAccountHolderName')}
-        />
-        <TextField
-          className='custom-beautiful-textfield'
-          label='Bank Account Number/IBAN *'
-          type="text"
-          onChange={e => this.handleInputChange(e, 'IBAN')}
-        />
-        <TextField
-          className='custom-beautiful-textfield'
-          label='SWIFT Code *'
-          type="text"
-          onChange={e => this.handleInputChange(e, 'swiftCode')}
-        />
-        <TextField
-          className='custom-beautiful-textfield'
-          label='Bank Name in Full *'
-          type="text"
-          onChange={e => this.handleInputChange(e, 'bankFullName')}
-        />
-        <TextField
-          className='custom-beautiful-textfield'
-          label='Bank Branch City *'
-          type="text"
-          onChange={e => this.handleInputChange(e, 'bankBranchCity')}
-        />
-        <TextField
-          className='custom-beautiful-textfield'
-          label='Bank Branch Country *'
-          type="text"
-          onChange={e => this.handleInputChange(e, 'bankBranchCountry')}
-        />
-        <TextField
-          className='custom-beautiful-textfield'
-          label='Intermediary Bank - Bank Code'
-          type="text"
-          onChange={e => this.handleInputChange(e, 'intermediaryBankCode')}
-        />
-        <TextField
-          className='custom-beautiful-textfield'
-          label='Intermediary Bank - Name'
-          type="text"
-          onChange={e => this.handleInputChange(e, 'intermediaryBankName')}
-        />
-        <TextField
-          className='custom-beautiful-textfield'
-          label='Intermediary Bank - City'
-          type="text"
-          onChange={e => this.handleInputChange(e, 'intermediaryBankCity')}
-        />
-        <TextField
-          className='custom-beautiful-textfield'
-          label='Intermediary Bank - Country'
-          type="text"
-          onChange={e => this.handleInputChange(e, 'intermediaryBankCountry')}
-        />
-        <button className='add-method-btn theme-btn theme-btn-primary' onClick={this.handleSaveMethod}>Add Card</button>
-      </Col>
+          <div className='add-method-credit-card-outer-wrapper'>
+            <div className='card card-body card-model-wrapper'>
+              <div className="card-text">
+                <div className="payment-card">
+                  <div className='image-container'>
+                    <img src="/images/cards/master-card.svg" alt=""/>
+                  </div>
+                  <div className="payment-card-number"><span>{cardNumber}</span></div>
+                  <div className="flex-row payment-card-other">
+                    <span>{expirationMonth}/{expirationYear}</span>
+                    <span>{cardHolder}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex-row">
+              <div className="theme-form-field flex-md-12">
+                <TextField
+                  label='Card Number'
+                  type="text"
+                  value={cardNumber}
+                  maxLength='20'
+                  className='checkout-textfield custom-beautiful-textfield'
+                  onChange={e => this.handleInputChange(e, 'cardNumber')}
+                />
+              </div>
+              <div className="theme-form-field flex-md-12">
+                <TextField
+                  label='Card Holder'
+                  type="text"
+                  value={cardHolder}
+                  maxLength='20'
+                  className='checkout-textfield custom-beautiful-textfield'
+                  onChange={e => this.handleInputChange(e, 'cardHolder')}
+                />
+              </div>
+            </div>
+            <div className="flex-row">
+              <div className="theme-form-field flex-md-12 date-select-container">
+                <FormControl id="select-month">
+                  <InputLabel htmlFor="age-required">Expiration</InputLabel>
+                  <Select
+                    value={expirationMonth}
+                    onChange={(event) => {
+                      event.preventDefault();
+                      this.setState({expirationMonth: event.target.value})
+                    }}
+                    inputProps={{id: 'age-required'}}>
+                    {this.renderMonths()}
+                  </Select>
+                </FormControl>
+                <FormControl id="select-day" >
+                  <Select
+                    value={expirationYear}
+                    onChange={(event) => {
+                      event.preventDefault();
+                      this.setState({ expirationYear: event.target.value })
+                    }}
+                    inputProps={{id: 'age-required'}}>
+                    {this.renderYears()}
+                  </Select>
+                </FormControl>
+              </div>
+    
+              <div className="theme-form-field flex-md-12">
+                <TextField
+                  label="CVV"
+                  className='checkout-textfield custom-beautiful-textfield'
+                  value={cvv}
+                  onChange={e => this.handleInputChange(e, 'cvv')}
+                />
+              </div>
+            </div>
+          </div>
+          <button className='add-method-btn theme-btn theme-btn-primary' onClick={this.handleSaveMethod}>Add Card</button>
+        </Col>
         <Col lg={12} md={24}>
         
         </Col>

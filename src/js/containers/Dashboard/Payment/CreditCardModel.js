@@ -8,7 +8,7 @@ const CreditCardModel = ({info, onDelete}) => {
   // let cardType = info.cardType;
   
   return (
-    <div className='card card-body'>
+    <div className='card card-body card-model-wrapper'>
       <div className="card-text">
         <div className="payment-card">
           <div className='image-container'>

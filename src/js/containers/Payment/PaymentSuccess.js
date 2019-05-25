@@ -116,7 +116,8 @@ class Payment extends Component {
                   <div className='buyer-info-right'>
                     <div className='category-name'>Address</div>
                     <div className='period-price'>
-                    
+                      <div>{listItem.address},</div>
+                      <div>{listItem.postalCode} {listItem.city}</div>
                     </div>
                   </div>
                 </div>
@@ -164,7 +165,7 @@ class Payment extends Component {
       freeScrolling={false}
       
       // Active item configurations
-      requestToChangeActive={this.changeActiveItem}
+      requestToChangeActive={(val) => this.setState({activeItemIndex: val})}
       activeItemIndex={this.state.activeItemIndex}
       activePosition={'center'}
       

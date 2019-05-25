@@ -6,7 +6,7 @@ const SwiftModel = ({info, onDelete}) => {
   let swiftCode = info.swiftCode;
   
   return (
-    <div className='card card-body'>
+    <div className='card card-body card-model-wrapper'>
       <div className="payment-card">
         <div className='image-container'>
           <span className='swift-text'>Swift</span>

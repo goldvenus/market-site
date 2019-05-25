@@ -90,12 +90,14 @@ class Payment extends Component {
     let zip = checkoutInfo.zip;
     let billingAddress = checkoutInfo.addr;
     let city = checkoutInfo.city;
+    let company = checkoutInfo.company;
     
     let data = {
       "Email": email,
       "ProjectSubdomain": "https://creativemarket.nummuspay.com",
       "FirstName": firstName,
       "LastName": lastName,
+      "Company": company,
       "BillingAddress1": billingAddress,
       "BillingZip": zip,
       "BillingCountry": "US",
@@ -460,7 +462,6 @@ class Payment extends Component {
                       />
                     </div>
                   </div>
-  
                   <div className="flex-row">
                     <div className="theme-form-field flex-md-12 date-select-container">
                       <FormControl id="select-month">
@@ -509,7 +510,6 @@ class Payment extends Component {
                       <Label for="save-address" className='checkbox-label'>Save this payment method</Label>
                     </div>
                   </div>
-                  
                 </div>
               </div>
   
