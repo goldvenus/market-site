@@ -249,8 +249,14 @@ class Payment extends Component {
     this.checkoutInfo.amount = amount;
     data.card_number = '**** ' + card_number.substr(-4, 4);
     data.project_name = this.checkoutInfo.projectName;
+  
+    // let payResult = {
+    //   CustomerTransactionCode: "123234"
+    // };
+    // let response = await payment({...data, chargeInfo: payResult});
     
     let payResult = await this.handleCharge();
+    console.log(payResult);
     if (payResult) {
       console.log(payResult);
       let response = await payment({...data, chargeInfo: payResult});
