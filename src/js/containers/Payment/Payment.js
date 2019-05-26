@@ -198,7 +198,7 @@ class Payment extends Component {
       handleInfo("Billing information was sent successfully");
       let res = await this.chargeCustomer();
       if (res) {
-        return true;
+        return res;
       } else {
         return false;
       }
