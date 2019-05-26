@@ -4,6 +4,9 @@ const SwiftModel = ({info, onDelete}) => {
   let IBAN = info.IBAN;
   let bankAccountHolderName = info.bankAccountHolderName;
   let swiftCode = info.swiftCode;
+  let firstFour = IBAN.substr(0, 4);
+  let middleFour = ' * * * * ';
+  let lastFour = IBAN.substr(-4, 4);
   
   return (
     <div className='card card-body card-model-wrapper'>
@@ -17,7 +20,7 @@ const SwiftModel = ({info, onDelete}) => {
           />
         </div>
         <div className="payment-card-number">
-          <p>{IBAN}</p>
+          <p><span>{firstFour}</span><span>{middleFour}</span><span>{lastFour}</span></p>
           <p>{swiftCode}</p>
         </div>
         <div className="flex-row payment-card-other">

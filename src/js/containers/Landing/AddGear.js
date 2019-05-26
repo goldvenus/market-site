@@ -19,6 +19,7 @@ import TextField from "@material-ui/core/TextField/TextField";
 import CustomAutosuggest from "../../components/common/CustomAutosuggest"
 import Modal from "react-responsive-modal";
 import RentalTermsComponent from "../TermsAndPolicy/RentalTermsComponent";
+import ConfirmModal from "../../components/common/ConfirmModal";
 
 class AddGear extends Component {
   constructor(props) {
@@ -49,7 +50,7 @@ class AddGear extends Component {
       pricePerDay: '',
       productName: '',
       isDoubled: false,
-      modalOpenState: false,
+      modalOpenState: 1,
       isChecked: false,
       busy: false
     };
@@ -619,7 +620,7 @@ class AddGear extends Component {
       modalOpenState
     } = this.state;
     
-    const {isLoadingCategories} = this.props;
+    const {isLoadingCategories, user} = this.props;
     if (isLoadingCategories || this.suggestions.length < 1) {
       return <BarLoader color="#F82462" height="5"/>;
     }
@@ -681,15 +682,18 @@ class AddGear extends Component {
                     <span className="fa fa-angle-left"/> Back
                   </button> : null
               }
-              
-              <button className="theme-btn theme-btn-primary theme-continue-btn"
-                      onClick={this.nextStep.bind(this)}>Continue <span
-                className="fa fa-angle-right"/></button>
+              {
+                user.nummusVendorId ?
+                  <button className="theme-btn theme-btn-primary theme-continue-btn"
+                          onClick={this.nextStep.bind(this)}>Continue <span
+                    className="fa fa-angle-right"/></button> :
+                  <button className="theme-btn theme-btn-primary"><Link to='/dashboard'>Create Vendor Account</Link></button>
+              }
             </div>
           </div>) : null
         }
   
-        {modalOpenState ?
+        {modalOpenState === 2 ?
           <Modal open={true} onClose={this.handleCloseModal} center classNames={{modal: "confirm-modal privacy-modal"}}>
             <div className='confirm-modal-header'>
               <span>Rental Terms and Conditions</span>
@@ -697,12 +701,23 @@ class AddGear extends Component {
             <div className='confirm-modal-body'>
               <RentalTermsComponent/>
             </div>
-          </Modal> : null}
+          </Modal> :
+        !user.nummusVendorId ?
+          <ConfirmModal
+            heading='Create your vendor account!'
+            onConfirm={() => this.props.history.push('/dashboard/methodAdd/2')}
+            onClose={() => this.setState({modalOpenState: 0})}
+            oneButtonMode={true}
+          /> :
+          null
+        }
       </div>);
   }
 }
 
 const mapStateToProps = state => ({
+  user: state.user.user,
+  isLoadingUser: state.user.isLoading,
   categories: state.category.categories,
   isLoadingCategories: state.category.isLoading
 });

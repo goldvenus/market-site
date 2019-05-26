@@ -33,18 +33,22 @@ class AddMethodContainer extends Component {
       <div className='container'>
         {isChanging && <CustomSpinner/>}
         <h3 className='add-method-heading'>
-          <i className='fa fa-arrow-left' onClick={() => this.props.history.push('/dashboard')}/> Add Payout Method
+          <i className='fa fa-arrow-left' onClick={() => this.props.history.push('/dashboard')}/>
+          {selectedMode === 1 ? 'Add Payment Method' : 'Add Payout Method'}
         </h3>
         <div className='wrapper-add-method'>
           <div className='method-select-tab-wrapper'>
-            <div className={selectedMode === 1 ? 'tab tab-selected' : 'tab'} onClick={() => this.handleSelectMode(1)}>
-              <span>CREDIT CARD</span>
-              <span>Minimum - $50.00, Fees - 3.5%</span>
-            </div>
-            <div className={selectedMode === 2 ? 'tab tab-selected' : 'tab'} onClick={() => this.handleSelectMode(2)}>
-              <span>SWIFT</span>
-              <span>Minimum - $50.00, Fees - 3.5%</span>
-            </div>
+            {selectedMode === 1 ?
+              <div className='tab tab-selected' onClick={() => this.handleSelectMode(1)}>
+                <span>CREDIT CARD</span>
+                <span>Minimum - $50.00, Fees - 3.5%</span>
+              </div> :
+            selectedMode > 1 ?
+              <div className='tab tab-selected' onClick={() => this.handleSelectMode(2)}>
+                <span>SWIFT</span>
+                <span>Minimum - $50.00, Fees - 3.5%</span>
+              </div> : null
+            }
           </div>
           <div className='method-select-tab-content'>
             {selectedMode === 1 ?

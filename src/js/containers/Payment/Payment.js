@@ -152,13 +152,14 @@ class Payment extends Component {
       }
       return res;
     } catch (error) {
-      if (error.responseJSON.Message) {
+      if (error.responseJSON && error.responseJSON.Message) {
         // network error
         let errMsg = JSON.parse(error.responseJSON.Message).message[0];
         console.log(JSON.parse(error.responseJSON.Message).message);
         handleError(errMsg.description);
       } else {
-        handleError(error.response.data.message);
+        console.log(error);
+        error.response && error.response.data && handleError(error.response.data.message);
       }
     }
   };

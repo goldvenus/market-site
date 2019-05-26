@@ -41,8 +41,13 @@
       font-weight: 600;
       margin: 15px 0 30px;
 
+      &:first-child {
+        display: flex;
+        justify-content: space-between;
+      }
       p {
         margin: 5px 0;
+
         &:last-child {
           font-size: 12px;
           line-height: 18px;

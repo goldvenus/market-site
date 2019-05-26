@@ -1,7 +1,7 @@
 import React from 'react';
 
 const CreditCardModel = ({info, onDelete}) => {
-  let cardNumber = info.cardNumber;
+  let cardNumber = info.cardNumber.substr(-4, 4);
   let expiryDate = info.expirationDate;
   expiryDate = expiryDate.substr(0, 2) + ' / ' + expiryDate.substr(2, 2);
   let cardHolder = info.cardHolder;
@@ -19,7 +19,9 @@ const CreditCardModel = ({info, onDelete}) => {
               onClick={() => onDelete(info.methodId)}
             />
           </div>
-          <div className="payment-card-number"><span>**** **** **** {cardNumber}</span></div>
+          <div className="payment-card-number">
+            <span><span>**** </span><span> **** </span><span> **** </span><span>{cardNumber}</span></span>
+          </div>
           <div className="flex-row payment-card-other">
             <span>{expiryDate}</span>
             <span>{cardHolder}</span>

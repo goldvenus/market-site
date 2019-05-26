@@ -25,10 +25,10 @@ class ConfirmModal extends Component {
   };
   
   render() {
-    let {heading} = this.props;
+    let {heading, confirmLabel, oneButtonMode} = this.props;
     let {busy} = this.state;
     let btn_label1 = 'Cancel';
-    let btn_label2 = 'Confirm';
+    let btn_label2 = confirmLabel ? confirmLabel : 'Confirm';
     
     return (
       <React.Fragment>
@@ -38,10 +38,18 @@ class ConfirmModal extends Component {
           </div>
           <div className='confirm-modal-body'>
             <div className='confirm-control'>
-              <button className={`cart-control-left-button theme-btn theme-btn-primary ${busy && 'disabled'}`} onClick={this.handleClose}>
+              {!oneButtonMode ?
+              <button
+                className={`cart-control-left-button theme-btn theme-btn-primary ${busy && 'disabled'}`}
+                onClick={this.handleClose}
+              >
                 {btn_label1}
-              </button>
-              <button className={`cart-control-right-button theme-btn theme-btn-primary ${busy && 'disabled'}`} onClick={this.handleConfirm}>
+              </button> : null}
+              <button
+                className={`cart-control-right-button theme-btn theme-btn-primary ${busy && 'disabled'}`}
+                onClick={this.handleConfirm}
+                style={oneButtonMode ? {'margin': '0 auto'} : {}}
+              >
                 {busy ? <Inline size={64} color={"#fff"}/> : btn_label2}
               </button>
             </div>
