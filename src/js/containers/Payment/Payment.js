@@ -152,9 +152,11 @@ class Payment extends Component {
       }
       return res;
     } catch (error) {
-      if (!error.response) {
+      if (error.responseJSON.Message) {
         // network error
-        handleError("Network Connection Error");
+        let errMsg = JSON.parse(error.responseJSON.Message).message[0];
+        console.log(JSON.parse(error.responseJSON.Message).message);
+        handleError(errMsg.description);
       } else {
         handleError(error.response.data.message);
       }
@@ -249,7 +251,8 @@ class Payment extends Component {
     
     let payResult = await this.handleCharge();
     if (payResult) {
-      let response = await payment(data);
+      console.log(payResult);
+      let response = await payment({...data, chargeInfo: payResult});
       // update user's cart info
       await getCarts();
       this.props.history.push(`/payment/${checkout_id}/${response}`);

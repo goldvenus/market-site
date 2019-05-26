@@ -73,7 +73,7 @@ class TransactionHistory extends Component {
             </thead>
             <tbody>
             {transactions.map((item, index) => {
-              let transDate = new Date(item.TransDate);
+              let transDate = new Date(item.RecordCreated);
               let type = item.TransType;
               let contract = item.Contract;
               let client = item.Client;
