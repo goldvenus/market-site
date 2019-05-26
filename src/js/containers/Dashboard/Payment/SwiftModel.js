@@ -1,15 +1,16 @@
 import React from 'react';
 
-const SwiftModel = ({info, onDelete}) => {
+const SwiftModel = ({info, onDelete, selected}) => {
   let IBAN = info.IBAN;
   let bankAccountHolderName = info.bankAccountHolderName;
   let swiftCode = info.swiftCode;
   let firstFour = IBAN.substr(0, 4);
   let middleFour = ' * * * * ';
   let lastFour = IBAN.substr(-4, 4);
+  let style = selected ? {'border': 'solid 2px #f82462'} : {};
   
   return (
-    <div className='card card-body card-model-wrapper'>
+    <div className='card card-body card-model-wrapper' style={style}>
       <div className="payment-card">
         <div className='image-container'>
           <span className='swift-text'>Swift</span>

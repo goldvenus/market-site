@@ -35,7 +35,7 @@ class PaymentDetail extends Component {
   };
   
   render() {
-    let {paymentMethods, isLoadingMethod, isChanging} = this.props;
+    let {paymentMethods, isLoadingMethod, isChanging, user} = this.props;
   
     if (isLoadingMethod) {
       return <BarLoader color="#F82462" height="5"/>;
@@ -86,9 +86,19 @@ class PaymentDetail extends Component {
               <div className="payment-dashboard-body row">
                 {payOutMethods.map((item, index) => {
                   if (item.cardNumber !== undefined)
-                    return <CreditCardModel key={index} info={item} onDelete={this.handleDeleteMethod}/>;
+                    return <CreditCardModel
+                      key={index}
+                      info={item}
+                      selected={item.methodId === user.selectedMethod}
+                      onDelete={this.handleDeleteMethod}
+                    />;
                   else
-                    return <SwiftModel key={index} info={item} onDelete={this.handleDeleteMethod}/>;
+                    return <SwiftModel
+                      key={index}
+                      info={item}
+                      selected={item.methodId === user.selectedMethod}
+                      onDelete={this.handleDeleteMethod}
+                    />;
                 })}
   
                 <Card body className='add-new-card-container card-model-wrapper' onClick={() => this.props.history.push('/dashboard/methodAdd/2')}>
@@ -120,7 +130,8 @@ class PaymentDetail extends Component {
 const mapStateToProps = (state) => ({
   isLoadingMethod: state.payment.isLoadingMethod,
   isChanging: state.payment.isChanging,
-  paymentMethods: state.payment.paymentMethods
+  paymentMethods: state.payment.paymentMethods,
+  user: state.user.user
 });
 
 export default connect(mapStateToProps)(PaymentDetail);
