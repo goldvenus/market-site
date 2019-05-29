@@ -5,8 +5,10 @@ const initialState = {
   dashboard: null,
   userListings: null,
   userRentals: null,
-  orderHistories: null,
+  renterHistories: null,
+  ownerHistories: null,
   isLoading: false,
+  isLoadingOrderHistory: false
 };
 
 export default (state = initialState, action) => {
@@ -46,14 +48,15 @@ export default (state = initialState, action) => {
         break;
       
       case constants.GET_ORDER_HISTORY_REQUEST:
-        draft.isLoading = true;
+        draft.isLoadingOrderHistory = true;
         break;
       case constants.GET_ORDER_HISTORY_SUCCESS:
-        draft.orderHistories = action.payload;
-        draft.isLoading = false;
+        draft.renterHistories = action.payload.renter;
+        draft.ownerHistories = action.payload.owner;
+        draft.isLoadingOrderHistory = false;
         break;
       case constants.GET_ORDER_HISTORY_FAILED:
-        draft.isLoading = false;
+        draft.isLoadingOrderHistory = false;
         break;
         
       case constants.GET_ORDER_DETAIL_REQUEST:

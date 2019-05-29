@@ -4,7 +4,7 @@ import { Container, TabContent, TabPane } from 'reactstrap';
 import { viewUserDashboard } from '../../core/actions/dashboard.action';
 import Head from './head';
 import Tabs from './tabs';
-import Chart from './chart';
+import Chart from './Chart/chart';
 import AccountDetail from './AccountDetail';
 import MyListings from './GearHistory';
 import OrderHistory from './OrderHistory';

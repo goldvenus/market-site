@@ -1,6 +1,6 @@
 import React from 'react';
 import {Row, Col} from 'reactstrap';
-import LineChart from './LineChart';
+import LineChart from '../LineChart';
 
 export default function ({dashboard}) {
   let series = {

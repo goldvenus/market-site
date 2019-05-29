@@ -43,6 +43,7 @@ class PaymentDetail extends Component {
     
     let payInMethods = paymentMethods.filter(item => item.type === 1);
     let payOutMethods = paymentMethods.filter(item => item.type === 2);
+    let addPayoutMethodPossible = payOutMethods.length === 0;
 
     return (
       <div className='payment-dashboard-wrapper'>
@@ -101,7 +102,7 @@ class PaymentDetail extends Component {
                     />;
                 })}
   
-                <Card body className='add-new-card-container card-model-wrapper' onClick={() => this.props.history.push('/dashboard/methodAdd/2')}>
+                <Card body className={`add-new-card-container card-model-wrapper ${addPayoutMethodPossible ? '' : 'disabled'}`} onClick={() => this.props.history.push('/dashboard/methodAdd/2')}>
                   <div className="payment-card add-new-card">
                     <div className='plus-icon-container'>
                       <i className='fa fa-plus'/>

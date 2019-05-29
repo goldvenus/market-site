@@ -120,6 +120,10 @@
       display: block;
     }
   }
+
+  &.disabled {
+    display: none;
+  }
 }
 
 .payment-dashboard {

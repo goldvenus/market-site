@@ -226,13 +226,15 @@ class Payment extends Component {
       return false;
     }
     
+    this.setState({loading: true});
+    
     let user_id = this.props.user.userid;
     let total = 0;
     let sold_items = [];
     carts.forEach(listItem => {
       let d = days(listItem.startDate, listItem.endDate);
       total += d * listItem.pricePerDay;
-      sold_items.push({...listItem, PickStatus: 0});
+      sold_items.push({...listItem, PickStatus: 0, ReturnStatus: 0});
     });
     let tax = total * 0.21;
     let fee = total * 0.15;
@@ -244,26 +246,21 @@ class Payment extends Component {
       total, tax, amount, fee, checkout_id, sold_items, nummus_id};
     
     data.card_number = card_number.replace(/ /g, '');   // eat spaces
-    this.setState({loading: true});
     this.checkoutInfo.cardNumber = data.card_number;
     this.checkoutInfo.amount = amount;
     data.card_number = '**** ' + card_number.substr(-4, 4);
     data.project_name = this.checkoutInfo.projectName;
   
-    // let payResult = {
-    //   CustomerTransactionCode: "123234"
-    // };
-    // let response = await payment({...data, chargeInfo: payResult});
-    
     let payResult = await this.handleCharge();
     console.log(payResult);
     if (payResult) {
-      console.log(payResult);
-      let response = await payment({...data, chargeInfo: payResult});
+      console.log(payResult['Products']);
+      let response = await payment({...data});
       // update user's cart info
       await getCarts();
       this.props.history.push(`/payment/${checkout_id}/${response}`);
     }
+  
     this.setState({
       loading: false
     });

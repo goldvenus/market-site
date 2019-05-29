@@ -1,20 +1,12 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {compose} from "redux";
-import {withRouter} from 'react-router-dom';
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
-import BarLoader from "react-bar-loader";
 import $ from "jquery";
-import {Table, Pagination, PaginationItem, PaginationLink, Container, TabContent, TabPane} from 'reactstrap';
-import {getOrderHistory} from '../../core/actions/dashboard.action';
-import {days, getDateStr} from "../../core/helper";
-import OrderConfirmModal from "./OrderHistory/RenterComponent/OrderConfirmModal"
-import OrderRatingModal from "./OrderHistory/OrderRatingModal"
-import EmptyRental from "./OrderHistory/EmptyRental";
-import OwnerComponent from "./OrderHistory/OwnerComponent/OwnerComponent";
-import Tabs from "./OrderHistory/Tabs";
+import {Table, Pagination, PaginationItem, PaginationLink} from 'reactstrap';
+import {days, getDateStr} from "../../../../core/helper";
+import EmptyRental from "../../OrderHistory/EmptyRental";
+import OwnerConfirmModal from "./OwnerConfirmModal";
 
-class OrderHistory extends Component {
+class OwnerComponent extends Component {
   constructor(props) {
     super(props);
     
@@ -23,11 +15,9 @@ class OrderHistory extends Component {
     this.state = {
       currentPage: 0,
       modal_open_st: 0,
-      cur_proj: 0,
-      activeTab: '1'
+      cur_proj: 0
     };
     
-    getOrderHistory();
   }
   
   componentDidUpdate() {
@@ -56,27 +46,19 @@ class OrderHistory extends Component {
     });
   }
   
-  toggle = (tab) => {
-    if (this.state.activeTab !== tab) {
-      this.setState({
-        activeTab: tab
-      });
-    }
-  };
-  
   renderItemsMobile() {
-    let {renterHistories} = this.props;
+    let {histories} = this.props;
     let {currentPage} = this.state;
-    if (!renterHistories) {
+    if (!histories) {
       return null;
     }
-    renterHistories = renterHistories.slice(
+    histories = histories.slice(
       currentPage * this.pageSize,
       (currentPage + 1) * this.pageSize
     );
     
     return (
-      renterHistories.map((listItem, index) => {
+      histories.map((listItem, index) => {
         const first_item = listItem.SoldItems[0];
         let product_name = first_item.brand + ' ' + first_item.model;
         product_name = product_name.substr(0, 13) + '...';
@@ -133,19 +115,18 @@ class OrderHistory extends Component {
   }
   
   renderItemsDesktop() {
-    let {renterHistories} = this.props;
+    let {histories} = this.props;
     let {currentPage} = this.state;
-    
-    if (!renterHistories) {
+    if (!histories) {
       return null;
     }
-    renterHistories = renterHistories.slice(
+    histories = histories.slice(
       currentPage * this.pageSize,
       (currentPage + 1) * this.pageSize
     );
     
     return (
-      renterHistories.map((listItem, index) => {
+      histories.map((listItem, index) => {
         const first_item = listItem.SoldItems[0];
         let product_name = first_item.brand + ' ' + first_item.model;
         product_name = product_name.substr(0, 13) + '...';
@@ -186,17 +167,17 @@ class OrderHistory extends Component {
   }
   
   renderItemsTablet() {
-    let {renterHistories} = this.props;
+    let {histories} = this.props;
     let {currentPage} = this.state;
-    if (!renterHistories) {
+    if (!histories) {
       return null;
     }
-    renterHistories = renterHistories.slice(
+    histories = histories.slice(
       currentPage * this.pageSize,
       (currentPage + 1) * this.pageSize
     );
     return (
-      renterHistories.map((listItem, index) => {
+      histories.map((listItem, index) => {
         const first_item = listItem.SoldItems[0];
         let product_name = first_item.brand + ' ' + first_item.model;
         product_name = product_name.substr(0, 13) + '...';
@@ -254,101 +235,71 @@ class OrderHistory extends Component {
   
   render() {
     const {currentPage} = this.state;
-    const {renterHistories, ownerHistories} = this.props;
-    
-    if (!renterHistories || !ownerHistories) {
-      return <BarLoader color="#F82462" height="5"/>;
-    }
-    this.pagesCount = Math.ceil(renterHistories ? renterHistories.length / this.pageSize : "");
+    const {histories} = this.props;
+    this.pagesCount = Math.ceil(histories ? histories.length / this.pageSize : "");
     
     return (
-      <React.Fragment>
-        <div className="cart-header ">
-          <h4 className="tab-title">Order History</h4>
-        </div>
-        <Container>
-          <Tabs activeTab={this.state.activeTab} toggle={this.toggle}/>
-          <TabContent activeTab={this.state.activeTab}>
-            <TabPane tabId="1">
-              <div className="order-history-container">
-                <div className="order-history-body">
-                  {!renterHistories.length ?
-                    (<EmptyRental/>) : (
-                      <div className="table-responsive">
-                        <Table className="theme-table table order-history-table">
-                          <thead>
-                          <tr className="listing-data-thead">
-                            <th/>
-                            <th>Project Name</th>
-                            <th>Rental Period</th>
-                            <th>Status</th>
-                            <th>Amouth</th>
-                            <th></th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                          {this.renderItemsDesktop()}
-                          </tbody>
-                        </Table>
-                        <div className="tablet-mobile-wrapper">
-                          {this.renderItemsTablet()}
-                          {this.renderItemsMobile()}
-                        </div>
-                      </div>
-                    )
-                  }
+      <div className="order-history-container">
+        <div className="order-history-body">
+          {!histories.length ?
+            (<EmptyRental/>) : (
+              <div className="table-responsive">
+                <Table className="theme-table table order-history-table">
+                  <thead>
+                  <tr className="listing-data-thead">
+                    <th/>
+                    <th>Project Name</th>
+                    <th>Rental Period</th>
+                    <th>Status</th>
+                    <th>Amouth</th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {this.renderItemsDesktop()}
+                  </tbody>
+                </Table>
+                <div className="tablet-mobile-wrapper">
+                  {this.renderItemsTablet()}
+                  {this.renderItemsMobile()}
                 </div>
-                {renterHistories.length > 0 &&
-                <Pagination aria-label="Page navigation example" className="dashboard-pagination">
-                  <PaginationItem disabled={currentPage <= 0}>
-                    <PaginationLink
-                      onClick={e => this.handleClick(e, currentPage - 1)}
-                      previous
-                      href="#"
-                    />
-                  </PaginationItem>
-      
-                  {[...Array(this.pagesCount)].map((page, i) =>
-                    <PaginationItem active={i === currentPage} key={i}>
-                      <PaginationLink onClick={e => this.handleClick(e, i)} href="#">
-                        {i + 1}
-                      </PaginationLink>
-                    </PaginationItem>
-                  )}
-      
-                  <PaginationItem disabled={currentPage >= this.pagesCount - 1}>
-                    <PaginationLink
-                      onClick={e => this.handleClick(e, currentPage + 1)}
-                      next
-                      href="#"
-                    />
-                  </PaginationItem>
-                </Pagination>
-                }
-                {this.state.modal_open_st === 1 ?
-                  <OrderConfirmModal info={renterHistories[this.state.cur_proj]} close={this.handleClose}/> :
-                  this.state.modal_open_st === 2 ?
-                    <OrderRatingModal info={renterHistories[this.state.cur_proj]} close={this.handleClose}/> : null
-                }
               </div>
-            </TabPane>
-            <TabPane tabId="2">
-              <OwnerComponent histories={ownerHistories}/>
-            </TabPane>
-          </TabContent>
-        </Container>
-      </React.Fragment>
+            )
+          }
+        </div>
+        {histories.length > 0 &&
+        <Pagination aria-label="Page navigation example" className="dashboard-pagination">
+          <PaginationItem disabled={currentPage <= 0}>
+            <PaginationLink
+              onClick={e => this.handleClick(e, currentPage - 1)}
+              previous
+              href="#"
+            />
+          </PaginationItem>
+          
+          {[...Array(this.pagesCount)].map((page, i) =>
+            <PaginationItem active={i === currentPage} key={i}>
+              <PaginationLink onClick={e => this.handleClick(e, i)} href="#">
+                {i + 1}
+              </PaginationLink>
+            </PaginationItem>
+          )}
+          
+          <PaginationItem disabled={currentPage >= this.pagesCount - 1}>
+            <PaginationLink
+              onClick={e => this.handleClick(e, currentPage + 1)}
+              next
+              href="#"
+            />
+          </PaginationItem>
+        </Pagination>
+        }
+        {this.state.modal_open_st === 1 ?
+          <OwnerConfirmModal info={this.props.histories[this.state.cur_proj]} close={this.handleClose}/> : null
+        }
+      </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  renterHistories: state.dashboard.renterHistories,
-  ownerHistories: state.dashboard.ownerHistories,
-  isLoadingOrderHistory: state.dashboard.isLoadingOrderHistory
-});
-
-export default compose(
-  connect(mapStateToProps),
-  withRouter
-)(OrderHistory);
+export default OwnerComponent;

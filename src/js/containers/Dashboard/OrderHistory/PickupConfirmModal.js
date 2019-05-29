@@ -30,16 +30,16 @@ class ConfirmModal extends Component {
     // pickup setting
     let paymentId = this.props.paymentId;
     let gearId = this.props.info.gearid;
-    await setPickupState({paymentId, gearId, pickedTime: this.utc_time.join(' ')});
+    await setPickupState({paymentId, gearId, pickedTime: this.utc_time.join(' '), isRenter: this.props.isRenter});
     await getOrderHistory();
     this.setState({busy: false});
     this.props.onSuccess();
   };
   
   render() {
-    let {info} = this.props;
+    let {info, model} = this.props;
     let {open, busy} = this.state;
-    let dlg_heading = 'Confirm gear pickup';
+    let dlg_heading = model === 1 ? 'Confirm gear pickup' : 'Confirm gear return';
     let btn_label1 = 'Cancel';
     let btn_label2 = 'Confirm';
     

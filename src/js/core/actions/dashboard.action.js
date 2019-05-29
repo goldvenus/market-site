@@ -45,10 +45,18 @@ const getOrderHistory = async () => {
   try {
     let response = await get('getOrderHistory');
     if (response && response.data && response.data.status === 'success') {
-      response.data.data.sort(compare);
+      let renter = response.data.data.renter;
+      let owner = response.data.data.owner;
+      renter.sort(compare);
+      owner.sort(compare);
+      
       dispatch({
         type: constants.GET_ORDER_HISTORY_SUCCESS,
-        payload: response.data.data
+        payload: {renter, owner}
+      });
+    } else {
+      dispatch({
+        type: constants.GET_ORDER_HISTORY_FAILED
       });
     }
   } catch (error) {
