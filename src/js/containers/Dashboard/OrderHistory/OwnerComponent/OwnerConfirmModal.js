@@ -116,7 +116,6 @@ class OwnerConfirmModal extends Component {
   render() {
     let {info} = this.props;
     let {returnGearStatus} = this.state;
-    console.log(returnGearStatus);
     let sold_items = info.SoldItems;
     let renter = info.renter;
     let payout_finished = true;
@@ -142,7 +141,7 @@ class OwnerConfirmModal extends Component {
           </div>
           <div className="order-modal-body">
             <div className="paid-items">
-              <div className='paid-item owner-info-wrapper'>
+              <div className='paid-item owner-info-wrapper' style={isRatingMode ? {} : {'justify-content': 'center'}}>
                 <div className='pay-info pay-info-history'>
                   <div className='buyer-info'>
                     <div className='buyer-info-left'>

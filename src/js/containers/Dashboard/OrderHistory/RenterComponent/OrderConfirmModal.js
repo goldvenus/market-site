@@ -14,7 +14,12 @@ class OrderConfirmModal extends Component {
   constructor(props) {
     super(props);
     
-    this.rating = [0, 0, 0];
+    let {info} = this.props;
+    this.rating = [];
+    
+    info.SoldItems.forEach((item, key) => {
+      this.rating[key] = item.ratingRenter ? item.ratingRenter : [0, 0, 0];
+    });
     
     this.state = {
       curItem: null,
@@ -54,16 +59,16 @@ class OrderConfirmModal extends Component {
     });
   };
   
-  handleRating = async (gearId) => {
-    if (this.rating[0] === 0 && this.rating[1] === 0 && this.rating[2] === 0)
+  handleRating = async (gearId, index) => {
+    if (this.rating[index][0] === 0 && this.rating[index][1] === 0 && this.rating[index][2] === 0)
       return;
     
     this.setState({isRating: true});
     let paymentId = this.props.info.PaymentId;
     await setRating({
-      rating1: this.rating[0],
-      rating2: this.rating[1],
-      rating3: this.rating[2],
+      rating1: this.rating[index][0],
+      rating2: this.rating[index][1],
+      rating3: this.rating[index][2],
       isRenter: true,
       gearId,
       paymentId
@@ -72,11 +77,11 @@ class OrderConfirmModal extends Component {
     this.setState({isRating: false});
   };
   
-  handleRatingChange = (possible, val, index) => {
+  handleRatingChange = (possible, val, index, item) => {
     if (!possible)
       return;
     
-    this.rating[index] = val;
+    this.rating[item][index] = val;
   };
   
   render() {
@@ -114,11 +119,7 @@ class OrderConfirmModal extends Component {
                   if (pick_status < 2) {
                     payout_finished = false;
                   }
-
-                  if (this.rating[0] === 0 && this.rating[1] === 0 && this.rating[2] === 0) {
-                    this.rating = rating;
-                  }
-
+                  
                   return <div key={`cart-item-${index}`} className="paid-item">
                     <div className='pay-info pay-info-history'>
                       <div className='item-info'>
@@ -186,7 +187,7 @@ class OrderConfirmModal extends Component {
                                   value={`${this.rating[0]}`}
                                   color="#f82462"
                                   weight="22"
-                                  onClick={(v) => this.handleRatingChange(isRatingPossible, v, 0)}
+                                  onClick={(v) => this.handleRatingChange(isRatingPossible, v, 0, index)}
                                 />
                               </div>
                               <div>
@@ -195,7 +196,7 @@ class OrderConfirmModal extends Component {
                                   value={`${this.rating[1]}`}
                                   color="#f82462"
                                   weight="22"
-                                  onClick={(v) => this.handleRatingChange(isRatingPossible, v, 1)}
+                                  onClick={(v) => this.handleRatingChange(isRatingPossible, v, 1, index)}
                                 />
                               </div>
                               <div>
@@ -204,7 +205,7 @@ class OrderConfirmModal extends Component {
                                   value={`${this.rating[2]}`}
                                   color="#f82462"
                                   weight="22"
-                                  onClick={(v) => this.handleRatingChange(isRatingPossible, v, 2)}
+                                  onClick={(v) => this.handleRatingChange(isRatingPossible, v, 2, index)}
                                 />
                               </div>
                             </div>
@@ -212,7 +213,7 @@ class OrderConfirmModal extends Component {
                           {this.state.isRating || isRatingPossible ?
                           <button
                             className='theme-btn theme-btn-primary'
-                            onClick={() => isRatingPossible && this.handleRating(listItem.gearid)}
+                            onClick={() => isRatingPossible && this.handleRating(listItem.gearid, index)}
                           >
                             {this.state.isRating ? <Inline size={64} color={"#fff"}/> : 'Submit Rating'}
                           </button> : null}
@@ -295,10 +296,6 @@ class OrderConfirmModal extends Component {
                     payout_finished = false;
                   }
   
-                  if (this.rating[0] === 0 && this.rating[1] === 0 && this.rating[2] === 0) {
-                    this.rating = rating;
-                  }
-  
                   return <div key={`cart-item-${index}`} className="paid-item d-block">
                     <div className='pay-info pay-info-history'>
                       <div className='item-info d-block'>
@@ -366,7 +363,7 @@ class OrderConfirmModal extends Component {
                                   value={`${this.rating[0]}`}
                                   color="#f82462"
                                   weight="22"
-                                  onClick={(v) => this.handleRatingChange(isRatingPossible, v, 0)}
+                                  onClick={(v) => this.handleRatingChange(isRatingPossible, v, 0, index)}
                                 />
                               </div>
                               <div>
@@ -375,7 +372,7 @@ class OrderConfirmModal extends Component {
                                   value={`${this.rating[1]}`}
                                   color="#f82462"
                                   weight="22"
-                                  onClick={(v) => this.handleRatingChange(isRatingPossible, v, 1)}
+                                  onClick={(v) => this.handleRatingChange(isRatingPossible, v, 1, index)}
                                 />
                               </div>
                               <div>
@@ -384,7 +381,7 @@ class OrderConfirmModal extends Component {
                                   value={`${this.rating[2]}`}
                                   color="#f82462"
                                   weight="22"
-                                  onClick={(v) => this.handleRatingChange(isRatingPossible, v, 2)}
+                                  onClick={(v) => this.handleRatingChange(isRatingPossible, v, 2, index)}
                                 />
                               </div>
                             </div>
@@ -392,7 +389,7 @@ class OrderConfirmModal extends Component {
                           {this.state.isRating || isRatingPossible ?
                             <button
                               className='theme-btn theme-btn-primary'
-                              onClick={() => isRatingPossible && this.handleRating(listItem.gearid)}
+                              onClick={() => isRatingPossible && this.handleRating(listItem.gearid, index)}
                             >
                               {this.state.isRating ? <Inline size={64} color={"#fff"}/> : 'Submit Rating'}
                             </button> : null}

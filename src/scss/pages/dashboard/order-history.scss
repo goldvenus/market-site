@@ -456,7 +456,11 @@
 
 .order-history-outer-wrapper {
   background-color: #faf8f9;
-  padding-top: 40px;
+  padding: 40px 0 0;
+
+  .gear_history_tab {
+    padding: 0 30px;
+  }
   .tab-content {
     padding: 0;
   }
@@ -473,8 +477,10 @@
     align-items: center;
     justify-content: center;
     position: absolute;
-    margin-left: 176px;
-    margin-top: -43px
+    margin-left: 205px;
+    margin-top: -43px;
+    font-size: 13px;
+    font-weight: 600;
   }
 }
 
