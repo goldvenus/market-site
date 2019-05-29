@@ -4,19 +4,34 @@ import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import Modal from "react-responsive-modal";
 import {days, getDateStr} from "../../../../core/helper/index"
 import {Link, withRouter} from "react-router-dom";
+import {Inline} from '@zendeskgarden/react-loaders';
 import PickupConfirmModal from "../PickupConfirmModal";
 import PickupSuccessModal from "../PickupSuccessModal";
-import Rating from "react-rating";
+import Rating from 'react-star-rating-lite';
 import {compose} from "redux";
 import connect from "react-redux/es/connect/connect";
+import {getOrderHistory, setRating, setReturnGearStatus} from "../../../../core/actions/dashboard.action";
 
 class OwnerConfirmModal extends Component {
   constructor(props) {
     super(props);
+    
+    let {info} = this.props;
+    this.rating = info.ratingOwner ? info.ratingOwner : [0, 0];
+    let gearStatus = [];
+    let emptyStatus = [];
+    info.SoldItems.forEach((item, key) => {
+      gearStatus[key] = item.returnGearStatus ? item.returnGearStatus : 0;
+      emptyStatus[key] = false;
+    });
+    
     this.state = {
       curItem: null,
-      modalOpenState: 0
-    }
+      modalOpenState: 0,
+      returnGearStatus: gearStatus,
+      isSettingStatus: emptyStatus,
+      isRating: false
+    };
   }
   
   handleClose = () => {
@@ -42,56 +57,160 @@ class OwnerConfirmModal extends Component {
   
   handleReturnConfirm = (item) => {
     this.setState({
-      modalOpenState: 2,
+      modalOpenState: 1,
       curItem: item
     });
   };
   
+  handleRatingChange = (possible, val, index) => {
+    if (!possible)
+      return;
+    
+    this.rating[index] = val;
+  };
+  
+  handleRating = async () => {
+    if (this.rating[0] === 0 && this.rating[1] === 0)
+      return;
+  
+    this.setState({isRating: true});
+    let paymentId = this.props.info.PaymentId;
+    await setRating({
+      rating4: this.rating[0],
+      rating5: this.rating[1],
+      isRenter: false,
+      renterId: this.props.info.UserId,
+      paymentId
+    });
+    await getOrderHistory();
+    this.setState({isRating: false});
+  };
+  
+  handleReturnGearStatusChange = async (index, val) => {
+    let status = this.state.returnGearStatus;
+    status[index] = val;
+    this.setState({returnGearStatus: status});
+  };
+  
+  handleSetReturnGearStatus = async (index, gearId) => {
+    let status = this.state.isSettingStatus;
+    let returnFlag = false;
+    status.forEach(item => {
+      if (item) {
+        returnFlag = true;
+      }
+    });
+    if (returnFlag) return;
+    
+    status[index] = true;
+    this.setState({isSettingStatus: status});
+    
+    let paymentId = this.props.info.PaymentId;
+    let userId = this.props.info.UserId;
+    await setReturnGearStatus({status: this.state.returnGearStatus[index], paymentId: paymentId, gearId, userId: userId});
+    await getOrderHistory();
+    status[index] = false;
+    this.setState({isSettingStatus: status});
+  };
+  
   render() {
     let {info} = this.props;
-    let expiration_date = info.ExpirationDate.toString();
+    let {returnGearStatus} = this.state;
+    console.log(returnGearStatus);
     let sold_items = info.SoldItems;
     let renter = info.renter;
-    expiration_date = expiration_date.substr(0, 2) + '/' + expiration_date.substr(2, 2);
+    let payout_finished = true;
+    let ratingOwner = info.ratingOwner ? info.ratingOwner : [0, 0];
+    let isRatingMode = true;
+    let isRatingPossible = true;
 
+    sold_items.forEach((item) => {
+      if (item.ReturnStatus < 2 || item.PickStatus < 2) {
+        isRatingMode = false;
+        isRatingPossible = false;
+      }
+    });
+    if (ratingOwner[0] !== 0 || ratingOwner[1] !== 0) {
+      isRatingPossible = false;
+    }
+    
     return (
-      <Modal open={true} onClose={this.handleClose} center classNames={{modal: "order-modal"}}>
+      <Modal open={true} onClose={this.handleClose} center classNames={{modal: "order-modal"}} closeOnOverlayClick={false}>
         <div className="order-modal-desktop-tablet">
           <div className="order-modal-header">
-            <span>RENTER<svg className="edit_icon"/></span>
+            <span>RENTER</span>
           </div>
           <div className="order-modal-body">
-            <div className='buyer-info owner-top-info'>
-              <div className='owner-info-inner-wrapper'>
-                <div className='buyer-info-left'>
-                  <div className='grey-small-text'>Landlord</div>
-                  <div className='buyer-profile owner-profile'>
-                    <img src={renter.picture} alt=""/>
-                    <div>
-                      <span className="duration">{renter.given_name}</span>
-                      <span className="phone-number">{renter.phone_number}</span>
+            <div className="paid-items">
+              <div className='paid-item owner-info-wrapper'>
+                <div className='pay-info pay-info-history'>
+                  <div className='buyer-info'>
+                    <div className='buyer-info-left'>
+                      <div className='grey-small-text'>Landlord</div>
+                      <div className='buyer-profile owner-profile'>
+                        <img src={renter.picture} alt=""/>
+                        <div>
+                          <span className="duration">{renter.given_name}</span>
+                          <span className="phone-number">{renter.phone_number}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className='buyer-info-right'>
+                      <div className='grey-small-text'>Address</div>
+                      <div className='period-price'>
+                        <div>Laufacar 58,</div>
+                        <div>101 Reykjavik</div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div className='buyer-info-right'>
-                  <div className='grey-small-text'>Address</div>
-                  <div className='period-price'>
-                    <div>Laufacar 58,</div>
-                    <div>101 Reykjavik</div>
+                {isRatingMode ?
+                <div className='pickup-btn-container'>
+                  <div className='renter-rating-container'>
+                    <div>
+                      <span>Renter</span>
+                      <Rating
+                        value={`${this.rating[0]}`}
+                        color="#f82462"
+                        weight="22"
+                        onClick={(v) => this.handleRatingChange(isRatingMode, v, 0)}
+                      />
+                    </div>
+                    <div>
+                      <span>Platform</span>
+                      <Rating
+                        value={`${this.rating[1]}`}
+                        color="#f82462"
+                        weight="22"
+                        onClick={(v) => this.handleRatingChange(isRatingMode, v, 1)}
+                      />
+                    </div>
+                    {isRatingPossible ?
+                    <button
+                      className='theme-btn theme-btn-primary owner-rating-btn'
+                      onClick={this.handleRating}
+                    >
+                      {this.state.isRating ? <Inline size={64} color={"#fff"}/> : 'Submit'}
+                    </button> : null}
                   </div>
-                </div>
+                </div> : null}
               </div>
-            </div>
-            <div className="paid-items">
+              
               {
                 sold_items.map((listItem, index) => {
                   let pick_status = 1 * listItem.PickStatus;
+                  let return_status = 1 * listItem.ReturnStatus;
                   let btn_label1 = pick_status < 2 ? "CONFIRM PICKUP" : "PICKUP CONFIRMED";
-                  let btn_label2 = "CONFIRM RETURN";
+                  let btn_label2 = return_status < 1 ? "CONFIRM RETURN" : 'RETURN CONFIRMED';
+                  let isReturnFinished = return_status > 1;
                   let pickupBtnState = pick_status < 1 ? 'return-btn disabled-btn disabled' :
                     pick_status < 2 ? 'return-btn active-btn' : 'success-btn disabled';
-                  let isRatingMode = false;
-
+                  let returnBtnState = pick_status < 2 || return_status < 1 ? 'return-btn disabled-btn disabled' :
+                    return_status < 2 ? 'return-btn active-btn' : 'success-btn disabled';
+                  if (pick_status < 2) {
+                    payout_finished = false;
+                  }
+  
                   return <div key={`cart-item-${index}`} className="paid-item">
                     <div className='pay-info pay-info-history'>
                       <div className='item-info'>
@@ -114,7 +233,7 @@ class OwnerConfirmModal extends Component {
                       </div>
                     </div>
                     <div className='pickup-btn-container'>
-                      {!isRatingMode ?
+                      {!isReturnFinished ?
                         <div>
                           <button className={`theme-btn pickup-btn ${pickupBtnState}`}
                             onClick={() => pick_status === 1 && this.handlePickupConfirm(listItem)}
@@ -122,48 +241,33 @@ class OwnerConfirmModal extends Component {
                             {btn_label1}
                           </button>
                           <button
-                            className={`theme-btn return-btn ${pick_status < 2 ? 'disabled disabled-btn' : 'active-btn'}`}
-                            onClick={() => pick_status > 1 && this.handleReturnConfirm(listItem)}
+                            className={`theme-btn ${returnBtnState}`}
+                            onClick={() => pick_status > 1 && return_status === 1 && this.handleReturnConfirm(listItem)}
                           >
                             {btn_label2}
                           </button>
                         </div> :
                         <div className='rating-select-container'>
                           <div className='rating-select-inner'>
-                            <div className="row rating-select-top">
-                              HOW WAS YOUR EXPERIENCE?
+                            <div className="row">
+                              Return Condition
                             </div>
-                            <div className="row rating-select-bottom">
-                              <div>
-                                <span>Gear</span>
-                                <Rating
-                                  initialRating={0}
-                                  emptySymbol={<img src="/images/Icons/star/star_icon_d.png" alt='' className="icon"/>}
-                                  fullSymbol={<img src="/images/Icons/star/star_icon_a.png" alt='' className="icon"/>}
-                                />
-                              </div>
-                              <div>
-                                <span>Owner</span>
-                                <Rating
-                                  initialRating={0}
-                                  emptySymbol={<img src="/images/Icons/star/star_icon_d.png" alt='' className="icon"/>}
-                                  fullSymbol={<img src="/images/Icons/star/star_icon_a.png" alt='' className="icon"/>}
-                                />
-                              </div>
-                              <div>
-                                <span>Platform</span>
-                                <Rating
-                                  initialRating={0}
-                                  emptySymbol={<img src="/images/Icons/star/star_icon_d.png" alt='' className="icon"/>}
-                                  fullSymbol={<img src="/images/Icons/star/star_icon_a.png" alt='' className="icon"/>}
-                                />
-                              </div>
+                            <div className="row rating-select-bottom rating-select-bottom-1">
+                              <button className={`theme-btn status-new-btn ${returnGearStatus[index] === 0 ? 'active-btn' : ''}`} onClick={() => this.handleReturnGearStatusChange(index, 0)}>Like New</button>
+                              <button className={`theme-btn status-worn-btn ${returnGearStatus[index] === 1 ? 'active-btn' : ''}`} onClick={() => this.handleReturnGearStatusChange(index, 1)}>Slightly Worn</button>
+                              <button className={`theme-btn status-damaged-btn ${returnGearStatus[index] === 2 ? 'active-btn' : ''}`} onClick={() => this.handleReturnGearStatusChange(index, 2)}>Damaged</button>
                             </div>
                           </div>
+                          <button
+                            className='theme-btn theme-btn-primary'
+                            onClick={() => this.handleSetReturnGearStatus(index, listItem.gearid)}
+                          >
+                            {this.state.isSettingStatus[index] ? <Inline size={64} color={"#fff"}/> : 'Submit'}
+                          </button>
                         </div>
                       }
                     </div>
-                  </div>;
+                  </div>
                 })
               }
             </div>
@@ -181,21 +285,16 @@ class OwnerConfirmModal extends Component {
                 </div>
               </div>
               <div className="payment-result">
-                <div><span className="text-gray">Paid with</span></div>
-                <div className="payment-card">
-                  <div className="flex-row payment-card-info">
-                    <img src="/images/cards/master-card.svg" alt=""/>
-                    <div className="payment-card-number">{info.CardNumber}</div>
-                  </div>
-                  <div className="flex-row payment-card-other">
-                    <span>{expiration_date}</span>
-                    <span className="card-holder">{info.CardHolder}</span>
-                  </div>
-                </div>
               </div>
-              <div>
-                <div className="text-gray">Payment status</div>
-                <div className="payment-status">COMPLETED</div>
+              <div className="payment-status-wrapper">
+                <div>
+                  <div className="text-gray">Payment Status</div>
+                  <div className="payment-status">COMPLETED</div>
+                </div>
+                <div>
+                  <div className="text-gray">Payout Status</div>
+                  <div className={`payment-status ${payout_finished ? '' : 'warning-btn'}`}>{payout_finished ? 'COMPLETED' : 'IN ESCROW'}</div>
+                </div>
               </div>
             </div>
           </div>
@@ -215,10 +314,17 @@ class OwnerConfirmModal extends Component {
               {
                 sold_items.map((listItem, index) => {
                   let pick_status = 1 * listItem.PickStatus;
+                  let return_status = 1 * listItem.ReturnStatus;
                   let btn_label1 = pick_status < 1 ? "CONFIRM PICKUP" : "PICKUP CONFIRMED";
                   let btn_label2 = "CONFIRM RETURN";
                   let pickupBtnState = pick_status < 1 ? 'return-btn active-btn'
-                    : pick_status < 2 ? 'disabled-btn warning-btn disabled' : 'disabled-btn success-btn disabled';
+                    : pick_status < 2 ? 'disabled-btn warning-btn disabled' : 'success-btn disabled';
+                  let isRatingMode = false;
+                  let returnBtnState = pick_status < 2 || return_status < 1 ? 'return-btn disabled-btn disabled' :
+                    return_status < 2 ? 'return-btn active-btn' : 'success-btn disabled';
+                  if (pick_status < 2) {
+                    payout_finished = false;
+                  }
                   
                   return <div key={`cart-item-${index}`} className="paid-item d-block">
                     <div className='pay-info pay-info-history'>
@@ -261,68 +367,56 @@ class OwnerConfirmModal extends Component {
                       </div>
                     </div>
                     <div className='pickup-btn-container'>
-                      <div>
-                        <button className={`theme-btn pickup-btn ${pickupBtnState}`}
-                          onClick={() => pick_status < 1 && this.handlePickupConfirm(listItem)}>
-                          {btn_label1}
-                        </button>
-                        <button className={`theme-btn return-btn ${pick_status < 2 ? 'disabled disabled-btn' : 'active-btn'}`}
-                          onClick={() => pick_status > 1 && this.handleReturnConfirm(listItem)}>
-                          {btn_label2}
-                        </button>
-                      </div>
+                      {!isRatingMode ?
+                        <div>
+                          <button className={`theme-btn pickup-btn ${pickupBtnState}`}
+                                  onClick={() => pick_status < 1 && this.handlePickupConfirm(listItem)}
+                          >
+                            {btn_label1}
+                          </button>
+                          <button
+                            className={`theme-btn ${returnBtnState}`}
+                            onClick={() => pick_status > 1 && return_status < 1 && this.handleReturnConfirm(listItem)}
+                          >
+                            {btn_label2}
+                          </button>
+                        </div> :
+                        <div className='rating-select-container'>
+                          <div className='rating-select-inner'>
+                            <div className="row rating-select-top">
+                              gear state
+                            </div>
+                            <div className="row rating-select-bottom">
+                            
+                            </div>
+                          </div>
+                          <button
+                            className='theme-btn theme-btn-primary'
+                            onClick={() => this.handleReturnStatus(listItem.gearid)}
+                          >
+                            {this.state.isSettingStatus[index] ? <Inline size={64} color={"#fff"}/> : 'Submit'}
+                          </button> : null}
+                        </div>
+                      }
                     </div>
                   </div>
                 })
               }
-              {/*<div className='rating-select-container'>*/}
-              {/*<div className='rating-select-inner'>*/}
-              {/*<div className="row rating-select-top">*/}
-              {/*HOW WAS YOUR EXPERIENCE?*/}
-              {/*</div>*/}
-              {/*<div className="row rating-select-bottom">*/}
-              {/*<div>*/}
-              {/*<span>Gear</span>*/}
-              {/*<Rating*/}
-              {/*initialRating={3}*/}
-              {/*emptySymbol={<img src="/images/Icons/star/star_icon_d.png" alt='' className="icon" />}*/}
-              {/*fullSymbol={<img src="/images/Icons/star/star_icon_a.png" alt='' className="icon" />}*/}
-              {/*/>*/}
-              {/*</div>*/}
-              {/*<div>*/}
-              {/*<span>Owner</span>*/}
-              {/*<Rating*/}
-              {/*initialRating={3}*/}
-              {/*emptySymbol={<img src="/images/Icons/star/star_icon_d.png" alt='' className="icon" />}*/}
-              {/*fullSymbol={<img src="/images/Icons/star/star_icon_a.png" alt='' className="icon" />}*/}
-              {/*/>*/}
-              {/*</div>*/}
-              {/*<div>*/}
-              {/*<span>Platform</span>*/}
-              {/*<Rating*/}
-              {/*initialRating={3}*/}
-              {/*emptySymbol={<img src="/images/Icons/star/star_icon_d.png" alt='' className="icon" />}*/}
-              {/*fullSymbol={<img src="/images/Icons/star/star_icon_a.png" alt='' className="icon" />}*/}
-              {/*/>*/}
-              {/*</div>*/}
-              {/*</div>*/}
-              {/*</div>*/}
-              {/*</div>*/}
             </div>
             <div className="payment-success-info">
               <div>
                 <div className="payment-method">
-                  <div><span className="text-gray">Paid with</span></div>
-                  <div className="payment-card">
-                    <div className="flex-row">
-                      <img src="/images/cards/master-card.svg" alt=""/>
-                      <div className="payment-card-number">{info.CardNumber}</div>
-                    </div>
-                    <div className="flex-row payment-card-other">
-                      <span>{expiration_date}</span>
-                      <span>{info.CardHolder}</span>
-                    </div>
-                  </div>
+                  {/*<div><span className="text-gray">Paid with</span></div>*/}
+                  {/*<div className="payment-card">*/}
+                    {/*<div className="flex-row">*/}
+                      {/*<img src="/images/cards/master-card.svg" alt=""/>*/}
+                      {/*<div className="payment-card-number">{info.CardNumber}</div>*/}
+                    {/*</div>*/}
+                    {/*<div className="flex-row payment-card-other">*/}
+                      {/*<span>{expiration_date}</span>*/}
+                      {/*<span>{info.CardHolder}</span>*/}
+                    {/*</div>*/}
+                  {/*</div>*/}
                 </div>
               </div>
               <div>
@@ -348,8 +442,10 @@ class OwnerConfirmModal extends Component {
               </div>
               <div>
                 <div className="payment-status-container">
-                  <div className="text-gray">Payment status</div>
+                  <div className="text-gray">Payment Status</div>
                   <div className="payment-status">COMPLETED</div>
+                  <div className="text-gray">Payout Status</div>
+                  <div className={`payment-status ${payout_finished ? '' : 'warning-btn'}`}>{payout_finished ? 'COMPLETED' : 'IN ESCROW'}</div>
                 </div>
               </div>
             </div>

@@ -1,19 +1,28 @@
 import React, {Component} from 'react';
 import '@trendmicro/react-buttons/dist/react-buttons.css';
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
-import Modal from "react-responsive-modal";
-import {days, getDateStr} from "../../../../core/helper/index"
+import Rating from 'react-star-rating-lite';
 import {Link} from "react-router-dom";
+import Modal from "react-responsive-modal";
+import {Inline} from '@zendeskgarden/react-loaders'
+import {days, getDateStr} from "../../../../core/helper/index"
 import PickupConfirmModal from "../PickupConfirmModal";
 import PickupSuccessModal from "../PickupSuccessModal";
-import Rating from "react-rating";
+import {getOrderHistory, setRating} from "../../../../core/actions/dashboard.action";
 
 class OrderConfirmModal extends Component {
   constructor(props) {
     super(props);
+    
+    this.rating = [0, 0, 0];
+    
     this.state = {
       curItem: null,
-      modalOpenState: 0
+      modalOpenState: 0,
+      rating1: 0,
+      rating2: 0,
+      rating3: 0,
+      isRating: false
     }
   }
   
@@ -40,19 +49,45 @@ class OrderConfirmModal extends Component {
   
   handleReturnConfirm = (item) => {
     this.setState({
-      modalOpenState: 2,
+      modalOpenState: 1,
       curItem: item
     });
+  };
+  
+  handleRating = async (gearId) => {
+    if (this.rating[0] === 0 && this.rating[1] === 0 && this.rating[2] === 0)
+      return;
+    
+    this.setState({isRating: true});
+    let paymentId = this.props.info.PaymentId;
+    await setRating({
+      rating1: this.rating[0],
+      rating2: this.rating[1],
+      rating3: this.rating[2],
+      isRenter: true,
+      gearId,
+      paymentId
+    });
+    await getOrderHistory();
+    this.setState({isRating: false});
+  };
+  
+  handleRatingChange = (possible, val, index) => {
+    if (!possible)
+      return;
+    
+    this.rating[index] = val;
   };
   
   render() {
     let {info} = this.props;
     let expiration_date = info.ExpirationDate.toString();
     let sold_items = info.SoldItems;
+    let payout_finished = true;
     expiration_date = expiration_date.substr(0, 2) + '/' + expiration_date.substr(2, 2);
 
     return (
-      <Modal open={true} onClose={this.handleClose} center classNames={{modal: "order-modal"}}>
+      <Modal open={true} onClose={this.handleClose} center classNames={{modal: "order-modal"}} closeOnOverlayClick={false}>
         <div className="order-modal-desktop-tablet">
           <div className="order-modal-header">
             <span>{info.ProjectName}<svg className="edit_icon"/></span>
@@ -62,12 +97,27 @@ class OrderConfirmModal extends Component {
               {
                 sold_items.map((listItem, index) => {
                   let pick_status = 1 * listItem.PickStatus;
+                  let return_status = listItem.ReturnStatus;
                   let btn_label1 = pick_status < 1 ? "CONFIRM PICKUP" : "PICKUP CONFIRMED";
-                  let btn_label2 = "CONFIRM RETURN";
+                  let btn_label2 = return_status < 1 ? "CONFIRM RETURN" : 'RETURN CONFIRMED';
                   let pickupBtnState = pick_status < 1 ? 'return-btn active-btn'
                     : pick_status < 2 ? 'warning-btn disabled' : 'success-btn disabled';
-                  let ReturnStatus = listItem.ReturnStatus;
-                  let isRatingMode = pick_status === 2 && ReturnStatus;
+                  let returnBtnState = pick_status < 2 ? 'return-btn disabled-btn disabled' :
+                    return_status < 1 ? 'return-btn active-btn' :
+                    return_status < 2 ? 'warning-btn disabled' : 'success-btn disabled';
+                  let isRatingMode = pick_status > 1 && return_status > 1;
+                  let rating = listItem.ratingRenter ? listItem.ratingRenter : [0, 0, 0];
+                  let isRatingPossible = false;
+                  if (rating[0] === 0 && rating[1] === 0 && rating[2] === 0) {
+                    isRatingPossible = true;
+                  }
+                  if (pick_status < 2) {
+                    payout_finished = false;
+                  }
+
+                  if (this.rating[0] === 0 && this.rating[1] === 0 && this.rating[2] === 0) {
+                    this.rating = rating;
+                  }
 
                   return <div key={`cart-item-${index}`} className="paid-item">
                     <div className='pay-info pay-info-history'>
@@ -113,12 +163,14 @@ class OrderConfirmModal extends Component {
                       {!isRatingMode ?
                         <div>
                           <button className={`theme-btn pickup-btn ${pickupBtnState}`}
-                                  onClick={() => pick_status < 1 && this.handlePickupConfirm(listItem)}>
+                            onClick={() => pick_status < 1 && this.handlePickupConfirm(listItem)}
+                          >
                             {btn_label1}
                           </button>
                           <button
-                            className={`theme-btn return-btn ${pick_status < 2 ? 'disabled disabled-btn' : 'active-btn'}`}
-                            onClick={() => pick_status > 1 && this.handleReturnConfirm(listItem)}>
+                            className={`theme-btn ${returnBtnState}`}
+                            onClick={() => pick_status > 1 && return_status < 1 && this.handleReturnConfirm(listItem)}
+                          >
                             {btn_label2}
                           </button>
                         </div> :
@@ -131,33 +183,43 @@ class OrderConfirmModal extends Component {
                               <div>
                                 <span>Gear</span>
                                 <Rating
-                                  initialRating={0}
-                                  emptySymbol={<img src="/images/Icons/star/star_icon_d.png" alt='' className="icon"/>}
-                                  fullSymbol={<img src="/images/Icons/star/star_icon_a.png" alt='' className="icon"/>}
+                                  value={`${this.rating[0]}`}
+                                  color="#f82462"
+                                  weight="22"
+                                  onClick={(v) => this.handleRatingChange(isRatingPossible, v, 0)}
                                 />
                               </div>
                               <div>
                                 <span>Owner</span>
                                 <Rating
-                                  initialRating={0}
-                                  emptySymbol={<img src="/images/Icons/star/star_icon_d.png" alt='' className="icon"/>}
-                                  fullSymbol={<img src="/images/Icons/star/star_icon_a.png" alt='' className="icon"/>}
+                                  value={`${this.rating[1]}`}
+                                  color="#f82462"
+                                  weight="22"
+                                  onClick={(v) => this.handleRatingChange(isRatingPossible, v, 1)}
                                 />
                               </div>
                               <div>
                                 <span>Platform</span>
                                 <Rating
-                                  initialRating={0}
-                                  emptySymbol={<img src="/images/Icons/star/star_icon_d.png" alt='' className="icon"/>}
-                                  fullSymbol={<img src="/images/Icons/star/star_icon_a.png" alt='' className="icon"/>}
+                                  value={`${this.rating[2]}`}
+                                  color="#f82462"
+                                  weight="22"
+                                  onClick={(v) => this.handleRatingChange(isRatingPossible, v, 2)}
                                 />
                               </div>
                             </div>
                           </div>
+                          {this.state.isRating || isRatingPossible ?
+                          <button
+                            className='theme-btn theme-btn-primary'
+                            onClick={() => isRatingPossible && this.handleRating(listItem.gearid)}
+                          >
+                            {this.state.isRating ? <Inline size={64} color={"#fff"}/> : 'Submit Rating'}
+                          </button> : null}
                         </div>
                       }
                     </div>
-                  </div>;
+                  </div>
                 })
               }
             </div>
@@ -187,9 +249,15 @@ class OrderConfirmModal extends Component {
                   </div>
                 </div>
               </div>
-              <div>
-                <div className="text-gray">Payment status</div>
-                <div className="payment-status">COMPLETED</div>
+              <div className="payment-status-wrapper">
+                <div>
+                  <div className="text-gray">Payment Status</div>
+                  <div className="payment-status">COMPLETED</div>
+                </div>
+                <div>
+                  <div className="text-gray">Payout Status</div>
+                  <div className={`payment-status ${payout_finished ? '' : 'warning-btn'}`}>{payout_finished ? 'COMPLETED' : 'IN ESCROW'}</div>
+                </div>
               </div>
             </div>
           </div>
@@ -209,11 +277,28 @@ class OrderConfirmModal extends Component {
               {
                 sold_items.map((listItem, index) => {
                   let pick_status = 1 * listItem.PickStatus;
+                  let return_status = listItem.ReturnStatus;
                   let btn_label1 = pick_status < 1 ? "CONFIRM PICKUP" : "PICKUP CONFIRMED";
-                  let btn_label2 = "CONFIRM RETURN";
+                  let btn_label2 = return_status < 1 ? "CONFIRM RETURN" : 'RETURN CONFIRMED';
                   let pickupBtnState = pick_status < 1 ? 'return-btn active-btn'
-                    : pick_status < 2 ? 'disabled-btn warning-btn disabled' : 'disabled-btn success-btn disabled';
-                  
+                    : pick_status < 2 ? 'warning-btn disabled' : 'success-btn disabled';
+                  let returnBtnState = pick_status < 2 ? 'return-btn disabled-btn disabled' :
+                    return_status < 1 ? 'return-btn active-btn' :
+                      return_status < 2 ? 'warning-btn disabled' : 'success-btn disabled';
+                  let isRatingMode = pick_status > 1 && return_status > 1;
+                  let rating = listItem.ratingRenter ? listItem.ratingRenter : [0, 0, 0];
+                  let isRatingPossible = false;
+                  if (rating[0] === 0 && rating[1] === 0 && rating[2] === 0) {
+                    isRatingPossible = true;
+                  }
+                  if (pick_status < 2) {
+                    payout_finished = false;
+                  }
+  
+                  if (this.rating[0] === 0 && this.rating[1] === 0 && this.rating[2] === 0) {
+                    this.rating = rating;
+                  }
+  
                   return <div key={`cart-item-${index}`} className="paid-item d-block">
                     <div className='pay-info pay-info-history'>
                       <div className='item-info d-block'>
@@ -255,53 +340,68 @@ class OrderConfirmModal extends Component {
                       </div>
                     </div>
                     <div className='pickup-btn-container'>
-                      <div>
-                        <button className={`theme-btn pickup-btn ${pickupBtnState}`}
-                          onClick={() => pick_status < 1 && this.handlePickupConfirm(listItem)}>
-                          {btn_label1}
-                        </button>
-                        <button className={`theme-btn return-btn ${pick_status < 2 ? 'disabled disabled-btn' : 'active-btn'}`}
-                          onClick={() => pick_status > 1 && this.handleReturnConfirm(listItem)}>
-                          {btn_label2}
-                        </button>
-                      </div>
+                      {!isRatingMode ?
+                        <div>
+                          <button className={`theme-btn pickup-btn ${pickupBtnState}`}
+                                  onClick={() => pick_status < 1 && this.handlePickupConfirm(listItem)}
+                          >
+                            {btn_label1}
+                          </button>
+                          <button
+                            className={`theme-btn ${returnBtnState}`}
+                            onClick={() => pick_status > 1 && return_status < 1 && this.handleReturnConfirm(listItem)}
+                          >
+                            {btn_label2}
+                          </button>
+                        </div> :
+                        <div className='rating-select-container'>
+                          <div className='rating-select-inner'>
+                            <div className="row rating-select-top">
+                              HOW WAS YOUR EXPERIENCE?
+                            </div>
+                            <div className="row rating-select-bottom">
+                              <div>
+                                <span>Gear</span>
+                                <Rating
+                                  value={`${this.rating[0]}`}
+                                  color="#f82462"
+                                  weight="22"
+                                  onClick={(v) => this.handleRatingChange(isRatingPossible, v, 0)}
+                                />
+                              </div>
+                              <div>
+                                <span>Owner</span>
+                                <Rating
+                                  value={`${this.rating[1]}`}
+                                  color="#f82462"
+                                  weight="22"
+                                  onClick={(v) => this.handleRatingChange(isRatingPossible, v, 1)}
+                                />
+                              </div>
+                              <div>
+                                <span>Platform</span>
+                                <Rating
+                                  value={`${this.rating[2]}`}
+                                  color="#f82462"
+                                  weight="22"
+                                  onClick={(v) => this.handleRatingChange(isRatingPossible, v, 2)}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          {this.state.isRating || isRatingPossible ?
+                            <button
+                              className='theme-btn theme-btn-primary'
+                              onClick={() => isRatingPossible && this.handleRating(listItem.gearid)}
+                            >
+                              {this.state.isRating ? <Inline size={64} color={"#fff"}/> : 'Submit Rating'}
+                            </button> : null}
+                        </div>
+                      }
                     </div>
                   </div>
                 })
               }
-              {/*<div className='rating-select-container'>*/}
-              {/*<div className='rating-select-inner'>*/}
-              {/*<div className="row rating-select-top">*/}
-              {/*HOW WAS YOUR EXPERIENCE?*/}
-              {/*</div>*/}
-              {/*<div className="row rating-select-bottom">*/}
-              {/*<div>*/}
-              {/*<span>Gear</span>*/}
-              {/*<Rating*/}
-              {/*initialRating={3}*/}
-              {/*emptySymbol={<img src="/images/Icons/star/star_icon_d.png" alt='' className="icon" />}*/}
-              {/*fullSymbol={<img src="/images/Icons/star/star_icon_a.png" alt='' className="icon" />}*/}
-              {/*/>*/}
-              {/*</div>*/}
-              {/*<div>*/}
-              {/*<span>Owner</span>*/}
-              {/*<Rating*/}
-              {/*initialRating={3}*/}
-              {/*emptySymbol={<img src="/images/Icons/star/star_icon_d.png" alt='' className="icon" />}*/}
-              {/*fullSymbol={<img src="/images/Icons/star/star_icon_a.png" alt='' className="icon" />}*/}
-              {/*/>*/}
-              {/*</div>*/}
-              {/*<div>*/}
-              {/*<span>Platform</span>*/}
-              {/*<Rating*/}
-              {/*initialRating={3}*/}
-              {/*emptySymbol={<img src="/images/Icons/star/star_icon_d.png" alt='' className="icon" />}*/}
-              {/*fullSymbol={<img src="/images/Icons/star/star_icon_a.png" alt='' className="icon" />}*/}
-              {/*/>*/}
-              {/*</div>*/}
-              {/*</div>*/}
-              {/*</div>*/}
-              {/*</div>*/}
             </div>
             <div className="payment-success-info">
               <div>
@@ -342,8 +442,10 @@ class OrderConfirmModal extends Component {
               </div>
               <div>
                 <div className="payment-status-container">
-                  <div className="text-gray">Payment status</div>
+                  <div className="text-gray">Payment Status</div>
                   <div className="payment-status">COMPLETED</div>
+                  <div className="text-gray">Payout Status</div>
+                  <div className={`payment-status ${payout_finished ? '' : 'warning-btn'}`}>{payout_finished ? 'COMPLETED' : 'IN ESCROW'}</div>
                 </div>
               </div>
             </div>

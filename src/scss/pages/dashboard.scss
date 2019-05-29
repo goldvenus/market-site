@@ -830,6 +830,26 @@ span.delete_my_gear {
   }
 }
 
+.gear_history_tab {
+  .nav-tabs {
+    border: none;
+  }
+  ul li {
+    cursor: pointer;
+    a {
+      padding: 8px 25px;
+      border: none !important;
+    }
+    a.active {
+      border-bottom: solid 3px #f82462 !important;
+      background-color: #faf8f9 !important;
+    }
+    a:hover {
+      border: 3px solid transparent;
+    }
+  }
+}
+
 @media (min-width: 1078px) {
   .container {
     min-width: 1000px !important;

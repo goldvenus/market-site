@@ -9,7 +9,6 @@ import {Table, Pagination, PaginationItem, PaginationLink, Container, TabContent
 import {getOrderHistory} from '../../core/actions/dashboard.action';
 import {days, getDateStr} from "../../core/helper";
 import OrderConfirmModal from "./OrderHistory/RenterComponent/OrderConfirmModal"
-import OrderRatingModal from "./OrderHistory/OrderRatingModal"
 import EmptyRental from "./OrderHistory/EmptyRental";
 import OwnerComponent from "./OrderHistory/OwnerComponent/OwnerComponent";
 import Tabs from "./OrderHistory/Tabs";
@@ -259,19 +258,33 @@ class OrderHistory extends Component {
     if (!renterHistories || !ownerHistories) {
       return <BarLoader color="#F82462" height="5"/>;
     }
-    this.pagesCount = Math.ceil(renterHistories ? renterHistories.length / this.pageSize : "");
     
+    this.pagesCount = Math.ceil(renterHistories ? renterHistories.length / this.pageSize : "");
+    let newCount = 0;
+    ownerHistories.forEach((item, key) => {
+      let isNew = false;
+      item.SoldItems.forEach((item1, key1) => {
+        if (item1.PickStatus === 1 || item1.ReturnStatus === 1) {
+          isNew = true;
+        }
+      });
+      if (isNew) {
+        newCount ++;
+      }
+    });
+    
+    console.log(newCount);
     return (
       <React.Fragment>
         <div className="cart-header ">
           <h4 className="tab-title">Order History</h4>
         </div>
-        <Container>
+        <Container className="order-history-outer-wrapper">
           <Tabs activeTab={this.state.activeTab} toggle={this.toggle}/>
           <TabContent activeTab={this.state.activeTab}>
             <TabPane tabId="1">
               <div className="order-history-container">
-                <div className="order-history-body">
+                <div className="order-history-body wrraper_dashboard">
                   {!renterHistories.length ?
                     (<EmptyRental/>) : (
                       <div className="table-responsive">
@@ -326,13 +339,16 @@ class OrderHistory extends Component {
                 </Pagination>
                 }
                 {this.state.modal_open_st === 1 ?
-                  <OrderConfirmModal info={renterHistories[this.state.cur_proj]} close={this.handleClose}/> :
-                  this.state.modal_open_st === 2 ?
-                    <OrderRatingModal info={renterHistories[this.state.cur_proj]} close={this.handleClose}/> : null
+                  <OrderConfirmModal
+                    info={renterHistories[this.state.cur_proj]}
+                    close={this.handleClose}
+                  /> : null
                 }
               </div>
             </TabPane>
             <TabPane tabId="2">
+              {newCount === 0 ?
+              <div className='new-order-count'>{newCount}</div> : null}
               <OwnerComponent histories={ownerHistories}/>
             </TabPane>
           </TabContent>

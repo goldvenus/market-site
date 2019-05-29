@@ -243,6 +243,19 @@ img {
   }
 }
 
+.star-ratings {
+  display: flex !important;
+  width: 55% !important;
+
+  .star-container {
+    padding: 0 !important;
+    svg {
+      width: 27px !important;
+      height: 27px !important;
+    }
+  }
+}
+
 @media (max-width: 1077px) {
   .notification-container {
     width: 100vw;

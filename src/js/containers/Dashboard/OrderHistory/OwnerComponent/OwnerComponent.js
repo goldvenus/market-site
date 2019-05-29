@@ -240,7 +240,7 @@ class OwnerComponent extends Component {
     
     return (
       <div className="order-history-container">
-        <div className="order-history-body">
+        <div className="order-history-body wrraper_dashboard">
           {!histories.length ?
             (<EmptyRental/>) : (
               <div className="table-responsive">
@@ -252,7 +252,7 @@ class OwnerComponent extends Component {
                     <th>Rental Period</th>
                     <th>Status</th>
                     <th>Amouth</th>
-                    <th></th>
+                    <th/>
                   </tr>
                   </thead>
                   <tbody>

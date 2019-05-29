@@ -38,6 +38,7 @@ const viewUserDashboard = async () => {
   }
 };
 
+// order history
 const getOrderHistory = async () => {
   dispatch({
     type: constants.GET_ORDER_HISTORY_REQUEST,
@@ -92,6 +93,27 @@ const getOrderDetail = async (data) => {
   });
 };
 
+const setRating = async (data) => {
+  let res = await post("setRating", data);
+  if (res && res.data && res.data.status === 'success') {
+    return true;
+  } else {
+    res && res.data && res.data.errorMessage && handleError(res.data.errorMessage);
+    return false;
+  }
+};
+
+const setReturnGearStatus = async (data) => {
+  let res = await post("setReturnGearStatus", data);
+  if (res && res.data && res.data.status === 'success') {
+    return true;
+  } else {
+    res && res.data && res.data.errorMessage && handleError(res.data.errorMessage);
+    return false;
+  }
+};
+
+//  gear history
 const setPickupState = async (data) => {
   let res = await post("setPickupState", data);
   if (res && res.data && res.data.status === 'success') {
@@ -135,5 +157,5 @@ const setBlockPeriod = (data) => {
 export {
   viewUserDashboard,
   getGearRentState, setBlockPeriod,
-  getOrderDetail, getOrderHistory, setPickupState
+  getOrderDetail, getOrderHistory, setPickupState, setRating, setReturnGearStatus
 }

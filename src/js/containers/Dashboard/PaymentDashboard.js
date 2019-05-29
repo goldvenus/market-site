@@ -44,6 +44,7 @@ class PaymentDetail extends Component {
     let payInMethods = paymentMethods.filter(item => item.type === 1);
     let payOutMethods = paymentMethods.filter(item => item.type === 2);
     let addPayoutMethodPossible = payOutMethods.length === 0;
+    addPayoutMethodPossible = true;
 
     return (
       <div className='payment-dashboard-wrapper'>
