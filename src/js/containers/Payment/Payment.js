@@ -248,7 +248,7 @@ class Payment extends Component {
     data.card_number = card_number.replace(/ /g, '');   // eat spaces
     this.checkoutInfo.cardNumber = data.card_number;
     this.checkoutInfo.amount = amount;
-    data.card_number = '**** ' + card_number.substr(-4, 4);
+    data.card_number = card_number.substr(-4, 4);
     data.project_name = this.checkoutInfo.projectName;
   
     let payResult = await this.handleCharge();
@@ -267,7 +267,8 @@ class Payment extends Component {
   };
   
   getUserPaymentCards = async () => {
-    await getPaymentCards(localStorage.userId);
+    let cards = await getPaymentCards(localStorage.userId);
+    this.setState({cards: cards});
     await getUser();
   };
 
@@ -411,7 +412,7 @@ class Payment extends Component {
                         <React.Fragment key={index}>
                           <MenuItem className="dropdown-menu-item" onClick={(e) => this.handleCardChange(e, element)} value={element} key={index}>
                             <img src="/images/cards/master-card.svg" alt=""/>
-                            {`  ` + element.card_number}, {element.expiration_date}, {element.card_holder}
+                            {`  **** ` + element.card_number}, {element.expiration_date}, {element.card_holder}
                           </MenuItem>
                           {index === cards.length - 1 ? null : <MenuItem divider />}
                         </React.Fragment>

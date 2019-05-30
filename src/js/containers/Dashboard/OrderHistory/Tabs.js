@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import {Nav, NavItem, NavLink, } from 'reactstrap';
 
 export default function (props) {
-  const {activeTab , toggle} = props;
+  const {activeTab , toggle, newCount} = props;
   
   return (
     <div className="gear_history_tab">
@@ -21,6 +21,10 @@ export default function (props) {
             onClick={() => { toggle('2'); }}>
             Owner
           </NavLink>
+        </NavItem>
+        <NavItem>
+          {newCount > 0 ?
+            <div className='new-order-count'>{newCount}</div> : null}
         </NavItem>
       </Nav>
     </div>

@@ -75,6 +75,7 @@
   }
   .dashboard-body {
     padding: 23px 0px 44px 0px !important;
+    min-height: 550px;
     .dashboard-pagination {
       margin-top: 15px;
       width: 100%;
@@ -487,25 +488,19 @@
     align-items: center;
     display: flex;
     justify-content: center;
-    background: #1CDB74;
-    -webkit-clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%);
-    clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%);
   }
   .status-bar1 {
     z-index: 5;
+    clip-path: polygon(90% 0, 100% 50%, 90% 100%, 0% 100%, 0 50%, 0% 0%);
   }
   .status-bar2 {
     z-index: 4;
-    margin-left: -2.78%;
-    background-color: #FBF6E8;
-    color: #DBA61C !important;
+    margin-left: -2.7%;
+    clip-path: polygon(90% 0, 100% 50%, 90% 100%, 0% 100%, 10% 50%, 0% 0%)
   }
   .status-bar3 {
     z-index: 3;
-    margin-left: -5.56%;
-    background-color: #F4F4F4;
-    color: #252525;
-    opacity: 0.5;
+    margin-left: -2.7%;
     width: 33.4%;
     height: 25px;
     font-family: Helvetica Neue, sans-serif;
@@ -516,10 +511,33 @@
     align-items: center;
     display: flex;
     justify-content: center;
+    clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 10% 50%, 0% 0%);
   }
   .rotated-square {
     transform: rotate(45deg);
     width: 40px;
+  }
+  .starting-status {
+    background-color: #F4F4F4;
+    color: #8C8C8C;
+  }
+  .pending-status {
+    background-color: #FBF6E8;
+    color: #DBA61C !important;
+  }
+  .completed-status {
+    background-color: #1CDB74;
+    color: white;
+  }
+  .completed-status-big {
+    background-color: #E9FCF2;
+    color: #1CDB74;
+  }
+  .final-status {
+    width: 100%;
+    font-size: 12px;
+    padding: 6px;
+    text-align: center
   }
 }
 .tb-project-name {
@@ -668,7 +686,7 @@ span.delete_my_gear {
 .rental-calendar-modal {
   max-width: 1200px !important;
   width: 1200px;
-  height: 100vh;
+  height: 110vh;
 }
 .address-wrapper {
   display: flex;
@@ -1353,6 +1371,9 @@ span.delete_my_gear {
 }
 
 @media (max-width: 767px) {
+  .dashboard-body {
+    min-height: unset !important;
+  }
   .gear_history_tab {
     width: 100%;
     white-space: nowrap;

@@ -261,6 +261,11 @@
   }
   .about-period-container {
     display: grid;
+    img {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto;
+    }
     .period-days {
       font-family: Helvetica Neue, sans-serif;
       font-size: 16px;

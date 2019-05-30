@@ -18,9 +18,9 @@ class ConfirmModal extends Component {
   };
   
   render() {
-    let {model} = this.props;
+    let {model, isOwner} = this.props;
     let dlg_heading = model === 1 ? 'Pickup Successful' : 'Return Successful';
-    let dlg_sub_heading = 'Waiting for gear owner confirmation';
+    let dlg_sub_heading = !isOwner ? 'Waiting for gear owner confirmation' : '';
     
     return (
       <Modal open={this.state.open} onClose={this.handleClose} center classNames={{modal: "cart-modal pickup-modal"}}>

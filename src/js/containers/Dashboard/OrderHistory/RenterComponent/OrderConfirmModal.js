@@ -63,7 +63,7 @@ class OrderConfirmModal extends Component {
     if (this.rating[index][0] === 0 && this.rating[index][1] === 0 && this.rating[index][2] === 0)
       return;
     
-    this.setState({isRating: true});
+    this.setState({isRating: index+1});
     let paymentId = this.props.info.PaymentId;
     await setRating({
       rating1: this.rating[index][0],
@@ -82,6 +82,15 @@ class OrderConfirmModal extends Component {
       return;
     
     this.rating[item][index] = val;
+  };
+  
+  renderStars = (count) => {
+    let stars = [1, 2, 3, 4, 5].map(i => {
+      return i <= count ?
+        <i className="fa fa-star star-selected" key={i}/> :
+        <i className="fa fa-star-o" key={i}/>
+    });
+    return <div className='star-rating-wrapper'>{stars}</div>;
   };
   
   render() {
@@ -111,11 +120,9 @@ class OrderConfirmModal extends Component {
                     return_status < 1 ? 'return-btn active-btn' :
                     return_status < 2 ? 'warning-btn disabled' : 'success-btn disabled';
                   let isRatingMode = pick_status > 1 && return_status > 1;
-                  let rating = listItem.ratingRenter ? listItem.ratingRenter : [0, 0, 0];
-                  let isRatingPossible = false;
-                  if (rating[0] === 0 && rating[1] === 0 && rating[2] === 0) {
-                    isRatingPossible = true;
-                  }
+                  let isRatingPossible = listItem.ratingRenter === undefined;
+                  console.log(isRatingPossible);
+
                   if (pick_status < 2) {
                     payout_finished = false;
                   }
@@ -183,39 +190,45 @@ class OrderConfirmModal extends Component {
                             <div className="row rating-select-bottom">
                               <div>
                                 <span>Gear</span>
+                                {isRatingPossible ?
                                 <Rating
-                                  value={`${this.rating[0]}`}
+                                  value={`${this.rating[index][0]}`}
                                   color="#f82462"
                                   weight="22"
                                   onClick={(v) => this.handleRatingChange(isRatingPossible, v, 0, index)}
-                                />
+                                /> : this.renderStars(this.rating[index][0])
+                                }
                               </div>
                               <div>
                                 <span>Owner</span>
+                                {isRatingPossible ?
                                 <Rating
-                                  value={`${this.rating[1]}`}
+                                  value={`${this.rating[index][1]}`}
                                   color="#f82462"
                                   weight="22"
                                   onClick={(v) => this.handleRatingChange(isRatingPossible, v, 1, index)}
-                                />
+                                /> : this.renderStars(this.rating[index][1])
+                                }
                               </div>
                               <div>
                                 <span>Platform</span>
+                                {isRatingPossible ?
                                 <Rating
-                                  value={`${this.rating[2]}`}
+                                  value={`${this.rating[index][2]}`}
                                   color="#f82462"
                                   weight="22"
                                   onClick={(v) => this.handleRatingChange(isRatingPossible, v, 2, index)}
-                                />
+                                /> : this.renderStars(this.rating[index][2])
+                                }
                               </div>
                             </div>
                           </div>
-                          {this.state.isRating || isRatingPossible ?
+                          {this.state.isRating === index+1 || isRatingPossible ?
                           <button
                             className='theme-btn theme-btn-primary'
-                            onClick={() => isRatingPossible && this.handleRating(listItem.gearid, index)}
+                            onClick={() => !this.state.isRating && isRatingPossible && this.handleRating(listItem.gearid, index)}
                           >
-                            {this.state.isRating ? <Inline size={64} color={"#fff"}/> : 'Submit Rating'}
+                            {this.state.isRating === index+1 ? <Inline size={64} color={"#fff"}/> : 'Submit Rating'}
                           </button> : null}
                         </div>
                       }
@@ -340,7 +353,7 @@ class OrderConfirmModal extends Component {
                       {!isRatingMode ?
                         <div>
                           <button className={`theme-btn pickup-btn ${pickupBtnState}`}
-                                  onClick={() => pick_status < 1 && this.handlePickupConfirm(listItem)}
+                            onClick={() => pick_status < 1 && this.handlePickupConfirm(listItem)}
                           >
                             {btn_label1}
                           </button>
@@ -364,6 +377,7 @@ class OrderConfirmModal extends Component {
                                   color="#f82462"
                                   weight="22"
                                   onClick={(v) => this.handleRatingChange(isRatingPossible, v, 0, index)}
+                                  readonly
                                 />
                               </div>
                               <div>
@@ -373,6 +387,7 @@ class OrderConfirmModal extends Component {
                                   color="#f82462"
                                   weight="22"
                                   onClick={(v) => this.handleRatingChange(isRatingPossible, v, 1, index)}
+                                  readonly
                                 />
                               </div>
                               <div>
@@ -382,16 +397,17 @@ class OrderConfirmModal extends Component {
                                   color="#f82462"
                                   weight="22"
                                   onClick={(v) => this.handleRatingChange(isRatingPossible, v, 2, index)}
+                                  readonly
                                 />
                               </div>
                             </div>
                           </div>
-                          {this.state.isRating || isRatingPossible ?
+                          {this.state.isRating === index+1 || isRatingPossible ?
                             <button
                               className='theme-btn theme-btn-primary'
-                              onClick={() => isRatingPossible && this.handleRating(listItem.gearid, index)}
+                              onClick={() => !this.state.isRating && isRatingPossible && this.handleRating(listItem.gearid, index)}
                             >
-                              {this.state.isRating ? <Inline size={64} color={"#fff"}/> : 'Submit Rating'}
+                              {this.state.isRating === index+1 ? <Inline size={64} color={"#fff"}/> : 'Submit Rating'}
                             </button> : null}
                         </div>
                       }
@@ -459,12 +475,15 @@ class OrderConfirmModal extends Component {
           onClose={this.handleClosePickup}
           onSuccess={this.handlePickupSuccess}
           isRenter={true}
+          model={this.state.curItem.PickStatus === 0 ? 1 : 2}
         />}
         {this.state.modalOpenState === 2 &&
         <PickupSuccessModal
           info={this.state.curItem}
           onClose={this.handleClosePickup}
           onSuccess={this.handlePickupSuccess}
+          isOwner={false}
+          model={this.state.curItem.PickStatus === 0 ? 1 : 2}
         />}
       </Modal>
     )

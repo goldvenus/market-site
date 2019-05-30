@@ -113,6 +113,15 @@ class OwnerConfirmModal extends Component {
     this.setState({isSettingStatus: status});
   };
   
+  renderStars = (count) => {
+    let stars = [1, 2, 3, 4, 5].map(i => {
+      return i <= count ?
+        <i className="fa fa-star star-selected" key={i}/> :
+        <i className="fa fa-star-o" key={i}/>
+    });
+    return <div className='star-rating-wrapper'>{stars}</div>;
+  };
+  
   render() {
     let {info} = this.props;
     let {returnGearStatus} = this.state;
@@ -129,6 +138,7 @@ class OwnerConfirmModal extends Component {
         isRatingPossible = false;
       }
     });
+    
     if (ratingOwner[0] !== 0 || ratingOwner[1] !== 0) {
       isRatingPossible = false;
     }
@@ -137,7 +147,7 @@ class OwnerConfirmModal extends Component {
       <Modal open={true} onClose={this.handleClose} center classNames={{modal: "order-modal"}} closeOnOverlayClick={false}>
         <div className="order-modal-desktop-tablet">
           <div className="order-modal-header">
-            <span>RENTER</span>
+            <span>Renter</span>
           </div>
           <div className="order-modal-body">
             <div className="paid-items">
@@ -168,21 +178,25 @@ class OwnerConfirmModal extends Component {
                   <div className='renter-rating-container'>
                     <div>
                       <span>Renter</span>
+                      {isRatingPossible ?
                       <Rating
                         value={`${this.rating[0]}`}
                         color="#f82462"
                         weight="22"
                         onClick={(v) => this.handleRatingChange(isRatingMode, v, 0)}
-                      />
+                      /> : this.renderStars(this.rating[0])
+                      }
                     </div>
                     <div>
                       <span>Platform</span>
+                      {isRatingPossible ?
                       <Rating
                         value={`${this.rating[1]}`}
                         color="#f82462"
                         weight="22"
                         onClick={(v) => this.handleRatingChange(isRatingMode, v, 1)}
-                      />
+                      /> : this.renderStars(this.rating[1])
+                      }
                     </div>
                     {isRatingPossible ?
                     <button
@@ -209,7 +223,8 @@ class OwnerConfirmModal extends Component {
                   if (pick_status < 2) {
                     payout_finished = false;
                   }
-  
+                  let isSetReturnGearStatusPossible = listItem.returnGearStatus === undefined;
+                  
                   return <div key={`cart-item-${index}`} className="paid-item">
                     <div className='pay-info pay-info-history'>
                       <div className='item-info'>
@@ -252,17 +267,18 @@ class OwnerConfirmModal extends Component {
                               Return Condition
                             </div>
                             <div className="row rating-select-bottom rating-select-bottom-1">
-                              <button className={`theme-btn status-new-btn ${returnGearStatus[index] === 0 ? 'active-btn' : ''}`} onClick={() => this.handleReturnGearStatusChange(index, 0)}>Like New</button>
-                              <button className={`theme-btn status-worn-btn ${returnGearStatus[index] === 1 ? 'active-btn' : ''}`} onClick={() => this.handleReturnGearStatusChange(index, 1)}>Slightly Worn</button>
-                              <button className={`theme-btn status-damaged-btn ${returnGearStatus[index] === 2 ? 'active-btn' : ''}`} onClick={() => this.handleReturnGearStatusChange(index, 2)}>Damaged</button>
+                              <button className={`theme-btn status-new-btn ${returnGearStatus[index] === 0 ? 'active-btn' : ''}`} onClick={() => isSetReturnGearStatusPossible && this.handleReturnGearStatusChange(index, 0)}>Like New</button>
+                              <button className={`theme-btn status-worn-btn ${returnGearStatus[index] === 1 ? 'active-btn' : ''}`} onClick={() => isSetReturnGearStatusPossible && this.handleReturnGearStatusChange(index, 1)}>Slightly Worn</button>
+                              <button className={`theme-btn status-damaged-btn ${returnGearStatus[index] === 2 ? 'active-btn' : ''}`} onClick={() => isSetReturnGearStatusPossible && this.handleReturnGearStatusChange(index, 2)}>Damaged</button>
                             </div>
                           </div>
+                          {isSetReturnGearStatusPossible ?
                           <button
                             className='theme-btn theme-btn-primary'
                             onClick={() => this.handleSetReturnGearStatus(index, listItem.gearid)}
                           >
                             {this.state.isSettingStatus[index] ? <Inline size={64} color={"#fff"}/> : 'Submit'}
-                          </button>
+                          </button> : null}
                         </div>
                       }
                     </div>
@@ -303,6 +319,7 @@ class OwnerConfirmModal extends Component {
             <button className='theme-btn theme-btn-primary'><Link to='/dashboard/#rent'>Rent History</Link></button>
           </div>
         </div>
+        
         <div className="order-modal-mobile">
           <div className="order-modal-header">
             <span>{info.ProjectName}
@@ -314,18 +331,40 @@ class OwnerConfirmModal extends Component {
                 sold_items.map((listItem, index) => {
                   let pick_status = 1 * listItem.PickStatus;
                   let return_status = 1 * listItem.ReturnStatus;
-                  let btn_label1 = pick_status < 1 ? "CONFIRM PICKUP" : "PICKUP CONFIRMED";
-                  let btn_label2 = "CONFIRM RETURN";
-                  let pickupBtnState = pick_status < 1 ? 'return-btn active-btn'
-                    : pick_status < 2 ? 'disabled-btn warning-btn disabled' : 'success-btn disabled';
-                  let isRatingMode = false;
+                  let btn_label1 = pick_status < 2 ? "CONFIRM PICKUP" : "PICKUP CONFIRMED";
+                  let btn_label2 = return_status < 1 ? "CONFIRM RETURN" : 'RETURN CONFIRMED';
+                  let isReturnFinished = return_status > 1;
+                  let pickupBtnState = pick_status < 1 ? 'return-btn disabled-btn disabled' :
+                    pick_status < 2 ? 'return-btn active-btn' : 'success-btn disabled';
                   let returnBtnState = pick_status < 2 || return_status < 1 ? 'return-btn disabled-btn disabled' :
                     return_status < 2 ? 'return-btn active-btn' : 'success-btn disabled';
                   if (pick_status < 2) {
                     payout_finished = false;
                   }
+                  let isSetReturnGearStatusPossible = listItem.returnGearStatus === undefined;
                   
                   return <div key={`cart-item-${index}`} className="paid-item d-block">
+                    <div className='pay-info pay-info-history'>
+                      <div className='buyer-info'>
+                        <div className='owner-info-mobile'>
+                          <div className='grey-small-text'>Landlord</div>
+                          <div className='buyer-profile owner-profile'>
+                            <img src={renter.picture} alt=""/>
+                            <div>
+                              <span className="duration">{renter.given_name}</span>
+                              <span className="phone-number">{renter.phone_number}</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div className='buyer-info-right'>
+                          <div className='grey-small-text'>Address</div>
+                          <div className='period-price'>
+                            <div>Laufacar 58,</div>
+                            <div>101 Reykjavik</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     <div className='pay-info pay-info-history'>
                       <div className='item-info d-block'>
                         <img src={listItem.numberOfUserImage[0]} alt=""/>
@@ -335,23 +374,23 @@ class OwnerConfirmModal extends Component {
                           <div className='category-name'>Tripod Anti-glare-lenses</div>
                         </div>
                       </div>
-                      <div className='buyer-info'>
-                        <div className='buyer-info-left'>
-                          <div className='buyer-profile owner-profile'>
-                            <img src={listItem.OwnerInfo.picture} alt=""/>
-                            <div>
-                              <span>{listItem.OwnerInfo.given_name}</span>
-                            </div>
-                          </div>
-                        </div>
-                        <span>&nbsp;<i className="fa fa-phone" aria-hidden="true"/>{listItem.OwnerInfo.phone_number}</span>
-                        <div className='buyer-info-right'>
-                          <div className='period-price'>
-                            <i className="fa fa-map-marker" aria-hidden="true"/>&nbsp;
-                            <span> {info.address}, {listItem.postalCode} {listItem.city}</span>
-                          </div>
-                        </div>
-                      </div>
+                      {/*<div className='buyer-info'>*/}
+                        {/*<div className='buyer-info-left'>*/}
+                          {/*<div className='buyer-profile owner-profile'>*/}
+                            {/*<img src={listItem.OwnerInfo.picture} alt=""/>*/}
+                            {/*<div>*/}
+                              {/*<span>{listItem.OwnerInfo.given_name}</span>*/}
+                            {/*</div>*/}
+                          {/*</div>*/}
+                        {/*</div>*/}
+                        {/*<span>&nbsp;<i className="fa fa-phone" aria-hidden="true"/>{listItem.OwnerInfo.phone_number}</span>*/}
+                        {/*<div className='buyer-info-right'>*/}
+                          {/*<div className='period-price'>*/}
+                            {/*<i className="fa fa-map-marker" aria-hidden="true"/>&nbsp;*/}
+                            {/*<span> {info.address}, {listItem.postalCode} {listItem.city}</span>*/}
+                          {/*</div>*/}
+                        {/*</div>*/}
+                      {/*</div>*/}
                       <div className='payment-info d-block'>
                         <div>
                           <div>
@@ -366,35 +405,39 @@ class OwnerConfirmModal extends Component {
                       </div>
                     </div>
                     <div className='pickup-btn-container'>
-                      {!isRatingMode ?
+                      {!isReturnFinished ?
                         <div>
-                          <button className={`theme-btn pickup-btn ${pickupBtnState}`}
-                                  onClick={() => pick_status < 1 && this.handlePickupConfirm(listItem)}
+                          <button
+                            className={`theme-btn pickup-btn ${pickupBtnState}`}
+                            onClick={() => pick_status === 1 && this.handlePickupConfirm(listItem)}
                           >
                             {btn_label1}
                           </button>
                           <button
                             className={`theme-btn ${returnBtnState}`}
-                            onClick={() => pick_status > 1 && return_status < 1 && this.handleReturnConfirm(listItem)}
+                            onClick={() => pick_status > 1 && return_status === 1 && this.handleReturnConfirm(listItem)}
                           >
                             {btn_label2}
                           </button>
                         </div> :
                         <div className='rating-select-container'>
                           <div className='rating-select-inner'>
-                            <div className="row rating-select-top">
-                              gear state
+                            <div className="row">
+                              Return Condition
                             </div>
-                            <div className="row rating-select-bottom">
-                            
+                            <div className="row rating-select-bottom rating-select-bottom-1">
+                              <button className={`theme-btn status-new-btn ${returnGearStatus[index] === 0 ? 'active-btn' : ''}`} onClick={() => isSetReturnGearStatusPossible && this.handleReturnGearStatusChange(index, 0)}>Like New</button>
+                              <button className={`theme-btn status-worn-btn ${returnGearStatus[index] === 1 ? 'active-btn' : ''}`} onClick={() => isSetReturnGearStatusPossible && this.handleReturnGearStatusChange(index, 1)}>Slightly Worn</button>
+                              <button className={`theme-btn status-damaged-btn ${returnGearStatus[index] === 2 ? 'active-btn' : ''}`} onClick={() => isSetReturnGearStatusPossible && this.handleReturnGearStatusChange(index, 2)}>Damaged</button>
                             </div>
                           </div>
-                          <button
-                            className='theme-btn theme-btn-primary'
-                            onClick={() => this.handleReturnStatus(listItem.gearid)}
-                          >
-                            {this.state.isSettingStatus[index] ? <Inline size={64} color={"#fff"}/> : 'Submit'}
-                          </button> : null}
+                          {isSetReturnGearStatusPossible ?
+                            <button
+                              className='theme-btn theme-btn-primary'
+                              onClick={() => this.handleSetReturnGearStatus(index, listItem.gearid)}
+                            >
+                              {this.state.isSettingStatus[index] ? <Inline size={64} color={"#fff"}/> : 'Submit'}
+                            </button> : null}
                         </div>
                       }
                     </div>
@@ -461,12 +504,15 @@ class OwnerConfirmModal extends Component {
           onClose={this.handleClosePickup}
           onSuccess={this.handlePickupSuccess}
           isRenter={false}
+          model={this.state.curItem.PickStatus === 1 ? 1 : 2}
         />}
         {this.state.modalOpenState === 2 &&
         <PickupSuccessModal
           info={this.state.curItem}
           onClose={this.handleClosePickup}
           onSuccess={this.handlePickupSuccess}
+          isOwner={true}
+          model={this.state.curItem.PickStatus === 1 ? 1 : 2}
         />}
       </Modal>
     )

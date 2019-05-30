@@ -4,7 +4,12 @@ import {Card} from 'reactstrap';
 import TransactionHistory from "./Payment/TransactionHistory";
 import CreditCardModel from "./Payment/CreditCardModel";
 import SwiftModel from "./Payment/SwiftModel";
-import {getPaymentMethods, deletePaymentMethod} from "../../core/actions/payment.action";
+import {
+  getPaymentMethods,
+  deletePaymentMethod,
+  withdrawalToVendor,
+  getTransHistory
+} from "../../core/actions/payment.action";
 import CustomSpinner from "../../components/CustomSpinner";
 import BarLoader from "react-bar-loader";
 import ConfirmModal from "../../components/common/ConfirmModal";
@@ -34,8 +39,21 @@ class PaymentDetail extends Component {
     this.setState({modalOpenState: 0});
   };
   
+  handleWithdrawal = (balance) => {
+    if (balance < 1)
+      return;
+    this.setState({modalOpenState: 2});
+  };
+  
+  performWithdrawal = async () => {
+    await withdrawalToVendor();
+    await getTransHistory();
+    this.setState({modalOpenState: 0});
+  };
+  
   render() {
     let {paymentMethods, isLoadingMethod, isChanging, user} = this.props;
+    let {modalOpenState} = this.state;
   
     if (isLoadingMethod) {
       return <BarLoader color="#F82462" height="5"/>;
@@ -44,7 +62,7 @@ class PaymentDetail extends Component {
     let payInMethods = paymentMethods.filter(item => item.type === 1);
     let payOutMethods = paymentMethods.filter(item => item.type === 2);
     let addPayoutMethodPossible = payOutMethods.length === 0;
-    addPayoutMethodPossible = true;
+    let balance = user.balance;
 
     return (
       <div className='payment-dashboard-wrapper'>
@@ -55,10 +73,10 @@ class PaymentDetail extends Component {
             <div className='balance-wrapper'>
               <div className='balance-left'>
                 <p>Balance</p>
-                <p>$2061.25</p>
+                <p>${balance}</p>
               </div>
               <div className='balance-right'>
-                <button className='theme-btn theme-btn-filled-white'>Get Paid</button>
+                <button className='theme-btn theme-btn-filled-white' onClick={() => this.handleWithdrawal(balance)}>Get Paid</button>
               </div>
             </div>
           </div>
@@ -102,7 +120,7 @@ class PaymentDetail extends Component {
                       onDelete={this.handleDeleteMethod}
                     />;
                 })}
-  
+                {addPayoutMethodPossible ?
                 <Card body className={`add-new-card-container card-model-wrapper ${addPayoutMethodPossible ? '' : 'disabled'}`} onClick={() => this.props.history.push('/dashboard/methodAdd/2')}>
                   <div className="payment-card add-new-card">
                     <div className='plus-icon-container'>
@@ -110,19 +128,26 @@ class PaymentDetail extends Component {
                     </div>
                     <p className='add-method-text'>Add Payment Method</p>
                   </div>
-                </Card>
+                </Card> : null}
               </div>
             </div>
           </div>
           
           <TransactionHistory/>
   
-          {this.state.modalOpenState ?
+          {modalOpenState === 1 ?
             <ConfirmModal
               heading='Delete Payment Method?'
               onConfirm={this.performDeleteMethod}
               onClose={this.handleClose}
-            /> : null}
+            /> :
+          modalOpenState === 2 ?
+            <ConfirmModal
+              heading={`Get Paid $${balance}?`}
+              onConfirm={this.performWithdrawal}
+              onClose={this.handleClose}
+            /> : null
+          }
         </div>
       </div>
     )

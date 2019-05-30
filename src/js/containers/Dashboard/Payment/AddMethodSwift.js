@@ -26,7 +26,8 @@ class AddMethodSwift extends Component {
       intermediaryBankCode: '',
       intermediaryBankName: '',
       intermediaryBankCity: '',
-      intermediaryBankCountry: ''
+      intermediaryBankCountry: '',
+      type: 2
     };
   }
   

@@ -19,6 +19,7 @@ class OrderHistory extends Component {
     
     this.pageSize = 5;
     this.pagesCount = 0;
+    this.statusClass = ['starting-status', 'pending-status', 'completed-status'];
     this.state = {
       currentPage: 0,
       modal_open_st: 0,
@@ -79,6 +80,27 @@ class OrderHistory extends Component {
         const first_item = listItem.SoldItems[0];
         let product_name = first_item.brand + ' ' + first_item.model;
         product_name = product_name.substr(0, 13) + '...';
+  
+        let pickStatus = 0, returnStatus = 0, ratingStatus = 0;
+        let firstSoldItem = listItem.SoldItems[0];
+        if (firstSoldItem.PickStatus === 1) {
+          pickStatus = 1;
+        } else if (firstSoldItem.PickStatus > 1) {
+          pickStatus = 2;
+        }
+        if (firstSoldItem.ReturnStatus === 1) {
+          returnStatus = 1;
+        } else if (firstSoldItem.ReturnStatus > 1) {
+          returnStatus = 2;
+        }
+  
+        if (firstSoldItem.returnGearStatus && listItem.ratingOwner && firstSoldItem.ratingRenter) {
+          ratingStatus = 3;
+        } else if (listItem.ratingOwner && firstSoldItem.ratingRenter) {
+          ratingStatus = 2;
+        } else if (listItem.ratingOwner || firstSoldItem.ratingRenter) {
+          ratingStatus = 1;
+        }
         
         return (
           <div key={`cart-item-${index}`} className="mobile-gear-item" onClick={() => this.handleControl(currentPage*this.pageSize+index)}>
@@ -95,9 +117,21 @@ class OrderHistory extends Component {
             </div>
             <div className="order-item-state">
               <div className="status-bar-container">
-                <div className="status-bar status-bar1">Payment</div>
-                <div className="status-bar status-bar2">Pickup</div>
-                <div className="status-bar3">Return</div>
+                {returnStatus <= 2 && ratingStatus === 0 ?
+                  <React.Fragment>
+                    <div className={`status-bar status-bar1 completed-status`}>Payment</div>
+                    <div className = {`status-bar status-bar2 ${this.statusClass[pickStatus]}`}>Pickup</div>
+                    <div className={`status-bar3 ${this.statusClass[returnStatus]}`}>Return</div>
+                  </React.Fragment> :
+                ratingStatus === 1 ?
+                  <React.Fragment>
+                    <div className='pending-status final-status'>Rating Pending</div>
+                  </React.Fragment> :
+                ratingStatus === 2 ?
+                  <React.Fragment>
+                    <div className='completed-status-big final-status'>Completed</div>
+                  </React.Fragment> : null
+                }
               </div>
             </div>
             <div className="duration">
@@ -148,6 +182,28 @@ class OrderHistory extends Component {
         const first_item = listItem.SoldItems[0];
         let product_name = first_item.brand + ' ' + first_item.model;
         product_name = product_name.substr(0, 13) + '...';
+        
+        let pickStatus = 0, returnStatus = 0, ratingStatus = 0;
+        let firstSoldItem = listItem.SoldItems[0];
+        if (firstSoldItem.PickStatus === 1) {
+          pickStatus = 1;
+        } else if (firstSoldItem.PickStatus > 1) {
+          pickStatus = 2;
+        }
+        if (firstSoldItem.ReturnStatus === 1) {
+          returnStatus = 1;
+        } else if (firstSoldItem.ReturnStatus > 1) {
+          returnStatus = 2;
+        }
+  
+        if (firstSoldItem.returnGearStatus && listItem.ratingOwner && firstSoldItem.ratingRenter) {
+          ratingStatus = 3;
+        } else if (listItem.ratingOwner && firstSoldItem.ratingRenter) {
+          ratingStatus = 2;
+        } else if (listItem.ratingOwner || firstSoldItem.ratingRenter) {
+          ratingStatus = 1;
+        }
+        
         return (
           <tr key={`cart-item-${index}`} onClick={() => this.handleControl(currentPage*this.pageSize+index)}>
             <td width="10%">
@@ -169,9 +225,21 @@ class OrderHistory extends Component {
             
             <td width="25%">
               <div className="status-bar-container">
-                <div className="status-bar status-bar1">Payment</div>
-                <div className="status-bar status-bar2">Pickup</div>
-                <div className="status-bar3">Return</div>
+              {returnStatus <= 2 && ratingStatus === 0 ?
+                <React.Fragment>
+                  <div className={`status-bar status-bar1 completed-status`}>Payment</div>
+                  <div className = {`status-bar status-bar2 ${this.statusClass[pickStatus]}`}>Pickup</div>
+                  <div className={`status-bar3 ${this.statusClass[returnStatus]}`}>Return</div>
+                </React.Fragment> :
+              ratingStatus < 3 ?
+                <React.Fragment>
+                  <div className='pending-status final-status'>Rating Pending</div>
+                </React.Fragment> :
+              ratingStatus === 3 ?
+                <React.Fragment>
+                  <div className='completed-status-big final-status'>Completed</div>
+                </React.Fragment> : null
+              }
               </div>
             </td>
             <td className="tb_pay_per" width="10%">${parseFloat(listItem.Amount).toFixed(2)}</td>
@@ -261,10 +329,13 @@ class OrderHistory extends Component {
     
     this.pagesCount = Math.ceil(renterHistories ? renterHistories.length / this.pageSize : "");
     let newCount = 0;
-    ownerHistories.forEach((item, key) => {
+    ownerHistories.forEach((item) => {
       let isNew = false;
-      item.SoldItems.forEach((item1, key1) => {
-        if (item1.PickStatus === 1 || item1.ReturnStatus === 1) {
+      if (!item.ratingOwner) {
+        isNew = true;
+      }
+      item.SoldItems.forEach((item1) => {
+        if (item1.PickStatus === 1 || item1.ReturnStatus === 1 || !item1.returnGearStatus) {
           isNew = true;
         }
       });
@@ -273,14 +344,13 @@ class OrderHistory extends Component {
       }
     });
     
-    console.log(newCount);
     return (
       <React.Fragment>
         <div className="cart-header ">
           <h4 className="tab-title">Order History</h4>
         </div>
         <Container className="order-history-outer-wrapper">
-          <Tabs activeTab={this.state.activeTab} toggle={this.toggle}/>
+          <Tabs activeTab={this.state.activeTab} toggle={this.toggle} newCount={newCount}/>
           <TabContent activeTab={this.state.activeTab}>
             <TabPane tabId="1">
               <div className="order-history-container">
@@ -296,7 +366,7 @@ class OrderHistory extends Component {
                             <th>Rental Period</th>
                             <th>Status</th>
                             <th>Amouth</th>
-                            <th></th>
+                            <th/>
                           </tr>
                           </thead>
                           <tbody>
@@ -347,8 +417,6 @@ class OrderHistory extends Component {
               </div>
             </TabPane>
             <TabPane tabId="2">
-              {newCount === 0 ?
-              <div className='new-order-count'>{newCount}</div> : null}
               <OwnerComponent histories={ownerHistories}/>
             </TabPane>
           </TabContent>

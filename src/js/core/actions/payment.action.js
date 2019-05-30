@@ -190,6 +190,24 @@ const deletePaymentMethod = async (data) => {
   });
 };
 
+const withdrawalToVendor = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let res = await get('withdrawalToVendor');
+      if (res && res.data && res.data.status === 'success') {
+        handleInfo('Withdrawal was successful!');
+        resolve(true);
+      } else {
+        res && res.data && res.data.errorMessage && handleError(res.data.errorMessage);
+        resolve(false);
+      }
+    } catch (error) {
+      handleError(error);
+      reject(error);
+    }
+  });
+};
+
 const doNummusCharge = async (data) => {
   let res = await post("doNummusCharge", data);
   if (res && res.data && res.data.status === 'success') {
@@ -231,6 +249,7 @@ const checkExistingNummusCustomer = async (data) => {
 };
 
 export {
-  payment, getPaidItems, getPaymentCards, getTransHistory, savePaymentMethod, getPaymentMethods, deletePaymentMethod,
+  payment, getPaidItems, getPaymentCards, getTransHistory,
+  savePaymentMethod, getPaymentMethods, deletePaymentMethod, withdrawalToVendor,
   doNummusCharge, createNummusVendor, createNummusCustomer, checkExistingNummusCustomer
 }

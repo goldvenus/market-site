@@ -26,8 +26,7 @@ class Favourites extends Component {
       cart_info: {
         start_date: new Date(),
         end_date: new Date()
-      },
-      ratingstate:{}
+      }
     }
   }
 
@@ -92,6 +91,7 @@ class Favourites extends Component {
         let cart_info = carted && carted.length > 0 ? carted[0] : {};
         cart_info = {...cart_info, ...listItem};
         carted = carted && carted.length > 0;
+        let rating = listItem.rating;
 
         return (
           <tr key={`cart-item-${index}`}>
@@ -111,8 +111,8 @@ class Favourites extends Component {
               {[1, 2, 3, 4, 5].map(i =>
                 <i className="fa fa-star star-selected" key={i}/>)
               }
-              {this.state.ratingstate[index]}
               </span>
+              &nbsp;<span>5,0 ({rating})</span>
             </td>
 
             <td width="17.5%"><div><div className="favouri_link_icon"/><span className="Raykjavik_span">Raykjavik</span></div></td>
@@ -146,6 +146,7 @@ class Favourites extends Component {
         let cart_info = carted && carted.length > 0 ? carted[0] : {};
         cart_info = {...listItem, ...cart_info};
         carted = carted && carted.length > 0;
+        let rating = listItem.rating;
 
         return (
           <div key={`cart-item-${index}`} className="favo_table_root">
@@ -182,7 +183,7 @@ class Favourites extends Component {
                     {[1, 2, 3, 4, 5].map(i =>
                       <i className="fa fa-star star-selected" key={i}/>)
                     }
-                    {this.state.ratingstate[index]}
+                    &nbsp;<span>5,0 ({rating})</span>
                     <div>
                       <div className="favouri_link_icon"/>
                       <span className="Raykjavik_span">Raykjavik</span>

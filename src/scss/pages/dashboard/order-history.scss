@@ -10,6 +10,7 @@
     line-height: 47px;
     color: #252525;
     font-weight: 600;
+    text-transform: none;
 
     .edit_icon {
       display: inline-block;
@@ -41,6 +42,11 @@
           color: #252525;
           .brand-model {
             font-weight: 600;
+          }
+        }
+        .buyer-info {
+          .buyer-info-right .period-price {
+            margin-top: -5px;
           }
         }
         .payment-info {
@@ -86,13 +92,24 @@
             justify-content: space-between;
 
             & > div {
-              padding: 13px 0;
+              padding: 9px 0;
               width: 100%;
               display: flex;
               justify-content: space-between;
             }
+            .star-rating-wrapper {
+              width: 70%;
+              display: flex;
+              justify-content: flex-end;
+
+              i {
+                font-size: 24px;
+                color: #f82462;
+                margin: 0 3px;
+              }
+            }
             button {
-              padding: 8px;
+              padding: 5px 8px;
               background-color: white;
               width: unset;
               font-weight: normal;
@@ -194,6 +211,8 @@
           & > div {
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
             
             .react__star__rating__lite {
               width: 70%;
@@ -208,6 +227,17 @@
           }
           .owner-rating-btn {
             margin-top: 10px;
+          }
+          .star-rating-wrapper {
+            width: 70%;
+            display: flex;
+            justify-content: flex-end;
+
+            i {
+              font-size: 24px;
+              color: #f82462;
+              margin: 0 3px;
+            }
           }
         }
       }
@@ -477,8 +507,7 @@
     align-items: center;
     justify-content: center;
     position: absolute;
-    margin-left: 205px;
-    margin-top: -43px;
+    margin-left: -17px;
     font-size: 13px;
     font-weight: 600;
   }
@@ -567,6 +596,10 @@
             padding:15px;
             text-align: center;
             margin:0;
+
+            &:first-child {
+              border-top: none;
+            }
             .buyer-info-left {
               width: 100%;
               justify-content: center;
@@ -579,6 +612,17 @@
             .buyer-info-right {
               width: 100%;
               margin-top: 16px;
+            }
+            .owner-info-mobile {
+              width: 100%;
+              .owner-profile {
+                display: block;
+                img {
+                  width: 93px;
+                  height: 93px;
+                  margin-bottom: 10px;
+                }
+              }
             }
           }
           .item-info {

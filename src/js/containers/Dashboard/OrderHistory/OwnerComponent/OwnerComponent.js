@@ -12,6 +12,7 @@ class OwnerComponent extends Component {
     
     this.pageSize = 5;
     this.pagesCount = 0;
+    this.statusClass = ['starting-status', 'pending-status', 'completed-status'];
     this.state = {
       currentPage: 0,
       modal_open_st: 0,
@@ -63,6 +64,27 @@ class OwnerComponent extends Component {
         let product_name = first_item.brand + ' ' + first_item.model;
         product_name = product_name.substr(0, 13) + '...';
         
+        let pickStatus = 0, returnStatus = 0, ratingStatus = 0;
+        let firstSoldItem = listItem.SoldItems[0];
+        if (firstSoldItem.PickStatus === 1) {
+          pickStatus = 1;
+        } else if (firstSoldItem.PickStatus > 1) {
+          pickStatus = 2;
+        }
+        if (firstSoldItem.ReturnStatus === 1) {
+          returnStatus = 1;
+        } else if (firstSoldItem.ReturnStatus > 1) {
+          returnStatus = 2;
+        }
+        
+        if (firstSoldItem.returnGearStatus && listItem.ratingOwner && firstSoldItem.ratingRenter) {
+          ratingStatus = 3;
+        } else if (listItem.ratingOwner && firstSoldItem.ratingRenter) {
+          ratingStatus = 2;
+        } else if (listItem.ratingOwner || firstSoldItem.ratingRenter) {
+          ratingStatus = 1;
+        }
+        
         return (
           <div key={`cart-item-${index}`} className="mobile-gear-item" onClick={() => this.handleControl(currentPage*this.pageSize+index)}>
             <div className="order-item-top">
@@ -78,10 +100,23 @@ class OwnerComponent extends Component {
             </div>
             <div className="order-item-state">
               <div className="status-bar-container">
-                <div className="status-bar status-bar1">Payment</div>
-                <div className="status-bar status-bar2">Pickup</div>
-                <div className="status-bar3">Return</div>
+                {returnStatus <= 2 && ratingStatus === 0 ?
+                  <React.Fragment>
+                    <div className={`status-bar status-bar1 completed-status`}>Payment</div>
+                    <div className={`status-bar status-bar2 ${this.statusClass[pickStatus]}`}>Pickup</div>
+                    <div className={`status-bar3 ${this.statusClass[returnStatus]}`}>Return</div>
+                  </React.Fragment> :
+                ratingStatus === 1 ?
+                  <React.Fragment>
+                    <div className='pending-status final-status'>Rating Pending</div>
+                  </React.Fragment> :
+                ratingStatus === 2 ?
+                  <React.Fragment>
+                    <div className='completed-status final-status'>Completed</div>
+                  </React.Fragment> : null
+                }
               </div>
+
             </div>
             <div className="duration">
               <span className='history-rental-period' onClick={() => this.handleRating(index)}>
@@ -130,6 +165,28 @@ class OwnerComponent extends Component {
         const first_item = listItem.SoldItems[0];
         let product_name = first_item.brand + ' ' + first_item.model;
         product_name = product_name.substr(0, 13) + '...';
+  
+        let pickStatus = 0, returnStatus = 0, ratingStatus = 0;
+        let firstSoldItem = listItem.SoldItems[0];
+        if (firstSoldItem.PickStatus === 1) {
+          pickStatus = 1;
+        } else if (firstSoldItem.PickStatus > 1) {
+          pickStatus = 2;
+        }
+        if (firstSoldItem.ReturnStatus === 1) {
+          returnStatus = 1;
+        } else if (firstSoldItem.ReturnStatus > 1) {
+          returnStatus = 2;
+        }
+  
+        if (firstSoldItem.returnGearStatus && listItem.ratingOwner && firstSoldItem.ratingRenter) {
+          ratingStatus = 3;
+        } else if (listItem.ratingOwner && firstSoldItem.ratingRenter) {
+          ratingStatus = 2;
+        } else if (listItem.ratingOwner || firstSoldItem.ratingRenter) {
+          ratingStatus = 1;
+        }
+  
         return (
           <tr key={`cart-item-${index}`} onClick={() => this.handleControl(currentPage*this.pageSize+index)}>
             <td width="10%">
@@ -151,9 +208,21 @@ class OwnerComponent extends Component {
             
             <td width="25%">
               <div className="status-bar-container">
-                <div className="status-bar status-bar1">Payment</div>
-                <div className="status-bar status-bar2">Pickup</div>
-                <div className="status-bar3">Return</div>
+                {returnStatus <= 2 && ratingStatus === 0 ?
+                  <React.Fragment>
+                    <div className={`status-bar status-bar1 completed-status`}>Payment</div>
+                    <div className = {`status-bar status-bar2 ${this.statusClass[pickStatus]}`}>Pickup</div>
+                    <div className={`status-bar3 ${this.statusClass[returnStatus]}`}>Return</div>
+                  </React.Fragment> :
+                ratingStatus <3 ?
+                  <React.Fragment>
+                    <div className='pending-status final-status'>Rating Pending</div>
+                  </React.Fragment> :
+                ratingStatus === 3 ?
+                  <React.Fragment>
+                    <div className='completed-status-big final-status'>Completed</div>
+                  </React.Fragment> : null
+                }
               </div>
             </td>
             <td className="tb_pay_per" width="10%">${parseFloat(listItem.Amount).toFixed(2)}</td>
@@ -181,6 +250,25 @@ class OwnerComponent extends Component {
         const first_item = listItem.SoldItems[0];
         let product_name = first_item.brand + ' ' + first_item.model;
         product_name = product_name.substr(0, 13) + '...';
+  
+        let pickStatus = 0, returnStatus = 0, ratingStatus = 0;
+        let firstSoldItem = listItem.SoldItems[0];
+        if (firstSoldItem.PickStatus === 1) {
+          pickStatus = 1;
+        } else if (firstSoldItem.PickStatus > 1) {
+          pickStatus = 2;
+        }
+        if (firstSoldItem.ReturnStatus === 1) {
+          returnStatus = 1;
+        } else if (firstSoldItem.ReturnStatus > 1) {
+          returnStatus = 2;
+        }
+  
+        if (listItem.ratingOwner && firstSoldItem.ratingRenter) {
+          ratingStatus = 2;
+        } else if (listItem.ratingOwner || firstSoldItem.ratingRenter) {
+          ratingStatus = 1;
+        }
         
         return (
           <div key={`cart-item-${index}`} className="tablet-gear-item" onClick={() => this.handleControl(index)}>
@@ -196,9 +284,21 @@ class OwnerComponent extends Component {
               </div>
               <div className="order-item-state">
                 <div className="status-bar-container">
-                  <div className="status-bar status-bar1">Payment</div>
-                  <div className="status-bar status-bar2">Pickup</div>
-                  <div className="status-bar3">Return</div>
+                  {returnStatus <= 2 && ratingStatus === 0 ?
+                    <React.Fragment>
+                      <div className={`status-bar status-bar1 completed-status`}>Payment</div>
+                      <div className = {`status-bar status-bar2 ${this.statusClass[pickStatus]}`}>Pickup</div>
+                      <div className={`status-bar3 ${this.statusClass[returnStatus]}`}>Return</div>
+                    </React.Fragment> :
+                  ratingStatus === 1 ?
+                    <React.Fragment>
+                      <div className='pending-status final-status'>Rating Pending</div>
+                    </React.Fragment> :
+                  ratingStatus === 2 ?
+                    <React.Fragment>
+                      <div className='completed-status final-status'>Completed</div>
+                    </React.Fragment> : null
+                  }
                 </div>
               </div>
             </div>

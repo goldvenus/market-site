@@ -80,7 +80,7 @@ class RentGearDetail extends Component {
   
   renderRecommendedProducts({listGears}) {
     return listGears.map((item, i) => {
-      const {numberOfUserImage, gearid, brand, rating, total_rating, city, pricePerDay} = item;
+      const {numberOfUserImage, gearid, brand, rating, city, pricePerDay} = item;
       const carted = false;
       const favored = false;
       return (
@@ -108,7 +108,7 @@ class RentGearDetail extends Component {
                       )
                     }
                     </span>
-                    <span className='rating-text'> {rating} ({total_rating})</span>
+                    <span className='rating-text'> (5,0) ({rating})</span>
                   </div>
                   <div className="gear-address-container col-sm-12 col-12 row">
                     <div className='marker-icon'/>
@@ -228,7 +228,7 @@ class RentGearDetail extends Component {
       return <BarLoader color="#F82462" height="5"/>;
     
     const {
-      numberOfUserImage, gearid, brand, rating, total_rating, city, replacementValue,
+      numberOfUserImage, gearid, brand, rating, city, replacementValue,
       pricePerDay, productName, description, newArrival_Index, categoryName, accessories, userid
     } = gear;
     const name = brand + ' ' + productName;
@@ -253,8 +253,6 @@ class RentGearDetail extends Component {
     const end_date_str = getDateStr(this.state.endDate);
     const duration = calcDaysDiff(this.state.startDate, this.state.endDate) + 1;
     const busy = this.state.busy;
-    const star_rating = gear.starRating;
-    let star_arr = Array.apply(null, Array(5));
     let total = pricePerDay * duration;
     let tax = total * 0.21;
     let fee = total * 0.15;
@@ -305,13 +303,11 @@ class RentGearDetail extends Component {
               <div className='col-sm-7 col-12'>
                 <span>
                   {
-                    star_arr.map((item, key) =>
-                      key < 6 ?
-                        <i className="fa fa-star star-selected" key={key}/> :
-                        <i className="fa fa-star" key={key}/>)
+                    [1, 2, 3, 4, 5].map(i =>
+                      <i className="fa fa-star star-selected" key={i}/>)
                   }
                 </span>
-                <span> {rating} ({total_rating})</span>
+                <span> 5,0 ({rating})</span>
               </div>
               <div className="gear-address-container col-sm-7 col-12 row">
                 <div className='marker-icon'/>
@@ -434,9 +430,7 @@ class RentGearDetail extends Component {
                   disableImagesLoaded={false} // default false
                   reloadOnUpdate // default false
                 >
-                  {
-                    this.renderRecommendedProducts({listGears})
-                  }
+                  {this.renderRecommendedProducts({listGears})}
                 </Flickity>
               </div>
             </div>
@@ -503,16 +497,10 @@ class RentGearDetail extends Component {
                   <div className="gear-purchase col-lg-9">
                     <div>
                       <span className='star-wrapper'>
-                        {
-                          star_rating > 0 ?
-                            star_arr.map((item, key) =>
-                              key < 6 ?
-                                <i className="fa fa-star star-selected" key={key}/> :
-                                <i className="fa fa-star" key={key}/>) :
-                            null
-                        }
+                        {[1, 2, 3, 4, 5].map(i =>
+                          <i className="fa fa-star star-selected" key={i}/>)}
                       </span>
-                      <span className="theme-form-small">&nbsp;{rating} ({total_rating})</span>
+                      <span className="theme-form-small">&nbsp;5,0 ({rating})</span>
                       <div className="gear-address-container row">
                         <div className='marker-icon'/>
                         <span className='gear-address'>{city}</span>

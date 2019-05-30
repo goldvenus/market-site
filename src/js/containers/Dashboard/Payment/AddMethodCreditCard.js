@@ -18,6 +18,7 @@ class AddMethodSwift extends Component {
       expirationMonth: '',
       expirationYear: '',
       modalOpenState: 0,
+      type: 1
     };
   }
   
@@ -38,7 +39,12 @@ class AddMethodSwift extends Component {
   };
   
   handleSaveMethod = () => {
-    this.props.onSaveMethod(this.state);
+    let data = this.state;
+    data.cardNumber = data.cardNumber.substr(-4, 4);
+    data.expirationDate = data.expirationMonth + data.expirationYear;
+    delete data.expirationMonth;
+    delete data.expirationYear;
+    this.props.onSaveMethod(data);
   };
   
   handleInputChange = (e, val) => {
