@@ -31,11 +31,11 @@ const addCart = (data) => {
         if (response.data && response.data.errorMessage) {
           msg = response.data.errorMessage;
           if (response.data.data && response.data.data.blocked && response.data.data.blocked.length > 0) {
-              msg += " Gear is unavailable on these days: ";
+              msg += " Unavailable days : ";
               msg += response.data.data.blocked.map((item) => (item.start_date + " - " + item.end_date)).join(", ");
           }
           if (response.data.data && response.data.data.booked && response.data.data.booked.length > 0) {
-              msg += " Gear is in renting on these days: ";
+              msg += " Gear is on renting on these days: ";
               msg += response.data.data.booked.map((item) => (item.start_date + " - " + item.end_date)).join(", ");
           }
         }
@@ -71,11 +71,11 @@ const editCart = async (data) => {
         if (response.data && response.data.errorMessage) {
           msg = response.data.errorMessage;
           if (response.data.data.blocked && response.data.data.blocked.length) {
-              msg += " Gear is unavailable on these days: ";
+              msg += " Unavailable days are : ";
               msg += response.data.data.blocked.map((item) => (item.start_date + " - " + item.end_date)).join(", ");
           }
           if (response.data.data.booked && response.data.data.booked.length) {
-              msg += " Gear is in renting on these days: ";
+              msg += " Gear is on renting on these days: ";
               msg += response.data.data.booked.map((item) => (item.start_date + " - " + item.end_date)).join(", ");
           }
         }

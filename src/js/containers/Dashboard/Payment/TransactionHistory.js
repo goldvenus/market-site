@@ -42,6 +42,23 @@ class TransactionHistory extends Component {
   render() {
     let monthYearStr = this.monthNames[this.state.curDate.getMonth()] + ' ' + this.state.curDate.getFullYear();
     let {transactions, isLoadingHistory} = this.props;
+    let data = transactions.map((item) => {
+      let transDate = new Date(item.RecordCreated);
+      let type = item.TransType;
+      let contract = item.Contract;
+      let client = item.Client;
+      let amount = item.Amount;
+      let invoice = item.Invoice;
+      let options = {month: 'long', day: 'numeric', year: 'numeric'};
+      transDate = transDate.toLocaleDateString("en-US", options);
+  
+      if (type === 'Refung' || type === 'Withdrawal') {
+        amount = '-$' + parseFloat(amount).toFixed(2);
+      } else {
+        amount = '$' + parseFloat(amount).toFixed(2);
+      }
+      return {transDate, type, contract, client, invoice, amount};
+    });
     
     return (
       <div className='wrapper-transaction'>
@@ -72,34 +89,52 @@ class TransactionHistory extends Component {
               </tr>
             </thead>
             <tbody>
-            {transactions.map((item, index) => {
-              let transDate = new Date(item.RecordCreated);
-              let type = item.TransType;
-              let contract = item.Contract;
-              let client = item.Client;
-              let amount = item.Amount;
-              let invoice = item.Invoice;
-              let options = { month: 'long', day: 'numeric', year: 'numeric' };
-              transDate = transDate.toLocaleDateString("en-US", options);
-              
-              if (type === 'Refung' || type === 'Withdrawal') {
-                amount = '-$' + parseFloat(amount).toFixed(2);
-              } else {
-                amount = '$' + parseFloat(amount).toFixed(2);
-              }
-
-              return (
+            {
+              data.map((item, index) => (
                 <tr key={index}>
-                  <td>{transDate}</td>
-                  <td>{type}</td>
-                  <td>{contract}</td>
-                  <td>{client}</td>
-                  <td className='amount'>{amount}</td>
-                  <td className='invoice'>{invoice}</td>
+                  <td>{item.transDate}</td>
+                  <td>{item.type}</td>
+                  <td>{item.contract}</td>
+                  <td>{item.client}</td>
+                  <td className='amount'>{item.amount}</td>
+                  <td className='invoice'>{item.invoice}</td>
                 </tr>)
-              })}
+              )
+            }
             </tbody>
           </Table>
+        </div>
+        <div className='transaction-body-mobile'>
+          {
+            data.map((item, index) => (
+              <div className='transaction-wrapper' key={index}>
+                <div className='info-wrapper'>
+                  <div>Date</div>
+                  <div>{item.transDate}</div>
+                </div>
+                <div className='info-wrapper'>
+                  <div>Type</div>
+                  <div>{item.type}</div>
+                </div>
+                <div className='info-wrapper'>
+                  <div>Contract</div>
+                  <div>{item.contract}</div>
+                </div>
+                <div className='info-wrapper'>
+                  <div>Client</div>
+                  <div>{item.client}</div>
+                </div>
+                <div className='info-wrapper'>
+                  <div>Amount</div>
+                  <div className='amount'>{item.amount}</div>
+                </div>
+                <div className='info-wrapper'>
+                  <div>Invoice</div>
+                  <div>{item.invoice}</div>
+                </div>
+              </div>)
+            )
+          }
         </div>
       </div>
     )

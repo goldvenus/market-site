@@ -62,6 +62,7 @@
     }
   }
 }
+
 .add-new-card-container {
   display: flex;
   justify-content: center;
@@ -126,114 +127,71 @@
   }
 }
 
-.payment-dashboard {
-  .payment-dashboard-heading-wrapper {
-    text-align: left;
-    font-family: Gotham Pro;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 23px;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    color: #A4A4A4;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-
-    h4 {
-      text-transform: none !important;
-    }
-    .balance-wrapper {
-      display: flex;
-      width: 374px;
-      padding: 22px;
-      justify-content: space-between;
-      background-color: #faf8f9;
-      align-items: center;
-      .balance-left {
-        p:first-child {
-          font-size: 16px;
-          line-height: 28px;
-          color: #A4A4A4;
-          margin: 0;
-        }
-        p:last-child {
-          font-family: Gotham Pro;
-          font-size: 20px;
-          line-height: 25px;
-          color: #252525;
-          margin: 0;
-        }
-      }
-    }
-  }
-
-  .wrapper-detail {
-    text-align: center;
-    display: flex;
-    background-color: white;
-    border: solid 30px #faf8f9;
-
-    .detail-left-wrapper {
-      width: 50%;
-      border-right: solid 15px #faf8f9;
-    }
-    .detail-right-wrapper {
-      width: 50%;
-      border-left: solid 15px #faf8f9;
-    }
-
-    .payment-dashboard-heading {
-      font-family: Gotham Pro;
+.payment-dashboard-wrapper {
+  .payment-dashboard {
+    .payment-dashboard-heading-wrapper {
       text-align: left;
-      border-bottom: solid 1px #f6f6f6;
-      padding: 25px;
+      font-family: Gotham Pro;
+      font-weight: 600;
       font-size: 16px;
       line-height: 23px;
       letter-spacing: 0.09em;
       text-transform: uppercase;
       color: #A4A4A4;
-      font-weight: 600;
-    }
-    .payment-dashboard-body {
-      padding: 5%;
-      display: flex;
-      justify-content: space-between;
-
-      .custom-beautiful-textfield {
-        width: 100%;
-      }
-      .form-group {
-        margin-bottom: 28px;
-      }
-      label, input {
-        margin-left: 15px;
-      }
-      button {
-        width: 100%;
-      }
-    }
-    .text-muted {
-      color: #A4A4A4 !important;
-    }
-    .row {
-      width: 100%;
-    }
-  }
-
-  .wrapper-transaction {
-    border: solid 30px #faf8f9;
-    margin-top: 30px;
-
-    .transaction-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px;
+      margin-bottom: 20px;
 
-      & > span {
+      h4 {
+        text-transform: none !important;
+      }
+      .balance-wrapper {
+        display: flex;
+        width: 374px;
+        padding: 22px;
+        justify-content: space-between;
+        background-color: #faf8f9;
+        align-items: center;
+
+        .balance-left {
+          p:first-child {
+            font-size: 16px;
+            line-height: 28px;
+            color: #A4A4A4;
+            margin: 0;
+          }
+          p:last-child {
+            font-family: Gotham Pro;
+            font-size: 20px;
+            line-height: 25px;
+            color: #252525;
+            margin: 0;
+          }
+        }
+      }
+    }
+
+    .payment-method-wrapper {
+      text-align: center;
+      display: flex;
+      background-color: white;
+      border: solid 30px #faf8f9;
+
+      .detail-left-wrapper {
+        width: 50%;
+        border-right: solid 15px #faf8f9;
+      }
+      .detail-right-wrapper {
+        width: 50%;
+        border-left: solid 15px #faf8f9;
+      }
+
+      .payment-dashboard-heading {
         font-family: Gotham Pro;
+        text-align: left;
+        border-bottom: solid 1px #f6f6f6;
+        padding: 25px;
         font-size: 16px;
         line-height: 23px;
         letter-spacing: 0.09em;
@@ -241,88 +199,138 @@
         color: #A4A4A4;
         font-weight: 600;
       }
-      .month-navigation-bar {
-        width: 21%;
+      .payment-dashboard-body {
+        padding: 5%;
+        display: flex;
+        justify-content: space-between;
+
+        .custom-beautiful-textfield {
+          width: 100%;
+        }
+        .form-group {
+          margin-bottom: 28px;
+        }
+        label, input {
+          margin-left: 15px;
+        }
+        button {
+          width: 100%;
+        }
+      }
+      .text-muted {
+        color: #A4A4A4 !important;
+      }
+      .row {
+        width: 100%;
+      }
+    }
+
+    .wrapper-transaction {
+      border: solid 30px #faf8f9;
+      margin-top: 30px;
+
+      .transaction-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 16px;
 
-        i {
-          opacity: 0.5;
-          padding: 0 10px;
-        }
-        .left-button {
-          cursor: pointer;
-          content: '<';
-          border-radius: 50%;
-          width: 25px;
-          height: 25px;
-          justify-content: center;
-          align-items: center;
-          display: flex;
-          &:hover {
-            background: #e0e0e0;
-          }
-        }
-        .right-button {
-          cursor: pointer;
-          content: '>';
-          border-radius: 50%;
-          width: 25px;
-          height: 25px;
-          justify-content: center;
-          align-items: center;
-          display: flex;
-          &:hover {
-            background: #e0e0e0;
-          }
-        }
-        .month-year {
+        & > span {
           font-family: Gotham Pro;
           font-size: 16px;
-          line-height: 19px;
-          letter-spacing: 0.03em;
-          color: #000000;
+          line-height: 23px;
+          letter-spacing: 0.09em;
+          text-transform: uppercase;
+          color: #A4A4A4;
+          font-weight: 600;
+        }
+        .month-navigation-bar {
+          width: 21%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 16px;
+          text-align: center;
+
+          i {
+            opacity: 0.5;
+            padding: 0 10px;
+          }
+          .left-button {
+            cursor: pointer;
+            content: '<';
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            &:hover {
+              background: #e0e0e0;
+            }
+          }
+          .right-button {
+            cursor: pointer;
+            content: '>';
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            &:hover {
+              background: #e0e0e0;
+            }
+          }
+          .month-year {
+            font-family: Gotham Pro;
+            font-size: 16px;
+            line-height: 19px;
+            letter-spacing: 0.03em;
+            color: #000000;
+          }
         }
       }
-    }
-    .transaction-body {
-      table {
-        th, td {
-          border-top: none;
-        }
-        thead {
-          background: #FBFBFB;
-          border-top: solid 1px #f6f6f6;
-          border-bottom: solid 1px #f6f6f6;
-          font-family: Gotham Pro;
-          font-size: 14px;
-          line-height: 17px;
-          letter-spacing: 0.03em;
-          color: rgba(58, 58, 58, 0.5);
+      .transaction-body {
+        table {
+          th, td {
+            border-top: none;
+          }
+          thead {
+            background: #FBFBFB;
+            border-top: solid 1px #f6f6f6;
+            border-bottom: solid 1px #f6f6f6;
+            font-family: Gotham Pro;
+            font-size: 14px;
+            line-height: 17px;
+            letter-spacing: 0.03em;
+            color: rgba(58, 58, 58, 0.5);
 
-          th {
-            font-weight: 400;
+            th {
+              font-weight: 400;
+            }
           }
-        }
-        tbody {
-          font-family: Gotham Pro;
-          font-size: 16px;
-          line-height: 19px;
-          letter-spacing: 0.03em;
-          color: #3A3A3A;
+          tbody {
+            font-family: Gotham Pro;
+            font-size: 16px;
+            line-height: 19px;
+            letter-spacing: 0.03em;
+            color: #3A3A3A;
 
-          .amount {
-            font-weight: 600;
-            color: #252525;
-          }
-          .invoice {
-            color: #f82462;
-            text-decoration: underline;
-            cursor: pointer;
+            .amount {
+              font-weight: 600;
+              color: #252525;
+            }
+            .invoice {
+              color: #f82462;
+              text-decoration: underline;
+              cursor: pointer;
+            }
           }
         }
+      }
+      .transaction-body-mobile {
+        display: none;
       }
     }
   }
@@ -467,6 +475,170 @@
       }
       .date-select-container {
         margin-top: 15px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1077px) {
+  .payment-dashboard-wrapper {
+    .payment-dashboard {
+      .payment-method-wrapper {
+        border: none;
+        display: block;
+
+        & > div {
+          border: solid 18px #faf8f9;
+          width: 100% !important;
+        }
+        .detail-left-wrapper {
+          margin-bottom: 30px;
+        }
+        .detail-right-wrapper {
+        }
+        .card-model-wrapper {
+          border: none !important;
+        }
+      }
+      .wrapper-transaction {
+        border: solid 18px #faf8f9;
+
+        .transaction-header {
+          .month-navigation-bar {
+            padding: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .wrapper-add-method {
+    display: block;
+    border-width: 18px;
+    padding: 18px;
+
+    .method-select-tab-wrapper {
+      .tab {
+        width: 100%;
+
+        & > span:first-child {
+          margin: 0 10px;
+        }
+        & > span:last-child {
+          margin: 0;
+        }
+      }
+    }
+    .method-select-tab-content {
+      display: block;
+
+      & > div {
+        padding: 0 !important;
+      }
+      .swift-container {
+        margin-top: 30px;
+      }
+
+      .add-method-credit-card-outer-wrapper {
+        .card-model-wrapper {
+          border: none !important;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .payment-dashboard-wrapper {
+    .payment-dashboard {
+      .payment-dashboard-heading-wrapper {
+        display: block;
+        text-align: center;
+
+        .balance-wrapper {
+          width: 100%;
+        }
+      }
+      .payment-method-wrapper {
+        .detail-left-wrapper {
+          border: solid 10px #faf8f9;
+        }
+        .detail-right-wrapper {
+          border: solid 10px #faf8f9;
+        }
+        .card-model-wrapper {
+          width: 100%;
+        }
+        .add-new-card-container {
+          max-width: 100%;
+          .add-new-card {
+            .plus-icon-container {
+              margin: 0 auto;
+            }
+            .add-method-text {
+              display: block;
+              color: #252525;
+            }
+          }
+          &:hover {
+            color: white;
+          }
+        }
+      }
+      .wrapper-transaction {
+        border-width: 10px;
+        .transaction-header {
+          border-bottom: solid 1px #f6f6f6;
+          display: grid;
+          justify-content: center;
+
+          .month-navigation-bar {
+            width: 100%;
+            order: 2;
+          }
+          button {
+            order: 1;
+            padding: 0;
+            margin: 10px 0;
+          }
+        }
+        .transaction-body {
+          display: none;
+        }
+        .transaction-body-mobile {
+          display: block;
+          font-family: Gotham Pro;
+
+          .transaction-wrapper {
+            border-bottom: solid 1px #f6f6f6;
+            padding: 15px 0;
+
+            .info-wrapper {
+              display: flex;
+              justify-content: space-between;
+              padding: 10px 16px;
+
+              .amount {
+                font-weight: 600;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .wrapper-add-method {
+    border-width: 10px;
+    .method-select-tab-wrapper {
+      text-align: center;
+    }
+    .method-select-tab-content {
+      button {
+        width: 100% !important;
+      }
+      .card-model-wrapper {
+        width: 100%;
       }
     }
   }

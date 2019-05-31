@@ -4,6 +4,7 @@ import AddMethodSwift from "./AddMethodSwift";
 import AddMethodCreditCard from "./AddMethodCreditCard";
 import {savePaymentMethod} from "../../../core/actions/payment.action";
 import CustomSpinner from "../../../components/CustomSpinner";
+import {getUser} from "../../../core/actions/user.action";
 
 class AddMethodContainer extends Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class AddMethodContainer extends Component {
   handleSaveMethod = async (data) => {
     let res = await savePaymentMethod({...data, type: this.state.selectedMode});
     if (res) {
+      await getUser();
       this.props.history.push('/dashboard');
     }
   };

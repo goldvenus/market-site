@@ -81,7 +81,7 @@ class PaymentDetail extends Component {
             </div>
           </div>
           
-          <div className="wrapper-detail">
+          <div className="payment-method-wrapper">
             <div className="detail-left-wrapper">
               <div className="payment-dashboard-heading">
                 <span>PAYMENT METHODS</span>

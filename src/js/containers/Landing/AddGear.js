@@ -381,7 +381,7 @@ class AddGear extends Component {
         </div>
         
         <div className="gear-carousel">
-          <CustomCarousel items={numberOfUserImage}/>
+          <CustomCarousel items={numberOfUserImage.map(item => ({src: item}))}/>
         </div>
       </div>
       <div className="gear-middle-container" id="middle-container">

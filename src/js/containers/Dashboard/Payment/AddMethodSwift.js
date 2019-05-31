@@ -10,6 +10,7 @@ class AddMethodSwift extends Component {
     this.state = {
       firstName: '',
       lastName: '',
+      birthday: '',
       billingAddress1: '',
       billingAddress2: '',
       billingAddress3: '',
@@ -17,8 +18,10 @@ class AddMethodSwift extends Component {
       state: '',
       postalCode: '',
       country: '',
+      idNumber: '',
       bankAccountHolderName: '',
       IBAN: '',
+      routingNumber: '',
       swiftCode: '',
       bankFullName: '',
       bankBranchCity: '',
@@ -32,11 +35,30 @@ class AddMethodSwift extends Component {
   }
   
   doValidation = () => {
-    let {billingAddress1, postalCode, bankAccountHolderName, IBAN, swiftCode, bankBranchCity, bankBranchCountry} = this.state;
-    if (billingAddress1 === '' || postalCode === '' || bankAccountHolderName === '' || IBAN === '' ||
-      swiftCode === '' || bankBranchCity === '' || bankBranchCountry === '') {
+    let {
+      firstName, lastName, birthday,
+      country,
+      billingAddress1,
+      postalCode,
+      bankAccountHolderName,
+      IBAN,
+      swiftCode,
+      bankBranchCity,
+      bankBranchCountry,
+      idNumber,
+      routingNumber
+    } = this.state;
+    
+    if (billingAddress1 === '' || birthday === '' || postalCode === '' || bankAccountHolderName === '' || IBAN === '' ||
+      swiftCode === '' || bankBranchCity === '' || bankBranchCountry === '' || idNumber === '' || routingNumber === '' ||
+      firstName === '' || lastName === '' || country === '') {
       return false;
     }
+    if (country.length < 2 || country.length > 2 || bankBranchCountry.length < 2 || bankBranchCountry.length > 2) {
+      handleError("Please input right country code!");
+      return false;
+    }
+    
     return true;
   };
   
@@ -65,15 +87,21 @@ class AddMethodSwift extends Component {
         <Col lg={12} md={24}>
           <TextField
             className='custom-beautiful-textfield'
-            label='First Name'
+            label='First Name *'
             type="text"
             onChange={e => this.handleInputChange(e, 'firstName')}
           />
           <TextField
             className='custom-beautiful-textfield'
-            label='Last Name'
+            label='Last Name *'
             type="text"
             onChange={e => this.handleInputChange(e, 'lastName')}
+          />
+          <TextField
+            className='custom-beautiful-textfield'
+            label='Birthday *'
+            type="text"
+            onChange={e => this.handleInputChange(e, 'birthday')}
           />
           <TextField
             className='custom-beautiful-textfield'
@@ -95,7 +123,7 @@ class AddMethodSwift extends Component {
           />
           <TextField
             className='custom-beautiful-textfield'
-            label='City'
+            label='City *'
             type="text"
             onChange={e => this.handleInputChange(e, 'city')}
           />
@@ -107,15 +135,21 @@ class AddMethodSwift extends Component {
           />
           <TextField
             className='custom-beautiful-textfield'
-            label='Postcode*'
+            label='Postcode *'
             type="text"
             onChange={e => this.handleInputChange(e, 'postalCode')}
           />
           <TextField
             className='custom-beautiful-textfield'
-            label='Country'
+            label='Country *'
             type="text"
             onChange={e => this.handleInputChange(e, 'country')}
+          />
+          <TextField
+            className='custom-beautiful-textfield'
+            label='Identification Number *'
+            type="text"
+            onChange={e => this.handleInputChange(e, 'idNumber')}
           />
           <TextField
             className='custom-beautiful-textfield'
@@ -128,6 +162,12 @@ class AddMethodSwift extends Component {
             label='Bank Account Number/IBAN *'
             type="text"
             onChange={e => this.handleInputChange(e, 'IBAN')}
+          />
+          <TextField
+            className='custom-beautiful-textfield'
+            label='Bank Routing Number *'
+            type="text"
+            onChange={e => this.handleInputChange(e, 'routingNumber')}
           />
           <TextField
             className='custom-beautiful-textfield'

@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import TextField from "@material-ui/core/TextField/TextField";
 import {Col} from "reactstrap";
 import FormControl from "@material-ui/core/FormControl/FormControl";
-import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import Select from "@material-ui/core/Select/Select";
 import moment from "moment";
 import {MenuItem} from "@trendmicro/react-dropdown";
@@ -41,9 +40,10 @@ class AddMethodSwift extends Component {
   handleSaveMethod = () => {
     let data = this.state;
     data.cardNumber = data.cardNumber.substr(-4, 4);
-    data.expirationDate = data.expirationMonth + data.expirationYear;
+    data.expirationDate = data.expirationMonth + '' + data.expirationYear;
     delete data.expirationMonth;
     delete data.expirationYear;
+    delete data.modalOpenState;
     this.props.onSaveMethod(data);
   };
   
@@ -105,7 +105,6 @@ class AddMethodSwift extends Component {
             <div className="flex-row">
               <div className="theme-form-field flex-md-12 date-select-container">
                 <FormControl id="select-month">
-                  <InputLabel htmlFor="age-required">Expiration</InputLabel>
                   <Select
                     value={expirationMonth}
                     onChange={(event) => {

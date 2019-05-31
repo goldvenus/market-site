@@ -118,7 +118,7 @@
 
 #select-month {
   width: 45%;
-  margin-top: -16px;
+
   label {
     margin-left: 10px;
     font-size: 13px;
@@ -263,8 +263,8 @@
 }
 
 @media (max-width: 1199px) {
-  .payment-card {
-    width: 54% !important;
+  .card-info-wrapper .payment-card {
+    width: 54%;
   }
 }
 
@@ -284,6 +284,9 @@
 
         &:first-child {
           margin-bottom: 15px;
+        }
+        &:last-child {
+          margin-left: 0 !important;
         }
       }
     }

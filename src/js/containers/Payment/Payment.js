@@ -12,7 +12,6 @@ import '@trendmicro/react-buttons/dist/react-buttons.css';
 import '@trendmicro/react-dropdown/dist/react-dropdown.css';
 import TextField from '@material-ui/core/TextField';
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
-import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import * as postscribe from "postscribe";
@@ -474,7 +473,6 @@ class Payment extends Component {
                   <div className="flex-row">
                     <div className="theme-form-field flex-md-12 date-select-container">
                       <FormControl id="select-month">
-                        <InputLabel htmlFor="age-required">Expiration</InputLabel>
                         <Select
                           value={expiration_month}
                           onChange={(event) => {
