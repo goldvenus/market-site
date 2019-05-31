@@ -67,6 +67,7 @@ class OrderHistory extends Component {
   renderItemsMobile() {
     let {renterHistories} = this.props;
     let {currentPage} = this.state;
+    
     if (!renterHistories) {
       return null;
     }
@@ -101,6 +102,7 @@ class OrderHistory extends Component {
         } else if (listItem.ratingOwner || firstSoldItem.ratingRenter) {
           ratingStatus = 1;
         }
+        console.log(returnStatus, ratingStatus);
         
         return (
           <div key={`cart-item-${index}`} className="mobile-gear-item" onClick={() => this.handleControl(currentPage*this.pageSize+index)}>
@@ -127,7 +129,7 @@ class OrderHistory extends Component {
                   <React.Fragment>
                     <div className='pending-status final-status'>Rating Pending</div>
                   </React.Fragment> :
-                ratingStatus === 2 ?
+                ratingStatus >= 2 ?
                   <React.Fragment>
                     <div className='completed-status-big final-status'>Completed</div>
                   </React.Fragment> : null
@@ -155,7 +157,7 @@ class OrderHistory extends Component {
                 <span className="gear-price-per-day-value">${first_item.pricePerDay}</span>
               </div>
               <div className="amouth">
-                <span className="grey-small-text">Amouth</span>
+                <span className="grey-small-text">Amount</span>
                 <span className="gear-amouth-value">${parseFloat(listItem.Amount).toFixed(2)}</span>
               </div>
             </div>
@@ -225,21 +227,21 @@ class OrderHistory extends Component {
             
             <td width="25%">
               <div className="status-bar-container">
-              {returnStatus <= 2 && ratingStatus === 0 ?
-                <React.Fragment>
-                  <div className={`status-bar status-bar1 completed-status`}>Payment</div>
-                  <div className = {`status-bar status-bar2 ${this.statusClass[pickStatus]}`}>Pickup</div>
-                  <div className={`status-bar3 ${this.statusClass[returnStatus]}`}>Return</div>
-                </React.Fragment> :
-              ratingStatus < 3 ?
-                <React.Fragment>
-                  <div className='pending-status final-status'>Rating Pending</div>
-                </React.Fragment> :
-              ratingStatus === 3 ?
-                <React.Fragment>
-                  <div className='completed-status-big final-status'>Completed</div>
-                </React.Fragment> : null
-              }
+                {returnStatus <= 2 && ratingStatus === 0 ?
+                  <React.Fragment>
+                    <div className={`status-bar status-bar1 completed-status`}>Payment</div>
+                    <div className = {`status-bar status-bar2 ${this.statusClass[pickStatus]}`}>Pickup</div>
+                    <div className={`status-bar3 ${this.statusClass[returnStatus]}`}>Return</div>
+                  </React.Fragment> :
+                ratingStatus === 1 ?
+                  <React.Fragment>
+                    <div className='pending-status final-status'>Rating Pending</div>
+                  </React.Fragment> :
+                ratingStatus >= 2 ?
+                  <React.Fragment>
+                    <div className='completed-status-big final-status'>Completed</div>
+                  </React.Fragment> : null
+                }
               </div>
             </td>
             <td className="tb_pay_per" width="10%">${parseFloat(listItem.Amount).toFixed(2)}</td>
@@ -255,6 +257,7 @@ class OrderHistory extends Component {
   renderItemsTablet() {
     let {renterHistories} = this.props;
     let {currentPage} = this.state;
+  
     if (!renterHistories) {
       return null;
     }
@@ -262,11 +265,33 @@ class OrderHistory extends Component {
       currentPage * this.pageSize,
       (currentPage + 1) * this.pageSize
     );
+    
     return (
       renterHistories.map((listItem, index) => {
         const first_item = listItem.SoldItems[0];
         let product_name = first_item.brand + ' ' + first_item.model;
         product_name = product_name.substr(0, 13) + '...';
+  
+        let pickStatus = 0, returnStatus = 0, ratingStatus = 0;
+        let firstSoldItem = listItem.SoldItems[0];
+        if (firstSoldItem.PickStatus === 1) {
+          pickStatus = 1;
+        } else if (firstSoldItem.PickStatus > 1) {
+          pickStatus = 2;
+        }
+        if (firstSoldItem.ReturnStatus === 1) {
+          returnStatus = 1;
+        } else if (firstSoldItem.ReturnStatus > 1) {
+          returnStatus = 2;
+        }
+  
+        if (firstSoldItem.returnGearStatus && listItem.ratingOwner && firstSoldItem.ratingRenter) {
+          ratingStatus = 3;
+        } else if (listItem.ratingOwner && firstSoldItem.ratingRenter) {
+          ratingStatus = 2;
+        } else if (listItem.ratingOwner || firstSoldItem.ratingRenter) {
+          ratingStatus = 1;
+        }
         
         return (
           <div key={`cart-item-${index}`} className="tablet-gear-item" onClick={() => this.handleControl(index)}>
@@ -282,9 +307,21 @@ class OrderHistory extends Component {
               </div>
               <div className="order-item-state">
                 <div className="status-bar-container">
-                  <div className="status-bar status-bar1">Payment</div>
-                  <div className="status-bar status-bar2">Pickup</div>
-                  <div className="status-bar3">Return</div>
+                  {returnStatus <= 2 && ratingStatus === 0 ?
+                    <React.Fragment>
+                      <div className={`status-bar status-bar1 completed-status`}>Payment</div>
+                      <div className = {`status-bar status-bar2 ${this.statusClass[pickStatus]}`}>Pickup</div>
+                      <div className={`status-bar3 ${this.statusClass[returnStatus]}`}>Return</div>
+                    </React.Fragment> :
+                  ratingStatus === 1 ?
+                    <React.Fragment>
+                      <div className='pending-status final-status'>Rating Pending</div>
+                    </React.Fragment> :
+                  ratingStatus >= 2 ?
+                    <React.Fragment>
+                      <div className='completed-status-big final-status'>Completed</div>
+                    </React.Fragment> : null
+                  }
                 </div>
               </div>
             </div>
@@ -309,7 +346,7 @@ class OrderHistory extends Component {
                 <span className="gear-price-per-day-value">${first_item.pricePerDay}</span>
               </div>
               <div className="amouth">
-                <span className="grey-small-text">Amouth</span>
+                <span className="grey-small-text">Amount</span>
                 <span className="gear-amouth-value">${parseFloat(listItem.Amount).toFixed(2)}</span>
               </div>
             </div>
@@ -331,11 +368,10 @@ class OrderHistory extends Component {
     let newCount = 0;
     ownerHistories.forEach((item) => {
       let isNew = false;
-      if (!item.ratingOwner) {
-        isNew = true;
-      }
       item.SoldItems.forEach((item1) => {
-        if (item1.PickStatus === 1 || item1.ReturnStatus === 1 || !item1.returnGearStatus) {
+        if (item1.PickStatus === 1 || item1.ReturnStatus === 1) {
+          isNew = true;
+        } else if (item1.PickStatus > 1 && item1.ReturnStatus > 1 && (!item.ratingOwner || !item1.returnGearStatus)) {
           isNew = true;
         }
       });
@@ -365,7 +401,7 @@ class OrderHistory extends Component {
                             <th>Project Name</th>
                             <th>Rental Period</th>
                             <th>Status</th>
-                            <th>Amouth</th>
+                            <th>Amount</th>
                             <th/>
                           </tr>
                           </thead>

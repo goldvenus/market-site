@@ -110,9 +110,9 @@ class OwnerComponent extends Component {
                   <React.Fragment>
                     <div className='pending-status final-status'>Rating Pending</div>
                   </React.Fragment> :
-                ratingStatus === 2 ?
+                ratingStatus >= 2 ?
                   <React.Fragment>
-                    <div className='completed-status final-status'>Completed</div>
+                    <div className='completed-status-big final-status'>Completed</div>
                   </React.Fragment> : null
                 }
               </div>
@@ -139,7 +139,7 @@ class OwnerComponent extends Component {
                 <span className="gear-price-per-day-value">${first_item.pricePerDay}</span>
               </div>
               <div className="amouth">
-                <span className="grey-small-text">Amouth</span>
+                <span className="grey-small-text">Amount</span>
                 <span className="gear-amouth-value">${parseFloat(listItem.Amount).toFixed(2)}</span>
               </div>
             </div>
@@ -188,8 +188,11 @@ class OwnerComponent extends Component {
         }
   
         return (
-          <tr key={`cart-item-${index}`} onClick={() => this.handleControl(currentPage*this.pageSize+index)}>
+          <tr key={`cart-item-${index}`} onClick={() => this.handleControl(currentPage*this.pageSize+index)} className={pickStatus === 1 || returnStatus === 1 ? 'new-order-shadow' : ''}>
             <td width="10%">
+              {pickStatus === 1 || returnStatus === 1 ?
+                <div className="new-order-sign"/> : null}
+  
               {first_item.numberOfUserImage && first_item.numberOfUserImage.length > 0 &&
               <img src={first_item.numberOfUserImage[0]} alt='' className="gear-img"/>}
             </td>
@@ -238,6 +241,7 @@ class OwnerComponent extends Component {
   renderItemsTablet() {
     let {histories} = this.props;
     let {currentPage} = this.state;
+  
     if (!histories) {
       return null;
     }
@@ -245,6 +249,7 @@ class OwnerComponent extends Component {
       currentPage * this.pageSize,
       (currentPage + 1) * this.pageSize
     );
+    
     return (
       histories.map((listItem, index) => {
         const first_item = listItem.SoldItems[0];
@@ -264,7 +269,9 @@ class OwnerComponent extends Component {
           returnStatus = 2;
         }
   
-        if (listItem.ratingOwner && firstSoldItem.ratingRenter) {
+        if (firstSoldItem.returnGearStatus && listItem.ratingOwner && firstSoldItem.ratingRenter) {
+          ratingStatus = 3;
+        } else if (listItem.ratingOwner && firstSoldItem.ratingRenter) {
           ratingStatus = 2;
         } else if (listItem.ratingOwner || firstSoldItem.ratingRenter) {
           ratingStatus = 1;
@@ -294,9 +301,9 @@ class OwnerComponent extends Component {
                     <React.Fragment>
                       <div className='pending-status final-status'>Rating Pending</div>
                     </React.Fragment> :
-                  ratingStatus === 2 ?
+                  ratingStatus >= 2 ?
                     <React.Fragment>
-                      <div className='completed-status final-status'>Completed</div>
+                      <div className='completed-status-big final-status'>Completed</div>
                     </React.Fragment> : null
                   }
                 </div>
@@ -323,7 +330,7 @@ class OwnerComponent extends Component {
                 <span className="gear-price-per-day-value">${first_item.pricePerDay}</span>
               </div>
               <div className="amouth">
-                <span className="grey-small-text">Amouth</span>
+                <span className="grey-small-text">Amount</span>
                 <span className="gear-amouth-value">${parseFloat(listItem.Amount).toFixed(2)}</span>
               </div>
             </div>
@@ -351,7 +358,7 @@ class OwnerComponent extends Component {
                     <th>Project Name</th>
                     <th>Rental Period</th>
                     <th>Status</th>
-                    <th>Amouth</th>
+                    <th>Amount</th>
                     <th/>
                   </tr>
                   </thead>

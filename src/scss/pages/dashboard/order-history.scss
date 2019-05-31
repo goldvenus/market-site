@@ -11,7 +11,18 @@
     color: #252525;
     font-weight: 600;
     text-transform: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
+    .content-editable {
+      width: 90%;
+      padding: 10px;
+
+      &:focus {
+        outline: solid 3px #f82462;
+      }
+    }
     .edit_icon {
       display: inline-block;
       width: 30px;
@@ -23,7 +34,7 @@
     }
   }
   .order-modal-body {
-    padding: 0 80px;
+    padding: 0 11%;
     text-align: left;
     font-family: Helvetica Neue, sans-serif;
 
@@ -109,7 +120,7 @@
               }
             }
             button {
-              padding: 5px 8px;
+              padding: 5px 5px;
               background-color: white;
               width: unset;
               font-weight: normal;
@@ -255,16 +266,20 @@
       }
       .payment-card {
         width: auto;
-        min-height: 140px !important;
+        min-height: 113px !important;
         padding: 11px 16px 16px;
         box-shadow: 0 2px 22px -2px rgba(173, 173, 173, 0.2);
         border-radius: 10px;
-        display: grid;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
 
         .payment-card-other {
           justify-content: space-between;
           opacity: 0.6;
           font-size: 12px;
+          margin: 0 !important;
+
           .card-holder {
             text-align: right;
           }
@@ -305,7 +320,27 @@
       .checkout-amount {
         margin-top: 10px;
         padding-top: 10px;
-        border-top: 1px solid lightgray;
+        border-top: 1px solid #f3f3f3;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .payment-bill {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .checkout-total {
+          font-size: 16px;
+          line-height: 27px;
+          display: flex;
+          .bill-left {
+            margin-right: 15px;
+          }
+        }
+        p {
+          margin: 0;
+        }
       }
     }
     .payment-status-wrapper {
@@ -369,6 +404,10 @@
       text-align: center;
       color: #FFFFFF;
     }
+    @media (max-width: 767px) {
+      font-size: 20px;
+      height: 83px;
+    }
   }
   .pickup-success-body {
     padding: 40px !important;
@@ -386,10 +425,16 @@
       line-height: 34px;
       color: #252525;
       font-weight: 600;
+      @media (max-width: 767px) {
+        font-size: 20px;
+      }
     }
     .pickup-control {
       justify-content: space-between;
       display: flex;
+      @media (max-width: 767px) {
+        display: block;
+      }
     }
     .pickup-confirm-time {
       font-family: Gotham Pro;
@@ -403,6 +448,12 @@
       span {
         font-weight: 600;
       }
+      @media (max-width: 767px) {
+        margin: 20px 0 40px;
+      }
+    }
+    @media (max-width: 767px) {
+      padding: 20px;
     }
   }
 }
@@ -431,7 +482,7 @@
     display: block;
 
     .item-info-top {
-      border-bottom: solid 1px #f0f0f0;
+      border-bottom: solid 1px #e0e0e0;
       padding: 30px 0;
     }
     .item-info-bottom {
@@ -511,11 +562,20 @@
     font-size: 13px;
     font-weight: 600;
   }
+  .new-order-sign {
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    background-color: #f82462;
+    position: absolute;
+    margin-left: -33px;
+    margin-top: 28px;
+  }
 }
 
 @media (max-width: 1179px) {
   .order-history-outer-wrapper {
-    padding: 0;
+    padding: 15px 0 0;
     .tab-content {
       padding: 0;
     }
@@ -536,15 +596,17 @@
   .order-modal-desktop-tablet {
     display: none;
   }
+
   .order-modal {
     padding: 0;
   }
+
   .order-modal-mobile {
     display: block;
     background-color: #fefefe;
 
     .order-modal-header {
-      padding: 31px 0 34px;
+      padding: 31px 16px 34px;
       font-weight: 700;
       font-family: Gotham Pro;
       font-size: 24px;
@@ -649,8 +711,41 @@
             padding:15px;
             background-color: white;
             width: 100%;
+
+            .renter-rating-container {
+              padding: 0 10%;
+
+              .owner-rating-btn {
+                margin-top: 5px;
+              }
+              & > div {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 9px 0;
+
+                .react__star__rating__lite {
+                  width: 70%;
+                  .react__star__rating__lite__stars {
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+                  }
+                }
+                .star-rating-wrapper {
+                  width: 70%;
+                  display: flex;
+                  justify-content: flex-end;
+                  font-size: 24px;
+                  i {
+                    margin: 0 3px;
+                    color: #f82462;
+                  }
+                }
+              }
+            }
             button {
-              padding: 14px 0;
+              padding: 5px 0;
             }
           }
         }
@@ -676,6 +771,7 @@
             border-radius: 5px;
             width: 70% !important;
             box-shadow: 0 2px 22px -2px rgba(173, 173, 173, 0.2);
+
             & > div:first-child {
               justify-content: space-between;
               .payment-card-number {
@@ -754,6 +850,8 @@
         .checkout-amount {
           padding:15px;
           border: none;
+          display: block;
+
           & > div {
             display: flex;
             span {
@@ -775,6 +873,12 @@
       padding:35px;
       background-color: white;
       border-top: 1px solid #faf8f9;
+
+      .rating-select-bottom {
+        button {
+          width: 100% !important;
+        }
+      }
     }
     .order-modal-footer {
       border-top: 1px solid #f3f3f3;
@@ -790,6 +894,14 @@
         padding: 14px 0;
         width: 45%;
       }
+    }
+  }
+
+  .order-history-outer-wrapper {
+    .new-order-count {
+      width: 17px;
+      height: 17px;
+      margin-left: -10px;
     }
   }
 }

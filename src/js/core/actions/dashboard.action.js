@@ -113,6 +113,16 @@ const setReturnGearStatus = async (data) => {
   }
 };
 
+const saveProjectName = async (data) => {
+  let res = await post("saveProjectName", data);
+  if (res && res.data && res.data.status === 'success') {
+    return true;
+  } else {
+    res && res.data && res.data.errorMessage && handleError(res.data.errorMessage);
+    return false;
+  }
+};
+
 //  gear history
 const setPickupState = async (data) => {
   let res = await post("setPickupState", data);
@@ -157,5 +167,5 @@ const setBlockPeriod = (data) => {
 export {
   viewUserDashboard,
   getGearRentState, setBlockPeriod,
-  getOrderDetail, getOrderHistory, setPickupState, setRating, setReturnGearStatus
+  getOrderDetail, getOrderHistory, setPickupState, setRating, setReturnGearStatus, saveProjectName
 }

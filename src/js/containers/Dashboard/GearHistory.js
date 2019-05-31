@@ -55,7 +55,7 @@ const MyListingItem = ({listItem, openEdit, openDelete, openCalendar}) => (
             <div className="gear-price-per-day">${listItem.pricePerDay}</div>
           </div>
           <div>
-            <div className="gear-category">Amouth</div>
+            <div className="gear-category">Amount</div>
             <div className="gear-replacement-value">${listItem.replacementValue}</div>
           </div>
         </div>

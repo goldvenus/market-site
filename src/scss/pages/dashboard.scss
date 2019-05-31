@@ -279,6 +279,7 @@
               font-size: 16px;
               line-height: 28px;
               color: #252525;
+              font-weight: 600;
             }
             .gear-category {
               font-family: Helvetica Neue, sans-serif;
@@ -1134,10 +1135,10 @@ span.delete_my_gear {
     padding: 0 !important;
     background-color: white !important;
 
-    img {
-      width: 90px !important;
-      height: 90px !important;
-    }
+    //img {
+    //  width: 90px !important;
+    //  height: 90px !important;
+    //}
     .col-sm-12 {
       padding: 0;
       background-color: white;
@@ -1246,7 +1247,9 @@ span.delete_my_gear {
         font-weight: 600;
       }
     }
-
+    .mobile-gear-item {
+      display: none;
+    }
     .edit-rental-calendar {
       display: inline-block;
       width: 30px;
@@ -1299,6 +1302,8 @@ span.delete_my_gear {
         }
         .order-item-top {
           border-bottom: solid 1px #f5f5f5;
+          align-items: center;
+
           .order-item-img-wrapper {
             width: 15%;
             img {
@@ -1309,6 +1314,12 @@ span.delete_my_gear {
           }
           .order-item-name-category {
             width: 40%;
+            text-align: left;
+            padding-left: 10px;
+            font-weight: 600;
+            p {
+              margin: 0;
+            }
           }
           .order-item-state {
             display: flex;
@@ -1317,6 +1328,7 @@ span.delete_my_gear {
           }
         }
         .order-item-bottom {
+          text-align: left;
           & > div {
             display: grid;
           }
@@ -1352,6 +1364,9 @@ span.delete_my_gear {
             width: 17%;
             .gear-amouth-value {
               font-weight: 600;
+              font-family: Gotham Pro;
+              font-size: 20px;
+              line-height: 25px;
             }
           }
         }
@@ -1366,6 +1381,13 @@ span.delete_my_gear {
         opacity: 0.5;
         text-align: left;
       }
+    }
+  }
+
+  .styles_modal__gNwvD {
+    .styles_closeButton__20ID4 {
+      top: -40px;
+      right: 10px;
     }
   }
 }
@@ -1607,12 +1629,15 @@ span.delete_my_gear {
       display: block;
       border: solid 10px #faf8f9;
       border-bottom: none;
+
       & > div {
         display: flex;
         padding: 18px 22px;
         border: solid 1px #faf8f9;
       }
       .order-item-top {
+        align-items: center;
+
         .order-item-img-wrapper {
           width: 40%;
           img {
@@ -1623,7 +1648,15 @@ span.delete_my_gear {
         }
         .order-item-name-category {
           width: 60%;
-          display: grid;
+          text-align: left;
+          padding-left: 10px;
+          .tb-project-name {
+            font-weight: 600;
+            line-height: 1;
+          }
+          .tb-category-name {
+            width: 100%;
+          }
           p {
             margin: 0;
           }
@@ -1634,6 +1667,7 @@ span.delete_my_gear {
       }
       .duration {
         display: grid;
+        text-align: left;
       }
       .owner {
         display: flex;
@@ -1653,13 +1687,19 @@ span.delete_my_gear {
         & > div {
           display: grid;
           width: 50%;
+          text-align: left;
         }
-        .order-price-per-day {
-
+        .gear-price-per-day-value {
+          font-family: Gotham Pro;
+          font-size: 20px;
+          line-height: 25px
         }
         .amouth {
           .gear-amouth-value {
             font-weight: 600;
+            font-family: Gotham Pro;
+            font-size: 20px;
+            line-height: 25px;
           }
         }
       }

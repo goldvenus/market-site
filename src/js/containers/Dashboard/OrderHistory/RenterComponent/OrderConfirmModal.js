@@ -4,11 +4,13 @@ import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import Rating from 'react-star-rating-lite';
 import {Link} from "react-router-dom";
 import Modal from "react-responsive-modal";
-import {Inline} from '@zendeskgarden/react-loaders'
-import {days, getDateStr} from "../../../../core/helper/index"
+import {Inline} from '@zendeskgarden/react-loaders';
+import ContentEditable from 'react-contenteditable';
+import $ from 'jquery';
+import {days, getDateStr} from "../../../../core/helper/index";
 import PickupConfirmModal from "../PickupConfirmModal";
 import PickupSuccessModal from "../PickupSuccessModal";
-import {getOrderHistory, setRating} from "../../../../core/actions/dashboard.action";
+import {getOrderHistory, saveProjectName, setRating} from "../../../../core/actions/dashboard.action";
 
 class OrderConfirmModal extends Component {
   constructor(props) {
@@ -16,6 +18,7 @@ class OrderConfirmModal extends Component {
     
     let {info} = this.props;
     this.rating = [];
+    this.projectName = info.ProjectName;
     
     info.SoldItems.forEach((item, key) => {
       this.rating[key] = item.ratingRenter ? item.ratingRenter : [0, 0, 0];
@@ -27,7 +30,8 @@ class OrderConfirmModal extends Component {
       rating1: 0,
       rating2: 0,
       rating3: 0,
-      isRating: false
+      isRating: false,
+      isNameEditing: false
     }
   }
   
@@ -84,6 +88,14 @@ class OrderConfirmModal extends Component {
     this.rating[item][index] = val;
   };
   
+  handleSaveProjectName = async () => {
+    let {info} = this.props;
+    if (this.projectName !== info.ProjectName && this.projectName !== "") {
+      await saveProjectName({newName: this.projectName, paymentId: info.PaymentId});
+      await getOrderHistory();
+    }
+  };
+  
   renderStars = (count) => {
     let stars = [1, 2, 3, 4, 5].map(i => {
       return i <= count ?
@@ -104,7 +116,19 @@ class OrderConfirmModal extends Component {
       <Modal open={true} onClose={this.handleClose} center classNames={{modal: "order-modal"}} closeOnOverlayClick={false}>
         <div className="order-modal-desktop-tablet">
           <div className="order-modal-header">
-            <span>{info.ProjectName}<svg className="edit_icon"/></span>
+            <ContentEditable
+              className='content-editable'
+              html={this.projectName} // innerHTML of the editable div
+              disabled={false} // use true to disable edition
+              onChange={(e) => {
+                this.projectName = e.target.value.replace(/<div>/g, '');
+                this.projectName = this.projectName.replace(/<\/div>/g, '');
+                this.projectName = this.projectName.replace(/&nbsp;/g, '');
+                this.projectName = this.projectName.replace(/<br>/g, '');
+              }}
+              onBlur={this.handleSaveProjectName}
+            />
+            <svg className='edit_icon' onClick={() => $(".content-editable").trigger('focus')}/>
           </div>
           <div className="order-modal-body">
             <div className="paid-items">
@@ -238,16 +262,22 @@ class OrderConfirmModal extends Component {
               }
             </div>
             <div className="payment-success-info">
-              <div className="payment-method">
+              <div className="payment-bill">
                 <div className="checkout-total">
-                  <div><span className="text-gray">Total </span> $ {parseFloat(info.Total).toFixed(2)}</div>
-                  <div><span className="text-gray">Tax (21%) </span> $ {parseFloat(info.Tax).toFixed(2)}</div>
-                  <div><span className="text-gray">Fee (15%) </span> $ {parseFloat(info.Fee).toFixed(2)}</div>
+                  <div className="bill-left">
+                    <p className="text-gray">Total </p>
+                    <p className="text-gray">Tax (21%) </p>
+                    <p className="text-gray">Fee (15%) </p>
+                  </div>
+                  <div className="bill-right">
+                    <p>$ {parseFloat(info.Total).toFixed(2)}</p>
+                    <p>$ {parseFloat(info.Tax).toFixed(2)}</p>
+                    <p>$ {parseFloat(info.Fee).toFixed(2)}</p>
+                  </div>
                 </div>
                 <div className="checkout-amount">
-                  <div><span className="text-gray">Amount </span>
-                    <b>$ {parseFloat(info.Amount).toFixed(2)}</b>
-                  </div>
+                  <div><span className="text-gray">Amount </span></div>
+                  <div><b>$ {parseFloat(info.Amount).toFixed(2)}</b></div>
                 </div>
               </div>
               <div className="payment-result">
@@ -283,8 +313,19 @@ class OrderConfirmModal extends Component {
         </div>
         <div className="order-modal-mobile">
           <div className="order-modal-header">
-            <span>{info.ProjectName}
-              <svg className="edit_icon"/></span>
+            <ContentEditable
+              className='content-editable'
+              html={this.projectName} // innerHTML of the editable div
+              disabled={false} // use true to disable edition
+              onChange={(e) => {
+                this.projectName = e.target.value.replace(/<div>/g, '');
+                this.projectName = this.projectName.replace(/<\/div>/g, '');
+                this.projectName = this.projectName.replace(/&nbsp;/g, '');
+                this.projectName = this.projectName.replace(/<br>/g, '');
+              }}
+              onBlur={this.handleSaveProjectName}
+            />
+            <svg className='edit_icon' onClick={() => $(".content-editable").trigger('focus')}/>
           </div>
           <div className="order-modal-body">
             <div className="paid-items">
@@ -316,7 +357,7 @@ class OrderConfirmModal extends Component {
                         <div className="gear-info">
                           <div className='category-name'>{listItem.categoryName}</div>
                           <div className='brand-model'>{listItem.brand + ' ' + listItem.model}</div>
-                          <div className='category-name'>Tripod Anti-glare-lenses</div>
+                          <div className='category-name'>{listItem.accessories.join(' ')}</div>
                         </div>
                       </div>
                       <div className='buyer-info'>
@@ -372,33 +413,36 @@ class OrderConfirmModal extends Component {
                             <div className="row rating-select-bottom">
                               <div>
                                 <span>Gear</span>
-                                <Rating
-                                  value={`${this.rating[0]}`}
-                                  color="#f82462"
-                                  weight="22"
-                                  onClick={(v) => this.handleRatingChange(isRatingPossible, v, 0, index)}
-                                  readonly
-                                />
+                                {isRatingPossible ?
+                                  <Rating
+                                    value={`${this.rating[index][0]}`}
+                                    color="#f82462"
+                                    weight="22"
+                                    onClick={(v) => this.handleRatingChange(isRatingPossible, v, 0, index)}
+                                  /> : this.renderStars(this.rating[index][0])
+                                }
                               </div>
                               <div>
                                 <span>Owner</span>
-                                <Rating
-                                  value={`${this.rating[1]}`}
-                                  color="#f82462"
-                                  weight="22"
-                                  onClick={(v) => this.handleRatingChange(isRatingPossible, v, 1, index)}
-                                  readonly
-                                />
+                                {isRatingPossible ?
+                                  <Rating
+                                    value={`${this.rating[index][1]}`}
+                                    color="#f82462"
+                                    weight="22"
+                                    onClick={(v) => this.handleRatingChange(isRatingPossible, v, 1, index)}
+                                  /> : this.renderStars(this.rating[index][1])
+                                }
                               </div>
                               <div>
                                 <span>Platform</span>
-                                <Rating
-                                  value={`${this.rating[2]}`}
-                                  color="#f82462"
-                                  weight="22"
-                                  onClick={(v) => this.handleRatingChange(isRatingPossible, v, 2, index)}
-                                  readonly
-                                />
+                                {isRatingPossible ?
+                                  <Rating
+                                    value={`${this.rating[index][2]}`}
+                                    color="#f82462"
+                                    weight="22"
+                                    onClick={(v) => this.handleRatingChange(isRatingPossible, v, 2, index)}
+                                  /> : this.renderStars(this.rating[index][2])
+                                }
                               </div>
                             </div>
                           </div>

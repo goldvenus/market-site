@@ -151,7 +151,7 @@ class OwnerConfirmModal extends Component {
           </div>
           <div className="order-modal-body">
             <div className="paid-items">
-              <div className='paid-item owner-info-wrapper' style={isRatingMode ? {} : {'justify-content': 'center'}}>
+              <div className='paid-item owner-info-wrapper' style={isRatingMode ? {} : {'justifyContent': 'center'}}>
                 <div className='pay-info pay-info-history'>
                   <div className='buyer-info'>
                     <div className='buyer-info-left'>
@@ -287,16 +287,22 @@ class OwnerConfirmModal extends Component {
               }
             </div>
             <div className="payment-success-info">
-              <div className="payment-method">
+              <div className="payment-bill">
                 <div className="checkout-total">
-                  <div><span className="text-gray">Total </span> $ {parseFloat(info.Total).toFixed(2)}</div>
-                  <div><span className="text-gray">Tax (21%) </span> $ {parseFloat(info.Tax).toFixed(2)}</div>
-                  <div><span className="text-gray">Fee (15%) </span> $ {parseFloat(info.Fee).toFixed(2)}</div>
+                  <div className="bill-left">
+                    <p className="text-gray">Total </p>
+                    <p className="text-gray">Tax (21%) </p>
+                    <p className="text-gray">Fee (15%) </p>
+                  </div>
+                  <div className="bill-right">
+                    <p>$ {parseFloat(info.Total).toFixed(2)}</p>
+                    <p>$ {parseFloat(info.Tax).toFixed(2)}</p>
+                    <p>$ {parseFloat(info.Fee).toFixed(2)}</p>
+                  </div>
                 </div>
                 <div className="checkout-amount">
-                  <div><span className="text-gray">Amount </span>
-                    <b>$ {parseFloat(info.Amount).toFixed(2)}</b>
-                  </div>
+                  <div><span className="text-gray">Amount </span></div>
+                  <div><b>$ {parseFloat(info.Amount).toFixed(2)}</b></div>
                 </div>
               </div>
               <div className="payment-result">
@@ -322,8 +328,7 @@ class OwnerConfirmModal extends Component {
         
         <div className="order-modal-mobile">
           <div className="order-modal-header">
-            <span>{info.ProjectName}
-              <svg className="edit_icon"/></span>
+            <span>Renter</span>
           </div>
           <div className="order-modal-body">
             <div className="paid-items">
@@ -364,6 +369,40 @@ class OwnerConfirmModal extends Component {
                           </div>
                         </div>
                       </div>
+                      {isRatingMode ?
+                      <div className='pickup-btn-container'>
+                          <div className='renter-rating-container'>
+                            <div>
+                              <span>Renter</span>
+                              {isRatingPossible ?
+                                <Rating
+                                  value={`${this.rating[0]}`}
+                                  color="#f82462"
+                                  weight="22"
+                                  onClick={(v) => this.handleRatingChange(isRatingMode, v, 0)}
+                                /> : this.renderStars(this.rating[0])
+                              }
+                            </div>
+                            <div>
+                              <span>Platform</span>
+                              {isRatingPossible ?
+                                <Rating
+                                  value={`${this.rating[1]}`}
+                                  color="#f82462"
+                                  weight="22"
+                                  onClick={(v) => this.handleRatingChange(isRatingMode, v, 1)}
+                                /> : this.renderStars(this.rating[1])
+                              }
+                            </div>
+                            {isRatingPossible ?
+                              <button
+                                className='theme-btn theme-btn-primary owner-rating-btn'
+                                onClick={this.handleRating}
+                              >
+                                {this.state.isRating ? <Inline size={64} color={"#fff"}/> : 'Submit'}
+                              </button> : null}
+                          </div>
+                        </div> : null}
                     </div>
                     <div className='pay-info pay-info-history'>
                       <div className='item-info d-block'>
@@ -371,7 +410,7 @@ class OwnerConfirmModal extends Component {
                         <div className="gear-info">
                           <div className='category-name'>{listItem.categoryName}</div>
                           <div className='brand-model'>{listItem.brand + ' ' + listItem.model}</div>
-                          <div className='category-name'>Tripod Anti-glare-lenses</div>
+                          <div className='category-name'>{listItem.accessories.join(' ')}</div>
                         </div>
                       </div>
                       {/*<div className='buyer-info'>*/}
