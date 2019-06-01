@@ -27,9 +27,6 @@ class OrderConfirmModal extends Component {
     this.state = {
       curItem: null,
       modalOpenState: 0,
-      rating1: 0,
-      rating2: 0,
-      rating3: 0,
       isRating: false,
       isNameEditing: false
     }
@@ -145,8 +142,11 @@ class OrderConfirmModal extends Component {
                     return_status < 2 ? 'warning-btn disabled' : 'success-btn disabled';
                   let isRatingMode = pick_status > 1 && return_status > 1;
                   let isRatingPossible = listItem.ratingRenter === undefined;
-                  console.log(isRatingPossible);
-
+  
+                  if (this.state.isRating) {
+                    isRatingPossible = false;
+                  }
+                  
                   if (pick_status < 2) {
                     payout_finished = false;
                   }
@@ -341,11 +341,12 @@ class OrderConfirmModal extends Component {
                     return_status < 1 ? 'return-btn active-btn' :
                       return_status < 2 ? 'warning-btn disabled' : 'success-btn disabled';
                   let isRatingMode = pick_status > 1 && return_status > 1;
-                  let rating = listItem.ratingRenter ? listItem.ratingRenter : [0, 0, 0];
-                  let isRatingPossible = false;
-                  if (rating[0] === 0 && rating[1] === 0 && rating[2] === 0) {
-                    isRatingPossible = true;
+                  let isRatingPossible = listItem.ratingRenter === undefined;
+  
+                  if (this.state.isRating) {
+                    isRatingPossible = false;
                   }
+
                   if (pick_status < 2) {
                     payout_finished = false;
                   }

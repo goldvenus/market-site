@@ -32,6 +32,7 @@ class MaterialInputWithDropdown extends React.Component {
   };
 
   handleSelectItem = value => {
+    console.log(value);
     if (this.props.onChange) {
       this.props.onChange({ target: { value } });
     }

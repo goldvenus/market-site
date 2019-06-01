@@ -19,7 +19,7 @@ class RentGear extends React.Component {
     if (isLoading) {
       return <BarLoader color="#F82462" height="5"/>;
     }
-
+  
     categories = categories.reduce((arr, item) => arr.concat(item.categoryName), []);
     if (category === undefined) {
       this.props.history.push('/rentgear/all');

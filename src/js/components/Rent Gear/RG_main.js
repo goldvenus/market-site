@@ -37,8 +37,14 @@ class Main extends Component {
     };
   }
   
-  componentDidMount() {
-    this.loadProductList(this.props.category);
+  async componentDidMount() {
+    await this.loadProductList(this.props.category);
+    
+    if (localStorage.searchValue || localStorage.searchLocationValue) {
+      let searchText = localStorage.searchValue;
+      let locationText = localStorage.searchLocationValue;
+      this.setState({searchText: searchText, locationText: locationText});
+    }
   }
   
   initProductList = (category) => {
@@ -46,8 +52,9 @@ class Main extends Component {
       this.setState({
         searchText: '',
         locationText: ''
+      }, () => {
+        this.loadProductList(category);
       });
-      this.loadProductList(category);
     }
   };
   
@@ -123,12 +130,13 @@ class Main extends Component {
   
   doSearch = () => {
     let product_list = this.state.product_list;
-    const key1 = this.state.searchText;
-    const key2 = this.state.locationText;
+    let key1 = this.state.searchText;
+    let key2 = this.state.locationText;
     
     product_list = product_list.filter(item =>
-      (item.categoryName.indexOf(key1) !== -1 || item.brand.indexOf(key1) !== -1) &&
+      ((item.productName && item.productName.indexOf(key1) !== -1) || item.categoryName.indexOf(key1) !== -1 || item.brand.indexOf(key1) !== -1) &&
       ((item.city.indexOf(key2) !== -1 || item.address.indexOf(key2) !== -1) || item.product_region.indexOf(key2) !== -1));
+    
     return product_list;
   };
   
@@ -174,7 +182,6 @@ class Main extends Component {
         />
       </div>
     }
-    
     this.initProductList(category);
     
     product_list = this.doSearch();

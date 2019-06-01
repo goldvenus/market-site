@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Col, Container, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { socialLogin } from '../../core/actions/user.action';
-import { newArrivals } from '../../core/actions/gear.action'
+import {rentGearProductList} from '../../core/actions/gear.action'
 import MaterialInputWithDropdown from '../../components/common/MaterialInputWithDropdown';
 
 import imgLogo from './images/logo.png';
@@ -16,40 +16,38 @@ import {
 import $ from 'jquery';
 
 class Home extends React.Component {
-  state = {
-    searchValue: '',
-    searchResult: [],
-    searchLocationValue: '',
-    searchLocationResult: [],
-  };
-
-  handleChangeSearchValue = e => {
-    this.setState({
-      searchValue: (e && e.target && e.target.value) || '',
-    });
-  };
-
-  handleChangeSearchLocation = e => {
-    this.setState({
-      searchLocationValue: (e && e.target && e.target.value) || '',
-    });
-  };
-
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      searchValue: '',
+      searchResult: [],
+      searchLocationValue: '',
+      searchLocationResult: [],
+    };
+    
+    this.gearList = [];
+    this.productList = [];
+    this.categoryList = [];
+    this.locationList = [];
+    this.timer = null;
+  }
+  
+  async componentDidMount() {
     let $animation_elements = $('.animation-element');
     let $window = $(window);
-
+    
     function check_if_in_view() {
       let window_height = $window.height();
       let window_top_position = $window.scrollTop();
       let window_bottom_position = (window_top_position + window_height);
-
+      
       $.each($animation_elements, function () {
         let $element = $(this);
         let element_height = $element.outerHeight();
         let element_top_position = $element.offset().top;
         let element_bottom_position = (element_top_position + element_height);
-
+        
         //check to see if this current container is within viewport
         if ((element_bottom_position >= window_top_position) &&
           (element_top_position <= window_bottom_position)) {
@@ -59,19 +57,23 @@ class Home extends React.Component {
         }
       });
     }
-
+    
     $window.on('scroll resize', check_if_in_view);
     $window.trigger('scroll');
-
-    newArrivals();
-
+    
+    this.gearList = await rentGearProductList({
+      categoryName: '',
+      product_region: this.state.searchLocationValue,
+      brand: this.state.searchValue
+    });
+  
     //facebook login
     let href = window.location.href;
     if (href.indexOf('id_token') > 0) {
       let token1 = href.split('#')[1].split('&')[0];
       let token2 = href.split('#')[1].split('&')[1];
       let idToken, accesstoken;
-
+      
       if (token1.indexOf('id_token') > 0) {
         idToken = token1.replace('id_token=', '');
         accesstoken = token2.replace('access_token=', '');
@@ -79,10 +81,88 @@ class Home extends React.Component {
         accesstoken = token1.replace('access_token=', '');
         idToken = token2.replace('id_token=', '');
       }
-
+      
       socialLogin(idToken, accesstoken);
     }
   }
+  
+  performSearch = async () => {
+    this.productList = this.categoryList = this.locationList = [];
+    let key1 = this.state.searchValue;
+    let key2 = this.state.searchLocationValue;
+
+    if (!key1 && !key2) return;
+
+    let gearList1 = this.gearList.filter(item =>
+      ((item.productName && item.productName.indexOf(key1) !== -1) || item.categoryName.indexOf(key1) !== -1 || item.brand.indexOf(key1) !== -1));
+    
+    let gearList2 = this.gearList.filter(item =>
+      ((item.city.indexOf(key2) !== -1 || item.address.indexOf(key2) !== -1) || item.product_region.indexOf(key2) !== -1));
+  
+    gearList1.forEach((item) => {
+      this.productList = [...this.productList, item.productName];
+      this.categoryList = [...this.categoryList, item.categoryName];
+    });
+    gearList2.forEach((item) => {
+      this.locationList = [...this.locationList, item.city + ', ' + item.address];
+    });
+    
+    this.forceUpdate();
+  };
+  
+  handleChangeSearchValue = async (e) => {
+    this.setState({
+      searchValue: (e && e.target && e.target.value) || '',
+    });
+    
+    clearTimeout(this.timer);
+    this.timer = setTimeout(this.performSearch, 100);
+  };
+
+  handleChangeSearchLocation = e => {
+    this.setState({
+      searchLocationValue: (e && e.target && e.target.value) || '',
+    });
+  
+    clearTimeout(this.timer);
+    this.timer = setTimeout(this.performSearch, 100);
+  };
+  
+  handleSearch = () => {
+    localStorage.searchValue = this.state.searchValue;
+    localStorage.searchLocationValue = this.state.searchLocationValue;
+    this.props.history.push('/rentgear/all');
+  };
+  
+  renderSearchAddOn = () => {
+    return (
+      <div className="search-addon">
+        <div className="search-brand-category-wrapper">
+          {
+            this.categoryList.length > 0 && this.categoryList.map((item, key) => (
+              <div className="search-category-item" key={key}>
+                <span>{this.state.searchValue} in {item} ></span>
+              </div>))
+          }
+        </div>
+      </div>
+    )
+  };
+  
+  // renderLocationAddOn = () => {
+  //   return (
+  //     <div className="search-addon">
+  //       <div className="search-brand-product-wrapper">
+  //         {
+  //           this.locationList.map((item, key) => (
+  //             <div className="search-product-item" key={key}>
+  //               <span>{item}</span>
+  //             </div>))
+  //         }
+  //       </div>
+  //     </div>
+  //   )
+  // };
 
   render() {
     const {
@@ -90,16 +170,16 @@ class Home extends React.Component {
       searchLocationValue,
     } = this.state;
 
-    const {
-      categories
-    } = this.props;
-
-    let searchResult = [];
-    if (categories && categories.length) {
-      const pattern = new RegExp(searchValue, 'ig');
-      const suggestions = (this.props.categories || []).map(cat => cat.categoryName);
-      searchResult = suggestions.filter((s) => s.search(pattern) > -1);
-    }
+    // const {
+    //   categories
+    // } = this.props;
+    //
+    // let searchResult = [];
+    // if (categories && categories.length) {
+    //   const pattern = new RegExp(searchValue, 'ig');
+    //   const suggestions = (this.props.categories || []).map(cat => cat.categoryName);
+    //   searchResult = suggestions.filter((s) => s.search(pattern) > -1);
+    // }
 
     return (
       <div className="page home-page home">
@@ -153,29 +233,23 @@ class Home extends React.Component {
                         noHelp
                         value={searchValue}
                         onChange={this.handleChangeSearchValue}
-                        dropdownItems={searchResult}
-                        dropdownAddons={<div className="search-addon">
-                          <div className="search-addon-item">
-                            <span>{searchValue} in Cameras ></span>
-                          </div>
-                          <div className="search-addon-item">
-                            <span>{searchValue} in Lenses ></span>
-                          </div>
-                        </div>}
+                        dropdownItems={this.productList}
+                        dropdownAddons={this.renderSearchAddOn()}
                       />
                     </div>
 
-                    <div className="location-search-wrapper">
+                    <div className="location-search-wrapper search-wrapper">
                       <MaterialInputWithDropdown
                         label="Location"
                         noHelp
                         value={searchLocationValue}
                         onChange={this.handleChangeSearchLocation}
+                        dropdownItems={this.locationList}
                       />
                     </div>
                   </div>
 
-                  <button className="search-btn">
+                  <button className="search-btn" onClick={this.handleSearch}>
                     <IconSearch className="d-none d-lg-block"/>
                     <span className="d-lg-none">
                       Search

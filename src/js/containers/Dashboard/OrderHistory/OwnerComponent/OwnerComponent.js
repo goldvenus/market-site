@@ -76,12 +76,13 @@ class OwnerComponent extends Component {
         } else if (firstSoldItem.ReturnStatus > 1) {
           returnStatus = 2;
         }
-        
-        if (firstSoldItem.returnGearStatus && listItem.ratingOwner && firstSoldItem.ratingRenter) {
+  
+        let ratingOwner = listItem.ratingOwner && listItem.ratingOwner.filter((item) => item[0] === localStorage.userId).length > 0;
+        if (firstSoldItem.returnGearStatus && ratingOwner && firstSoldItem.ratingRenter) {
           ratingStatus = 3;
-        } else if (listItem.ratingOwner && firstSoldItem.ratingRenter) {
+        } else if (ratingOwner && firstSoldItem.ratingRenter) {
           ratingStatus = 2;
-        } else if (listItem.ratingOwner || firstSoldItem.ratingRenter) {
+        } else if (ratingOwner || firstSoldItem.ratingRenter) {
           ratingStatus = 1;
         }
         
@@ -179,11 +180,12 @@ class OwnerComponent extends Component {
           returnStatus = 2;
         }
   
-        if (firstSoldItem.returnGearStatus && listItem.ratingOwner && firstSoldItem.ratingRenter) {
+        let ratingOwner = listItem.ratingOwner && listItem.ratingOwner.filter((item) => item[0] === localStorage.userId).length > 0;
+        if (firstSoldItem.returnGearStatus && ratingOwner && firstSoldItem.ratingRenter) {
           ratingStatus = 3;
-        } else if (listItem.ratingOwner && firstSoldItem.ratingRenter) {
+        } else if (ratingOwner && firstSoldItem.ratingRenter) {
           ratingStatus = 2;
-        } else if (listItem.ratingOwner || firstSoldItem.ratingRenter) {
+        } else if (ratingOwner || firstSoldItem.ratingRenter) {
           ratingStatus = 1;
         }
   
@@ -269,11 +271,12 @@ class OwnerComponent extends Component {
           returnStatus = 2;
         }
   
-        if (firstSoldItem.returnGearStatus && listItem.ratingOwner && firstSoldItem.ratingRenter) {
+        let ratingOwner = listItem.ratingOwner && listItem.ratingOwner.filter((item) => item[0] === localStorage.userId).length > 0;
+        if (firstSoldItem.returnGearStatus && ratingOwner && firstSoldItem.ratingRenter) {
           ratingStatus = 3;
-        } else if (listItem.ratingOwner && firstSoldItem.ratingRenter) {
+        } else if (ratingOwner && firstSoldItem.ratingRenter) {
           ratingStatus = 2;
-        } else if (listItem.ratingOwner || firstSoldItem.ratingRenter) {
+        } else if (ratingOwner || firstSoldItem.ratingRenter) {
           ratingStatus = 1;
         }
         

@@ -3,6 +3,7 @@ import {Table} from "reactstrap";
 import {getTransHistory} from "../../../core/actions/payment.action";
 import connect from "react-redux/es/connect/connect";
 import CustomSpinner from "../../../components/CustomSpinner";
+import {getYearMonthStr} from "../../../core/helper";
 
 class TransactionHistory extends Component {
   constructor(props) {
@@ -18,17 +19,8 @@ class TransactionHistory extends Component {
       curDate: new Date()
     };
   
-    getTransHistory(this.getYearMonthStr(new Date()));
+    getTransHistory(getYearMonthStr(new Date()));
   }
-  
-  getYearMonthStr = (date) => {
-    let year = date.getFullYear();
-    let month = date.getMonth() + 1;
-    if (month < 10)
-      month = '0' + month;
-    
-    return {yearMonth: year + '-' + month};
-  };
   
   handleMonthNavigation = (val) => {
     let tempDate = this.state.curDate;

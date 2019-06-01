@@ -17,7 +17,15 @@ class OwnerConfirmModal extends Component {
     super(props);
     
     let {info} = this.props;
-    this.rating = info.ratingOwner ? info.ratingOwner : [0, 0];
+    this.rating = [0, 0];
+    if (info.ratingOwner) {
+      let ratingTemp = info.ratingOwner.filter((item) => item[0] === localStorage.userId);
+      if (ratingTemp.length > 0) {
+        this.rating = ratingTemp[0].slice(1, 3);
+      }
+    }
+    console.log(this.rating);
+    
     let gearStatus = [];
     let emptyStatus = [];
     info.SoldItems.forEach((item, key) => {
@@ -128,7 +136,7 @@ class OwnerConfirmModal extends Component {
     let sold_items = info.SoldItems;
     let renter = info.renter;
     let payout_finished = true;
-    let ratingOwner = info.ratingOwner ? info.ratingOwner : [0, 0];
+    let ratingOwner = this.rating;
     let isRatingMode = true;
     let isRatingPossible = true;
 
@@ -198,7 +206,7 @@ class OwnerConfirmModal extends Component {
                       /> : this.renderStars(this.rating[1])
                       }
                     </div>
-                    {isRatingPossible ?
+                    {this.state.isRating || isRatingPossible ?
                     <button
                       className='theme-btn theme-btn-primary owner-rating-btn'
                       onClick={this.handleRating}

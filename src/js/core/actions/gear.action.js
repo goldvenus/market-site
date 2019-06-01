@@ -105,10 +105,6 @@ const getUsedNames = async () => {
 };
 
 const rentGearProductList = async (catDetail) => {
-  // dispatch({
-  //     type: constants.LIST_GEARS_REQUEST
-  // });
-  
   return new Promise(async (resolve, reject) => {
     try {
       let response = await post('showRentGearProductsList', catDetail);
@@ -125,26 +121,26 @@ const rentGearProductList = async (catDetail) => {
   });
 };
 
-const newArrivals = async () => {
-  dispatch({
-    type: constants.NEW_ARRIVALS_REQUEST,
-  });
-  try {
-    let response = await get('viewNewArrivalGears');
-    
-    if (response) {
-      dispatch({
-        type: constants.NEW_ARRIVALS_SUCCESS,
-        payload: response.data
-      });
-    }
-  } catch (error) {
-    dispatch({
-      type: constants.NEW_ARRIVALS_FAILED,
-    });
-    handleError(error);
-  }
-};
+// const newArrivals = async () => {
+//   dispatch({
+//     type: constants.NEW_ARRIVALS_REQUEST,
+//   });
+//   try {
+//     let response = await get('viewNewArrivalGears');
+//
+//     if (response) {
+//       dispatch({
+//         type: constants.NEW_ARRIVALS_SUCCESS,
+//         payload: response.data
+//       });
+//     }
+//   } catch (error) {
+//     dispatch({
+//       type: constants.NEW_ARRIVALS_FAILED,
+//     });
+//     handleError(error);
+//   }
+// };
 
 const deleteGear = async (data) => {
   dispatch({
@@ -172,5 +168,5 @@ const deleteGear = async (data) => {
 };
 
 export {
-  newArrivals, addGear, deleteGear, getGear, rentGearProductList, getListGears, editGear, getUsedNames
+  addGear, deleteGear, getGear, rentGearProductList, getListGears, editGear, getUsedNames
 };

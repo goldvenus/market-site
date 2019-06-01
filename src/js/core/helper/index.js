@@ -10,6 +10,15 @@ const getDateStr = date => {
   return date && moment(date).format('DD.MM.YYYY');
 };
 
+const getYearMonthStr = (date) => {
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  if (month < 10)
+    month = '0' + month;
+  
+  return {yearMonth: year + '-' + month};
+};
+
 const getUTCDateFormat = (date) => ((date.getUTCMonth() + 1) + '.' + date.getUTCDate() + '.' + date.getUTCFullYear()) + ' ' + date.getUTCHours() + ':' + date.getUTCMinutes() + ' GMT';
 
 const formatDate = (date) => {
@@ -87,6 +96,6 @@ const checkDigitSpace = value => {
 };
 
 export {
-  calcDaysDiff, getDateStr, formatDate, days, getUTCDateFormat,
+  calcDaysDiff, getDateStr, formatDate, days, getUTCDateFormat, getYearMonthStr,
   getUniqueObjectArray, validateCard, cc_format, checkDigitSpace
 }

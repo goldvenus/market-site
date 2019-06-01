@@ -15,7 +15,9 @@
         margin-right: 30px;
       }
       .user-info{
-        padding:0px !important;
+        padding:0 !important;
+        width: 40%;
+
         h3{
           font-size: 27px;
           margin-bottom: 18px;
@@ -31,23 +33,17 @@
         color: #252525;
         font-weight: 800 !important;
       }
-      .text-muted-email{
+      .text-muted-email {
         font-size:16px;
       }
-
-
-      .head-phone-region{
-        margin-left:124px;
-        padding:0px !important;
+      .head-phone-region {
+        padding:0 !important;
       }
-
-
       img {
         width: 156px;
         height: 156px;
         border-radius: 50%;
       }
-
       p {
         margin-bottom: 0.25rem;
       }
@@ -914,6 +910,7 @@ span.delete_my_gear {
     width: 100% !important;
     display: flex;
     margin-bottom: 18px !important;
+
     .chart-detail-wrapper {
       width: inherit !important;
       height: 100% !important;
@@ -1103,9 +1100,17 @@ span.delete_my_gear {
     border: solid 20px #f5f5f5 !important;
   }
   .dashboard-head {
-    img{
-      width: 141px !important;
-      height: 141px !important;
+    .user-detail {
+      .user-avatar {
+        width: 30%;
+        img {
+          width: 141px !important;
+          height: 141px !important;
+        }
+      }
+      .user-info {
+        width: 65% !important;
+      }
     }
   }
   .react-tabs__tab-list{
@@ -1135,10 +1140,6 @@ span.delete_my_gear {
     padding: 0 !important;
     background-color: white !important;
 
-    //img {
-    //  width: 90px !important;
-    //  height: 90px !important;
-    //}
     .col-sm-12 {
       padding: 0;
       background-color: white;
@@ -1338,7 +1339,6 @@ span.delete_my_gear {
               font-family: Helvetica Neue, sans-serif;
               font-size: 16px;
               line-height: 27px;
-              text-align: center;
               color: #252525;
               text-align: left;
             }
@@ -1375,7 +1375,6 @@ span.delete_my_gear {
         font-family: Helvetica Neue, sans-serif;
         font-size: 12px;
         line-height: 18px;
-        text-align: center;
         letter-spacing: 0.03em;
         color: #3A3A3A;
         opacity: 0.5;
@@ -1402,6 +1401,14 @@ span.delete_my_gear {
         padding: 10px !important;
         font-weight: 600;
       }
+    }
+    &:before {
+      width: 100%;
+      margin-left: -4%;
+      height: 1px;
+      background: #f2f2f2;
+      position: absolute;
+      content: '';
     }
   }
   .wrraper_dashboard {
@@ -1529,9 +1536,7 @@ span.delete_my_gear {
       padding: 16px !important;
       label, input {
         margin-left: 15px !important;
-      }
-      input {
-        text-align: left;
+        text-align: left !important;
       }
       label {
         transform-origin: top left !important;
@@ -1708,7 +1713,9 @@ span.delete_my_gear {
       .user-detail {
         .user-avatar {
           margin-right:18px !important;
-          img{
+          width: 15%;
+
+          img {
             display:block;
             border-radius: 50%;
             width: 36px !important;

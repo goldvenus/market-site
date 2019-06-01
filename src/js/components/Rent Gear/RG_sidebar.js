@@ -47,7 +47,7 @@ class Sidebar extends Component {
         <div className="sidebar-wrapper d-none d-lg-flex">
           <ListGroup>
             <ListGroupItem value='all' key={0}>
-              <Link className={`${pathname==='/rentgear/all' ? 'item-active rent-gear-sidebar-link' : ''}`} to='/rentgear/all'>
+              <Link className={`${pathname === '/rentgear/all' ? 'item-active rent-gear-sidebar-link' : ''}`} to='/rentgear/all'>
                 All Categories
               </Link>
             </ListGroupItem>

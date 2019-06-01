@@ -13,6 +13,7 @@ import {
 import CustomSpinner from "../../components/CustomSpinner";
 import BarLoader from "react-bar-loader";
 import ConfirmModal from "../../components/common/ConfirmModal";
+import {getYearMonthStr} from "../../core/helper";
 
 class PaymentDetail extends Component {
   constructor(props) {
@@ -47,7 +48,7 @@ class PaymentDetail extends Component {
   
   performWithdrawal = async () => {
     await withdrawalToVendor();
-    await getTransHistory();
+    await getTransHistory(getYearMonthStr(new Date()));
     this.setState({modalOpenState: 0});
   };
   

@@ -95,11 +95,12 @@ class OrderHistory extends Component {
           returnStatus = 2;
         }
   
-        if (firstSoldItem.returnGearStatus && listItem.ratingOwner && firstSoldItem.ratingRenter) {
+        let ratingOwner = listItem.ratingOwner && listItem.ratingOwner.filter((item) => item[0] === firstSoldItem.ownerUserid).length > 0;
+        if (firstSoldItem.returnGearStatus && ratingOwner && firstSoldItem.ratingRenter) {
           ratingStatus = 3;
-        } else if (listItem.ratingOwner && firstSoldItem.ratingRenter) {
+        } else if (ratingOwner && firstSoldItem.ratingRenter) {
           ratingStatus = 2;
-        } else if (listItem.ratingOwner || firstSoldItem.ratingRenter) {
+        } else if (ratingOwner || firstSoldItem.ratingRenter) {
           ratingStatus = 1;
         }
         console.log(returnStatus, ratingStatus);
@@ -198,11 +199,12 @@ class OrderHistory extends Component {
           returnStatus = 2;
         }
   
-        if (firstSoldItem.returnGearStatus && listItem.ratingOwner && firstSoldItem.ratingRenter) {
+        let ratingOwner = listItem.ratingOwner && listItem.ratingOwner.filter((item) => item[0] === firstSoldItem.ownerUserid).length > 0;
+        if (firstSoldItem.returnGearStatus && ratingOwner && firstSoldItem.ratingRenter) {
           ratingStatus = 3;
-        } else if (listItem.ratingOwner && firstSoldItem.ratingRenter) {
+        } else if (ratingOwner && firstSoldItem.ratingRenter) {
           ratingStatus = 2;
-        } else if (listItem.ratingOwner || firstSoldItem.ratingRenter) {
+        } else if (ratingOwner || firstSoldItem.ratingRenter) {
           ratingStatus = 1;
         }
         
@@ -285,11 +287,12 @@ class OrderHistory extends Component {
           returnStatus = 2;
         }
   
-        if (firstSoldItem.returnGearStatus && listItem.ratingOwner && firstSoldItem.ratingRenter) {
+        let ratingOwner = listItem.ratingOwner && listItem.ratingOwner.filter((item) => item[0] === firstSoldItem.ownerUserid).length > 0;
+        if (firstSoldItem.returnGearStatus && ratingOwner && firstSoldItem.ratingRenter) {
           ratingStatus = 3;
-        } else if (listItem.ratingOwner && firstSoldItem.ratingRenter) {
+        } else if (ratingOwner && firstSoldItem.ratingRenter) {
           ratingStatus = 2;
-        } else if (listItem.ratingOwner || firstSoldItem.ratingRenter) {
+        } else if (ratingOwner || firstSoldItem.ratingRenter) {
           ratingStatus = 1;
         }
         
@@ -368,10 +371,13 @@ class OrderHistory extends Component {
     let newCount = 0;
     ownerHistories.forEach((item) => {
       let isNew = false;
+      let firstSoldItem = item.SoldItems[0];
+      let ratingOwner = item.ratingOwner && item.ratingOwner.filter((item) => item[0] === firstSoldItem.ownerUserid).length > 0;
+      
       item.SoldItems.forEach((item1) => {
         if (item1.PickStatus === 1 || item1.ReturnStatus === 1) {
           isNew = true;
-        } else if (item1.PickStatus > 1 && item1.ReturnStatus > 1 && (!item.ratingOwner || !item1.returnGearStatus)) {
+        } else if (item1.PickStatus > 1 && item1.ReturnStatus > 1 && (!ratingOwner || !item1.returnGearStatus)) {
           isNew = true;
         }
       });
@@ -463,6 +469,7 @@ class OrderHistory extends Component {
 }
 
 const mapStateToProps = state => ({
+  user: state.user.user,
   renterHistories: state.dashboard.renterHistories,
   ownerHistories: state.dashboard.ownerHistories,
   isLoadingOrderHistory: state.dashboard.isLoadingOrderHistory
