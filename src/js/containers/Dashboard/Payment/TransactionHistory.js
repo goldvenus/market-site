@@ -28,7 +28,7 @@ class TransactionHistory extends Component {
       tempDate.setMonth(tempDate.getMonth() - 1) :
       tempDate.setMonth(tempDate.getMonth() + 1);
     
-    getTransHistory(this.getYearMonthStr(tempDate));
+    getTransHistory(getYearMonthStr(tempDate));
   };
   
   render() {

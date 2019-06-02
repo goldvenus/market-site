@@ -5,6 +5,7 @@ import { getCarts } from "./cart.action";
 import { getFavourites } from "./favourite.action";
 import constants from "../types";
 import store from '../../store';
+import {rentGearProductList} from "./gear.action";
 const dispatch = store.dispatch;
 
 const register = async (data) => {
@@ -57,6 +58,11 @@ const login = async (data) => {
 
     getCarts();
     getFavourites();
+    rentGearProductList({
+      categoryName: '',
+      product_region: '',
+      brand: ''
+    });
   } else {
     dispatch({
       type: constants.LOGIN_FAILED

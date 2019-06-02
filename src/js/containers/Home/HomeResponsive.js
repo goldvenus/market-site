@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Col, Container, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { socialLogin } from '../../core/actions/user.action';
-import {rentGearProductList} from '../../core/actions/gear.action'
 import MaterialInputWithDropdown from '../../components/common/MaterialInputWithDropdown';
 
 import imgLogo from './images/logo.png';
@@ -26,7 +25,7 @@ class Home extends React.Component {
       searchLocationResult: [],
     };
     
-    this.gearList = [];
+    this.gearList = this.props.productList;
     this.productList = [];
     this.categoryList = [];
     this.locationList = [];
@@ -60,12 +59,6 @@ class Home extends React.Component {
     
     $window.on('scroll resize', check_if_in_view);
     $window.trigger('scroll');
-    
-    this.gearList = await rentGearProductList({
-      categoryName: '',
-      product_region: this.state.searchLocationValue,
-      brand: this.state.searchValue
-    });
   
     //facebook login
     let href = window.location.href;
@@ -86,18 +79,24 @@ class Home extends React.Component {
     }
   }
   
+  componentWillReceiveProps(props) {
+    if (props.productList && !this.gearList) {
+      this.gearList = props.productList;
+    }
+  }
+  
   performSearch = async () => {
     this.productList = this.categoryList = this.locationList = [];
-    let key1 = this.state.searchValue;
-    let key2 = this.state.searchLocationValue;
+    let key1 = this.state.searchValue.toLowerCase();
+    let key2 = this.state.searchLocationValue.toLowerCase();
 
     if (!key1 && !key2) return;
 
-    let gearList1 = this.gearList.filter(item =>
-      ((item.productName && item.productName.indexOf(key1) !== -1) || item.categoryName.indexOf(key1) !== -1 || item.brand.indexOf(key1) !== -1));
+    let gearList1 = (this.gearList || []).filter(item =>
+      ((item.productName && item.productName.toLowerCase().indexOf(key1) !== -1) || item.categoryName.toLowerCase().indexOf(key1) !== -1 || item.brand.toLowerCase().indexOf(key1) !== -1));
     
-    let gearList2 = this.gearList.filter(item =>
-      ((item.city.indexOf(key2) !== -1 || item.address.indexOf(key2) !== -1) || item.product_region.indexOf(key2) !== -1));
+    let gearList2 = (this.gearList || []).filter(item =>
+      ((item.city.toLowerCase().indexOf(key2) !== -1 || item.address.toLowerCase().indexOf(key2) !== -1) || item.product_region.toLowerCase().indexOf(key2) !== -1));
   
     gearList1.forEach((item) => {
       this.productList = [...this.productList, item.productName];
@@ -110,18 +109,18 @@ class Home extends React.Component {
     this.forceUpdate();
   };
   
-  handleChangeSearchValue = async (e) => {
+  handleChangeSearchValue = (e) => {
     this.setState({
-      searchValue: (e && e.target && e.target.value) || '',
+      searchValue: (e && e.target && e.target.value) || ''
     });
     
     clearTimeout(this.timer);
     this.timer = setTimeout(this.performSearch, 100);
   };
 
-  handleChangeSearchLocation = e => {
+  handleChangeSearchLocation = (e) => {
     this.setState({
-      searchLocationValue: (e && e.target && e.target.value) || '',
+      searchLocationValue: (e && e.target && e.target.value) || ''
     });
   
     clearTimeout(this.timer);
@@ -131,6 +130,10 @@ class Home extends React.Component {
   handleSearch = () => {
     localStorage.searchValue = this.state.searchValue;
     localStorage.searchLocationValue = this.state.searchLocationValue;
+
+    if (!localStorage.accessToken) {
+      return;
+    }
     this.props.history.push('/rentgear/all');
   };
   
@@ -148,38 +151,12 @@ class Home extends React.Component {
       </div>
     )
   };
-  
-  // renderLocationAddOn = () => {
-  //   return (
-  //     <div className="search-addon">
-  //       <div className="search-brand-product-wrapper">
-  //         {
-  //           this.locationList.map((item, key) => (
-  //             <div className="search-product-item" key={key}>
-  //               <span>{item}</span>
-  //             </div>))
-  //         }
-  //       </div>
-  //     </div>
-  //   )
-  // };
 
   render() {
     const {
       searchValue,
       searchLocationValue,
     } = this.state;
-
-    // const {
-    //   categories
-    // } = this.props;
-    //
-    // let searchResult = [];
-    // if (categories && categories.length) {
-    //   const pattern = new RegExp(searchValue, 'ig');
-    //   const suggestions = (this.props.categories || []).map(cat => cat.categoryName);
-    //   searchResult = suggestions.filter((s) => s.search(pattern) > -1);
-    // }
 
     return (
       <div className="page home-page home">
@@ -232,9 +209,9 @@ class Home extends React.Component {
                         label="Search"
                         noHelp
                         value={searchValue}
-                        onChange={this.handleChangeSearchValue}
-                        dropdownItems={this.productList}
+                        dropdownItems={this.productList || []}
                         dropdownAddons={this.renderSearchAddOn()}
+                        onChange={this.handleChangeSearchValue}
                       />
                     </div>
 
@@ -243,8 +220,9 @@ class Home extends React.Component {
                         label="Location"
                         noHelp
                         value={searchLocationValue}
+                        dropdownItems={this.locationList || []}
                         onChange={this.handleChangeSearchLocation}
-                        dropdownItems={this.locationList}
+                        onSearch={this.handleSearch}
                       />
                     </div>
                   </div>
@@ -296,7 +274,7 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  categories: state.category.categories,
+  productList: state.gear.searchResults,
   isAuthenticated: state.user.isAuthenticated
 });
 

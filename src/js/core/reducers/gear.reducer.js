@@ -49,6 +49,17 @@ export default (state = initialState, action) => {
         draft.isLoading = false;
         break;
       
+      case constants.SEARCH_PRODUCTS_REQUEST:
+        draft.isLoading = true;
+        break;
+      case constants.SEARCH_PRODUCTS_SUCCESS:
+        draft.searchResults = action.payload;
+        draft.isLoading = false;
+        break;
+      case constants.SEARCH_PRODUCTS_FAILED:
+        draft.isLoading = false;
+        break;
+        
       case constants.GET_GEAR_REQUEST:
         draft.isLoadingGear = true;
         break;
@@ -82,17 +93,6 @@ export default (state = initialState, action) => {
         break;
       case constants.NEW_ARRIVALS_FAILED:
         draft.newArrivals = null;
-        draft.isLoading = false;
-        break;
-      
-      case constants.SEARCH_HOME_REQUEST:
-        draft.isLoading = true;
-        break;
-      case constants.SEARCH_HOME_SUCCESS:
-        draft.searchResult = action.payload;
-        draft.isLoading = false;
-        break;
-      case constants.SEARCH_HOME_FAILED:
         draft.isLoading = false;
         break;
       

@@ -130,12 +130,12 @@ class Main extends Component {
   
   doSearch = () => {
     let product_list = this.state.product_list;
-    let key1 = this.state.searchText;
-    let key2 = this.state.locationText;
+    let key1 = this.state.searchText.toLowerCase();
+    let key2 = this.state.locationText.toLowerCase();
     
     product_list = product_list.filter(item =>
-      ((item.productName && item.productName.indexOf(key1) !== -1) || item.categoryName.indexOf(key1) !== -1 || item.brand.indexOf(key1) !== -1) &&
-      ((item.city.indexOf(key2) !== -1 || item.address.indexOf(key2) !== -1) || item.product_region.indexOf(key2) !== -1));
+      ((item.productName && item.productName.toLowerCase().indexOf(key1) !== -1) || item.categoryName.toLowerCase().indexOf(key1) !== -1 || item.brand.toLowerCase().indexOf(key1) !== -1) &&
+      ((item.city.toLowerCase().indexOf(key2) !== -1 || item.address.toLowerCase().indexOf(key2) !== -1) || item.product_region.toLowerCase().indexOf(key2) !== -1));
     
     return product_list;
   };

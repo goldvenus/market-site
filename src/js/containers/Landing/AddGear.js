@@ -675,20 +675,16 @@ class AddGear extends Component {
         {this.state.progressStep < 3 ? (
           <div id="continue-button">
             <div className="flex-row buttons-container">
-              {
-                this.state.progressStep !== 0 ?
-                  <button className="theme-btn theme-btn-secondary theme-back-btn"
-                          onClick={this.previousStep.bind(this)}>
-                    <span className="fa fa-angle-left"/> Back
-                  </button> : null
-              }
-              {
-                user.nummusVendorId ?
-                  <button className="theme-btn theme-btn-primary theme-continue-btn"
-                          onClick={this.nextStep.bind(this)}>Continue <span
-                    className="fa fa-angle-right"/></button> :
-                  <button className="theme-btn theme-btn-primary"><Link to='/dashboard'>Create Vendor Account</Link></button>
-              }
+              {this.state.progressStep !== 0 ?
+              <button className="theme-btn theme-btn-secondary theme-back-btn"
+                      onClick={this.previousStep.bind(this)}>
+                <span className="fa fa-angle-left"/> Back
+              </button> : null}
+              {user.nummusVendorId ?
+              <button className="theme-btn theme-btn-primary theme-continue-btn"
+                      onClick={this.nextStep.bind(this)}>Continue <span
+                className="fa fa-angle-right"/></button> :
+              <button className="theme-btn theme-btn-primary"><Link to='/dashboard'>Create Vendor Account</Link></button>}
             </div>
           </div>) : null
         }

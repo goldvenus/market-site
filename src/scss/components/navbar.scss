@@ -487,6 +487,10 @@ header {
     li {
       display: flex;
 
+      &:first-child {
+        margin-right: 20px;
+      }
+
       & > a {
         display: block;
         padding: 20px;

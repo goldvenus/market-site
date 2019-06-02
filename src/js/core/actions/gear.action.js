@@ -9,14 +9,14 @@ const addGear = async (data) => {
   dispatch({
     type: constants.ADD_GEAR_REQUEST,
   });
-  let response = await post('addGearItem', data);
-  if (response && response.data && response.data.status === 'success') {
+  let res = await post('addGearItem', data);
+  if (res && res.data && res.data.status === 'success') {
     dispatch({
       type: constants.ADD_GEAR_SUCCESS,
-      payload: response.data.data
+      payload: res.data.data
     });
     handleInfo('Gear was added successfully');
-    return response.data.data;
+    return res.data.data;
   } else {
     handleError('Gear adding was failed');
     return false;
@@ -28,11 +28,11 @@ const editGear = async (data) => {
     type: constants.EDIT_GEAR_REQUEST,
   });
   try {
-    let response = await post('editGearItem', data);
-    if (response && response.data && response.data.status === 'success') {
+    let res = await post('editGearItem', data);
+    if (res && res.data && res.data.status === 'success') {
       dispatch({
         type: constants.EDIT_GEAR_SUCCESS,
-        payload: response.data.data
+        payload: res.data.data
       });
       handleInfo('Gear was edited');
       return true;
@@ -51,11 +51,11 @@ const getGear = async (gearid) => {
   });
   return new Promise(async (resolve, reject) => {
     try {
-      let response = await post('viewAddedGearItem', {gearid});
-      if (response && response.data && response.data.status === 'success') {
+      let res = await post('viewAddedGearItem', {gearid});
+      if (res && res.data && res.data.status === 'success') {
         dispatch({
           type: constants.GET_GEAR_SUCCESS,
-          payload: response.data.data
+          payload: res.data.data
         });
         resolve(true);
       } else {
@@ -76,11 +76,11 @@ const getListGears = async () => {
     type: constants.LIST_GEARS_REQUEST
   });
   try {
-    let response = await get('viewUserGearList');
-    if (response && response.data && response.data.status === 'success') {
+    let res = await get('viewUserGearList');
+    if (res && res.data && res.data.status === 'success') {
       dispatch({
         type: constants.LIST_GEARS_SUCCESS,
-        payload: response.data.data
+        payload: res.data.data
       });
     }
   } catch (error) {
@@ -93,9 +93,9 @@ const getListGears = async () => {
 
 const getUsedNames = async () => {
   try {
-    let response = await get('getGearUsedNames');
-    if (response && response.data && response.data.status === 'success') {
-      return response.data.data;
+    let res = await get('getGearUsedNames');
+    if (res && res.data && res.data.status === 'success') {
+      return res.data.data;
     }
     return false;
   } catch (error) {
@@ -105,13 +105,26 @@ const getUsedNames = async () => {
 };
 
 const rentGearProductList = async (catDetail) => {
+  if (!localStorage.accessToken) {
+    return;
+  }
+  dispatch({
+    type: constants.SEARCH_PRODUCTS_REQUEST
+  });
   return new Promise(async (resolve, reject) => {
     try {
-      let response = await post('showRentGearProductsList', catDetail);
-      if (response.data && response.data.status === 'success') {
-        resolve(response.data.data);
+      let res = await post('showRentGearProductsList', catDetail);
+      if (res && res.data && res.data.status === 'success') {
+        dispatch({
+          type: constants.SEARCH_PRODUCTS_SUCCESS,
+          payload: res.data.data
+        });
+        resolve(res.data.data);
       } else {
-        response && response.data && response.data.errorMessage && handleError(response.data.errorMessage);
+        res && res.data && res.data.errorMessage && handleError(res.data.errorMessage);
+        dispatch({
+          type: constants.SEARCH_PRODUCTS_FAILED
+        });
         resolve(false);
       }
     } catch (error) {
@@ -126,12 +139,12 @@ const rentGearProductList = async (catDetail) => {
 //     type: constants.NEW_ARRIVALS_REQUEST,
 //   });
 //   try {
-//     let response = await get('viewNewArrivalGears');
+//     let res = await get('viewNewArrivalGears');
 //
-//     if (response) {
+//     if (res) {
 //       dispatch({
 //         type: constants.NEW_ARRIVALS_SUCCESS,
-//         payload: response.data
+//         payload: res.data
 //       });
 //     }
 //   } catch (error) {
@@ -148,8 +161,8 @@ const deleteGear = async (data) => {
   });
   return new Promise(async (resolve) => {
     try {
-      let response = await post('deleteUserGear', data);
-      if (response && response.data && response.data.status === 'success') {
+      let res = await post('deleteUserGear', data);
+      if (res && res.data && res.data.status === 'success') {
         dispatch({
           type: constants.DELETE_GEAR_SUCCESS,
           payload: data.gearid

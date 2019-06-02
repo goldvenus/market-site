@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import TextField from "@material-ui/core/TextField/TextField";
-import {Col} from "reactstrap";
+import {Col, Label} from "reactstrap";
 import {handleError} from "../../../core/actions/common.action";
+import Modal from "react-responsive-modal";
+import RentalTermsComponent from "../../TermsAndPolicy/RentalTermsComponent";
 
 class AddMethodSwift extends Component {
   constructor(props) {
@@ -30,7 +32,9 @@ class AddMethodSwift extends Component {
       intermediaryBankName: '',
       intermediaryBankCity: '',
       intermediaryBankCountry: '',
-      type: 2
+      type: 2,
+      isChecked: false,
+      modalOpenState: 0
     };
   }
   
@@ -81,7 +85,21 @@ class AddMethodSwift extends Component {
     this.setState({[val]: e.target.value});
   };
   
+  handleOpenModal = () => {
+    this.setState({modalOpenState: 1});
+  };
+  
+  handleCloseModal = () => {
+    this.setState({modalOpenState: 0});
+  };
+  
+  handleSetRead = () => {
+    this.setState({isChecked: !this.state.isChecked});
+  };
+  
   render() {
+    const {isChecked, modalOpenState} = this.state;
+    
     return (
       <React.Fragment>
         <Col lg={12} md={24}>
@@ -217,7 +235,25 @@ class AddMethodSwift extends Component {
             type="text"
             onChange={e => this.handleInputChange(e, 'intermediaryBankCountry')}
           />
-          <button className='add-method-btn theme-btn theme-btn-primary' onClick={this.handleSaveMethod}>Add SWIFT</button>
+          
+          <div>
+            <div className="input_svg pretty p-svg p-plain">
+              <input  type="checkbox" onChange={this.handleSetRead} checked={isChecked ? 'checked' : ''}/>
+              <div className="state">
+                <img className="svg check_svg" alt="" src="/images/Icons/task.svg"/>
+              </div>
+            </div>
+            <Label for="save-address" className='checkbox-label'>
+              Yes, I agree to the<br/>
+              <span className='term-view-btn' onClick={() => this.handleOpenModal(1)}>Rental Terms & Conditions</span>
+            </Label>
+          </div>
+          
+          <button
+            className='add-method-btn theme-btn theme-btn-primary'
+            onClick={this.handleSaveMethod}
+            disabled={!isChecked ? 'disabled' : ''}
+          >Add SWIFT</button>
         </Col>
         <Col lg={12} md={24}>
           <div className='swift-container'>
@@ -229,6 +265,16 @@ class AddMethodSwift extends Component {
             <span className='view-more-btn'>More about SWIFT</span>
           </div>
         </Col>
+  
+        {modalOpenState === 1 ?
+        <Modal open={true} onClose={this.handleCloseModal} center classNames={{modal: "confirm-modal privacy-modal"}}>
+          <div className='confirm-modal-header'>
+            <span>Rental Terms and Conditions</span>
+          </div>
+          <div className='confirm-modal-body'>
+            <RentalTermsComponent/>
+          </div>
+        </Modal> : null}
       </React.Fragment>
     );
   }

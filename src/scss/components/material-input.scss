@@ -201,6 +201,7 @@ $p-v: 11px;
     overflow: auto;
     background: white;
     z-index: $zindex-popover;
+    scroll-behavior: smooth;
 
     .material-input-dropdown-addon{
       flex: 0;
@@ -221,6 +222,7 @@ $p-v: 11px;
       margin: 0;
       padding: $p-v 0;
       width: 100%;
+      overflow: auto;
 
       .material-input-dropdown-item {
         display: flex;
@@ -232,6 +234,13 @@ $p-v: 11px;
         min-height: 35px;
         width: 100%;
         cursor: pointer;
+
+        &.active {
+          background-color: #eceaea;
+        }
+        &:hover {
+          background-color: #eceaea;
+        }
       }
     }
   }

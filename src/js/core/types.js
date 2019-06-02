@@ -60,10 +60,10 @@ export default keyMirror({
   DELETE_GEAR_SUCCESS: null,
   DELETE_GEAR_FAILED: null,
   
-  // home search
-  SEARCH_HOME_REQUEST: null,
-  SEARCH_HOME_SUCCESS: null,
-  SEARCH_HOME_FAILED: null,
+  // products search
+  SEARCH_PRODUCTS_REQUEST: null,
+  SEARCH_PRODUCTS_SUCCESS: null,
+  SEARCH_PRODUCTS_FAILED: null,
   
   // new arrival gears
   NEW_ARRIVALS_REQUEST: null,

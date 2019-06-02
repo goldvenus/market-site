@@ -202,7 +202,7 @@ class Register extends Component {
                     </div>
                     <Label for="save-address" className='checkbox-label'>
                       Yes, I've read, understood and agree to the<br/>
-                      <span className='term-view-btn' onClick={() => this.handleOpenModal(1)}>Rental Terms & Conditions</span> and <span className='term-view-btn' onClick={() => this.handleOpenModal(2)}>Privacy Policy</span>
+                      <span className='term-view-btn' onClick={() => this.handleOpenModal(1)}>Terms of Use</span> and <span className='term-view-btn' onClick={() => this.handleOpenModal(2)}>Privacy Policy</span>
                     </Label>
                   </div>
                   {/*<div className="flex-row  upload-photo-row">*/}
