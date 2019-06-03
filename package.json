@@ -63,6 +63,7 @@
     "react-spinner-material": "^1.1.1",
     "react-star-rating-lite": "0.0.11",
     "react-tabs": "^3.0.0",
+    "react-toastify": "^5.2.1",
     "react-toggled": "^1.2.7",
     "react-transition-group": "^2.6.0",
     "reactstrap": "^6.5.0",

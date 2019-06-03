@@ -1,11 +1,24 @@
-import {NotificationManager} from "react-notifications";
+import React from "react";
+import { toast } from 'react-toastify';
+
+const toastBody = ({type, info}) => (
+  <div className='toast-body'>
+    <div className='toast-icon'>
+      <span><i className={`fa ${type === 'INFO' ? 'fa-info' : 'fa fa-times'}`}/></span>
+    </div>
+    <div className='toast-content-wrapper'>
+      <div className='toast-heading'>{type}</div>
+      <div className='toast-content'>{info}</div>
+    </div>
+  </div>
+);
 
 const handleInfo = (info) => {
-  NotificationManager.info(info, 'INFO', 5000);
+  toast.info(toastBody({type: 'INFO', info}), {containerId: 'A', position: toast.POSITION.BOTTOM_RIGHT, className: 'toast-info', autoClose: 10000});
 };
 
-const handleError = (error) => {
-  NotificationManager.error(String(error), 'ERROR', 10000);
+const handleError = (info) => {
+  toast.error(toastBody({type: 'ERROR', info}), {containerId: 'B', position: toast.POSITION.BOTTOM_RIGHT, className: 'toast-error', autoClose: 10000});
 };
 
 const readFileData = (event) => {

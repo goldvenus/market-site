@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import routes from '../routes';
 import Header from './Header';
 import Footer from './Footer';
-import { CartIcon, HeartIcon } from './common/IconComponent';
-import { NotificationContainer } from "react-notifications";
-import 'react-notifications/lib/notifications.css';
+import {CartIcon, HeartIcon } from './common/IconComponent';
 import {getUser} from "../core/actions/user.action";
 import {getCarts} from "../core/actions/cart.action";
 import {getFavourites} from "../core/actions/favourite.action";
@@ -80,7 +79,7 @@ class Layout extends Component {
 
         {showHeader && <Footer/>}
 
-        <NotificationContainer/>
+        <ToastContainer />
       </React.Fragment>
     );
   }
