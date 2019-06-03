@@ -83,8 +83,8 @@ class Footer extends Component {
                   <span className='email'>support@creative.market</span>
                 </div>
                 <div>
-                  <i className='fab fa-facebook-f'/>
-                  <i className="fab fa-instagram"/>
+                  <i className='fa fa-facebook'/>
+                  <i className="fa fa-instagram"/>
                 </div>
                 {/*<div className="col">*/}
                   {/*<div className="social-buttons">*/}

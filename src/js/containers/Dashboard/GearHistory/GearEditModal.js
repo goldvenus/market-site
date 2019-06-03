@@ -51,7 +51,8 @@ class GearEditModal extends Component {
       curImage: null,
       isOpenConfirm: false
     };
-    this.gearid = props.gearid;
+    
+    this.gearid = this.props.gearid;
   }
 
   async componentDidMount() {
@@ -378,8 +379,8 @@ class GearEditModal extends Component {
     if (!gear || !gearid || isLoadingCategories) {
       return <CustomSpinner/>;
     }
-    const {selectedType, replacementValue, pricePerDay, accessories, isKit} = this.state;
-
+    const {selectedType, replacementValue, pricePerDay, accessories, isKit, description} = this.state;
+    
     return (
       <Modal open={true} onClose={onClose} center classNames={{modal: "gear-edit-modal gear-delete-modal"}}>
         {(this.state.busy || isLoadingGear) && <CustomSpinner/>}
@@ -402,8 +403,10 @@ class GearEditModal extends Component {
                 </div>
                 {this.renderInfo()}
                 <Textarea className="ELBLI_desc" label="DESCRIPTION"
-                          onChange={(e) => this.setState({description: e.target.value})}
-                          defaultValue={gear.description} floatingLabel={true}/>
+                  onChange={(e) => this.setState({description: e.target.value})}
+                  value={description}
+                  floatingLabel={true}
+                />
               </div>
               <div className="ELBL_type">
                 <div className="theme-column info-right-container">

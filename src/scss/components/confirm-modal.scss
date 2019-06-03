@@ -22,6 +22,17 @@
   .confirm-modal-body {
     padding: 28px;
 
+    .about-period-container {
+      padding: 0;
+
+      & > div {
+        width: 100%;
+        margin-bottom: 20px;
+        input {
+          margin-left: 15px;
+        }
+      }
+    }
     .confirm-control {
       justify-content: space-between;
       display: flex;

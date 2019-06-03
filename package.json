@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.18",
-    "@fortawesome/free-solid-svg-icons": "^5.8.2",
-    "@fortawesome/react-fontawesome": "^0.1.4",
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "3.0.2",
     "@pismo/react-currency-input": "^2.0.2",
@@ -56,7 +53,6 @@
     "react-notifications-component": "^1.1.1",
     "react-owl-carousel": "^2.3.1",
     "react-owl-carousel2": "^0.3.0",
-    "react-rating": "latest",
     "react-redux": "^5.1.1",
     "react-responsive-modal": "^3.6.0",
     "react-router-dom": "^4.3.1",
@@ -72,7 +68,6 @@
     "reactstrap": "^6.5.0",
     "redux": "^4.0.1",
     "redux-promise": "^0.6.0",
-    "rodal": "^1.6.3",
     "styled-components": "^4.2.0"
   },
   "scripts": {

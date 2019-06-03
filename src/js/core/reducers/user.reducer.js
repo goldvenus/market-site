@@ -67,7 +67,7 @@ export default (state = initialState, action) => {
         break;
       case constants.UPDATE_USER_SUCCESS:
         draft.isUpdating = false;
-        draft.user = action.payload;
+        draft.user = {...draft.user, ...action.payload};
         break;
       case constants.UPDATE_USER_FAILED:
         draft.isUpdating = false;

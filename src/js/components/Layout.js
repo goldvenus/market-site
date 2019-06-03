@@ -12,6 +12,7 @@ import {getUser} from "../core/actions/user.action";
 import {getCarts} from "../core/actions/cart.action";
 import {getFavourites} from "../core/actions/favourite.action";
 import {rentGearProductList} from "../core/actions/gear.action";
+import {fetchCategories} from "../core/actions/category.action";
 
 class Layout extends Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class Layout extends Component {
       getUser();
       getCarts();
       getFavourites();
+      fetchCategories();
       rentGearProductList({
         categoryName: '',
         product_region: '',

@@ -24,13 +24,13 @@ const BreadCrumbActive = (props) => {
     );
   } else if (category === "RentGears") {
     return (
-      <Link to="/rentgear">
+      <Link to="/rentgear/all">
         {category}
       </Link>
     );
   } else {
     return (
-      <Link to={`/rentgear/${category}`}>
+      <Link to={`/rentgear/all${category}`}>
         {category}
       </Link>
     );

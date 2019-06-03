@@ -56,7 +56,7 @@ class MaterialInputWithDropdown extends React.Component {
     setTimeout(() => this.setState({
       isDropdownOpen: false,
       isFocused: false
-    }), 100);
+    }), 50);
     e.preventDefault();
   };
   

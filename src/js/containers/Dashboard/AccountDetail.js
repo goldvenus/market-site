@@ -4,9 +4,10 @@ import TextField from "@material-ui/core/TextField/TextField";
 import connect from "react-redux/es/connect/connect";
 import BarLoader from "react-bar-loader";
 import {updatePassword, updateUser} from "../../core/actions/user.action";
-import {handleError} from "../../core/actions/common.action";
+import {handleError, readFileData} from "../../core/actions/common.action";
 import CustomSpinner from "../../components/CustomSpinner";
 import {Link} from "react-router-dom";
+import PasswordConfirmModal from "./AccountDetail/PasswordConfirmModal";
 
 class AccountDetail extends Component {
   constructor(props) {
@@ -14,10 +15,13 @@ class AccountDetail extends Component {
     this.state = {
       fullname: props.user.given_name,
       email: props.user.email,
-      phone: props.user.phoneNumber,
+      phone: props.user.phone_number,
       curPwd: '',
       newPwd: '',
-      confirmPwd: ''
+      confirmPwd: '',
+      picture: '',
+      fileName: '',
+      modalOpenState: 0
     };
   }
   
@@ -26,7 +30,8 @@ class AccountDetail extends Component {
       this.setState({
         fullname: props.user.given_name,
         email: props.user.email,
-        phone: props.user.phone_number
+        phone: props.user.phone_number,
+        picture: props.user.picture
       });
     }
   }
@@ -35,26 +40,35 @@ class AccountDetail extends Component {
     this.setState({[v]: e.target.value});
   };
   
+  handleCloseModal = () => {
+    this.setState({modalOpenState: 0});
+  };
+  
   handleUserSave = (e) => {
     e.preventDefault();
     let newUser = this.state;
-    let curUser = this.props.user;
-    if (!newUser.email || !newUser.fullname || !newUser.phone || !newUser.curPwd) {
+    if (!newUser.email || !newUser.fullname || !newUser.phone) {
       handleError('Please provide all information!');
       return false;
     }
-    
+    this.setState({modalOpenState: 1});
+  };
+  
+  performUserUpdate = (pwd) => {
+    let newUser = this.state;
+    let curUser = this.props.user;
+    this.setState({modalOpenState: 0});
     updateUser({
       curUser: {
         email: curUser.email,
-        password: newUser.curPwd
+        password: pwd
       },
       newUser: {
         email: newUser.email,
         given_name: newUser.fullname,
-        phoneNumber: newUser.phone,
+        phone_number: newUser.phone,
         password: newUser.newPwd,
-        picture: 'asd'
+        picture: newUser.picture
       }
     });
   };
@@ -64,10 +78,10 @@ class AccountDetail extends Component {
     let newUser = this.state;
     let curUser = this.props.user;
     if (!newUser.email || !newUser.curPwd || !newUser.newPwd || !newUser.confirmPwd) {
-      handleError('Please provide all information!');
+      handleError('Please input passwords!');
       return false;
     } else if (newUser.newPwd !== newUser.confirmPwd) {
-      handleError('New password and confirm password does not match!');
+      handleError('Passwords don\'t match!');
       return false;
     }
     
@@ -82,8 +96,24 @@ class AccountDetail extends Component {
     });
   };
   
+  addImage = async (event) => {
+    try {
+      console.log(event.target);
+      const fileName = event.target.files && event.target.files.length > 0 && event.target.files[0].name;
+      let image = await readFileData(event);
+
+      this.setState({
+        picture: image,
+        fileName
+      });
+    } catch {
+      handleError('Please upload a valid image');
+    }
+  };
+  
   render() {
     const {isUpdating, isLoading} = this.props;
+    const {fileName, modalOpenState} = this.state;
     if (isLoading) {
       return <BarLoader color="#F82462" height="5"/>;
     }
@@ -95,7 +125,18 @@ class AccountDetail extends Component {
           <h4 className="tab-title">Account Details</h4>
           <div className="wrapper-detail">
             <div className="detail-left-wrapper">
-              <div className="account-detail-heading">INFO</div>
+              <div className="account-detail-heading">
+                <span>INFO</span>
+                <div className="flex-row  upload-photo-row">
+                  <div className="theme-form-field">
+                    <span>{fileName || 'Select...'}</span>
+                  </div>
+                  <div className="file-input-container">
+                    <button className="theme-btn theme-btn-filled-white btn-photo-upload">Photo</button>
+                    <input type="file" onChange={this.addImage}/>
+                  </div>
+                </div>
+              </div>
               <div className="account-detail-body">
                 <Form>
                   <FormGroup>
@@ -174,6 +215,8 @@ class AccountDetail extends Component {
             </div>
           </div>
         </div>
+        
+        {modalOpenState ? <PasswordConfirmModal onConfirm={this.performUserUpdate} onClose={this.handleCloseModal}/> : ''}
       </React.Fragment>
     )
   }
@@ -184,4 +227,5 @@ const mapStateToProps = state => ({
   isLoading: state.user.isLoading,
   isUpdating: state.user.isUpdating
 });
+
 export default connect(mapStateToProps)(AccountDetail);

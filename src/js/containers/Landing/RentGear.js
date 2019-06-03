@@ -5,13 +5,8 @@ import Main from '../../components/Rent Gear/RG_main';
 import BreadCrumbActive from "../../components/BreadCrumbActive";
 import connect from "react-redux/es/connect/connect";
 import BarLoader from "react-bar-loader";
-import { fetchCategories } from "../../core/actions/category.action";
 
 class RentGear extends React.Component {
-  constructor(props) {
-    super(props);
-    fetchCategories();
-  }
 
   render() {
     let {categories, isLoading} = this.props;
@@ -21,10 +16,6 @@ class RentGear extends React.Component {
     }
   
     categories = categories.reduce((arr, item) => arr.concat(item.categoryName), []);
-    if (category === undefined) {
-      this.props.history.push('/rentgear/all');
-      return null;
-    }
 
     return (
       <div className="rent-gear">

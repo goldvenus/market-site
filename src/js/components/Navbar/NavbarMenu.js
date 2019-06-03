@@ -156,7 +156,7 @@ class NavbarMenu extends React.Component {
                 <ul className="menu-links-wrapper">
                   {/* sm only menu */}
                   <li className="animated-menu-item menu-item-sm">
-                    <Link to="/rentgear">
+                    <Link to="/rentgear/all">
                       <h2 onClick={this.toggleNavbar} >
                         Rent Gear
                       </h2>

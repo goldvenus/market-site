@@ -32,7 +32,7 @@ class Main extends Component {
       },
       product_list: [],
       loading: true,
-      category: '',
+      category: this.props.category || '',
       cart_adding: false
     };
   }
@@ -43,7 +43,16 @@ class Main extends Component {
     if (localStorage.searchValue || localStorage.searchLocationValue) {
       let searchText = localStorage.searchValue;
       let locationText = localStorage.searchLocationValue;
+      delete localStorage.searchValue;
+      delete localStorage.searchLocationValue;
       this.setState({searchText: searchText, locationText: locationText});
+    }
+  }
+  
+  componentWillReceiveProps(props) {
+    let {category} = this.state;
+    if (category !== props.category) {
+      this.initProductList(props.category);
     }
   }
   
@@ -51,7 +60,8 @@ class Main extends Component {
     if (this.state.category !== category) {
       this.setState({
         searchText: '',
-        locationText: ''
+        locationText: '',
+        category
       }, () => {
         this.loadProductList(category);
       });
@@ -182,7 +192,7 @@ class Main extends Component {
         />
       </div>
     }
-    this.initProductList(category);
+    // this.initProductList(category);
     
     product_list = this.doSearch();
     const is_empty = product_list.length < 1;
@@ -267,7 +277,7 @@ class Main extends Component {
           {
             is_empty ?
               <div className='gear-list-empty'>
-                <h4>There's no gear you're looking for.</h4>
+                <h4>No gear available in this category, yet.</h4>
               </div>
               :
               <React.Fragment>

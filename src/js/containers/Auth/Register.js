@@ -21,12 +21,10 @@ class Register extends Component {
       password: '',
       confirmPassword: '',
       username: '',
-      phoneNumber: '',
+      phone_number: '',
       fullName: '',
       gender: '',
       address: '',
-      // picture: '',
-      fileName: '',
       isChecked: false,
       modalOpenState: 0
     };
@@ -43,20 +41,6 @@ class Register extends Component {
   handleCloseModal = () => {
     this.setState({modalOpenState: 0});
   };
-  
-  // async addImage(event) {
-  //   try {
-  //     const fileName = event.target.files && event.target.files.length > 0 && event.target.files[0].name;
-  //     let image = await readFileData(event);
-  //
-  //     this.setState({
-  //       picture: image,
-  //       fileName
-  //     });
-  //   } catch {
-  //     handleError('Please upload a valid image');
-  //   }
-  // }
   
   async submit(e) {
     const {password, confirmPassword, username, phoneNumber, fullName, gender, address, isChecked} = this.state;
@@ -205,16 +189,6 @@ class Register extends Component {
                       <span className='term-view-btn' onClick={() => this.handleOpenModal(1)}>Terms of Use</span> and <span className='term-view-btn' onClick={() => this.handleOpenModal(2)}>Privacy Policy</span>
                     </Label>
                   </div>
-                  {/*<div className="flex-row  upload-photo-row">*/}
-                    {/*<div className="theme-form-field">*/}
-                      {/*<span>{fileName || 'Photo'}</span>*/}
-                    {/*</div>*/}
-                    {/*<div className="file-input-container">*/}
-                      {/*<button className="theme-btn theme-btn-filled-white btn-photo-upload">Upload</button>*/}
-                      {/*<input type="file" onChange={this.addImage.bind(this)}/>*/}
-                    {/*</div>*/}
-                  {/*</div>*/}
-                  
                   <button className="theme-btn-submit" onClick={this.submit.bind(this)} disabled={!isChecked ? 'disabled' : ''}>Sign up</button>
                 </Form>
                 <div className="login-or-divider"/>

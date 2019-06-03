@@ -246,7 +246,7 @@ class Home extends React.Component {
               <Col lg='12' md='24' className='order-lg-1 order-md-2'>
                 <h2>Rent the Gear<br/>Your Ideas Need</h2>
                 <p>If you love creating, you are most likely familiar with the problem of feeling limited by your gear. With Creative Market, you can now rent any gear you might need from other creatives around you.</p>
-                <Link to='/rentgear'><button className='theme-btn theme-btn-primary'>RENT GEAR</button></Link>
+                <Link to='/rentgear/all'><button className='theme-btn theme-btn-primary'>RENT GEAR</button></Link>
               </Col>
               <Col lg='12' md='24' className='rent-gear-back-img back-img order-lg-2 order-md-1'/>
             </Row>
