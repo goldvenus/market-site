@@ -63,86 +63,94 @@ class AddMethodSwift extends Component {
     
     return (
       <React.Fragment>
-        <Col lg={12} md={24}>
-          <div className='add-method-credit-card-outer-wrapper'>
-            <div className='card card-body card-model-wrapper'>
-              <div className="card-text">
-                <div className="payment-card">
-                  <div className='image-container'>
-                    <img src="/images/cards/master-card.svg" alt=""/>
-                  </div>
-                  <div className="payment-card-number"><span>{cardNumber}</span></div>
-                  <div className="flex-row payment-card-other">
-                    <span>{expirationMonth}/{expirationYear}</span>
-                    <span>{cardHolder}</span>
+        <div className='method-select-tab-wrapper'>
+          <div className='tab tab-selected'>
+            <span>CREDIT CARD</span>
+            <span>Minimum - $50.00, Fees - 3.5%</span>
+          </div>
+        </div>
+        <div className='row'>
+          <Col lg={12} md={24}>
+            <div className='add-method-credit-card-outer-wrapper'>
+              <div className='card card-body card-model-wrapper'>
+                <div className="card-text">
+                  <div className="payment-card">
+                    <div className='image-container'>
+                      <img src="/images/cards/master-card.svg" alt=""/>
+                    </div>
+                    <div className="payment-card-number"><span>{cardNumber}</span></div>
+                    <div className="flex-row payment-card-other">
+                      <span>{expirationMonth}/{expirationYear}</span>
+                      <span>{cardHolder}</span>
+                    </div>
                   </div>
                 </div>
               </div>
+              
+              <div className="flex-row">
+                <div className="theme-form-field flex-md-12">
+                  <TextField
+                    label='Card Number'
+                    type="text"
+                    value={cardNumber}
+                    maxLength='20'
+                    className='checkout-textfield custom-beautiful-textfield'
+                    onChange={e => this.handleInputChange(e, 'cardNumber')}
+                  />
+                </div>
+                <div className="theme-form-field flex-md-12">
+                  <TextField
+                    label='Card Holder'
+                    type="text"
+                    value={cardHolder}
+                    maxLength='20'
+                    className='checkout-textfield custom-beautiful-textfield'
+                    onChange={e => this.handleInputChange(e, 'cardHolder')}
+                  />
+                </div>
+              </div>
+              <div className="flex-row">
+                <div className="theme-form-field flex-md-12 date-select-container">
+                  <FormControl id="select-month">
+                    <Select
+                      value={expirationMonth}
+                      onChange={(event) => {
+                        event.preventDefault();
+                        this.setState({expirationMonth: event.target.value})
+                      }}
+                      inputProps={{id: 'age-required'}}>
+                      {this.renderMonths()}
+                    </Select>
+                  </FormControl>
+                  <FormControl id="select-day" >
+                    <Select
+                      value={expirationYear}
+                      onChange={(event) => {
+                        event.preventDefault();
+                        this.setState({ expirationYear: event.target.value })
+                      }}
+                      inputProps={{id: 'age-required'}}>
+                      {this.renderYears()}
+                    </Select>
+                  </FormControl>
+                </div>
+      
+                <div className="theme-form-field flex-md-12">
+                  <TextField
+                    label="CVV"
+                    className='checkout-textfield custom-beautiful-textfield'
+                    value={cvv}
+                    onChange={e => this.handleInputChange(e, 'cvv')}
+                  />
+                </div>
+              </div>
             </div>
-            
-            <div className="flex-row">
-              <div className="theme-form-field flex-md-12">
-                <TextField
-                  label='Card Number'
-                  type="text"
-                  value={cardNumber}
-                  maxLength='20'
-                  className='checkout-textfield custom-beautiful-textfield'
-                  onChange={e => this.handleInputChange(e, 'cardNumber')}
-                />
-              </div>
-              <div className="theme-form-field flex-md-12">
-                <TextField
-                  label='Card Holder'
-                  type="text"
-                  value={cardHolder}
-                  maxLength='20'
-                  className='checkout-textfield custom-beautiful-textfield'
-                  onChange={e => this.handleInputChange(e, 'cardHolder')}
-                />
-              </div>
-            </div>
-            <div className="flex-row">
-              <div className="theme-form-field flex-md-12 date-select-container">
-                <FormControl id="select-month">
-                  <Select
-                    value={expirationMonth}
-                    onChange={(event) => {
-                      event.preventDefault();
-                      this.setState({expirationMonth: event.target.value})
-                    }}
-                    inputProps={{id: 'age-required'}}>
-                    {this.renderMonths()}
-                  </Select>
-                </FormControl>
-                <FormControl id="select-day" >
-                  <Select
-                    value={expirationYear}
-                    onChange={(event) => {
-                      event.preventDefault();
-                      this.setState({ expirationYear: event.target.value })
-                    }}
-                    inputProps={{id: 'age-required'}}>
-                    {this.renderYears()}
-                  </Select>
-                </FormControl>
-              </div>
-    
-              <div className="theme-form-field flex-md-12">
-                <TextField
-                  label="CVV"
-                  className='checkout-textfield custom-beautiful-textfield'
-                  value={cvv}
-                  onChange={e => this.handleInputChange(e, 'cvv')}
-                />
-              </div>
-            </div>
-          </div>
-          <button className='add-method-btn theme-btn theme-btn-primary' onClick={this.handleSaveMethod}>Add Card</button>
-        </Col>
-        <Col lg={12} md={24}>
-        
-        </Col>
+            <button className='add-method-btn theme-btn theme-btn-primary' onClick={this.handleSaveMethod}>Add Card</button>
+          </Col>
+          <Col lg={12} md={24}>
+          
+          </Col>
+        </div>
       </React.Fragment>
     );
   }

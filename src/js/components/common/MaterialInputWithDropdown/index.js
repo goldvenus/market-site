@@ -10,6 +10,7 @@ class MaterialInputWithDropdown extends React.Component {
   };
 
   itemsRef = [];
+  wrapperRef = null;
   dropdownWrapperRef = null;
   addonWrapperRef = null;
   itemWrapperRef = null;
@@ -37,7 +38,7 @@ class MaterialInputWithDropdown extends React.Component {
   }
 
   handleClickOutside = e => {
-    if (this.dropdownWrapperRef && !this.dropdownWrapperRef.contains(e.target)) {
+    if (this.wrapperRef && !this.wrapperRef.contains(e.target)) {
       this.setState({
         isDropdownOpen: false,
         isFocused: false
