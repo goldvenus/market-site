@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Home from './containers/Home/HomeResponsive';
+import Messages from './containers/Messages';
 import About from './containers/Landing/Abouts';
 import Login from './containers/Auth/Login';
 import Register from './containers/Auth/Register';
@@ -28,6 +29,7 @@ export default (
     <Switch>
       <Route exact path="/" component={Home}/>
       <Route exact path="/home" component={Home}/>
+      <Route exact path="/messages/:id1?/:id2?" component={Messages}/>
       <Route exact path="/aboutus" component={About}/>
       <Route exact path="/login" component={Login}/>
       <Route exact path="/register" component={Register}/>

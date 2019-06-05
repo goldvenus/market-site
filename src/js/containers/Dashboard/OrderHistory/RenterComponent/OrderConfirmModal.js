@@ -164,7 +164,7 @@ class OrderConfirmModal extends Component {
                             <img src={listItem.OwnerInfo.picture} alt=""/>
                             <div>
                               <span className="duration">{listItem.OwnerInfo.given_name}</span>
-                              <span className="phone-number">{listItem.OwnerInfo.phone_number}</span>
+                              <span className="phone-number">Open In chat</span>
                             </div>
                           </div>
                         </div>
@@ -370,7 +370,7 @@ class OrderConfirmModal extends Component {
                             </div>
                           </div>
                         </div>
-                        <span>&nbsp;<i className="fa fa-phone" aria-hidden="true"/>{listItem.OwnerInfo.phone_number}</span>
+                        <span>&nbsp;<i className="fa fa-phone" aria-hidden="true"/>Open In chat</span>
                         <div className='buyer-info-right'>
                           <div className='period-price'>
                             <i className="fa fa-map-marker" aria-hidden="true"/>&nbsp;

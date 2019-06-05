@@ -14,8 +14,8 @@ const register = async (data) => {
   });
   return new Promise(async (resolve, reject) => {
     try {
-      let response = await post('signup', data);
-      if (response.data.status === 'success') {
+      let res = await post('signup', data);
+      if (res.data.status === 'success') {
         dispatch({
           type: constants.SIGNUP_SUCCESS
         });
@@ -24,9 +24,9 @@ const register = async (data) => {
         dispatch({
           type: constants.SIGNUP_FAILED
         });
-        handleError(response.data.errorMessage);
+        handleError(res.data.errorMessage);
       }
-      resolve(response);
+      resolve(res);
     } catch (error) {
       dispatch({
           type: constants.SIGNUP_FAILED
@@ -42,19 +42,19 @@ const login = async (data) => {
       type: constants.LOGIN_REQUEST
   });
 
-  let response = await post('signin', data);
-  if (!!response && response.data.status === 'success') {
+  let res = await post('signin', data);
+  if (!!res && res.data.status === 'success') {
     dispatch({
       type: constants.LOGIN_SUCCESS,
-      payload: response.data.data.userAttributes
+      payload: res.data.data.userAttributes
     });
     // handleInfo("Welcome to Creative Market!");
     // store the token
-    const { accessToken, idToken, refreshToken } = response.data.data.tokens;
+    const { accessToken, idToken, refreshToken } = res.data.data.tokens;
     localStorage.accessToken = accessToken;
     localStorage.idToken = idToken;
     localStorage.refreshToken = refreshToken;
-    localStorage.userId = response.data.data.userAttributes.userid;
+    localStorage.userId = res.data.data.userAttributes.userid;
 
     getCarts();
     getFavourites();
@@ -68,8 +68,8 @@ const login = async (data) => {
       type: constants.LOGIN_FAILED
     });
     let error = "";
-    if (response && response.data.errorMessage)
-      error = response.data.errorMessage;
+    if (res && res.data.errorMessage)
+      error = res.data.errorMessage;
     if (error)
       handleError(error);
   }
@@ -93,20 +93,20 @@ const updateUser = async (data) => {
   });
   return new Promise(async (resolve, reject) => {
     try {
-      let response = await post('updateUser', data);
-      if (response.data.status === 'success') {
+      let res = await post('updateUser', data);
+      if (res.data.status === 'success') {
         dispatch({
           type: constants.UPDATE_USER_SUCCESS,
-          payload: response.data.data
+          payload: res.data.data
         });
         handleInfo('Updated successfully!');
       } else {
         dispatch({
           type: constants.UPDATE_USER_FAILED
         });
-        handleError(response.data.errorMessage);
+        handleError(res.data.errorMessage);
       }
-      resolve(response);
+      resolve(res);
     } catch (error) {
       dispatch({
         type: constants.SIGNUP_FAILED
@@ -123,8 +123,8 @@ const updatePassword = async (data) => {
   });
   return new Promise(async (resolve, reject) => {
     try {
-      let response = await post('updatePassword', data);
-      if (response.data.status === 'success') {
+      let res = await post('updatePassword', data);
+      if (res.data.status === 'success') {
         dispatch({
           type: constants.RESET_PWD_SUCCESS
         });
@@ -133,9 +133,9 @@ const updatePassword = async (data) => {
         dispatch({
           type: constants.RESET_PWD_FAILED
         });
-        handleError(response.data.errorMessage);
+        handleError(res.data.errorMessage);
       }
-      resolve(response);
+      resolve(res);
     } catch (error) {
       dispatch({
         type: constants.SIGNUP_FAILED
@@ -151,8 +151,8 @@ const sendResetPasswordEmail = async (data) => {
     type: constants.RESET_PWD_REQUEST
   });
   try {
-    let response = await post('sendCodeForgotPaswordUser', data);
-    if(response && response.data && response.data.status === 'success') {
+    let res = await post('sendCodeForgotPaswordUser', data);
+    if(res && res.data && res.data.status === 'success') {
       dispatch({
         type: constants.RESET_PWD_SUCCESS
       });
@@ -162,8 +162,8 @@ const sendResetPasswordEmail = async (data) => {
     dispatch({
       type: constants.RESET_PWD_FAILED,
     });
-    if (response && response.data.errorMessage)
-      handleError(response.data.errorMessage.message);
+    if (res && res.data.errorMessage)
+      handleError(res.data.errorMessage.message);
     return false;
   } catch (error) {
     dispatch({
@@ -180,8 +180,8 @@ const confirmResetPassword = async (data) => {
       return;
     }
 
-    let response = await post('confirmForgotPasswordUser', data);
-    if(response && response.status === 200) {
+    let res = await post('confirmForgotPasswordUser', data);
+    if(res && res.status === 200) {
       return true;
     }
     handleError('Something went wrong');
@@ -195,14 +195,14 @@ const confirmResetPassword = async (data) => {
 const refreshToken = async () => {
   try {
     let config = tokenAxiosConfig();
-    let response = await axios.post(getAPIUrl('getUserRefreshTokens'), { username: localStorage.userId }, config);
-    console.log("refresh token: ", response);
-    if (response && response.data && response.data.status === 'success') {
-      const { accessToken, idToken, refreshToken } = response.data.data;
+    let res = await axios.post(getAPIUrl('getUserRefreshTokens'), { username: localStorage.userId }, config);
+    console.log("refresh token: ", res);
+    if (res && res.data && res.data.status === 'success') {
+      const { accessToken, idToken, refreshToken } = res.data.data;
       localStorage.accessToken = accessToken.jwtToken;
       localStorage.idToken = idToken.jwtToken;
       localStorage.refreshToken = refreshToken.token;
-      return response;
+      return res;
     } else {
       // when expired
       logout();
@@ -212,7 +212,7 @@ const refreshToken = async () => {
   }
 };
 
-const getUser = async () => {
+const getUser = async (data) => {
   try {
     if (localStorage.accessToken) {
       // let token = await refreshToken();
@@ -220,11 +220,11 @@ const getUser = async () => {
         dispatch({
           type: constants.GET_USER_REQUEST
         });
-        let response = await get('getUserInfo');
-        if (response && response.data && response.data.status && response.data.status === 'success') {
+        let res = await post('getUserInfo', data);
+        if (res && res.data && res.data.status && res.data.status === 'success') {
           dispatch({
             type: constants.GET_USER_SUCCESS,
-            payload: response.data.data
+            payload: res.data.data
           });
         } else {
           dispatch({
@@ -238,6 +238,19 @@ const getUser = async () => {
   }
 };
 
+const getUserByID = async (data) => {
+  try {
+    let res = await post('getUserInfo', data);
+    if (res && res.data && res.data.status && res.data.status === 'success') {
+      return res.data.data;
+    } else {
+      return false;
+    }
+  }
+  catch (error) {
+  }
+};
+
 const socialLogin = async (idToken, accessToken) => {
   dispatch({
     type: constants.LOGIN_REQUEST
@@ -245,19 +258,19 @@ const socialLogin = async (idToken, accessToken) => {
   try {
     localStorage.idToken = idToken;
     localStorage.accessToken = accessToken;
-    let response = await get('socialProviderTokenExchange');
-    if (response && response.data && response.data.status ==='success') {
+    let res = await get('socialProviderTokenExchange');
+    if (res && res.data && res.data.status ==='success') {
       dispatch({
         type: constants.LOGIN_SUCCESS,
-        payload: response.data.data.userAttributes
+        payload: res.data.data.userAttributes
       });
       handleInfo("Welcome to Creative Market!");
       // store the token
-      const { accessToken, idToken, refreshToken } = response.data.tokens;
+      const { accessToken, idToken, refreshToken } = res.data.tokens;
       localStorage.accessToken = accessToken;
       localStorage.idToken = idToken;
       localStorage.refreshToken = refreshToken;
-      return response;
+      return res;
     }
   } catch (error) {
     dispatch({
@@ -272,11 +285,11 @@ const confirmUser = async (username, confirmationCode) => {
     type: constants.CONFIRM_USER_REQUEST
   });
   try {
-    let response = await post('confirmUser', { username, confirmationCode });
+    let res = await post('confirmUser', { username, confirmationCode });
     dispatch({
       type: constants.CONFIRM_USER_SUCCESS
     });
-    return response;
+    return res;
   } catch (error) {
     dispatch({
       type: constants.CONFIRM_USER_FAILED,
@@ -289,6 +302,7 @@ export {
   login,
   logout,
   getUser,
+  getUserByID,
   updateUser,
   updatePassword,
   register,

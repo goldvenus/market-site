@@ -68,6 +68,7 @@ const get = async (url) => {
 };
 
 const post = async (url, data) => {
+  console.log(getAPIUrl(url));
   return axios.post(getAPIUrl(url), data, axiosConfig()).then((res) => {
     if (res.data && res.data.status === 'fail' && res.data.errorMessage === 'Access Token has expired') {
       console.log(url);
