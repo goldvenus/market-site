@@ -31,17 +31,16 @@ const payment = data => {
   });
 };
 
-const getPaymentCards = data => {
+const getPaymentCards = () => {
   return new Promise(async (resolve, reject) => {
     dispatch({
       type: constants.GET_PAY_CARDS_REQUEST
     });
     try {
-      let response = await post('getpaycards', {user_id: data});
+      let response = await get('getPaymentMethods');
       if (response && response.data && response.data.status === 'success') {
         dispatch({
-          type: constants.GET_PAY_CARDS_SUCCESS,
-          payload: response.data
+          type: constants.GET_PAY_CARDS_SUCCESS
         });
         resolve(response.data.data);
       }

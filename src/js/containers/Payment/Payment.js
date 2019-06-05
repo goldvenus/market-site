@@ -266,8 +266,19 @@ class Payment extends Component {
   };
   
   getUserPaymentCards = async () => {
-    let cards = await getPaymentCards(localStorage.userId);
-    this.setState({cards: cards});
+    let cards = await getPaymentCards();
+    let cardsTemp = [];
+    cards.forEach((item) => {
+      if (item.type === 1) {
+        cardsTemp.push({
+          'card_number': item.cardNumber,
+          'card_holder': item.cardHolder,
+          'expiration_date': item.expirationDate,
+          'cvv': item.cvv
+        });
+      }
+    });
+    this.setState({cards: cardsTemp});
     await getUser();
   };
 
