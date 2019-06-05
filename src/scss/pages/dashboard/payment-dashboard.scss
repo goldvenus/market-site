@@ -531,12 +531,21 @@
     }
 
     .add-swift-container {
-      .content-wrapper {
+      div.content-wrapper {
         padding: 50px 0;
 
         .bank-info-wrapper {
           padding-left: 15px;
           margin-top: 20px;
+
+          & > p:first-child {
+            color: #999;
+            font-size: 12px;
+          }
+          .bank-name {
+            font-weight: 600;
+            margin: 0;
+          }
         }
         .content-info-wrapper {
           margin-bottom: 30px;
@@ -549,6 +558,9 @@
             }
           }
         }
+      }
+      div.confirm-check {
+        margin-bottom: 30px;
       }
       button {
         padding: 8px 40px;

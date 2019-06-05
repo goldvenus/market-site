@@ -43,7 +43,7 @@ class Step3 extends Component {
           </div>
         </div>
         
-        <div>
+        <div className='confirm-check'>
           <div className="input_svg pretty p-svg p-plain">
             <input  type="checkbox" onChange={this.handleSetRead} checked={isChecked ? 'checked' : ''}/>
             <div className="state">
