@@ -454,6 +454,7 @@ class OrderHistory extends Component {
                   <OrderConfirmModal
                     info={renterHistories[this.state.cur_proj]}
                     close={this.handleClose}
+                    history={this.props.history}
                   /> : null
                 }
               </div>

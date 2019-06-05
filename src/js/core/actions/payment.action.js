@@ -248,8 +248,25 @@ const checkExistingNummusCustomer = async (data) => {
   }
 };
 
+const openConversation = async (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let res = await post('openConversation', data);
+      console.log(res);
+      if (res && res.data && res.data.status === 'success') {
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
+
 export {
   payment, getPaidItems, getPaymentCards, getTransHistory,
   savePaymentMethod, getPaymentMethods, deletePaymentMethod, withdrawalToVendor,
-  doNummusCharge, createNummusVendor, createNummusCustomer, checkExistingNummusCustomer
+  doNummusCharge, createNummusVendor, createNummusCustomer, checkExistingNummusCustomer,
+  openConversation
 }

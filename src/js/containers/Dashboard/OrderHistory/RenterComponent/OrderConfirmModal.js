@@ -11,6 +11,8 @@ import {days, getDateStr} from "../../../../core/helper/index";
 import PickupConfirmModal from "../PickupConfirmModal";
 import PickupSuccessModal from "../PickupSuccessModal";
 import {getOrderHistory, saveProjectName, setRating} from "../../../../core/actions/dashboard.action";
+import {openConversation} from "../../../../core/actions/payment.action";
+import CustomSpinner from "../../../../components/CustomSpinner";
 
 class OrderConfirmModal extends Component {
   constructor(props) {
@@ -28,7 +30,8 @@ class OrderConfirmModal extends Component {
       curItem: null,
       modalOpenState: 0,
       isRating: false,
-      isNameEditing: false
+      isNameEditing: false,
+      isOpeningConversation: false
     }
   }
   
@@ -102,6 +105,16 @@ class OrderConfirmModal extends Component {
     return <div className='star-rating-wrapper'>{stars}</div>;
   };
   
+  handleOpenChatWindow = async (otherId) => {
+    this.setState({isOpeningConversation: true});
+    let res = openConversation({meId: localStorage.userId, otherId});
+    res.then(() => {
+      this.props.history.push(`/messages/${otherId}`);
+    }).catch((err) => {
+      console.log(err);
+    });
+  };
+  
   render() {
     let {info} = this.props;
     let expiration_date = info.ExpirationDate.toString();
@@ -111,6 +124,7 @@ class OrderConfirmModal extends Component {
 
     return (
       <Modal open={true} onClose={this.handleClose} center classNames={{modal: "order-modal"}} closeOnOverlayClick={false}>
+        {this.state.isOpeningConversation && <CustomSpinner/>}
         <div className="order-modal-desktop-tablet">
           <div className="order-modal-header">
             <ContentEditable
@@ -164,7 +178,7 @@ class OrderConfirmModal extends Component {
                             <img src={listItem.OwnerInfo.picture} alt=""/>
                             <div>
                               <span className="duration">{listItem.OwnerInfo.given_name}</span>
-                              <span className="phone-number">Open In chat</span>
+                              <span className="open-chat-window" onClick={() => this.handleOpenChatWindow(listItem.ownerUserid)}>Open In chat<i className="fas fa-external-link-alt"/></span>
                             </div>
                           </div>
                         </div>
@@ -370,7 +384,7 @@ class OrderConfirmModal extends Component {
                             </div>
                           </div>
                         </div>
-                        <span>&nbsp;<i className="fa fa-phone" aria-hidden="true"/>Open In chat</span>
+                        <span className='open-chat-window' onClick={() => this.handleOpenChatWindow(listItem.ownerUserid)}>Open In chat<i className="fas fa-external-link-alt"/></span>
                         <div className='buyer-info-right'>
                           <div className='period-price'>
                             <i className="fa fa-map-marker" aria-hidden="true"/>&nbsp;

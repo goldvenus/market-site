@@ -59,6 +59,16 @@
           .buyer-info-right .period-price {
             margin-top: -5px;
           }
+          .open-chat-window {
+            color: #f82462;
+            text-decoration: underline;
+            cursor: pointer;
+
+            i {
+              text-decoration: none;
+              margin-left: 10px;
+            }
+          }
         }
         .payment-info {
           .duration {
@@ -602,6 +612,7 @@
 
   .order-modal {
     padding: 0;
+    width: 100%;
   }
 
   .order-modal-mobile {
@@ -617,8 +628,8 @@
       color: #252525;
       .edit_icon {
         margin: -5px 0 0 10px;
-        width: 27px;
-        height: 27px;
+        width: 29px;
+        height: 28px;
         background-size: contain;
       }
     }
