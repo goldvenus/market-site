@@ -6,7 +6,7 @@ import {formatDate, calcDaysDiff} from '../../core/helper';
 import { deleteCartItem, editCart } from '../../core/actions/cart.action'
 import BarLoader from "react-bar-loader";
 import EmptyActivity from '../../components/EmptyActivity'
-import CustomSpinner from "../../components/CustomSpinner";
+import CustomSpinner from "../../components/common/CustomSpinner";
 import BreadCrumbActive from "../../components/BreadCrumbActive";
 import CartModal2 from "../../components/common/CartModal2";
 import {handleError} from "../../core/actions/common.action";

@@ -9,7 +9,7 @@ import 'muicss/dist/css/mui.min.css';
 import Chips from 'react-chips';
 import {getGear, editGear, getUsedNames} from '../../../core/actions/gear.action'
 import {handleError, readFileData} from "../../../core/actions/common.action";
-import CustomSpinner from "../../../components/CustomSpinner";
+import CustomSpinner from "../../../components/common/CustomSpinner";
 import Modal from "react-responsive-modal";
 import ConfirmModal from "../../../components/common/ConfirmModal";
 import CustomAutosuggest from "../../../components/common/CustomAutosuggest";

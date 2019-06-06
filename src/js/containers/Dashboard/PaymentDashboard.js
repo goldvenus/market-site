@@ -10,7 +10,7 @@ import {
   withdrawalToVendor,
   getTransHistory
 } from "../../core/actions/payment.action";
-import CustomSpinner from "../../components/CustomSpinner";
+import CustomSpinner from "../../components/common/CustomSpinner";
 import BarLoader from "react-bar-loader";
 import ConfirmModal from "../../components/common/ConfirmModal";
 import {getYearMonthStr} from "../../core/helper";

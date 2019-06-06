@@ -6,7 +6,7 @@ import AuthSideMenu from '../../components/AuthSideMenu';
 import {sendResetPasswordEmail, confirmResetPassword} from '../../core/actions/user.action';
 import TextField from "@material-ui/core/TextField/TextField";
 import Navbar from "../../components/Navbar/Navbar";
-import CustomSpinner from "../../components/CustomSpinner";
+import CustomSpinner from "../../components/common/CustomSpinner";
 
 class ForgotPassword extends Component {
   constructor(props) {

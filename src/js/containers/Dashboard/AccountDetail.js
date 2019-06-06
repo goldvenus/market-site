@@ -5,7 +5,7 @@ import connect from "react-redux/es/connect/connect";
 import BarLoader from "react-bar-loader";
 import {updatePassword, updateUser} from "../../core/actions/user.action";
 import {handleError, readFileData} from "../../core/actions/common.action";
-import CustomSpinner from "../../components/CustomSpinner";
+import CustomSpinner from "../../components/common/CustomSpinner";
 import {Link} from "react-router-dom";
 import PasswordConfirmModal from "./AccountDetail/PasswordConfirmModal";
 

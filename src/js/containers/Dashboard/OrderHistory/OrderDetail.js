@@ -4,7 +4,7 @@ import '@trendmicro/react-buttons/dist/react-buttons.css';
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import {getOrderDetail} from "../../../core/actions/dashboard.action";
 import {days, getDateStr} from "../../../core/helper"
-import CustomSpinner from "../../../components/CustomSpinner";
+import CustomSpinner from "../../../components/common/CustomSpinner";
 import PickupConfirmModal from "./PickupConfirmModal";
 import PickupSuccessModal from "./PickupSuccessModal";
 

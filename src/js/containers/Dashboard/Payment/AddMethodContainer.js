@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import AddMethodSwift from "./AddMethodSwift";
 import AddMethodCreditCard from "./AddMethodCreditCard";
 import {savePaymentMethod} from "../../../core/actions/payment.action";
-import CustomSpinner from "../../../components/CustomSpinner";
+import CustomSpinner from "../../../components/common/CustomSpinner";
 import {getUser} from "../../../core/actions/user.action";
 
 class AddMethodContainer extends Component {

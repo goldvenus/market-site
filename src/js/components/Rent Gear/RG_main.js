@@ -12,7 +12,7 @@ import CartModal2 from "../common/CartModal2";
 import CartModal1 from "../common/CartModal1";
 import Loader from 'react-loader-spinner'
 import {handleError} from "../../core/actions/common.action";
-import CustomSpinner from "../CustomSpinner";
+import CustomSpinner from "../common/CustomSpinner";
 import TextField from "@material-ui/core/TextField/TextField";
 
 class Main extends Component {

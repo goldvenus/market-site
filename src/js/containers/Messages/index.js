@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import { connect } from 'react-redux';
 import Talk from "talkjs";
 import {getUserByID} from "../../core/actions/user.action";
-import CustomSpinner from "../../components/CustomSpinner";
+import CustomLoaderLogo from "../../components/common/CustomLoaderLogo";
 
 class Messages extends Component {
   constructor(props) {
@@ -102,9 +102,8 @@ class Messages extends Component {
   render() {
     return (
       <div>
-        {this.state.isLoading && <CustomSpinner/>}
+        {this.state.isLoading && <CustomLoaderLogo/>}
         <div className="cm-chat-container" ref={this.chatContainerRef}/>
-        {/*<button className='theme-btn theme-btn-primary' onClick={this.handleCreateConversation}>CreateConversation</button>*/}
       </div>
     )
   }

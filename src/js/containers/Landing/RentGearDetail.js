@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Breadcrumb, BreadcrumbItem} from 'reactstrap';
-import Flickity from 'react-flickity-component'
-import BarLoader from 'react-bar-loader'
+import Flickity from 'react-flickity-component';
 import {
   Col, Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle
@@ -23,7 +22,8 @@ import CartModal2 from '../../components/common/CartModal2';
 import {calcDaysDiff, getDateStr} from "../../core/helper";
 import BreadCrumbActive from "../../components/BreadCrumbActive";
 import {Inline} from '@zendeskgarden/react-loaders'
-import CustomSpinner from "../../components/CustomSpinner";
+import CustomSpinner from "../../components/common/CustomSpinner";
+import CustomLoaderLogo from "../../components/common/CustomLoaderLogo";
 
 const flickityOptions = {
   contain: true,
@@ -225,7 +225,7 @@ class RentGearDetail extends Component {
   renderContent = () => {
     const {gear, user, carts, favourites, isChangingFavor} = this.props;
     if (!gear || !user || !carts || !favourites)
-      return <BarLoader color="#F82462" height="5"/>;
+      return <CustomLoaderLogo/>;
     
     const {
       numberOfUserImage, gearid, brand, rating, city, replacementValue,

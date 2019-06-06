@@ -6,7 +6,7 @@ import AuthSideMenu from '../../components/AuthSideMenu';
 import {handleError} from "../../core/actions/common.action";
 import {register} from '../../core/actions/user.action';
 import {bindActionCreators} from "redux";
-import CustomSpinner from "../../components/CustomSpinner";
+import CustomSpinner from "../../components/common/CustomSpinner";
 import TextField from "@material-ui/core/TextField/TextField";
 import Navbar from "../../components/Navbar/Navbar";
 import Modal from "react-responsive-modal";

@@ -7,7 +7,7 @@ import {handleError} from '../../core/actions/common.action';
 import '@trendmicro/react-buttons/dist/react-buttons.css';
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import ItemsCarousel from "react-items-carousel";
-import BarLoader from "react-bar-loader";
+import CustomLoaderLogo from "../../components/common/CustomLoaderLogo";
 
 class Payment extends Component {
   constructor(props) {
@@ -180,7 +180,7 @@ class Payment extends Component {
   
   render() {
     if (this.state.loading) {
-      return <BarLoader color="#F82462" height="5" />;
+      return <CustomLoaderLogo/>;
     }
     
     let {card_number, expiration_year, expiration_month, card_holder, total, tax, fee, amount} = this.state;
@@ -214,7 +214,7 @@ class Payment extends Component {
             <div className="payment-card">
               <div className="flex-row">
                 <img src="/images/cards/master-card.svg" alt=""/>
-                <div className="payment-card-number">{card_number}</div>
+                <div className="payment-card-number">**** **** {card_number}</div>
               </div>
               <div className="flex-row payment-card-other">
                 <span>{expiration_month} / {expiration_year}</span>

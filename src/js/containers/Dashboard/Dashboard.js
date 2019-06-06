@@ -8,8 +8,8 @@ import Chart from './Chart/chart';
 import AccountDetail from './AccountDetail';
 import MyListings from './GearHistory';
 import OrderHistory from './OrderHistory';
-import BarLoader from "react-bar-loader";
 import PaymentDashboard from "./PaymentDashboard";
+import CustomLoaderLogo from "../../components/common/CustomLoaderLogo";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -22,8 +22,6 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    //dashboardMyListing();
-    //dashboardMyRentals();
     viewUserDashboard();
   }
 
@@ -39,7 +37,7 @@ class Dashboard extends Component {
     // const Listing_Items = this.props.userListings;
     const { user, isAuthenticated, dashboard } = this.props;
     if (!user || !dashboard) {
-      return <BarLoader color="#F82462" height="5"/>;
+      return <CustomLoaderLogo/>;
     }
 
     return (

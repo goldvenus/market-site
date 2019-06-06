@@ -53,7 +53,7 @@ class Sidebar extends Component {
             </ListGroupItem>
             {categories.map((element, index) =>
               <ListGroupItem value={element} key={index+1}>
-                <Link className={`${this.props.category === element.replace(' ', '') ? 'item-active rent-gear-sidebar-link' : ''}`} to={`/rentgear/${element.replace(` `, ``)}`}>
+                <Link className={`${this.props.category === element.replace(/ /g, '') ? 'item-active rent-gear-sidebar-link' : ''}`} to={`/rentgear/${element.replace(/ /g, '')}`}>
                   {element}
                 </Link>
               </ListGroupItem>

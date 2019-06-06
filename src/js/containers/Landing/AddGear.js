@@ -13,13 +13,13 @@ import {addGear, getUsedNames} from '../../core/actions/gear.action';
 import {fetchCategories} from "../../core/actions/category.action";
 import Textarea from "muicss/lib/react/textarea";
 import BreadCrumbActive from "../../components/BreadCrumbActive";
-import CustomSpinner from "../../components/CustomSpinner";
-import BarLoader from "react-bar-loader";
+import CustomSpinner from "../../components/common/CustomSpinner";
 import TextField from "@material-ui/core/TextField/TextField";
 import CustomAutosuggest from "../../components/common/CustomAutosuggest"
 import Modal from "react-responsive-modal";
 import RentalTermsComponent from "../TermsAndPolicy/RentalTermsComponent";
 import ConfirmModal from "../../components/common/ConfirmModal";
+import CustomLoaderLogo from "../../components/common/CustomLoaderLogo";
 
 class AddGear extends Component {
   constructor(props) {
@@ -622,7 +622,7 @@ class AddGear extends Component {
     
     const {isLoadingCategories, user} = this.props;
     if (isLoadingCategories || this.suggestions.length < 1) {
-      return <BarLoader color="#F82462" height="5"/>;
+      return <CustomLoaderLogo/>;
     }
     
     if (isGearAdded) {

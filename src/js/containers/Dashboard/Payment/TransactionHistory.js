@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Table} from "reactstrap";
 import {getTransHistory} from "../../../core/actions/payment.action";
 import connect from "react-redux/es/connect/connect";
-import CustomSpinner from "../../../components/CustomSpinner";
+import CustomSpinner from "../../../components/common/CustomSpinner";
 import {getYearMonthStr} from "../../../core/helper";
 
 class TransactionHistory extends Component {

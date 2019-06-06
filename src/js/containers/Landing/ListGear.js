@@ -10,7 +10,7 @@ import {getListGears, deleteGear} from '../../core/actions/gear.action';
 import BarLoader from "react-bar-loader";
 import EmptyActivity from "../../components/EmptyActivity";
 import BreadCrumbActive from "../../components/BreadCrumbActive";
-import CustomSpinner from "../../components/CustomSpinner";
+import CustomSpinner from "../../components/common/CustomSpinner";
 import {handleError} from "../../core/actions/common.action";
 
 const ListGearItem = ({onDelete, listItem: {gearid, model = '', brand = '', categoryName = '', numberOfUserImage, pricePerDay, orderStatus: status}}) => {

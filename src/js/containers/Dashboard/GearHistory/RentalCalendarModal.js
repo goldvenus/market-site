@@ -22,7 +22,7 @@ import {formatDate} from "../../../core/helper";
 import {handleError, handleInfo} from "../../../core/actions/common.action";
 import {getGearRentState, setBlockPeriod} from '../../../core/actions/dashboard.action'
 import AboutPeriod from "./AboutPeriod";
-import CustomSpinner from "../../../components/CustomSpinner";
+import CustomSpinner from "../../../components/common/CustomSpinner";
 import Modal from "react-responsive-modal";
 
 let global_events = [], global_cur_date = new Date();

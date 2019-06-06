@@ -12,7 +12,7 @@ import PickupConfirmModal from "../PickupConfirmModal";
 import PickupSuccessModal from "../PickupSuccessModal";
 import {getOrderHistory, saveProjectName, setRating} from "../../../../core/actions/dashboard.action";
 import {openConversation} from "../../../../core/actions/payment.action";
-import CustomSpinner from "../../../../components/CustomSpinner";
+import CustomSpinner from "../../../../components/common/CustomSpinner";
 
 class OrderConfirmModal extends Component {
   constructor(props) {

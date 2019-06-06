@@ -12,7 +12,7 @@ import CartModal2 from "../../components/common/CartModal2";
 import BarLoader from "react-bar-loader";
 import EmptyActivity from "../../components/EmptyActivity";
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
-import CustomSpinner from "../../components/CustomSpinner";
+import CustomSpinner from "../../components/common/CustomSpinner";
 import BreadCrumbActive from "../../components/BreadCrumbActive";
 
 class Favourites extends Component {

@@ -17,7 +17,7 @@ import Select from '@material-ui/core/Select';
 import * as postscribe from "postscribe";
 import $ from "jquery";
 import moment from "moment";
-import CustomSpinner from "../../components/CustomSpinner";
+import CustomSpinner from "../../components/common/CustomSpinner";
 import { getUniqueObjectArray, validateCard, cc_format, checkDigitSpace } from "../../core/helper/index";
 import BreadCrumbActive from "../../components/BreadCrumbActive";
 import {getUser} from "../../core/actions/user.action";

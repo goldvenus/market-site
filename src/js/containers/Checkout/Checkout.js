@@ -13,7 +13,7 @@ import '@trendmicro/react-buttons/dist/react-buttons.css';
 import '@trendmicro/react-dropdown/dist/react-dropdown.css';
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import $ from "jquery";
-import CustomSpinner from "../../components/CustomSpinner";
+import CustomSpinner from "../../components/common/CustomSpinner";
 import BreadCrumbActive from "../../components/BreadCrumbActive";
 import {getUniqueObjectArray} from "../../core/helper/index";
 import {handleError} from "../../core/actions/common.action";
