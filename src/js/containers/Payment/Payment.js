@@ -197,6 +197,8 @@ class Payment extends Component {
     if (cardToken) {
       handleInfo("Billing information was sent successfully");
       let res = await this.chargeCustomer();
+      console.log("customer charge info: ", res);
+      
       if (res) {
         return res;
       } else {
