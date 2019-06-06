@@ -245,7 +245,7 @@ class Home extends React.Component {
             <Row className='home-subsection'>
               <Col lg='12' md='24' className='order-lg-1 order-md-2 first-left-div'>
                 <h2>Rent the Gear<br/>Your Ideas Need</h2>
-                <p>If you love creating, you are most likely familiar with the problem of feeling limited by your gear. With Creative Market, you can now rent any gear you might need from other creatives around you.</p>
+                <p className='first-text'>If you love creating, you are most likely familiar with the problem of feeling limited by your gear. With Creative Market, you can now rent any gear you might need from other creatives around you.</p>
                 <Link to='/rentgear/all'><button className='theme-btn theme-btn-primary'>RENT GEAR</button></Link>
               </Col>
               <Col lg='12' md='24' className='rent-gear-back-img back-img order-lg-2 order-md-1'/>
@@ -254,7 +254,7 @@ class Home extends React.Component {
               <Col lg='12' md='24' className='add-gear-back-img back-img'/>
               <Col lg='12' md='24' className='second-right'>
                 <h2>List Your Own<br/>Gear for Rent</h2>
-                <p>When you’re not renting from others, allow others to rent from you. Making your fancy gear work for you, even when you’re not using it yourself. It’s a win-win situation!</p>
+                <p className='second-text'>When you’re not renting from others, allow others to rent from you. Making your fancy gear work for you, even when you’re not using it yourself. It’s a win-win situation!</p>
                 <Link to='/addgear'><button className='theme-btn theme-btn-primary'>ADD GEAR</button></Link>
               </Col>
             </Row>
