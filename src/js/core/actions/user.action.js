@@ -280,12 +280,12 @@ const socialLogin = async (idToken, accessToken) => {
   }
 };
 
-const confirmUser = async (username, confirmationCode) => {
+const confirmUser = async (username, confirmationCode, fullName) => {
   dispatch({
     type: constants.CONFIRM_USER_REQUEST
   });
   try {
-    let res = await post('confirmUser', { username, confirmationCode });
+    let res = await post('confirmUser', { username, confirmationCode, fullName });
     dispatch({
       type: constants.CONFIRM_USER_SUCCESS
     });

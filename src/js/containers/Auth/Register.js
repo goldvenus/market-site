@@ -93,7 +93,7 @@ class Register extends Component {
                     <button className="theme-btn theme-btn-secondery theme-btn-link"><Link to="/">Home Page</Link>
                     </button>
                     <button className="theme-btn theme-btn-primary theme-btn-link"><Link
-                      to={{pathname: '/confirm', state: {email: username}}}>Sign In</Link></button>
+                      to={{pathname: '/confirm', state: {email: username, fullName: fullName}}}>Sign In</Link></button>
                   </div>
                 </div>
               </div>) : (
