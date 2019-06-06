@@ -103,7 +103,7 @@ class Register extends Component {
                 <div className="social-buttons">
                   <button className="theme-btn btn-social btn-fb">
                   <span>
-                  <i className="fab fa-facebook-f"/>
+                  <i className="fa fa-facebook-f"/>
                   <span>Facebook</span>
                   </span>
                   </button>

@@ -77,7 +77,10 @@ class PaymentDetail extends Component {
                 <p>${balance}</p>
               </div>
               <div className='balance-right'>
-                <button className='theme-btn theme-btn-filled-white' onClick={() => this.handleWithdrawal(balance)}>Get Paid</button>
+                <button
+                  className={`theme-btn theme-btn-filled-white ${!user.nummusVendorId ? 'disabled' : ''}`}
+                  onClick={() => user.nummusVendorId && this.handleWithdrawal(balance)}
+                >Get Paid</button>
               </div>
             </div>
           </div>

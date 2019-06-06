@@ -255,8 +255,9 @@ class Payment extends Component {
     let payResult = await this.handleCharge();
     console.log(payResult);
     if (payResult) {
-      console.log(payResult['Products']);
-      let response = await payment({...data});
+      payResult['Products']['$values'] && console.log(payResult['Products']['$values']);
+      payResult['Products']['$values'] && payResult['Products']['$values'][0] && console.log(payResult['Products']['$values'][0]);
+      let response = await payment({...data, chargeInfo: payResult['Products']});
       // update user's cart info
       await getCarts();
       this.props.history.push(`/payment/${checkout_id}/${response}`);

@@ -218,7 +218,7 @@ class NavbarMenu extends React.Component {
                     </h5>
                   </li>
                   <li className="menu-info-item-links animated-menu-item">
-                    <span className="fab fa-facebook-f"/>
+                    <span className="fa fa-facebook-f"/>
                     <span className="fab fa-instagram"/>
                   </li>
                 </ul>

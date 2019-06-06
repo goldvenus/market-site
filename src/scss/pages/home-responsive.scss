@@ -13,7 +13,7 @@
     }
 
     .hero-logo {
-      margin: 75px 0 90px;
+      margin: 79px 0 77px;
       border: none;
       padding: 0;
       width: 290px;
@@ -69,7 +69,7 @@
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      margin: 0 0 95px;
+      margin: 0 0 102px;
       font-size: 14px;
       font-weight: lighter;
       letter-spacing: 1px;
@@ -140,7 +140,7 @@
       flex-direction: row;
       align-items: center;
       justify-content: stretch;
-      margin: 0 0 300px;
+      margin: 0 0 270px;
       width: 100%;
       max-width: 727px;
 
@@ -436,34 +436,55 @@
 
 .home-body, about-us-body {
   .home-subsection {
-    margin: 180px 0 !important;
+    .first-left-div {
+      margin-top: 21px;
+    }
+    .second-right {
+      margin-top: 45px;
+    }
+    .third-left {
+      margin-top: 35px;
+    }
+    &:first-child {
+      margin: 183px 0 0 !important;
+    }
+    &:nth-child(2) {
+      margin: 294px 0 0 !important;
+    }
+    &:last-child {
+      margin: 310px 0 0 !important;
+      padding-bottom: 288px;
+    }
 
     .back-img {
-      height: 330px;
       background-size: contain;
-      background-repeat: no-repeat ;
+      background-repeat: no-repeat;
       background-position: center;
     }
     .rent-gear-back-img {
+      height: 365px;
       background-image: url('/images/home/undraw_maker_launch_crhe.png');
     }
     .add-gear-back-img {
+      height: 386px;
       background-image: url('/images/home/undraw_make_it_rain_iwk4 (1).png');
     }
     .secure-back-img {
+      height: 365px;
       background-image: url('/images/home/undraw_secure_data_0rwp.png');
     }
     h2 {
       font-family: Gotham Pro;
       font-size: 43px;
-      line-height: 63px;
+      line-height: 56px;
       color: #252525;
+      font-weight: 900;
     }
     p {
       font-size: 16px;
       line-height: 27px;
       color: #252525;
-      margin: 2rem 0;
+      margin: 42px 0 40px;
       width: 73%;
     }
     button {
@@ -471,8 +492,11 @@
       line-height: 20px;
       text-align: center;
       color: #FFFFFF;
-      padding: 12px 30px;
+      padding: 14px 47px;
       vertical-align: middle;
+    }
+    .signup-text {
+      margin: 45px 0 25px;
     }
   }
 }
@@ -629,6 +653,15 @@
     max-width: 569px;
   }
 }
+
+@media (max-width: 767px) {
+  .home-subsection {
+    button {
+      width: 100% !important;
+    }
+  }
+}
+
 @media(min-width: 318px) {
   .paySection1 {
     min-height: 420px;

@@ -169,6 +169,10 @@
             margin: 0;
           }
         }
+        button.disabled {
+          color: #7C7C7C;
+          border-color: #7C7C7C;
+        }
       }
     }
 

@@ -89,7 +89,7 @@ class Footer extends Component {
                 {/*<div className="col">*/}
                   {/*<div className="social-buttons">*/}
                   {/*<button className="theme-btn btn-social btn-fb">*/}
-                      {/*<i className="fab fa-facebook-f"/>*/}
+                      {/*<i className="fa fa-facebook-f"/>*/}
                       {/*<span>Facebook</span></button> &nbsp;*/}
                       {/*<button className="theme-btn btn-social btn-vimeo">*/}
                       {/*<i className="fab fa-vimeo-v"/>*/}

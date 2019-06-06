@@ -65,7 +65,7 @@ class Login extends Component {
             <button className="theme-btn btn-social btn-fb text-center"
                     onClick={() => { window.location.href = FACEBOOK_LOGIN_URL; }}>
               <span>
-                <i className="fab fa-facebook-f"></i>
+                <i className="fa fa-facebook-f"></i>
                 <span>Facebook</span>
               </span>
             </button>

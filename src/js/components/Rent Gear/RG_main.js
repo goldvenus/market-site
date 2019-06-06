@@ -266,8 +266,7 @@ class Main extends Component {
                     }}
                   >
                     <div className="table-view ">
-                      <i className="fa fa-grip-lines"/>
-                      <i className="fa fa-grip-lines"/>
+                      <i className="fas fa-bars"/>
                     </div>
                   </NavLink>
                 </NavItem>

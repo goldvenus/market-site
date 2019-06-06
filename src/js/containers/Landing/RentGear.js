@@ -4,7 +4,7 @@ import Sidebar from '../../components/Rent Gear/RG_sidebar';
 import Main from '../../components/Rent Gear/RG_main';
 import BreadCrumbActive from "../../components/BreadCrumbActive";
 import connect from "react-redux/es/connect/connect";
-import BarLoader from "react-bar-loader";
+import CustomLoaderLogo from "../../components/common/CustomLoaderLogo";
 
 class RentGear extends React.Component {
 
@@ -12,7 +12,7 @@ class RentGear extends React.Component {
     let {categories, isLoading} = this.props;
     let category = this.props.match.params.id;
     if (isLoading) {
-      return <BarLoader color="#F82462" height="5"/>;
+      return <CustomLoaderLogo/>;
     }
   
     categories = categories.reduce((arr, item) => arr.concat(item.categoryName), []);
