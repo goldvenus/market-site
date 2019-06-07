@@ -241,7 +241,7 @@ class AddGear extends Component {
               </div>
             </div>
             <div>
-              <div className="theme-text-small">Accessories</div>
+              <div className="theme-text-small accessories">Accessories</div>
               <div id="chip_style">
                 <Chips
                   value={accessories}

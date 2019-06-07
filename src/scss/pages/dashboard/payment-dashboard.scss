@@ -489,9 +489,9 @@
 
     .add-swift-progress {
       display: flex;
-      width: 500px;
       z-index: 0;
       margin: 20px;
+      text-align: center;
 
       .add-gear-progress-item {
         display: flex;
@@ -736,6 +736,7 @@
 
   .wrapper-add-method {
     .method-select-tab-wrapper {
+      padding: 0 !important;
       text-align: center;
     }
     .method-select-tab-content {
@@ -743,6 +744,23 @@
         width: 100% !important;
       }
       .card-model-wrapper {
+        width: 100%;
+      }
+      .add-gear-progress-item {
+        &:first-child {
+          margin-left: 0 !important;
+        }
+        &:nth-child(n+2):before {
+          content: '';
+          position: absolute;
+          width: 100%;
+          height: 1px;
+          border-top: 2px solid $primary-color;
+          left: -36% !important;
+          top: 16px;
+        }
+      }
+      .custom-beautiful-textfield {
         width: 100%;
       }
     }

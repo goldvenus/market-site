@@ -8,7 +8,9 @@
   .header {
     font-size: 46px;
   }
-
+  .breadcrumb {
+    border: none !important;
+  }
   .doubled-status {
     background-color: red;
   }
@@ -99,6 +101,7 @@
     width: 500px;
     z-index: 0;
     margin: 20px;
+    text-align: center;
 
     .add-gear-progress-item {
       display: flex;
@@ -109,6 +112,9 @@
       color: $primary-color;
       position: relative;
 
+      &:before {
+        left: -35%;
+      }
       i {
         font-size: 35px;
         position: relative;
@@ -132,7 +138,7 @@
         width: 100%;
         height: 1px;
         border-top: 2px solid $primary-color;
-        left: -38%;
+        left: -35%;
         top: 16px;
       }
     }
@@ -641,8 +647,9 @@
     color: #252525;
     opacity: 0.5;
   }
-  .category_description_ta{
-    width: 100%!important;
+  .category_description_ta {
+    width: 100% !important;
+
     textarea {
       padding: 5px 15px;
       width: 100% !important;
@@ -652,16 +659,38 @@
     }
   }
 }
-@media(max-width: 500px) {
 
+@media(max-width: 500px) {
   .header {
     font-size: 30px !important;
     font-weight:  900;
+    margin-top: 0;
     margin-bottom: 39px;
   }
 
   .add-gear-progress {
     width: 100% !important;
+  }
+
+  .add-gear-info {
+    .custom-beautiful-textfield {
+      label, input {
+        text-align: left;
+        margin-left: 15px !important;
+      }
+      label {
+        transform-origin: left !important;
+      }
+    }
+    .category_description_ta {
+      height: 209px;
+    }
+  }
+
+  .add-gear {
+    .accessories {
+      margin-left: 0 !important;
+    }
   }
 
   .flex-row {
@@ -778,7 +807,7 @@
     width: 90% !important;
     bottom: 10px;
     left: 5%;
-    z-index: 1000;
+    z-index: 900;
     padding: 13px !important;
   }
 
