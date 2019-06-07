@@ -231,6 +231,7 @@ header {
       width: 100%;
       height: 100%;
       z-index: 2;
+      text-align: center;
 
       @include media-breakpoint-down(md) {
         align-items: flex-start;
@@ -265,7 +266,7 @@ header {
             flex-direction: column;
             flex-wrap: wrap;
             justify-content: space-between;
-            margin: 35px 0;
+            margin: 25px 0;
             align-items: center;
             text-align: center;
           }
@@ -345,7 +346,7 @@ header {
               }
 
               &.with-mb {
-                margin-bottom: 35px;
+                margin-bottom: 10px;
               }
             }
           }
@@ -524,9 +525,11 @@ header {
 
   li.navbar-drop-menu.logged-in {
     margin-left: 25px;
-    border-left: 1px solid rgba(255, 255, 255, .2);
     height: 100%;
 
+    @include media-breakpoint-down(sm) {
+      border: solid 1px #ff6a6a;
+    }
     .btn-group {
       background: transparent;
       transition: .3s;
@@ -610,7 +613,7 @@ header {
 }
 @media (max-width: 1077px) {
   li.navbar-drop-menu.logged-in .dropdown-toggle {
-    padding-left: 5px !important;
+    padding: 10px 15px !important;
   }
 }
 

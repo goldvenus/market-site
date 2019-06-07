@@ -26,13 +26,16 @@
     .sidebar {
       padding: 10px 0;
       background-color: $gray-lighten;
+      width: 95%;
 
+      ul {
+        width: 100%;
+      }
       .sidebar-title {
         position: relative;
         display: block;
         padding: .85rem 1.25rem;
       }
-
       .sidebar-wrapper {
         .list-group {
           .list-group-item {
@@ -43,7 +46,7 @@
             a {
               position: relative;
               display: flex;
-              padding: .8rem 1.25rem;
+              padding: .8rem 28px;
               text-decoration: none;
 
               &:hover {
@@ -80,9 +83,8 @@
 
     // CSS for main component
     .main-wrapper {
-      padding-left: 30px;
-
       .main_head {
+        margin-bottom: 20px;
         div {
           display: flex;
           align-items: center;
@@ -90,8 +92,6 @@
         .views .nav-link {
           cursor: pointer;
         }
-
-        margin-bottom: 20px;
       }
 
       .search {
@@ -256,8 +256,7 @@
             padding: 18px;
 
             .card-text {
-              margin: 0;
-              margin-bottom: 0.8rem;
+              margin: 0 0 0.8rem;
 
               .price {
                 font-family: Gotham Pro;
@@ -645,6 +644,7 @@
   }
   .main-wrapper .gear_list_view {
     flex-direction: column !important;
+
     .card-body {
       padding: 1rem !important;
       .card
@@ -756,13 +756,14 @@
       border: none;
       padding: 0 !important
     }
-    .category-action-btn{
+    .category-action-btn {
       background: none;
       border:none;
       font-size: 20px;
-      i{
+
+      i {
         color: #ccc;
-        margin-left: 5px;
+        margin-left: 10px;
       }
     }
   }

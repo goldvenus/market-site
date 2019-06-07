@@ -5,9 +5,14 @@ import Main from '../../components/Rent Gear/RG_main';
 import BreadCrumbActive from "../../components/BreadCrumbActive";
 import connect from "react-redux/es/connect/connect";
 import CustomLoaderLogo from "../../components/common/CustomLoaderLogo";
+import {fetchCategories} from "../../core/actions/category.action";
 
 class RentGear extends React.Component {
-
+  constructor(props) {
+    super(props);
+    fetchCategories();
+  }
+  
   render() {
     let {categories, isLoading} = this.props;
     let category = this.props.match.params.id;

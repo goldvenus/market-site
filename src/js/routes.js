@@ -28,7 +28,6 @@ export default (
   <div className="app-content" id="nummus-container">
     <Switch>
       <Route exact path="/" component={Home}/>
-      <Route exact path="/home" component={Home}/>
       <Route exact path="/messages/:id1?" component={Messages}/>
       <Route exact path="/aboutUs" component={About}/>
       <Route exact path="/login" component={Login}/>

@@ -65,20 +65,20 @@ class Login extends Component {
             <button className="theme-btn btn-social btn-fb text-center"
                     onClick={() => { window.location.href = FACEBOOK_LOGIN_URL; }}>
               <span>
-                <i className="fa fa-facebook-f"></i>
+                <i className="fa fa-facebook-f"/>
                 <span>Facebook</span>
               </span>
             </button>
-            <button className="theme-btn btn-social btn-twitter">
-              <span>
-                <i className="fab fa-twitter"></i>
-                <span>Twitter</span>
-              </span>
-            </button>
+            {/*<button className="theme-btn btn-social btn-twitter">*/}
+              {/*<span>*/}
+                {/*<i className="fab fa-twitter"/>*/}
+                {/*<span>Twitter</span>*/}
+              {/*</span>*/}
+            {/*</button>*/}
             <button className="theme-btn btn-social btn-google-plus text-center"
                     onClick={() => { window.location.href = FACEBOOK_LOGIN_URL; }}>
               <span>
-                <i className="fab fa-google-plus-g"></i>
+                <i className="fab fa-google-plus-g"/>
                 <span>Google +</span>
               </span>
             </button>
@@ -111,7 +111,7 @@ class Login extends Component {
                     onChange={e => this.setState({ password: (e && e.target && e.target.value) || ''})}
                   />
                 </div>
-                <Link className="theme-form-link forgot-pwd-link" to="/forgotPassword">Forgot password?</Link>
+                <Link className="theme-form-link forgot-pwd-link" to="/forgotPassword">Forgot Password?</Link>
               </div>
               <div className="theme-form-field login-remember-input">
                 <div className="theme-form-field save-addr-btn">

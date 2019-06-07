@@ -107,12 +107,12 @@ class Register extends Component {
                   <span>Facebook</span>
                   </span>
                   </button>
-                  <button className="theme-btn btn-social btn-twitter">
-                  <span>
-                    <i className="fab fa-twitter"/>
-                    <span>Twitter</span>
-                  </span>
-                  </button>
+                  {/*<button className="theme-btn btn-social btn-twitter">*/}
+                  {/*<span>*/}
+                    {/*<i className="fab fa-twitter"/>*/}
+                    {/*<span>Twitter</span>*/}
+                  {/*</span>*/}
+                  {/*</button>*/}
                   <button className="theme-btn btn-social btn-google-plus">
                   <span>
                     <i className="fab fa-google-plus-g"/>

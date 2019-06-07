@@ -80,7 +80,7 @@ class Footer extends Component {
                 </div>
                 <div>
                   <img src='images/Emails.png' alt=''/>
-                  <span className='email'>support@creative.market</span>
+                  <a className='email' href='mailto:support@creative.market'>support@creative.market</a>
                 </div>
                 <div>
                   <i className='fa fa-facebook'/>

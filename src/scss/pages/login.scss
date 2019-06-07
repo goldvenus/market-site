@@ -149,7 +149,7 @@ a.forgot-pwd-link {
     align-items: center;
 
     .header {
-      margin: 100px 0 40px !important;
+      margin: 100px 0 40px;
     }
     .login-form-wrapper {
       margin: 20px 0;
@@ -332,6 +332,7 @@ a.forgot-pwd-link {
       line-height: 39px;
       text-align: center;
       color: #3A3A3A;
+      margin-top: 40px;
     }
 
     .social-buttons {

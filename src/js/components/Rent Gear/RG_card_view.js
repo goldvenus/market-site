@@ -7,7 +7,7 @@ import {
 import { withRouter } from 'react-router-dom';
 import { addFavourites, deleteFavourite } from '../../core/actions/favourite.action';
 
-const CardView = ({ gear_detail: { numberOfUserImage, brand, productName, total_rating, city, rating, pricePerDay, gearid},
+const CardView = ({ gear_detail: { numberOfUserImage, brand, productName, city, rating, pricePerDay, gearid},
     history, favored, carted, onOpenModal }) => {
   return (
     <Col md="8" className="cardz">
@@ -28,10 +28,10 @@ const CardView = ({ gear_detail: { numberOfUserImage, brand, productName, total_
               }
             </span> &nbsp;
             <span>
-              {rating}
+              5,0&nbsp;
             </span>
             <span className="total">
-              {`(${total_rating})`}
+              ({rating})
             </span>&nbsp;  &nbsp;
             <span className="address">
               <i className="fa fa-map-marker" aria-hidden="true"/>&nbsp;

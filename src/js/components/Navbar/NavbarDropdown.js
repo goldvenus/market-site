@@ -35,8 +35,7 @@ class NavbarDropdown extends React.PureComponent {
   };
 
   render() {
-    // let isAuthenticated = !!localStorage.accessToken;
-    const { isAuthenticated, user } = this.props;
+    const { isAuthenticated, user, onCloseMenu } = this.props;
     const { isDropdownOpen } = this.state;
 
     return (
@@ -62,12 +61,12 @@ class NavbarDropdown extends React.PureComponent {
                 <DropdownMenu>
                   <DropdownItem>
                     <RightArrow/>
-                    <Link to="/dashboard">My Account</Link>
+                    <Link to="/dashboard" onClick={onCloseMenu}>My Account</Link>
                   </DropdownItem>
 
                   <DropdownItem>
                     <RightArrow/>
-                    <Link to="/messages">Messages</Link>
+                    <Link to="/messages" onClick={onCloseMenu}>Messages</Link>
                   </DropdownItem>
 
                   <DropdownItem onClick={() => {
@@ -79,7 +78,6 @@ class NavbarDropdown extends React.PureComponent {
                     Logout
                   </DropdownItem>
                 </DropdownMenu>
-
               </ButtonDropdown>
             </li>
           ) : (

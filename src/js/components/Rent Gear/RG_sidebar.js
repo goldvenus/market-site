@@ -48,7 +48,7 @@ class Sidebar extends Component {
           <div className="catagory-header">
             <button className="sidebar-title category-action-btn" onClick={this.categoryHandler}>
               All Categories
-              <i className="fa fa-angle-up" aria-hidden="true"/>
+              <i className={`fa ${isActive ? 'fa-angle-down' : 'fa-angle-up'}`} aria-hidden="true"/>
             </button>
             <button className="sidebar-title search-action-btn" onClick={this.searchHandler}>
               <i className="fa fa-search"/>

@@ -95,7 +95,7 @@ class NavbarMenu extends React.Component {
       location: {pathname},
       isAuthenticated
     } = this.props;
-    const isHome = pathname === '/home' || pathname === '/';
+    const isHome = pathname === '/';
     const logoClassName = (!isHome || (isHome && (isMobile || scrolledDown))) ? 'visible-logo' : 'hidden-logo';
 
     let output = null;
@@ -135,7 +135,7 @@ class NavbarMenu extends React.Component {
           {collapsed
             ? (
               <React.Fragment>
-                <Link to='/home'><li>
+                <Link to='/'><li>
                   <img className="navbar-sm__logo" src={imgLogoSm} alt="CreativeMarket"/>
                 </li></Link>
 
@@ -143,7 +143,7 @@ class NavbarMenu extends React.Component {
               </React.Fragment>
             ) : isMobile ? (
               <React.Fragment>
-                <NavbarDropdown/>
+                <NavbarDropdown onCloseMenu={this.toggleNavbar}/>
               </React.Fragment>
             ) : null
           }
