@@ -299,7 +299,7 @@ class OrderConfirmModal extends Component {
                 <div className="payment-card">
                   <div className="flex-row payment-card-info">
                     <img src="/images/cards/master-card.svg" alt=""/>
-                    <div className="payment-card-number">{info.CardNumber}</div>
+                    <div className="payment-card-number">**** {info.CardNumber}</div>
                   </div>
                   <div className="flex-row payment-card-other">
                     <span>{expiration_date}</span>
@@ -482,7 +482,7 @@ class OrderConfirmModal extends Component {
                   <div className="payment-card">
                     <div className="flex-row">
                       <img src="/images/cards/master-card.svg" alt=""/>
-                      <div className="payment-card-number">{info.CardNumber}</div>
+                      <div className="payment-card-number">**** {info.CardNumber}</div>
                     </div>
                     <div className="flex-row payment-card-other">
                       <span>{expiration_date}</span>

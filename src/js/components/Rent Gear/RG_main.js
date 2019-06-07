@@ -22,6 +22,7 @@ class Main extends Component {
     this.state = {
       searchText: '',
       locationText: '',
+      mobileText: '',
       activeTab: '1',
       modal_open_st: 0,
       carted: false,
@@ -168,6 +169,13 @@ class Main extends Component {
     return {carted, favored};
   };
   
+  handleSearchTextChange = (e, val) => {
+    // if (val !== 'mobileText')
+      this.setState({
+        [val]: e.target.value
+      });
+  };
+  
   render() {
     const {category, carts, favourites, isChanging} = this.props;
     
@@ -212,9 +220,7 @@ class Main extends Component {
                       label="Search"
                       type="text"
                       value={this.state.searchText}
-                      onChange={(e) => {
-                        this.setState({searchText: e.target.value});
-                      }}
+                      onChange={(e) => this.handleSearchTextChange(e, 'searchText')}
                     />
                   </div>
                   <div className="location-input d-none d-md-flex">
@@ -224,9 +230,7 @@ class Main extends Component {
                       label="Location"
                       type="text"
                       value={this.state.locationText}
-                      onChange={(e) => {
-                        this.setState({locationText: e.target.value});
-                      }}
+                      onChange={(e) => this.handleSearchTextChange(e, 'locationText')}
                     />
                   </div>
                 </Form>
@@ -336,15 +340,15 @@ class Main extends Component {
                       onClose={this.onCloseModal}
                       addToCart={this.addToCart}
                     /> :
-                    this.state.modal_open_st === 1 ?
-                      <CartModal1
-                        carted={this.state.carted}
-                        gear={this.state.gear}
-                        start_date={this.state.cart_info.start_date}
-                        end_date={this.state.cart_info.end_date}
-                        open={true}
-                        onClose={this.onCloseModal}
-                      /> : null
+                  this.state.modal_open_st === 1 ?
+                    <CartModal1
+                      carted={this.state.carted}
+                      gear={this.state.gear}
+                      start_date={this.state.cart_info.start_date}
+                      end_date={this.state.cart_info.end_date}
+                      open={true}
+                      onClose={this.onCloseModal}
+                    /> : null
                 }
               </React.Fragment>
           }

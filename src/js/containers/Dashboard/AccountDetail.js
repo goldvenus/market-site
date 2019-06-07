@@ -175,7 +175,7 @@ class AccountDetail extends Component {
             </div>
             <div className="detail-right-wrapper">
               <div className="account-detail-heading">CHANGE <br className="d-block d-sm-none"/>PASSWORD<Link
-                className="theme-form-link forgot-pwd-btn" to="/forgotpassword">Forgot password?</Link></div>
+                className="theme-form-link forgot-pwd-btn" to="/forgotPassword">Forgot password?</Link></div>
               <div className="account-detail-body">
                 <Form>
                   <FormGroup>

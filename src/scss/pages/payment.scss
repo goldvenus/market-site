@@ -14,7 +14,7 @@
   }
   .payment-card {
     padding: 15px 20px;
-    width: 64%;
+    width: 53%;
     min-height: 180px;
     box-shadow: 0px 2px 22px -2px rgba(173, 173, 173, 0.2);
     border-radius: 10px;
@@ -72,8 +72,15 @@
 
     .payment-status {
       padding: 5px 10px;
-      color: white;
-      background: #1CDB74;
+      font-family: Gotham Pro;
+      font-size: 16px;
+      line-height: 23px;
+      text-align: center;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      background-color: #1CDB74;
+      color: #FFFFFF;
+      font-weight: 600;
     }
 
     .checkout-amount {
@@ -87,12 +94,45 @@
     min-width: 250px;
     min-height: 140px !important;
 
-    .payment-card-other {
-      margin-top: 25px !important;
-      span {
-        color: black;
-        opacity: 0.6;
+    .flex-row {
+      display: -webkit-flex;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .payment-card-number {
+        margin-top: 0;
       }
+    }
+    .payment-card-other {
+      font-size: 12px;
+      line-height: 18px;
+      text-align: right;
+      letter-spacing: 0.03em;
+      color: #000000;
+      opacity: 0.6;
+    }
+  }
+  .payment-bill {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .checkout-total {
+      font-size: 16px;
+      line-height: 27px;
+      display: flex;
+
+      .bill-left {
+        margin-right: 15px;
+      }
+    }
+    .checkout-amount {
+      display: flex;
+      justify-content: space-between;
+    }
+    p {
+      margin: 0;
     }
   }
 

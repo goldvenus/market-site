@@ -454,13 +454,13 @@
       margin-top: 35px;
     }
     &:first-child {
-      margin: 183px 0 0 !important;
+      margin: 183px 0 0;
     }
     &:nth-child(2) {
-      margin: 294px 0 0 !important;
+      margin: 294px 0 0;
     }
     &:last-child {
-      margin: 310px 0 0 !important;
+      margin: 310px 0 0;
       padding-bottom: 288px;
     }
 
@@ -520,7 +520,7 @@
 }
 
 .flickity-page-dots {
-  bottom: 0px;
+  bottom: 0;
   list-style: none;
   display: flex;
 }
@@ -683,6 +683,11 @@
 
 @media (max-width: 767px) {
   .home-subsection {
+    margin-top: 50px !important;
+
+    &:last-child {
+      padding: 0 0 50px !important;
+    }
     button {
       width: 100% !important;
     }

@@ -10,10 +10,10 @@ const NavbarRight = ({ isAuthenticated }) => (
       isAuthenticated ?
         <React.Fragment>
           <li>
-            <Link to="/rentgear/all">Rent Gear</Link>
+            <Link to="/rentGear/all">Rent Gear</Link>
           </li>
           <li>
-            <Link to="/addgear">Add Gear</Link>
+            <Link to="/addGear">Add Gear</Link>
           </li>
         </React.Fragment>
         : null

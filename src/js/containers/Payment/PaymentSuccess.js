@@ -197,16 +197,22 @@ class Payment extends Component {
         </div>
         
         <div className="payment-success-info">
-          <div>
+          <div className="payment-bill">
             <div className="checkout-total">
-              <div><span className="text-gray">Total </span> $ {parseFloat(total).toFixed(2)}</div>
-              <div><span className="text-gray">Tax (21%) </span> $ {parseFloat(tax).toFixed(2)}</div>
-              <div><span className="text-gray">Fee (15%) </span> $ {parseFloat(fee).toFixed(2)}</div>
+              <div className="bill-left">
+                <p className="text-gray">Total </p>
+                <p className="text-gray">Tax (21%) </p>
+                <p className="text-gray">Fee (15%) </p>
+              </div>
+              <div className="bill-right">
+                <p>$ {parseFloat(total).toFixed(2)}</p>
+                <p>$ {parseFloat(tax).toFixed(2)}</p>
+                <p>$ {parseFloat(fee).toFixed(2)}</p>
+              </div>
             </div>
             <div className="checkout-amount">
-              <div><span className="text-gray">Amount&nbsp;&nbsp;&nbsp;</span>
-                <b>$ {parseFloat(amount).toFixed(2)}</b>
-              </div>
+              <div><span className="text-gray">Amount </span></div>
+              <div><b>$ {parseFloat(amount).toFixed(2)}</b></div>
             </div>
           </div>
           <div>
@@ -214,7 +220,7 @@ class Payment extends Component {
             <div className="payment-card">
               <div className="flex-row">
                 <img src="/images/cards/master-card.svg" alt=""/>
-                <div className="payment-card-number">**** **** {card_number}</div>
+                <div className="payment-card-number">**** {card_number}</div>
               </div>
               <div className="flex-row payment-card-other">
                 <span>{expiration_month} / {expiration_year}</span>
@@ -229,7 +235,7 @@ class Payment extends Component {
         </div>
         <div className="flex-row bottom-buttons">
           <button className="theme-btn theme-btn-secondery theme-btn-link"><Link to="/">Home Page</Link></button>
-          <button className="theme-btn theme-btn-primary theme-btn-link"><Link to="/dashboard/#order">My Rentals</Link>
+          <button className="theme-btn theme-btn-primary theme-btn-link"><Link to="/dashboard/#order">Order History</Link>
           </button>
         </div>
       </div>);

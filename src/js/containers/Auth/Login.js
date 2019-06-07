@@ -111,7 +111,7 @@ class Login extends Component {
                     onChange={e => this.setState({ password: (e && e.target && e.target.value) || ''})}
                   />
                 </div>
-                <Link className="theme-form-link forgot-pwd-link" to="/forgotpassword">Forgot password?</Link>
+                <Link className="theme-form-link forgot-pwd-link" to="/forgotPassword">Forgot password?</Link>
               </div>
               <div className="theme-form-field login-remember-input">
                 <div className="theme-form-field save-addr-btn">

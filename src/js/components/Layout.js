@@ -33,7 +33,7 @@ class Layout extends Component {
   
   render() {
     const { location, carts, favourites, isAuthenticated } = this.props;
-    const showHeader = ['/login', '/register', '/forgotpassword', '/confirm'].indexOf(location.pathname) === -1;
+    const showHeader = ['/login', '/register', '/forgotPassword', '/confirm'].indexOf(location.pathname) === -1;
     let output = null;
 
     if (isAuthenticated) {

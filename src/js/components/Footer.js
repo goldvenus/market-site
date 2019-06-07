@@ -44,7 +44,7 @@ class Footer extends Component {
                 {/*<div className="row">*/}
                   {/*<ul className="nav text-xs-right">*/}
                     {/*<li className="nav-item">*/}
-                      {/*<Link className="nav-link" to="/aboutus"><span style={{ fontSize: 16, color: '#252525' }}>About us</span></Link>*/}
+                      {/*<Link className="nav-link" to="/aboutUs"><span style={{ fontSize: 16, color: '#252525' }}>About us</span></Link>*/}
                     {/*</li>*/}
                     {/*<li className="nav-item">*/}
                       {/*<Link className="nav-link" to="#"><span style={{ fontSize: 16, color: '#252525' }}>Stories</span></Link>*/}

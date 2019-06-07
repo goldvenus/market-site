@@ -384,8 +384,14 @@
   }
   .privacy-modal {
     width: 100% !important;
+
     .confirm-modal-body {
       padding: 20px 0 0 !important;
+    }
+    .rental-terms-container {
+      h4 {
+        margin-top: 20px;
+      }
     }
   }
 }

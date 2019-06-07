@@ -226,12 +226,12 @@ class Favourites extends Component {
           <div className="cart-header ">
             <div className="theme-page-title">Favourites</div>
             <div className="flex-row d-none d-lg-flex">
-              <button className="theme-btn theme-btn-secondery"><Link to="/rentgear/all">Continue Shopping</Link></button>
+              <button className="theme-btn theme-btn-secondery"><Link to="/rentGear/all">Continue Shopping</Link></button>
               <button className="theme-btn theme-btn-primary go-to-cart-btn"><Link to="/cart"> Cart </Link></button>
             </div>
           </div>
             <div className="d-md-flex d-lg-none d-none md_show_buttons" >
-                <button className="theme-btn theme-btn-secondery col-md-9"><Link to="/rentgear/all">Continue Shopping</Link></button>
+                <button className="theme-btn theme-btn-secondery col-md-9"><Link to="/rentGear/all">Continue Shopping</Link></button>
                 <button className="theme-btn theme-btn-primary theme-btn-link col-md-14"><Link to="/cart">Cart</Link></button>
             </div>
           <div className="cart-table-div">
@@ -264,7 +264,7 @@ class Favourites extends Component {
           </div>
 
           <div className="d-flex d-md-none d-lg-none md_show_buttons" >
-            <button className="theme-btn theme-btn-secondery col-md-14"><Link to="/rentgear/all">Continue Shopping</Link></button>
+            <button className="theme-btn theme-btn-secondery col-md-14"><Link to="/rentGear/all">Continue Shopping</Link></button>
             <button className="theme-btn theme-btn-primary theme-btn-link col-md-9"><Link to="/cart">Cart</Link></button>
           </div>
           {

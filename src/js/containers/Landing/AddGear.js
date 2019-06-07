@@ -615,7 +615,6 @@ class AddGear extends Component {
       brand,
       model,
       categoryName,
-      gearId,
       modalOpenState
     } = this.state;
     
@@ -645,11 +644,11 @@ class AddGear extends Component {
           </div>
           
           <div className="flex-row buttons-container">
-            <button className="theme-btn theme-btn-secondery theme-btn-link success_first_button"><Link to="/dashboard">My
-              Gear</Link>
+            <button className="theme-btn theme-btn-secondery theme-btn-link success_first_button">
+              <Link to="/addGear">Add More</Link>
             </button>
             <button className="theme-btn theme-btn-primary theme-btn-link success_sencond_button"><Link
-              to={`/gear/detail/${gearId}`}>View Gear</Link>
+              to={`/dashboard/#myGear`}>View My Gear</Link>
             </button>
           </div>
         </div>

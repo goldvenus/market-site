@@ -282,6 +282,8 @@ a.forgot-pwd-link {
   }
   .signin-link {
     font-size: 12px;
+    padding: 0 0 20px !important;
+
     span {
       margin-right: 5px;
     }
@@ -292,6 +294,7 @@ a.forgot-pwd-link {
   .signup-link {
     width: 100% !important;
     position: unset !important;
+    padding: 0 0 20px !important;
 
     button {
       padding: 5px 5px !important;

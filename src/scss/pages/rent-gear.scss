@@ -12,6 +12,10 @@
 
   .rent-gear-body {
     margin-bottom: 3rem;
+
+    .card-body {
+      border: none !important;
+    }
     // CSS for sidebar component
     .custom-beautiful-textfield {
       input, label {
@@ -594,6 +598,7 @@
   justify-content: center;
   display: flex;
   padding: 10px;
+  text-align: center;
 }
 
 @media(max-width: 700px) {
@@ -606,7 +611,10 @@
     display: none;
   }
   .search {
-    margin-top: 2rem;
+    position: fixed;
+    bottom: 12vh;
+    background-color: white;
+    opacity: 0.9;
   }
   .views {
     margin-top: 1rem;
@@ -697,31 +705,49 @@
     width: 100%;
     left: 0;
     z-index: 1000;
+
     &.active{
       bottom: 0
+    }
+    ul.category-container {
+      bottom: 80px;
+      position: fixed;
+      width: 100%;
+      max-height: 40vh;
+      overflow: auto;
+      visibility: hidden;
+
+      &.active {
+        visibility: visible;
+      }
     }
   }
   .catagory-header {
     display: flex;
     justify-content: space-between;
-    position: relative;
     padding: 10px;
     align-items: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0px -6px 2px -1px #eaeaea;
+    background: white;
+    height: 12vh;
 
-    .search{
+    .search {
       position: absolute;
       bottom:100%;
       width: 100%;
-      background:#ddd;
+      background: #eee;
       display: none;
-      padding: 0px 10px;
+      padding: 10px 10px 0;
       right: 0;
+
       &.s-active{
         display: block;
       }
-
     }
-    .search-action-btn{
+    .search-action-btn {
       color: #fff;
       width: 47px;
       height: 47px;

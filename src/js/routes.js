@@ -29,22 +29,22 @@ export default (
     <Switch>
       <Route exact path="/" component={Home}/>
       <Route exact path="/home" component={Home}/>
-      <Route exact path="/messages/:id1?/:id2?" component={Messages}/>
-      <Route exact path="/aboutus" component={About}/>
+      <Route exact path="/messages/:id1?" component={Messages}/>
+      <Route exact path="/aboutUs" component={About}/>
       <Route exact path="/login" component={Login}/>
       <Route exact path="/register" component={Register}/>
       <Route exact path='/confirm' component={RegisterConfirm}/>
-      <Route exact path="/forgotpassword" component={ForgotPassword}/>
+      <Route exact path="/forgotPassword" component={ForgotPassword}/>
       <Route exact path="/dashboard" component={Dashboard}/>
       <Route exact path="/dashboard/order/detail/:id" component={OrderDetail}/>
       <Route exact path="/dashboard/methodAdd/:id" component={AddMethodContainer}/>
-      <Route exact path="/addgear" component={AddGear}/>
+      <Route exact path="/addGear" component={AddGear}/>
       <Route exact path="/gear/detail/:id" component={RentGearDetail}/>
       <Route exact path="/cart" component={Cart}/>
       <Route exact path="/checkout" component={Checkout}/>
       <Route exact path="/payment/:id" component={Payment}/>
       <Route exact path="/payment/:id/:tid" component={PaymentSuccess}/>
-      <Route exact path='/rentgear/:id' component={RentGear}/>
+      <Route exact path='/rentGear/:id' component={RentGear}/>
       <Route exact path='/search' component={SearchResults}/>
       <Route exact path='/favourites' component={Favourites}/>
       <Route exact path='/partners' component={Partner}/>

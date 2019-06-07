@@ -92,14 +92,15 @@ class NavbarMenu extends React.Component {
       carts,
       favourites,
       isMobile,
-      location: {pathname}
+      location: {pathname},
+      isAuthenticated
     } = this.props;
     const isHome = pathname === '/home' || pathname === '/';
     const logoClassName = (!isHome || (isHome && (isMobile || scrolledDown))) ? 'visible-logo' : 'hidden-logo';
 
     let output = null;
 
-    if (this.props.isAuthenticated === true) {
+    if (isAuthenticated === true) {
       output = <React.Fragment>
       <li className="navbar-sm__sidebar-item ml-auto">
         <Link to="/cart">
@@ -154,35 +155,30 @@ class NavbarMenu extends React.Component {
             <Row>
               <Col xs={24} lg={12}>
                 <ul className="menu-links-wrapper">
-                  {/* sm only menu */}
-                  <li className="animated-menu-item menu-item-sm">
-                    <Link to="/rentgear/all">
-                      <h2 onClick={this.toggleNavbar} >
-                        Rent Gear
-                      </h2>
-                    </Link>
-                  </li>
-                  <li className="animated-menu-item menu-item-sm with-mb">
-                    <Link to="/addgear">
-                      <h2 onClick={this.toggleNavbar} >
-                        Add Gear
-                      </h2>
-                    </Link>
-                  </li>
-                  {/* sm only menu end */}
+                  {isAuthenticated ?
+                  <React.Fragment>
+                    <li className="animated-menu-item menu-item-sm">
+                      <Link to="/rentGear/all">
+                        <h2 onClick={this.toggleNavbar} >
+                          Rent Gear
+                        </h2>
+                      </Link>
+                    </li>
+                    <li className="animated-menu-item menu-item-sm with-mb">
+                      <Link to="/addGear">
+                        <h2 onClick={this.toggleNavbar} >
+                          Add Gear
+                        </h2>
+                      </Link>
+                    </li>
+                  </React.Fragment> : null}
 
                   <li className="animated-menu-item">
-                    <Link to="/aboutus" onClick={this.toggleNavbar} >
+                    <Link to="/aboutUs" onClick={this.toggleNavbar} >
                       <span className="dash"/>
                       About Us
                     </Link>
                   </li>
-                  {/*<li className="animated-menu-item">*/}
-                    {/*<Link to="/Stories" onClick={this.toggleNavbar} >*/}
-                      {/*<span className="dash"/>*/}
-                      {/*Stories*/}
-                    {/*</Link>*/}
-                  {/*</li>*/}
                   <li className="animated-menu-item">
                     <Link to="/Partners" onClick={this.toggleNavbar} >
                       <span className="dash"/>

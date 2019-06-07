@@ -151,7 +151,7 @@ class ListGear extends Component {
                     <div className="d-none d-lg-flex align-items-center ">
                       <h2 className="theme-page-title">List Gear</h2>
                       <button className="theme-btn theme-btn-primary theme-btn-link ml-auto">
-                        <Link to="/addgear"><span className="fa fa-plus"/>&nbsp; Add Gear</Link>
+                        <Link to="/addGear"><span className="fa fa-plus"/>&nbsp; Add Gear</Link>
                       </button>
                     </div>
                   </Col>
@@ -159,14 +159,14 @@ class ListGear extends Component {
                 <h2 className="d-flex d-lg-none theme-page-title list-gear-title">List Gear</h2>
                 <button
                   className="d-flex d-lg-none theme-btn theme-btn-primary theme-btn-link ml-auto add-gear-btn">
-                  <Link to="/addgear"><span className="fa fa-plus"/>&nbsp; Add Gear</Link>
+                  <Link to="/addGear"><span className="fa fa-plus"/>&nbsp; Add Gear</Link>
                 </button>
               </Container>
             </div>
             <Container>
               <div className="list-gear-body d-none d-sm-block">
                 {!gear_list.length ? (
-                    <EmptyActivity e_name="Add Gear" e_path="/addgear" e_title="YOUR LIST GEAR IS EMPTY"
+                    <EmptyActivity e_name="Add Gear" e_path="/addGear" e_title="YOUR LIST GEAR IS EMPTY"
                                    e_img_name="cart"/>
                   ) :
                   (
@@ -221,7 +221,7 @@ class ListGear extends Component {
               </div>
               <div className='list-gear-mobile d-block d-sm-none'>
                 {!gear_list.length ? (
-                  <EmptyActivity e_name="Add Gear" e_path="/addgear" e_title="YOUR LIST GEAR IS EMPTY"
+                  <EmptyActivity e_name="Add Gear" e_path="/addGear" e_title="YOUR LIST GEAR IS EMPTY"
                                  e_img_name="cart"/>
                 ) : (
                   gear_list.map((item) => {
