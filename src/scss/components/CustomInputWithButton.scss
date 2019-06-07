@@ -1,0 +1,31 @@
+.input-with-button-container {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  border: solid 1px #FED3E0;
+  justify-content: space-between;
+  width: 285px;
+  margin-bottom: 10px;
+
+  input {
+    border: none;
+    width: 80%;
+    outline: none;
+    color: #f82462;
+
+    &:disabled {
+      background-color: white;
+    }
+  }
+  .right-button {
+    cursor: pointer;
+    text-align: center;
+    background-color: white;
+
+    span {
+      border: solid 1px #f82462;
+      padding: 7px 15px;
+      color: #f82462;
+    }
+  }
+}

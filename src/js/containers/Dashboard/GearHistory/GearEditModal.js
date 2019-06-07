@@ -6,13 +6,13 @@ import {
 } from 'reactstrap';
 import Textarea from 'muicss/lib/react/textarea';
 import 'muicss/dist/css/mui.min.css';
-import Chips from 'react-chips';
 import {getGear, editGear, getUsedNames} from '../../../core/actions/gear.action'
 import {handleError, readFileData} from "../../../core/actions/common.action";
 import CustomSpinner from "../../../components/common/CustomSpinner";
 import Modal from "react-responsive-modal";
 import ConfirmModal from "../../../components/common/ConfirmModal";
 import TextField from "@material-ui/core/TextField/TextField";
+import CustomInputWithButton from "../../../components/common/CustomInputWithButton";
 
 class GearEditModal extends Component {
   constructor(props) {
@@ -74,7 +74,7 @@ class GearEditModal extends Component {
         description: props.gear.description,
         selectedType: props.gear.type,
         isKit: props.gear.isKit,
-        accessories: props.gear.accessories,
+        accessories: props.gear.accessories.map((item, key) => ({id: Date.now()+key, value: item, type: 1})),
         numberOfUserImage: props.gear.numberOfUserImage,
         city: props.gear.city,
         region: props.gear.product_region,
@@ -118,10 +118,10 @@ class GearEditModal extends Component {
     this.forceUpdate();
   };
 
-  handleChangeProductName = (newValue) => {
-    let isDoubled = this.usedNames.indexOf(newValue) >= 0;
-    this.setState({productName: newValue, isDoubled});
-  };
+  // handleChangeProductName = (newValue) => {
+  //   let isDoubled = this.usedNames.indexOf(newValue) >= 0;
+  //   this.setState({productName: newValue, isDoubled});
+  // };
 
   dataSave = async () => {
     if (this.state.isDoubled) {
@@ -147,8 +147,9 @@ class GearEditModal extends Component {
       replacementValue,
       pricePerDay
     } = this.state;
-
-    if (categoryName === '' || brand === '' || model === '' || productName === '' || description === '' ||
+  
+    let emptyCount = accessories.filter(item => item.value === '');
+    if (emptyCount.length > 0 || categoryName === '' || brand === '' || model === '' || productName === '' || description === '' ||
       selectedType === '' || city === '' || region === '' || address === '' || postalCode === '' ||
       replacementValue === '' || pricePerDay === '') {
       handleError("Please input required information");
@@ -162,7 +163,7 @@ class GearEditModal extends Component {
       description,
       type: selectedType,
       isKit,
-      accessories,
+      accessories: accessories.map(item => item.value),
       numberOfUserImage,
       numberOfUserImageRemoved,
       numberOfUserImageNew,
@@ -225,6 +226,28 @@ class GearEditModal extends Component {
       numberOfUserImageRemoved: newArr3
     });
   };
+  
+  handlePerformAddKit = (newKit) => {
+    let {accessories} = this.state;
+    accessories = accessories.map((item) => item.id === newKit.id ? newKit : item);
+    this.setState({accessories});
+  };
+  
+  handleRemoveKit = (kit) => {
+    let {accessories} = this.state;
+    accessories = accessories.filter((item) => item.id !== kit.id);
+    this.setState({accessories});
+  };
+  
+  handleAddKit = () => {
+    let emptyKit = {
+      id: Date.now(),
+      type: 0,
+      value: '',
+      editable: true
+    };
+    this.setState({accessories: [...this.state.accessories, emptyKit]});
+  };
 
   handleCloseConfirm = () => {
     this.setState({isOpenConfirm: false});
@@ -258,7 +281,7 @@ class GearEditModal extends Component {
             <TextField
               id="standard-with-placeholder1"
               className="custom-beautiful-textfield"
-              label='Brand'
+              label='BRAND'
               type="text"
               value={brand}
               // onBlur={this.addSuggestions}
@@ -271,7 +294,7 @@ class GearEditModal extends Component {
             <TextField
               id="standard-with-placeholder2"
               className="custom-beautiful-textfield"
-              label='Model'
+              label='MODEL'
               type="text"
               value={model}
               // onBlur={this.addSuggestions}
@@ -290,7 +313,7 @@ class GearEditModal extends Component {
             <TextField
               id="standard-with-placeholder3"
               className="custom-beautiful-textfield"
-              label='Product Name'
+              label='PRODUCT NAME'
               type="text"
               value={productName}
               // onBlur={this.addSuggestions}
@@ -388,7 +411,7 @@ class GearEditModal extends Component {
       return <CustomSpinner/>;
     }
     const {selectedType, replacementValue, pricePerDay, accessories, isKit, description} = this.state;
-    
+
     return (
       <Modal open={true} onClose={onClose} center classNames={{modal: "gear-edit-modal gear-delete-modal"}}>
         {(this.state.busy || isLoadingGear) && <CustomSpinner/>}
@@ -422,20 +445,20 @@ class GearEditModal extends Component {
                     <div className="type-tabs">
                       <input name="type" id="new" type="radio" value="new"
                              onChange={this.onTypeChange}/>
-                      <label className={selectedType === 'new' ? 'active' : ''}
+                      <label className={`new ${selectedType === 'new' ? 'active' : ''}`}
                              htmlFor="new">New</label>
                       <input name="type" id="like-new" type="radio" value="like_new"
                              onChange={this.onTypeChange}/>
-                      <label className={selectedType === 'like_new' ? 'active' : ''}
+                      <label className={`like-new ${selectedType === 'like_new' ? 'active' : ''}`}
                              htmlFor="like-new">Like New</label>
                       <input name="type" id="slightly-worn" type="radio" value="slightly_worn"
                              onChange={this.onTypeChange}/>
-                      <label className={selectedType === 'slightly_worn' ? 'active' : ''}
+                      <label className={`slightly-worn ${selectedType === 'slightly_worn' ? 'active' : ''}`}
                              htmlFor="slightly-worn">Slightly
                         Worn</label>
                       <input name="type" id="worn" type="radio" value="worn"
                              onChange={this.onTypeChange}/>
-                      <label className={selectedType === 'worn' ? 'active' : ''}
+                      <label className={`worn ${selectedType === 'worn' ? 'active' : ''}`}
                              htmlFor="worn">Worn</label>
                     </div>
                     <div className="theme-form-field kit-check">
@@ -451,15 +474,22 @@ class GearEditModal extends Component {
                     </div>
                   </div>
                   <div className="form-accessories">
-                    <div className="theme-text-small type_title_css">Accessories</div>
-                    <div className="theme-form-field">
-                      <Chips
-                        value={accessories}
-                        onChange={(accessories) => this.setState({accessories})}
-                        className="theme-combo"
-                        fromSuggestionsOnly={false}
-                      />
+                    <div className="theme-text-small accessories">Accessories</div>
+                    <div id="accessories-container">
+                      {accessories.map((item) => (
+                        <CustomInputWithButton
+                          item={item}
+                          key={item.id}
+                          onAdd={this.handlePerformAddKit}
+                          onRemove={this.handleRemoveKit}
+                        />)
+                      )}
                     </div>
+                    <button
+                      className='add-kit-btn theme-btn theme-btn-filled-white'
+                      onClick={() => isKit && this.handleAddKit()}
+                      disabled={!isKit ? 'disabled' : ''}
+                    >+ Add</button>
                   </div>
                 </div>
               </div>

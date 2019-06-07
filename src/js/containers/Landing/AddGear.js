@@ -2,15 +2,13 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {
-  Breadcrumb, BreadcrumbItem, Dropdown, Form, DropdownToggle, DropdownMenu,
+  Breadcrumb, BreadcrumbItem, Dropdown, DropdownToggle, DropdownMenu,
   DropdownItem, Label, InputGroup, InputGroupAddon
 } from 'reactstrap';
-import Chips from 'react-chips';
 import CustomInput from '../../components/CustomInput';
 import CustomCarousel from '../../components/CustomCarousel';
 import {handleError, readFileData} from '../../core/actions/common.action';
-import {addGear, getUsedNames} from '../../core/actions/gear.action';
-import {fetchCategories} from "../../core/actions/category.action";
+import {addGear} from '../../core/actions/gear.action';
 import Textarea from "muicss/lib/react/textarea";
 import BreadCrumbActive from "../../components/BreadCrumbActive";
 import CustomSpinner from "../../components/common/CustomSpinner";
@@ -18,13 +16,15 @@ import TextField from "@material-ui/core/TextField/TextField";
 import Modal from "react-responsive-modal";
 import RentalTermsComponent from "../TermsAndPolicy/RentalTermsComponent";
 import CustomLoaderLogo from "../../components/common/CustomLoaderLogo";
+import CustomInputWithButton from "../../components/common/CustomInputWithButton";
+import {fetchCategories} from "../../core/actions/category.action";
 
 class AddGear extends Component {
   constructor(props) {
     super(props);
     
     this.progressSteps = ['Info', 'Photo', 'Address', 'Price'];
-    this.usedNames = [];
+    // this.usedNames = [];
     this.suggestions = [];
     
     this.state = {
@@ -33,7 +33,7 @@ class AddGear extends Component {
       selectedType: 'new',
       isGearAdded: false,
       gearId: '',
-      categoryName: '',
+      categoryName: 'Select Category',
       brand: '',
       model: '',
       description: '',
@@ -59,11 +59,11 @@ class AddGear extends Component {
   
   async componentDidMount() {
     await fetchCategories();
-    let ret = await getUsedNames();
-    if (ret) {
-      this.usedNames = ret;
-    }
-    this.autoGenerateSuggestions();
+    // let ret = await getUsedNames();
+    // if (ret) {
+    //   this.usedNames = ret;
+    // }
+    // this.autoGenerateSuggestions();
   }
   
   autoGenerateSuggestions = () => {
@@ -102,10 +102,10 @@ class AddGear extends Component {
     this.forceUpdate();
   };
   
-  handleChangeProductName = (newValue) => {
-    let isDoubled = this.usedNames.indexOf(newValue) >= 0;
-    this.setState({productName: newValue, isDoubled});
-  };
+  // handleChangeProductName = (newValue) => {
+  //   let isDoubled = this.usedNames.indexOf(newValue) >= 0;
+  //   this.setState({productName: newValue, isDoubled});
+  // };
   
   onTypeChange(e) {
     this.setState({
@@ -114,7 +114,8 @@ class AddGear extends Component {
   }
   
   changeCategory(e) {
-    this.setState({categoryName: e.target.textContent}, () => this.addSuggestions());
+    this.setState({categoryName: e.target.textContent});
+    // this.setState({categoryName: e.target.textContent}, () => this.addSuggestions());
   }
   
   toggle() {
@@ -122,6 +123,28 @@ class AddGear extends Component {
       dropdownOpen: !prevState.dropdownOpen
     }));
   }
+  
+  handlePerformAddKit = (newKit) => {
+    let {accessories} = this.state;
+    accessories = accessories.map((item) => item.id === newKit.id ? newKit : item);
+    this.setState({accessories});
+  };
+  
+  handleRemoveKit = (kit) => {
+    let {accessories} = this.state;
+    accessories = accessories.filter((item) => item.id !== kit.id);
+    this.setState({accessories});
+  };
+  
+  handleAddKit = () => {
+    let emptyKit = {
+      id: Date.now(),
+      type: 0,
+      value: '',
+      editable: true
+    };
+    this.setState({accessories: [...this.state.accessories, emptyKit]});
+  };
   
   renderProgress() {
     const {progressStep} = this.state;
@@ -151,7 +174,7 @@ class AddGear extends Component {
     const {categories} = this.props;
     
     return (
-      <Form className="theme-form add-gear-info container add-gear-info-cusvenus" id="tablet-form">
+      <div className="theme-form add-gear-info container" id="tablet-form">
         <div className="flex-row d-md-block d-lg-flex">
           <div className="theme-column category_first">
             <Dropdown className="theme-form-field theme-form-dropdown category_first" isOpen={dropdownOpen}
@@ -163,7 +186,7 @@ class AddGear extends Component {
                 {
                   categories.map((ele, index) => {
                     return <DropdownItem key={index}
-                                         onClick={this.changeCategory.bind(this)}>{ele.categoryName}</DropdownItem>;
+                      onClick={this.changeCategory.bind(this)}>{ele.categoryName}</DropdownItem>;
                   })
                 }
               </DropdownMenu>
@@ -225,7 +248,6 @@ class AddGear extends Component {
             </div>
           </div>
           <div className="theme-column info-right-container" id="new-tabs">
-            <span>Select the condition of the item</span>
             <div className="info-right-newtabs-left">
               <div className="type-tabs">
                 <input name="type" id="new" type="radio" value="new" onChange={this.onTypeChange}/>
@@ -242,7 +264,7 @@ class AddGear extends Component {
               </div>
               <div className="theme-form-field" id="kit-style">
                 <div className="input_svg pretty p-svg p-plain">
-                  <input type="checkbox" value={isKit} onChange={(e) => this.setState({isKit: e.target.checked})}/>
+                  <input type="checkbox" checked={isKit ? 'checked' : ''} onChange={() => this.setState({isKit: !isKit})}/>
                   <div className="state">
                     <img className="svg check_svg" src="/images/Icons/task.svg" alt="Check"/>
                   </div>
@@ -252,18 +274,25 @@ class AddGear extends Component {
             </div>
             <div>
               <div className="theme-text-small accessories">Accessories</div>
-              <div id="chip_style">
-                <Chips
-                  value={accessories}
-                  onChange={(accessories) => this.setState({accessories})}
-                  className="theme-combo"
-                  fromSuggestionsOnly={false}
-                />
+              <div id="accessories-container">
+                {accessories.map((item) => (
+                  <CustomInputWithButton
+                    item={item}
+                    key={item.id}
+                    onAdd={this.handlePerformAddKit}
+                    onRemove={this.handleRemoveKit}
+                  />)
+                )}
               </div>
+              <button
+                className='add-kit-btn theme-btn theme-btn-filled-white'
+                onClick={() => isKit && this.handleAddKit()}
+                disabled={!isKit ? 'disabled' : ''}
+              >+ Add</button>
             </div>
           </div>
         </div>
-      </Form>);
+      </div>);
   }
   
   renderPhotos() {
@@ -300,7 +329,7 @@ class AddGear extends Component {
     const {city, region, address, postalCode} = this.state;
     
     return (
-      <Form className="theme-form add-gear-address">
+      <div className="theme-form add-gear-address">
         <div className="theme-form-field text-wrapper">
           <TextField
             id="standard-with-placeholder1"
@@ -345,7 +374,7 @@ class AddGear extends Component {
             onChange={(e) => this.setState({postalCode: (e && e.target && e.target.value) || ''})}
           />
         </div>
-      </Form>
+      </div>
     );
   }
   
@@ -365,7 +394,7 @@ class AddGear extends Component {
     } = this.state;
     
     let mappedAccessories = accessories.map((accessory, index) => (
-      <div key={'accessory-' + index} className="d-md-flex">{accessory}</div>
+      <div key={'accessory-' + index} className="d-md-flex">{accessory.value}</div>
     ));
     return <div className="add-gear-price">
       <div id="fourth-content">
@@ -493,8 +522,9 @@ class AddGear extends Component {
   validate() {
     switch (this.state.progressStep) {
       case 0:
-        const {categoryName, brand, model, description, selectedType, productName} = this.state;
-        if (categoryName && brand && model && description && selectedType && productName) {
+        const {categoryName, brand, model, description, selectedType, productName, accessories} = this.state;
+        let emptyCount = accessories.filter(item => item.value === '');
+        if (emptyCount.length === 0 && categoryName && categoryName !== 'Select Category' && brand && model && description && selectedType && productName) {
           return true;
         }
         break;
@@ -565,7 +595,7 @@ class AddGear extends Component {
         description,
         type: selectedType,
         isKit,
-        accessories,
+        accessories: accessories.map(item => item.value),
         numberOfUserImage,
         city,
         product_region: region,
@@ -578,7 +608,7 @@ class AddGear extends Component {
       };
       
       if (!categoryName || !brand || !model || !description || !selectedType
-        || !accessories || !productName || !numberOfUserImage || !city || !region ||
+        || !accessories.length || !productName || !numberOfUserImage || !city || !region ||
         !address || !postalCode || !replacementValue || !pricePerDay) {
         handleError("Please provide required details!");
         return;
@@ -586,6 +616,7 @@ class AddGear extends Component {
         handleError("Did you read Rental Terms and Conditions?");
         return;
       }
+      console.log(data.accessories);
       
       this.setState({busy: true});
       let gear = await addGear(data);
@@ -625,11 +656,11 @@ class AddGear extends Component {
       brand,
       model,
       categoryName,
-      modalOpenState
+      modalOpenState,
     } = this.state;
     
     const {isLoadingCategories} = this.props;
-    if (isLoadingCategories || this.suggestions.length < 1) {
+    if (isLoadingCategories) {
       return <CustomLoaderLogo/>;
     }
     

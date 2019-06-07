@@ -110,7 +110,7 @@ class RentGearDetail extends Component {
                       )
                     }
                     </span>
-                    <span className='rating-text'> (5,0) ({rating})</span>
+                    <span className='rating-text'> 5,0 ({rating})</span>
                   </div>
                   <div className="gear-address-container col-sm-12 col-12 row">
                     <div className='marker-icon'/>

@@ -22,9 +22,17 @@
     color: #252525;
   }
 
-  .add-gear-info-cusvenus {
+  .add-kit-btn {
+    color: #252525;
+    font-weight: 600;
+    border: solid 1px #D3D3D3;
+  }
+  .add-gear-info {
     display: flex;
     justify-content: center;
+    & > div {
+      align-items: unset;
+    }
   }
 
   .flex-row {
@@ -33,9 +41,11 @@
     justify-content: center;
     .theme-column {
       width: 35%;
+
       .category_first {
         width: 100%;
         padding-right: 10px;
+
         & > div {
           width: 100%;
         }
@@ -44,7 +54,8 @@
           font-size: 14px;
         }
         label {
-          color: #ccc;
+          color: #252525;
+          opacity: 0.6;
         }
       }
       .btn-secondary{
@@ -218,6 +229,7 @@
   }
   .info-right-container {
     margin-left: 15px;
+    margin-top: 20px;
     height: 100%;
 
     .theme-text-small {
@@ -248,7 +260,6 @@
     max-width: 600px;
     margin: 15px;
     padding: 15px;
-
   }
 
   .gear-carousel {
@@ -419,16 +430,16 @@
       color:#F82462;
     }
     & > div{
-      -webkit-border-radius: 0px !important;
-      -moz-border-radius: 0px !important;
-      border-radius: 0px !important;
+      -webkit-border-radius: 0 !important;
+      -moz-border-radius: 0 !important;
+      border-radius: 0 !important;
       box-sizing: border-box;
 
       & > div {
         background: #fff1e1 !important;
 
         input {
-          margin: 0px !important;
+          margin: 0 !important;
         }
       }
     }
@@ -510,7 +521,6 @@
         width:39%;
         font-weight: 600 !important;
       }
-
     }
   }
   .add-gear-address {
@@ -690,6 +700,9 @@
   .add-gear {
     .accessories {
       margin-left: 0 !important;
+    }
+    .input-with-button-container {
+      width: 100%;
     }
   }
 

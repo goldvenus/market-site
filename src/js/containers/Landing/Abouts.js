@@ -3,14 +3,14 @@ import { Container, Row, Col } from 'reactstrap';
 import {Link} from "react-router-dom";
 
 const team = [
-  { name: 'Joe Stapleton', job_title: 'Co-founder', img: '/images/team/1.jpg' },
-  { name: 'Jakob Storm', job_title: 'Co-founder', img: '/images/team/2.jpg' },
-  { name: 'Josh Kocaurek', job_title: 'CEO', img: '/images/team/3.jpg' },
-  { name: 'Tomass Sola', job_title: 'Lead Sales Manager', img: '/images/team/5.jpg' },
-  { name: 'Joe Stapleton', job_title: 'Co-founder', img: '/images/team/1.jpg' },
-  { name: 'Jakob Storm', job_title: 'Co-founder', img: '/images/team/2.jpg' },
-  { name: 'Josh Kocaurek', job_title: 'CEO', img: '/images/team/3.jpg' },
-  { name: 'Tomass Sola', job_title: 'Lead Sales Manager', img: '/images/team/5.jpg' },
+  { name: 'Joe Stapleton', job_title: 'Co-founder', img: '/images/aboutus/1.png' },
+  { name: 'Jakob Storm', job_title: 'Co-founder', img: '/images/aboutus/2.png' },
+  { name: 'Josh Kocaurek', job_title: 'CEO', img: '/images/aboutus/3.png' },
+  { name: 'Tomass Sola', job_title: 'Lead Sales Manager', img: '/images/aboutus/4.png' },
+  { name: 'Joe Stapleton', job_title: 'Co-founder', img: '/images/aboutus/5.png' },
+  { name: 'Jakob Storm', job_title: 'Co-founder', img: '/images/aboutus/6.png' },
+  { name: 'Josh Kocaurek', job_title: 'CEO', img: '/images/aboutus/7.png' },
+  { name: 'Tomass Sola', job_title: 'Lead Sales Manager', img: '/images/aboutus/8.png' },
 ];
 
 class About extends Component {
