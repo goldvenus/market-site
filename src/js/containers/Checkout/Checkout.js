@@ -69,7 +69,6 @@ class Checkout extends Component {
   handleAddressChange = (e, element) => {
     e.preventDefault();
     $(".select-addr-btn").trigger('click');
-    console.log(element);
     this.setState({
       addr: element.addr,
       productRegion: element.productRegion,

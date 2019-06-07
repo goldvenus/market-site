@@ -26,7 +26,6 @@ class Search extends Component {
               type="text"
               label="Search"
               onChange={(value) => {
-                console.log(value);
                 this.setState({searchText: value}, () => {
                   rentGearProductList({
                     categoryName: category,

@@ -12,7 +12,7 @@ class MaterialInputWithDropdown extends React.Component {
   itemsRef = [];
   wrapperRef = null;
   dropdownWrapperRef = null;
-  addonWrapperRef = null;
+  // addonWrapperRef = null;
   itemWrapperRef = null;
   curPos = 100;
 
@@ -38,7 +38,7 @@ class MaterialInputWithDropdown extends React.Component {
   }
 
   handleClickOutside = e => {
-    if (this.wrapperRef && !this.wrapperRef.contains(e.target)) {
+    if (this.wrapperRef && !this.wrapperRef.contains(e.target) && this.dropdownWrapperRef && !this.dropdownWrapperRef.contains(e.target)) {
       this.setState({
         isDropdownOpen: false,
         isFocused: false
@@ -57,13 +57,14 @@ class MaterialInputWithDropdown extends React.Component {
     setTimeout(() => this.setState({
       isDropdownOpen: false,
       isFocused: false
-    }), 50);
+    }), 100);
     e.preventDefault();
   };
   
   handleKeyDown = e => {
     let keyCode = e.keyCode;
-    let addOnHeight = (this.addonWrapperRef && this.addonWrapperRef.offsetHeight) || 0;
+    // let addOnHeight = (this.addonWrapperRef && this.addonWrapperRef.offsetHeight) || 0;
+    let addOnHeight = 0;
     
     if (e.keyCode !== 38 && e.keyCode !== 40 && e.keyCode !== 13) {
       return;
@@ -137,7 +138,7 @@ class MaterialInputWithDropdown extends React.Component {
       label,
       value,
       dropdownItems,
-      dropdownAddons,
+      // dropdownAddons,
       ...props
     } = this.props;
 
@@ -155,11 +156,11 @@ class MaterialInputWithDropdown extends React.Component {
 
         {isDropdownOpen &&
         <div className="material-input-dropdown" id='dropdown-wrapper' ref={ref => this.dropdownWrapperRef = ref}>
-          {!!dropdownAddons &&
-          <div className="material-input-dropdown-addon" ref={ref => this.addonWrapperRef = ref}>
-            {dropdownAddons}
-          </div>
-          }
+          {/*{!!dropdownAddons &&*/}
+          {/*<div className="material-input-dropdown-addon" ref={ref => this.addonWrapperRef = ref}>*/}
+            {/*{dropdownAddons}*/}
+          {/*</div>*/}
+          {/*}*/}
           {!!(dropdownItems && dropdownItems.length) &&
           <div className="material-input-dropdown-list" ref={ref => this.itemWrapperRef = ref}>
             {dropdownItems.map((val, key) => (

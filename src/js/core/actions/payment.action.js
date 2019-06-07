@@ -251,7 +251,6 @@ const openConversation = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       let res = await post('openConversation', data);
-      console.log(res);
       if (res && res.data && res.data.status === 'success') {
         resolve(true);
       } else {

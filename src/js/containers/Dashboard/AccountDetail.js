@@ -98,7 +98,6 @@ class AccountDetail extends Component {
   
   addImage = async (event) => {
     try {
-      console.log(event.target);
       const fileName = event.target.files && event.target.files.length > 0 && event.target.files[0].name;
       let image = await readFileData(event);
 

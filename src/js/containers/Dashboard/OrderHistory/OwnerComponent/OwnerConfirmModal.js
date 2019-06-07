@@ -24,7 +24,6 @@ class OwnerConfirmModal extends Component {
         this.rating = ratingTemp[0].slice(1, 3);
       }
     }
-    console.log(this.rating);
     
     let gearStatus = [];
     let emptyStatus = [];

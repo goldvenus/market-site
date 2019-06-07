@@ -96,7 +96,7 @@ class Home extends React.Component {
       ((item.productName && item.productName.toLowerCase().indexOf(key1) !== -1) || item.categoryName.toLowerCase().indexOf(key1) !== -1 || item.brand.toLowerCase().indexOf(key1) !== -1));
     
     let gearList2 = (this.gearList || []).filter(item =>
-      ((item.city.toLowerCase().indexOf(key2) !== -1 || item.address.toLowerCase().indexOf(key2) !== -1) || item.product_region.toLowerCase().indexOf(key2) !== -1));
+      ((item.city.toLowerCase().indexOf(key2) === 0 || item.address.toLowerCase().indexOf(key2) === 0) || item.product_region.toLowerCase().indexOf(key2) === 0));
   
     gearList1.forEach((item) => {
       this.productList = [...this.productList, item.productName];
@@ -137,20 +137,20 @@ class Home extends React.Component {
     this.props.history.push('/rentGear/all');
   };
   
-  renderSearchAddOn = () => {
-    return (
-      <div className="search-addon">
-        <div className="search-brand-category-wrapper">
-          {
-            this.categoryList.length > 0 && this.categoryList.map((item, key) => (
-              <div className="search-category-item" key={key}>
-                <span>{this.state.searchValue} in {item} ></span>
-              </div>))
-          }
-        </div>
-      </div>
-    )
-  };
+  // renderSearchAddOn = () => {
+  //   return (
+  //     <div className="search-addon">
+  //       <div className="search-brand-category-wrapper">
+  //         {
+  //           this.categoryList.length > 0 && this.categoryList.map((item, key) => (
+  //             <div className="search-category-item" key={key}>
+  //               <span>{this.state.searchValue} in {item} ></span>
+  //             </div>))
+  //         }
+  //       </div>
+  //     </div>
+  //   )
+  // };
 
   render() {
     const {
@@ -210,7 +210,7 @@ class Home extends React.Component {
                         noHelp
                         value={searchValue}
                         dropdownItems={this.productList || []}
-                        dropdownAddons={this.renderSearchAddOn()}
+                        // dropdownAddons={this.renderSearchAddOn()}
                         onChange={this.handleChangeSearchValue}
                       />
                     </div>

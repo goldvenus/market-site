@@ -28,7 +28,6 @@ class Step1 extends Component {
     let info = {};
     try {
       info = getBankInfoFromIban(swiftCode);
-      console.log(info);
     } catch (err) {
       handleError('Swift code is invalid!');
       return;

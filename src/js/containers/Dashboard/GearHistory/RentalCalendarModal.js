@@ -76,7 +76,6 @@ class RentalCalendarModal extends React.Component {
   };
   
   handleDayClick = (day, {selected}) => {
-    console.log(day, selected);
     if (selected) {
       this.setState({open: 2});
     }

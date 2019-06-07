@@ -111,7 +111,6 @@ class OrderConfirmModal extends Component {
     res.then(() => {
       this.props.history.push(`/messages/${otherId}`);
     }).catch((err) => {
-      console.log(err);
     });
   };
   

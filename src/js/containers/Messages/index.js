@@ -65,7 +65,6 @@ class Messages extends Component {
       let id1 = this.me.userid;
       let id2 = this.other.userid;
       let conversationId = id1 > id2 ? id1 + '-' + id2 : id2 + '-' + id1;
-      console.log(conversationId);
       conversation = session.getOrCreateConversation(conversationId);
       // conversation = session.getOrCreateConversation(Talk.oneOnOneId(me, other));
     } else {

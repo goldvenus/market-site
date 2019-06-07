@@ -154,7 +154,6 @@ class Payment extends Component {
       if (error.responseJSON && error.responseJSON.Message) {
         // network error
         let errMsg = JSON.parse(error.responseJSON.Message).message[0];
-        console.log(JSON.parse(error.responseJSON.Message).message);
         handleError(errMsg.description);
       } else {
         console.log(error);

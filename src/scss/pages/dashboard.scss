@@ -987,6 +987,9 @@ span.delete_my_gear {
     .account-detail-heading {
       padding: 34px 0 0 48px;
 
+      .upload-photo-row {
+        width: unset !important;
+      }
       .forgot-pwd-btn {
         float: right;
         margin-top: 8px;
@@ -1015,10 +1018,9 @@ span.delete_my_gear {
       }
       .account-detail-body {
         padding: 28px;
+
         label, input {
           margin-left: 15px !important;
-        }
-        input {
           text-align: left;
         }
         label {
@@ -1030,6 +1032,7 @@ span.delete_my_gear {
       }
     }
   }
+
   .gear-edit-modal {
     .edit_listgear_body_all {
       flex: none;
@@ -1156,6 +1159,7 @@ span.delete_my_gear {
       margin: 0px !important;
     }
   }
+
   .wrraper_dashboard {
     padding: 0 !important;
     background-color: white !important;
@@ -1286,6 +1290,7 @@ span.delete_my_gear {
       }
     }
   }
+
   .listing-data-tbody {
     border-bottom: solid 16px #faf8f9 !important;
   }
@@ -1414,6 +1419,8 @@ span.delete_my_gear {
     white-space: nowrap;
     overflow-x: auto;
     overflow-scrolling: touch;
+    overflow-y: hidden;
+
     .nav {
       width: 100% !important;
       display: -webkit-box !important;
@@ -1538,6 +1545,7 @@ span.delete_my_gear {
 
     .account-detail-heading {
       padding: 25px 16px 10px 22px !important;
+
       .forgot-pwd-btn {
         font-size: 10px !important;
         margin-top: -10px !important;

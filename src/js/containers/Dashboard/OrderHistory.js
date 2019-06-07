@@ -103,7 +103,6 @@ class OrderHistory extends Component {
         } else if (ratingOwner || firstSoldItem.ratingRenter) {
           ratingStatus = 1;
         }
-        console.log(returnStatus, ratingStatus);
         
         return (
           <div key={`cart-item-${index}`} className="mobile-gear-item" onClick={() => this.handleControl(currentPage*this.pageSize+index)}>

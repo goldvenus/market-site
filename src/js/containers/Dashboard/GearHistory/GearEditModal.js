@@ -12,7 +12,6 @@ import {handleError, readFileData} from "../../../core/actions/common.action";
 import CustomSpinner from "../../../components/common/CustomSpinner";
 import Modal from "react-responsive-modal";
 import ConfirmModal from "../../../components/common/ConfirmModal";
-import CustomAutosuggest from "../../../components/common/CustomAutosuggest";
 import TextField from "@material-ui/core/TextField/TextField";
 
 class GearEditModal extends Component {
@@ -232,7 +231,7 @@ class GearEditModal extends Component {
   };
 
   renderInfo() {
-    let {brand, model, categoryName, productName, isDoubled} = this.state;
+    let {brand, model, categoryName, productName} = this.state;
     let {categories} = this.props;
 
     return (
@@ -262,7 +261,7 @@ class GearEditModal extends Component {
               label='Brand'
               type="text"
               value={brand}
-              onBlur={this.addSuggestions}
+              // onBlur={this.addSuggestions}
               onChange={(e) => this.setState({brand: (e && e.target && e.target.value) || ''})}
             />
           </div>
@@ -275,19 +274,28 @@ class GearEditModal extends Component {
               label='Model'
               type="text"
               value={model}
-              onBlur={this.addSuggestions}
+              // onBlur={this.addSuggestions}
               onChange={(e) => this.setState({model: (e && e.target && e.target.value) || ''})}
             />
           </div>
           <div className="col-lg-12 ELBLIC_div">
-            <p className="info_header">Product Name</p>
-            <div className={`custom-auto-suggest-container ${isDoubled ? "doubled" : ""}`}>
-              <CustomAutosuggest
-                value={productName}
-                suggestions={this.suggestions}
-                handleChange={this.handleChangeProductName}
-              />
-            </div>
+            {/*<p className="info_header">Product Name</p>*/}
+            {/*<div className={`custom-auto-suggest-container ${isDoubled ? "doubled" : ""}`}>*/}
+              {/*<CustomAutosuggest*/}
+                {/*value={productName}*/}
+                {/*suggestions={this.suggestions}*/}
+                {/*handleChange={this.handleChangeProductName}*/}
+              {/*/>*/}
+            {/*</div>*/}
+            <TextField
+              id="standard-with-placeholder3"
+              className="custom-beautiful-textfield"
+              label='Product Name'
+              type="text"
+              value={productName}
+              // onBlur={this.addSuggestions}
+              onChange={(e) => this.setState({productName: (e && e.target && e.target.value) || ''})}
+            />
           </div>
         </div>
       </Form>);

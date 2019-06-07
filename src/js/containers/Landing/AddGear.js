@@ -15,7 +15,6 @@ import Textarea from "muicss/lib/react/textarea";
 import BreadCrumbActive from "../../components/BreadCrumbActive";
 import CustomSpinner from "../../components/common/CustomSpinner";
 import TextField from "@material-ui/core/TextField/TextField";
-import CustomAutosuggest from "../../components/common/CustomAutosuggest"
 import Modal from "react-responsive-modal";
 import RentalTermsComponent from "../TermsAndPolicy/RentalTermsComponent";
 import CustomLoaderLogo from "../../components/common/CustomLoaderLogo";
@@ -148,7 +147,7 @@ class AddGear extends Component {
   }
   
   renderInfo() {
-    const {selectedType, brand, model, isKit, categoryName, accessories, isDoubled, dropdownOpen, productName} = this.state;
+    const {selectedType, brand, model, isKit, categoryName, accessories, dropdownOpen, productName, description} = this.state;
     const {categories} = this.props;
     
     return (
@@ -177,7 +176,7 @@ class AddGear extends Component {
                 type="text"
                 value={brand}
                 maxLength='50'
-                onBlur={this.addSuggestions}
+                // onBlur={this.addSuggestions}
                 onChange={(e) => this.setState({brand: (e && e.target && e.target.value) || ''})}
               />
             </div>
@@ -189,18 +188,28 @@ class AddGear extends Component {
                 type="text"
                 value={model}
                 maxLength='50'
-                onBlur={this.addSuggestions}
+                // onBlur={this.addSuggestions}
                 onChange={(e) => this.setState({model: (e && e.target && e.target.value) || ''})}
               />
             </div>
             <div className="theme-form-field category_first">
-              <div className={`custom-auto-suggest-container ${isDoubled ? "doubled" : ""}`}>
-                <CustomAutosuggest
+              {/*<div className={`custom-auto-suggest-container ${isDoubled ? "doubled" : ""}`}>*/}
+                {/*<CustomAutosuggest*/}
+                  {/*value={productName}*/}
+                  {/*suggestions={this.suggestions}*/}
+                  {/*handleChange={this.handleChangeProductName}*/}
+                {/*/>*/}
+                <TextField
+                  id="standard-with-placeholder2"
+                  className="custom-beautiful-textfield"
+                  label="Product Name"
+                  type="text"
                   value={productName}
-                  suggestions={this.suggestions}
-                  handleChange={this.handleChangeProductName}
+                  maxLength='50'
+                  // onBlur={this.addSuggestions}
+                  onChange={(e) => this.setState({productName: (e && e.target && e.target.value) || ''})}
                 />
-              </div>
+              {/*</div>*/}
             </div>
             <div className="theme-form-field category_first">
               <Textarea
@@ -208,6 +217,7 @@ class AddGear extends Component {
                 label='Description'
                 type="text"
                 floatingLabel={true}
+                value={description}
                 onChange={(e) => {
                   this.setState({description: e.target.value})
                 }}
@@ -483,8 +493,8 @@ class AddGear extends Component {
   validate() {
     switch (this.state.progressStep) {
       case 0:
-        const {categoryName, brand, model, description, selectedType, productName, isDoubled} = this.state;
-        if (categoryName && brand && model && description && selectedType && productName && !isDoubled) {
+        const {categoryName, brand, model, description, selectedType, productName} = this.state;
+        if (categoryName && brand && model && description && selectedType && productName) {
           return true;
         }
         break;

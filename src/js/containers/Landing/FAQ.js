@@ -30,7 +30,6 @@ class FAQ extends Component {
   
   handleInputChange = (e, val) => {
     this.setState({[val]: e.target.value});
-    console.log(this.state);
   };
   
   render() {

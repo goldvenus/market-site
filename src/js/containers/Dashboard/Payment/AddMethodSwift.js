@@ -73,8 +73,6 @@ class AddMethodSwift extends Component {
         if (data[key] === '')
           delete data[key];
       });
-      
-      console.log(data);
 
       this.props.onSaveMethod(data);
     } else {
@@ -98,7 +96,6 @@ class AddMethodSwift extends Component {
   };
   
   handleGoBack = () => {
-    console.log("go back");
     let {step} = this.state;
     step --;
     this.setState({step});
