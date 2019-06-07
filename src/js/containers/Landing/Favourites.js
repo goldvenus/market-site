@@ -166,7 +166,7 @@ class Favourites extends Component {
                       {listItem.brand + ' ' + listItem.model}
                       {carted && <div className="card-checked"><i className="fas fa-check-circle"/></div>}
                     </p>
-                    <p className="theme-text-small text-muted tb_categories_name">{listItem.categoryName}</p>
+                    <p className="text-muted tb_categories_name">{listItem.categoryName}</p>
                   </div>
                   <div className="favourites_close_icon">
                     <i
@@ -180,10 +180,12 @@ class Favourites extends Component {
                 </div>
                 <div className="sm_favor_bottom">
                   <div className="bottom_left col-md-8">
-                    {[1, 2, 3, 4, 5].map(i =>
-                      <i className="fa fa-star star-selected" key={i}/>)
-                    }
-                    &nbsp;<span>5,0 ({rating})</span>
+                    <div>
+                      {[1, 2, 3, 4, 5].map(i =>
+                        <i className="fa fa-star star-selected" key={i}/>)
+                      }
+                      &nbsp;<span>5,0 ({rating})</span>
+                    </div>
                     <div>
                       <div className="favouri_link_icon"/>
                       <span className="Raykjavik_span">Raykjavik</span>

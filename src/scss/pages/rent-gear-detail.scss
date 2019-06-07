@@ -14,8 +14,13 @@
       color: #1cdb74;
       font-size: 13px;
       padding: 3px 18px;
-      border-radius: 0 4px 4px 0;
 
+      &:first-child {
+        border-radius: 4px 0 0 4px;
+      }
+      &:last-child {
+        border-radius: 0 4px 4px 0;
+      }
       &.active {
         background-color: #1cdb74 !important;
         color: #FAF5EC;
@@ -308,9 +313,6 @@
     font-size: 25px;
     font-weight: 800;
     background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 1%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 1) 100%);
-    //&::before {
-    //  content: '\f104';
-    //}
   }
   .hFlKJf {
     cursor: pointer;
@@ -318,9 +320,6 @@
     font-size: 25px;
     font-weight: 800;
     background: linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 1%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 1) 100%);
-    //&::before {
-    //  content: '\f105';
-    //}
   }
   .sc-EHOje {
     margin: 0 25px 0 0;
@@ -495,6 +494,19 @@
       text-align: center;
       letter-spacing: 0.03em;
       color: #252525;
+
+      div {
+        display: flex;
+        align-items: center;
+        width: 90%;
+        margin: 0 auto;
+        overflow: auto;
+        justify-content: center;
+
+        li {
+          font-weight: 600;
+        }
+      }
     }
     .gear-address-container {
       color: #B1B1B1;
@@ -539,6 +551,7 @@
       font-size: 27px;
       line-height: 39px;
       color: #252525;
+      font-weight: 600;
 
       i.icon-carted {
         font-size: 18px;
@@ -559,7 +572,6 @@
         color: #1cdb74;
         font-size: 13px;
         padding: 3px 18px;
-        border-radius: 0 4px 4px 0;
 
         &.active {
           background-color: #1cdb74;
@@ -637,8 +649,18 @@
     }
   }
 
-  .recommend-heading {
-    text-align: left;
+  .recommend-container {
+    margin-top: 38px;
+
+    .recommend-heading {
+      text-align: left;
+    }
+    .card-body {
+      border: none !important;
+    }
+    .gear_card_view {
+      width: 50%;
+    }
   }
 
   .pickup-date-container {
@@ -681,6 +703,11 @@
 
   .rating-container {
     align-items: center;
+    margin-bottom: 10px;
+
+    .star-container {
+      color: #f82462;
+    }
   }
 
   .Social-contects {
@@ -726,13 +753,13 @@
   }
 
   .type-tabs label {
-    padding: 5px 15px !important;
+    padding: 5px 22px !important;
   }
 
   .location-bar-container {
     white-space: nowrap;
     overflow: hidden;
-    padding: 20px 0;
+    padding: 15px 0 !important;
   }
 
   .br-show-tablet {
@@ -741,7 +768,6 @@
 
   .mobile-footer {
     height: 79px;
-    border-top: solid 8px #ECECEC;
     padding: 16px;
     position: fixed;
     left: 0;
@@ -749,6 +775,7 @@
     width: 100%;
     z-index: 1000;
     background: white;
+    box-shadow: 0px -6px 2px -1px #eaeaea;
   }
   .mobile-bottom-margin {
     height: 87px;
@@ -764,10 +791,17 @@
   }
 
   .carousel-top-container {
-    padding: 20px 0;
+    padding: 20px 13px;
     border: 1px solid #f7f7f7;
     margin-top: 15px;
     overflow: hidden;
+
+    .carousel-image-container {
+      overflow: hidden;
+    }
+    .carousel-indicators {
+      margin-top: 15px;
+    }
   }
   .carousel-inner {
     height: 250px !important;
@@ -776,10 +810,26 @@
   .carousel-control-prev {
     left: unset !important;
     top: 0 !important;
+    i {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: darkgrey;
+      opacity: 0.7;
+      font-size: 28px;
+    }
   }
   .carousel-control-next {
     left: 85% !important;
     top: 0 !important;
+    i {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: darkgrey;
+      opacity: 0.7;
+      font-size: 28px;
+    }
   }
   .carousel-indicators {
     margin: 0;
@@ -816,7 +866,7 @@
     i {
       border: solid 1px red;
       border-radius: 50%;
-      padding: 7px;
+      padding: 7px 8px;
       float: right;
     }
     .icon-cart {
@@ -827,6 +877,11 @@
     .icon-heart {
       margin-right: 10px;
       border: solid 1px white;
+    }
+  }
+  .recommend-container {
+    .gear_card_view {
+      width: 100%;
     }
   }
 }

@@ -80,9 +80,11 @@ class RentGearDetail extends Component {
   
   renderRecommendedProducts({listGears}) {
     return listGears.map((item, i) => {
-      const {numberOfUserImage, gearid, brand, rating, city, pricePerDay} = item;
-      const carted = false;
-      const favored = false;
+      let {numberOfUserImage, gearid, brand, rating, city, pricePerDay} = item;
+      let carted = false;
+      let favored = false;
+      pricePerDay *= 1.36;
+      
       return (
         <Col md="6" className="cardz" key={i}>
           <Card className="gear_card_view">
@@ -133,9 +135,6 @@ class RentGearDetail extends Component {
         </Col>)
     });
   }
-  
-  // carousel
-  changeActiveItem = (activeItemIndex) => this.setState({activeItemIndex});
   
   onOpenModal = async () => {
     try {
@@ -267,15 +266,12 @@ class RentGearDetail extends Component {
         <div className="detail-container container">
           <div className='d-lg-none d-xl-none d-info-container'>
             <div className='location-bar-container'>
-              <span>
-                <BreadCrumbActive name="Home"/>
-                <span className="space_slash_span">/</span>
-                <BreadCrumbActive name="Rent Gears"/>
-                <span className="space_slash_span">/</span>
-                <BreadCrumbActive name={categoryName}/>
-                <span className="space_slash_span">/</span>
+              <div>
+                <BreadCrumbActive name="Home"/>&nbsp;/&nbsp;
+                <BreadCrumbActive name="Rent Gears"/>&nbsp;/&nbsp;
+                <BreadCrumbActive name={categoryName}/>&nbsp;/&nbsp;
                 <BreadcrumbItem active>{name}</BreadcrumbItem>
-              </span>
+              </div>
             </div>
             
             <div className="theme-form-small text-gray category">{categoryName} </div>
@@ -301,7 +297,7 @@ class RentGearDetail extends Component {
             <div className='row rating-container'>
               <div className='col-sm-5'/>
               <div className='col-sm-7 col-12'>
-                <span>
+                <span className='star-container'>
                   {
                     [1, 2, 3, 4, 5].map(i =>
                       <i className="fa fa-star star-selected" key={i}/>)
@@ -424,11 +420,11 @@ class RentGearDetail extends Component {
               </div>
               <div className='recommend-body d-xl-none d-lg-none slider-2'>
                 <Flickity
-                  className={'carousel'} // default ''
-                  elementType={'div'} // default 'div'
-                  options={flickityOptions} // takes flickity options {}
-                  disableImagesLoaded={false} // default false
-                  reloadOnUpdate // default false
+                  className={'carousel'}
+                  elementType={'div'}
+                  options={flickityOptions}
+                  disableImagesLoaded={false}
+                  reloadOnUpdate
                 >
                   {this.renderRecommendedProducts({listGears})}
                 </Flickity>
@@ -609,7 +605,7 @@ class RentGearDetail extends Component {
             </div>
             <div className='icon-container'>
               <i className="fa fa-shopping-cart icon-cart" onClick={this.onOpenModal}/>
-              <i className="far fa-heart icon-heart" onClick={() => {
+              <i className={`icon-heart ${favored ? 'fas' : 'far'} fa-heart`} onClick={() => {
                 favored > 0 ? deleteFavourite({gearid}) : addFavourites({gearid})
               }}/>
             </div>
