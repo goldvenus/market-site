@@ -691,6 +691,9 @@
     button {
       width: 100% !important;
     }
+    .first-left-div, .third-left {
+      order: 1;
+    }
   }
 }
 

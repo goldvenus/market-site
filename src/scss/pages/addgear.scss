@@ -273,7 +273,7 @@
     flex-wrap: wrap;
 
     & > div {
-      margin-left: 15px;
+      margin-left: 25px;
     }
   }
 
@@ -287,11 +287,15 @@
   }
 
   .gear-middle-container {
-    width: 250px;
+    width: 355px;
+
+    .div_description {
+      white-space: pre-line;
+    }
   }
 
   .gear-right-container {
-    width: 295px;
+    width: 280px;
     border: 10px solid #faf8f9;
     padding: 5px 15px;
 
@@ -465,6 +469,8 @@
 .category_description_ta {
   width: 91%;
   border: 1px solid rgb(204, 204, 204);
+  height: 97%;
+
   textarea {
     width: 100%;
     border-bottom:0;
@@ -554,6 +560,7 @@
     margin-left:30px!important;
     width:85% !important;
     text-align: left;
+
     .gear-accessories-address >div{
       text-align: left;
       width: 40%;

@@ -18,7 +18,7 @@ const addGear = async (data) => {
     handleInfo('Gear was added successfully');
     return res.data.data;
   } else {
-    handleError('Gear adding was failed');
+    handleError('Failed to add gear');
     return false;
   }
 };

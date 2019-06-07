@@ -466,8 +466,8 @@ class AddGear extends Component {
             </div>
           </div>
           <Label for="save-address" className='checkbox-label'>
-            Yes, I agree to the<br/>
-            <span className='term-view-btn' onClick={() => this.handleOpenModal(2)}>Rental Terms & Conditions</span>
+            Yes, I agree to the <br/>
+            <span className='term-view-btn' onClick={() => this.handleOpenModal(2)}>Terms of Use</span>
           </Label>
         </div>
         <div className="buttons-container">
