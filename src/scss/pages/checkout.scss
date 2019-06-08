@@ -256,6 +256,13 @@
       .checkout-header, .address-select {
         padding: 25px 16px;
       }
+      .address-select div {
+        margin: 0 auto;
+
+        & > div {
+          margin-left: -70px;
+        }
+      }
     }
     .order-info {
       width: 100%;

@@ -207,7 +207,7 @@ class AddGear extends Component {
               <TextField
                 id="standard-with-placeholder2"
                 className="custom-beautiful-textfield"
-                label="Model"
+                label="Production Year"
                 type="text"
                 value={model}
                 maxLength='50'
@@ -616,7 +616,6 @@ class AddGear extends Component {
         handleError("Did you read Rental Terms and Conditions?");
         return;
       }
-      console.log(data.accessories);
       
       this.setState({busy: true});
       let gear = await addGear(data);

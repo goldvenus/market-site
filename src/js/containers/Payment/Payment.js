@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, BreadcrumbItem, Label, ListGroup, ListGroupItem } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Label } from 'reactstrap';
 import { days } from '../../core/helper';
 import {handleError, handleInfo} from '../../core/actions/common.action'
 import {payment, getPaymentCards, createNummusCustomer, checkExistingNummusCustomer, doNummusCharge} from '../../core/actions/payment.action';
@@ -417,7 +417,7 @@ class Payment extends Component {
                 </div>
   
                 <div className="address-select">
-                  <Dropdown className='d-none d-lg-block'>
+                  <Dropdown className='d-block'>
                     <Dropdown.Toggle title="Saved Cards" className="select-card-btn" onClick={this.handleClickListButton}/>
                     <Dropdown.Menu>
                       {cards.map((element, index) =>
@@ -431,25 +431,6 @@ class Payment extends Component {
                       )}
                     </Dropdown.Menu>
                   </Dropdown>
-                  <aside className="sidebar">
-                    <div className="addr-dropdown d-block d-lg-none">
-                      <div className="catagory-header">
-                        <button className="sidebar-title   category-action-btn" onClick={this.handleClickCardList}>
-                          { card_holder }
-                          <i className="fa fa-angle-down" aria-hidden="true"/>
-                        </button>
-                      </div>
-                      <ListGroup style={{'display': 'none'}}>
-                        {cards.map((element, index) =>
-                          <ListGroupItem onClick={(e) => this.handleCardChange(e, element)} value={element} key={index}>
-                            <div className='item-active'>
-                              {element.card_holder}
-                            </div>
-                          </ListGroupItem>
-                        )}
-                      </ListGroup>
-                    </div>
-                  </aside>
                 </div>
   
                 <div className="theme-form card-info-wrapper">

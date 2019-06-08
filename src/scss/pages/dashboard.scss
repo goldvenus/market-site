@@ -265,6 +265,10 @@
     .my-listing {
       .listing-body {
         width: 100%;
+
+        .align-items-center {
+          margin-bottom: 15px;
+        }
         .add-gear-btn {
           margin-top: -3px;
         }
