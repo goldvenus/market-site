@@ -260,7 +260,7 @@ class RentGearDetail extends Component {
    
     return (
       <React.Fragment>
-        {isChangingFavor && <CustomSpinner/>}partner-body
+        {isChangingFavor && <CustomSpinner/>}
         <div className="detail-container container">
           <h3 className='add-method-heading go-back-btn' onClick={this.props.history.goBack}>
             <i className='fa fa-arrow-left'/>

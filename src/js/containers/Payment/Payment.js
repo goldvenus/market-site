@@ -20,9 +20,9 @@ import moment from "moment";
 import CustomSpinner from "../../components/common/CustomSpinner";
 import { getUniqueObjectArray, validateCard, cc_format, checkDigitSpace } from "../../core/helper/index";
 import {getUser} from "../../core/actions/user.action";
-import {getCarts} from "../../core/actions/cart.action";
 import Modal from "react-responsive-modal";
 import RentalTermsComponent from "../TermsAndPolicy/RentalTermsComponent";
+import {getCarts} from "../../core/actions/cart.action";
 
 class Payment extends Component {
   constructor(props) {
