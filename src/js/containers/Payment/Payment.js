@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, BreadcrumbItem, Label } from 'reactstrap';
+import { Label } from 'reactstrap';
 import { days } from '../../core/helper';
 import {handleError, handleInfo} from '../../core/actions/common.action'
 import {payment, getPaymentCards, createNummusCustomer, checkExistingNummusCustomer, doNummusCharge} from '../../core/actions/payment.action';
@@ -19,7 +19,6 @@ import $ from "jquery";
 import moment from "moment";
 import CustomSpinner from "../../components/common/CustomSpinner";
 import { getUniqueObjectArray, validateCard, cc_format, checkDigitSpace } from "../../core/helper/index";
-import BreadCrumbActive from "../../components/BreadCrumbActive";
 import {getUser} from "../../core/actions/user.action";
 import {getCarts} from "../../core/actions/cart.action";
 import Modal from "react-responsive-modal";
@@ -400,11 +399,11 @@ class Payment extends Component {
         <div className="payment checkout">
           <div className="payment-head">
             <div className='container'>
-              <Breadcrumb className= "card_content_path">
-                <BreadCrumbActive name="Home"/>
-                <span className="space_slash_span">/</span>
-                <BreadcrumbItem active>Payment</BreadcrumbItem>
-              </Breadcrumb>
+              {/*<Breadcrumb className= "card_content_path">*/}
+                {/*<BreadCrumbActive name="Home"/>*/}
+                {/*<span className="space_slash_span">/</span>*/}
+                {/*<BreadcrumbItem active>Payment</BreadcrumbItem>*/}
+              {/*</Breadcrumb>*/}
               <div className="d-flex align-items-center checkout-title">Payment</div>
             </div>
           </div>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from "redux";
 import { Link, withRouter } from 'react-router-dom';
-import { Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
+import { Table } from 'reactstrap';
 import { deleteFavourite } from "../../core/actions/favourite.action";
 import { handleError } from "../../core/actions/common.action";
 import { addCart } from "../../core/actions/cart.action";
@@ -13,7 +13,6 @@ import BarLoader from "react-bar-loader";
 import EmptyActivity from "../../components/EmptyActivity";
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import CustomSpinner from "../../components/common/CustomSpinner";
-import BreadCrumbActive from "../../components/BreadCrumbActive";
 
 class Favourites extends Component {
   constructor(props) {
@@ -220,11 +219,11 @@ class Favourites extends Component {
       <React.Fragment>
         {isChanging && <CustomSpinner/>}
         <div className="cart_view centered-content">
-          <Breadcrumb className= "card_content_path">
-              <BreadCrumbActive name="Home"/>
-              <span className="space_slash_span">/</span>
-              <BreadcrumbItem active>Favourites</BreadcrumbItem>
-          </Breadcrumb>
+          {/*<Breadcrumb className= "card_content_path">*/}
+              {/*<BreadCrumbActive name="Home"/>*/}
+              {/*<span className="space_slash_span">/</span>*/}
+              {/*<BreadcrumbItem active>Favourites</BreadcrumbItem>*/}
+          {/*</Breadcrumb>*/}
           <div className="cart-header ">
             <div className="theme-page-title">Favourites</div>
             <div className="flex-row d-none d-lg-flex">

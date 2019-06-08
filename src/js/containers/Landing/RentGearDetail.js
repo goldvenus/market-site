@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Breadcrumb, BreadcrumbItem} from 'reactstrap';
 import Flickity from 'react-flickity-component';
 import {
   Col, Card, CardImg, CardText, CardBody,
@@ -20,7 +19,6 @@ import {formatDate} from "../../core/helper";
 import CartModal1 from '../../components/common/CartModal1'
 import CartModal2 from '../../components/common/CartModal2';
 import {calcDaysDiff, getDateStr} from "../../core/helper";
-import BreadCrumbActive from "../../components/BreadCrumbActive";
 import {Inline} from '@zendeskgarden/react-loaders'
 import CustomSpinner from "../../components/common/CustomSpinner";
 import CustomLoaderLogo from "../../components/common/CustomLoaderLogo";
@@ -262,17 +260,21 @@ class RentGearDetail extends Component {
    
     return (
       <React.Fragment>
-        {isChangingFavor && <CustomSpinner/>}
+        {isChangingFavor && <CustomSpinner/>}partner-body
         <div className="detail-container container">
+          <h3 className='add-method-heading go-back-btn' onClick={this.props.history.goBack}>
+            <i className='fa fa-arrow-left'/>
+            &nbsp;Rent Gear
+          </h3>
           <div className='d-lg-none d-xl-none d-info-container'>
-            <div className='location-bar-container'>
-              <div>
-                <BreadCrumbActive name="Home"/>&nbsp;/&nbsp;
-                <BreadCrumbActive name="Rent Gears"/>&nbsp;/&nbsp;
-                <BreadCrumbActive name={categoryName}/>&nbsp;/&nbsp;
-                <BreadcrumbItem active>{name}</BreadcrumbItem>
-              </div>
-            </div>
+            {/*<div className='location-bar-container'>*/}
+              {/*<div>*/}
+                {/*<BreadCrumbActive name="Home"/>&nbsp;/&nbsp;*/}
+                {/*<BreadCrumbActive name="Rent Gears"/>&nbsp;/&nbsp;*/}
+                {/*<BreadCrumbActive name={categoryName}/>&nbsp;/&nbsp;*/}
+                {/*<BreadcrumbItem active>{name}</BreadcrumbItem>*/}
+              {/*</div>*/}
+            {/*</div>*/}
             
             <div className="theme-form-small text-gray category">{categoryName} </div>
             
@@ -440,15 +442,15 @@ class RentGearDetail extends Component {
             </div>
             <div className="right-container col-lg-15">
               <div className="right-container1 row">
-                <Breadcrumb>
-                  <BreadCrumbActive name="Home"/>
-                  <span className="space_slash_span">/</span>
-                  <BreadCrumbActive name="Rent Gears"/>
-                  <span className="space_slash_span">/</span>
-                  <BreadCrumbActive name={categoryName}/>
-                  <span className="space_slash_span">/</span>
-                  <BreadcrumbItem active>{name}</BreadcrumbItem>
-                </Breadcrumb>
+                {/*<Breadcrumb>*/}
+                  {/*<BreadCrumbActive name="Home"/>*/}
+                  {/*<span className="space_slash_span">/</span>*/}
+                  {/*<BreadCrumbActive name="Rent Gears"/>*/}
+                  {/*<span className="space_slash_span">/</span>*/}
+                  {/*<BreadCrumbActive name={categoryName}/>*/}
+                  {/*<span className="space_slash_span">/</span>*/}
+                  {/*<BreadcrumbItem active>{name}</BreadcrumbItem>*/}
+                {/*</Breadcrumb>*/}
                 <div className="gear-container row">
                   <div className="gear-info col-lg-15">
                     <div className="theme-form-small text-gray category d-none d-lg-block">{categoryName} </div>

@@ -1,8 +1,7 @@
 import React from 'react';
-import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 import Sidebar from '../../components/Rent Gear/RG_sidebar';
 import Main from '../../components/Rent Gear/RG_main';
-import BreadCrumbActive from "../../components/BreadCrumbActive";
 import connect from "react-redux/es/connect/connect";
 import CustomLoaderLogo from "../../components/common/CustomLoaderLogo";
 import {fetchCategories} from "../../core/actions/category.action";
@@ -28,11 +27,11 @@ class RentGear extends React.Component {
           <Container>
             <Row>
               <Col>
-                <Breadcrumb>
-                  <BreadCrumbActive name="Home Page"/>
-                  <span className="space_slash_span">/</span>
-                  <BreadcrumbItem active>Rent Gear </BreadcrumbItem>
-                </Breadcrumb>
+                {/*<Breadcrumb>*/}
+                  {/*<BreadCrumbActive name="Home Page"/>*/}
+                  {/*<span className="space_slash_span">/</span>*/}
+                  {/*<BreadcrumbItem active>Rent Gear </BreadcrumbItem>*/}
+                {/*</Breadcrumb>*/}
                 <div className="d-flex align-items-center">
                   <h2 className="theme-page-title rent-gear-title">Rent Gear</h2>
                 </div>

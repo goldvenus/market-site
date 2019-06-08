@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 import { Card, CardTitle, CardText } from 'reactstrap';
 
 class Partner extends Component {
@@ -10,10 +10,10 @@ class Partner extends Component {
           <Container>
             <Row>
               <Col>
-                <Breadcrumb className="theme-text-small">
-                  <BreadcrumbItem>Home </BreadcrumbItem>
-                  <BreadcrumbItem active>Partners</BreadcrumbItem>
-                </Breadcrumb>
+                {/*<Breadcrumb className="theme-text-small">*/}
+                  {/*<BreadcrumbItem>Home </BreadcrumbItem>*/}
+                  {/*<BreadcrumbItem active>Partners</BreadcrumbItem>*/}
+                {/*</Breadcrumb>*/}
                 <h1>Partners</h1>
               </Col>
             </Row>

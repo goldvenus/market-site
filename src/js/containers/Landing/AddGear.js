@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {
-  Breadcrumb, BreadcrumbItem, Dropdown, DropdownToggle, DropdownMenu,
+  Dropdown, DropdownToggle, DropdownMenu,
   DropdownItem, Label, InputGroup, InputGroupAddon
 } from 'reactstrap';
 import CustomInput from '../../components/CustomInput';
@@ -10,7 +10,6 @@ import CustomCarousel from '../../components/CustomCarousel';
 import {handleError, readFileData} from '../../core/actions/common.action';
 import {addGear} from '../../core/actions/gear.action';
 import Textarea from "muicss/lib/react/textarea";
-import BreadCrumbActive from "../../components/BreadCrumbActive";
 import CustomSpinner from "../../components/common/CustomSpinner";
 import TextField from "@material-ui/core/TextField/TextField";
 import Modal from "react-responsive-modal";
@@ -698,11 +697,11 @@ class AddGear extends Component {
     return (
       <div className="add-gear">
         {this.state.busy ? <CustomSpinner/> : null}
-        <Breadcrumb>
-          <BreadCrumbActive name="Home"/>
-          <span className="space_slash_span">/</span>
-          <BreadcrumbItem active>Add Gear</BreadcrumbItem>
-        </Breadcrumb>
+        {/*<Breadcrumb>*/}
+          {/*<BreadCrumbActive name="Home"/>*/}
+          {/*<span className="space_slash_span">/</span>*/}
+          {/*<BreadcrumbItem active>Add Gear</BreadcrumbItem>*/}
+        {/*</Breadcrumb>*/}
         <h3 className="header">Add Gear</h3>
         <div className="add-gear-progress">
           {this.renderProgress()}

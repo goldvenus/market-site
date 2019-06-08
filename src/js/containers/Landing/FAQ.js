@@ -6,7 +6,7 @@ import {
   AccordionItemTitle,
   AccordionItemBody,
 } from 'react-accessible-accordion';
-import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 import 'react-accessible-accordion/dist/fancy-example.css';
 import TextField from "@material-ui/core/TextField/TextField";
 import Textarea from "muicss/lib/react/textarea";
@@ -54,10 +54,10 @@ class FAQ extends Component {
           <Container>
             <Row>
               <Col>
-                <Breadcrumb className="theme-text-small">
-                  <BreadcrumbItem>Home </BreadcrumbItem>
-                  <BreadcrumbItem active>FAQs</BreadcrumbItem>
-                </Breadcrumb>
+                {/*<Breadcrumb className="theme-text-small">*/}
+                  {/*<BreadcrumbItem>Home </BreadcrumbItem>*/}
+                  {/*<BreadcrumbItem active>FAQs</BreadcrumbItem>*/}
+                {/*</Breadcrumb>*/}
                 <h1>FAQs</h1>
               </Col>
             </Row>

@@ -11,6 +11,16 @@
   .partner-body {
     .card {
       background-color: $gray-light;
+      border: none;
+
+      small {
+        font-family: Helvetica Neue;
+        font-size: 16px;
+        line-height: 27px;
+        color: #f82462 !important;
+        text-decoration: underline;
+        cursor: pointer;
+      }
     }
   }
 }

@@ -20,6 +20,13 @@ header {
   }
 }
 
+.app-content {
+  @include media-breakpoint-down(sm) {
+    margin-top: 0;
+    padding-top: 70px;
+  }
+}
+
 .navbar-wrapper {
   position: relative;
   display: flex;
@@ -606,11 +613,13 @@ header {
       }
     }
   }
+
 @media (min-width: 768px) {
   ul.navbar-menu__navbar-sm .navbar-sm__sidebar-item {
     display: none !important;
   }
 }
+
 @media (max-width: 1077px) {
   li.navbar-drop-menu.logged-in .dropdown-toggle {
     padding: 10px 15px !important;

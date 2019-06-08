@@ -58,7 +58,9 @@
   letter-spacing: 0.03em;
   color: #252525;
 }
-
+.go-back-btn {
+  cursor: pointer;
+}
 .left-container {
   padding: 0 10px;
   overflow: hidden;
@@ -76,7 +78,6 @@
 
 .gear-container {
   width: 100%;
-  padding-top: 15px;
 }
 
 .gear-info {

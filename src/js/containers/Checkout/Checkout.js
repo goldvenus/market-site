@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {Breadcrumb, BreadcrumbItem, Label} from 'reactstrap';
+import {Label} from 'reactstrap';
 import {getCheckout, checkout, saveCheckoutInfo} from '../../core/actions/checkout.action';
 import {days} from '../../core/helper/index';
 import BarLoader from "react-bar-loader";
@@ -14,7 +14,6 @@ import '@trendmicro/react-dropdown/dist/react-dropdown.css';
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import $ from "jquery";
 import CustomSpinner from "../../components/common/CustomSpinner";
-import BreadCrumbActive from "../../components/BreadCrumbActive";
 import {getUniqueObjectArray} from "../../core/helper/index";
 import {handleError} from "../../core/actions/common.action";
 
@@ -151,11 +150,11 @@ class Checkout extends Component {
         <div className="checkout">
           <div className="checkout-head">
             <div className='container'>
-              <Breadcrumb className="card_content_path">
-                <BreadCrumbActive name="Home"/>
-                <span className="space_slash_span">/</span>
-                <BreadcrumbItem active>Checkout</BreadcrumbItem>
-              </Breadcrumb>
+              {/*<Breadcrumb className="card_content_path">*/}
+                {/*<BreadCrumbActive name="Home"/>*/}
+                {/*<span className="space_slash_span">/</span>*/}
+                {/*<BreadcrumbItem active>Checkout</BreadcrumbItem>*/}
+              {/*</Breadcrumb>*/}
               <div className="d-flex align-items-center checkout-title"><span>Checkout</span></div>
             </div>
           </div>

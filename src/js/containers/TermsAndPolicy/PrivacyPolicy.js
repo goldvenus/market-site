@@ -1,6 +1,5 @@
 import React from 'react';
-import {Container, Row, Col, Breadcrumb, BreadcrumbItem} from "reactstrap";
-import BreadCrumbActive from "../../components/BreadCrumbActive";
+import {Container, Row, Col} from "reactstrap";
 import PrivacyPolicyComponent from "./PrivacyPolicyComponent";
 
 const PrivacyPolicy = () => (
@@ -9,11 +8,11 @@ const PrivacyPolicy = () => (
       <Container>
         <Row>
           <Col>
-            <Breadcrumb className="theme-text-small">
-              <BreadCrumbActive name="Home Page">Home </BreadCrumbActive>
-              <span className="space_slash_span">/</span>
-              <BreadcrumbItem active>Privacy Policy</BreadcrumbItem>
-            </Breadcrumb>
+            {/*<Breadcrumb className="theme-text-small">*/}
+              {/*<BreadCrumbActive name="Home Page">Home </BreadCrumbActive>*/}
+              {/*<span className="space_slash_span">/</span>*/}
+              {/*<BreadcrumbItem active>Privacy Policy</BreadcrumbItem>*/}
+            {/*</Breadcrumb>*/}
             <h2>Privacy and Cookie Policy</h2>
           </Col>
         </Row>

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
+import {Table} from 'reactstrap';
 import {formatDate, calcDaysDiff} from '../../core/helper';
 import { deleteCartItem, editCart } from '../../core/actions/cart.action'
 import BarLoader from "react-bar-loader";
 import EmptyActivity from '../../components/EmptyActivity'
 import CustomSpinner from "../../components/common/CustomSpinner";
-import BreadCrumbActive from "../../components/BreadCrumbActive";
 import CartModal2 from "../../components/common/CartModal2";
 import {handleError} from "../../core/actions/common.action";
 
@@ -181,11 +180,11 @@ class Cart extends Component {
       <React.Fragment>
         { (isDeleting || isLoading) && <CustomSpinner/> }
         <div className="cart_view centered-content">
-          <Breadcrumb className= "card_content_path">
-            <BreadCrumbActive name="Home"> </BreadCrumbActive>
-              <span className="space_slash_span">/</span>
-            <BreadcrumbItem active>Cart</BreadcrumbItem>
-          </Breadcrumb>
+          {/*<Breadcrumb className= "card_content_path">*/}
+            {/*<BreadCrumbActive name="Home"> </BreadCrumbActive>*/}
+              {/*<span className="space_slash_span">/</span>*/}
+            {/*<BreadcrumbItem active>Cart</BreadcrumbItem>*/}
+          {/*</Breadcrumb>*/}
           <div className="cart-header">
             <h2 className="theme-page-title">Cart</h2>
             <div className="flex-row d-none d-lg-flex" >
