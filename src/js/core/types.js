@@ -181,4 +181,8 @@ export default keyMirror({
   GET_ORDER_DETAIL_SUCCESS: null,
   GET_ORDER_DETAIL_FAILED: null,
   
+  // send email
+  SEND_EMAIL_REQUEST: null,
+  SEND_EMAIL_SUCCESS: null,
+  SEND_EMAIL_FAILED: null,
 });

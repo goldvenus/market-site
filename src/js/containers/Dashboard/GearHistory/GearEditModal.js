@@ -6,7 +6,7 @@ import {
 } from 'reactstrap';
 import Textarea from 'muicss/lib/react/textarea';
 import 'muicss/dist/css/mui.min.css';
-import {getGear, editGear, getUsedNames} from '../../../core/actions/gear.action'
+import {getGear, editGear} from '../../../core/actions/gear.action'
 import {handleError, readFileData} from "../../../core/actions/common.action";
 import CustomSpinner from "../../../components/common/CustomSpinner";
 import Modal from "react-responsive-modal";
@@ -56,12 +56,12 @@ class GearEditModal extends Component {
 
   async componentDidMount() {
     await getGear(this.gearid);
-    this.usedNames = await getUsedNames();
+    // this.usedNames = await getUsedNames();
     // remove current product name from used list
-    if (this.props.gear.productName)
-      this.usedNames = this.usedNames.filter(item => item !== this.props.gear.productName);
-
-    this.autoGenerateSuggestions();
+    // if (this.props.gear.productName)
+    //   this.usedNames = this.usedNames.filter(item => item !== this.props.gear.productName);
+    //
+    // this.autoGenerateSuggestions();
   }
 
   componentWillReceiveProps(props) {
@@ -87,15 +87,15 @@ class GearEditModal extends Component {
     }
   }
 
-  autoGenerateSuggestions = () => {
-    let suggestions = this.suggestions;
-    let namesFromCategories = this.props.categories.map((item) => item.categoryName);
-    suggestions = [...suggestions, ...namesFromCategories];
-    if (this.props.gear.productName)
-      suggestions = [this.props.gear.productName, ...suggestions];
-    this.suggestions = [...new Set(suggestions)];
-    this.forceUpdate();
-  };
+  // autoGenerateSuggestions = () => {
+  //   let suggestions = this.suggestions;
+  //   let namesFromCategories = this.props.categories.map((item) => item.categoryName);
+  //   suggestions = [...suggestions, ...namesFromCategories];
+  //   if (this.props.gear.productName)
+  //     suggestions = [this.props.gear.productName, ...suggestions];
+  //   this.suggestions = [...new Set(suggestions)];
+  //   this.forceUpdate();
+  // };
 
   addSuggestions = () => {
     let {categoryName, brand, model} = this.state;

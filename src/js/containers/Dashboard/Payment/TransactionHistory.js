@@ -2,8 +2,8 @@ import React, {Component} from 'react'
 import {Table} from "reactstrap";
 import {getTransHistory} from "../../../core/actions/payment.action";
 import connect from "react-redux/es/connect/connect";
-import CustomSpinner from "../../../components/common/CustomSpinner";
 import {getYearMonthStr} from "../../../core/helper";
+import BarLoader from "react-bar-loader";
 
 class TransactionHistory extends Component {
   constructor(props) {
@@ -37,7 +37,7 @@ class TransactionHistory extends Component {
     let data = transactions.map((item) => {
       let transDate = new Date(item.RecordCreated);
       let type = item.TransType;
-      let contract = item.Contract;
+      let contract = item.TransactionId.substr(0, 8);
       let client = item.Client;
       let amount = item.Amount;
       let invoice = item.Invoice;
@@ -54,7 +54,7 @@ class TransactionHistory extends Component {
     
     return (
       <div className='wrapper-transaction'>
-        {isLoadingHistory && <CustomSpinner/>}
+        {isLoadingHistory && <BarLoader color="#F82462" height="5"/>}
         <div className='transaction-header'>
           <span>TRANSACTION HISTORY</span>
           <div className='month-navigation-bar'>
@@ -66,7 +66,7 @@ class TransactionHistory extends Component {
               <i className='fa fa-angle-right'/>
             </span>
           </div>
-          <button className='theme-btn theme-btn-filled-white'>Download Invoices</button>
+          <button className='theme-btn theme-btn-filled-white disabled'>Download Invoices</button>
         </div>
         <div className='transaction-body'>
           <Table>

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import { connect } from 'react-redux'
 import {
   Accordion,
   AccordionItem,
@@ -10,6 +10,8 @@ import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import 'react-accessible-accordion/dist/fancy-example.css';
 import TextField from "@material-ui/core/TextField/TextField";
 import Textarea from "muicss/lib/react/textarea";
+import {handleError, sendEmail} from "../../core/actions/common.action";
+import CustomSpinner from "../../components/common/CustomSpinner";
 
 class FAQ extends Component {
   constructor(props) {
@@ -32,11 +34,22 @@ class FAQ extends Component {
     this.setState({[val]: e.target.value});
   };
   
+  handleSendEmail = () => {
+    let {name, phone, email, question} = this.state;
+    if (!name || !email || !question) {
+      handleError('Please input required information');
+      return;
+    }
+    sendEmail({fromEmail: email, name, phone, content: question});
+  };
+  
   render() {
     let {curFAQ} = this.state;
+    let {isSendingEmail} = this.props;
     
     return (
       <div className="FAQ">
+        {isSendingEmail && <CustomSpinner/>}
         <div className="FAQ-head">
           <Container>
             <Row>
@@ -136,7 +149,7 @@ class FAQ extends Component {
                     </Col>
                   </Row>
                   <Row>
-                    <button className='theme-btn theme-btn-primary'>Send</button>
+                    <button className='theme-btn theme-btn-primary' onClick={this.handleSendEmail}>Send</button>
                   </Row>
                 </Row>
               </Col>
@@ -148,4 +161,8 @@ class FAQ extends Component {
   }
 }
 
-export default FAQ;
+const mapStateToProps = (state) => ({
+  isSendingEmail: state.common.isSendingEmail
+});
+
+export default connect(mapStateToProps, null)(FAQ);

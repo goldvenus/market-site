@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import CustomInput from '../CustomInput';
 import {Form} from 'reactstrap';
-import {rentGearProductList} from '../../core/actions/gear.action';
 
 class Search extends Component {
   constructor(props) {
@@ -14,7 +13,7 @@ class Search extends Component {
   }
   
   render() {
-    const {category, mobileStyle} = this.props;
+    const {mobileStyle, onSearchTextChange, searchText} = this.props;
     
     return (
       <div className="search" style={mobileStyle}>
@@ -26,15 +25,9 @@ class Search extends Component {
               type="text"
               label="Search"
               onChange={(value) => {
-                this.setState({searchText: value}, () => {
-                  rentGearProductList({
-                    categoryName: category,
-                    product_region: this.state.locationText,
-                    brand: this.state.searchText
-                  });
-                })
+                onSearchTextChange({target: {value}}, 'searchText');
               }}
-              value={this.state.searchText}
+              value={searchText}
             />
           </div>
         </Form>

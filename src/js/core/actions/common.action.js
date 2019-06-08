@@ -1,5 +1,10 @@
 import React from "react";
 import { toast } from 'react-toastify';
+import constants from "../types";
+import {post} from "../api";
+import store from '../../store';
+
+const dispatch = store.dispatch;
 
 const toastBody = ({type, info}) => (
   <div className='toast-body'>
@@ -37,6 +42,25 @@ const readFileData = (event) => {
   });
 };
 
+const sendEmail = async ({fromEmail, name, phone, content}) => {
+  dispatch({
+    type: constants.SEND_EMAIL_REQUEST
+  });
+  
+  let res = await post('sendEmail', {fromEmail, name, phone, content});
+  if (res && res.data && res.data.status === 'success') {
+    dispatch({
+      type: constants.SEND_EMAIL_SUCCESS,
+    });
+    handleInfo('Email was sent successfully');
+  } else {
+    dispatch({
+      type: constants.SEND_EMAIL_FAILED,
+    });
+    handleError('Failed to send email');
+  }
+};
+
 export {
-  handleError, readFileData, handleInfo
+  handleError, readFileData, handleInfo, sendEmail
 }

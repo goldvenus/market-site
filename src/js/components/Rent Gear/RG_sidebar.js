@@ -19,7 +19,7 @@ class Sidebar extends Component {
   };
 
   render() {
-    const { categories, category } = this.props;
+    const { categories, category, onSearchTextChange, searchText } = this.props;
     const { isActive, isSearch } = this.state;
     
     if (!categories || !category)
@@ -53,10 +53,21 @@ class Sidebar extends Component {
             <button className="sidebar-title search-action-btn" onClick={this.searchHandler}>
               <i className="fa fa-search"/>
             </button>
-            {isSearch && <Search mobileStyle={{display: 'block'}} category={category}/>}
+            {isSearch &&
+            <Search
+              category={category}
+              searchText={searchText}
+              mobileStyle={{display: 'block'}}
+              onSearchTextChange={onSearchTextChange}
+            />}
           </div>
 
           <ListGroup className={`category-container ${isActive ? 'active' : ''}`}>
+            <ListGroupItem value='all' key={0}>
+              <Link className={`${pathname === '/rentGear/all' ? 'item-active rent-gear-sidebar-link' : ''}`} to='/rentGear/all'>
+                All Categories
+              </Link>
+            </ListGroupItem>
             {categories.map((element, index) =>
               <ListGroupItem value={element} key={index}>
                 <Link className={`${this.props.sideid === index ? 'item-active rent-gear-sidebar-link' : 'rent-gear-sidebar-link'}`} to={`/rentGear/${element.replace(/ /g, '')}`}>

@@ -91,18 +91,18 @@ const getListGears = async () => {
   }
 };
 
-const getUsedNames = async () => {
-  try {
-    let res = await get('getGearUsedNames');
-    if (res && res.data && res.data.status === 'success') {
-      return res.data.data;
-    }
-    return false;
-  } catch (error) {
-    handleError(error);
-    return false;
-  }
-};
+// const getUsedNames = async () => {
+//   try {
+//     let res = await get('getGearUsedNames');
+//     if (res && res.data && res.data.status === 'success') {
+//       return res.data.data;
+//     }
+//     return false;
+//   } catch (error) {
+//     handleError(error);
+//     return false;
+//   }
+// };
 
 const rentGearProductList = async (catDetail) => {
   if (!localStorage.accessToken) {
@@ -181,5 +181,5 @@ const deleteGear = async (data) => {
 };
 
 export {
-  addGear, deleteGear, getGear, rentGearProductList, getListGears, editGear, getUsedNames
+  addGear, deleteGear, getGear, rentGearProductList, getListGears, editGear
 };

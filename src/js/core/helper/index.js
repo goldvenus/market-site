@@ -95,7 +95,22 @@ const checkDigitSpace = value => {
   return /^[\d,' ']*$/.test(value);
 };
 
+const sortCompare = (field) => {
+  return function(a, b) {
+    const genreA = a[field];
+    const genreB = b[field];
+    
+    let comparison = 0;
+    if (genreA < genreB) {
+      comparison = 1;
+    } else if (genreA > genreB) {
+      comparison = -1;
+    }
+    return comparison;
+  }
+};
+
 export {
   calcDaysDiff, getDateStr, formatDate, days, getUTCDateFormat, getYearMonthStr,
-  getUniqueObjectArray, validateCard, cc_format, checkDigitSpace
+  getUniqueObjectArray, validateCard, cc_format, checkDigitSpace, sortCompare
 }

@@ -51,6 +51,12 @@
     width: 100%;
     text-align: center;
   }
+
+  .custom-beautiful-textfield {
+    input, label {
+      margin-left: 15px;
+    }
+  }
 }
 
 .login {

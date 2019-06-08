@@ -14,6 +14,7 @@ import CustomSpinner from "../../components/common/CustomSpinner";
 import BarLoader from "react-bar-loader";
 import ConfirmModal from "../../components/common/ConfirmModal";
 import {getYearMonthStr} from "../../core/helper";
+import {getUser} from "../../core/actions/user.action";
 
 class PaymentDetail extends Component {
   constructor(props) {
@@ -49,6 +50,7 @@ class PaymentDetail extends Component {
   performWithdrawal = async () => {
     await withdrawalToVendor();
     await getTransHistory(getYearMonthStr(new Date()));
+    await getUser();
     this.setState({modalOpenState: 0});
   };
   
@@ -78,7 +80,7 @@ class PaymentDetail extends Component {
               </div>
               <div className='balance-right'>
                 <button
-                  className={`theme-btn theme-btn-filled-white ${!user.nummusVendorId ? 'disabled' : ''}`}
+                  className={`theme-btn theme-btn-filled-white ${!user.nummusVendorId || !balance ? 'disabled' : ''}`}
                   onClick={() => user.nummusVendorId && this.handleWithdrawal(balance)}
                 >Get Paid</button>
               </div>

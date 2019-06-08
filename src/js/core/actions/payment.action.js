@@ -2,6 +2,7 @@ import constants from "../types";
 import {handleError, handleInfo} from "./common.action";
 import {post, get} from "../api/index";
 import store from '../../store';
+import {sortCompare} from "../helper";
 
 const dispatch = store.dispatch;
 
@@ -77,7 +78,7 @@ const getTransHistory = (data) => {
       if (response && response.data && response.data.status === 'success') {
         dispatch({
           type: constants.GET_TRANSACTIONS_SUCCESS,
-          payload: response.data.data
+          payload: response.data.data.sort(sortCompare('RecordCreated'))
         });
         resolve(true);
       }

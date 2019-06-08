@@ -63,7 +63,7 @@ const deleteFavourite = async (data) => {
         type: constants.DELETE_FAVOURITE_SUCCESS,
         payload: data.gearid
       });
-      handleInfo('Gear was removed from favorite successfully!');
+      handleInfo('Gear was removed from favorite');
     } else {
       dispatch({
         type: constants.DELETE_FAVOURITE_FAILED,

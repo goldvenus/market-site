@@ -14,6 +14,7 @@ import Loader from 'react-loader-spinner'
 import {handleError} from "../../core/actions/common.action";
 import CustomSpinner from "../common/CustomSpinner";
 import TextField from "@material-ui/core/TextField/TextField";
+import Sidebar from "./RG_sidebar";
 
 class Main extends Component {
   constructor(props) {
@@ -170,14 +171,13 @@ class Main extends Component {
   };
   
   handleSearchTextChange = (e, val) => {
-    // if (val !== 'mobileText')
-      this.setState({
-        [val]: e.target.value
-      });
+    this.setState({
+      [val]: e.target.value
+    });
   };
   
   render() {
-    const {category, carts, favourites, isChanging} = this.props;
+    const {category, categories, carts, favourites, isChanging} = this.props;
     
     if (!carts || !favourites || !category || this.state.loading)
       return <div className="circle-loader">
@@ -353,6 +353,14 @@ class Main extends Component {
               </React.Fragment>
           }
         </div>
+        <Row className="d-flex d-lg-none down-sidbar">
+          <Sidebar
+            category={category}
+            categories={categories}
+            searchText={this.state.searchText}
+            onSearchTextChange={this.handleSearchTextChange}
+          />
+        </Row>
       </React.Fragment>
     );
   }

@@ -294,6 +294,11 @@
             color: #000000;
           }
         }
+        button.disabled {
+          color: #252525;
+          border-color: #252525;
+          opacity: 0.5;
+        }
       }
       .transaction-body {
         table {

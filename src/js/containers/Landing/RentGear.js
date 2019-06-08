@@ -47,11 +47,8 @@ class RentGear extends React.Component {
               <Sidebar category={category} categories={categories}/>
             </Col>
             <Col md="18" className="cardz-2">
-              <Main category={category}/>
+              <Main category={category} categories={categories}/>
             </Col>
-            <Row className="d-flex d-lg-none down-sidbar">
-              <Sidebar category={category} categories={categories}/>
-            </Row>
           </Row>
         </Container>
       </div>

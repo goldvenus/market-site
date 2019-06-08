@@ -6,8 +6,8 @@ import BarLoader from "react-bar-loader";
 import {updatePassword, updateUser} from "../../core/actions/user.action";
 import {handleError, readFileData} from "../../core/actions/common.action";
 import CustomSpinner from "../../components/common/CustomSpinner";
-import {Link} from "react-router-dom";
 import PasswordConfirmModal from "./AccountDetail/PasswordConfirmModal";
+import ForgotPasswordModal from "./AccountDetail/ForgotPasswordModal";
 
 class AccountDetail extends Component {
   constructor(props) {
@@ -58,6 +58,7 @@ class AccountDetail extends Component {
     let newUser = this.state;
     let curUser = this.props.user;
     this.setState({modalOpenState: 0});
+    
     updateUser({
       curUser: {
         email: curUser.email,
@@ -111,8 +112,9 @@ class AccountDetail extends Component {
   };
   
   render() {
-    const {isUpdating, isLoading} = this.props;
+    const {isUpdating, isLoading, user} = this.props;
     const {fileName, modalOpenState} = this.state;
+    
     if (isLoading) {
       return <BarLoader color="#F82462" height="5"/>;
     }
@@ -173,8 +175,9 @@ class AccountDetail extends Component {
               </div>
             </div>
             <div className="detail-right-wrapper">
-              <div className="account-detail-heading">CHANGE <br className="d-block d-sm-none"/>PASSWORD<Link
-                className="theme-form-link forgot-pwd-btn" to="/forgotPassword">Forgot password?</Link></div>
+              <div className="account-detail-heading">CHANGE <br className="d-block d-sm-none"/>PASSWORD
+                <span onClick={() => this.setState({modalOpenState: 2})} className='forgot-pwd-btn'>Forgot Password?</span>
+              </div>
               <div className="account-detail-body">
                 <Form>
                   <FormGroup>
@@ -207,15 +210,17 @@ class AccountDetail extends Component {
                       onChange={e => this.handleInputChange(e, 'confirmPwd')}
                     />
                   </FormGroup>
-                  <button className='theme-btn theme-btn-primary' onClick={this.handlePasswordReset}>Change Password
-                  </button>
+                  <button className='theme-btn theme-btn-primary' onClick={this.handlePasswordReset}>Change Password</button>
                 </Form>
               </div>
             </div>
           </div>
         </div>
         
-        {modalOpenState ? <PasswordConfirmModal onConfirm={this.performUserUpdate} onClose={this.handleCloseModal}/> : ''}
+        {modalOpenState === 1 ?
+          <PasswordConfirmModal onConfirm={this.performUserUpdate} onClose={this.handleCloseModal}/> :
+        modalOpenState === 2 ?
+          <ForgotPasswordModal user={user} onClose={this.handleCloseModal}/> : null}
       </React.Fragment>
     )
   }

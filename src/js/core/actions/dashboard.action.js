@@ -2,21 +2,9 @@ import constants from "../types";
 import {handleError} from "./common.action";
 import {get, post} from "../api/index"
 import store from '../../store';
+import {sortCompare} from "../helper";
 
 const dispatch = store.dispatch;
-
-function compare(a, b) {
-  const genreA = a.RecordCreated;
-  const genreB = b.RecordCreated;
-  
-  let comparison = 0;
-  if (genreA < genreB) {
-    comparison = 1;
-  } else if (genreA > genreB) {
-    comparison = -1;
-  }
-  return comparison;
-}
 
 const viewUserDashboard = async () => {
   dispatch({
@@ -48,8 +36,8 @@ const getOrderHistory = async () => {
     if (response && response.data && response.data.status === 'success') {
       let renter = response.data.data.renter;
       let owner = response.data.data.owner;
-      renter.sort(compare);
-      owner.sort(compare);
+      renter.sort(sortCompare('RecordCreated'));
+      owner.sort(sortCompare('RecordCreated'));
       
       dispatch({
         type: constants.GET_ORDER_HISTORY_SUCCESS,

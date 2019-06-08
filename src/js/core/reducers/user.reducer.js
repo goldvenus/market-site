@@ -74,19 +74,16 @@ export default (state = initialState, action) => {
         break;
       
       case constants.RESET_PWD_REQUEST:
-        draft.isUpdating = true;
         draft.isSendingFWDEmail = true;
         draft.isSentFWDEmail = false;
         draft.isSendingFWDEmailFailed = false;
         break;
       case constants.RESET_PWD_SUCCESS:
-        draft.isUpdating = false;
         draft.isSendingFWDEmail = false;
         draft.isSentFWDEmail = true;
         draft.isSendingFWDEmailFailed = false;
         break;
       case constants.RESET_PWD_FAILED:
-        draft.isUpdating = false;
         draft.isSendingFWDEmail = false;
         draft.isSentFWDEmail = false;
         draft.isSendingFWDEmailFailed = true;
