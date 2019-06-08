@@ -71,6 +71,7 @@ class FAQ extends Component {
                   <AccordionItem onClick={() => this.handleAccordionSelect(1)}>
                     <AccordionItemTitle>
                       <h3 style={curFAQ === 1 ? {'color': '#F82462'} : {'color': '#555555'}}>HOW TO PAY?</h3>
+                      {/*<DownArrow/>*/}
                     </AccordionItemTitle>
                     <AccordionItemBody>
                       <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur, sequi at. Ipsum deserunt

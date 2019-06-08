@@ -22,5 +22,17 @@
         cursor: pointer;
       }
     }
+    .text-center {
+      h5 {
+        margin-bottom: 0;
+      }
+      h5 ~ p {
+        margin-bottom: 2rem;
+      }
+      img {
+        width: 126px;
+        margin: 0 auto 2.5rem;
+      }
+    }
   }
 }

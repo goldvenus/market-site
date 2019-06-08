@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
-import { Card, CardTitle, CardText } from 'reactstrap';
+import { Card, CardImg, CardTitle, CardText } from 'reactstrap';
 
 class Partner extends Component {
   render() {
@@ -24,7 +24,7 @@ class Partner extends Component {
             <Row>
               <Col sm="12">
                 <Card className="text-center p-5 mb-5">
-                  {/* <CardImg width="100%" src="" alt="Card image cap" />                   */}
+                  <CardImg width="100%" src="/images/partners/1.png" alt="Card image cap" />
                   <CardTitle>CORSPIN CORP. </CardTitle>
                   <CardText>
                     <small className="text-muted">corspin.com</small>
@@ -38,7 +38,7 @@ class Partner extends Component {
               </Col>
               <Col sm="12">
                 <Card className="text-center p-5 mb-5">
-                  {/* <CardImg width="100%" src="" alt="Card image cap" /> */}
+                  <CardImg width="100%" src="/images/partners/2.png" alt="Card image cap" />
                   <CardTitle>CORSPIN CORP. </CardTitle>
                   <CardText>
                     <small className="text-muted">corspin.com</small>
@@ -52,7 +52,7 @@ class Partner extends Component {
               </Col>
               <Col sm="12">
                 <Card className="text-center p-5 mb-5">
-                  {/* <CardImg width="100%" src="" alt="Card image cap" /> */}
+                  <CardImg width="100%" src="/images/partners/3.png" alt="Card image cap" />
                   <CardTitle>CORSPIN CORP. </CardTitle>
                   <CardText>
                     <small className="text-muted">corspin.com</small>
@@ -66,7 +66,7 @@ class Partner extends Component {
               </Col>
               <Col sm="12">
                 <Card className="text-center p-5 mb-5">
-                  {/* <CardImg width="100%" src="" alt="Card image cap" /> */}
+                  <CardImg width="100%" src="/images/partners/4.png" alt="Card image cap" />
                   <CardTitle>CORSPIN CORP. </CardTitle>
                   <CardText>
                     <small className="text-muted">corspin.com</small>

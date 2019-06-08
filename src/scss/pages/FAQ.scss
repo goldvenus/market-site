@@ -127,8 +127,10 @@
         margin-top: 1rem;
       }
       .custom-beautiful-textfield {
-        input {
+        input, label {
           text-align: left;
+          padding-left: 15px !important;
+          transform-origin: top left !important;
         }
       }
     }

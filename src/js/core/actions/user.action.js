@@ -68,7 +68,7 @@ const login = async (data) => {
       type: constants.LOGIN_FAILED
     });
     let error = "";
-    if (res && res.data.errorMessage)
+    if (res && res.data && res.data.errorMessage)
       error = res.data.errorMessage;
     if (error)
       handleError(error);
@@ -79,7 +79,7 @@ const logout = () => {
   delete localStorage.accessToken;
   delete localStorage.idToken;
   delete localStorage.refreshToken;
-  delete localStorage.userid;
+  delete localStorage.userId;
   dispatch({
     type: constants.USER_LOGOUT,
     payload: null

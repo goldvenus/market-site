@@ -76,10 +76,10 @@ class Footer extends Component {
             <Container>
               <div className="row footer-top-wrapper">
                 <div>
-                  <Link to='/'><img src='images/Logo.png' alt=''/></Link>
+                  <Link to='/'><img src='/images/Logo.png' alt=''/></Link>
                 </div>
                 <div>
-                  <img src='images/Emails.png' alt=''/>
+                  <img src='/images/Emails.png' alt=''/>
                   <a className='email' href='mailto:support@creative.market'>support@creative.market</a>
                 </div>
                 <div>
@@ -126,7 +126,7 @@ class Footer extends Component {
               <Row>
                 <Col>
                   <div className="copyright">
-                    <p>© 2018 Creative Market - Ketchup Creative ehf.</p>
+                    <p>© 2019 Creative Market - Ketchup Creative ehf.</p>
                   </div>
                 </Col>
                 <Col className="footer-privaci-policy">

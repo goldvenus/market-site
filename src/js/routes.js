@@ -21,35 +21,40 @@ import SearchResults from './containers/Landing/SearchResults';
 import Favourites from './containers/Landing/Favourites';
 import Partner from './containers/Landing/Partner';
 import FAQ from './containers/Landing/FAQ';
-import PrivacyPolicy from './containers/TermsAndPolicy/PrivacyPolicy'
-import TermsConditions from './containers/TermsAndPolicy/TermsConditions'
+import PrivacyPolicy from './containers/TermsAndPolicy/PrivacyPolicy';
+import TermsConditions from './containers/TermsAndPolicy/TermsConditions';
+import NotFound from './containers/NotFound';
+import ProtectedRoute from "./route/ProtectedRoute";
 
 export default (
   <div className="app-content" id="nummus-container">
     <Switch>
       <Route exact path="/" component={Home}/>
-      <Route exact path="/messages/:id1?" component={Messages}/>
       <Route exact path="/aboutUs" component={About}/>
       <Route exact path="/login" component={Login}/>
       <Route exact path="/register" component={Register}/>
       <Route exact path='/confirm' component={RegisterConfirm}/>
       <Route exact path="/forgotPassword" component={ForgotPassword}/>
-      <Route exact path="/dashboard" component={Dashboard}/>
-      <Route exact path="/dashboard/order/detail/:id" component={OrderDetail}/>
-      <Route exact path="/dashboard/methodAdd/:id" component={AddMethodContainer}/>
-      <Route exact path="/addGear" component={AddGear}/>
-      <Route exact path="/gear/detail/:id" component={RentGearDetail}/>
-      <Route exact path="/cart" component={Cart}/>
-      <Route exact path="/checkout" component={Checkout}/>
-      <Route exact path="/payment/:id" component={Payment}/>
-      <Route exact path="/payment/:id/:tid" component={PaymentSuccess}/>
-      <Route exact path='/rentGear/:id' component={RentGear}/>
-      <Route exact path='/search' component={SearchResults}/>
-      <Route exact path='/favourites' component={Favourites}/>
-      <Route exact path='/partners' component={Partner}/>
       <Route exact path='/FAQ' component={FAQ}/>
+      <Route exact path='/partners' component={Partner}/>
       <Route exact path='/PrivacyPolicy' component={PrivacyPolicy}/>
       <Route exact path='/TermsAndConditions/:id' component={TermsConditions}/>
+
+      <ProtectedRoute exact path="/messages/:id1?" component={Messages}/>
+      <ProtectedRoute exact path="/dashboard" component={Dashboard}/>
+      <ProtectedRoute exact path="/dashboard/order/detail/:id" component={OrderDetail}/>
+      <ProtectedRoute exact path="/dashboard/methodAdd/:id" component={AddMethodContainer}/>
+      <ProtectedRoute exact path="/addGear" component={AddGear}/>
+      <ProtectedRoute exact path="/gear/detail/:id" component={RentGearDetail}/>
+      <ProtectedRoute exact path="/cart" component={Cart}/>
+      <ProtectedRoute exact path="/checkout" component={Checkout}/>
+      <ProtectedRoute exact path="/payment/:id" component={Payment}/>
+      <ProtectedRoute exact path="/payment/:id/:tid" component={PaymentSuccess}/>
+      <ProtectedRoute exact path='/rentGear/:id' component={RentGear}/>
+      <ProtectedRoute exact path='/search' component={SearchResults}/>
+      <ProtectedRoute exact path='/favourites' component={Favourites}/>
+      
+      <Route component={NotFound}/>
     </Switch>
   </div>
 );

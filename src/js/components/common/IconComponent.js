@@ -20,3 +20,21 @@ export const HeartIcon = () => (
         />
     </svg>
 );
+
+export const RightArrow = () => (
+  <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M1 1L7 7L1 13" stroke="white" strokeWidth="2"/>
+  </svg>
+);
+
+export const DownArrow = () => (
+  <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path opacity="0.7" d="M1 1L5 5L9 1" stroke="white" strokeWidth="2"/>
+  </svg>
+);
+
+export const UpArrow = () => (
+  <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M9 5L5 1L1 5" stroke="white" strokeWidth="2"/>
+  </svg>
+);

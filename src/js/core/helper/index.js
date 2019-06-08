@@ -6,8 +6,11 @@ const calcDaysDiff = (date1, date2) => {
   return Math.ceil(timeDiff / (1000 * 3600 * 24));
 };
 
-const getDateStr = date => {
-  return date && moment(date).format('DD.MM.YYYY');
+const getDateStr = dateStr => {
+  if (!dateStr) return false;
+  let date = new Date(dateStr);
+  return date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getUTCFullYear();
+  // return moment(date).format('DD.MM.YYYY');
 };
 
 const getYearMonthStr = (date) => {
@@ -19,7 +22,7 @@ const getYearMonthStr = (date) => {
   return {yearMonth: year + '-' + month};
 };
 
-const getUTCDateFormat = (date) => ((date.getUTCMonth() + 1) + '.' + date.getUTCDate() + '.' + date.getUTCFullYear()) + ' ' + date.getUTCHours() + ':' + date.getUTCMinutes() + ' GMT';
+const getUTCDateFormat = (date) => date && ((date.getUTCMonth() + 1) + '.' + date.getUTCDate() + '.' + date.getUTCFullYear()) + ' ' + date.getUTCHours() + ':' + date.getUTCMinutes() + ' GMT';
 
 const formatDate = (date) => {
   return date && moment(date).format('YYYY-MM-DD');
@@ -38,20 +41,20 @@ const getUniqueObjectArray = obj_arr => {
 };
 
 const validateCard = value => {
-  var new_value = value.replace(/\D/g, '');
-  var sum = 0;
-  var shouldDouble = false;
-  for (var i = new_value.length - 1; i >= 0; i--) {
-    var digit = parseInt(new_value.charAt(i));
+  let new_value = value.replace(/\D/g, '');
+  let sum = 0;
+  let shouldDouble = false;
+  for (let i = new_value.length - 1; i >= 0; i--) {
+    let digit = parseInt(new_value.charAt(i));
     if (shouldDouble) {
       if ((digit *= 2) > 9) digit -= 9;
     }
     sum += digit;
     shouldDouble = !shouldDouble;
   }
-  var valid = (sum % 10) === 0;
-  var accepted = false;
-  var acceptedCreditCards = {
+  let valid = (sum % 10) === 0;
+  let accepted = false;
+  let acceptedCreditCards = {
     visa: /^4[0-9]{12}(?:[0-9]{3})?$/,
     mastercard: /^5[1-5][0-9]{14}$|^2(?:2(?:2[1-9]|[3-9][0-9])|[3-6][0-9][0-9]|7(?:[01][0-9]|20))[0-9]{12}$/,
     amex: /^3[47][0-9]{13}$/,
@@ -60,7 +63,7 @@ const validateCard = value => {
     jcb: /^(?:2131|1800|35[0-9]{3})[0-9]{11}$/
   };
   Object.keys(acceptedCreditCards).forEach(function (key) {
-    var regex = acceptedCreditCards[key];
+    let regex = acceptedCreditCards[key];
     if (regex.test(new_value)) {
       accepted = true;
     }

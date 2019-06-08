@@ -109,7 +109,8 @@ const MyListingItemSm = ({listItem, openEdit, openDelete, openCalendar}) => (
 class MyListings extends React.Component {
   constructor(props) {
     super(props);
-    // Data set of random length
+  
+    this._isMounted = false;
     this.pageSize = 5;
     this.pagesCount = 0;
     this.state = {
@@ -122,9 +123,10 @@ class MyListings extends React.Component {
   }
   
   async componentDidMount() {
+    this._isMounted = true;
     await getListGears();
     await fetchCategories();
-    this.setState({isFirstLoading: false});
+    this._isMounted && this.setState({isFirstLoading: false});
   }
   
   componentDidUpdate() {
@@ -132,6 +134,10 @@ class MyListings extends React.Component {
       $(".pagination .page-item:first-child a").html("<");
       $(".pagination .page-item:last-child a").html(">");
     })
+  }
+  
+  componentWillUnmount() {
+    this._isMounted = false;
   }
   
   handleOpenRentalCalendar = (gearid) => {
@@ -155,7 +161,7 @@ class MyListings extends React.Component {
     let curPage = this.state.currentPage;
     if (this.state.currentPage >= this.pagesCount)
       curPage = curPage - 1;
-    this.setState({modal_open_st: 0, isDeleting: false, currentPage: curPage});
+    this._isMounted && this.setState({modal_open_st: 0, isDeleting: false, currentPage: curPage});
   };
   
   handleClose = () => {

@@ -22,6 +22,7 @@ class AddGear extends Component {
   constructor(props) {
     super(props);
     
+    this._isMounted = false;
     this.progressSteps = ['Info', 'Photo', 'Address', 'Price'];
     // this.usedNames = [];
     this.suggestions = [];
@@ -58,11 +59,16 @@ class AddGear extends Component {
   
   async componentDidMount() {
     await fetchCategories();
+    this._isMounted = true;
     // let ret = await getUsedNames();
     // if (ret) {
     //   this.usedNames = ret;
     // }
     // this.autoGenerateSuggestions();
+  }
+  
+  componentWillUnmount() {
+    this._isMounted = false;
   }
   
   autoGenerateSuggestions = () => {
@@ -73,7 +79,7 @@ class AddGear extends Component {
     let namesFromCategories = categories.map((item) => item.categoryName);
     suggestions = [...suggestions, ...namesFromCategories];
     this.suggestions = [...new Set(suggestions)];
-    if (categories && categories.length > 0) {
+    if (categories && categories.length > 0 && this._isMounted) {
       this.setState({categoryName: categories[0].categoryName});
     } else {
       this.forceUpdate();
@@ -556,9 +562,11 @@ class AddGear extends Component {
       let image = await readFileData(event);
       let {numberOfUserImage} = this.state;
       numberOfUserImage.push(image);
-      this.setState({
-        numberOfUserImage
-      });
+      if (this._isMounted) {
+        this.setState({
+          numberOfUserImage
+        });
+      }
     } catch {
       handleError('Please upload a valid image!');
     }
@@ -618,13 +626,13 @@ class AddGear extends Component {
       
       this.setState({busy: true});
       let gear = await addGear(data);
-      if (gear) {
+      if (gear && this._isMounted) {
         this.setState({
           busy: false,
           isGearAdded: true,
           gearId: gear.gearid
         });
-      } else {
+      } else if (this._isMounted) {
         this.setState({
           busy: false
         });

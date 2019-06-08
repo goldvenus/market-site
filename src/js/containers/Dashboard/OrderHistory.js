@@ -141,7 +141,7 @@ class OrderHistory extends Component {
                 {getDateStr(first_item.startDate)} - {getDateStr(first_item.endDate)}
               </span>
               <span className='grey-small-text'>
-                {days(Date(first_item.startDate), Date(first_item.endDate))} days
+                {days(new Date(first_item.startDate), new Date(first_item.endDate))} days
               </span>
             </div>
             <div className="owner">
@@ -222,7 +222,7 @@ class OrderHistory extends Component {
               <div
                 className='history-rental-period'>{getDateStr(first_item.startDate)} - {getDateStr(first_item.endDate)}</div>
               <div
-                className='history-rental-duration'>{days(Date(first_item.startDate), Date(first_item.endDate))} days
+                className='history-rental-duration'>{days(first_item.startDate, first_item.endDate)} days
               </div>
             </td>
             
@@ -333,7 +333,7 @@ class OrderHistory extends Component {
                   {getDateStr(first_item.startDate)} - {getDateStr(first_item.endDate)}
                 </span>
                 <span className='grey-small-text'>
-                  {days(Date(first_item.startDate), Date(first_item.endDate))} days
+                  {days(new Date(first_item.startDate), new Date(first_item.endDate))} days
                 </span>
               </div>
               <div className="owner">

@@ -610,11 +610,19 @@
   .list-group-item > .item-active::after {
     display: none;
   }
+  .rent-gear-body {
+    .container {
+      padding: 0;
+
+      .col-md-18 {
+        padding: 0;
+      }
+    }
+  }
   .search {
     position: fixed;
     bottom: 12vh;
     background-color: white;
-    opacity: 0.9;
   }
   .down-sidbar .sidebar {
     padding: 0 !important;
@@ -773,4 +781,4 @@
   .down-sidbar .sidebar {
     padding: 0 !important;
   }
- }
+}

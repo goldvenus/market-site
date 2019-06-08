@@ -61,19 +61,22 @@ const NavbarToggleButton = ({ onClick, isOpen }) => {
 class NavbarMenu extends React.Component {
   state = {
     collapsed: true,
-    scrolledDown: false
+    scrolledDown: false,
+    _isMounted: false
   };
 
   componentDidMount() {
+    this._isMounted = true;
     window.addEventListener('scroll', throttle(this.handleScroll, 200, {trailing: true, leading: false}));
   }
 
   componentWillUnmount() {
+    this._isMounted = false;
     window.removeEventListener('scroll', this.handleScroll);
   }
 
   handleScroll = () => {
-    if (window.scrollY >= 200) {
+    if (window.scrollY >= 200 && this._isMounted) {
       this.setState({scrolledDown: true});
     } else {
       this.setState({scrolledDown: false});

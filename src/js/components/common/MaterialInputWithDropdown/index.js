@@ -138,8 +138,9 @@ class MaterialInputWithDropdown extends React.Component {
       label,
       value,
       dropdownItems,
-      // dropdownAddons,
+      onSearch,
       ...props
+      // dropdownAddons,
     } = this.props;
 
     return (

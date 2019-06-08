@@ -914,6 +914,9 @@
   }
 
   .order-history-outer-wrapper {
+    .gear_history_tab:before {
+      width: 0 !important;
+    }
     .new-order-count {
       width: 17px;
       height: 17px;

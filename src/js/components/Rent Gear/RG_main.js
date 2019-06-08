@@ -20,6 +20,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
     
+    this._isMounted = false;
     this.state = {
       searchText: '',
       locationText: '',
@@ -40,15 +41,20 @@ class Main extends Component {
   }
   
   async componentDidMount() {
+    this._isMounted = true;
     await this.loadProductList(this.props.category);
     
-    if (localStorage.searchValue || localStorage.searchLocationValue) {
+    if (this._isMounted && (localStorage.searchValue || localStorage.searchLocationValue)) {
       let searchText = localStorage.searchValue;
       let locationText = localStorage.searchLocationValue;
       delete localStorage.searchValue;
       delete localStorage.searchLocationValue;
       this.setState({searchText: searchText, locationText: locationText});
     }
+  }
+  
+  componentWillUnmount() {
+    this._isMounted = false;
   }
   
   componentWillReceiveProps(props) {
@@ -59,7 +65,7 @@ class Main extends Component {
   }
   
   initProductList = (category) => {
-    if (this.state.category !== category) {
+    if (this.state.category !== category && this._isMounted) {
       this.setState({
         searchText: '',
         locationText: '',
@@ -77,7 +83,7 @@ class Main extends Component {
       product_region: this.state.locationText,
       brand: this.state.searchText
     });
-    if (ret) {
+    if (ret && this._isMounted) {
       this.setState({
         product_list: ret,
         loading: false,
@@ -131,9 +137,11 @@ class Main extends Component {
           endDate: formatDate(endDate)
         });
         
-        this.setState({
-          modal_open_st: 0
-        });
+        if (this._isMounted) {
+          this.setState({
+            modal_open_st: 0
+          });
+        }
       }
     } catch {
       handleError("Gear was not added to cart!");

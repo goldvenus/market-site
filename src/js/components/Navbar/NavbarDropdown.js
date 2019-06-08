@@ -4,24 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { logout } from '../../core/actions/user.action';
-
-const RightArrow = () => (
-  <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M1 1L7 7L1 13" stroke="white"/>
-  </svg>
-);
-
-const DownArrow = () => (
-  <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path opacity="0.7" d="M1 1L5 5L9 1" stroke="white"/>
-  </svg>
-);
-
-const UpArrow = () => (
-  <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M9 5L5 1L1 5" stroke="white"/>
-  </svg>
-);
+import {DownArrow, RightArrow, UpArrow} from "../common/IconComponent";
 
 class NavbarDropdown extends React.PureComponent {
   state = {
