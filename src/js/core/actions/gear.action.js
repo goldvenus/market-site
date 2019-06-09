@@ -105,9 +105,6 @@ const getListGears = async () => {
 // };
 
 const rentGearProductList = async (catDetail) => {
-  if (!localStorage.accessToken) {
-    return;
-  }
   dispatch({
     type: constants.SEARCH_PRODUCTS_REQUEST
   });

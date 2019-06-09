@@ -90,7 +90,7 @@ class PaymentDetail extends Component {
           <div className="payment-method-wrapper">
             <div className="detail-left-wrapper">
               <div className="payment-dashboard-heading">
-                <span>PAYMENT METHODS</span>
+                <span>PAY</span>
               </div>
               <div className="payment-dashboard-body row">
                 {payInMethods.map((item, index) => (
@@ -108,7 +108,7 @@ class PaymentDetail extends Component {
               </div>
             </div>
             <div className="detail-right-wrapper">
-              <div className="payment-dashboard-heading">PAYOUT METHODS</div>
+              <div className="payment-dashboard-heading">Get Paid</div>
               <div className="payment-dashboard-body row">
                 {payOutMethods.map((item, index) => {
                   if (item.cardNumber !== undefined)
@@ -132,7 +132,7 @@ class PaymentDetail extends Component {
                     <div className='plus-icon-container'>
                       <i className='fa fa-plus'/>
                     </div>
-                    <p className='add-method-text'>Add Payment Method</p>
+                    <p className='add-method-text'>Add Payout Method</p>
                   </div>
                 </Card> : null}
               </div>

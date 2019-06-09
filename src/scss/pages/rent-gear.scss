@@ -194,9 +194,17 @@
         background-color: $gray-light;
         margin-bottom: 1.5rem;
         position: relative;
-        transition: all 0.6s ease-in-out;
+        transition: all 0.2s ease-in-out;
         flex-direction: row;
+        cursor: pointer;
 
+        &:hover {
+          box-shadow: 0 2px 22px -2px rgba(173, 173, 173, 0.8);
+          transition: all 0.2s ease-in-out;
+        }
+        .address {
+          margin-left: 40px;
+        }
         .card-img {
           flex-basis: 25%;
           display: flex;
@@ -208,7 +216,6 @@
             cursor: pointer;
           }
         }
-
         .card-body {
           flex-basis: 75%;
           padding: 0;
@@ -221,7 +228,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 15px;
+            padding: 18px;
 
             .card-title {
               text-transform: uppercase;
@@ -329,10 +336,6 @@
             }
           }
         }
-
-        &:hover {
-          transition: all 0.6s ease-in-out;
-        }
       }
 
       .gear_table_view {
@@ -340,9 +343,13 @@
         background-color: $gray-light;
         margin-bottom: 1.5rem;
         position: relative;
-        transition: all 0.6s ease-in-out;
+        transition: all 0.2s ease-in-out;
         flex-direction: row;
+        cursor: pointer;
 
+        &:hover {
+          box-shadow: 0 2px 22px -2px rgba(173, 173, 173, 0.8);
+        }
         .card-img {
           flex-basis: 15%;
           display: flex;
@@ -469,7 +476,7 @@
         }
 
         &:hover {
-          transition: all 0.6s ease-in-out;
+          transition: all 0.2s ease-in-out;
         }
       }
     }
@@ -483,14 +490,23 @@
 .cardz {
   margin-bottom: 1.5rem;
 }
+
+.card-body .buttons > div {
+  transition: all 0.2s ease-in-out;
+}
+
 .gear_card_view {
   border: none;
   background-color: $gray-light;
   margin-bottom: 1.5rem;
   position: relative;
-  transition: all 0.6s ease-in-out;
+  transition: all 0.2s ease-in-out;
   height: 100%;
+  cursor: pointer;
 
+  &:hover {
+    box-shadow: 0 2px 22px -2px rgba(173, 173, 173, 0.8);
+  }
   a {
     overflow: hidden;
     height: 50%;
@@ -616,7 +632,7 @@
   }
 
   &:hover {
-    transition: all 0.6s ease-in-out;
+    transition: all 0.2s ease-in-out;
 
     .buttons {
       opacity: 1;

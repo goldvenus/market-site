@@ -4,17 +4,17 @@ import {
   Col, Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle
 } from 'reactstrap';
-import { withRouter } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import { addFavourites, deleteFavourite } from '../../core/actions/favourite.action';
+import {handleError} from "../../core/actions/common.action";
 
-const TableView = ({ gear_detail: { numberOfUserImage, brand, productName, city, rating, pricePerDay, gearid},
-    history, favored, carted, onOpenModal }) => {
+const TableView = ({ gear_detail: { numberOfUserImage, brand, productName, city, rating, pricePerDay, gearid, categoryName},
+    history, favored, carted, onOpenModal, user }) => {
   return (
     <Col sm="24">
-      <Card className="gear_table_view">
+      <Card className="gear_table_view" onClick={() => history.push(`/gear/detail/${gearid}`, {categoryName})}>
         <div className="card-img">
-          <CardImg top width="100%" src={numberOfUserImage ? numberOfUserImage[0] : []} alt="Card image cap" onClick={() => {
-              history.push(`/gear/detail/${gearid}`);}} />
+          <CardImg top width="100%" src={numberOfUserImage ? numberOfUserImage[0] : []} alt="Card image cap"/>
         </div>
         <CardBody>
           <div className="card-center">
@@ -35,7 +35,7 @@ const TableView = ({ gear_detail: { numberOfUserImage, brand, productName, city,
               </span>
               <span className="total">
                 ({rating})
-              </span>&nbsp;  &nbsp;
+              </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <span className="address">
                 <i className="fa fa-map-marker" aria-hidden="true"/>&nbsp;
                 {city}
@@ -48,8 +48,13 @@ const TableView = ({ gear_detail: { numberOfUserImage, brand, productName, city,
               <span className="theme-text-small text-gray"> / per day</span>
             </CardText>
             <div className="buttons">
-              <div className='cart' onClick={() => onOpenModal(gearid)}><i className="fa fa-shopping-cart"/></div>
-              <div className="fav" onClick={() => {
+              <div className='cart' onClick={(e) => {e.stopPropagation();onOpenModal(gearid)}}><i className="fa fa-shopping-cart"/></div>
+              <div className="fav" onClick={(e) => {
+                e.stopPropagation();
+                if (!user) {
+                  handleError('Please sign in');
+                  return;
+                }
                   favored>0 ? deleteFavourite({ gearid }) : addFavourites({ gearid })
                 }}><i className={favored>0 ? "fas fa-heart" : "far fa-heart"}/></div>
             </div>
@@ -58,7 +63,7 @@ const TableView = ({ gear_detail: { numberOfUserImage, brand, productName, city,
       </Card>
     </Col>
   );
-}
+};
 
 const mapStateToProps = store => ({
   isAuthenticated: store.user.isAuthenticated

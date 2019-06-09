@@ -91,7 +91,6 @@ class AddMethodSwift extends Component {
   handleGoNext = (data) => {
     let {step} = this.state;
     step ++;
-    console.log(data);
     this.setState({step, ...data});
   };
   

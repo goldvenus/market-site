@@ -93,7 +93,12 @@ class Main extends Component {
   };
   
   onOpenModal = gearid => {
-    const {carts} = this.props;
+    const {carts, user} = this.props;
+    if (!user) {
+      handleError('Please sign in');
+      return;
+    }
+    
     const {product_list} = this.state;
     const cart = gearid && carts && carts.length > 0 ?
       carts.filter(item => item.gearid === gearid) : 0;
@@ -185,9 +190,8 @@ class Main extends Component {
   };
   
   render() {
-    const {category, categories, carts, favourites, isChanging} = this.props;
-    
-    if (!carts || !favourites || !category || this.state.loading)
+    const {category, categories, isChanging, user} = this.props;
+    if (!category || this.state.loading)
       return <div className="circle-loader">
         <Loader
           type="Oval"
@@ -302,6 +306,7 @@ class Main extends Component {
                             gear_detail={gear}
                             key={index}
                             {...gear_state}
+                            user={user}
                             onOpenModal={this.onOpenModal}
                           />
                         })
@@ -317,6 +322,7 @@ class Main extends Component {
                             gear_detail={gear}
                             key={index}
                             {...gear_state}
+                            user={user}
                             onOpenModal={this.onOpenModal}
                           />
                         })
@@ -332,6 +338,7 @@ class Main extends Component {
                             gear_detail={gear}
                             key={index}
                             {...gear_state}
+                            user={user}
                             onOpenModal={this.onOpenModal}
                           />
                         })
@@ -376,6 +383,7 @@ class Main extends Component {
 
 export default connect(state => {
   return {
+    user: state.user.user,
     carts: state.cart.carts,
     favourites: state.favourite.favourites,
     isChanging: state.favourite.isChanging

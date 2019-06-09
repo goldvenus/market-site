@@ -179,12 +179,12 @@ class NavbarMenu extends React.Component {
                       About Us
                     </Link>
                   </li>
-                  <li className="animated-menu-item">
-                    <Link to="/Partners" onClick={this.toggleNavbar} >
-                      <span className="dash"/>
-                      Partners
-                    </Link>
-                  </li>
+                  {/*<li className="animated-menu-item">*/}
+                    {/*<Link to="/Partners" onClick={this.toggleNavbar} >*/}
+                      {/*<span className="dash"/>*/}
+                      {/*Partners*/}
+                    {/*</Link>*/}
+                  {/*</li>*/}
                   <li className="animated-menu-item">
                     <Link to="/FAQ" onClick={this.toggleNavbar} >
                       <span className="dash"/>

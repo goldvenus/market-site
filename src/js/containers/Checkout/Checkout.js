@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom';
 import {Label} from 'reactstrap';
 import {getCheckout, checkout, saveCheckoutInfo} from '../../core/actions/checkout.action';
 import {days} from '../../core/helper/index';
-import BarLoader from "react-bar-loader";
 import TextField from "@material-ui/core/TextField";
 import Dropdown, {
   MenuItem
@@ -16,6 +15,7 @@ import $ from "jquery";
 import CustomSpinner from "../../components/common/CustomSpinner";
 import {getUniqueObjectArray} from "../../core/helper/index";
 import {handleError} from "../../core/actions/common.action";
+import CustomLoaderLogo from "../../components/common/CustomLoaderLogo";
 
 class Checkout extends Component {
   constructor(props) {
@@ -91,7 +91,7 @@ class Checkout extends Component {
     // 1. input validation
     let {firstName, lastName, addr, city, zip, saveAddr, productRegion, projectName, company} = this.state;
     let userId = localStorage.userId;
-    if (!firstName || !lastName || !addr || !city || !zip || !productRegion || !projectName || !company) {
+    if (!firstName || !lastName || !addr || !city || !zip || !productRegion || !projectName) {
       handleError('Please provide required information');
       return false;
     }
@@ -115,7 +115,7 @@ class Checkout extends Component {
       const d = days(listItem.startDate, listItem.endDate);
       
       return <div key={`cart-item-${index}`} className="checkout-item">
-        <div>{listItem.brand + ' ' + listItem.model}</div>
+        <div>{listItem.productName}</div>
         <div><b>${listItem.pricePerDay * d}</b> for <b>{d}</b> days</div>
       </div>;
     });
@@ -130,7 +130,7 @@ class Checkout extends Component {
   render() {
     const {carts, isLoadingUser} = this.props;
     if (!carts || isLoadingUser) {
-      return <BarLoader color="#F82462" height="5"/>;
+      return <CustomLoaderLogo/>;
     }
     
     let total = 0;
@@ -165,7 +165,6 @@ class Checkout extends Component {
                 <div className="theme-form-field">
                   <TextField
                     className='checkout-textfield custom-beautiful-textfield'
-                    label='Project name'
                     type="text"
                     value={projectName}
                     onChange={e => this.handleInputChange(e, 'projectName')}

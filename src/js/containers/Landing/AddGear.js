@@ -153,7 +153,6 @@ class AddGear extends Component {
   
   handleDeleteImage = (index) => {
     let {numberOfUserImage} = this.state;
-    console.log(index);
     numberOfUserImage = numberOfUserImage.filter((item, key) => index !== key);
     this.setState({numberOfUserImage});
   };
@@ -689,7 +688,6 @@ class AddGear extends Component {
   };
   
   handleSetRead = () => {
-    console.log(this.state.isKit);
     this.setState({isKit: !this.state.isKit});
   };
   

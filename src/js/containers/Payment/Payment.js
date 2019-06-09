@@ -346,7 +346,7 @@ class Payment extends Component {
           carts.map((listItem, index) => {
             const d = days(listItem.startDate, listItem.endDate);
             return <div key={`cart-item-${index}`} className="checkout-item">
-              <div>{listItem.brand + ' ' + listItem.model}</div>
+              <div>{listItem.productName}</div>
               <div><b>${listItem.pricePerDay * d}</b> for <b>{days(listItem.startDate, listItem.endDate)}</b> days</div>
             </div>;
           })

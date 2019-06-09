@@ -8,7 +8,7 @@ class MaterialInputWithDropdown extends React.Component {
     activeIndex: 0,
     isFocused: false,
     _mounted: false
-  };gear_card_view
+  };
 
   itemsRef = [];
   wrapperRef = null;
@@ -30,7 +30,7 @@ class MaterialInputWithDropdown extends React.Component {
     if (dropdownItems.length !== this.props.dropdownItems) {
       this._mounted && this.setState({activeIndex: 0});
     }
-    if (this.state.isFocused) {
+    if (this.state.isFocused && nextProps.value) {
       this._mounted && this.setState({isDropdownOpen: true});
     }
   }
@@ -44,7 +44,8 @@ class MaterialInputWithDropdown extends React.Component {
     if (this.wrapperRef && !this.wrapperRef.contains(e.target) && this.dropdownWrapperRef && !this.dropdownWrapperRef.contains(e.target)) {
       this._mounted && this.setState({
         isDropdownOpen: false,
-        isFocused: false
+        isFocused: false,
+        activeIndex: 0
       });
     }
   };
@@ -56,15 +57,17 @@ class MaterialInputWithDropdown extends React.Component {
     });
   };
   
-  handleBlur = e => {
-    this._mounted && setTimeout(() => this.setState({
-      isDropdownOpen: false,
-      isFocused: false
-    }), 100);
+  handleBlur = async (e) => {
+    setTimeout(() =>
+      this._mounted && this.setState({
+        isDropdownOpen: false,
+        isFocused: false
+      }), 100
+    );
     e.preventDefault();
   };
   
-  handleKeyDown = e => {
+  handleKeyDown = async e => {
     let keyCode = e.keyCode;
     // let addOnHeight = (this.addonWrapperRef && this.addonWrapperRef.offsetHeight) || 0;
     let addOnHeight = 0;
@@ -72,13 +75,11 @@ class MaterialInputWithDropdown extends React.Component {
     if (e.keyCode !== 38 && e.keyCode !== 40 && e.keyCode !== 13) {
       return;
     } else if (e.keyCode === 13) {
-      this.handleSelectItem(this.props.dropdownItems[this.state.activeIndex]);
-      if (this.props.onSearch) {
-        this.props.onSearch();
-      }
+      // when hit enter, change search value to currently selected item, and then perform search
+      await this.props.onHandleChange({ target: { value: this.props.dropdownItems[this.state.activeIndex] } });
+      this.props.onSearch && this.props.onSearch();
       return;
     }
-    
     e.preventDefault();
     
     if (!this.itemsRef) {
@@ -117,13 +118,18 @@ class MaterialInputWithDropdown extends React.Component {
   };
   
   handleChange = e => {
-    this.props.onChange({ target: {value: e.target.value } });
+    if (!e.target.value || e.target.value === '') {
+      this._mounted && this.setState({
+        isDropdownOpen: false
+      });
+    }
+    this.props.onHandleChange({ target: {value: e.target.value } });
   };
 
   handleSelectItem = value => {
-    let {onChange} = this.props;
-    if (onChange) {
-      onChange({ target: { value } });
+    let {onHandleChange} = this.props;
+    if (onHandleChange) {
+      onHandleChange({ target: { value } });
     }
   
     this._mounted && this.setState({
@@ -142,6 +148,7 @@ class MaterialInputWithDropdown extends React.Component {
       value,
       dropdownItems,
       onSearch,
+      onHandleChange,
       ...props
       // dropdownAddons,
     } = this.props;
@@ -154,7 +161,7 @@ class MaterialInputWithDropdown extends React.Component {
           onChange={(e) => this.handleChange(e)}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
-          onKeyDown={(e) => this.handleKeyDown(e)}
+          onKeyDown={this.handleKeyDown}
           {...props}
         />
 
@@ -185,5 +192,6 @@ class MaterialInputWithDropdown extends React.Component {
     );
   }
 }
+
 
 export default MaterialInputWithDropdown;

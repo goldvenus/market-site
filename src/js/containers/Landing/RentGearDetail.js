@@ -10,7 +10,6 @@ import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import {DateRange} from 'react-date-range';
 import TextField from '@material-ui/core/TextField';
-import {Button} from 'reactstrap';
 import CustomCarousel from '../../components/CustomCarousel';
 import {getGear, rentGearProductList} from "../../core/actions/gear.action";
 import {addFavourites, deleteFavourite} from "../../core/actions/favourite.action";
@@ -93,7 +92,7 @@ class RentGearDetail extends Component {
   };
   
   renderRecommendedProducts({listGears}) {
-    const {carts, favourites, gear} = this.props;
+    const {carts, gear} = this.props;
     listGears = listGears.filter(item => item.gearid !== gear.gearid);
     
     return listGears.map((item, i) => {
@@ -101,61 +100,69 @@ class RentGearDetail extends Component {
       const carted_item = gearid && carts && carts.length > 0 ?
         carts.filter(item => item.gearid === gearid) : 0;
       const carted = carted_item ? carted_item.length : false;
-      const favored = gearid && favourites && favourites.length > 0 ?
-        favourites.filter(item => item.gearid === gearid).length : 0;
+      // const favored = gearid && favourites && favourites.length > 0 ?
+      //   favourites.filter(item => item.gearid === gearid).length : 0;
       pricePerDay *= 1.36;
       
       return (
         <Col md="6" className="cardz" key={i}>
-          <Card className="gear_card_view">
-            <Link to={{pathname: `/gear/detail/${gearid}`, state: {categoryName}}}>
+          <Link to={{pathname: `/gear/detail/${gearid}`, state: {categoryName}}}>
+            <Card className="gear_card_view">
               <CardImg top width="100%" src={numberOfUserImage ? numberOfUserImage[0] :[]} alt="Card image cap"/>
-            </Link>
-            {carted > 0 && <div className="card-checked"><i className="fas fa-check-circle"/></div>}
-            <CardBody>
-              <div className='card-title-wrapper'>
-                <CardTitle>{brand}<br/>{productName}</CardTitle>
-              </div>
-              <div>
-                <CardSubtitle>
-                  <span className="stars">
-                    {
-                      [1,2,3,4,5].map((i)=>{
-                        return <i className="fa fa-star" key={i}/>
-                      })
-                    }
-                  </span> &nbsp;
-                  <span>
-                    5,0&nbsp;
-                  </span>
-                    <span className="total">
-                    ({rating ? rating : 0})
-                  </span>&nbsp;  &nbsp;
-                  <span className="address">
-                    <i className="fa fa-map-marker" aria-hidden="true"/>&nbsp;
-                    {city}
-                  </span>
-                </CardSubtitle>
-                <CardText>
-                  <span className="price"> ${parseFloat(pricePerDay).toFixed(2)} </span>
-                  <span className="theme-text-small text-gray"> /per day</span>
-                </CardText>
-                <div className="buttons">
-                  <Button className='cart' onClick={() => this.onOpenModal(gearid)}>Add to Cart</Button>
-                  <Button className="fav" onClick={() => {
-                    favored>0 ? deleteFavourite({ gearid }) : addFavourites({ gearid })
-                  }}><i className={favored ? "fas fa-heart" : "far fa-heart"}/></Button>
+              {carted > 0 && <div className="card-checked"><i className="fas fa-check-circle"/></div>}
+              <CardBody>
+                <div className='card-title-wrapper'>
+                  <CardTitle>{brand}<br/>{productName}</CardTitle>
                 </div>
-              </div>
-            </CardBody>
-          </Card>
+                <div>
+                  <CardSubtitle>
+                    <span className="stars">
+                      {
+                        [1,2,3,4,5].map((i)=>{
+                          return <i className="fa fa-star" key={i}/>
+                        })
+                      }
+                    </span> &nbsp;
+                    <span>
+                      5,0&nbsp;
+                    </span>
+                      <span className="total">
+                      ({rating ? rating : 0})
+                    </span>&nbsp;  &nbsp;
+                    <span className="address">
+                      <i className="fa fa-map-marker" aria-hidden="true"/>&nbsp;
+                      {city}
+                    </span>
+                  </CardSubtitle>
+                  <CardText>
+                    <span className="price"> ${parseFloat(pricePerDay).toFixed(2)} </span>
+                    <span className="theme-text-small text-gray"> /per day</span>
+                  </CardText>
+                  {/*<div className="buttons">*/}
+                    {/*<Button className='cart' onClick={() => this.onOpenModal(gearid)}>Add to Cart</Button>*/}
+                    {/*<Button className="fav" onClick={() => {*/}
+                      {/*if (!user) {*/}
+                        {/*handleError('Please sign in');*/}
+                        {/*return;*/}
+                      {/*}*/}
+                      {/*favored>0 ? deleteFavourite({ gearid }) : addFavourites({ gearid })*/}
+                    {/*}}><i className={favored ? "fas fa-heart" : "far fa-heart"}/></Button>*/}
+                  {/*</div>*/}
+                </div>
+              </CardBody>
+            </Card>
+          </Link>
         </Col>)
     });
   }
   
   onOpenModal = async (gearid) => {
     try {
-      const {carts} = this.props;
+      const {carts, user} = this.props;
+      if (!user) {
+        handleError('Please sign in');
+        return;
+      }
       const cart = gearid && carts && carts.length > 0 ?
         carts.filter(item => item.gearid === gearid) : 0;
       const carted = cart.length;
@@ -237,7 +244,7 @@ class RentGearDetail extends Component {
   
   renderContent = () => {
     const {gear, user, carts, favourites, isChangingFavor, isLoadingGear, searchResults} = this.props;
-    if (!gear || !user || !carts || !favourites || isLoadingGear)
+    if (!gear || isLoadingGear)
       return <CustomLoaderLogo/>;
       
     const {
@@ -424,6 +431,10 @@ class RentGearDetail extends Component {
                   {busy ? <Inline size={64} color={"#fff"}/> : 'Add to Cart'}
                 </button>
                 <button className="theme-btn theme-btn-secondery btn-favor" onClick={() => {
+                  if (!user) {
+                    handleError('Please sign in');
+                    return;
+                  }
                   favored > 0 ? deleteFavourite({gearid}) : addFavourites({gearid})
                 }}>
                   <i className={`${favored ? 'fas' : 'far'} fa-heart`}/>
@@ -528,7 +539,7 @@ class RentGearDetail extends Component {
                         className="price-per-day-text">per day</span></div>
                     </div>
                     {
-                      user && this.state.userid !== userid ?
+                      // user && this.state.userid !== userid ?
                         <div className="pickup-date-container">
                           <div className='row date-range-container'>
                             <TextField
@@ -582,7 +593,7 @@ class RentGearDetail extends Component {
                             }
                           </div>
                         </div>
-                        : null
+                        // : null
                     }
                     <div className="cost-container">
                       ${amount}
@@ -595,6 +606,10 @@ class RentGearDetail extends Component {
                         {busy ? <Inline size={64} color={"#fff"}/> : 'Add to Cart'}
                       </button>
                       <button className="theme-btn theme-btn-secondery btn-favor" onClick={() => {
+                        if (!user) {
+                          handleError('Please sign in');
+                          return;
+                        }
                         favored > 0 ? deleteFavourite({gearid}) : addFavourites({gearid})
                       }}>
                         <i className={`${favored ? 'fas' : 'far'} fa-heart`}/>
@@ -623,6 +638,10 @@ class RentGearDetail extends Component {
             <div className='icon-container'>
               <i className="fa fa-shopping-cart icon-cart" onClick={() => this.onOpenModal(gearid)}/>
               <i className={`icon-heart ${favored ? 'fas' : 'far'} fa-heart`} onClick={() => {
+                if (!user) {
+                  handleError('Please sign in');
+                  return;
+                }
                 favored > 0 ? deleteFavourite({gearid}) : addFavourites({gearid})
               }}/>
             </div>

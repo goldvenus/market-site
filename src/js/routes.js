@@ -19,7 +19,7 @@ import RentGear from './containers/Landing/RentGear';
 import RentGearDetail from './containers/Landing/RentGearDetail';
 import SearchResults from './containers/Landing/SearchResults';
 import Favourites from './containers/Landing/Favourites';
-import Partner from './containers/Landing/Partner';
+// import Partner from './containers/Landing/Partner';
 import FAQ from './containers/Landing/FAQ';
 import PrivacyPolicy from './containers/TermsAndPolicy/PrivacyPolicy';
 import TermsConditions from './containers/TermsAndPolicy/TermsConditions';
@@ -36,21 +36,21 @@ export default (
       <Route exact path='/confirm' component={RegisterConfirm}/>
       <Route exact path="/forgotPassword" component={ForgotPassword}/>
       <Route exact path='/FAQ' component={FAQ}/>
-      <Route exact path='/partners' component={Partner}/>
+      {/*<Route exact path='/partners' component={Partner}/>*/}
       <Route exact path='/PrivacyPolicy' component={PrivacyPolicy}/>
       <Route exact path='/TermsAndConditions/:id' component={TermsConditions}/>
+      <Route exact path='/rentGear/:id' component={RentGear}/>
+      <Route exact path="/gear/detail/:id" component={RentGearDetail}/>
 
       <ProtectedRoute exact path="/messages/:id1?" component={Messages}/>
       <ProtectedRoute exact path="/dashboard" component={Dashboard}/>
       <ProtectedRoute exact path="/dashboard/order/detail/:id" component={OrderDetail}/>
       <ProtectedRoute exact path="/dashboard/methodAdd/:id" component={AddMethodContainer}/>
       <ProtectedRoute exact path="/addGear" component={AddGear}/>
-      <ProtectedRoute exact path="/gear/detail/:id" component={RentGearDetail}/>
       <ProtectedRoute exact path="/cart" component={Cart}/>
       <ProtectedRoute exact path="/checkout" component={Checkout}/>
       <ProtectedRoute exact path="/payment/:id" component={Payment}/>
       <ProtectedRoute exact path="/payment/:id/:tid" component={PaymentSuccess}/>
-      <ProtectedRoute exact path='/rentGear/:id' component={RentGear}/>
       <ProtectedRoute exact path='/search' component={SearchResults}/>
       <ProtectedRoute exact path='/favourites' component={Favourites}/>
       

@@ -12,9 +12,6 @@
   }
   .custom-beautiful-textfield {
     width: 100%;
-    input {
-      padding-left: 15px;
-    }
   }
   .billing-address, .order-info {
     border: 30px solid #faf8f9;
@@ -167,6 +164,7 @@
 .select-addr-btn ~ div, .select-card-btn ~ div {
   border: none;
   max-width: 290px;
+  min-width: 290px;
   overflow: hidden;
   text-transform: none;
 }
@@ -222,7 +220,7 @@
       padding: 20px 16px 20px !important;
     }
     .custom-beautiful-textfield {
-      text-align: center;
+      text-align: left;
       input {
         padding-left: 0;
       }
@@ -252,6 +250,11 @@
     .address-info-wrapper .flex-row {
       display: block !important;
     }
+    .custom-beautiful-textfield {
+      label {
+        text-align: left;
+      }
+    }
     .billing-address {
       .checkout-header, .address-select {
         padding: 25px 16px;
@@ -260,7 +263,7 @@
         margin: 0 auto;
 
         & > div {
-          margin-left: -70px;
+          left: -84px;
         }
       }
     }

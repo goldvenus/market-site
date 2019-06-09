@@ -13,6 +13,7 @@ import {
   IconSearch,
 } from './images/index';
 import $ from 'jquery';
+import {rentGearProductList} from "../../core/actions/gear.action";
 
 class Home extends React.Component {
   constructor(props) {
@@ -25,8 +26,13 @@ class Home extends React.Component {
       searchLocationValue: '',
       searchLocationResult: [],
     };
-    
-    this.gearList = this.props.productList;
+  
+    rentGearProductList({
+      categoryName: '',
+      product_region: '',
+      brand: ''
+    });
+    this.gearList = [];
     this.productList = [];
     this.categoryList = [];
     this.locationList = [];
@@ -82,7 +88,7 @@ class Home extends React.Component {
   }
   
   componentWillReceiveProps(props) {
-    if (props.productList && !this.gearList) {
+    if (props.productList !== this.gearList) {
       this.gearList = props.productList;
     }
   }
@@ -99,14 +105,14 @@ class Home extends React.Component {
     if (!key1 && !key2) return;
 
     let gearList1 = (this.gearList || []).filter(item =>
-      ((item.productName && item.productName.toLowerCase().indexOf(key1) !== -1) || item.categoryName.toLowerCase().indexOf(key1) !== -1 || item.brand.toLowerCase().indexOf(key1) !== -1));
-    
+      (item.productName && item.productName.toLowerCase().indexOf(key1) === 0));
+
     let gearList2 = (this.gearList || []).filter(item =>
       ((item.city.toLowerCase().indexOf(key2) === 0 || item.address.toLowerCase().indexOf(key2) === 0) || item.product_region.toLowerCase().indexOf(key2) === 0));
   
     gearList1.forEach((item) => {
       this.productList = [...this.productList, item.productName];
-      this.categoryList = [...this.categoryList, item.categoryName];
+      // this.categoryList = [...this.categoryList, item.categoryName];
     });
     gearList2.forEach((item) => {
       this.locationList = [...this.locationList, item.city + ', ' + item.address];
@@ -121,7 +127,7 @@ class Home extends React.Component {
     });
     
     clearTimeout(this.timer);
-    this.timer = setTimeout(this.performSearch, 100);
+    this.timer = setTimeout(this.performSearch, 70);
   };
 
   handleChangeSearchLocation = (e) => {
@@ -138,7 +144,7 @@ class Home extends React.Component {
     localStorage.searchValue = searchValue;
     localStorage.searchLocationValue = searchLocationValue;
 
-    if (!localStorage.accessToken || !(searchValue || searchLocationValue)) {
+    if (!(searchValue || searchLocationValue)) {
       return;
     }
     this.props.history.push('/rentGear/all');
@@ -218,7 +224,7 @@ class Home extends React.Component {
                         value={searchValue}
                         dropdownItems={this.productList || []}
                         // dropdownAddons={this.renderSearchAddOn()}
-                        onChange={this.handleChangeSearchValue}
+                        onHandleChange={this.handleChangeSearchValue}
                       />
                     </div>
 
@@ -228,7 +234,7 @@ class Home extends React.Component {
                         noHelp
                         value={searchLocationValue}
                         dropdownItems={this.locationList || []}
-                        onChange={this.handleChangeSearchLocation}
+                        onHandleChange={this.handleChangeSearchLocation}
                         onSearch={this.handleSearch}
                       />
                     </div>
