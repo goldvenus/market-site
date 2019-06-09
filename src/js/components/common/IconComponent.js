@@ -38,3 +38,17 @@ export const UpArrow = () => (
     <path d="M9 5L5 1L1 5" stroke="white" strokeWidth="2"/>
   </svg>
 );
+
+export const CloseIcon = () => (
+  <svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M1 1L21.5 21.5M42 42L21.5 21.5M21.5 21.5L42 1L1 42" strokeWidth="3" stroke="white"/>
+  </svg>
+);
+
+export const OpenIcon = () => (
+  <svg width="40" height="23" viewBox="0 0 40 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="40" height="3" fill="white"/>
+    <rect y="10" width="40" height="3" fill="white"/>
+    <rect y="20" width="40" height="3" fill="white"/>
+  </svg>
+);

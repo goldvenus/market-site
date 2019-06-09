@@ -6,8 +6,9 @@ class MaterialInputWithDropdown extends React.Component {
   state = {
     isDropdownOpen: false,
     activeIndex: 0,
-    isFocused: false
-  };
+    isFocused: false,
+    _mounted: false
+  };gear_card_view
 
   itemsRef = [];
   wrapperRef = null;
@@ -17,6 +18,7 @@ class MaterialInputWithDropdown extends React.Component {
   curPos = 100;
 
   componentDidMount() {
+    this._mounted = true;
     document.addEventListener('mousedown', this.handleClickOutside);
   }
   
@@ -26,20 +28,21 @@ class MaterialInputWithDropdown extends React.Component {
     } = nextProps;
 
     if (dropdownItems.length !== this.props.dropdownItems) {
-      this.setState({activeIndex: 0});
+      this._mounted && this.setState({activeIndex: 0});
     }
     if (this.state.isFocused) {
-      this.setState({isDropdownOpen: true});
+      this._mounted && this.setState({isDropdownOpen: true});
     }
   }
   
   componentWillUnmount() {
+    this._mounted = false;
     document.removeEventListener('mousedown', this.handleClickOutside);
   }
 
   handleClickOutside = e => {
     if (this.wrapperRef && !this.wrapperRef.contains(e.target) && this.dropdownWrapperRef && !this.dropdownWrapperRef.contains(e.target)) {
-      this.setState({
+      this._mounted && this.setState({
         isDropdownOpen: false,
         isFocused: false
       });
@@ -47,14 +50,14 @@ class MaterialInputWithDropdown extends React.Component {
   };
 
   handleFocus = e => {
-    this.setState({
+    this._mounted && this.setState({
       isDropdownOpen: true,
       isFocused: true
     });
   };
   
   handleBlur = e => {
-    setTimeout(() => this.setState({
+    this._mounted && setTimeout(() => this.setState({
       isDropdownOpen: false,
       isFocused: false
     }), 100);
@@ -110,7 +113,7 @@ class MaterialInputWithDropdown extends React.Component {
       }
     }
     $("#dropdown-wrapper").scrollTop(this.curPos);
-    this.setState({activeIndex});
+    this._mounted && this.setState({activeIndex});
   };
   
   handleChange = e => {
@@ -122,8 +125,8 @@ class MaterialInputWithDropdown extends React.Component {
     if (onChange) {
       onChange({ target: { value } });
     }
-
-    this.setState({
+  
+    this._mounted && this.setState({
       isDropdownOpen: false
     });
   };

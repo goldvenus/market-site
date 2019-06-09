@@ -10,8 +10,9 @@ import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import {DateRange} from 'react-date-range';
 import TextField from '@material-ui/core/TextField';
+import {Button} from 'reactstrap';
 import CustomCarousel from '../../components/CustomCarousel';
-import {getGear} from "../../core/actions/gear.action";
+import {getGear, rentGearProductList} from "../../core/actions/gear.action";
 import {addFavourites, deleteFavourite} from "../../core/actions/favourite.action";
 import {addCart} from "../../core/actions/cart.action";
 import {handleError} from '../../core/actions/common.action';
@@ -33,12 +34,13 @@ class RentGearDetail extends Component {
   constructor(props) {
     super(props);
     
+    this._mounted = false;
     this.gearid = props.match.params.id;
-    
     this.state = {
       startDate: new Date(),
       endDate: new Date(),
       descp: '',
+      cart_info: {},
       show_view_more: true,
       activeItemIndex: 1,
       open_date_picker1: false,
@@ -46,30 +48,44 @@ class RentGearDetail extends Component {
       modal_open_st: 0,
       carted: false,
       gear: {},
-      busy: false
+      busy: false,
+      recommendedList: []
     };
     
     getGear(this.gearid);
+    props.location.state && rentGearProductList({
+      categoryName: props.location.state.categoryName,
+      product_region: '',
+      brand: ''
+    });
   }
   
-  componentDidUpdate(prevProps) {
-    if (this.props.location !== prevProps.location) {
-      getGear(this.gearid);
+  componentDidMount() {
+    this._mounted = true;
+  }
+  
+  async componentDidUpdate(prevProps) {
+    if (this.props.location !== prevProps.location && this._mounted) {
+      await getGear(this.props.match.params.id);
+      this.forceUpdate();
     }
+  }
+  
+  componentWillUnmount() {
+    this._mounted = false;
   }
   
   addToCart = async () => {
     try {
-      const {startDate, endDate} = this.state;
-      const {gear} = this.props;
-      if (startDate && endDate) {
+      const {startDate, endDate, gear} = this.state;
+      if (startDate && endDate && this._mounted) {
         await addCart({
           gearid: gear.gearid,
           userid: gear.userid,
           startDate: formatDate(startDate),
           endDate: formatDate(endDate)
         });
-        this.setState({modal_open_st: 0});
+        this._mounted && this.setState({modal_open_st: 0});
       }
     } catch {
       handleError('Gear was not added to cart');
@@ -77,56 +93,59 @@ class RentGearDetail extends Component {
   };
   
   renderRecommendedProducts({listGears}) {
+    const {carts, favourites, gear} = this.props;
+    listGears = listGears.filter(item => item.gearid !== gear.gearid);
+    
     return listGears.map((item, i) => {
-      let {numberOfUserImage, gearid, brand, rating, city, pricePerDay} = item;
-      let carted = false;
-      let favored = false;
+      let {numberOfUserImage, gearid, brand, rating, city, pricePerDay, productName, categoryName} = item;
+      const carted_item = gearid && carts && carts.length > 0 ?
+        carts.filter(item => item.gearid === gearid) : 0;
+      const carted = carted_item ? carted_item.length : false;
+      const favored = gearid && favourites && favourites.length > 0 ?
+        favourites.filter(item => item.gearid === gearid).length : 0;
       pricePerDay *= 1.36;
       
       return (
         <Col md="6" className="cardz" key={i}>
           <Card className="gear_card_view">
-            <CardImg
-              top
-              width="100%"
-              src={numberOfUserImage ? numberOfUserImage[0] : []} alt="Card image cap"
-              onClick={() => {
-                this.gearid = gearid;
-                this.props.history.push(`/gear/detail/${gearid}`);
-              }}
-            />
-            {carted > 0 ? <div className="card-checked"><i className="fas fa-check-circle icon-carted"/></div> : null}
+            <Link to={{pathname: `/gear/detail/${gearid}`, state: {categoryName}}}>
+              <CardImg top width="100%" src={numberOfUserImage ? numberOfUserImage[0] :[]} alt="Card image cap"/>
+            </Link>
+            {carted > 0 && <div className="card-checked"><i className="fas fa-check-circle"/></div>}
             <CardBody>
-              <CardTitle>{brand}</CardTitle>
-              <CardSubtitle>
-                <div className='row rating-container'>
-                  <div className='col-sm-12 col-12 star-wrapper'>
-                    <span>
+              <div className='card-title-wrapper'>
+                <CardTitle>{brand}<br/>{productName}</CardTitle>
+              </div>
+              <div>
+                <CardSubtitle>
+                  <span className="stars">
                     {
-                      [1, 2, 3, 4, 5].map(i =>
-                        <i className="fa fa-star star-selected" key={i}/>
-                      )
+                      [1,2,3,4,5].map((i)=>{
+                        return <i className="fa fa-star" key={i}/>
+                      })
                     }
-                    </span>
-                    <span className='rating-text'> 5,0 ({rating})</span>
-                  </div>
-                  <div className="gear-address-container col-sm-12 col-12 row">
-                    <div className='marker-icon'/>
-                    <span className='gear-address'>{city}</span>
-                  </div>
+                  </span> &nbsp;
+                  <span>
+                    5,0&nbsp;
+                  </span>
+                    <span className="total">
+                    ({rating ? rating : 0})
+                  </span>&nbsp;  &nbsp;
+                  <span className="address">
+                    <i className="fa fa-map-marker" aria-hidden="true"/>&nbsp;
+                    {city}
+                  </span>
+                </CardSubtitle>
+                <CardText>
+                  <span className="price"> ${parseFloat(pricePerDay).toFixed(2)} </span>
+                  <span className="theme-text-small text-gray"> /per day</span>
+                </CardText>
+                <div className="buttons">
+                  <Button className='cart' onClick={() => this.onOpenModal(gearid)}>Add to Cart</Button>
+                  <Button className="fav" onClick={() => {
+                    favored>0 ? deleteFavourite({ gearid }) : addFavourites({ gearid })
+                  }}><i className={favored ? "fas fa-heart" : "far fa-heart"}/></Button>
                 </div>
-              </CardSubtitle>
-              <CardText>
-                <span className="price"> ${pricePerDay} <span className='price-slash'>/</span> </span>
-                <span className="theme-text-small text-gray">per day</span>
-              </CardText>
-              <div className="buttons">
-                <button className={`cart ${carted ? 'disabled' : ''}`} onClick={this.onOpenModal}>
-                  <Link to={`/gear/detail/${gearid}`}>Add to cart</Link>
-                </button>
-                <button className="fav" onClick={() => {
-                  favored > 0 ? deleteFavourite({gearid}) : addFavourites({gearid})
-                }}><i className={favored ? "fas fa-heart" : "far fa-heart"}/></button>
               </div>
             </CardBody>
           </Card>
@@ -134,54 +153,51 @@ class RentGearDetail extends Component {
     });
   }
   
-  onOpenModal = async () => {
+  onOpenModal = async (gearid) => {
     try {
       const {carts} = this.props;
-      const gearid = this.gearid;
       const cart = gearid && carts && carts.length > 0 ?
         carts.filter(item => item.gearid === gearid) : 0;
       const carted = cart.length;
+      const {searchResults} = this.props;
+      let gear = searchResults.filter(item => item.gearid === gearid);
+      gear = gear[0];
       
-      this.setState({busy: true});
-      const res = await getGear(gearid);
-      if (res) {
-        const open_state = carted ? 1 : 2;
-        let start_date = new Date();
-        let end_date = new Date();
-        if (carted) {
-          start_date = new Date(cart[0].startDate);
-          end_date = new Date(cart[0].endDate);
-        }
-        this.setState({
-          modal_open_st: open_state,
-          gear: this.props.gear,
-          carted: carted,
-          cart_info: {
-            start_date: start_date,
-            end_date: end_date
-          },
-          busy: false
-        });
+      const open_state = carted ? 1 : 2;
+      let start_date = new Date();
+      let end_date = new Date();
+      if (carted) {
+        start_date = new Date(cart[0].startDate);
+        end_date = new Date(cart[0].endDate);
       }
+      this._mounted && this.setState({
+        modal_open_st: open_state,
+        gear: gear,
+        carted: carted,
+        cart_info: {
+          start_date: start_date,
+          end_date: end_date
+        },
+        busy: false
+      });
     } catch (err) {
       handleError(err);
     }
   };
   
   onCloseModal = () => {
-    this.setState({
+    this._mounted && this.setState({
       modal_open_st: 0
     });
   };
   
   setOpenState = (ost1, ost2) => {
-    this.setState({
+    this._mounted && this.setState({
       open_date_picker1: ost1,
       open_date_picker2: ost2
     });
   };
   
-  // date-range-picker
   handleSelect = ranges => {
     let t_start_date = ranges.selection.startDate;
     let t_end_date = ranges.selection.endDate;
@@ -193,7 +209,7 @@ class RentGearDetail extends Component {
     }
     if (t_start_date !== t_end_date) {
       // select range
-      this.setState({
+      this._mounted && this.setState({
         startDate: t_start_date,
         endDate: t_end_date,
         open_date_picker1: false,
@@ -210,7 +226,7 @@ class RentGearDetail extends Component {
         t_start_date = t_end_date;
       else if (this.state.open_date_picker2)
         t_start_date = this.state.startDate;
-      this.setState({
+      this._mounted && this.setState({
         startDate: t_start_date,
         endDate: t_end_date,
         open_date_picker1: false,
@@ -220,10 +236,10 @@ class RentGearDetail extends Component {
   };
   
   renderContent = () => {
-    const {gear, user, carts, favourites, isChangingFavor} = this.props;
-    if (!gear || !user || !carts || !favourites)
+    const {gear, user, carts, favourites, isChangingFavor, isLoadingGear, searchResults} = this.props;
+    if (!gear || !user || !carts || !favourites || isLoadingGear)
       return <CustomLoaderLogo/>;
-    
+      
     const {
       numberOfUserImage, gearid, brand, rating, city, replacementValue,
       pricePerDay, productName, description, newArrival_Index, categoryName, accessories, userid
@@ -240,7 +256,7 @@ class RentGearDetail extends Component {
     const is_view_more = description.length > 250;
     let descp = is_first_enter ? (is_view_more ? `${description.substr(0, 250)} ...` : description) :
       this.state.show_view_more ? `${description.substr(0, 250)} ...` : description;
-    const listGears = favourites;
+    const listGears = searchResults;
     const selectionRange = {
       startDate: this.state.startDate,
       endDate: this.state.endDate,
@@ -256,13 +272,12 @@ class RentGearDetail extends Component {
     let amount = parseFloat(total + tax + fee).toFixed(2);
     let actualPrice = parseFloat(amount / duration).toFixed(2);
     let carouselItems = numberOfUserImage.map((item, index) => ({src: item, altText: `Slide ${index}`, caption: `Slide ${index}`}));
-    // let carouselItems = numberOfUserImage.map((item, index) => ({original: item, thumbnail: item}));
    
     return (
       <React.Fragment>
         {isChangingFavor && <CustomSpinner/>}
         <div className="detail-container container">
-          <h3 className='add-method-heading go-back-btn' onClick={this.props.history.goBack}>
+          <h3 className='add-method-heading go-back-btn' onClick={() => this.props.history.push(`/rentGear/${categoryName}`)}>
             <i className='fa fa-arrow-left'/>
             &nbsp;Rent Gear
           </h3>
@@ -278,10 +293,10 @@ class RentGearDetail extends Component {
             
             <div className="theme-form-small text-gray category">{categoryName} </div>
             
-            <span className='category-name'>
+            <p className='category-name'>
               {name}
               {carted > 0 ? <i className="fas fa-check-circle icon-carted"/> : null}
-            </span>
+            </p>
             
             <div className="type-tabs">
               <input name="type" id="new" type="radio" value="new"/>
@@ -298,6 +313,10 @@ class RentGearDetail extends Component {
             
             <div className='row rating-container'>
               <div className='col-sm-5'/>
+              <div className="gear-address-container col-sm-7 col-12 row">
+                <div className='marker-icon'/>
+                <span className='gear-address'>{city}</span>
+              </div>
               <div className='col-sm-7 col-12'>
                 <span className='star-container'>
                   {
@@ -305,11 +324,7 @@ class RentGearDetail extends Component {
                       <i className="fa fa-star star-selected" key={i}/>)
                   }
                 </span>
-                <span> 5,0 ({rating})</span>
-              </div>
-              <div className="gear-address-container col-sm-7 col-12 row">
-                <div className='marker-icon'/>
-                <span className='gear-address'>{city}</span>
+                <span>&nbsp;&nbsp;5,0&nbsp;({rating || 0})</span>
               </div>
               <div className='col-sm-5'/>
             </div>
@@ -405,7 +420,7 @@ class RentGearDetail extends Component {
                   : null
               }
               <div className="bottom-buttons">
-                <button className="theme-btn theme-btn-primary btn-cart" onClick={() => this.onOpenModal()}>
+                <button className="theme-btn theme-btn-primary btn-cart" onClick={() => this.onOpenModal(gearid)}>
                   {busy ? <Inline size={64} color={"#fff"}/> : 'Add to Cart'}
                 </button>
                 <button className="theme-btn theme-btn-secondery btn-favor" onClick={() => {
@@ -428,7 +443,7 @@ class RentGearDetail extends Component {
                   disableImagesLoaded={false}
                   reloadOnUpdate
                 >
-                  {this.renderRecommendedProducts({listGears})}
+                {listGears && this.renderRecommendedProducts({listGears})}
                 </Flickity>
               </div>
             </div>
@@ -498,7 +513,7 @@ class RentGearDetail extends Component {
                         {[1, 2, 3, 4, 5].map(i =>
                           <i className="fa fa-star star-selected" key={i}/>)}
                       </span>
-                      <span className="theme-form-small">&nbsp;5,0 ({rating})</span>
+                      <span className="theme-form-small">&nbsp;5,0&nbsp;({rating || 0})</span>
                       <div className="gear-address-container row">
                         <div className='marker-icon'/>
                         <span className='gear-address'>{city}</span>
@@ -575,7 +590,7 @@ class RentGearDetail extends Component {
                       {duration} days
                     </div>
                     <div className="bottom-buttons">
-                      <button className="theme-btn theme-btn-primary btn-cart" onClick={() => this.onOpenModal()}
+                      <button className="theme-btn theme-btn-primary btn-cart" onClick={() => this.onOpenModal(gearid)}
                         disabled={`${busy ? 'disabled' : ''}`}>
                         {busy ? <Inline size={64} color={"#fff"}/> : 'Add to Cart'}
                       </button>
@@ -596,7 +611,7 @@ class RentGearDetail extends Component {
               <span>RECOMMENDED FOR THIS PRODUCT</span>
             </div>
             <div className='recommend-body row slider-2'>
-              {this.renderRecommendedProducts({listGears})}
+              {listGears && this.renderRecommendedProducts({listGears})}
             </div>
           </div>
           
@@ -606,7 +621,7 @@ class RentGearDetail extends Component {
                 className='price-per-day-text'>per day</span></span>
             </div>
             <div className='icon-container'>
-              <i className="fa fa-shopping-cart icon-cart" onClick={this.onOpenModal}/>
+              <i className="fa fa-shopping-cart icon-cart" onClick={() => this.onOpenModal(gearid)}/>
               <i className={`icon-heart ${favored ? 'fas' : 'far'} fa-heart`} onClick={() => {
                 favored > 0 ? deleteFavourite({gearid}) : addFavourites({gearid})
               }}/>
@@ -623,16 +638,16 @@ class RentGearDetail extends Component {
                 onClose={this.onCloseModal}
                 addToCart={() => this.addToCart()}
               /> :
-              this.state.modal_open_st === 1 ?
-                <CartModal1
-                  carted={carted}
-                  gear={{...gear, start_date_str, end_date_str}}
-                  start_date={this.state.startDate}
-                  end_date={this.state.endDate}
-                  open={true}
-                  onClose={this.onCloseModal}
-                  addToCart={carted => this.addToCart(carted)}
-                /> : null
+            this.state.modal_open_st === 1 ?
+              <CartModal1
+                carted={carted}
+                gear={{...gear, start_date_str, end_date_str}}
+                start_date={this.state.cart_info.start_date}
+                end_date={this.state.cart_info.end_date}
+                open={true}
+                onClose={this.onCloseModal}
+                addToCart={carted => this.addToCart(carted)}
+              /> : null
           }
         </div>
       </React.Fragment>
@@ -646,6 +661,8 @@ class RentGearDetail extends Component {
 
 const mapStateToProps = state => ({
   gear: state.gear.gear,
+  isLoadingGear: state.gear.isLoadingGear,
+  searchResults: state.gear.searchResults,
   user: state.user.user,
   carts: state.cart.carts,
   favourites: state.favourite.favourites,

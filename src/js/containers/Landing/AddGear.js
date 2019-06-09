@@ -17,6 +17,7 @@ import RentalTermsComponent from "../TermsAndPolicy/RentalTermsComponent";
 import CustomLoaderLogo from "../../components/common/CustomLoaderLogo";
 import CustomInputWithButton from "../../components/common/CustomInputWithButton";
 import {fetchCategories} from "../../core/actions/category.action";
+import {CloseIcon} from "../../components/common/IconComponent";
 
 class AddGear extends Component {
   constructor(props) {
@@ -37,7 +38,7 @@ class AddGear extends Component {
       brand: '',
       model: '',
       description: '',
-      isKit: '',
+      isKit: false,
       accessories: [],
       numberOfUserImage: [],
       city: '',
@@ -49,7 +50,6 @@ class AddGear extends Component {
       productName: '',
       isDoubled: false,
       modalOpenState: 1,
-      isChecked: false,
       busy: false
     };
     
@@ -149,6 +149,40 @@ class AddGear extends Component {
       editable: true
     };
     this.setState({accessories: [...this.state.accessories, emptyKit]});
+  };
+  
+  handleDeleteImage = (index) => {
+    let {numberOfUserImage} = this.state;
+    console.log(index);
+    numberOfUserImage = numberOfUserImage.filter((item, key) => index !== key);
+    this.setState({numberOfUserImage});
+  };
+  
+  handleRestart = () => {
+    this.setState({
+      progressStep: 0,
+      dropdownOpen: false,
+      selectedType: 'new',
+      isGearAdded: false,
+      gearId: '',
+      categoryName: 'Select Category',
+      brand: '',
+      model: '',
+      description: '',
+      isKit: false,
+      accessories: [],
+      numberOfUserImage: [],
+      city: '',
+      region: '',
+      address: '',
+      postalCode: '',
+      replacementValue: '',
+      pricePerDay: '',
+      productName: '',
+      isDoubled: false,
+      modalOpenState: 1,
+      busy: false
+    });
   };
   
   renderProgress() {
@@ -304,6 +338,7 @@ class AddGear extends Component {
     const mappedImages = this.state.numberOfUserImage.map((image, index) => (
       <div className="add-gear-image" key={'gear-image-' + index}>
         <img src={image} alt="Add Gear"/>
+        <div onClick={() => this.handleDeleteImage(index)}><CloseIcon/></div>
       </div>
     ));
     return (<div className="add-gear-photos">
@@ -395,7 +430,7 @@ class AddGear extends Component {
       description,
       replacementValue,
       pricePerDay,
-      isChecked
+      isKit
     } = this.state;
     
     let mappedAccessories = accessories.map((accessory, index) => (
@@ -441,7 +476,7 @@ class AddGear extends Component {
         </div>
         <div id="description-container">
           <div className="theme-text-small text-gray">Description</div>
-          <div className="div_description">{description}</div>
+          <div className="div_description"><span>{description}</span></div>
         </div>
       </div>
       <div className="gear-right-container" id="right-container">
@@ -465,7 +500,7 @@ class AddGear extends Component {
         </div>
         <div>
           <div className="input_svg pretty p-svg p-plain">
-            <input  type="checkbox" onChange={this.handleSetRead} checked={isChecked ? 'checked' : ''}/>
+            <input  type="checkbox" onChange={this.handleSetRead} checked={isKit ? 'checked' : ''}/>
             <div className="state">
               <img className="svg check_svg" alt="" src="/images/Icons/task.svg"/>
             </div>
@@ -479,7 +514,7 @@ class AddGear extends Component {
           <button className="theme-btn theme-btn-secondery" onClick={this.previousStep.bind(this)}><span
             className="fa fa-angle-left d-sm-none d-md-none d-lg-block"/><span
             className="d-sm-none d-lg-none d-md-block">Back</span></button>
-          <button className="theme-btn theme-btn-primary" onClick={this.addGearDetails.bind(this)} disabled={!isChecked ? 'disabled' : ''}>Submit <span
+          <button className="theme-btn theme-btn-primary" onClick={this.addGearDetails.bind(this)} disabled={!isKit ? 'disabled' : ''}>Submit <span
             className="fa fa-angle-right"/></button>
         </div>
       </div>
@@ -527,9 +562,14 @@ class AddGear extends Component {
   validate() {
     switch (this.state.progressStep) {
       case 0:
-        const {categoryName, brand, model, description, selectedType, productName, accessories} = this.state;
+        const {categoryName, brand, model, description, selectedType, productName, accessories, isKit} = this.state;
         let emptyCount = accessories.filter(item => item.value === '');
-        if (emptyCount.length === 0 && categoryName && categoryName !== 'Select Category' && brand && model && description && selectedType && productName) {
+        let isSetAccessorise = (!isKit || (isKit && emptyCount.length === 0));
+        if (isKit && accessories.length === 0)
+          isSetAccessorise = false;
+        console.log(isSetAccessorise, accessories.length, isKit);
+        
+        if (isSetAccessorise && categoryName && categoryName !== 'Select Category' && brand && model && description && selectedType && productName) {
           return true;
         }
         break;
@@ -590,7 +630,6 @@ class AddGear extends Component {
         replacementValue,
         productName,
         pricePerDay,
-        isChecked
       } = this.state;
       
       isKit = !!isKit;
@@ -610,8 +649,7 @@ class AddGear extends Component {
         postalCode,
         replacementValue,
         pricePerDay,
-        productName,
-        isChecked
+        productName
       };
       
       if (!categoryName || !brand || !model || !description || !selectedType
@@ -619,7 +657,7 @@ class AddGear extends Component {
         !address || !postalCode || !replacementValue || !pricePerDay) {
         handleError("Please provide required details!");
         return;
-      } else if (!isChecked) {
+      } else if (!isKit) {
         handleError("Did you read Rental Terms and Conditions?");
         return;
       }
@@ -651,7 +689,8 @@ class AddGear extends Component {
   };
   
   handleSetRead = () => {
-    this.setState({isChecked: !this.state.isChecked});
+    console.log(this.state.isKit);
+    this.setState({isKit: !this.state.isKit});
   };
   
   render() {
@@ -691,8 +730,8 @@ class AddGear extends Component {
           </div>
           
           <div className="flex-row buttons-container">
-            <button className="theme-btn theme-btn-secondery theme-btn-link success_first_button">
-              <Link to="/addGear">Add More</Link>
+            <button className="theme-btn theme-btn-secondery theme-btn-link success_first_button" onClick={this.handleRestart}>
+              Add More
             </button>
             <button className="theme-btn theme-btn-primary theme-btn-link success_sencond_button"><Link
               to={`/dashboard/#myGear`}>View My Gear</Link>

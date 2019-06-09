@@ -12,11 +12,9 @@ import {
   animateMenuOut,
 } from './NavbarMenu.animation';
 
-import imgMenuIcon from './menu-icon.svg';
-import imgMenuClose from './menu-close.svg';
 import imgLogoSm from './logo-sm.png';
 import NavbarDropdown from './NavbarDropdown';
-import { CartIcon, HeartIcon } from "../common/IconComponent";
+import {CartIcon, CloseIcon, HeartIcon, OpenIcon} from "../common/IconComponent";
 import { compose } from "redux";
 import { throttle } from "lodash";
 
@@ -38,7 +36,6 @@ const CollapseMenu = ({ isOpen, children }) => (
       <div className="animated-bg">
         <div className="menu-bg"/>
       </div>
-
     </div>
   </Transition>
 );
@@ -47,13 +44,13 @@ const NavbarToggleButton = ({ onClick, isOpen }) => {
   return isOpen
     ? (
       <button className="button-toggle" onClick={onClick}>
-        <img src={imgMenuClose} alt=""/>
+        <CloseIcon/>
         <span>Close</span>
       </button>
     )
     : (
       <button className="button-toggle" onClick={onClick}>
-        <img src={imgMenuIcon} alt="Menu"/>
+        <OpenIcon/>
       </button>
     );
 };

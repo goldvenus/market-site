@@ -319,9 +319,13 @@
     }
   }
 
-  .custom-beautiful-textfield {
-    label, input {
-      margin-left: 0 !important;
+  .auth-container {
+    .custom-beautiful-textfield {
+      label, input {
+        text-align: center;
+        margin-left: 0 !important;
+        transform-origin: top !important;
+      }
     }
   }
 
@@ -390,7 +394,7 @@
     }
     .rental-terms-container {
       h4 {
-        margin-top: 20px;
+        margin-top: 10px;
       }
     }
   }

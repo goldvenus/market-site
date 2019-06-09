@@ -251,6 +251,7 @@ img {
   input {
     color: #252525;
     font-size: 16px !important;
+    margin-left: 15px !important;
 
     @media (max-width: 767px) {
       &::placeholder {
@@ -299,15 +300,15 @@ img {
 
   .custom-beautiful-textfield {
     input {
-      text-align: center;
-      margin-left: 0;
+      //text-align: center;
+      //margin-left: 0;
     }
     label {
       color: rgba(0, 0, 0, 0.54) !important;
       position: unset !important;
       margin-bottom: -20px !important;
-      transform-origin: top !important;
-      text-align: center;
+      //transform-origin: top !important;
+      //text-align: center;
     }
     & > div:hover {
     }

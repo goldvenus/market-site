@@ -291,6 +291,7 @@
 
     .div_description {
       white-space: pre-line;
+      word-break: break-all;
     }
   }
 
@@ -390,15 +391,36 @@
     .add-gear-image, .add-gear-addimage {
       height: 100px;
       width: 100px;
-      border: 1px solid lightgray;
-      margin: 0 10px 10px 0;
+      margin: 0 8px 8px 0;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
+
+      img {
+        width: 100px;
+        height: 100px;
+      }
+      svg {
+        position: absolute;
+        width: 25px;
+        background: #e9eae8;
+        height: 25px;
+        border-radius: 50%;
+        padding: 5px;
+        margin-top: -42px;
+        margin-left: -32px;
+        cursor: pointer;
+        opacity: 0.8;
+
+        path {
+          stroke: #252525;
+        }
+      }
     }
 
     .add-gear-addimage {
+      border: solid 1px #f82462;
       i {
         font-size: 30px;
         color: $primary-color;
@@ -470,6 +492,7 @@
   width: 91%;
   border: 1px solid rgb(204, 204, 204);
   height: 97%;
+  padding-top: 25px;
 
   textarea {
     width: 100%;
@@ -543,7 +566,14 @@
     width: 100%;
     text-align: center;
     justify-content: center;
+    padding: 0 25px;
 
+    .gear-carousel {
+      width: 70%;
+    }
+    .fourth-content {
+      margin: 0;
+    }
   }
   #fourth-content{
     .theme-text-small {
@@ -557,8 +587,7 @@
     }
   }
   .gear-middle-container {
-    margin-left:30px!important;
-    width:85% !important;
+    margin: 0 !important;
     text-align: left;
 
     .gear-accessories-address >div{
@@ -687,6 +716,7 @@
 
   .add-gear-progress {
     width: 100% !important;
+    margin-bottom: 0 !important;
   }
 
   .add-gear-info {
@@ -701,6 +731,9 @@
     }
     .category_description_ta {
       height: 209px;
+      textarea {
+        height: 90%;
+      }
     }
   }
 
@@ -711,6 +744,15 @@
     .input-with-button-container {
       width: 100%;
     }
+    #fourth-content {
+      .theme-text-small {
+        margin: 10px auto !important;
+        font-size: 16px;
+      }
+      h4 {
+        font-size: 27px;
+      }
+    }
   }
 
   .flex-row {
@@ -720,7 +762,7 @@
 
       .theme-form-field {
         width: 90%;
-        margin: 30px 5%;
+        margin: 20px 5%;
 
         &.dropdown {
           margin-left: 5%
@@ -768,10 +810,11 @@
   .add-gear-address {
     width: 100%;
     padding:0 25px;
+    margin-top: 0 !important;
 
     .theme-form-field {
-      margin: 30px 5%;
-      width: 90%;
+      margin: 30px 0 !important;
+      width: 100%;
 
       .custom-input {
         width: 100%;
@@ -790,6 +833,7 @@
     margin-left: 3%;
     white-space: nowrap;
     overflow-x: auto;
+    padding: 3px 10px !important;
     -webkit-overflow-scrolling: touch;
 
     label {
@@ -841,14 +885,17 @@
     }
 
     .gear-middle-container {
-      margin-top: 20px;
+      width: 100%;
+      margin: 0 !important;
+      padding-bottom: 140px;
 
       .gear-accessories-address {
         border-bottom: 0;
       }
 
-      .theme-text-small.text-gray {
-        text-align: left
+      .theme-text-small {
+        text-align: left;
+        margin: 10px 0;
       }
     }
 
@@ -904,7 +951,7 @@
     }
 
     .theme-text-small.text-gray {
-      text-align: center;
+      margin-left: 0;
     }
 
     .header {
@@ -934,6 +981,7 @@
         width: 20%;
         text-align: center;
         margin: 0;
+        padding: 3px 10px !important;
 
         &:nth-child(4), &:nth-child(6) {
           width: 30%;
@@ -992,9 +1040,11 @@
     }
     .buttons-container {
       display: block;
+
       .success_first_button {
         padding: 5px;
         width: 100%;
+        text-align: center;
       }
       .success_sencond_button {
         padding: 5px;

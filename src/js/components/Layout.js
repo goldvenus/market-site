@@ -75,7 +75,7 @@ class Layout extends Component {
 
         {routes}
 
-        {showHeader && <Footer/>}
+        {showHeader && <Footer location={this.props.location}/>}
 
         <ToastContainer />
       </React.Fragment>

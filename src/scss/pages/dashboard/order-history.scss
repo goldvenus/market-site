@@ -597,12 +597,15 @@
     width: 85%;
 
     .payment-success-info {
-      padding: 15px;
+      padding: 20px;
       border: 18px solid #FAF8F9;
 
       .payment-card {
         width: 100% !important;
       }
+    }
+    .order-modal-body {
+      padding: 10px;
     }
   }
 }
@@ -637,14 +640,17 @@
     }
     .order-modal-body {
       padding: 0;
+
       .paid-items {
         border-bottom: solid 1px #f5f5f5;
+
         .paid-item {
           background-color: white;
           border-radius: 7px;
           box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0);
           padding: 9px 0 14px;
           margin: 0 16px 16px;
+
           &:last-child {
             margin-bottom: 26px;
           }
@@ -767,8 +773,8 @@
         }
       }
       .payment-success-info {
-        border:0;
-        padding:0;
+        border: 0;
+        padding: 0;
         text-align: center;
         display: block;
         border: none;

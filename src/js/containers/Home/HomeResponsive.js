@@ -18,6 +18,7 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     
+    this._mounted = false;
     this.state = {
       searchValue: '',
       searchResult: [],
@@ -33,6 +34,7 @@ class Home extends React.Component {
   }
   
   async componentDidMount() {
+    this._mounted = true;
     let $animation_elements = $('.animation-element');
     let $window = $(window);
     
@@ -85,7 +87,11 @@ class Home extends React.Component {
     }
   }
   
-  performSearch = async () => {
+  componentWillUnmount() {
+    this._mounted = false;
+  }
+  
+  performSearch = () => {
     this.productList = this.categoryList = this.locationList = [];
     let key1 = this.state.searchValue.toLowerCase();
     let key2 = this.state.searchLocationValue.toLowerCase();
@@ -106,11 +112,11 @@ class Home extends React.Component {
       this.locationList = [...this.locationList, item.city + ', ' + item.address];
     });
     
-    this.forceUpdate();
+    this._mounted && this.forceUpdate();
   };
   
   handleChangeSearchValue = (e) => {
-    this.setState({
+    this._mounted && this.setState({
       searchValue: (e && e.target && e.target.value) || ''
     });
     
@@ -119,7 +125,7 @@ class Home extends React.Component {
   };
 
   handleChangeSearchLocation = (e) => {
-    this.setState({
+    this._mounted && this.setState({
       searchLocationValue: (e && e.target && e.target.value) || ''
     });
   
@@ -128,10 +134,11 @@ class Home extends React.Component {
   };
   
   handleSearch = () => {
-    localStorage.searchValue = this.state.searchValue;
-    localStorage.searchLocationValue = this.state.searchLocationValue;
+    let {searchValue, searchLocationValue} = this.state;
+    localStorage.searchValue = searchValue;
+    localStorage.searchLocationValue = searchLocationValue;
 
-    if (!localStorage.accessToken) {
+    if (!localStorage.accessToken || !(searchValue || searchLocationValue)) {
       return;
     }
     this.props.history.push('/rentGear/all');

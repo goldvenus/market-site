@@ -6,7 +6,7 @@ const initialState = {
   listGears: [],
   productList: null,
   newArrivals: null,
-  searchResults: null,
+  searchResults: [],
   isLoading: false,
   isLoadingGear: false,
   isChanging: false

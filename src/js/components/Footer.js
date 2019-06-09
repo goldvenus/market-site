@@ -6,9 +6,10 @@ import { Link } from 'react-router-dom';
 class Footer extends Component {
   render() {
     // const { isAuthenticated } = this.props;
+    let isAddGear = this.props.location.pathname.indexOf('/addGear') >= 0;
     return (
       <React.Fragment>
-        <footer >
+        <footer style={isAddGear ? {paddingBottom: '70px'} : {}}>
           {/*<div className="news-letter mb-5 py-5">*/}
             {/*<Container className="news-letter-container">*/}
               {/*<Row className="align-items-center news-letter-content">*/}

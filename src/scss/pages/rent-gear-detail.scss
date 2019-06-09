@@ -4,6 +4,11 @@
   width: 100%;
   padding: 33px 0 0 0;
 
+  .go-back-btn {
+    cursor: pointer;
+    padding-left: 15px;
+  }
+
   .type-tabs {
     input {
       display: none;
@@ -57,9 +62,6 @@
   line-height: 18px;
   letter-spacing: 0.03em;
   color: #252525;
-}
-.go-back-btn {
-  cursor: pointer;
 }
 .left-container {
   padding: 0 10px;
@@ -436,8 +438,8 @@
 }
 .marker-icon {
   background-image: url("/images/Icons/marker/marker.svg");
-  width: 14px;
-  height: 19px;
+  width: 13px;
+  height: 17px;
   background-size: cover;
   padding: 0;
 }
@@ -553,6 +555,8 @@
       line-height: 39px;
       color: #252525;
       font-weight: 600;
+      margin: 0 auto;
+      padding: 0 20px;
 
       i.icon-carted {
         font-size: 18px;
@@ -707,7 +711,11 @@
     margin-bottom: 10px;
 
     .star-container {
-      color: #f82462;
+      color: #F74377;
+
+      & ~ span {
+        font-size: 12px;
+      }
     }
   }
 
@@ -729,6 +737,10 @@
 @media (max-width: 767px) {
   .detail-container {
     padding: 0;
+
+    .go-back-btn {
+      font-size: 17px;
+    }
   }
 
   .left-container {
@@ -751,10 +763,16 @@
 
   .recommend-container {
     padding: 27px;
+    margin-top: 10px;
   }
 
-  .type-tabs label {
-    padding: 5px 22px !important;
+  .detail-container {
+    .type-tabs {
+      padding: 20px 0 10px;
+    }
+    .type-tabs label {
+      padding: 5px 22px !important;
+    }
   }
 
   .location-bar-container {
