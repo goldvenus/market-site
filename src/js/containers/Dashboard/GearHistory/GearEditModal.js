@@ -13,6 +13,7 @@ import Modal from "react-responsive-modal";
 import ConfirmModal from "../../../components/common/ConfirmModal";
 import TextField from "@material-ui/core/TextField/TextField";
 import CustomInputWithButton from "../../../components/common/CustomInputWithButton";
+import imageCompression from "browser-image-compression";
 
 class GearEditModal extends Component {
   constructor(props) {
@@ -200,12 +201,23 @@ class GearEditModal extends Component {
 
   async addImage(event) {
     try {
-      let image = await readFileData(event);
-      let {numberOfUserImageNew} = this.state;
-      numberOfUserImageNew.push(image);
-      this.setState({
-        numberOfUserImageNew
-      });
+      const imageFile = event.target.files[0];
+      let options = {
+        maxSizeMB: 10,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true
+      }
+      try {
+        const compressedFile = await imageCompression(imageFile, options);
+        let image = await readFileData(compressedFile);
+        let {numberOfUserImageNew} = this.state;
+        numberOfUserImageNew.push(image);
+        this.setState({
+          numberOfUserImageNew
+        });
+      } catch (error) {
+        console.log(error);
+      }
     } catch {
       handleError('Please upload a valid1 image');
     }
@@ -367,7 +379,6 @@ class GearEditModal extends Component {
             label='City'
             type="text"
             value={city}
-            floatingLabel={true}
             onChange={(e) => this.setState({city: (e && e.target && e.target.value) || ''})}
           />
           <TextField
@@ -376,7 +387,6 @@ class GearEditModal extends Component {
             label='Region'
             type="text"
             value={region}
-            floatingLabel={true}
             onChange={(e) => this.setState({region: (e && e.target && e.target.value) || ''})}
           />
         </div>
@@ -387,7 +397,6 @@ class GearEditModal extends Component {
             label='Address'
             type="text"
             value={address}
-            floatingLabel={true}
             onChange={(e) => this.setState({address: (e && e.target && e.target.value) || ''})}
           />
           <TextField
@@ -396,7 +405,6 @@ class GearEditModal extends Component {
             label='Postal Code'
             type="text"
             value={postalCode}
-            floatingLabel={true}
             onChange={(e) => this.setState({postalCode: (e && e.target && e.target.value) || ''})}
           />
         </div>

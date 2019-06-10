@@ -8,6 +8,7 @@ import {handleError, readFileData} from "../../core/actions/common.action";
 import CustomSpinner from "../../components/common/CustomSpinner";
 import PasswordConfirmModal from "./AccountDetail/PasswordConfirmModal";
 import ForgotPasswordModal from "./AccountDetail/ForgotPasswordModal";
+import imageCompression from "browser-image-compression";
 
 class AccountDetail extends Component {
   constructor(props) {
@@ -100,12 +101,22 @@ class AccountDetail extends Component {
   addImage = async (event) => {
     try {
       const fileName = event.target.files && event.target.files.length > 0 && event.target.files[0].name;
-      let image = await readFileData(event);
-
-      this.setState({
-        picture: image,
-        fileName
-      });
+      const imageFile = event.target.files[0];
+      let options = {
+        maxSizeMB: 10,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true
+      }
+      try {
+        const compressedFile = await imageCompression(imageFile, options);
+        let image = await readFileData(compressedFile);
+        this.setState({
+          picture: image,
+          fileName
+        });
+      } catch (error) {
+        console.log(error);
+      }
     } catch {
       handleError('Please upload a valid image');
     }

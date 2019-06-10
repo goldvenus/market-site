@@ -17,6 +17,9 @@ class Register extends Component {
   constructor(props) {
     super(props);
     
+    if (localStorage.userId) {
+      this.props.history.push('/');
+    }
     this.state = {
       password: '',
       confirmPassword: '',

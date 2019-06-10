@@ -77,6 +77,7 @@ class RentGearDetail extends Component {
   addToCart = async () => {
     try {
       const {startDate, endDate, gear} = this.state;
+      console.log("==============", startDate, endDate);
       if (startDate && endDate && this._mounted) {
         await addCart({
           gearid: gear.gearid,
@@ -176,6 +177,9 @@ class RentGearDetail extends Component {
       if (carted) {
         start_date = new Date(cart[0].startDate);
         end_date = new Date(cart[0].endDate);
+      } else {
+        start_date = this.state.startDate;
+        end_date = this.state.endDate;
       }
       this._mounted && this.setState({
         modal_open_st: open_state,

@@ -134,7 +134,7 @@ const deleteCartItem = async (data) => {
           type: constants.GET_FAVOURITES_SUCCESS,
           payload: response.data.data
         });
-        handleInfo('Gear was removed from cart successfully');
+        handleInfo('Gear was removed from cart');
       } else {
         resolve(false);
         handleError('Gear was not removed');

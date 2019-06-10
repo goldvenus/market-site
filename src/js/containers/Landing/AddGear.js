@@ -18,6 +18,7 @@ import CustomLoaderLogo from "../../components/common/CustomLoaderLogo";
 import CustomInputWithButton from "../../components/common/CustomInputWithButton";
 import {fetchCategories} from "../../core/actions/category.action";
 import {CloseIcon} from "../../components/common/IconComponent";
+import imageCompression from "browser-image-compression";
 
 class AddGear extends Component {
   constructor(props) {
@@ -566,7 +567,6 @@ class AddGear extends Component {
         let isSetAccessorise = (!isKit || (isKit && emptyCount.length === 0));
         if (isKit && accessories.length === 0)
           isSetAccessorise = false;
-        console.log(isSetAccessorise, accessories.length, isKit);
         
         if (isSetAccessorise && categoryName && categoryName !== 'Select Category' && brand && model && description && selectedType && productName) {
           return true;
@@ -598,13 +598,24 @@ class AddGear extends Component {
   
   async addImage(event) {
     try {
-      let image = await readFileData(event);
-      let {numberOfUserImage} = this.state;
-      numberOfUserImage.push(image);
-      if (this._isMounted) {
-        this.setState({
-          numberOfUserImage
-        });
+      const imageFile = event.target.files[0];
+      let options = {
+        maxSizeMB: 10,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true
+      }
+      try {
+        const compressedFile = await imageCompression(imageFile, options);
+        let image = await readFileData(compressedFile);
+        let {numberOfUserImage} = this.state;
+        numberOfUserImage.push(image);
+        if (this._isMounted) {
+          this.setState({
+            numberOfUserImage
+          });
+        }
+      } catch (error) {
+        console.log(error);
       }
     } catch {
       handleError('Please upload a valid image!');

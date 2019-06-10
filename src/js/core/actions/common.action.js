@@ -28,17 +28,17 @@ const handleError = (info) => {
 
 const readFileData = (event) => {
   return new Promise((resolve, reject) => {
-    let input = event.target;
+    // let input = event.target;
     
-    if (input && input.files.length > 0) {
+    // if (input && input.files.length > 0) {
       let fileReader = new FileReader();
       fileReader.onload = (event) => {
         resolve(event.target.result);
       };
       
       fileReader.onerror = (e) => reject('error');
-      fileReader.readAsDataURL(input.files[0]);
-    }
+      fileReader.readAsDataURL(event);
+    // }
   });
 };
 

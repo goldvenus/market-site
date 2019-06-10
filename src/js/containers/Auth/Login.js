@@ -14,8 +14,8 @@ import {handleError} from "../../core/actions/common.action";
 class Login extends Component {
   constructor(props) {
     super(props);
-    
-    if (props.isAuthenticated) {
+  
+    if (localStorage.userId) {
       this.props.history.push('/');
     }
     

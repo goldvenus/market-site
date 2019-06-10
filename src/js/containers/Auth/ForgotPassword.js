@@ -11,12 +11,13 @@ import CustomSpinner from "../../components/common/CustomSpinner";
 class ForgotPassword extends Component {
   constructor(props) {
     super(props);
-    
+  
+    if (localStorage.userId) {
+      this.props.history.push('/');
+    }
     this.state = {
-      
       isEmailSent: false,
       isConfirmed: false,
-      
       email: "",
       verification_code: "",
       password: "",

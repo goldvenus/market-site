@@ -181,7 +181,7 @@ class Home extends React.Component {
                 <img className="hero-logo" src={imgLogo} alt="Creative Market"/>
 
                 <h1 className="hero-title">
-                  Rent Creative<br className="d-md-none d-block"/>Gear Close By
+                  Rent Creative <br className="d-md-none d-block"/>Gear Close By
                 </h1>
 
                 <span className="hero-subtitle">

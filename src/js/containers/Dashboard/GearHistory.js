@@ -21,7 +21,7 @@ const MyListingItem = ({listItem, openEdit, openDelete, openCalendar}) => (
       </td>
       <td className="d-lg-table-cell" width="20%">
         <Link to={`/gear/detail/${listItem.gearid}`}>
-          <p className="gear-brand">{listItem.brand}</p>
+          <p className="gear-brand">{listItem.productName}</p>
           <p className="theme-text-small gear-category text-muted">{listItem.categoryName}</p>
         </Link>
       </td>
@@ -40,13 +40,17 @@ const MyListingItem = ({listItem, openEdit, openDelete, openCalendar}) => (
     </tr>
     <tr className="tablet-gear-item">
       <td width="15%" className="listing-data-image">
-        <img src={listItem.numberOfUserImage[0]} className="gear-img" alt=""/>
+        <Link to={`/gear/detail/${listItem.gearid}`}>
+          <img src={listItem.numberOfUserImage[0]} className="gear-img" alt=""/>
+        </Link>
       </td>
       <td width="45%">
-        <div className="brand-category-wrapper">
-          <p className="gear-brand">{listItem.brand}</p>
-          <p className="theme-text-small gear-category text-muted">{listItem.categoryName}</p>
-        </div>
+        <Link to={`/gear/detail/${listItem.gearid}`}>
+          <div className="brand-category-wrapper">
+            <p className="gear-brand">{listItem.productName}</p>
+            <p className="theme-text-small gear-category text-muted">{listItem.categoryName}</p>
+          </div>
+        </Link>
       </td>
       <td width="40%">
         <div className="price-wrapper">
@@ -77,8 +81,8 @@ const MyListingItemSm = ({listItem, openEdit, openDelete, openCalendar}) => (
       </div>
       <div className="d-block mlspdf_name_tag">
         <Link to={`/gear/detail/${listItem.gearid}`}>
-          <p className="theme-text-small text-muted mlspdf_name_tag_categoryName">{listItem.categoryName}</p>
-          <p className="mlspdf_name_tag_brandName">{listItem.brand}</p>
+          <p className="theme-text-small text-muted mlspdf_name_tag_categoryName">{listItem.productName}</p>
+          <p className="mlspdf_name_tag_brandName">{listItem.categoryName}</p>
         </Link>
       </div>
     </div>

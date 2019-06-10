@@ -14,6 +14,7 @@
     "axios": "^0.18.0",
     "bank.js": "0.0.3",
     "bootstrap": "^4.1.3",
+    "browser-image-compression": "^1.0.5",
     "chart": "^0.1.2",
     "chart.js": "^2.7.3",
     "creditcard.js": "^2.1.6",

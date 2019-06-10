@@ -9,7 +9,10 @@ import { confirmUser } from '../../core/actions/user.action';
 class RegisterConfirm extends Component {
   constructor(props) {
     super(props);
-
+  
+    if (localStorage.userId) {
+      this.props.history.push('/');
+    }
     this.email = props.location.state && props.location.state.email;
     this.fullName = props.location.state && props.location.state.fullName;
     this.state = {
