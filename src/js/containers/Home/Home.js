@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Container, Row, Col, Form, ListGroup, ListGroupItem } from 'reactstrap';
+import { Container, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
 
 import { newArrivals } from '../../core/actions/gear.action';
 import { socialLogin } from "../../core/actions/user.action";
@@ -10,6 +9,7 @@ import ThemeCardTwo from '../../components/Theme-Cards/ThemeCardTwo';
 
 import data from '../../components/dummydata';
 import $ from 'jquery';
+import connect from "react-redux/es/connect/connect";
 
 const ArrowIcon = () => (
   <svg width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg">
@@ -631,7 +631,7 @@ class Home extends Component {
             </Col>
           </Row>
         </div>
-
+        </div>
       </div>
     );
   }

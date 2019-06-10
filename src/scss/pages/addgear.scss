@@ -8,7 +8,9 @@
   .header {
     font-size: 46px;
   }
-
+  .breadcrumb {
+    border: none !important;
+  }
   .doubled-status {
     background-color: red;
   }
@@ -20,9 +22,17 @@
     color: #252525;
   }
 
-  .add-gear-info-cusvenus {
+  .add-kit-btn {
+    color: #252525;
+    font-weight: 600;
+    border: solid 1px #D3D3D3;
+  }
+  .add-gear-info {
     display: flex;
     justify-content: center;
+    & > div {
+      align-items: unset;
+    }
   }
 
   .flex-row {
@@ -31,9 +41,11 @@
     justify-content: center;
     .theme-column {
       width: 35%;
+
       .category_first {
         width: 100%;
         padding-right: 10px;
+
         & > div {
           width: 100%;
         }
@@ -42,34 +54,17 @@
           font-size: 14px;
         }
         label {
-          color: #ccc;
+          color: #252525;
+          opacity: 0.6;
         }
       }
       .btn-secondary{
         width: 100%;
       }
-      .category_description_ta {
-        width: 91%;
-        border: 1px solid rgb(204, 204, 204);
-        textarea {
-          width: 100%;
-          border-bottom:0;
-          padding-left: 15px;
-          padding-top: 5px;
-          &:focus~label {
-            line-height: 32px !important;
-            font-size: 14px;
-          }
-        }
-      }
-      .mui--is-not-empty~label {
-        line-height: 32px !important;
-      }
     }
   }
 
   .theme-form-dropdown {
-
     .btn {
       border: 0;
       padding: 5px 10px 5px;
@@ -115,9 +110,9 @@
   .add-gear-progress {
     display: flex;
     width: 500px;
-    //margin-bottom: 15px;
     z-index: 0;
     margin: 20px;
+    text-align: center;
 
     .add-gear-progress-item {
       display: flex;
@@ -128,6 +123,9 @@
       color: $primary-color;
       position: relative;
 
+      &:before {
+        left: -35%;
+      }
       i {
         font-size: 35px;
         position: relative;
@@ -151,7 +149,7 @@
         width: 100%;
         height: 1px;
         border-top: 2px solid $primary-color;
-        left: -38%;
+        left: -35%;
         top: 16px;
       }
     }
@@ -170,6 +168,7 @@
       display: inline-block;
       border-radius: 30px;
       margin-right: 5px;
+      cursor: pointer;
 
       &.active {
         color: white;
@@ -230,6 +229,7 @@
   }
   .info-right-container {
     margin-left: 15px;
+    margin-top: 20px;
     height: 100%;
 
     .theme-text-small {
@@ -260,14 +260,11 @@
     max-width: 600px;
     margin: 15px;
     padding: 15px;
-
   }
 
   .gear-carousel {
     margin-top: 15px;
     width: 300px;
-
-
   }
 
   .add-gear-price {
@@ -276,7 +273,7 @@
     flex-wrap: wrap;
 
     & > div {
-      margin-left: 15px;
+      margin-left: 25px;
     }
   }
 
@@ -290,12 +287,17 @@
   }
 
   .gear-middle-container {
-    width: 250px;
+    width: 355px;
+
+    .div_description {
+      white-space: pre-line;
+      word-break: break-all;
+    }
   }
 
   .gear-right-container {
     width: 280px;
-    border: 5px solid lightgray;
+    border: 10px solid #faf8f9;
     padding: 5px 15px;
 
     & > * {
@@ -327,9 +329,7 @@
     font-family: Gotham Pro;
     font-size: 49px;
     line-height: normal;
-
     color: #252525;
-
   }
 
   .success-message {
@@ -361,11 +361,10 @@
       padding: 15px 0;
     }
     .success_first_button {
-      padding:0;
       width: 45%;
+      justify-content: center;
     }
     .success_sencond_button {
-      padding:0;
       width: 45%;
     }
     .theme-text-small {
@@ -393,18 +392,45 @@
     .add-gear-image, .add-gear-addimage {
       height: 100px;
       width: 100px;
-      border: 1px solid lightgray;
-      margin: 0 10px 10px 0;
+      margin: 0 8px 8px 0;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
+
+      img {
+        width: 100px;
+        height: 100px;
+      }
+      svg {
+        position: absolute;
+        width: 25px;
+        background: #e9eae8;
+        height: 25px;
+        border-radius: 50%;
+        padding: 5px;
+        margin-top: -42px;
+        margin-left: -32px;
+        cursor: pointer;
+        opacity: 0.8;
+
+        path {
+          stroke: #252525;
+        }
+      }
     }
 
     .add-gear-addimage {
+      cursor: pointer;
+      border: solid 1px #f82462;
+
       i {
-        font-size: 30px;
+        font-size: 40px;
         color: $primary-color;
+        cursor: pointer;
+      }
+      input {
+        cursor: pointer;
       }
     }
   }
@@ -437,16 +463,16 @@
       color:#F82462;
     }
     & > div{
-      -webkit-border-radius: 0px !important;
-      -moz-border-radius: 0px !important;
-      border-radius: 0px !important;
+      -webkit-border-radius: 0 !important;
+      -moz-border-radius: 0 !important;
+      border-radius: 0 !important;
       box-sizing: border-box;
 
       & > div {
         background: #fff1e1 !important;
 
         input {
-          margin: 0px !important;
+          margin: 0 !important;
         }
       }
     }
@@ -467,7 +493,27 @@
     padding: 0;
     margin: 0;
   }
+}
 
+.category_description_ta {
+  width: 91%;
+  border: 1px solid rgb(204, 204, 204);
+  height: 97%;
+  padding-top: 25px;
+
+  textarea {
+    width: 100%;
+    border-bottom:0;
+    padding-left: 15px;
+    padding-top: 5px;
+    &:focus~label {
+      line-height: 32px !important;
+      font-size: 14px;
+    }
+  }
+}
+.mui--is-not-empty~label {
+  line-height: 32px !important;
 }
 
 @media(max-width: 1077px) {
@@ -511,7 +557,6 @@
         width:39%;
         font-weight: 600 !important;
       }
-
     }
   }
   .add-gear-address {
@@ -528,7 +573,14 @@
     width: 100%;
     text-align: center;
     justify-content: center;
+    padding: 0 25px;
 
+    .gear-carousel {
+      width: 70%;
+    }
+    .fourth-content {
+      margin: 0;
+    }
   }
   #fourth-content{
     .theme-text-small {
@@ -542,9 +594,9 @@
     }
   }
   .gear-middle-container {
-    margin-left:30px!important;
-    width:85% !important;
+    margin: 0 !important;
     text-align: left;
+
     .gear-accessories-address >div{
       text-align: left;
       width: 40%;
@@ -613,14 +665,11 @@
       padding: 15px 0;
     }
     .success_first_button {
-      padding:0;
       width: 45%;
     }
     .success_sencond_button {
-      padding:0;
       width: 45%;
     }
-
 
     & > * {
       margin-top: 10px;
@@ -638,16 +687,6 @@
       .category_first {
         width: 100% !important;
       }
-      .category_description_ta{
-        width: 100%!important;
-        textarea {
-          padding: 5px 15px;
-          width: 100% !important;
-        }
-        label {
-          margin-bottom: 0;
-        }
-      }
     }
   }
   #chip_style {
@@ -661,17 +700,66 @@
     color: #252525;
     opacity: 0.5;
   }
-}
-@media(max-width: 500px) {
+  .category_description_ta {
+    width: 100% !important;
 
+    textarea {
+      padding: 5px 15px;
+      width: 100% !important;
+    }
+    label {
+      margin-bottom: 0;
+    }
+  }
+}
+
+@media(max-width: 500px) {
   .header {
     font-size: 30px !important;
     font-weight:  900;
+    margin-top: 0;
     margin-bottom: 39px;
   }
 
   .add-gear-progress {
     width: 100% !important;
+    margin-bottom: 0 !important;
+  }
+
+  .add-gear-info {
+    .custom-beautiful-textfield {
+      label, input {
+        text-align: left;
+        margin-left: 15px !important;
+      }
+      label {
+        transform-origin: left !important;
+      }
+    }
+    .category_description_ta {
+      height: 209px;
+      textarea {
+        height: 90%;
+      }
+    }
+  }
+
+  .add-gear {
+    .accessories {
+      margin-left: 0 !important;
+    }
+    .input-with-button-container {
+      width: 100%;
+    }
+    #fourth-content {
+      .theme-text-small {
+        margin: 10px auto !important;
+        font-size: 16px;
+      }
+      h4 {
+        font-size: 27px;
+      }
+    }
   }
 
   .flex-row {
@@ -681,7 +769,7 @@
 
       .theme-form-field {
         width: 90%;
-        margin: 30px 5%;
+        margin: 20px 5%;
 
         &.dropdown {
           margin-left: 5%
@@ -729,10 +817,11 @@
   .add-gear-address {
     width: 100%;
     padding:0 25px;
+    margin-top: 0 !important;
 
     .theme-form-field {
-      margin: 30px 5%;
-      width: 90%;
+      margin: 30px 0 !important;
+      width: 100%;
 
       .custom-input {
         width: 100%;
@@ -751,6 +840,7 @@
     margin-left: 3%;
     white-space: nowrap;
     overflow-x: auto;
+    padding: 3px 10px !important;
     -webkit-overflow-scrolling: touch;
 
     label {
@@ -788,7 +878,7 @@
     width: 90% !important;
     bottom: 10px;
     left: 5%;
-    z-index: 1000;
+    z-index: 900;
     padding: 13px !important;
   }
 
@@ -802,14 +892,17 @@
     }
 
     .gear-middle-container {
-      margin-top: 20px;
+      width: 100%;
+      margin: 0 !important;
+      padding-bottom: 140px;
 
       .gear-accessories-address {
         border-bottom: 0;
       }
 
-      .theme-text-small.text-gray {
-        text-align: left
+      .theme-text-small {
+        text-align: left;
+        margin: 10px 0;
       }
     }
 
@@ -865,7 +958,7 @@
     }
 
     .theme-text-small.text-gray {
-      text-align: center;
+      margin-left: 0;
     }
 
     .header {
@@ -895,6 +988,7 @@
         width: 20%;
         text-align: center;
         margin: 0;
+        padding: 3px 10px !important;
 
         &:nth-child(4), &:nth-child(6) {
           width: 30%;
@@ -953,12 +1047,15 @@
     }
     .buttons-container {
       display: block;
+
       .success_first_button {
-        padding:0;
+        padding: 5px;
         width: 100%;
+        text-align: center;
+        justify-content: center;
       }
       .success_sencond_button {
-        padding:0;
+        padding: 5px;
         margin: 0 !important;
         margin-top: 10px!important;
         width: 100%;

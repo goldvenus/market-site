@@ -2,7 +2,6 @@
   padding: 60px;
 }
 .login.success-message {
-  padding: 0 !important;
   display: block;
   margin-top: 35vh;
 
@@ -154,6 +153,55 @@
   padding-top: 15px;
 }
 
+.term-view-container {
+  .input_svg {
+    width: 21px !important;
+    height: 21px !important;
+    margin-top: 15px;
+    margin-right: 10px;
+
+    img {
+      width: 23px !important;
+      height: 21px !important;
+      margin: 3px 0 0;
+    }
+    input {
+      margin-left: 0 !important;
+    }
+  }
+  .checkbox-label {
+    margin-left: 0 !important;
+  }
+}
+
+.term-view-btn {
+  color: #f82462;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.rental-terms-container {
+  h4 {
+    margin: 10px 0;
+  }
+  ul {
+    list-style: decimal !important;
+    margin-left: 15px;
+    li {
+      margin: 5px;
+    }
+  }
+  .list-style-bullet {
+    list-style: disc;
+  }
+}
+
+.privacy-modal {
+  max-width: 1150px !important;
+  text-align: left !important;
+  padding: 0;
+}
+
 @media(max-width: 1077px) {
   .login.success-message {
     height: 70vh;
@@ -271,9 +319,13 @@
     }
   }
 
-  .custom-beautiful-textfield {
-    label, input {
-      margin-left: 0 !important;
+  .auth-container {
+    .custom-beautiful-textfield {
+      label, input {
+        text-align: center;
+        margin-left: 0 !important;
+        transform-origin: top !important;
+      }
     }
   }
 
@@ -282,6 +334,9 @@
   }
   .auth-sidemenu {
     display: flex;
+  }
+  .privacy-modal {
+    width: 85%;
   }
 }
 
@@ -329,6 +384,18 @@
   .flex-row.signin-link {
     button {
       min-width: 100px !important;
+    }
+  }
+  .privacy-modal {
+    width: 100% !important;
+
+    .confirm-modal-body {
+      padding: 20px 0 0 !important;
+    }
+    .rental-terms-container {
+      h4 {
+        margin-top: 10px;
+      }
     }
   }
 }

@@ -5,12 +5,6 @@ import Layout from './components/Layout';
 import store from './store';
 
 export default class App extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   // getUser();
-  //   // getCarts();
-  //   // getFavourites();
-  // }
 
   render() {
     return (

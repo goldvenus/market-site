@@ -1,0 +1,71 @@
+.privacy-policy-head {
+  h2 {
+    font-family: Gotham Pro;
+    font-size: 49px;
+    line-height: 47px;
+    text-align: center;
+    margin: 120px 0;
+  }
+}
+
+.privacy-policy-body {
+  font-size: 14px;
+  line-height: 1.7;
+
+  ul {
+    margin-left: 25px;
+    list-style: disc;
+    margin-bottom: 15px;
+
+    li {
+      margin: 15px 0;
+      line-height: 1.7;
+      display: list-item;
+    }
+  }
+  .alpha-ul {
+    list-style: lower-alpha;
+  }
+  a {
+    color: blue;
+    text-decoration: underline;
+  }
+  .italic-text-container {
+    p {
+      font-style: italic;
+      margin: 1rem 0;
+    }
+  }
+  h4 {
+    margin: 4rem 0 1rem;
+    font-size: 14px;
+  }
+}
+
+.terms-conditions-body {
+  font-size: 14px;
+  line-height: 1.7;
+
+  ul {
+    margin-left: 25px;
+    margin-bottom: 15px;
+    list-style: none;
+
+    li {
+      font-size: 14px !important;
+      margin: 15px 0;
+      line-height: 1.7;
+      display: list-item;
+    }
+  }
+  h4 {
+    margin: 2rem 0 1rem;
+    font-size: 14px;
+  }
+}
+
+.privacy-modal {
+  h4 {
+    margin-top: 35px;
+  }
+}

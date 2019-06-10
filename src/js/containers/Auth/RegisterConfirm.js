@@ -9,11 +9,16 @@ import { confirmUser } from '../../core/actions/user.action';
 class RegisterConfirm extends Component {
   constructor(props) {
     super(props);
-
+  
+    if (localStorage.userId) {
+      this.props.history.push('/');
+    }
     this.email = props.location.state && props.location.state.email;
+    this.fullName = props.location.state && props.location.state.fullName;
     this.state = {
       code: '',
       email: this.email,
+      fullName: this.fullName,
       isConfirmed: false
     };
   }
@@ -21,11 +26,11 @@ class RegisterConfirm extends Component {
   async confirm(e) {
     e.preventDefault()
 
-    const { code, email: aEmail } = this.state;
+    const { code, email: aEmail, fullName } = this.state;
     const oEmail = this.email;
 
-    if ((oEmail || aEmail) && code) {
-      const response = await confirmUser(oEmail || aEmail, code);
+    if ((oEmail || aEmail) && fullName && code) {
+      const response = await confirmUser(oEmail || aEmail, code, fullName);
 
       if (response) {
         this.setState({

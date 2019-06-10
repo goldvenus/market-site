@@ -1,18 +1,20 @@
 
-.edit_listgear{
+.edit_listgear {
   padding-left:23px;
-  .edit_listgear_header{
+  .edit_listgear_header {
     margin-top:70px;
-    .theme-page-title{
+
+    .theme-page-title {
       font-family: Gotham Pro;
       font-size: 49px;
       line-height: normal;
       color: #252525;
     }
   }
-  .edit_listgear_body_all{
+  .edit_listgear_body_all {
     display: flex;
-    .edit_listgear_body_left{
+
+    .edit_listgear_body_left {
       .ELBL_info {
           flex-direction: column;
           margin-top: 10px;
@@ -32,6 +34,7 @@
               letter-spacing: 0.08em;
               text-transform: uppercase;
               color: #252525;
+              opacity: 0.5;
               margin: 0;
               padding-left: 15px;
             }
@@ -48,7 +51,7 @@
               .custom-beautiful-textfield {
                 width: 100%;
                 input {
-                  padding: 0 0 17px 15px;
+                  padding: 0 0 17px 0;
                 }
               }
               .custom-auto-suggest-container {
@@ -123,6 +126,10 @@
         }
         .ELBLI_desc {
           border: #e5e3e4 solid 1px;
+
+          .mui--is-not-empty ~ label {
+            line-height: normal !important;
+          }
           label{
             font-family: Helvetica Neue;
             font-size: 11px;
@@ -146,13 +153,16 @@
       .ELBL_type {
         .info-right-container{
           display: block;
+
           .type-tab-div{
             margin-top:30px;
             display: flex;
+
             .type-tabs {
               white-space: nowrap;
               margin: 0;
               -webkit-overflow-scrolling: touch;
+
               input {
                 display: none !important;
               }
@@ -173,6 +183,18 @@
                   border: 1px solid #00F077;
                 }
               }
+              .new {
+                border: 1px solid #F8F1E8;
+              }
+              .like-new {
+                border: 1px solid #ffe9e9
+              }
+              .slightly-worn {
+                border: 1px solid #F8F1E8;
+              }
+              .worn {
+                border-color: #F9DADA;
+              }
             }
             .kit-check{
               margin-left: 59px;
@@ -182,8 +204,26 @@
               }
             }
           }
-          .form-accessories{
+          .form-accessories {
             margin-top: 43px;
+
+            #accessories-container {
+              display: flex;
+              flex-wrap: wrap;
+
+              .input-with-button-container {
+                width: 200px;
+                margin-right: 10px;
+              }
+            }
+            .accessories {
+              color: #aaa;
+              margin-bottom: 10px;
+            }
+            button {
+              color: #252525;
+              border-color: #252525;
+            }
           }
         }
       }
@@ -204,17 +244,21 @@
             height: 100px;
             width: 100px;
             border: 1px solid lightgray;
-            margin: 0 10px 0px 0;
+            margin: 0 10px 10px 0;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            cursor: pointer;
 
             .theme-form-field {
               margin:0;
             }
             img {
               width: 100%;
+            }
+            input {
+              cursor: pointer;
             }
           }
 
@@ -231,9 +275,6 @@
           .custom-beautiful-textfield {
             width: 35%;
             margin-right: 15px;
-            input {
-              padding-left: 15px;
-            }
           }
           table {
             margin-top:25px;
@@ -257,7 +298,6 @@
       .ELBR_payment{
         background-color: #faf8f9;
         padding: 10px;
-        height: 446px;
         margin-left: 31px;
         .ELBLP_content{
           background-color: #fff;
@@ -337,11 +377,31 @@
   opacity: 0.5;
   margin: 0;
 }
+
+@media (max-width: 1077px) {
+  .edit_listgear {
+    .ELBLIC_div {
+      padding: 0 !important;
+    }
+  }
+}
+
 @media(max-width: 780px){
   .add-gear-info {
     display: block !important;
     tr {
       display: block !important;
+    }
+  }
+  .ELBL_photos {
+    margin-bottom: 25px;
+  }
+  .ELBL_address {
+    .address-wrapper {
+      margin: 20px 0;
+      .custom-beautiful-textfield {
+        width: 45%;
+      }
     }
   }
 }

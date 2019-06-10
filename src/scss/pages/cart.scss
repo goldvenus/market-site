@@ -19,7 +19,7 @@
       color: #252525;
     }
     .flex-row {
-      .theme-btn-secondery{
+      .theme-btn-secondery {
         border: 1px #d3d3d3 solid;
       }
     }
@@ -38,7 +38,6 @@
       border:0;
       color: #767676;
       padding-left: 14px;
-
     }
     thead {
       border-bottom: 1px #d3d3d3 solid;
@@ -54,7 +53,6 @@
             width: 70px;
             height: 70px;
           }
-
         }
         .tb_brand_model_name {
           font-size: 17px;
@@ -65,10 +63,7 @@
           font-size: 12px;
           line-height: 18px;
           letter-spacing: 0.03em;
-
           color: #3A3A3A;
-
-          /* Gray */
           opacity: 0.5;
         }
         .tb_time_name {
@@ -106,6 +101,9 @@
         }
       }
     }
+  }
+  & > .flex-row {
+    justify-content: space-between;
   }
 }
 .breadcrumb-item.active {
@@ -241,10 +239,10 @@
         }
       }
     }
-  .flex-row {
-    justify-content: center;
-    padding-top:24px;
-  }
+    .flex-row {
+      justify-content: space-between;
+      padding-top:24px;
+    }
   }
   .theme-page-title {
     justify-content: center;
@@ -308,7 +306,7 @@
     }
   }
   .continue-shpping-mobile-btn {
-    padding: 6px !important;
+    padding: 8px !important;
     min-width: 100px !important;
   }
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from "redux";
 import { Link, withRouter } from 'react-router-dom';
-import { Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
+import { Table } from 'reactstrap';
 import { deleteFavourite } from "../../core/actions/favourite.action";
 import { handleError } from "../../core/actions/common.action";
 import { addCart } from "../../core/actions/cart.action";
@@ -12,8 +12,7 @@ import CartModal2 from "../../components/common/CartModal2";
 import BarLoader from "react-bar-loader";
 import EmptyActivity from "../../components/EmptyActivity";
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
-import CustomSpinner from "../../components/CustomSpinner";
-import UrllinkClass from "../../components/UrllinkClass";
+import CustomSpinner from "../../components/common/CustomSpinner";
 
 class Favourites extends Component {
   constructor(props) {
@@ -26,8 +25,7 @@ class Favourites extends Component {
       cart_info: {
         start_date: new Date(),
         end_date: new Date()
-      },
-      ratingstate:{}
+      }
     }
   }
 
@@ -92,6 +90,7 @@ class Favourites extends Component {
         let cart_info = carted && carted.length > 0 ? carted[0] : {};
         cart_info = {...cart_info, ...listItem};
         carted = carted && carted.length > 0;
+        let rating = listItem.rating;
 
         return (
           <tr key={`cart-item-${index}`}>
@@ -111,8 +110,8 @@ class Favourites extends Component {
               {[1, 2, 3, 4, 5].map(i =>
                 <i className="fa fa-star star-selected" key={i}/>)
               }
-              {this.state.ratingstate[index]}
               </span>
+              &nbsp;<span>5,0 ({rating})</span>
             </td>
 
             <td width="17.5%"><div><div className="favouri_link_icon"/><span className="Raykjavik_span">Raykjavik</span></div></td>
@@ -146,6 +145,7 @@ class Favourites extends Component {
         let cart_info = carted && carted.length > 0 ? carted[0] : {};
         cart_info = {...listItem, ...cart_info};
         carted = carted && carted.length > 0;
+        let rating = listItem.rating;
 
         return (
           <div key={`cart-item-${index}`} className="favo_table_root">
@@ -165,7 +165,7 @@ class Favourites extends Component {
                       {listItem.brand + ' ' + listItem.model}
                       {carted && <div className="card-checked"><i className="fas fa-check-circle"/></div>}
                     </p>
-                    <p className="theme-text-small text-muted tb_categories_name">{listItem.categoryName}</p>
+                    <p className="text-muted tb_categories_name">{listItem.categoryName}</p>
                   </div>
                   <div className="favourites_close_icon">
                     <i
@@ -179,10 +179,12 @@ class Favourites extends Component {
                 </div>
                 <div className="sm_favor_bottom">
                   <div className="bottom_left col-md-8">
-                    {[1, 2, 3, 4, 5].map(i =>
-                      <i className="fa fa-star star-selected" key={i}/>)
-                    }
-                    {this.state.ratingstate[index]}
+                    <div>
+                      {[1, 2, 3, 4, 5].map(i =>
+                        <i className="fa fa-star star-selected" key={i}/>)
+                      }
+                      &nbsp;<span>5,0 ({rating})</span>
+                    </div>
                     <div>
                       <div className="favouri_link_icon"/>
                       <span className="Raykjavik_span">Raykjavik</span>
@@ -217,20 +219,20 @@ class Favourites extends Component {
       <React.Fragment>
         {isChanging && <CustomSpinner/>}
         <div className="cart_view centered-content">
-          <Breadcrumb className= "card_content_path">
-              <UrllinkClass name="Home"/>
-              <span className="space_slash_span">/</span>
-              <BreadcrumbItem active>Favourites</BreadcrumbItem>
-          </Breadcrumb>
+          {/*<Breadcrumb className= "card_content_path">*/}
+              {/*<BreadCrumbActive name="Home"/>*/}
+              {/*<span className="space_slash_span">/</span>*/}
+              {/*<BreadcrumbItem active>Favourites</BreadcrumbItem>*/}
+          {/*</Breadcrumb>*/}
           <div className="cart-header ">
             <div className="theme-page-title">Favourites</div>
             <div className="flex-row d-none d-lg-flex">
-              <button className="theme-btn theme-btn-secondery"><Link to="/rentgear">Continue Shopping</Link></button>
+              <button className="theme-btn theme-btn-secondery"><Link to="/rentGear/all">Find Gear</Link></button>
               <button className="theme-btn theme-btn-primary go-to-cart-btn"><Link to="/cart"> Cart </Link></button>
             </div>
           </div>
             <div className="d-md-flex d-lg-none d-none md_show_buttons" >
-                <button className="theme-btn theme-btn-secondery col-md-9"><Link to="/rentgear">Continue Shopping</Link></button>
+                <button className="theme-btn theme-btn-secondery col-md-9"><Link to="/rentGear/all">Find Gear</Link></button>
                 <button className="theme-btn theme-btn-primary theme-btn-link col-md-14"><Link to="/cart">Cart</Link></button>
             </div>
           <div className="cart-table-div">
@@ -263,7 +265,7 @@ class Favourites extends Component {
           </div>
 
           <div className="d-flex d-md-none d-lg-none md_show_buttons" >
-            <button className="theme-btn theme-btn-secondery col-md-14"><Link to="/rentgear">Continue Shopping</Link></button>
+            <button className="theme-btn theme-btn-secondery col-md-14"><Link to="/rentGear/all">Find Gear</Link></button>
             <button className="theme-btn theme-btn-primary theme-btn-link col-md-9"><Link to="/cart">Cart</Link></button>
           </div>
           {

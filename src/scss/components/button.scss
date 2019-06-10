@@ -36,12 +36,13 @@
 }
 
 .theme-btn-secondery {
-  border: 1px solid #666;
+  border: 1px solid #D3D3D3;
   background-color: $white;
   color: $secondary-light-color;
 
   &:hover {
     background-color: $secondary-color;
+    border: 1px solid black;
     color: $white;
   }
 }

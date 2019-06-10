@@ -12,20 +12,9 @@
       display: none;
     }
     .head-container {
-      display: flex;
-      background-image: url(/images/aboutus/1.png);
-      background-repeat: no-repeat;
-      background-position: right;
-      height: 355px;
-
-      .head-left {
-        width: 50%;
-      }
-      .head-right {
-        width: 50%;
-        img {
-          float: right;
-        }
+      .container {
+        align-items: center;
+        display: flex;
       }
     }
     .about-us-watermark {
@@ -33,7 +22,15 @@
       background-size: cover;
       background-repeat: no-repeat;
       height: 145px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
+      i {
+        font-size: 40px;
+        color: white;
+        font-weight: 600;
+      }
       .theme-big-text {
         margin: 0;
         padding: 0 !important;
@@ -62,12 +59,15 @@
       }
     }
 
+    span.thin {
+      font-weight: normal;
+    }
     h1 {
       color: $white;
       margin-bottom: 2rem;
     }
 
-    h4.intro, p {
+    .intro, p {
       color: $white;
       font-size: 27px;
 
@@ -83,9 +83,12 @@
     p.about-desc {
       width: 80%;
       padding: 0;
-      letter-spacing: 1px;
-      line-height: 24px;
+      font-family: Helvetica Neue;
+      font-style: normal;
+      font-weight: normal;
       font-size: 16px;
+      line-height: 27px;
+      color: #FFFFFF;
     }
 
     .about-cm {
@@ -106,6 +109,94 @@
     position: relative;
     z-index: 5;
     background-color: white;
+
+    .aboutus-container {
+      max-width: 1317px !important;
+      margin: -52px auto 0;
+      padding: 0;
+    }
+    .home-subsection {
+      align-items: center;
+
+      &:first-child {
+        margin: 233px 0 0 !important;
+      }
+      &:nth-child(2) {
+        margin: 360px 0 0 !important;
+        padding-bottom: 310px;
+      }
+      & > div:first-child {
+        margin-top: -12px;
+        margin-bottom: 30px;
+      }
+      .avatar-container {
+        margin-top: 0;
+        display: flex;
+        justify-content: flex-end
+      }
+      .back-img {
+        height: 357px;
+        background-size: contain;
+        background-repeat: no-repeat ;
+        background-position: center;
+      }
+      .question-back-img {
+        background-image: url('/images/aboutus/undraw_questions_75e0.png');
+      }
+      .user-avatar-container {
+        display: flex;
+        width: 500px;
+
+        .user-avatar {
+          width: 135px;
+          height: 135px;
+          border-radius: 50%;
+          background-repeat: no-repeat;
+          background-size: cover;
+          margin: 7px 10px;
+          padding: 0;
+        }
+      }
+      .question-back-img {
+        flex: 0 0 41%;
+      }
+      .question-container {
+        margin-top: -10px;
+        flex: 0 0 41%;
+      }
+      h2 {
+        font-family: Gotham Pro;
+        font-size: 49px;
+        line-height: 65px;
+        color: #252525;
+      }
+      p.about-text {
+        font-size: 16px;
+        line-height: 27px;
+        color: #252525;
+        width: 81%;
+      }
+      .first-text {
+        margin: 31px 0 31px;
+      }
+      .second-text {
+        margin: 31px 0 44px;
+      }
+      .third-text {
+        margin: 3px 0 52px;
+      }
+      button {
+        font-size: 16px;
+        line-height: 20px;
+        text-align: center;
+        padding: 14px 32px;
+        vertical-align: middle;
+        width: 191px;
+      }
+      .terms-btn {
+        margin-left: 15px;
+      }
+    }
 
     .team-members {
       background: #faf8f9;
@@ -165,23 +256,34 @@
       display: block !important;
     }
     .heading-body-mobile {
+      position: absolute;
+      top: 130px;
+      line-height: 20px;
       display: block !important;
+      font-size: 25px;
+
       & > div {
         width: 70%;
         margin: 0 auto;
         text-align: center;
         .intro {
           margin: 35px;
+          font-size: 35px;
+          font-weight: 600;
         }
         .about-desc {
           margin: 0 auto 45px;
           width: 100%;
+          line-height: 70px;
         }
       }
     }
     .about-us-watermark {
       background-size: contain !important;
       height: 80px;
+    }
+    .about-us-container {
+      padding: 0 50px;
     }
     .about-us-body {
       margin-top: -20px;
@@ -190,6 +292,28 @@
           padding-top: 0;
         }
       }
+
+      .home-subsection {
+        margin: 80px 0 !important;
+
+        &:first-child {
+          margin-top: 100px !important;
+        }
+        &:last-child {
+          margin-top: 100px !important;
+          padding-bottom: 40px;
+        }
+        .user-avatar-container {
+          margin: 0 auto;
+        }
+        .question-container {
+          flex: 0 0 100%;
+        }
+      }
+    }
+    .question-back-img, .question-container {
+      flex: 0 0 95%;
+      margin: 0 auto;
     }
   }
 }
@@ -207,6 +331,7 @@
     }
     .heading-body-mobile {
       margin-top: 25px;
+      line-height: 50px;
       & > div {
         width: 90%;
         margin: 0 auto;
@@ -218,12 +343,20 @@
           font-size: 20px;
         }
       }
+      .about-desc {
+        line-height: 45px !important;
+        font-size: 22px !important;
+      }
+      .introduction {
+        font-size: 24px !important;
+      }
     }
     .about-us-watermark {
       height: 50px !important;
     }
     .about-us-body {
       margin-top: -20px;
+
       .team-members {
         .container {
           padding-top: 0;
@@ -233,6 +366,32 @@
             margin-bottom: 2rem;
           }
         }
+      }
+      .home-subsection {
+        margin: 60px 0 !important;
+
+        &:first-child {
+          margin-top: 120px !important;
+        }
+        & > div:last-child {
+          margin-bottom: 30px;
+        }
+        .terms-btn {
+          margin: 0 !important;
+        }
+        .contact-btn {
+          margin-bottom: 20px;
+        }
+        .user-avatar-container {
+          justify-content: center;
+        }
+        button {
+          width: 100%;
+        }
+      }
+      .question-back-img {
+        flex: 0.8 1 41% !important;
+        margin: 0 auto 30px;
       }
     }
   }

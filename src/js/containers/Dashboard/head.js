@@ -8,14 +8,14 @@ export default function(props){
         <div className="user-avatar" >
           <img src={props.user.picture} alt="" />
         </div>
-        <div  className=" user-info">
+        <div  className="user-info">
           <h3 className="user-name">{props.user.given_name}</h3>
           <Row>
-            <Col sm="8" className="head-email-region">
+            <Col sm="12" className="head-email-region">
               <p className="theme-text-small text-muted">Email</p>
               <p className="text-muted-email">{props.user.email}</p>
             </Col>
-            <Col sm="8" className="head-phone-region">
+            <Col sm="12" className="head-phone-region">
               <p className="theme-text-small text-muted">Phone</p>
               <p className="text-muted-phone">{props.user.phone_number} </p>
             </Col>

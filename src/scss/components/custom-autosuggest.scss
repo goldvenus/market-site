@@ -1,10 +1,39 @@
 .custom-auto-suggest-container {
   border: solid 1px white;
   border-bottom: solid 1px #eaeaea;
+
+  input {
+    color: #252525;
+    font-size: 16px !important;
+  }
+  label {
+    margin-left: 15px !important;
+    opacity: 0.6 !important;
+    color: #252525 !important;
+  }
+
+  .react-autosuggest__container {
+    &:hover {
+    }
+    &:hover::before {
+      border-bottom: solid 1px #ffaec4 !important;
+    }
+    &::before {
+      border-bottom: solid 1px #eaeaea !important;
+      &:hover {
+        border-bottom: solid 1px #ffaec4 !important;
+      }
+    }
+    &::after {
+      border-bottom: solid 2px #ffaec4 !important;
+    }
+  }
 }
+
 .custom-auto-suggest-container.doubled {
   border: solid 2px #F82462 !important;
 }
+
 .react-autosuggest__container {
   position: relative;
   width: 100%;
@@ -13,12 +42,13 @@
 .react-autosuggest__input {
   width: 100%;
   height: 34px;
-  padding: 7px 15px 5px;
+  padding: 0 15px;
   font-family: Helvetica, sans-serif;
   font-weight: 300;
   font-size: 16px;
   border: none;
   margin: 0 !important;
+  line-height: 2;
 
   &::placeholder {
     font-size: 14px;

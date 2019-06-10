@@ -9,6 +9,7 @@ body {
   font-family: 'Helvetica Neue', sans-serif;
   color: $secondary-color;
   font-size: 16px;
+  zoom: 0.9;
 }
 
 a, a:hover {
@@ -29,11 +30,12 @@ button:focus, button:active {
 
 button:disabled,
 button[disabled]{
-  border: 1px solid #999999;
-  background-color: #cccccc;
-  color: #666666;
+  opacity: 0.5;
 }
 
+.theme-btn-secondery {
+  border: solid 1px #D3D3D3;
+}
 
 input::-webkit-input-placeholder {
   font-size: 12px;
@@ -178,21 +180,61 @@ img {
   margin-right:7px;
   margin-left:7px !important;
 }
-.notification-message {
-  h4 {
-    color:white;
-    font-size: 24px;
+
+/* toast */
+.Toastify__toast-container {
+  width: 450px;
+
+  & > div {
+    padding: 12px 12px 15px;
   }
 }
-.notification-error {
-  background-color: #ea4d5e;
+.toast-error {
+  background-color: #d2003d;
+  opacity: 1;
+  border: none;
+
+  span {
+    background-color: #e61552;
+  }
 }
-.notification-container {
-  width: 40vw;
+.toast-info {
+  background-color: #f82462;
+  opacity: 0.9;
+  border: none;
+
+  span {
+    background-color: #ff608f;
+  }
 }
-.notification {
-  border:1px solid white;
-  border-radius: 19px;
+.toast-body {
+  display: flex;
+  font-size: 18px;
+  color: white;
+
+  .toast-icon {
+    width: 17%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+    }
+  }
+  .toast-content-wrapper {
+    width: 83%;
+    margin-left: 10px;
+
+    .toast-heading {
+      font-weight: 600;
+    }
+  }
 }
 
 .breadcrumb-item {
@@ -209,6 +251,13 @@ img {
   input {
     color: #252525;
     font-size: 16px !important;
+    margin-left: 15px !important;
+
+    @media (max-width: 767px) {
+      &::placeholder {
+        font-size: 9px;
+      }
+    }
   }
   label {
     margin-left: 15px !important;
@@ -231,6 +280,19 @@ img {
   }
 }
 
+.star-ratings {
+  display: flex !important;
+  width: 55% !important;
+
+  .star-container {
+    padding: 0 !important;
+    svg {
+      width: 27px !important;
+      height: 27px !important;
+    }
+  }
+}
+
 @media (max-width: 1077px) {
   .notification-container {
     width: 100vw;
@@ -238,13 +300,15 @@ img {
 
   .custom-beautiful-textfield {
     input {
-      text-align: center;
+      //text-align: center;
+      //margin-left: 0;
     }
     label {
       color: rgba(0, 0, 0, 0.54) !important;
       position: unset !important;
       margin-bottom: -20px !important;
-      transform-origin: top !important;
+      //transform-origin: top !important;
+      //text-align: center;
     }
     & > div:hover {
     }

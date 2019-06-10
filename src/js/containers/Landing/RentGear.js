@@ -1,30 +1,25 @@
 import React from 'react';
-import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 import Sidebar from '../../components/Rent Gear/RG_sidebar';
 import Main from '../../components/Rent Gear/RG_main';
-import UrllinkClass from "../../components/UrllinkClass";
 import connect from "react-redux/es/connect/connect";
-import BarLoader from "react-bar-loader";
-import { fetchCategories } from "../../core/actions/category.action";
+import CustomLoaderLogo from "../../components/common/CustomLoaderLogo";
+import {fetchCategories} from "../../core/actions/category.action";
 
 class RentGear extends React.Component {
   constructor(props) {
     super(props);
     fetchCategories();
   }
-
+  
   render() {
     let {categories, isLoading} = this.props;
     let category = this.props.match.params.id;
     if (isLoading) {
-      return <BarLoader color="#F82462" height="5"/>;
+      return <CustomLoaderLogo/>;
     }
-
+  
     categories = categories.reduce((arr, item) => arr.concat(item.categoryName), []);
-    if (category === undefined) {
-      this.props.history.push('/rentgear/all');
-      return null;
-    }
 
     return (
       <div className="rent-gear">
@@ -32,11 +27,11 @@ class RentGear extends React.Component {
           <Container>
             <Row>
               <Col>
-                <Breadcrumb>
-                  <UrllinkClass name="Home Page"/>
-                  <span className="space_slash_span">/</span>
-                  <BreadcrumbItem active>Rent Gear </BreadcrumbItem>
-                </Breadcrumb>
+                {/*<Breadcrumb>*/}
+                  {/*<BreadCrumbActive name="Home Page"/>*/}
+                  {/*<span className="space_slash_span">/</span>*/}
+                  {/*<BreadcrumbItem active>Rent Gear </BreadcrumbItem>*/}
+                {/*</Breadcrumb>*/}
                 <div className="d-flex align-items-center">
                   <h2 className="theme-page-title rent-gear-title">Rent Gear</h2>
                 </div>
@@ -51,11 +46,8 @@ class RentGear extends React.Component {
               <Sidebar category={category} categories={categories}/>
             </Col>
             <Col md="18" className="cardz-2">
-              <Main category={category}/>
+              <Main category={category} categories={categories}/>
             </Col>
-            <Row className="d-flex d-lg-none down-sidbar">
-              <Sidebar category={category} categories={categories}/>
-            </Row>
           </Row>
         </Container>
       </div>

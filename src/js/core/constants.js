@@ -1,5 +1,4 @@
 // const API_URL = 'http://localhost:3001/';
-
 const API_URL = 'https://cors-anywhere.herokuapp.com/https://bmg6fea1c8.execute-api.us-east-1.amazonaws.com/dev/';
 
 const REDIRECT_URL = 'https://creativemarket.herokuapp.com/';

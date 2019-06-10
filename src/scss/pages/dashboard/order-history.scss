@@ -10,7 +10,19 @@
     line-height: 47px;
     color: #252525;
     font-weight: 600;
+    text-transform: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
+    .content-editable {
+      width: 90%;
+      padding: 10px;
+
+      &:focus {
+        outline: solid 3px #f82462;
+      }
+    }
     .edit_icon {
       display: inline-block;
       width: 30px;
@@ -22,7 +34,7 @@
     }
   }
   .order-modal-body {
-    padding: 0 80px;
+    padding: 0 11%;
     text-align: left;
     font-family: Helvetica Neue, sans-serif;
 
@@ -44,9 +56,18 @@
           }
         }
         .buyer-info {
-          .phone-number {
-            line-height: 28px;
-            font-weight: 600;
+          .buyer-info-right .period-price {
+            margin-top: -5px;
+          }
+          .open-chat-window {
+            color: #f82462;
+            text-decoration: underline;
+            cursor: pointer;
+
+            i {
+              text-decoration: none;
+              margin-left: 10px;
+            }
           }
         }
         .payment-info {
@@ -66,12 +87,12 @@
         line-height: 18px;
         letter-spacing: 0.03em;
         color: #B1B1B1;
+        margin-bottom: 10px;
       }
       .rating-select-container {
         width: 50%;
-        display: flex;
-        align-items: flex-end;
         padding-left: 10%;
+        padding-right: 10%;
 
         .rating-select-inner {
           display: block;
@@ -84,12 +105,65 @@
             text-transform: uppercase;
             color: rgba(37, 37, 37, 0.5);
           }
+          .rating-select-bottom-1 {
+            margin: 15px 0;
+          }
           .rating-select-bottom {
+            display: flex;
+            justify-content: space-between;
+
             & > div {
-              padding: 13px 0;
+              padding: 9px 0;
               width: 100%;
               display: flex;
               justify-content: space-between;
+            }
+            .star-rating-wrapper {
+              width: 70%;
+              display: flex;
+              justify-content: flex-end;
+
+              i {
+                font-size: 24px;
+                color: #f82462;
+                margin: 0 3px;
+              }
+            }
+            button {
+              padding: 5px 5px;
+              background-color: white;
+              width: unset;
+              font-weight: normal;
+              margin: 0 !important;
+              font-size: 15px;
+            }
+            .status-new-btn {
+              color: #1CDB74;
+              border: solid 1px #1CDB74;
+            }
+            .status-worn-btn {
+              border: 1px solid #FBE3D9;
+              color: #FC7840;
+            }
+            .status-damaged-btn {
+              border: 1px solid #F9DADA;
+              color: #F65252;
+            }
+            .active-btn {
+              background-color: #1CDB74;
+              border: solid 1px #1CDB74;
+              color: white;
+            }
+          }
+          .react__star__rating__lite {
+            width: 70%;
+            .react__star__rating__lite__stars {
+              display: flex;
+              justify-content: flex-end;
+              span {
+                padding: 5px;
+                cursor: pointer;
+              }
             }
           }
         }
@@ -109,6 +183,12 @@
           button {
             width: 100%;
             font-weight: 600;
+            padding: 5px;
+            cursor: pointer;
+
+            &:first-child {
+              margin-bottom: 20px;
+            }
           }
           .return-btn {
             background-color: white;
@@ -136,10 +216,50 @@
             margin-bottom: 17px;
             color: #DBA61C !important;
           }
-          .warning-btn:hover {
-            color: white !important;
-            background-color: #F82462;
-            border: solid 1px #F82462;
+        }
+      }
+
+      .owner-info-wrapper {
+        .buyer-info {
+          margin: 0;
+        }
+        .renter-rating-container {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          padding: 0 10% 0 10%;
+
+          & > div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+            
+            .react__star__rating__lite {
+              width: 70%;
+              .react__star__rating__lite__stars {
+                display: flex;
+                justify-content: flex-end;
+                span {
+                  cursor: pointer;
+                }
+              }
+            }
+          }
+          .owner-rating-btn {
+            margin-top: 10px;
+          }
+          .star-rating-wrapper {
+            width: 70%;
+            display: flex;
+            justify-content: flex-end;
+
+            i {
+              font-size: 24px;
+              color: #f82462;
+              margin: 0 3px;
+            }
           }
         }
       }
@@ -152,22 +272,25 @@
       justify-content: space-between;
 
       span {
-        width: 80px;
         display: inline-block;
         padding: 3px 0;
       }
       .payment-card {
         width: auto;
-        min-height: 140px !important;
+        min-height: 113px !important;
         padding: 11px 16px 16px;
         box-shadow: 0 2px 22px -2px rgba(173, 173, 173, 0.2);
         border-radius: 10px;
-        display: grid;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
 
         .payment-card-other {
           justify-content: space-between;
           opacity: 0.6;
           font-size: 12px;
+          margin: 0 !important;
+
           .card-holder {
             text-align: right;
           }
@@ -198,14 +321,53 @@
         text-transform: uppercase;
         background-color: #1CDB74;
         color: #FFFFFF;
+        font-weight: 600;
+
+        &.warning-btn {
+          background-color: #FBF6E8;
+          color: #DBA61C;
+        }
       }
       .checkout-amount {
         margin-top: 10px;
         padding-top: 10px;
-        border-top: 1px solid lightgray;
+        border-top: 1px solid #f3f3f3;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .payment-bill {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .checkout-total {
+          font-size: 16px;
+          line-height: 27px;
+          display: flex;
+
+          .bill-left {
+            margin-right: 15px;
+          }
+        }
+        p {
+          margin: 0;
+        }
+      }
+    }
+    .payment-status-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      & > div {
+        height: 42%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
       }
     }
   }
+
   .order-modal-footer {
     padding: 30px;
     display: flex;
@@ -255,6 +417,10 @@
       text-align: center;
       color: #FFFFFF;
     }
+    @media (max-width: 767px) {
+      font-size: 20px;
+      height: 83px;
+    }
   }
   .pickup-success-body {
     padding: 40px !important;
@@ -272,10 +438,16 @@
       line-height: 34px;
       color: #252525;
       font-weight: 600;
+      @media (max-width: 767px) {
+        font-size: 20px;
+      }
     }
     .pickup-control {
       justify-content: space-between;
       display: flex;
+      @media (max-width: 767px) {
+        display: block;
+      }
     }
     .pickup-confirm-time {
       font-family: Gotham Pro;
@@ -289,6 +461,12 @@
       span {
         font-weight: 600;
       }
+      @media (max-width: 767px) {
+        margin: 20px 0 40px;
+      }
+    }
+    @media (max-width: 767px) {
+      padding: 20px;
     }
   }
 }
@@ -317,7 +495,7 @@
     display: block;
 
     .item-info-top {
-      border-bottom: solid 1px #f0f0f0;
+      border-bottom: solid 1px #e0e0e0;
       padding: 30px 0;
     }
     .item-info-bottom {
@@ -364,13 +542,70 @@
             margin-bottom: 17px;
             color: #DBA61C !important;
           }
-          .warning-btn:hover {
-            color: white !important;
-            background-color: #F82462;
-            border: solid 1px #F82462;
-          }
         }
       }
+    }
+  }
+}
+
+.order-history-outer-wrapper {
+  background-color: #faf8f9;
+  padding: 40px 0 0;
+
+  .gear_history_tab {
+    padding: 0 30px;
+  }
+  .tab-content {
+    padding: 0;
+  }
+  .empety-list {
+    text-align: center;
+  }
+  .new-order-count {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    border-radius: 15px;
+    background-color: #f82462;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    margin-left: -17px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .new-order-sign {
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    background-color: #f82462;
+    position: absolute;
+    margin-left: -33px;
+    margin-top: 28px;
+  }
+}
+
+@media (max-width: 1179px) {
+  .order-history-outer-wrapper {
+    padding: 15px 0 0;
+    .tab-content {
+      padding: 0;
+    }
+  }
+  .order-modal {
+    width: 85%;
+
+    .payment-success-info {
+      padding: 20px;
+      border: 18px solid #FAF8F9;
+
+      .payment-card {
+        width: 100% !important;
+      }
+    }
+    .order-modal-body {
+      padding: 10px;
     }
   }
 }
@@ -379,15 +614,18 @@
   .order-modal-desktop-tablet {
     display: none;
   }
+
   .order-modal {
     padding: 0;
+    width: 100%;
   }
+
   .order-modal-mobile {
     display: block;
     background-color: #fefefe;
 
     .order-modal-header {
-      padding: 31px 0 34px;
+      padding: 31px 16px 34px;
       font-weight: 700;
       font-family: Gotham Pro;
       font-size: 24px;
@@ -395,21 +633,24 @@
       color: #252525;
       .edit_icon {
         margin: -5px 0 0 10px;
-        width: 27px;
-        height: 27px;
+        width: 29px;
+        height: 28px;
         background-size: contain;
       }
     }
     .order-modal-body {
       padding: 0;
+
       .paid-items {
         border-bottom: solid 1px #f5f5f5;
+
         .paid-item {
           background-color: white;
           border-radius: 7px;
           box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0);
           padding: 9px 0 14px;
           margin: 0 16px 16px;
+
           &:last-child {
             margin-bottom: 26px;
           }
@@ -439,6 +680,10 @@
             padding:15px;
             text-align: center;
             margin:0;
+
+            &:first-child {
+              border-top: none;
+            }
             .buyer-info-left {
               width: 100%;
               justify-content: center;
@@ -452,11 +697,23 @@
               width: 100%;
               margin-top: 16px;
             }
+            .owner-info-mobile {
+              width: 100%;
+              .owner-profile {
+                display: block;
+                img {
+                  width: 93px;
+                  height: 93px;
+                  margin-bottom: 10px;
+                }
+              }
+            }
           }
           .item-info {
             text-align: center;
             padding:15px;
             display: grid;
+            width: 100%;
 
             img {
               width:93px;
@@ -476,15 +733,48 @@
             padding:15px;
             background-color: white;
             width: 100%;
+
+            .renter-rating-container {
+              padding: 0 10%;
+
+              .owner-rating-btn {
+                margin-top: 5px;
+              }
+              & > div {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 9px 0;
+
+                .react__star__rating__lite {
+                  width: 70%;
+                  .react__star__rating__lite__stars {
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+                  }
+                }
+                .star-rating-wrapper {
+                  width: 70%;
+                  display: flex;
+                  justify-content: flex-end;
+                  font-size: 24px;
+                  i {
+                    margin: 0 3px;
+                    color: #f82462;
+                  }
+                }
+              }
+            }
             button {
-              padding: 14px 0;
+              padding: 5px 0;
             }
           }
         }
       }
       .payment-success-info {
-        border:0;
-        padding:0;
+        border: 0;
+        padding: 0;
         text-align: center;
         display: block;
         border: none;
@@ -503,6 +793,7 @@
             border-radius: 5px;
             width: 70% !important;
             box-shadow: 0 2px 22px -2px rgba(173, 173, 173, 0.2);
+
             & > div:first-child {
               justify-content: space-between;
               .payment-card-number {
@@ -532,6 +823,7 @@
         }
         .payment-status-container {
           padding: 0px 20%;
+
           .payment-status {
             padding: 5px 10px;
             font-family: Gotham Pro;
@@ -542,7 +834,15 @@
             text-transform: uppercase;
             background-color: #1CDB74;
             color: #FFFFFF;
+
+            &.warning-btn {
+              background-color: #FBF6E8;
+              color: #DBA61C;
+            }
           }
+        }
+        .payment-status-wrapper {
+          padding: 25px 20%;
         }
         .payment-result {
           .checkout-total {
@@ -572,6 +872,8 @@
         .checkout-amount {
           padding:15px;
           border: none;
+          display: block;
+
           & > div {
             display: flex;
             span {
@@ -592,7 +894,13 @@
       width: 100%;
       padding:35px;
       background-color: white;
-      border-top:1px solid #faf8f9;
+      border-top: 1px solid #faf8f9;
+
+      .rating-select-bottom {
+        button {
+          width: 100% !important;
+        }
+      }
     }
     .order-modal-footer {
       border-top: 1px solid #f3f3f3;
@@ -608,6 +916,17 @@
         padding: 14px 0;
         width: 45%;
       }
+    }
+  }
+
+  .order-history-outer-wrapper {
+    .gear_history_tab:before {
+      width: 0 !important;
+    }
+    .new-order-count {
+      width: 17px;
+      height: 17px;
+      margin-left: -10px;
     }
   }
 }

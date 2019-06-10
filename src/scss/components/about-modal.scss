@@ -1,0 +1,53 @@
+.about-modal {
+  max-width: 450px !important;
+}
+
+@media (max-width: 767px) {
+  .about-modal {
+    .period-cart-header {
+      height: 83px;
+      font-size: 20px;
+    }
+    .period-cart-body-1 {
+      .pickup-period {
+        font-size: 16px;
+        padding: 20px 50px;
+        border-bottom: solid 1px #f4f4f4;
+
+        .period-carted-product-name {
+          font-size: 16px;
+          line-height: 23px;
+          text-align: center;
+          letter-spacing: 0.09em;
+          text-transform: uppercase;
+        }
+      }
+      .pickup-date-container {
+        padding: 0 28px !important;
+      }
+      .modal-cart-control {
+        padding: 28px 21px;
+        & > button:last-child {
+          margin: 0 !important;
+        }
+      }
+      .about-period-container {
+        padding: 0;
+
+        .period-carted-product-name {
+          padding: 18px 50px !important;
+          border-bottom: solid 1px #f4f4f4;
+        }
+        img {
+          width: 63px;
+          height: 63px;
+          border-radius: 50%;
+          margin: 25px auto 13px;
+        }
+      }
+      .about-period-button-container {
+        padding: 16px 20px;
+      }
+    }
+  }
+}

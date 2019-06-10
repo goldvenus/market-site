@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, BreadcrumbItem, Table } from 'reactstrap';
+import {Table} from 'reactstrap';
 import {formatDate, calcDaysDiff} from '../../core/helper';
 import { deleteCartItem, editCart } from '../../core/actions/cart.action'
 import BarLoader from "react-bar-loader";
 import EmptyActivity from '../../components/EmptyActivity'
-import CustomSpinner from "../../components/CustomSpinner";
-import UrllinkClass from "../../components/UrllinkClass";
+import CustomSpinner from "../../components/common/CustomSpinner";
 import CartModal2 from "../../components/common/CartModal2";
+import {handleError} from "../../core/actions/common.action";
 
 class Cart extends Component {
   constructor(props) {
@@ -45,6 +45,15 @@ class Cart extends Component {
       }) : this.setState({
         isModalOpen: false
       })
+  };
+
+  proceedToCheckout = () => {
+    const { carts } = this.props;
+    if (carts && carts.length > 0) {
+      this.props.history.push('/checkout');
+    } else {
+      handleError('Your cart is empty');
+    }
   };
 
   renderCartItems() {
@@ -169,20 +178,18 @@ class Cart extends Component {
 
     return (
       <React.Fragment>
-        {
-          (isDeleting || isLoading) && <CustomSpinner/>
-        }
+        { (isDeleting || isLoading) && <CustomSpinner/> }
         <div className="cart_view centered-content">
-          <Breadcrumb className= "card_content_path">
-            <UrllinkClass name="Home"> </UrllinkClass>
-              <span className="space_slash_span">/</span>
-            <BreadcrumbItem active>Cart</BreadcrumbItem>
-          </Breadcrumb>
+          {/*<Breadcrumb className= "card_content_path">*/}
+            {/*<BreadCrumbActive name="Home"> </BreadCrumbActive>*/}
+              {/*<span className="space_slash_span">/</span>*/}
+            {/*<BreadcrumbItem active>Cart</BreadcrumbItem>*/}
+          {/*</Breadcrumb>*/}
           <div className="cart-header">
             <h2 className="theme-page-title">Cart</h2>
             <div className="flex-row d-none d-lg-flex" >
               <button className="theme-btn theme-btn-secondery"><Link to="/favourites">Favourites</Link></button>
-              <button className="theme-btn theme-btn-primary"><Link to="/checkout">Continue Shopping</Link></button>
+              <button className="theme-btn theme-btn-primary" onClick={this.proceedToCheckout}>Proceed to Checkout</button>
             </div>
           </div>
           <div className="cart-table-div">
@@ -191,7 +198,7 @@ class Cart extends Component {
             ) : (
             <Table className="theme-table">
               <thead className="cart-table-header">
-                <tr className= "d-none d-lg-table">
+                <tr>
                   <th/>
                   <th>Name & Category</th>
                   <th>Rental Period</th>
@@ -209,7 +216,7 @@ class Cart extends Component {
           </div>
           <div className="flex-row d-flex d-lg-none" >
             <button className="theme-btn theme-btn-secondery col-9"><Link to="/favourites">Favorites</Link></button>
-            <button className="theme-btn theme-btn-primary theme-btn-link col-14 continue-shpping-mobile-btn"><Link to="/rentgear">Continue Shopping</Link></button>
+            <button className="theme-btn theme-btn-primary continue-shpping-mobile-btn col-14" onClick={this.proceedToCheckout}>Proceed to Checkout</button>
           </div>
         </div>
         {

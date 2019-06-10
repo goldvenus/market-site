@@ -1,26 +1,26 @@
 .gear_history_dialog_content {
-    display: flex;
-    .gear_dialog_left_content {
-        padding-left: 40px;
-        padding-top: 40px;
-        .history_dialog_tabs {
-            padding: 30px 0;
-        }
-        .history_dialog_big_img {
-            margin-top: 30px;
-        }
+  display: flex;
+  .gear_dialog_left_content {
+    padding-left: 40px;
+    padding-top: 40px;
+    .history_dialog_tabs {
+      padding: 30px 0;
+    }
+    .history_dialog_big_img {
+      margin-top: 30px;
+    }
 
+  }
+  .gear_dialog_right {
+    .gear_dialog_rating {
+      height: 100px;
+      background-color: #f82462;
     }
-    .gear_dialog_right {
-        .gear_dialog_rating {
-            height: 100px;
-            background-color: #f82462;
-        }
-        .gear_dialog_text_content {
-            font-family: Helvetica Neue;
-            font-size: 16px;
-            line-height: 27px;
-            color: #252525;
-        }
+    .gear_dialog_text_content {
+      font-family: Helvetica Neue;
+      font-size: 16px;
+      line-height: 27px;
+      color: #252525;
     }
+  }
 }

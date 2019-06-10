@@ -4,6 +4,10 @@
     min-height: min-content;
     background: $primary-color;
 
+    .container {
+      max-width: 1345px !important;
+    }
+
     @include media-breakpoint-down(md) {
       height: calc(100vh - #{$navbar-height-md});
     }
@@ -13,7 +17,7 @@
     }
 
     .hero-logo {
-      margin: 75px 0 90px;
+      margin: 79px 0 73px;
       border: none;
       padding: 0;
       width: 290px;
@@ -34,7 +38,7 @@
       margin: 0 0 25px;
       border: none;
       padding: 0;
-      font-size: 44px;
+      font-size: 49px;
       line-height: 1.3em;
       color: $white;
 
@@ -50,8 +54,7 @@
       border: none;
       padding: 0;
       font-size: 18px;
-      font-weight: lighter;
-      letter-spacing: 1px;
+      letter-spacing: 0.6px;
       line-height: 1em;
       color: $white;
 
@@ -70,7 +73,7 @@
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      margin: 0 0 95px;
+      margin: 0 0 98px;
       font-size: 14px;
       font-weight: lighter;
       letter-spacing: 1px;
@@ -123,7 +126,11 @@
         }
 
         &:first-child {
-          margin-left: 10px;
+          margin-left: 0;
+        }
+        
+        &:last-child {
+          text-decoration: underline;
         }
       }
 
@@ -137,7 +144,7 @@
       flex-direction: row;
       align-items: center;
       justify-content: stretch;
-      margin: 0 0 300px;
+      margin: 0 0 270px;
       width: 100%;
       max-width: 727px;
 
@@ -194,26 +201,45 @@
             flex-wrap: wrap;
             overflow: auto;
 
-            .search-addon-item {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              margin: 0;
-              border: none;
-              padding: 10px 22px;
-              height: 50px;
+            & > div {
+              width: 100%;
 
-              span {
+              .search-category-item {
                 display: flex;
                 align-items: center;
-                justify-content: center;
                 margin: 0;
                 border: none;
-                border-bottom: 1px solid $primary-light-color;
-                padding: 2px;
-                color: $primary-color;
-                font-size: 16px;
+                padding: 5px 15px;
+                height: 35px;
+                width: 50%;
+                float: left;
+
+                span {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  margin: 0;
+                  border: none;
+                  border-bottom: 1px solid $primary-light-color;
+                  padding: 2px;
+                  color: $primary-color;
+                  font-size: 12px;
+                }
               }
+              .search-product-item {
+                width: 100%;
+                color: #252525;
+                padding: 5px 15px;
+                font-size: 16px;
+                line-height: 27px;
+                cursor: pointer;
+              }
+              .material-input-dropdown-item:hover {
+                background-color: #e2e3e5;
+              }
+            }
+            .search-brand-category-wrapper {
+              border-bottom: solid 1px #F2F2F2;
             }
           }
         }
@@ -412,8 +438,90 @@
   }
 }
 
+.home-body, about-us-body {
+  .container {
+    max-width: 1345px !important;
+  }
+  .home-subsection {
+    .first-left-div {
+      margin-top: 21px;
+    }
+    .second-right {
+      margin-top: 47px;
+      padding-left: 139px;
+    }
+    .third-left {
+      margin-top: 35px;
+    }
+    &:first-child {
+      margin: 183px 0 0;
+    }
+    &:nth-child(2) {
+      margin: 294px 0 0;
+    }
+    &:last-child {
+      margin: 310px 0 0;
+      padding-bottom: 288px;
+    }
+
+    .back-img {
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    .rent-gear-back-img {
+      height: 365px;
+      margin-left: -7px;
+      background-image: url('/images/home/undraw_maker_launch_crhe.png');
+    }
+    .add-gear-back-img {
+      height: 386px;
+      margin-left: -12px;
+      background-image: url('/images/home/undraw_make_it_rain_iwk4 (1).png');
+    }
+    .secure-back-img {
+      height: 389px;
+      margin-left: -7px;
+      margin-top: 1px;
+      background-image: url('/images/home/undraw_secure_data_0rwp.png');
+    }
+    h2 {
+      font-family: Gotham Pro;
+      font-size: 43px;
+      line-height: 56px;
+      color: #252525;
+      font-weight: 900;
+    }
+    p {
+      font-size: 16px;
+      line-height: 27px;
+      color: #252525;
+      margin: 42px 0 40px;
+      width: 84%;
+    }
+    button {
+      font-size: 16px;
+      line-height: 20px;
+      text-align: center;
+      color: #FFFFFF;
+      padding: 14px 47px;
+      vertical-align: middle;
+      font-weight: 600;
+    }
+    .signup-text {
+      margin: 45px 0 52px;
+    }
+    .first-text {
+      margin: 45px 0 63px;
+    }
+    .second-text {
+      margin: 41px 0 43px;
+    }
+  }
+}
+
 .flickity-page-dots {
-  bottom: 0px;
+  bottom: 0;
   list-style: none;
   display: flex;
 }
@@ -447,12 +555,24 @@
     width: 15px
   }
 }
+
 .row {
   margin-left: 0;
   margin-right: 0;
 }
 
-@media (min-width: 567px) and (max-width: 991.98px) {
+@media (max-width: 1099px) {
+  .home-subsection {
+    text-align: center;
+
+    p {
+      width: 100% !important;
+    }
+    .second-right {
+      padding: 0 15px !important;
+    }
+  }
+
   .footer-bottom,
   .footer-nav {
     display: none;
@@ -500,6 +620,11 @@
     bottom: 50px;
   }
 
+  .home-page {
+    .hero-searches {
+      max-width: unset !important;
+    }
+  }
   .home-page .slider-3 .slide .mb-3 {
     display: flex;
   }
@@ -556,6 +681,23 @@
     max-width: 569px;
   }
 }
+
+@media (max-width: 767px) {
+  .home-subsection {
+    margin-top: 50px !important;
+
+    &:last-child {
+      padding: 0 0 50px !important;
+    }
+    button {
+      width: 100% !important;
+    }
+    .first-left-div, .third-left {
+      order: 1;
+    }
+  }
+}
+
 @media(min-width: 318px) {
   .paySection1 {
     min-height: 420px;

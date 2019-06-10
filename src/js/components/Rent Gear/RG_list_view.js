@@ -4,17 +4,17 @@ import {
   Col, Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle
 } from 'reactstrap';
-import { withRouter } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import { addFavourites, deleteFavourite } from '../../core/actions/favourite.action';
+import {handleError} from "../../core/actions/common.action";
 
-const ListView = ({ gear_detail: { numberOfUserImage, brand, productName, total_rating, city, rating, pricePerDay, gearid, description },
-    history, favored, carted, onOpenModal }) => {
+const ListView = ({ gear_detail: { numberOfUserImage, brand, productName, city, rating, pricePerDay, gearid, description, categoryName },
+    history, favored, carted, onOpenModal, user }) => {
   return (
     <Col sm="24">
-      <Card className="gear_list_view">
+      <Card className="gear_list_view" onClick={() => history.push(`/gear/detail/${gearid}`, {categoryName})}>
         <div className="card-img">
-          <CardImg top width="100%" src={numberOfUserImage ? numberOfUserImage[0] : []} alt="Card image cap" onClick={() => {
-              history.push(`/gear/detail/${gearid}`);}} />
+          <CardImg top width="100%" src={numberOfUserImage ? numberOfUserImage[0] : []} alt="Card image cap"/>
         </div>
         <CardBody>
           <div className="card-center">
@@ -31,11 +31,11 @@ const ListView = ({ gear_detail: { numberOfUserImage, brand, productName, total_
                 }
               </span> &nbsp;
               <span>
-                {rating}
+                5,0&nbsp;
               </span>
               <span className="total">
-                {`(${total_rating})`}
-              </span>&nbsp;  &nbsp;
+                ({rating})&nbsp;
+              </span>
               <span className="address">
                 <i className="fa fa-map-marker" aria-hidden="true"/>&nbsp;
                 {city}
@@ -51,8 +51,13 @@ const ListView = ({ gear_detail: { numberOfUserImage, brand, productName, total_
               <span className="theme-text-small text-gray"> / per day</span>
             </CardText>
             <div className="buttons">
-              <div className='cart theme-btn theme-btn-primary' onClick={() => onOpenModal(gearid)}>Add to cart</div>
-              <div className="fav" onClick={() => {
+              <div className='cart theme-btn theme-btn-primary' onClick={(e) => {e.stopPropagation();onOpenModal(gearid)}}>Add to cart</div>
+              <div className="fav" onClick={(e) => {
+                e.stopPropagation();
+                if (!user) {
+                  handleError('Please sign in');
+                  return;
+                }
                   favored>0 ? deleteFavourite({ gearid }) : addFavourites({ gearid })
                 }}><i className={favored>0 ? "fas fa-heart" : "far fa-heart"}/></div>
             </div>
