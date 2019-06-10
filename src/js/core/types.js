@@ -60,6 +60,10 @@ export default keyMirror({
   DELETE_GEAR_SUCCESS: null,
   DELETE_GEAR_FAILED: null,
   
+  GET_GEARS_BRIEF_INFO_REQUEST: null,
+  GET_GEARS_BRIEF_INFO_SUCCESS: null,
+  GET_GEARS_BRIEF_INFO_FAILED: null,
+  
   // products search
   SEARCH_PRODUCTS_REQUEST: null,
   SEARCH_PRODUCTS_SUCCESS: null,

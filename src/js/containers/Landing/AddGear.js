@@ -8,7 +8,7 @@ import {
 import CustomInput from '../../components/CustomInput';
 import CustomCarousel from '../../components/CustomCarousel';
 import {handleError, readFileData} from '../../core/actions/common.action';
-import {addGear} from '../../core/actions/gear.action';
+import {addGear, getGearsBriefInfo} from '../../core/actions/gear.action';
 import Textarea from "muicss/lib/react/textarea";
 import CustomSpinner from "../../components/common/CustomSpinner";
 import TextField from "@material-ui/core/TextField/TextField";
@@ -19,6 +19,7 @@ import CustomInputWithButton from "../../components/common/CustomInputWithButton
 import {fetchCategories} from "../../core/actions/category.action";
 import {CloseIcon} from "../../components/common/IconComponent";
 import imageCompression from "browser-image-compression";
+import CustomAutoComplete from "../../components/common/CustomAutoComplete";
 
 class AddGear extends Component {
   constructor(props) {
@@ -40,6 +41,7 @@ class AddGear extends Component {
       model: '',
       description: '',
       isKit: false,
+      isSelected: false,
       accessories: [],
       numberOfUserImage: [],
       city: '',
@@ -50,6 +52,8 @@ class AddGear extends Component {
       pricePerDay: '',
       productName: '',
       isDoubled: false,
+      gearsList: [],
+      recommendedList: [],
       modalOpenState: 1,
       busy: false
     };
@@ -60,6 +64,7 @@ class AddGear extends Component {
   
   async componentDidMount() {
     await fetchCategories();
+    getGearsBriefInfo();
     this._isMounted = true;
     // let ret = await getUsedNames();
     // if (ret) {
@@ -70,6 +75,13 @@ class AddGear extends Component {
   
   componentWillUnmount() {
     this._isMounted = false;
+  }
+  
+  componentWillReceiveProps(nextProps) {
+    if (nextProps && this.props && this.props.briefGearList !== nextProps.briefGearList) {
+      let gearsList = nextProps.briefGearList.map(item => ({label: item.productName || ''}));
+      this.setState({gearsList});
+    }
   }
   
   autoGenerateSuggestions = () => {
@@ -185,6 +197,20 @@ class AddGear extends Component {
     });
   };
   
+  handleGearChange = (val) => {
+    let {recommendedList} = this.state;
+    let {briefGearList} = this.props;
+    let newGear = briefGearList.filter(item => item.productName === val);
+    recommendedList = [...recommendedList, newGear[0]];
+    this.setState({recommendedList});
+  };
+  
+  handleGearDelete = (val) => {
+    let {recommendedList} = this.state;
+    recommendedList = recommendedList.filter(item => item.productName !== val);
+    this.setState({recommendedList});
+  };
+  
   renderProgress() {
     const {progressStep} = this.state;
     let isDone = true;
@@ -209,8 +235,8 @@ class AddGear extends Component {
   }
   
   renderInfo() {
-    const {selectedType, brand, model, isKit, categoryName, accessories, dropdownOpen, productName, description} = this.state;
-    const {categories} = this.props;
+    let {selectedType, brand, model, isKit, categoryName, accessories, dropdownOpen, productName, description, gearsList} = this.state;
+    let {categories} = this.props;
     
     return (
       <div className="theme-form add-gear-info container" id="tablet-form">
@@ -329,6 +355,19 @@ class AddGear extends Component {
                 disabled={!isKit ? 'disabled' : ''}
               >+ Add</button>
             </div>
+            <div className='recommended-container'>
+              <div className="theme-text-small">Recommended Products</div>
+              <div className='gear-list-container'>
+                {gearsList.length > 0 ?
+                <CustomAutoComplete
+                  gears={gearsList}
+                  floatingLabel='Select Gear'
+                  handleGearChange={this.handleGearChange}
+                  handleGearDelete={this.handleGearDelete}
+                  initialSelectedItem={[]}
+                /> : null}
+              </div>
+            </div>
           </div>
         </div>
       </div>);
@@ -430,7 +469,7 @@ class AddGear extends Component {
       description,
       replacementValue,
       pricePerDay,
-      isKit
+      isSelected
     } = this.state;
     
     let mappedAccessories = accessories.map((accessory, index) => (
@@ -500,7 +539,7 @@ class AddGear extends Component {
         </div>
         <div>
           <div className="input_svg pretty p-svg p-plain">
-            <input  type="checkbox" onChange={this.handleSetRead} checked={isKit ? 'checked' : ''}/>
+            <input  type="checkbox" onChange={this.handleSetRead} checked={isSelected ? 'checked' : ''}/>
             <div className="state">
               <img className="svg check_svg" alt="" src="/images/Icons/task.svg"/>
             </div>
@@ -514,7 +553,7 @@ class AddGear extends Component {
           <button className="theme-btn theme-btn-secondery" onClick={this.previousStep.bind(this)}><span
             className="fa fa-angle-left d-sm-none d-md-none d-lg-block"/><span
             className="d-sm-none d-lg-none d-md-block">Back</span></button>
-          <button className="theme-btn theme-btn-primary" onClick={this.addGearDetails.bind(this)} disabled={!isKit ? 'disabled' : ''}>Submit <span
+          <button className="theme-btn theme-btn-primary" onClick={this.addGearDetails.bind(this)} disabled={!isSelected ? 'disabled' : ''}>Submit <span
             className="fa fa-angle-right"/></button>
         </div>
       </div>
@@ -603,7 +642,8 @@ class AddGear extends Component {
         maxSizeMB: 10,
         maxWidthOrHeight: 1920,
         useWebWorker: true
-      }
+      };
+      
       try {
         const compressedFile = await imageCompression(imageFile, options);
         let image = await readFileData(compressedFile);
@@ -631,6 +671,7 @@ class AddGear extends Component {
         description,
         selectedType,
         isKit,
+        isSelected,
         accessories,
         numberOfUserImage,
         city,
@@ -640,6 +681,7 @@ class AddGear extends Component {
         replacementValue,
         productName,
         pricePerDay,
+        recommendedList
       } = this.state;
       
       isKit = !!isKit;
@@ -659,19 +701,19 @@ class AddGear extends Component {
         postalCode,
         replacementValue,
         pricePerDay,
-        productName
+        productName,
+        recommendedList: recommendedList.map(item => item.gearid)
       };
       
       if (!categoryName || !brand || !model || !description || !selectedType
-        || !accessories.length || !productName || !numberOfUserImage || !city || !region ||
+        || (isKit && !accessories.length) || !productName || !numberOfUserImage || !city || !region ||
         !address || !postalCode || !replacementValue || !pricePerDay) {
         handleError("Please provide required details!");
         return;
-      } else if (!isKit) {
-        handleError("Did you read Rental Terms and Conditions?");
+      } else if (!isSelected) {
+        handleError("Please read Terms of Use");
         return;
       }
-      
       this.setState({busy: true});
       let gear = await addGear(data);
       if (gear && this._isMounted) {
@@ -699,7 +741,7 @@ class AddGear extends Component {
   };
   
   handleSetRead = () => {
-    this.setState({isKit: !this.state.isKit});
+    this.setState({isSelected: !this.state.isSelected});
   };
   
   render() {
@@ -808,7 +850,9 @@ const mapStateToProps = state => ({
   user: state.user.user,
   isLoadingUser: state.user.isLoading,
   categories: state.category.categories,
-  isLoadingCategories: state.category.isLoading
+  isLoadingCategories: state.category.isLoading,
+  isLoadingBriefInfo: state.gear.isLoadingBriefInfo,
+  briefGearList: state.gear.briefGearList
 });
 
 export default connect(mapStateToProps)(AddGear);

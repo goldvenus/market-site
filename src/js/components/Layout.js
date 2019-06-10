@@ -10,6 +10,7 @@ import {CartIcon, HeartIcon } from './common/IconComponent';
 import {getUser} from "../core/actions/user.action";
 import {getCarts} from "../core/actions/cart.action";
 import {getFavourites} from "../core/actions/favourite.action";
+import {getGearsBriefInfo} from "../core/actions/gear.action";
 
 class Layout extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class Layout extends Component {
       getUser();
       getCarts();
       getFavourites();
+      getGearsBriefInfo();
     }
   }
   

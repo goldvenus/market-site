@@ -104,6 +104,26 @@ const getListGears = async () => {
 //   }
 // };
 
+const getGearsBriefInfo = async () => {
+  dispatch({
+    type: constants.GET_GEARS_BRIEF_INFO_REQUEST
+  });
+  try {
+    let res = await get('getGearsBriefInfo');
+    if (res && res.data && res.data.status === 'success') {
+      dispatch({
+        type: constants.GET_GEARS_BRIEF_INFO_SUCCESS,
+        payload: res.data.data
+      });
+    }
+  } catch (error) {
+    handleError(error);
+    dispatch({
+      type: constants.GET_GEARS_BRIEF_INFO_FAILED
+    });
+  }
+};
+
 const rentGearProductList = async (catDetail) => {
   dispatch({
     type: constants.SEARCH_PRODUCTS_REQUEST
@@ -178,5 +198,5 @@ const deleteGear = async (data) => {
 };
 
 export {
-  addGear, deleteGear, getGear, rentGearProductList, getListGears, editGear
+  addGear, deleteGear, getGear, rentGearProductList, getListGears, editGear, getGearsBriefInfo
 };

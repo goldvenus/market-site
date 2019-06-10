@@ -3,13 +3,15 @@ import constants from "../types";
 
 const initialState = {
   gear: null,
+  gearRecommendedList: [],
   listGears: [],
-  productList: null,
   newArrivals: null,
   searchResults: [],
+  briefGearList: [],
   isLoading: false,
   isLoadingGear: false,
-  isChanging: false
+  isChanging: false,
+  isLoadingBriefInfo: false
 };
 
 export default (state = initialState, action) => {
@@ -64,7 +66,8 @@ export default (state = initialState, action) => {
         draft.isLoadingGear = true;
         break;
       case constants.GET_GEAR_SUCCESS:
-        draft.gear = action.payload;
+        draft.gear = action.payload.gear;
+        draft.gearRecommendedList = action.payload.recommendedList;
         draft.isLoadingGear = false;
         break;
       case constants.GET_GEAR_FAILED:
@@ -94,6 +97,17 @@ export default (state = initialState, action) => {
       case constants.NEW_ARRIVALS_FAILED:
         draft.newArrivals = null;
         draft.isLoading = false;
+        break;
+        
+      case constants.GET_GEARS_BRIEF_INFO_REQUEST:
+        draft.isLoadingBriefInfo = true;
+        break;
+      case constants.GET_GEARS_BRIEF_INFO_SUCCESS:
+        draft.isLoadingBriefInfo = false;
+        draft.briefGearList = action.payload;
+        break;
+      case constants.GET_GEARS_BRIEF_INFO_FAILED:
+        draft.isLoadingBriefInfo = false;
         break;
       
       default:

@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Container, Row, Col } from 'reactstrap'
 import { Link } from 'react-router-dom';
+import withSizes from "react-sizes";
+import {compose} from "redux";
 
 class Footer extends Component {
   render() {
-    // const { isAuthenticated } = this.props;
+    const { isMobile } = this.props;
     let isAddGear = this.props.location.pathname.indexOf('/addGear') >= 0;
+    
     return (
       <React.Fragment>
-        <footer style={isAddGear ? {paddingBottom: '70px'} : {}}>
+        <footer style={isAddGear && isMobile ? {paddingBottom: '70px'} : {}}>
           {/*<div className="news-letter mb-5 py-5">*/}
             {/*<Container className="news-letter-container">*/}
               {/*<Row className="align-items-center news-letter-content">*/}
@@ -153,8 +156,15 @@ class Footer extends Component {
   }
 }
 
-export default connect((store) => {
-  return {
-    isAuthenticated: store.user.isAuthenticated
-  };
-})(Footer);
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.user.isAuthenticated,
+});
+
+const mapSizesToProps = ({ width }) => ({
+  isMobile: width < 768,
+});
+
+export default compose(
+  withSizes(mapSizesToProps),
+  connect(mapStateToProps)
+)(Footer);

@@ -234,7 +234,7 @@ const mapStateToProps = store => ({
 });
 
 const mapSizesToProps = ({ width }) => ({
-    isMobile: width < 768,
+  isMobile: width < 768,
 });
 
 export default compose(

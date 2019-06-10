@@ -13,7 +13,7 @@ import {
   IconSearch,
 } from './images/index';
 import $ from 'jquery';
-import {rentGearProductList} from "../../core/actions/gear.action";
+import {getGearsBriefInfo} from "../../core/actions/gear.action";
 
 class Home extends React.Component {
   constructor(props) {
@@ -27,11 +27,7 @@ class Home extends React.Component {
       searchLocationResult: [],
     };
   
-    rentGearProductList({
-      categoryName: '',
-      product_region: '',
-      brand: ''
-    });
+    getGearsBriefInfo();
     this.gearList = [];
     this.productList = [];
     this.categoryList = [];
@@ -88,8 +84,8 @@ class Home extends React.Component {
   }
   
   componentWillReceiveProps(props) {
-    if (props.productList !== this.gearList) {
-      this.gearList = props.productList;
+    if (props.briefGearList !== this.gearList) {
+      this.gearList = props.briefGearList;
     }
   }
   
@@ -287,8 +283,8 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  productList: state.gear.searchResults,
-  isAuthenticated: state.user.isAuthenticated
+  isAuthenticated: state.user.isAuthenticated,
+  briefGearList: state.gear.briefGearList
 });
 
 export default connect(mapStateToProps)(Home);
