@@ -286,7 +286,7 @@ class RentGearDetail extends Component {
       <React.Fragment>
         {isChangingFavor && <CustomSpinner/>}
         <div className="detail-container container">
-          <h3 className='add-method-heading go-back-btn' onClick={() => this.props.history.push(`/rentGear/${categoryName}`)}>
+          <h3 className='add-method-heading go-back-btn' onClick={() => this.props.history.push(`/rent-gear?type=${categoryName}`)}>
             <i className='fa fa-arrow-left'/>
             &nbsp;Rent Gear
           </h3>
@@ -628,7 +628,7 @@ class RentGearDetail extends Component {
               <span>RECOMMENDED FOR THIS PRODUCT</span>
             </div>
             <div className='recommend-body row slider-2'>
-              {listGears && this.renderRecommendedProducts({listGears})}
+              {listGears.length ? this.renderRecommendedProducts({listGears}) : 'No recommended products'}
             </div>
           </div>
           

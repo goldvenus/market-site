@@ -136,13 +136,13 @@ class Footer extends Component {
                 <Col className="footer-privaci-policy">
                   <ul className="nav justify-content-end d-none d-md-flex">
                     <li className="nav-item">
-                      <Link className="nav-link" to='/PrivacyPolicy'>Privacy and Cookies</Link>
+                      <Link className="nav-link" to='/privacy'>Privacy and Cookies</Link>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to='/TermsAndConditions/2'>Terms of Use</Link>
+                      <Link className="nav-link" to='/terms-use'>Terms of Use</Link>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to='/TermsAndConditions/1'>Terms &amp; Condition</Link>
+                      <Link className="nav-link" to='/terms-condition'>Terms &amp; Condition</Link>
                     </li>
                   </ul>
                 </Col>

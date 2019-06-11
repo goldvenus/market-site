@@ -533,7 +533,7 @@ class GearEditModal extends Component {
                       {gearsList.length > 0 ?
                         <CustomAutoComplete
                           gears={gearsList}
-                          floatingLabel='Select Gear'
+                          floatingLabel='Search Gear'
                           handleGearChange={this.handleGearChange}
                           handleGearDelete={this.handleGearDelete}
                           initialSelectedItem={selectedItems}

@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
 import TextField from "@material-ui/core/TextField/TextField";
+import Select from 'react-select';
+import countryList from 'react-select-country-list';
 
 class Step2 extends Component {
   constructor(props) {
     super(props);
+    this.options = countryList().getData();
     let {
       IBAN,
       bankAccountHolderName,
@@ -87,13 +90,19 @@ class Step2 extends Component {
             value={state}
             onChange={e => this.handleInputChange(e, 'state')}
           />
-          <TextField
-            className='custom-beautiful-textfield'
-            label='COUNTRY'
-            placeholder='Type to search'
-            type="text"
+          {/*<TextField*/}
+            {/*className='custom-beautiful-textfield'*/}
+            {/*label='COUNTRY'*/}
+            {/*placeholder='Type to search'*/}
+            {/*type="text"*/}
+            {/*value={country}*/}
+            {/*onChange={e => this.handleInputChange(e, 'country')}*/}
+          {/*/>*/}
+          <Select
+            options={this.options}
             value={country}
-            onChange={e => this.handleInputChange(e, 'country')}
+            onChange={(e) => this.handleInputChange({target: {value: e}}, 'country')}
+            className='myclass'
           />
           <TextField
             className='custom-beautiful-textfield'

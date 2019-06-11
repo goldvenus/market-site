@@ -10,8 +10,8 @@ class TermsConditions extends Component {
   }
   
   render() {
-    let id = 1*this.props.match.params.id;
-    
+    let path = this.props.location.pathname;
+    console.log(path);
     return (
       <div className="cart_view centered-content privacy-policy-container">
         <div className="privacy-policy-head">
@@ -23,13 +23,13 @@ class TermsConditions extends Component {
                   {/*<span className="space_slash_span">/</span>*/}
                   {/*<BreadcrumbItem active>Terms and Conditions</BreadcrumbItem>*/}
                 {/*</Breadcrumb>*/}
-                <h2>{id === 1 ? 'Terms & Conditions' : 'Terms of Use'}</h2>
+                <h2>{path === '/terms-condition' ? 'Terms & Conditions' : 'Terms of Use'}</h2>
               </Col>
             </Row>
           </Container>
         </div>
         <div className="terms-conditions-body">
-          {id === 1 ? <WebsiteTermsComponent/> : <RentalTermsComponent/>}
+          {path === '/terms-condition' ? <WebsiteTermsComponent/> : <RentalTermsComponent/>}
         </div>
       </div>
     );

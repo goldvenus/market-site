@@ -26,7 +26,7 @@ class About extends Component {
                 <p className='about-text first-text'>Founded in 2018, Creative Market is a peer-to-peer rental marketplace allowing you to find and rent gear from other creatives around you. Cameras, Musical Instruments, Lights and anything else that comes to mind, Creative Market is the place to find it.</p>
                 <p className='about-text second-text'>Creative Market is a part of Ketchup Creative ehf., a privately held company registered in Iceland.</p>
                 <Link to='/contact'><button className='theme-btn theme-btn-primary contact-btn'>CONTACT</button></Link>
-                <Link to='/TermsAndConditions/2'><button className='theme-btn theme-btn-filled-white terms-btn'>TERMS OF USE</button></Link>
+                <Link to='/terms-use'><button className='theme-btn theme-btn-filled-white terms-btn'>TERMS OF USE</button></Link>
               </Col>
               <Col lg='12' md='24' className='order-lg-2 order-md-1 avatar-container'>
                 <Row className='user-avatar-container'>

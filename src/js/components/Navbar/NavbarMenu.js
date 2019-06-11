@@ -158,14 +158,14 @@ class NavbarMenu extends React.Component {
                   {isAuthenticated ?
                   <React.Fragment>
                     <li className="animated-menu-item menu-item-sm">
-                      <Link to="/rentGear/all">
+                      <Link to="/rent-gear?type=all">
                         <h2 onClick={this.toggleNavbar} >
                           Rent Gear
                         </h2>
                       </Link>
                     </li>
                     <li className="animated-menu-item menu-item-sm with-mb">
-                      <Link to="/addGear">
+                      <Link to="/add-gear">
                         <h2 onClick={this.toggleNavbar} >
                           Add Gear
                         </h2>
@@ -174,7 +174,7 @@ class NavbarMenu extends React.Component {
                   </React.Fragment> : null}
 
                   <li className="animated-menu-item">
-                    <Link to="/aboutUs" onClick={this.toggleNavbar} >
+                    <Link to="/about-us" onClick={this.toggleNavbar} >
                       <span className="dash"/>
                       About Us
                     </Link>
@@ -186,7 +186,7 @@ class NavbarMenu extends React.Component {
                     {/*</Link>*/}
                   {/*</li>*/}
                   <li className="animated-menu-item">
-                    <Link to="/FAQ" onClick={this.toggleNavbar} >
+                    <Link to="/faq" onClick={this.toggleNavbar} >
                       <span className="dash"/>
                       FAQ
                     </Link>

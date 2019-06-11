@@ -19,7 +19,7 @@ const EmptyRental = () => (
         fill="#252525"/>
     </svg>
     <p>YOUR RENTAL IS EMPTY</p>
-    <Link to='/rentGear/all' className="theme-btn theme-btn-primary ml-auto mb-3">Rent Gear</Link>
+    <Link to='/rent-gear?type=all' className="theme-btn theme-btn-primary ml-auto mb-3">Rent Gear</Link>
   </div>
 );
 

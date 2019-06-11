@@ -24,13 +24,11 @@
           &:focus {
             outline: none;
           }
-
           h3 {
             font-size: 16px;
             color: $secondary-light-color;
           }
         }
-
         .accordion__body {
           p {
             color: #6a6a6a;
@@ -38,7 +36,6 @@
         }
       }
     }
-
     .faq-form-wrapper {
       padding: 96px 113px;
       display: block;
@@ -63,9 +60,6 @@
         margin-left: 15px;
         color: #252525;
         opacity: 0.8;
-      }
-      input {
-        padding-left: 15px;
       }
       .custom-beautiful-textfield {
         width: 100%;

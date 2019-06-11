@@ -3,6 +3,7 @@ import { Container, Row, Col } from 'reactstrap';
 import Sidebar from '../../components/Rent Gear/RG_sidebar';
 import Main from '../../components/Rent Gear/RG_main';
 import connect from "react-redux/es/connect/connect";
+import queryString from 'query-string'
 import CustomLoaderLogo from "../../components/common/CustomLoaderLogo";
 import {fetchCategories} from "../../core/actions/category.action";
 
@@ -13,8 +14,8 @@ class RentGear extends React.Component {
   }
   
   render() {
-    let {categories, isLoading} = this.props;
-    let category = this.props.match.params.id;
+    let {categories, isLoading, location} = this.props;
+    let category = queryString.parse(location.search).type;
     if (isLoading || !categories) {
       return <CustomLoaderLogo/>;
     }
