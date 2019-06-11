@@ -15,10 +15,9 @@ class RentGear extends React.Component {
   render() {
     let {categories, isLoading} = this.props;
     let category = this.props.match.params.id;
-    if (isLoading) {
+    if (isLoading || !categories) {
       return <CustomLoaderLogo/>;
     }
-  
     categories = categories.reduce((arr, item) => arr.concat(item.categoryName), []);
 
     return (

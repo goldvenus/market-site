@@ -11,7 +11,7 @@ import 'react-date-range/dist/theme/default.css';
 import {DateRange} from 'react-date-range';
 import TextField from '@material-ui/core/TextField';
 import CustomCarousel from '../../components/CustomCarousel';
-import {getGear, rentGearProductList} from "../../core/actions/gear.action";
+import {getGear} from "../../core/actions/gear.action";
 import {addFavourites, deleteFavourite} from "../../core/actions/favourite.action";
 import {addCart} from "../../core/actions/cart.action";
 import {handleError} from '../../core/actions/common.action';
@@ -47,16 +47,15 @@ class RentGearDetail extends Component {
       modal_open_st: 0,
       carted: false,
       gear: {},
-      busy: false,
-      recommendedList: []
+      busy: false
     };
     
     getGear(this.gearid);
-    props.location.state && rentGearProductList({
-      categoryName: props.location.state.categoryName,
-      product_region: '',
-      brand: ''
-    });
+    // props.location.state && rentGearProductList({
+    //   categoryName: props.location.state.categoryName,
+    //   product_region: '',
+    //   brand: ''
+    // });
   }
   
   componentDidMount() {
@@ -77,7 +76,6 @@ class RentGearDetail extends Component {
   addToCart = async () => {
     try {
       const {startDate, endDate, gear} = this.state;
-      console.log("==============", startDate, endDate);
       if (startDate && endDate && this._mounted) {
         await addCart({
           gearid: gear.gearid,
@@ -167,8 +165,8 @@ class RentGearDetail extends Component {
       const cart = gearid && carts && carts.length > 0 ?
         carts.filter(item => item.gearid === gearid) : 0;
       const carted = cart.length;
-      const {searchResults} = this.props;
-      let gear = searchResults.filter(item => item.gearid === gearid);
+      const {gearRecommendedList} = this.props;
+      let gear = gearRecommendedList.filter(item => item.gearid === gearid);
       gear = gear[0];
       
       const open_state = carted ? 1 : 2;
@@ -247,7 +245,7 @@ class RentGearDetail extends Component {
   };
   
   renderContent = () => {
-    const {gear, user, carts, favourites, isChangingFavor, isLoadingGear, searchResults} = this.props;
+    const {gear, user, carts, favourites, isChangingFavor, isLoadingGear, gearRecommendedList} = this.props;
     if (!gear || isLoadingGear)
       return <CustomLoaderLogo/>;
       
@@ -267,7 +265,7 @@ class RentGearDetail extends Component {
     const is_view_more = description.length > 250;
     let descp = is_first_enter ? (is_view_more ? `${description.substr(0, 250)} ...` : description) :
       this.state.show_view_more ? `${description.substr(0, 250)} ...` : description;
-    const listGears = searchResults;
+    const listGears = gearRecommendedList;
     const selectionRange = {
       startDate: this.state.startDate,
       endDate: this.state.endDate,
@@ -684,8 +682,9 @@ class RentGearDetail extends Component {
 
 const mapStateToProps = state => ({
   gear: state.gear.gear,
+  gearRecommendedList: state.gear.gearRecommendedList,
   isLoadingGear: state.gear.isLoadingGear,
-  searchResults: state.gear.searchResults,
+  // searchResults: state.gear.searchResults,
   user: state.user.user,
   carts: state.cart.carts,
   favourites: state.favourite.favourites,

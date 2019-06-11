@@ -35,7 +35,7 @@ class Main extends Component {
       },
       product_list: [],
       loading: true,
-      category: this.props.category || '',
+      category: this.props.category || 'all',
       cart_adding: false
     };
   }

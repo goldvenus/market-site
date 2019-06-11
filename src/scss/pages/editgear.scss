@@ -225,6 +225,12 @@
               border-color: #252525;
             }
           }
+          .recommended-container {
+            .theme-text-small {
+              color: #A4A4A4;
+              margin-bottom: 10px;
+            }
+          }
         }
       }
       .ELBL_photos{
@@ -243,7 +249,6 @@
           .add-gear-image, .add-gear-addimage {
             height: 100px;
             width: 100px;
-            border: 1px solid lightgray;
             margin: 0 10px 10px 0;
             display: flex;
             align-items: center;
@@ -255,18 +260,43 @@
               margin:0;
             }
             img {
-              width: 100%;
+              width: 100px;
+              height: 100px;
             }
             input {
               cursor: pointer;
             }
-          }
+            svg {
+              position: absolute;
+              width: 25px;
+              background: #e9eae8;
+              height: 25px;
+              border-radius: 50%;
+              padding: 5px;
+              margin-top: -42px;
+              margin-left: -32px;
+              cursor: pointer;
+              opacity: 0;
+              transition: all 0.2s ease-in-out;
 
+              path {
+                stroke: #252525;
+              }
+            }
+            &:hover {
+              svg {
+                opacity: 0.8;
+              }
+            }
+          }
           .add-gear-addimage {
             i {
-              font-size: 30px;
+              font-size: 35px;
               color: $primary-color;
             }
+          }
+          .file-input-container {
+            border: solid 1px #feeef3;
           }
         }
       }

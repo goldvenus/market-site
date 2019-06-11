@@ -412,10 +412,16 @@
         margin-top: -42px;
         margin-left: -32px;
         cursor: pointer;
-        opacity: 0.8;
+        opacity: 0;
+        transition: all 0.2s ease-in-out;
 
         path {
           stroke: #252525;
+        }
+      }
+      &:hover {
+        svg {
+          opacity: 0.8;
         }
       }
     }
@@ -474,6 +480,19 @@
         input {
           margin: 0 !important;
         }
+      }
+    }
+  }
+}
+
+.recommended-container {
+  margin-top: 25px;
+
+  .gear-list-container {
+    & > div > div > div > div {
+      flex-wrap: wrap;
+      & > div {
+        margin: 2px;
       }
     }
   }

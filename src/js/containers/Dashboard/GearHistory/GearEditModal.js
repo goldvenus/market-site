@@ -14,14 +14,15 @@ import ConfirmModal from "../../../components/common/ConfirmModal";
 import TextField from "@material-ui/core/TextField/TextField";
 import CustomInputWithButton from "../../../components/common/CustomInputWithButton";
 import imageCompression from "browser-image-compression";
+import CustomAutoComplete from "../../../components/common/CustomAutoComplete";
+import {CloseIcon} from "../../../components/common/IconComponent";
 
 class GearEditModal extends Component {
   constructor(props) {
     super(props);
 
-    this.usedNames = [];
+    // this.usedNames = [];
     this.suggestions = [];
-
     this.state = {
       dropdownOpen: false,
       selectedType: '',
@@ -44,14 +45,14 @@ class GearEditModal extends Component {
       pricePerDay: '',
       productName: '',
       isDoubled: false,
-
+      recommendedList: [],
+      gearsList: [],
       startDate: new Date(),
       endDate: new Date(),
       busy: false,
       curImage: null,
-      isOpenConfirm: false
+      isOpenConfirm: false,
     };
-    
     this.gearid = this.props.gearid;
   }
 
@@ -67,6 +68,10 @@ class GearEditModal extends Component {
 
   componentWillReceiveProps(props) {
     if (!!props.gear) {
+      let recommendedList = props.briefGearList.filter(item => props.gear.recommendedList && props.gear.recommendedList.indexOf(item.gearid) >= 0);
+      // recommendedList = recommendedList.map(item => ({label: item.productName}));
+      let gearsList = props.briefGearList.map(item => ({label: item.productName || ''}));
+      
       this.setState({
         gearid: this.gearid,
         categoryName: props.gear.categoryName,
@@ -83,8 +88,11 @@ class GearEditModal extends Component {
         postalCode: props.gear.postalCode,
         replacementValue: props.gear.replacementValue,
         pricePerDay: props.gear.pricePerDay,
-        productName: props.gear.productName ? props.gear.productName : ''
+        productName: props.gear.productName ? props.gear.productName : '',
+        recommendedList,
+        gearsList
       }, this.addSuggestions);
+      
     }
   }
 
@@ -133,10 +141,10 @@ class GearEditModal extends Component {
       categoryName,
       brand,
       model,
+      isKit,
       productName,
       description,
       selectedType,
-      isKit,
       accessories,
       numberOfUserImage,
       numberOfUserImageNew,
@@ -146,7 +154,8 @@ class GearEditModal extends Component {
       address,
       postalCode,
       replacementValue,
-      pricePerDay
+      pricePerDay,
+      recommendedList
     } = this.state;
   
     let emptyCount = accessories.filter(item => item.value === '');
@@ -161,9 +170,9 @@ class GearEditModal extends Component {
       categoryName: categoryName.replace(' ', ''),
       brand,
       model,
+      isKit,
       description,
       type: selectedType,
-      isKit,
       accessories: accessories.map(item => item.value),
       numberOfUserImage,
       numberOfUserImageRemoved,
@@ -174,7 +183,8 @@ class GearEditModal extends Component {
       postalCode,
       replacementValue,
       pricePerDay,
-      productName: productName
+      productName: productName,
+      recommendedList: recommendedList.map(item => item.gearid)
     };
 
     this.setState({busy: true});
@@ -264,6 +274,20 @@ class GearEditModal extends Component {
   handleCloseConfirm = () => {
     this.setState({isOpenConfirm: false});
   };
+  
+  handleGearChange = (val) => {
+    let {recommendedList} = this.state;
+    let {briefGearList} = this.props;
+    let newGear = briefGearList.filter(item => item.productName === val);
+    recommendedList = [...recommendedList, newGear[0]];
+    this.setState({recommendedList});
+  };
+  
+  handleGearDelete = (val) => {
+    let {recommendedList} = this.state;
+    recommendedList = recommendedList.filter(item => item.productName !== val);
+    this.setState({recommendedList});
+  };
 
   renderInfo() {
     let {brand, model, categoryName, productName} = this.state;
@@ -341,9 +365,10 @@ class GearEditModal extends Component {
 
     const mappedImages = [...numberOfUserImage, ...numberOfUserImageNew].map((image, index) => (
       <div className="add-gear-image" key={'gear-image-' + index}>
-        <img src={image} alt="add gear" onClick={() => {
+        <img src={image} alt="add gear"/>
+        <div onClick={() => {
           this.setState({curImage: image, isOpenConfirm: true})
-        }}/>
+        }}><CloseIcon/></div>
       </div>
     ));
     return (<div className="add-gear-photos">
@@ -413,13 +438,16 @@ class GearEditModal extends Component {
   }
 
   render() {
-    const {gear, onClose, onCalendar, isLoadingCategories, isLoadingGear, onDelete} = this.props;
-    const {gearid} = this.state;
-    if (!gear || !gearid || isLoadingCategories) {
+    let {gear, onClose, onCalendar, isLoadingCategories, isLoadingGear, onDelete} = this.props;
+    let {gearid, recommendedList, gearsList} = this.state;
+    
+    if (!gear || !gearid || isLoadingCategories || isLoadingGear) {
       return <CustomSpinner/>;
     }
+    
     const {selectedType, replacementValue, pricePerDay, accessories, isKit, description} = this.state;
-
+    const selectedItems = recommendedList.map(item => item.productName);
+    
     return (
       <Modal open={true} onClose={onClose} center classNames={{modal: "gear-edit-modal gear-delete-modal"}}>
         {(this.state.busy || isLoadingGear) && <CustomSpinner/>}
@@ -499,6 +527,19 @@ class GearEditModal extends Component {
                       disabled={!isKit ? 'disabled' : ''}
                     >+ Add</button>
                   </div>
+                  <div className='recommended-container'>
+                    <div className="theme-text-small">Recommended Products</div>
+                    <div className='gear-list-container'>
+                      {gearsList.length > 0 ?
+                        <CustomAutoComplete
+                          gears={gearsList}
+                          floatingLabel='Select Gear'
+                          handleGearChange={this.handleGearChange}
+                          handleGearDelete={this.handleGearDelete}
+                          initialSelectedItem={selectedItems}
+                        /> : null}
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="ELBL_photos">
@@ -549,7 +590,8 @@ class GearEditModal extends Component {
 const mapStateToProps = state => ({
   gear: state.gear.gear,
   categories: state.category.categories,
-  isLoadingGear: state.gear.isLoadingGear
+  isLoadingGear: state.gear.isLoadingGear,
+  briefGearList: state.gear.briefGearList
 });
 
 export default connect(mapStateToProps)(GearEditModal);
