@@ -80,7 +80,7 @@ class Footer extends Component {
             <Container>
               <div className="row footer-top-wrapper">
                 <div>
-                  <Link to='/'><img src='/images/Logo.png' alt=''/></Link>
+                  <Link to='/'><img src='/images/logo-small.svg' alt=''/></Link>
                 </div>
                 <div>
                   <img src='/images/Emails.png' alt=''/>

@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { socialLogin } from '../../core/actions/user.action';
 import MaterialInputWithDropdown from '../../components/common/MaterialInputWithDropdown';
 
-import imgLogo from './images/logo.png';
 import {
   IconBtnCamera,
   IconBtnDrone,
@@ -176,7 +175,7 @@ class Home extends React.Component {
 
             <div className="row">
               <div className="col d-flex flex-column">
-                <img className="hero-logo" src={imgLogo} alt="Creative Market"/>
+                <img className="hero-logo" src="/images/logo-small.svg" alt="Creative Market"/>
 
                 <h1 className="hero-title">
                   Rent Creative <br className="d-md-none d-block"/>Gear Close By

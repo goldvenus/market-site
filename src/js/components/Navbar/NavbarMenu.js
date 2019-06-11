@@ -136,7 +136,7 @@ class NavbarMenu extends React.Component {
             ? (
               <React.Fragment>
                 <Link to='/'><li>
-                  <img className="navbar-sm__logo" src={imgLogoSm} alt="CreativeMarket"/>
+                  <img className="navbar-sm__logo" src="/images/logo-small.svg" alt="CreativeMarket"/>
                 </li></Link>
 
                 {output}
@@ -172,19 +172,26 @@ class NavbarMenu extends React.Component {
                       </Link>
                     </li>
                   </React.Fragment> : null}
-
+  
+                  <li className="animated-menu-item menu-item-lg">
+                    <Link to="/rent-gear?type=all" onClick={this.toggleNavbar} >
+                      <span className="dash"/>
+                      Rent Gear
+                    </Link>
+                  </li>
+                  <li className="animated-menu-item menu-item-lg">
+                    <Link to="/add-gear" onClick={this.toggleNavbar} >
+                      <span className="dash"/>
+                      Add Gear
+                    </Link>
+                  </li>
+                  
                   <li className="animated-menu-item">
                     <Link to="/about-us" onClick={this.toggleNavbar} >
                       <span className="dash"/>
                       About Us
                     </Link>
                   </li>
-                  {/*<li className="animated-menu-item">*/}
-                    {/*<Link to="/Partners" onClick={this.toggleNavbar} >*/}
-                      {/*<span className="dash"/>*/}
-                      {/*Partners*/}
-                    {/*</Link>*/}
-                  {/*</li>*/}
                   <li className="animated-menu-item">
                     <Link to="/faq" onClick={this.toggleNavbar} >
                       <span className="dash"/>

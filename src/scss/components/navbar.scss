@@ -358,6 +358,23 @@ header {
                 margin-bottom: 10px;
               }
             }
+            &.menu-item-lg {
+              width: 100% !important;
+              display: flex;
+
+              @include media-breakpoint-down(sm) {
+                display: none;
+              }
+
+              h2 {
+                font-size: 27px;
+                color: $white;
+              }
+
+              &.with-mb {
+                margin-bottom: 10px;
+              }
+            }
           }
         }
 
