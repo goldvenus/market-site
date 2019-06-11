@@ -86,7 +86,7 @@ class Register extends Component {
             isRegistered ? (
               <div className="success-message-container">
                 <div className="login success-message register-success-message">
-                  <h1 className="header"><i className="fa fa-check-circle primary-color"/> Successfully</h1>
+                  <h1 className="header"><i className="fa fa-check-circle primary-color"/> Sign up successful</h1>
                   <div className="subheader">
                   <span>
                     To confirm your account,<br/> check your email for verification code

@@ -26,11 +26,11 @@
   }
 
   @include media-breakpoint-down(md) {
-    margin: $navbar-height-md 0 0;
+    padding: $navbar-height-md 0 0;
   }
 
   @include media-breakpoint-down(sm) {
-    margin: $navbar-height-sm 0 0;
+    padding: $navbar-height-sm 0 0;
   }
 }
 

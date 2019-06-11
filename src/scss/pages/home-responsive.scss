@@ -58,6 +58,11 @@
       letter-spacing: 0.6px;
       line-height: 1em;
       color: $white;
+      font-weight: 300;
+
+      b {
+        font-weight: 600;
+      }
 
       @include media-breakpoint-down(md) {
         margin: 0 0 40px;
@@ -573,6 +578,15 @@
     .second-right {
       padding: 0 15px !important;
     }
+    .rent-gear-back-img {
+      margin-left: 0 !important;
+    }
+    .add-gear-back-img {
+      margin-left: 0 !important;
+    }
+    .secure-back-img {
+      margin-left: 0 !important;
+    }
   }
 
   .footer-bottom,
@@ -696,15 +710,6 @@
     }
     .first-left-div, .third-left {
       order: 1;
-    }
-    .rent-gear-back-img {
-      margin-left: 0 !important;
-    }
-    .add-gear-back-img {
-      margin-left: 0 !important;
-    }
-    .secure-back-img {
-      margin-left: 0 !important;
     }
   }
 }

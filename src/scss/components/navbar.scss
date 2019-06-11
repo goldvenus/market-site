@@ -20,13 +20,6 @@ header {
   }
 }
 
-.app-content {
-  @include media-breakpoint-down(sm) {
-    margin-top: 0;
-    padding-top: 70px;
-  }
-}
-
 .navbar-wrapper {
   position: relative;
   display: flex;
@@ -444,7 +437,7 @@ header {
               justify-content: center;
             }
 
-            span {
+            a {
               font-size: 35px;
               margin: -10px 50px 5px 0;
 

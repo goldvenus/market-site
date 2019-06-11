@@ -604,8 +604,10 @@ class AddGear extends Component {
         const {categoryName, brand, model, description, selectedType, productName, accessories, isKit} = this.state;
         let emptyCount = accessories.filter(item => item.value === '');
         let isSetAccessorise = (!isKit || (isKit && emptyCount.length === 0));
-        if (isKit && accessories.length === 0)
-          isSetAccessorise = false;
+        if (isKit && accessories.length === 0) {
+          handleError('Please add at least one accessory');
+          return false;
+        }
         
         if (isSetAccessorise && categoryName && categoryName !== 'Select Category' && brand && model && description && selectedType && productName) {
           return true;
