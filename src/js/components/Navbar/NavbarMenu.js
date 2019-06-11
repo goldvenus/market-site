@@ -154,7 +154,7 @@ class NavbarMenu extends React.Component {
             <Row>
               <Col xs={24} lg={12}>
                 <ul className="menu-links-wrapper">
-                  {isAuthenticated ?
+                  {/*{isAuthenticated ?*/}
                   <React.Fragment>
                     <li className="animated-menu-item menu-item-sm">
                       <Link to="/rent-gear?type=all">
@@ -170,7 +170,8 @@ class NavbarMenu extends React.Component {
                         </h2>
                       </Link>
                     </li>
-                  </React.Fragment> : null}
+                  </React.Fragment>
+                  {/*: null}*/}
   
                   <li className="animated-menu-item menu-item-lg">
                     <Link to="/rent-gear?type=all" onClick={this.toggleNavbar} >

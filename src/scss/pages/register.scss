@@ -147,10 +147,13 @@
       }
     }
   }
-}
+  .verification-code-input-wrapper {
+    width: 100% !important;
 
-.verification-code {
-  padding-top: 15px;
+    .custom-beautiful-textfield {
+      width: 100%;
+    }
+  }
 }
 
 .term-view-container {
@@ -355,6 +358,7 @@
   }
   .register-success-message {
     margin: 0 !important;
+    display: flex !important;
   }
   .success-message {
     border: none !important;
@@ -396,6 +400,13 @@
       h4 {
         margin-top: 10px;
       }
+    }
+  }
+  .verification-code-input-wrapper {
+    width: 100% !important;
+
+    .custom-beautiful-textfield {
+      width: 100%;
     }
   }
 }

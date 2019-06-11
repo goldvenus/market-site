@@ -10,6 +10,7 @@ import CustomSpinner from "../../components/common/CustomSpinner";
 import TextField from "@material-ui/core/TextField/TextField";
 import Navbar from "../../components/Navbar/Navbar";
 import Modal from "react-responsive-modal";
+import $ from "jquery";
 import PrivacyPolicyComponent from "../TermsAndPolicy/PrivacyPolicyComponent";
 import RentalTermsComponent from "../TermsAndPolicy/RentalTermsComponent";
 
@@ -31,6 +32,14 @@ class Register extends Component {
       isChecked: false,
       modalOpenState: 0
     };
+  }
+  
+  componentDidMount() {
+    $("#root").css('min-height', '70vh');
+  }
+  
+  componentWillUnmount() {
+    $("#root").css('min-height', '111vh');
   }
   
   handleSetRead = () => {
