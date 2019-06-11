@@ -13,7 +13,7 @@ import {
 } from './NavbarMenu.animation';
 
 import NavbarDropdown from './NavbarDropdown';
-import {CartIcon, CloseIcon, HeartIcon, OpenIcon} from "../common/IconComponent";
+import {CartIcon, CloseIcon, CloseIconMobile, HeartIcon, OpenIcon, OpenIconMobile} from "../common/IconComponent";
 import { compose } from "redux";
 import { throttle } from "lodash";
 
@@ -39,17 +39,17 @@ const CollapseMenu = ({ isOpen, children }) => (
   </Transition>
 );
 
-const NavbarToggleButton = ({ onClick, isOpen }) => {
+const NavbarToggleButton = ({ onClick, isOpen, isMobile }) => {
   return isOpen
     ? (
       <button className="button-toggle" onClick={onClick}>
-        <CloseIcon/>
+        {isMobile ? <CloseIconMobile/> : <CloseIcon/>}
         <span>Close</span>
       </button>
     )
     : (
       <button className="button-toggle" onClick={onClick}>
-        <OpenIcon/>
+        {isMobile ? <OpenIconMobile/> : <OpenIcon/>}
       </button>
     );
 };
@@ -127,7 +127,7 @@ class NavbarMenu extends React.Component {
 
     return (
       <div className="navbar-menu">
-        <NavbarToggleButton onClick={this.toggleNavbar} isOpen={!collapsed}/>
+        <NavbarToggleButton onClick={this.toggleNavbar} isOpen={!collapsed} isMobile={isMobile}/>
 
         {/* sm only navbar */}
         <ul className={`navbar-menu__navbar-sm ${logoClassName}`}>

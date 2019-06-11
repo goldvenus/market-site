@@ -8,6 +8,7 @@ import {handleError, readFileData} from "../../core/actions/common.action";
 import CustomSpinner from "../../components/common/CustomSpinner";
 import PasswordConfirmModal from "./AccountDetail/PasswordConfirmModal";
 import ForgotPasswordModal from "./AccountDetail/ForgotPasswordModal";
+import {Inline} from '@zendeskgarden/react-loaders';
 import imageCompression from "browser-image-compression";
 
 class AccountDetail extends Component {
@@ -22,7 +23,8 @@ class AccountDetail extends Component {
       confirmPwd: '',
       picture: '',
       fileName: '',
-      modalOpenState: 0
+      modalOpenState: 0,
+      busy: false
     };
   }
   
@@ -75,8 +77,10 @@ class AccountDetail extends Component {
     });
   };
   
-  handlePasswordReset = (e) => {
+  handlePasswordReset = async (e) => {
     e.preventDefault();
+    if (this.state.busy)
+      return;
     let newUser = this.state;
     let curUser = this.props.user;
     if (!newUser.email || !newUser.curPwd || !newUser.newPwd || !newUser.confirmPwd) {
@@ -87,7 +91,8 @@ class AccountDetail extends Component {
       return false;
     }
     
-    updatePassword({
+    this.setState({busy: true});
+    await updatePassword({
       curUser: {
         email: curUser.email,
         password: newUser.curPwd
@@ -96,6 +101,7 @@ class AccountDetail extends Component {
         password: newUser.newPwd,
       }
     });
+    this.setState({busy: false});
   };
   
   addImage = async (event) => {
@@ -124,7 +130,7 @@ class AccountDetail extends Component {
   
   render() {
     const {isUpdating, isLoading, user} = this.props;
-    const {fileName, modalOpenState} = this.state;
+    const {fileName, modalOpenState, busy} = this.state;
     
     if (isLoading) {
       return <BarLoader color="#F82462" height="5"/>;
@@ -221,7 +227,7 @@ class AccountDetail extends Component {
                       onChange={e => this.handleInputChange(e, 'confirmPwd')}
                     />
                   </FormGroup>
-                  <button className='theme-btn theme-btn-primary' onClick={this.handlePasswordReset}>Change Password</button>
+                  <button className='theme-btn theme-btn-primary' onClick={this.handlePasswordReset}>{busy ? <Inline size={64} color={"#fff"}/> : 'Change Password'}</button>
                 </Form>
               </div>
             </div>
