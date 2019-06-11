@@ -41,6 +41,7 @@
       font-size: 49px;
       line-height: 1.3em;
       color: $white;
+      font-weight: 900;
 
       @include media-breakpoint-down(sm) {
         margin: 60px 0 33px;
@@ -74,11 +75,11 @@
       align-items: center;
       justify-content: flex-start;
       margin: 0 0 98px;
-      font-size: 14px;
-      font-weight: lighter;
       letter-spacing: 1px;
       color: $white;
       vertical-align: middle;
+      font-size: 16px;
+      font-weight: 300;
 
       @include media-breakpoint-down(md) {
         margin: 0 0 55px;
@@ -92,11 +93,12 @@
         border: none !important;
         width: 141px;
         height: 44px;
-        font-size: 14px;
         background: rgba(255, 255, 255, 0.07);
         color: white;
         transition: .3s;
         cursor: pointer;
+        font-size: 16px;
+        font-weight: 300;
 
         .btn__icon {
           margin-right: 15px;
@@ -129,7 +131,7 @@
           margin-left: 0;
         }
         
-        &:last-child {
+        &.last {
           text-decoration: underline;
         }
       }

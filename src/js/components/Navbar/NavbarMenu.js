@@ -12,7 +12,6 @@ import {
   animateMenuOut,
 } from './NavbarMenu.animation';
 
-import imgLogoSm from './logo-sm.png';
 import NavbarDropdown from './NavbarDropdown';
 import {CartIcon, CloseIcon, HeartIcon, OpenIcon} from "../common/IconComponent";
 import { compose } from "redux";

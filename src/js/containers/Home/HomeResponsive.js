@@ -206,7 +206,7 @@ class Home extends React.Component {
                     </button>
                   </Link>
                   <Link to="/rent-gear?type=all">
-                    <button className="hero-categories__btn">
+                    <button className="hero-categories__btn last">
                       See all..
                     </button>
                   </Link>
