@@ -30,8 +30,8 @@ class Step3 extends Component {
           </div>
           <div className='content-info-wrapper'>
             <p>BANK</p>
-            <p>{bankInfo.name}</p>
-            <p>{bankInfo.addr}</p>
+            <p>{bankInfo.bankCode}</p>
+            <p>{bankInfo.countryName}</p>
           </div>
           <div className='content-info-wrapper'>
             <p>IBAN NUMBER</p>

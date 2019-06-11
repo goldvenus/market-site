@@ -55,7 +55,7 @@ class Payment extends Component {
         loading: false
       });
     } catch (err) {
-      handleError("Payment info loading failed!");
+      handleError("Failed to load information");
     }
   };
   

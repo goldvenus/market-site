@@ -483,6 +483,9 @@
       .custom-beautiful-textfield {
         margin: 20px 0;
       }
+      .card-number-textfield {
+        width: 100%;
+      }
       .date-select-container {
         margin-top: 15px;
       }
@@ -561,16 +564,6 @@
               color: #999;
               font-size: 12px;
             }
-          }
-        }
-        .css-2b097c-container {
-          width: 60%;
-          margin-top: 30px;
-          border-color: #f82462;
-
-          & > div:hover {
-            border-color: #f82462;
-            box-shadow: none;
           }
         }
       }

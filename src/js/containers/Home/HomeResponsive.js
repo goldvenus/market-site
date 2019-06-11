@@ -103,8 +103,10 @@ class Home extends React.Component {
     let gearList1 = (this.gearList || []).filter(item =>
       (item.productName && item.productName.toLowerCase().indexOf(key1) === 0));
 
+    // let gearList2 = (this.gearList || []).filter(item =>
+    //   ((item.city.toLowerCase().indexOf(key2) === 0 || item.address.toLowerCase().indexOf(key2) === 0) || item.product_region.toLowerCase().indexOf(key2) === 0));
     let gearList2 = (this.gearList || []).filter(item =>
-      ((item.city.toLowerCase().indexOf(key2) === 0 || item.address.toLowerCase().indexOf(key2) === 0) || item.product_region.toLowerCase().indexOf(key2) === 0));
+      ((item.city.toLowerCase().indexOf(key2) === 0 || item.address.toLowerCase().indexOf(key2) === 0)));
   
     gearList1.forEach((item) => {
       this.productList = [...this.productList, item.productName];
@@ -123,7 +125,7 @@ class Home extends React.Component {
     });
     
     clearTimeout(this.timer);
-    this.timer = setTimeout(this.performSearch, 70);
+    this.timer = this.performSearch();
   };
 
   handleChangeSearchLocation = (e) => {
@@ -132,7 +134,7 @@ class Home extends React.Component {
     });
   
     clearTimeout(this.timer);
-    this.timer = setTimeout(this.performSearch, 100);
+    this.timer = this.performSearch();
   };
   
   handleSearch = () => {
@@ -143,7 +145,7 @@ class Home extends React.Component {
     if (!(searchValue || searchLocationValue)) {
       return;
     }
-    this.props.history.push('/rent-gear/all');
+    this.props.history.push('/rent-gear?type=all');
   };
   
   // renderSearchAddOn = () => {

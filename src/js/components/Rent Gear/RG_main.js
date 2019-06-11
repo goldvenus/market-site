@@ -160,7 +160,7 @@ class Main extends Component {
     
     product_list = product_list.filter(item =>
       ((item.productName && item.productName.toLowerCase().indexOf(key1) !== -1) || item.categoryName.toLowerCase().indexOf(key1) !== -1 || item.brand.toLowerCase().indexOf(key1) !== -1) &&
-      ((item.city.toLowerCase().indexOf(key2) !== -1 || item.address.toLowerCase().indexOf(key2) !== -1) || item.product_region.toLowerCase().indexOf(key2) !== -1));
+      ((item.city + ', ' + item.address + ' ' + item.product_region).toLowerCase().indexOf(key2) !== -1));
     
     return product_list;
   };

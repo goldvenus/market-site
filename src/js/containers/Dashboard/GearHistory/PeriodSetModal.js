@@ -109,7 +109,7 @@ class PeriodSetModal extends Component {
         }
 
         return (
-            <Modal open={true} onClose={this.handleClose} center classNames={{modal: "cart-modal about-modal"}}>
+            <Modal open={true} onClose={this.handleClose} center classNames={{modal: "cart-modal"}}>
                 <div className='period-cart-header'>
                     <span >{dlg_heading}</span>
                 </div>

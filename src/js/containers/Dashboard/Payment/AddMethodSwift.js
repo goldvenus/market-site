@@ -71,7 +71,7 @@ class AddMethodSwift extends Component {
       });
       data.country = data.country.value;
       console.log(data.country);
-      console.log(this.state.country);
+      console.log(data);
       this.props.onSaveMethod(data);
     } else {
       handleError('Please provide required information');

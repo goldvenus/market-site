@@ -255,7 +255,7 @@ class RentalCalendarModal extends React.Component {
     }
     
     const cur_gear = listGears[this.state.cur_gear_num];
-    const gear_name = cur_gear.brand + " " + cur_gear.categoryName;
+    const gear_name = cur_gear.brand + " " + cur_gear.productName;
     let cur_rent = this.state.gear_rent_info_list && this.state.gear_rent_info_list.length > 0 ?
       this.state.gear_rent_info_list[this.state.cur_rent_info_num] : {};
     
@@ -300,7 +300,7 @@ class RentalCalendarModal extends React.Component {
                 {
                   listGears.map((ele, index) => {
                     return <DropdownItem key={index + 1}
-                                         onClick={() => index !== this.state.cur_gear_num && this.handleSelectGear(index)}>{ele.brand} {ele.categoryName}</DropdownItem>;
+                       onClick={() => index !== this.state.cur_gear_num && this.handleSelectGear(index)}>{ele.brand} {ele.productName}</DropdownItem>;
                   })
                 }
               </DropdownMenu>
@@ -391,9 +391,13 @@ const updateDesktopCalendar = () => {
   $(document).ready(function () {
     let reduceZero = function () {
       $(".rbc-date-cell").each(function () {
-        let day_number = $(this).find("a").html();
+        let day_number = $(this).find("a") ? $(this).find("a").html() : $(this).html();
+        if (!day_number)
+          return;
         if (day_number[0] === '0') {
-          $(this).find("a").html(day_number[1]);
+          $(this).html(day_number[1]);
+        } else {
+          $(this).html(day_number);
         }
       });
     };
@@ -444,6 +448,11 @@ const updateDesktopCalendar = () => {
     };
     
     update_ui();
+    
+    $(".rbc-date-cell").click(function(e) {
+      e.preventDefault();
+      return;
+    });
     
     $(window).on('resize', function () {
       if (resize_index) {

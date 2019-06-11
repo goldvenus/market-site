@@ -94,7 +94,7 @@ class AddMethodSwift extends Component {
                     type="text"
                     value={cardNumber}
                     maxLength='20'
-                    className='checkout-textfield custom-beautiful-textfield'
+                    className='custom-beautiful-textfield card-number-textfield'
                     onChange={e => this.handleInputChange(e, 'cardNumber')}
                   />
                 </div>
@@ -104,7 +104,7 @@ class AddMethodSwift extends Component {
                     type="text"
                     value={cardHolder}
                     maxLength='20'
-                    className='checkout-textfield custom-beautiful-textfield'
+                    className='custom-beautiful-textfield'
                     onChange={e => this.handleInputChange(e, 'cardHolder')}
                   />
                 </div>
@@ -138,7 +138,7 @@ class AddMethodSwift extends Component {
                 <div className="theme-form-field flex-md-12">
                   <TextField
                     label="CVV"
-                    className='checkout-textfield custom-beautiful-textfield'
+                    className='custom-beautiful-textfield'
                     value={cvv}
                     onChange={e => this.handleInputChange(e, 'cvv')}
                   />

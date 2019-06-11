@@ -51,10 +51,19 @@ class MaterialInputWithDropdown extends React.Component {
   };
 
   handleFocus = e => {
-    this._mounted && this.setState({
-      isDropdownOpen: true,
-      isFocused: true
-    });
+    if (this._mounted) {
+      if (this.props.value) {
+        this.setState({
+          isDropdownOpen: true,
+          isFocused: true
+        });
+      } else {
+        this.setState({
+          isDropdownOpen: false,
+          isFocused: true
+        });
+      }
+    }
   };
   
   handleBlur = async (e) => {
@@ -76,7 +85,7 @@ class MaterialInputWithDropdown extends React.Component {
       return;
     } else if (e.keyCode === 13) {
       // when hit enter, change search value to currently selected item, and then perform search
-      await this.props.onHandleChange({ target: { value: this.props.dropdownItems[this.state.activeIndex] } });
+      await this.props.onHandleChange({ target: { value: (this.props.value && this.props.dropdownItems[this.state.activeIndex]) || '' } });
       this.props.onSearch && this.props.onSearch();
       return;
     }

@@ -21,7 +21,7 @@ const MyListingItem = ({listItem, openEdit, openDelete, openCalendar}) => (
       </td>
       <td className="d-lg-table-cell" width="20%">
         <Link to={`/gear/detail/${listItem.gearid}`}>
-          <p className="gear-brand">{listItem.productName}</p>
+          <p className="gear-brand">{listItem.brand + ' ' + listItem.productName}</p>
           <p className="theme-text-small gear-category text-muted">{listItem.categoryName}</p>
         </Link>
       </td>
@@ -47,7 +47,7 @@ const MyListingItem = ({listItem, openEdit, openDelete, openCalendar}) => (
       <td width="45%">
         <Link to={`/gear/detail/${listItem.gearid}`}>
           <div className="brand-category-wrapper">
-            <p className="gear-brand">{listItem.productName}</p>
+            <p className="gear-brand">{listItem.brand + ' ' + listItem.productName}</p>
             <p className="theme-text-small gear-category text-muted">{listItem.categoryName}</p>
           </div>
         </Link>
@@ -81,7 +81,7 @@ const MyListingItemSm = ({listItem, openEdit, openDelete, openCalendar}) => (
       </div>
       <div className="d-block mlspdf_name_tag">
         <Link to={`/gear/detail/${listItem.gearid}`}>
-          <p className="theme-text-small text-muted mlspdf_name_tag_categoryName">{listItem.productName}</p>
+          <p className="theme-text-small text-muted mlspdf_name_tag_categoryName">{listItem.brand + ' ' + listItem.productName}</p>
           <p className="mlspdf_name_tag_brandName">{listItem.categoryName}</p>
         </Link>
       </div>

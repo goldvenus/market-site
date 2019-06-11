@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
 import TextField from "@material-ui/core/TextField/TextField";
-import { getBankInfoFromIban } from "bank.js";
 import {handleError} from "../../../../core/actions/common.action";
+import {extractBIC} from 'ibantools';
+// require(["ibantools"], function(ibantools) {
+//   console.log(ibantools.isValidIBAN('NL91 ABNA 0517 1643 00'));
+//   console.log(ibantools.isValidBIC('ABNANL2A'));
+// });
 
 class Step1 extends Component {
   state = {
@@ -25,17 +29,13 @@ class Step1 extends Component {
       return;
     }
   
-    let info = {};
-    try {
-      info = getBankInfoFromIban(swiftCode);
-    } catch (err) {
+    let info = extractBIC(swiftCode);
+    console.log(info);
+    if (!info.valid) {
       handleError('Swift code is invalid!');
       return;
     }
-    // let validateSwift(swiftCode);
-    if (true) {
-      this.setState({isValidated: true, bankInfo: info});
-    }
+    this.setState({isValidated: true, bankInfo: info});
   };
   
   render() {
@@ -55,8 +55,8 @@ class Step1 extends Component {
           {isValidated ?
             <div className='bank-info-wrapper'>
               <p>BANK</p>
-              <p className='bank-name'>{bankInfo.name}</p>
-              <p className='bank-info'>{bankInfo.country}</p>
+              <p className='bank-name'>{bankInfo.bankCode}</p>
+              <p className='bank-info'>{bankInfo.countryName}</p>
             </div> : ''
           }
         </div>
