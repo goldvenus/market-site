@@ -200,7 +200,7 @@ class Home extends React.Component {
                       Drones
                     </button>
                   </Link>
-                  <Link to="/rent-gear?type=Lightings">
+                  <Link to="/rent-gear?type=Lights">
                     <button className="hero-categories__btn">
                       <IconBtnLight className="btn__icon"/>
                       Lights
