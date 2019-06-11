@@ -124,7 +124,7 @@ class Cart extends Component {
                   <img src={listItem.numberOfUserImage[0]} className="gear-img" alt=''/> : null}
               </div>
               <div className="col-md-17">
-                  <p className="tb_brand_model_name">{listItem.brand + ' ' + listItem.model}</p>
+                  <p className="tb_brand_model_name">{listItem.brand + ' ' + listItem.productName}</p>
                   <p className="theme-text-small text-muted tb_categories_name">{listItem.categoryName}</p>
               </div >
               <div className="seclt_icon_group">

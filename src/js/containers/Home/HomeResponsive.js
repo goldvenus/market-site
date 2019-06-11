@@ -172,13 +172,12 @@ class Home extends React.Component {
       <div className="page home-page home">
         <div className="section section-hero">
           <div className="container">
-
             <div className="row">
               <div className="col d-flex flex-column">
                 <img className="hero-logo" src="/images/logo-small.svg" alt="Creative Market"/>
 
                 <h1 className="hero-title">
-                  Rent Creative <br className="d-md-none d-block"/>Gear Close By
+                  RENT CREATIVE GEAR FROM <br className="d-md-none1 d-block"/>THE PEOPLE AROUND YOU
                 </h1>
 
                 <span className="hero-subtitle">
@@ -254,7 +253,7 @@ class Home extends React.Component {
           <Container>
             <Row className='home-subsection'>
               <Col lg='12' md='24' className='order-lg-1 order-md-2 first-left-div'>
-                <h2>Rent the Gear<br/>Your Ideas Need</h2>
+                <h2>RENT THE GEAR<br/>YOUR IDEAS NEED</h2>
                 <p className='first-text'>If you love creating, you are most likely familiar with the problem of feeling limited by your gear. With Creative Market, you can now rent any gear you might need from other creatives around you.</p>
                 <Link to='/rent-gear?type=all'><button className='theme-btn theme-btn-primary'>RENT GEAR</button></Link>
               </Col>
@@ -263,14 +262,14 @@ class Home extends React.Component {
             <Row className='home-subsection'>
               <Col lg='12' md='24' className='add-gear-back-img back-img'/>
               <Col lg='12' md='24' className='second-right'>
-                <h2>List Your Own<br/>Gear for Rent</h2>
+                <h2>LIST YOUR OWN<br/>GEAR FOR RENT</h2>
                 <p className='second-text'>When you’re not renting from others, allow others to rent from you. Making your fancy gear work for you, even when you’re not using it yourself. It’s a win-win situation!</p>
                 <Link to='/add-gear'><button className='theme-btn theme-btn-primary'>ADD GEAR</button></Link>
               </Col>
             </Row>
             <Row className='home-subsection'>
               <Col lg='12' md='24' className='order-lg-1 order-md-2 third-left'>
-                <h2>Secure Worldwide<br/>Rental Community</h2>
+                <h2>SECURE RENTAL<br/>GLOBAL COMMUNITY</h2>
                 <p className='signup-text'>Every member of Creative Market must be verified through our platform before engaging in rentals. Renters must complete payments before gear pickup takes place, and funds are securely held in escrow until owner and renter have both confirmed that the handoff has taken place.</p>
                 <Link to='/register'><button className='theme-btn theme-btn-primary'>SIGN UP</button></Link>
               </Col>

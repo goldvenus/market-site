@@ -10,7 +10,7 @@ const ThemeCardOne = ({ Gear: { numberOfUserImage, model,  catagory, brand, tota
         <div className="overlay">
           <CardTitle>
             <span className="theme-text-small text-muted d-block">{catagory}</span>
-            <span className="gear-title">{brand + " " + model}</span>
+            <span className="gear-title">{brand + " " + productName}</span>
           </CardTitle>
           <CardText>
             <span>

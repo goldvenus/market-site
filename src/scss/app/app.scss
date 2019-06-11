@@ -8,6 +8,13 @@
   padding: 0;
   width: 100%;
   min-height: 111vh;
+  background-color: white;
+}
+
+body {
+  background: linear-gradient(to bottom, #f82462 0%,#f82462 31%,#ffffff 32%);
+  background: linear-gradient(to right, blue 50%, yellow 50%);
+  background: #f82462;
 }
 
 .app-content {
@@ -29,7 +36,9 @@
   }
 
   @include media-breakpoint-down(sm) {
-    padding: $navbar-height-sm 0 0;
+    padding: 0 !important;
+    margin: $navbar-height-sm 0 0 !important;
+    //padding: $navbar-height-sm 0 0;
   }
 }
 

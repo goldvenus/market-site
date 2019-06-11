@@ -8,7 +8,7 @@ import {compose} from "redux";
 class Footer extends Component {
   render() {
     const { isMobile } = this.props;
-    let isAddGear = this.props.location.pathname.indexOf('/addGear') >= 0;
+    let isAddGear = this.props.location.pathname.indexOf('/add-gear') >= 0;
     
     return (
       <React.Fragment>
@@ -80,7 +80,7 @@ class Footer extends Component {
             <Container>
               <div className="row footer-top-wrapper">
                 <div>
-                  <Link to='/'><img src='/images/logo-small-bottom.svg' alt=''/></Link>
+                  <Link to='/'><img className='logo-img' src='/images/logo-small-bottom.svg' alt=''/></Link>
                 </div>
                 <div>
                   <img src='/images/Emails.png' alt=''/>
