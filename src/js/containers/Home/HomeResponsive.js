@@ -103,8 +103,10 @@ class Home extends React.Component {
     let gearList1 = (this.gearList || []).filter(item =>
       (item.productName && item.productName.toLowerCase().indexOf(key1) === 0));
 
+    // let gearList2 = (this.gearList || []).filter(item =>
+    //   ((item.city.toLowerCase().indexOf(key2) === 0 || item.address.toLowerCase().indexOf(key2) === 0) || item.product_region.toLowerCase().indexOf(key2) === 0));
     let gearList2 = (this.gearList || []).filter(item =>
-      ((item.city.toLowerCase().indexOf(key2) === 0 || item.address.toLowerCase().indexOf(key2) === 0) || item.product_region.toLowerCase().indexOf(key2) === 0));
+      ((item.city.toLowerCase().indexOf(key2) === 0 || item.address.toLowerCase().indexOf(key2) === 0)));
   
     gearList1.forEach((item) => {
       this.productList = [...this.productList, item.productName];
@@ -123,7 +125,7 @@ class Home extends React.Component {
     });
     
     clearTimeout(this.timer);
-    this.timer = setTimeout(this.performSearch, 70);
+    this.timer = this.performSearch();
   };
 
   handleChangeSearchLocation = (e) => {
@@ -132,7 +134,7 @@ class Home extends React.Component {
     });
   
     clearTimeout(this.timer);
-    this.timer = setTimeout(this.performSearch, 100);
+    this.timer = this.performSearch();
   };
   
   handleSearch = () => {
@@ -143,7 +145,7 @@ class Home extends React.Component {
     if (!(searchValue || searchLocationValue)) {
       return;
     }
-    this.props.history.push('/rentGear/all');
+    this.props.history.push('/rent-gear?type=all');
   };
   
   // renderSearchAddOn = () => {
@@ -186,25 +188,25 @@ class Home extends React.Component {
 
                 <div className="hero-categories d-none d-md-flex">
                   Rent&nbsp;
-                  <Link to="/rentGear/Cameras">
+                  <Link to="/rent-gear?type=Cameras">
                     <button className="hero-categories__btn">
                       <IconBtnCamera className="btn__icon"/>
                       Cameras
                     </button>
                   </Link>
-                  <Link to="/rentGear/Drones">
+                  <Link to="/rent-gear?type=Drones">
                     <button className="hero-categories__btn">
                       <IconBtnDrone className="btn__icon"/>
                       Drones
                     </button>
                   </Link>
-                  <Link to="/rentGear/Lightings">
+                  <Link to="/rent-gear?type=Lights">
                     <button className="hero-categories__btn">
                       <IconBtnLight className="btn__icon"/>
                       Lights
                     </button>
                   </Link>
-                  <Link to="/rentGear/all">
+                  <Link to="/rent-gear?type=all">
                     <button className="hero-categories__btn">
                       See all..
                     </button>
@@ -255,7 +257,7 @@ class Home extends React.Component {
               <Col lg='12' md='24' className='order-lg-1 order-md-2 first-left-div'>
                 <h2>Rent the Gear<br/>Your Ideas Need</h2>
                 <p className='first-text'>If you love creating, you are most likely familiar with the problem of feeling limited by your gear. With Creative Market, you can now rent any gear you might need from other creatives around you.</p>
-                <Link to='/rentGear/all'><button className='theme-btn theme-btn-primary'>RENT GEAR</button></Link>
+                <Link to='/rent-gear?type=all'><button className='theme-btn theme-btn-primary'>RENT GEAR</button></Link>
               </Col>
               <Col lg='12' md='24' className='rent-gear-back-img back-img order-lg-2 order-md-1'/>
             </Row>
@@ -264,7 +266,7 @@ class Home extends React.Component {
               <Col lg='12' md='24' className='second-right'>
                 <h2>List Your Own<br/>Gear for Rent</h2>
                 <p className='second-text'>When you’re not renting from others, allow others to rent from you. Making your fancy gear work for you, even when you’re not using it yourself. It’s a win-win situation!</p>
-                <Link to='/addGear'><button className='theme-btn theme-btn-primary'>ADD GEAR</button></Link>
+                <Link to='/add-gear'><button className='theme-btn theme-btn-primary'>ADD GEAR</button></Link>
               </Col>
             </Row>
             <Row className='home-subsection'>

@@ -439,10 +439,6 @@
     .custom-beautiful-textfield {
       width: 60%;
       margin: 5px 0;
-
-      input {
-        padding-left: 15px;
-      }
     }
 
     .swift-container {
@@ -486,6 +482,9 @@
     .add-method-credit-card-outer-wrapper {
       .custom-beautiful-textfield {
         margin: 20px 0;
+      }
+      .card-number-textfield {
+        width: 100%;
       }
       .date-select-container {
         margin-top: 15px;

@@ -361,7 +361,7 @@ class AddGear extends Component {
                 {gearsList.length > 0 ?
                 <CustomAutoComplete
                   gears={gearsList}
-                  floatingLabel='Select Gear'
+                  floatingLabel='Search Gear'
                   handleGearChange={this.handleGearChange}
                   handleGearDelete={this.handleGearDelete}
                   initialSelectedItem={[]}
@@ -836,7 +836,7 @@ class AddGear extends Component {
         // !user.nummusVendorId ?
         //   <ConfirmModal
         //     heading='Create your vendor account!'
-        //     onConfirm={() => this.props.history.push('/dashboard/methodAdd/2')}
+        //     onConfirm={() => this.props.history.push('/dashboard/method-add/2')}
         //     onClose={() => this.setState({modalOpenState: 0})}
         //     oneButtonMode={true}
         //   /> :

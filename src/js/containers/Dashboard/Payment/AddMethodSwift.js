@@ -48,18 +48,14 @@ class AddMethodSwift extends Component {
       bankAccountHolderName,
       IBAN,
       swiftCode,
+      city
       // bankBranchCity,
       // bankBranchCountry,
       // idNumber,
       // routingNumber
     } = this.state;
     
-    if (billingAddress1 === '' || bankAccountHolderName === '' || IBAN === '' ||
-      swiftCode === '' || country === '') {
-      return false;
-    }
-    if (country.length < 2 || country.length > 2) {
-      handleError("Please input right country code!");
+    if (!country || !billingAddress1 || !city || !IBAN || !swiftCode || !bankAccountHolderName) {
       return false;
     }
     
@@ -68,12 +64,14 @@ class AddMethodSwift extends Component {
   
   handleSaveMethod = () => {
     if (this.doValidation()) {
-      let data = this.state;
+      let data = Object.assign({}, this.state);
       Object.keys(data).forEach(key => {
         if (data[key] === '')
           delete data[key];
       });
-
+      data.country = data.country.value;
+      console.log(data.country);
+      console.log(data);
       this.props.onSaveMethod(data);
     } else {
       handleError('Please provide required information');

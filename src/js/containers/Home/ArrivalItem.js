@@ -11,7 +11,7 @@ const ArrivalItem = ({ text, imgPath, link, itemIndex }) => {
   let style = itemIndex < 4 ? {backgroundImage: `url(${imgPath})`} : {backgroundImage: `url(${imgPath})`, opacity: `0.4`};
   
   return(
-    <Link to="/FAQ#">
+    <Link to="/faq">
       <div className="arrival-item" style={style}>
         <div className="arrival-item-info-bottom">
           <div className="info-price-wrapper">

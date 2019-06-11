@@ -42,7 +42,7 @@ const ListView = ({ gear_detail: { numberOfUserImage, brand, productName, city, 
               </span>
             </CardSubtitle>
             <CardText>
-              {description}
+              {description.length > 160 ? description.substr(0, 160) + '...' : description}
             </CardText>
           </div>
           <div className="card-right">

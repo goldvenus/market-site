@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import Search from './search';
 import {Link, withRouter} from "react-router-dom";
+import queryString from 'query-string'
 
 class Sidebar extends Component {
   state = {
@@ -24,20 +25,21 @@ class Sidebar extends Component {
     
     if (!categories || !category)
       return null;
-    const {location: {pathname}} = this.props;
+    const {location: {search}} = this.props;
+    const type = queryString.parse(search).type;
 
     return (
       <aside className="sidebar">
         <div className="sidebar-wrapper d-none d-lg-flex">
           <ListGroup>
             <ListGroupItem value='all' key={0}>
-              <Link className={`${pathname === '/rentGear/all' ? 'item-active rent-gear-sidebar-link' : ''}`} to='/rentGear/all'>
+              <Link className={`${type === 'all' ? 'item-active rent-gear-sidebar-link' : ''}`} to='/rent-gear?type=all'>
                 All Categories
               </Link>
             </ListGroupItem>
             {categories.map((element, index) =>
               <ListGroupItem value={element} key={index+1}>
-                <Link className={`${this.props.category === element.replace(/ /g, '') ? 'item-active rent-gear-sidebar-link' : ''}`} to={`/rentGear/${element.replace(/ /g, '')}`}>
+                <Link className={`${this.props.category === element.replace(/ /g, '') ? 'item-active rent-gear-sidebar-link' : ''}`} to={`/rent-gear?type=${element.replace(/ /g, '')}`}>
                   {element}
                 </Link>
               </ListGroupItem>
@@ -64,13 +66,13 @@ class Sidebar extends Component {
 
           <ListGroup className={`category-container ${isActive ? 'active' : ''}`}>
             <ListGroupItem value='all' key={0}>
-              <Link className={`${pathname === '/rentGear/all' ? 'item-active rent-gear-sidebar-link' : ''}`} to='/rentGear/all'>
+              <Link className={`${type === 'all' ? 'item-active rent-gear-sidebar-link' : ''}`} to='/rent-gear?type=all'>
                 All Categories
               </Link>
             </ListGroupItem>
             {categories.map((element, index) =>
               <ListGroupItem value={element} key={index}>
-                <Link className={`${this.props.sideid === index ? 'item-active rent-gear-sidebar-link' : 'rent-gear-sidebar-link'}`} to={`/rentGear/${element.replace(/ /g, '')}`}>
+                <Link className={`${this.props.sideid === index ? 'item-active rent-gear-sidebar-link' : 'rent-gear-sidebar-link'}`} to={`/rent-gear?type=${element.replace(/ /g, '')}`}>
                   {element}
                 </Link>
               </ListGroupItem>
