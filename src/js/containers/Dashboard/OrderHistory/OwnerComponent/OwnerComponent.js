@@ -61,7 +61,7 @@ class OwnerComponent extends Component {
     return (
       histories.map((listItem, index) => {
         const first_item = listItem.SoldItems[0];
-        let product_name = first_item.brand + ' ' + first_item.model;
+        let product_name = first_item.brand + ' ' + first_item.productName;
         product_name = product_name.substr(0, 13) + '...';
         
         let pickStatus = 0, returnStatus = 0, ratingStatus = 0;
@@ -164,7 +164,7 @@ class OwnerComponent extends Component {
     return (
       histories.map((listItem, index) => {
         const first_item = listItem.SoldItems[0];
-        let product_name = first_item.brand + ' ' + first_item.model;
+        let product_name = first_item.brand + ' ' + first_item.productName;
         product_name = product_name.substr(0, 13) + '...';
   
         let pickStatus = 0, returnStatus = 0, ratingStatus = 0;
@@ -255,7 +255,7 @@ class OwnerComponent extends Component {
     return (
       histories.map((listItem, index) => {
         const first_item = listItem.SoldItems[0];
-        let product_name = first_item.brand + ' ' + first_item.model;
+        let product_name = first_item.brand + ' ' + first_item.productName;
         product_name = product_name.substr(0, 13) + '...';
   
         let pickStatus = 0, returnStatus = 0, ratingStatus = 0;

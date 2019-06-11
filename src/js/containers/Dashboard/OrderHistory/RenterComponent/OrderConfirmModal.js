@@ -168,7 +168,7 @@ class OrderConfirmModal extends Component {
                     <div className='pay-info pay-info-history'>
                       <div className='item-info'>
                         <span className='category-name'>{listItem.categoryName}</span>
-                        <span className='brand-model'>{listItem.brand + ' ' + listItem.model}</span>
+                        <span className='brand-model'>{listItem.brand + ' ' + listItem.productName}</span>
                       </div>
                       <div className='buyer-info'>
                         <div className='buyer-info-left'>
@@ -370,7 +370,7 @@ class OrderConfirmModal extends Component {
                         <img src={listItem.numberOfUserImage[0]} alt=""/>
                         <div className="gear-info">
                           <div className='category-name'>{listItem.categoryName}</div>
-                          <div className='brand-model'>{listItem.brand + ' ' + listItem.model}</div>
+                          <div className='brand-model'>{listItem.brand + ' ' + listItem.productName}</div>
                           <div className='category-name'>{listItem.accessories.join(' ')}</div>
                         </div>
                       </div>
