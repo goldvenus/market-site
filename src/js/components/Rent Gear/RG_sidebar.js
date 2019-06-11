@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import Search from './search';
 import {Link, withRouter} from "react-router-dom";
+import queryString from 'query-string'
 
 class Sidebar extends Component {
   state = {
@@ -24,14 +25,15 @@ class Sidebar extends Component {
     
     if (!categories || !category)
       return null;
-    const {location: {pathname}} = this.props;
+    const {location: {search}} = this.props;
+    const type = queryString.parse(search).type;
 
     return (
       <aside className="sidebar">
         <div className="sidebar-wrapper d-none d-lg-flex">
           <ListGroup>
             <ListGroupItem value='all' key={0}>
-              <Link className={`${pathname === '/rent-gear?type=all' ? 'item-active rent-gear-sidebar-link' : ''}`} to='/rent-gear?type=all'>
+              <Link className={`${type === 'all' ? 'item-active rent-gear-sidebar-link' : ''}`} to='/rent-gear?type=all'>
                 All Categories
               </Link>
             </ListGroupItem>
@@ -64,7 +66,7 @@ class Sidebar extends Component {
 
           <ListGroup className={`category-container ${isActive ? 'active' : ''}`}>
             <ListGroupItem value='all' key={0}>
-              <Link className={`${pathname === '/rent-gear?type=all' ? 'item-active rent-gear-sidebar-link' : ''}`} to='/rent-gear?type=all'>
+              <Link className={`${type === 'all' ? 'item-active rent-gear-sidebar-link' : ''}`} to='/rent-gear?type=all'>
                 All Categories
               </Link>
             </ListGroupItem>
