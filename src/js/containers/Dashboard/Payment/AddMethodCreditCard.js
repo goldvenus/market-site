@@ -66,7 +66,7 @@ class AddMethodSwift extends Component {
         <div className='method-select-tab-wrapper'>
           <div className='tab tab-selected'>
             <span>CREDIT CARD</span>
-            <span>Minimum - $50.00, Fees - 3.5%</span>
+            {/*<span>Minimum - $50.00, Fees - 3.5%</span>*/}
           </div>
         </div>
         <div className='row'>

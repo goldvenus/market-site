@@ -376,13 +376,12 @@
       color: #f82462;
       width: 50%;
       height: 100%;
-      cursor: pointer;
 
       span:first-child {
         font-weight: 600;
       }
       span:last-child {
-        background: #FDF4F7;
+        background: #f82462;
         padding: 10px 25px;
         margin-left: 20px;
       }
@@ -396,7 +395,7 @@
       padding: 0 20px;
 
       span:last-child {
-        background: #DC295D;
+        background: #f82462;
         padding: 10px 25px;
       }
     }
