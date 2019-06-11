@@ -310,15 +310,16 @@ class RentalCalendarModal extends React.Component {
             {
               this.state.open === 1 ?
                 <PeriodSetModal open={true} gear_info={cur_rent} onClose={this.onCloseModal} mode={1}
-                                setBlockPeriod={this.handleSetBlockPeriod}/> :
-                this.state.open === 2 ? <AboutPeriod open={true} gear_info={cur_rent} onClose={this.onCloseModal}/> :
-                  this.state.open === 3 ?
-                    <PeriodSetModal open={true} gear_info={cur_rent} onClose={this.onCloseModal} mode={2}
-                                    date_obj={this.state.cur_block_date} setBlockPeriod={this.handleSetBlockPeriod}/> :
-                    this.state.open === 4 ?
-                      <PeriodDeleteModal open={true} gear_info={cur_rent} onClose={this.onCloseModal}
-                                         date_obj={this.state.cur_block_date}
-                                         onDelete={this.handleDeleteBlockPeriod}/> : null
+                              setBlockPeriod={this.handleSetBlockPeriod}/> :
+              this.state.open === 2 ?
+                <AboutPeriod open={true} gear_info={cur_rent} onClose={this.onCloseModal}/> :
+              this.state.open === 3 ?
+                <PeriodSetModal open={true} gear_info={cur_rent} onClose={this.onCloseModal} mode={2}
+                              date_obj={this.state.cur_block_date} setBlockPeriod={this.handleSetBlockPeriod}/> :
+              this.state.open === 4 ?
+                <PeriodDeleteModal open={true} gear_info={cur_rent} onClose={this.onCloseModal}
+                              date_obj={this.state.cur_block_date}
+                              onDelete={this.handleDeleteBlockPeriod}/> : null
             }
           </div>
         </div>

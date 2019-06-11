@@ -51,11 +51,6 @@ class RentGearDetail extends Component {
     };
     
     getGear(this.gearid);
-    // props.location.state && rentGearProductList({
-    //   categoryName: props.location.state.categoryName,
-    //   product_region: '',
-    //   brand: ''
-    // });
   }
   
   componentDidMount() {
@@ -65,7 +60,7 @@ class RentGearDetail extends Component {
   async componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location && this._mounted) {
       await getGear(this.props.match.params.id);
-      this.forceUpdate();
+      this.setState({startDate: new Date(), endDate: new Date()});
     }
   }
   
@@ -73,10 +68,11 @@ class RentGearDetail extends Component {
     this._mounted = false;
   }
   
-  addToCart = async () => {
+  addToCart = async ({startDate, endDate}) => {
     try {
-      const {startDate, endDate, gear} = this.state;
+      const {gear} = this.state;
       if (startDate && endDate && this._mounted) {
+        console.log("sd", startDate, endDate);
         await addCart({
           gearid: gear.gearid,
           userid: gear.userid,
@@ -157,7 +153,7 @@ class RentGearDetail extends Component {
   
   onOpenModal = async (gearid) => {
     try {
-      const {carts, user} = this.props;
+      const {carts, user, gear} = this.props;
       if (!user) {
         handleError('Please sign in');
         return;
@@ -165,28 +161,24 @@ class RentGearDetail extends Component {
       const cart = gearid && carts && carts.length > 0 ?
         carts.filter(item => item.gearid === gearid) : 0;
       const carted = cart.length;
-      const {gearRecommendedList} = this.props;
-      let gear = gearRecommendedList.filter(item => item.gearid === gearid);
-      gear = gear[0];
-      
       const open_state = carted ? 1 : 2;
-      let start_date = new Date();
-      let end_date = new Date();
+      let startDate = new Date();
+      let endDate = new Date();
       if (carted) {
-        start_date = new Date(cart[0].startDate);
-        end_date = new Date(cart[0].endDate);
+        startDate = new Date(cart[0].startDate);
+        endDate = new Date(cart[0].endDate);
+        console.log(startDate, endDate);
       } else {
-        start_date = this.state.startDate;
-        end_date = this.state.endDate;
+        startDate = this.state.startDate;
+        endDate = this.state.endDate;
       }
+      
       this._mounted && this.setState({
         modal_open_st: open_state,
         gear: gear,
         carted: carted,
-        cart_info: {
-          start_date: start_date,
-          end_date: end_date
-        },
+        startDate,
+        endDate,
         busy: false
       });
     } catch (err) {
@@ -657,17 +649,17 @@ class RentGearDetail extends Component {
                 end_date={this.state.endDate}
                 open={true}
                 onClose={this.onCloseModal}
-                addToCart={() => this.addToCart()}
+                addToCart={this.addToCart}
               /> :
             this.state.modal_open_st === 1 ?
               <CartModal1
                 carted={carted}
                 gear={{...gear, start_date_str, end_date_str}}
-                start_date={this.state.cart_info.start_date}
-                end_date={this.state.cart_info.end_date}
+                start_date={this.state.startDate}
+                end_date={this.state.endDate}
                 open={true}
                 onClose={this.onCloseModal}
-                addToCart={carted => this.addToCart(carted)}
+                addToCart={this.addToCart}
               /> : null
           }
         </div>
