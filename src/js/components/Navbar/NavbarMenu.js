@@ -96,7 +96,6 @@ class NavbarMenu extends React.Component {
     } = this.props;
     const isHome = pathname === '/';
     const logoClassName = (!isHome || (isHome && (isMobile || scrolledDown))) ? 'visible-logo' : 'hidden-logo';
-
     let output = null;
 
     if (isAuthenticated === true) {

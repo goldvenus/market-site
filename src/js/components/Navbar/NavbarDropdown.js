@@ -20,7 +20,9 @@ class NavbarDropdown extends React.PureComponent {
   render() {
     const { isAuthenticated, user, onCloseMenu } = this.props;
     const { isDropdownOpen } = this.state;
-
+    const pathname = this.props.location.pathname;
+    const isBorderBtn = pathname === '/register' || pathname === '/login' || pathname === '/forgot-password';
+    
     return (
       <React.Fragment>
         {isAuthenticated
@@ -65,10 +67,14 @@ class NavbarDropdown extends React.PureComponent {
             </li>
           ) : (
             <li className="navbar-drop-menu">
-              <button className="theme-btn theme-btn-filled-white ml-3 theme-btn-link theme-nav__btn">
+              {isBorderBtn &&
+              <button className="theme-btn theme-btn-filled-white-color-black ml-3 theme-btn-link theme-nav__btn">
+                <Link to="/rent-gear?type=all">Rent Gear</Link>
+              </button>}
+              <button className="theme-btn ml-3 theme-btn-outline-pink theme-btn-link theme-nav__btn">
                 <Link to="/login">Login</Link>
               </button>
-              <button className="theme-btn theme-btn-outline-pink ml-3 theme-btn-link theme-nav__btn">
+              <button className={`theme-btn theme-btn-filled-white ${!isBorderBtn ? 'theme-btn-border-none' : ''} ml-3 theme-btn-link theme-nav__btn`}>
                 <Link to="/register">Register</Link>
               </button>
             </li>

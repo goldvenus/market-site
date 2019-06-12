@@ -16,6 +16,9 @@ class RentGear extends React.Component {
   render() {
     let {categories, isLoading, location} = this.props;
     let category = queryString.parse(location.search).type;
+    if (!category) {
+      this.props.history.replace('/');
+    }
     if (isLoading || !categories) {
       return <CustomLoaderLogo/>;
     }
