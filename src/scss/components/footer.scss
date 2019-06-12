@@ -84,6 +84,9 @@ footer {
       justify-content: space-between;
       align-items: center;
 
+      .logo-img {
+        width: 75px;
+      }
       & > div:nth-child(2) {
         display: flex;
         align-items: center;

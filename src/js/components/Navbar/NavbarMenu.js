@@ -12,9 +12,8 @@ import {
   animateMenuOut,
 } from './NavbarMenu.animation';
 
-import imgLogoSm from './logo-sm.png';
 import NavbarDropdown from './NavbarDropdown';
-import {CartIcon, CloseIcon, HeartIcon, OpenIcon} from "../common/IconComponent";
+import {CartIcon, CloseIcon, CloseIconMobile, HeartIcon, OpenIcon, OpenIconMobile} from "../common/IconComponent";
 import { compose } from "redux";
 import { throttle } from "lodash";
 
@@ -40,17 +39,17 @@ const CollapseMenu = ({ isOpen, children }) => (
   </Transition>
 );
 
-const NavbarToggleButton = ({ onClick, isOpen }) => {
+const NavbarToggleButton = ({ onClick, isOpen, isMobile }) => {
   return isOpen
     ? (
       <button className="button-toggle" onClick={onClick}>
-        <CloseIcon/>
+        {isMobile ? <CloseIconMobile/> : <CloseIcon/>}
         <span>Close</span>
       </button>
     )
     : (
       <button className="button-toggle" onClick={onClick}>
-        <OpenIcon/>
+        {isMobile ? <OpenIconMobile/> : <OpenIcon/>}
       </button>
     );
 };
@@ -128,7 +127,7 @@ class NavbarMenu extends React.Component {
 
     return (
       <div className="navbar-menu">
-        <NavbarToggleButton onClick={this.toggleNavbar} isOpen={!collapsed}/>
+        <NavbarToggleButton onClick={this.toggleNavbar} isOpen={!collapsed} isMobile={isMobile}/>
 
         {/* sm only navbar */}
         <ul className={`navbar-menu__navbar-sm ${logoClassName}`}>
@@ -136,7 +135,7 @@ class NavbarMenu extends React.Component {
             ? (
               <React.Fragment>
                 <Link to='/'><li>
-                  <img className="navbar-sm__logo" src={imgLogoSm} alt="CreativeMarket"/>
+                  <img className="navbar-sm__logo" src="/images/logo-small.svg" alt="CreativeMarket"/>
                 </li></Link>
 
                 {output}
@@ -155,7 +154,7 @@ class NavbarMenu extends React.Component {
             <Row>
               <Col xs={24} lg={12}>
                 <ul className="menu-links-wrapper">
-                  {isAuthenticated ?
+                  {/*{isAuthenticated ?*/}
                   <React.Fragment>
                     <li className="animated-menu-item menu-item-sm">
                       <Link to="/rent-gear?type=all">
@@ -171,20 +170,28 @@ class NavbarMenu extends React.Component {
                         </h2>
                       </Link>
                     </li>
-                  </React.Fragment> : null}
-
+                  </React.Fragment>
+                  {/*: null}*/}
+  
+                  <li className="animated-menu-item menu-item-lg">
+                    <Link to="/rent-gear?type=all" onClick={this.toggleNavbar} >
+                      <span className="dash"/>
+                      Rent Gear
+                    </Link>
+                  </li>
+                  <li className="animated-menu-item menu-item-lg">
+                    <Link to="/add-gear" onClick={this.toggleNavbar} >
+                      <span className="dash"/>
+                      Add Gear
+                    </Link>
+                  </li>
+                  
                   <li className="animated-menu-item">
                     <Link to="/about-us" onClick={this.toggleNavbar} >
                       <span className="dash"/>
                       About Us
                     </Link>
                   </li>
-                  {/*<li className="animated-menu-item">*/}
-                    {/*<Link to="/Partners" onClick={this.toggleNavbar} >*/}
-                      {/*<span className="dash"/>*/}
-                      {/*Partners*/}
-                    {/*</Link>*/}
-                  {/*</li>*/}
                   <li className="animated-menu-item">
                     <Link to="/faq" onClick={this.toggleNavbar} >
                       <span className="dash"/>
@@ -214,8 +221,8 @@ class NavbarMenu extends React.Component {
                     </h5>
                   </li>
                   <li className="menu-info-item-links animated-menu-item">
-                    <span className="fa fa-facebook-f"/>
-                    <span className="fab fa-instagram"/>
+                    <a href='https://www.facebook.com/thecreativemarket'><i className="fa fa-facebook-f"/></a>
+                    <a href='https://www.instagram.com/therealcreativemarket'><i className="fab fa-instagram"/></a>
                   </li>
                 </ul>
               </Col>

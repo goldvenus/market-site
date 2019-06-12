@@ -8,7 +8,7 @@ import {compose} from "redux";
 class Footer extends Component {
   render() {
     const { isMobile } = this.props;
-    let isAddGear = this.props.location.pathname.indexOf('/addGear') >= 0;
+    let isAddGear = this.props.location.pathname.indexOf('/add-gear') >= 0;
     
     return (
       <React.Fragment>
@@ -80,15 +80,15 @@ class Footer extends Component {
             <Container>
               <div className="row footer-top-wrapper">
                 <div>
-                  <Link to='/'><img src='/images/Logo.png' alt=''/></Link>
+                  <Link to='/'><img className='logo-img' src='/images/logo-small-bottom.svg' alt=''/></Link>
                 </div>
                 <div>
                   <img src='/images/Emails.png' alt=''/>
                   <a className='email' href='mailto:support@creative.market'>support@creative.market</a>
                 </div>
                 <div>
-                  <i className='fa fa-facebook'/>
-                  <i className="fa fa-instagram"/>
+                  <a href='https://www.facebook.com/thecreativemarket'><i className='fa fa-facebook'/></a>
+                  <a href='https://www.instagram.com/therealcreativemarket'><i className="fa fa-instagram"/></a>
                 </div>
                 {/*<div className="col">*/}
                   {/*<div className="social-buttons">*/}

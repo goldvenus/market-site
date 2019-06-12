@@ -435,7 +435,7 @@ class RentGearDetail extends Component {
                 </button>
               </div>
             </div>
-            
+            {listGears.length > 0 ?
             <div className='recommend-container'>
               <div className='recommend-heading'>
                 <span>RECOMMENDED <br className="d-sm-block d-md-none"/>FOR THIS PRODUCT</span>
@@ -448,10 +448,10 @@ class RentGearDetail extends Component {
                   disableImagesLoaded={false}
                   reloadOnUpdate
                 >
-                {listGears && this.renderRecommendedProducts({listGears})}
+                {this.renderRecommendedProducts({listGears})}
                 </Flickity>
               </div>
-            </div>
+            </div> : null}
           </div>
           
           <div className="d-none d-lg-flex d-xl-flex view-gear-detail row">
@@ -614,15 +614,15 @@ class RentGearDetail extends Component {
               </div>
             </div>
           </div>
-          
+          {listGears.length > 0 ?
           <div className='d-none d-lg-block d-xl-block recommend-container'>
             <div className='recommend-heading'>
               <span>RECOMMENDED FOR THIS PRODUCT</span>
             </div>
             <div className='recommend-body row slider-2'>
-              {listGears.length ? this.renderRecommendedProducts({listGears}) : 'No recommended products'}
+              {this.renderRecommendedProducts({listGears})}
             </div>
-          </div>
+          </div> : null}
           
           <footer className='mobile-footer d-block d-sm-none row'>
             <div className='price-container'>

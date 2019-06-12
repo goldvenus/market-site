@@ -7,8 +7,14 @@
   border: none;
   padding: 0;
   width: 100%;
-  height: min-content;
-  min-height: 110.5vh;
+  min-height: 111.5vh;
+  background-color: white;
+}
+
+body {
+  background: linear-gradient(to bottom, #f82462 0%,#f82462 31%,#ffffff 32%);
+  background: linear-gradient(to right, blue 50%, yellow 50%);
+  background: #f82462;
 }
 
 .app-content {
@@ -18,7 +24,7 @@
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
-  margin: $navbar-height-lg 0 0;
+  padding: $navbar-height-lg 0 0;
   width: 100%;
 
   & > * {
@@ -26,11 +32,13 @@
   }
 
   @include media-breakpoint-down(md) {
-    margin: $navbar-height-md 0 0;
+    padding: $navbar-height-md 0 0;
   }
 
   @include media-breakpoint-down(sm) {
-    margin: $navbar-height-sm 0 0;
+    padding: 0 !important;
+    margin: $navbar-height-sm 0 0 !important;
+    //padding: $navbar-height-sm 0 0;
   }
 }
 

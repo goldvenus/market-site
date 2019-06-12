@@ -194,7 +194,7 @@ class MyListings extends React.Component {
           <div className="listing-body">
             <div className="d-flex align-items-center">
               <h4 className="tab-title tab-title-listings">My Gear</h4>
-              <button className="theme-btn theme-btn-primary ml-auto add-gear-btn"><Link to="/addGear">Add Gear</Link>
+              <button className="theme-btn theme-btn-primary ml-auto add-gear-btn"><Link to="/add-gear">Add Gear</Link>
               </button>
             </div>
             

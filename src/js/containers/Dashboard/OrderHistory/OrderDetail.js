@@ -67,7 +67,7 @@ class OrderDetail extends Component {
                   <div className='item-info-top'>
                     <div>
                       <div className='category-name'>{listItem.categoryName}</div>
-                      <div className='brand-model'>{listItem.brand + ' ' + listItem.model}</div>
+                      <div className='brand-model'>{listItem.brand + ' ' + listItem.productName}</div>
                     </div>
                   </div>
                   <div className='item-info-bottom'>

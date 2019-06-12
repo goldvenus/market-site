@@ -162,7 +162,7 @@ class Favourites extends Component {
                   </div>
                   <div className="col-md-22 favourites_close_text">
                     <p className="tb_brand_model_name">
-                      {listItem.brand + ' ' + listItem.model}
+                      {listItem.brand + ' ' + listItem.productName}
                       {carted && <div className="card-checked"><i className="fas fa-check-circle"/></div>}
                     </p>
                     <p className="text-muted tb_categories_name">{listItem.categoryName}</p>

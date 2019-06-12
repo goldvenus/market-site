@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Form } from 'reactstrap';
-import CustomInput from '../../components/CustomInput';
 import AuthSideMenu from '../../components/AuthSideMenu';
 import { handleError } from '../../core/actions/common.action';
 import { confirmUser } from '../../core/actions/user.action';
+import TextField from "@material-ui/core/TextField/TextField";
+import $ from "jquery";
 
 class RegisterConfirm extends Component {
   constructor(props) {
@@ -21,6 +22,14 @@ class RegisterConfirm extends Component {
       fullName: this.fullName,
       isConfirmed: false
     };
+  }
+  
+  componentDidMount() {
+    $("#root").css('min-height', '70vh');
+  }
+  
+  componentWillUnmount() {
+    $("#root").css('min-height', '111.5vh');
   }
 
   async confirm(e) {
@@ -49,7 +58,7 @@ class RegisterConfirm extends Component {
         {this.state.isConfirmed
           ? (
             <div className="login success-message">
-              <h1 class="header"><i className="fa fa-check-circle primary-color"/> Account successfully activated!</h1>
+              <h1 className="header"><i className="fa fa-check-circle primary-color"/> Account successfully activated!</h1>
               <div className="flex-row navigation-buttons">
                 <button className="theme-btn theme-btn-secondery theme-btn-link"><Link to="/">Home Page</Link></button>
                 <button className="theme-btn theme-btn-primary theme-btn-link"><Link to="/login">Login</Link></button>
@@ -64,11 +73,12 @@ class RegisterConfirm extends Component {
                   ? null
                   : (
                     <div>
-                      <div className="theme-form-field">
-                        <CustomInput
-                          placeholder="Email"
+                      <div className="theme-form-field verification-code-input-wrapper">
+                        <TextField
+                          label="Email"
                           type="text"
                           required="required"
+                          className="custom-beautiful-textfield"
                           value={this.state.email}
                           onChange={(value) => this.setState({ email: value })}
                         />
@@ -76,11 +86,11 @@ class RegisterConfirm extends Component {
                     </div>
                   )
                 }
-                <div className="theme-form-field">
-                  <CustomInput
-                    placeholder="Verification Code"
+                <div className="theme-form-field verification-code-input-wrapper">
+                  <TextField
+                    label="Verification Code"
                     type="text"
-                    required="required"
+                    className="custom-beautiful-textfield"
                     value={this.state.code}
                     onChange={(value) => this.setState({ code: value })}
                   />

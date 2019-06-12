@@ -51,7 +51,7 @@ class ConfirmModal extends Component {
           </div>
           <div className='pickup-modal-body'>
             <div className='pickup-item-name'>
-              {info.brand + ' ' + info.model}
+              {info.brand + ' ' + info.productName}
             </div>
             <div className='pickup-confirm-time'>
               <span>{this.utc_time[0]}</span>&nbsp;{this.utc_time[1]} {this.utc_time[2]}

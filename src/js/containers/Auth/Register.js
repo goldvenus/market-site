@@ -5,13 +5,15 @@ import {Link} from 'react-router-dom';
 import AuthSideMenu from '../../components/AuthSideMenu';
 import {handleError} from "../../core/actions/common.action";
 import {register} from '../../core/actions/user.action';
-import {bindActionCreators} from "redux";
+import {bindActionCreators, compose} from "redux";
 import CustomSpinner from "../../components/common/CustomSpinner";
 import TextField from "@material-ui/core/TextField/TextField";
 import Navbar from "../../components/Navbar/Navbar";
 import Modal from "react-responsive-modal";
+import $ from "jquery";
 import PrivacyPolicyComponent from "../TermsAndPolicy/PrivacyPolicyComponent";
 import RentalTermsComponent from "../TermsAndPolicy/RentalTermsComponent";
+import withSizes from "react-sizes";
 
 class Register extends Component {
   constructor(props) {
@@ -31,6 +33,19 @@ class Register extends Component {
       isChecked: false,
       modalOpenState: 0
     };
+  }
+  
+  componentDidMount() {
+    this.props.isMobile && $("#root").css('min-height', '70vh');
+  }
+  
+  componentDidUpdate() {
+    this.props.isMobile && $("#root").css('min-height', '70vh');
+    !this.props.isMobile && $("#root").css('min-height', '111.5vh');
+  }
+  
+  componentWillUnmount() {
+    $("#root").css('min-height', '111.5vh');
   }
   
   handleSetRead = () => {
@@ -86,7 +101,7 @@ class Register extends Component {
             isRegistered ? (
               <div className="success-message-container">
                 <div className="login success-message register-success-message">
-                  <h1 className="header"><i className="fa fa-check-circle primary-color"/> Successfully</h1>
+                  <h1 className="header"><i className="fa fa-check-circle primary-color"/> Sign up successful</h1>
                   <div className="subheader">
                   <span>
                     To confirm your account,<br/> check your email for verification code
@@ -233,4 +248,8 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+const mapSizesToProps = ({ width }) => ({
+  isMobile: width < 768,
+});
+
+export default compose(withSizes(mapSizesToProps), connect(mapStateToProps, mapDispatchToProps))(Register);

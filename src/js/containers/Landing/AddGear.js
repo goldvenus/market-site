@@ -463,7 +463,7 @@ class AddGear extends Component {
       numberOfUserImage,
       categoryName,
       brand,
-      model,
+      productName,
       address,
       city,
       description,
@@ -478,7 +478,7 @@ class AddGear extends Component {
     return <div className="add-gear-price">
       <div id="fourth-content">
         <div className="theme-text-small text-gray">{categoryName}</div>
-        <h4 id="label-content">{brand + ' ' + model}</h4>
+        <h4 id="label-content">{brand + ' ' + productName}</h4>
         
         <div className="price-type-tabs">
           <input id="new" type="radio" value="new"/>
@@ -604,8 +604,13 @@ class AddGear extends Component {
         const {categoryName, brand, model, description, selectedType, productName, accessories, isKit} = this.state;
         let emptyCount = accessories.filter(item => item.value === '');
         let isSetAccessorise = (!isKit || (isKit && emptyCount.length === 0));
-        if (isKit && accessories.length === 0)
-          isSetAccessorise = false;
+        if (isKit && accessories.length === 0) {
+          handleError('Please add at least one accessory');
+          return false;
+        } else if (emptyCount.length > 0) {
+          handleError('Please add edited accessory');
+          return false;
+        }
         
         if (isSetAccessorise && categoryName && categoryName !== 'Select Category' && brand && model && description && selectedType && productName) {
           return true;
@@ -750,8 +755,8 @@ class AddGear extends Component {
       replacementValue,
       pricePerDay,
       brand,
-      model,
       categoryName,
+      productName,
       modalOpenState,
     } = this.state;
     
@@ -767,7 +772,7 @@ class AddGear extends Component {
         
         <div className="success-message">
           <div className="theme-text-small success_gear_categoryName">{categoryName}</div>
-          <h6 className="success_gear_brand_modal">{brand + ' ' + model}</h6>
+          <h6 className="success_gear_brand_modal">{brand + ' ' + productName}</h6>
           
           <div className="flex-row success_gear_reaplacement">
             <div>
