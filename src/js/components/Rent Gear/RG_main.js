@@ -161,7 +161,9 @@ class Main extends Component {
     
     product_list = product_list.filter(item =>
       ((item.productName && item.productName.toLowerCase().indexOf(key1) !== -1) || item.categoryName.toLowerCase().indexOf(key1) !== -1 || item.brand.toLowerCase().indexOf(key1) !== -1) &&
-      (stringSimilarity.compareTwoStrings((item.address + ', ' + item.city).toLowerCase(), key2) >= 0.7));
+      ((item.address + ', ' + item.city).toLowerCase().indexOf(key2) >= 0 ||
+          key2.indexOf((item.address + ', ' + item.city).toLowerCase()) >= 0 ||
+          stringSimilarity.compareTwoStrings(key2, (item.address + ', ' + item.city).toLowerCase()) >= 0.7));
     
     return product_list;
   };
