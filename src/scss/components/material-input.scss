@@ -184,6 +184,21 @@ $p-v: 11px;
     width: 100%;
   }
 
+  img, svg {
+    color: #FCA7C0;
+    width: 14px;
+    height: 20px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+  }
+  svg {
+    width: 18px;
+  }
+
+  input {
+    margin-left: 5px !important;
+  }
+
   .material-input-dropdown {
     position: absolute;
     top: 100%;

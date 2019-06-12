@@ -216,7 +216,6 @@ class Home extends React.Component {
                     <div className="search-wrapper">
                       <MaterialInputWithDropdown
                         label="Search"
-                        noHelp
                         value={searchValue}
                         dropdownItems={this.productList || []}
                         // dropdownAddons={this.renderSearchAddOn()}
@@ -227,7 +226,6 @@ class Home extends React.Component {
                     <div className="location-search-wrapper search-wrapper">
                       <MaterialInputWithDropdown
                         label="Location"
-                        noHelp
                         value={searchLocationValue}
                         dropdownItems={this.locationList || []}
                         onHandleChange={this.handleChangeSearchLocation}
@@ -269,7 +267,7 @@ class Home extends React.Component {
             </Row>
             <Row className='home-subsection'>
               <Col lg='12' md='24' className='order-lg-1 order-md-2 third-left'>
-                <h2>SECURE RENTAL<br/>GLOBAL COMMUNITY</h2>
+                <h2>SECURE GLOBAL<br/>RENTAL COMMUNITY</h2>
                 <p className='signup-text'>Every member of Creative Market must be verified through our platform before engaging in rentals. Renters must complete payments before gear pickup takes place, and funds are securely held in escrow until owner and renter have both confirmed that the handoff has taken place.</p>
                 <Link to='/register'><button className='theme-btn theme-btn-primary'>SIGN UP</button></Link>
               </Col>

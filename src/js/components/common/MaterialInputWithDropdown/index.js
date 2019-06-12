@@ -1,6 +1,8 @@
 import React from 'react';
 import $ from 'jquery';
-import MaterialInput from '../MaterialInput/index';
+import Input from '@material-ui/core/Input';
+import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
+import {IconSearch} from "../../../containers/Home/images";
 
 class MaterialInputWithDropdown extends React.Component {
   state = {
@@ -164,13 +166,32 @@ class MaterialInputWithDropdown extends React.Component {
 
     return (
       <div className="material-input-with-dropdown" ref={ref => {this.wrapperRef = ref}}>
-        <MaterialInput
+        {/*<MaterialInput*/}
+          {/*label={label}*/}
+          {/*value={value}*/}
+          {/*onChange={(e) => this.handleChange(e)}*/}
+          {/*onFocus={this.handleFocus}*/}
+          {/*onBlur={this.handleBlur}*/}
+          {/*onKeyDown={this.handleKeyDown}*/}
+          {/*{...props}*/}
+        {/*/>*/}
+        <Input
+          className='custom-beautiful-input'
+          // id="adornment-amount"
           label={label}
           value={value}
           onChange={(e) => this.handleChange(e)}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
           onKeyDown={this.handleKeyDown}
+          startAdornment={
+            <InputAdornment position="start">
+              {label === 'Search' ?
+                <IconSearch/> :
+                <img src='/images/Icons/marker/marker-input.svg' alt=''/>
+              }
+            </InputAdornment>
+          }
           {...props}
         />
 
