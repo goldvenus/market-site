@@ -74,6 +74,9 @@
   background-color: $white;
   color: #252525;
 
+  a {
+    padding: 2px 5px;
+  }
   &:hover {
     border: solid 1px #252525;
     background-color: #252525;

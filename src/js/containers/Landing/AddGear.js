@@ -213,13 +213,19 @@ class AddGear extends Component {
   };
   
   handlePlaceChange(val, field) {
-    console.log(val.terms[0].value, field);
     if (this._isMounted) {
-      console.log({
-        [field]: val.terms[0].value
-      });
       this.setState({
         [field]: val.terms[0].value
+      });
+    }
+  };
+  
+  handlePlaceKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      // this.handleSearch();
+    } else {
+      this._mounted && this.setState({
+        searchLocationValue: e.target.value || ''
       });
     }
   };
@@ -425,11 +431,13 @@ class AddGear extends Component {
       <div className="theme-form add-gear-address">
         <div className="theme-form-field text-wrapper">
           <GooglePlaceAutocomplete
-            onPlaceChange={(val) => this.handlePlaceChange(val, 'country')}
+            onPlaceChange={(val) => this.handlePlaceChange(val, 'city')}
+            onPlaceKeyDown={this.handlePlaceKeyDown}
             restriction={{country: ['IS']}}
             types={['(cities)']}
             initialValue={city}
             showIcon={false}
+            placeholder='City'
           />
         </div>
         <div className="theme-form-field text-wrapper">
@@ -443,29 +451,35 @@ class AddGear extends Component {
             {/*onChange={(e) => this.setState({region: (e && e.target && e.target.value) || ''})}*/}
           {/*/>*/}
           <GooglePlaceAutocomplete
-            onPlaceChange={(val) => this.handlePlaceChange(val, 'city')}
+            onPlaceChange={(val) => this.handlePlaceChange(val, 'region')}
+            onPlaceKeyDown={this.handlePlaceKeyDown}
             restriction={{country: ['IS']}}
             types={['(regions)']}
             initialValue={region}
             showIcon={false}
+            placeholder='Region'
           />
         </div>
         <div className="theme-form-field text-wrapper">
           <GooglePlaceAutocomplete
             onPlaceChange={(val) => this.handlePlaceChange(val, 'address')}
+            onPlaceKeyDown={this.handlePlaceKeyDown}
             restriction={{country: ['IS']}}
             types={['address']}
             initialValue={address}
             showIcon={false}
+            placeholder='Address'
           />
         </div>
         <div className="theme-form-field text-wrapper">
           <GooglePlaceAutocomplete
             onPlaceChange={(val) => this.handlePlaceChange(val, 'postalCode')}
+            onPlaceKeyDown={this.handlePlaceKeyDown}
             restriction={{country: ['IS']}}
             types={['(regions)']}
             initialValue={postalCode}
             showIcon={false}
+            placeholder='Postal Code'
           />
         </div>
       </div>
@@ -614,7 +628,6 @@ class AddGear extends Component {
   }
   
   validate() {
-    console.log(this.state);
     switch (this.state.progressStep) {
       case 0:
         const {categoryName, brand, model, description, selectedType, productName, accessories, isKit} = this.state;
@@ -666,14 +679,18 @@ class AddGear extends Component {
       };
       
       try {
+        this.setState({busy: true});
         const compressedFile = await imageCompression(imageFile, options);
         let image = await readFileData(compressedFile);
         let {numberOfUserImage} = this.state;
         numberOfUserImage.push(image);
         if (this._isMounted) {
           this.setState({
-            numberOfUserImage
+            numberOfUserImage,
+            busy: false
           });
+        } else {
+          this.setState({busy: false});
         }
       } catch (error) {
         console.log(error);
