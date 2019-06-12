@@ -7,7 +7,7 @@ import {
 } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 
-const CardView = ({ gear_detail: { numberOfUserImage, categoryName, brand, productName, city, rating, pricePerDay, gearid},
+const CardView = ({ gear_detail: { numberOfUserImage, categoryName, brand, productName, location: {city}, rating, pricePerDay, gearid},
     history, favored, carted }) => {
   return (
     <Col md="8" className="cardz">

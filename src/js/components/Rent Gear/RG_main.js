@@ -15,7 +15,7 @@ import {handleError} from "../../core/actions/common.action";
 import CustomSpinner from "../common/CustomSpinner";
 import TextField from "@material-ui/core/TextField/TextField";
 import Sidebar from "./RG_sidebar";
-import stringSimilarity from 'string-similarity';
+import {calcDistance} from "../../core/helper/location.helper";
 
 class Main extends Component {
   constructor(props) {
@@ -155,17 +155,24 @@ class Main extends Component {
   };
   
   doSearch = () => {
-    let product_list = this.state.product_list;
+    let productList = this.state.product_list;
     let key1 = this.state.searchText.toLowerCase();
     let key2 = this.state.locationText.toLowerCase();
-    
-    product_list = product_list.filter(item =>
+  
+    productList = productList.filter(item =>
       ((item.productName && item.productName.toLowerCase().indexOf(key1) !== -1) || item.categoryName.toLowerCase().indexOf(key1) !== -1 || item.brand.toLowerCase().indexOf(key1) !== -1) &&
-      ((item.address + ', ' + item.city).toLowerCase().indexOf(key2) >= 0 ||
-          key2.indexOf((item.address + ', ' + item.city).toLowerCase()) >= 0 ||
-          stringSimilarity.compareTwoStrings(key2, (item.address + ', ' + item.city).toLowerCase()) >= 0.7));
+      ((item.location.address + ', ' + item.location.region + ', ' + item.location.city).toLowerCase().indexOf(key2) >= 0));
     
-    return product_list;
+    // sort
+    for ( let i = 0; i < productList.length; i++) {
+      productList[i]["distance"] = calcDistance(1*localStorage.lat, 1*localStorage.lng, 1*productList[i]["location"]["globalPos"]["lat"], 1*productList[i]["location"]["globalPos"]["lng"], "K");
+    }
+  
+    productList.sort(function(a, b) {
+      return a.distance - b.distance;
+    });
+
+    return productList;
   };
   
   toggle = (tab) => {

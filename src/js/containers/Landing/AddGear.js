@@ -28,7 +28,6 @@ class AddGear extends Component {
     
     this._isMounted = false;
     this.progressSteps = ['Info', 'Photo', 'Address', 'Price'];
-    // this.usedNames = [];
     this.suggestions = [];
     
     this.state = {
@@ -49,6 +48,7 @@ class AddGear extends Component {
       region: '',
       address: '',
       postalCode: '',
+      globalPos: false,
       replacementValue: '',
       pricePerDay: '',
       productName: '',
@@ -67,11 +67,7 @@ class AddGear extends Component {
     await fetchCategories();
     getGearsBriefInfo();
     this._isMounted = true;
-    // let ret = await getUsedNames();
-    // if (ret) {
-    //   this.usedNames = ret;
-    // }
-    // this.autoGenerateSuggestions();
+    this.placesService = new window.google.maps.places.PlacesService(document.createElement('div'))
   }
   
   componentWillUnmount() {
@@ -194,6 +190,7 @@ class AddGear extends Component {
       productName: '',
       isDoubled: false,
       modalOpenState: 1,
+      globalPos: false,
       busy: false
     });
   };
@@ -212,10 +209,25 @@ class AddGear extends Component {
     this.setState({recommendedList});
   };
   
-  handlePlaceChange(val, field) {
+  async handlePlaceChange(val, field) {
+    let location = false;
+    if (field === 'address') {
+      location = await new Promise((resolve) => this.placesService.getDetails({placeId: val.place_id}, async (location, status) => {
+        if (status === 'OK') {
+          let lat = await location.geometry.location.lat();
+          let lng = await location.geometry.location.lng();
+          resolve({lat, lng});
+        } else {
+          resolve(false);
+        }
+      }));
+      this.setState({
+        globalPos: location
+      });
+    }
     if (this._isMounted) {
       this.setState({
-        [field]: val.terms[0].value
+        [field]: val.terms[0].value,
       });
     }
   };
@@ -300,23 +312,15 @@ class AddGear extends Component {
               />
             </div>
             <div className="theme-form-field category_first">
-              {/*<div className={`custom-auto-suggest-container ${isDoubled ? "doubled" : ""}`}>*/}
-                {/*<CustomAutosuggest*/}
-                  {/*value={productName}*/}
-                  {/*suggestions={this.suggestions}*/}
-                  {/*handleChange={this.handleChangeProductName}*/}
-                {/*/>*/}
-                <TextField
-                  id="standard-with-placeholder2"
-                  className="custom-beautiful-textfield"
-                  label="Product Name"
-                  type="text"
-                  value={productName}
-                  maxLength='50'
-                  // onBlur={this.addSuggestions}
-                  onChange={(e) => this.setState({productName: (e && e.target && e.target.value) || ''})}
-                />
-              {/*</div>*/}
+              <TextField
+                id="standard-with-placeholder2"
+                className="custom-beautiful-textfield"
+                label="Product Name"
+                type="text"
+                value={productName}
+                maxLength='50'
+                onChange={(e) => this.setState({productName: (e && e.target && e.target.value) || ''})}
+              />
             </div>
             <div className="theme-form-field category_first">
               <Textarea
@@ -425,7 +429,6 @@ class AddGear extends Component {
   
   renderAddress() {
     const {city, region, address, postalCode} = this.state;
-    console.log(city, region, address, postalCode);
     
     return (
       <div className="theme-form add-gear-address">
@@ -438,6 +441,7 @@ class AddGear extends Component {
             initialValue={city}
             showIcon={false}
             placeholder='City'
+            customClass='white-model'
           />
         </div>
         <div className="theme-form-field text-wrapper">
@@ -458,6 +462,7 @@ class AddGear extends Component {
             initialValue={region}
             showIcon={false}
             placeholder='Region'
+            customClass='white-model'
           />
         </div>
         <div className="theme-form-field text-wrapper">
@@ -469,6 +474,7 @@ class AddGear extends Component {
             initialValue={address}
             showIcon={false}
             placeholder='Address'
+            customClass='white-model'
           />
         </div>
         <div className="theme-form-field text-wrapper">
@@ -480,6 +486,7 @@ class AddGear extends Component {
             initialValue={postalCode}
             showIcon={false}
             placeholder='Postal Code'
+            customClass='white-model'
           />
         </div>
       </div>
@@ -715,11 +722,12 @@ class AddGear extends Component {
         city,
         region,
         address,
+        globalPos,
         postalCode,
         replacementValue,
         productName,
         pricePerDay,
-        recommendedList
+        recommendedList,
       } = this.state;
       
       isKit = !!isKit;
@@ -733,13 +741,10 @@ class AddGear extends Component {
         isKit,
         accessories: accessories.map(item => item.value),
         numberOfUserImage,
-        city,
-        product_region: region,
-        address,
-        postalCode,
         replacementValue,
         pricePerDay,
         productName,
+        location: {postalCode, address, region, city, globalPos},
         recommendedList: recommendedList.map(item => item.gearid)
       };
       

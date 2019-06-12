@@ -1,14 +1,14 @@
 import React from 'react';
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 
-const GooglePlaceAutocomplete = ({restriction, onPlaceChange, onPlaceKeyDown, types, initialValue, showIcon, placeholder}) => (
+const GooglePlaceAutocomplete = ({restriction, onPlaceChange, onPlaceKeyDown, types, initialValue, showIcon, placeholder, customClass}) => (
 
   <GooglePlacesAutocomplete
     initialValue={initialValue || ''}
     // loader={<img className='google-place-loader' src='/images/Icons/marker/marker-input.svg' />}
     placeholder={placeholder || ''}
     renderInput={(props) => (
-      <div className="google-places-input-wrapper custom-input">
+      <div className={`google-places-input-wrapper custom-input ${customClass}`}>
         {showIcon &&
         <img className='google-place-icon' src='/images/Icons/marker/marker-input.svg' alt=''/>}
         <input

@@ -91,7 +91,7 @@ class RentGearDetail extends Component {
     listGears = listGears.filter(item => item.gearid !== gear.gearid);
     
     return listGears.map((item, i) => {
-      let {numberOfUserImage, gearid, brand, rating, city, pricePerDay, productName, categoryName} = item;
+      let {numberOfUserImage, gearid, brand, rating, location: {city}, pricePerDay, productName, categoryName} = item;
       const carted_item = gearid && carts && carts.length > 0 ?
         carts.filter(item => item.gearid === gearid) : 0;
       const carted = carted_item ? carted_item.length : false;
@@ -242,7 +242,7 @@ class RentGearDetail extends Component {
       return <CustomLoaderLogo/>;
       
     const {
-      numberOfUserImage, gearid, brand, rating, city, replacementValue,
+      numberOfUserImage, gearid, brand, rating, location: {city}, replacementValue,
       pricePerDay, productName, description, newArrival_Index, categoryName, accessories, userid
     } = gear;
     const name = brand + ' ' + productName;

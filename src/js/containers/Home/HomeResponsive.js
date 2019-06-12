@@ -4,7 +4,6 @@ import { Col, Container, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { socialLogin } from '../../core/actions/user.action';
 import MaterialInputWithDropdown from '../../components/common/MaterialInputWithDropdown';
-
 import {
   IconBtnCamera,
   IconBtnDrone,
@@ -20,32 +19,24 @@ class Home extends React.Component {
     super(props);
     
     this._mounted = false;
+    this.gearList = [];
+    this.productList = [];
+    this.categoryList = [];
+    this.locationList = [];
+    this.timer = null;
     this.state = {
       searchValue: '',
       searchResult: [],
       searchLocationValue: '',
       searchLocationResult: [],
     };
-  
+    
     getGearsBriefInfo();
-    this.gearList = [];
-    this.productList = [];
-    this.categoryList = [];
-    this.locationList = [];
-    this.timer = null;
-    this.autocompleteService = null;
   }
   
-  initPlaceAutoComplete = () => {
-    this.placesService = new window.google.maps.places.PlacesService(document.createElement('div'));
-    this.autocompleteService = new window.google.maps.places.AutocompleteService();
-    this.PlacesServiceStatus = window.google.maps.places.PlacesServiceStatus;
-  };
-  
   async componentDidMount() {
-    // this.initPlaceAutoComplete();
-    
     this._mounted = true;
+
     let $animation_elements = $('.animation-element');
     let $window = $(window);
     
@@ -111,25 +102,10 @@ class Home extends React.Component {
 
     let gearList1 = (this.gearList || []).filter(item =>
       (item.productName && item.productName.toLowerCase().indexOf(key1) === 0));
-
-    // let gearList2 = (this.gearList || []).filter(item =>
-    //   ((item.city.toLowerCase().indexOf(key2) === 0 || item.address.toLowerCase().indexOf(key2) === 0)));
-  
+    
     gearList1.forEach((item) => {
       this.productList = [...this.productList, item.productName];
-      // this.categoryList = [...this.categoryList, item.categoryName];
     });
-    // gearList2.forEach((item) => {
-    //   this.locationList = [...this.locationList, item.city + ', ' + item.address];
-    // });
-    
-    // this.initPlaceAutoComplete();
-    //
-    // this.autocompleteService.getPlacePredictions({ input: 'paris' }, (predictions, status) => {
-    //   if (status !== this.PlacesServiceStatus.OK) return
-    //   // this.setState({ options: predictions })
-    //   console.log(predictions);
-    // })
     
     this._mounted && this.forceUpdate();
   };
@@ -144,6 +120,7 @@ class Home extends React.Component {
   };
   
   handlePlaceChange = (val) => {
+    console.log(val);
     // get rid of country
     let address = val.terms.slice(0, val.terms.length-1).map(item => item.value);
     this._mounted && this.setState({
@@ -246,7 +223,7 @@ class Home extends React.Component {
                         onPlaceChange={this.handlePlaceChange}
                         onPlaceKeyDown={this.handlePlaceKeyDown}
                         restriction={{country: ['IS']}}
-                        types={['address']}
+                        types={['(cities)']}
                         showIcon={true}
                       />
                     </div>

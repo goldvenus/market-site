@@ -8,7 +8,7 @@ import {withRouter} from 'react-router-dom';
 import { addFavourites, deleteFavourite } from '../../core/actions/favourite.action';
 import {handleError} from "../../core/actions/common.action";
 
-const ListView = ({ gear_detail: { numberOfUserImage, brand, productName, city, rating, pricePerDay, gearid, description, categoryName },
+const ListView = ({ gear_detail: { numberOfUserImage, brand, productName, location: {city}, rating, pricePerDay, gearid, description, categoryName },
     history, favored, carted, onOpenModal, user }) => {
   return (
     <Col sm="24">

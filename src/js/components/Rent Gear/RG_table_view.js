@@ -8,7 +8,7 @@ import {withRouter} from 'react-router-dom';
 import { addFavourites, deleteFavourite } from '../../core/actions/favourite.action';
 import {handleError} from "../../core/actions/common.action";
 
-const TableView = ({ gear_detail: { numberOfUserImage, brand, productName, city, rating, pricePerDay, gearid, categoryName},
+const TableView = ({ gear_detail: { numberOfUserImage, brand, productName, location: {city}, rating, pricePerDay, gearid, categoryName},
     history, favored, carted, onOpenModal, user }) => {
   return (
     <Col sm="24">

@@ -11,6 +11,7 @@ import {getUser} from "../core/actions/user.action";
 import {getCarts} from "../core/actions/cart.action";
 import {getFavourites} from "../core/actions/favourite.action";
 import {getGearsBriefInfo} from "../core/actions/gear.action";
+import {detectLocation, ipLookUp} from "../core/helper/location.helper";
 
 class Layout extends Component {
   constructor(props) {
@@ -23,6 +24,16 @@ class Layout extends Component {
       getFavourites();
       getGearsBriefInfo();
     }
+  }
+  
+  async componentDidMount() {
+    let location = await detectLocation();
+    if (!location) {
+      location = await ipLookUp();
+    }
+    localStorage.setItem("lat", location.latitude);
+    localStorage.setItem("lng", location.longitude);
+    // let address = location && await getAddress(location.latitude, location.longitude);
   }
   
   render() {

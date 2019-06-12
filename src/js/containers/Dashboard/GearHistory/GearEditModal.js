@@ -16,6 +16,7 @@ import CustomInputWithButton from "../../../components/common/CustomInputWithBut
 import imageCompression from "browser-image-compression";
 import CustomAutoComplete from "../../../components/common/CustomAutoComplete";
 import {CloseIcon} from "../../../components/common/IconComponent";
+import GooglePlaceAutocomplete from "../../../components/common/GooglePlaceAutocomplete";
 
 class GearEditModal extends Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class GearEditModal extends Component {
 
     // this.usedNames = [];
     this.suggestions = [];
+    this._isMounted = false;
     this.state = {
       dropdownOpen: false,
       selectedType: '',
@@ -57,7 +59,9 @@ class GearEditModal extends Component {
   }
 
   async componentDidMount() {
+    this._isMounted = true;
     await getGear(this.gearid);
+    this.placesService = new window.google.maps.places.PlacesService(document.createElement('div'));
     // this.usedNames = await getUsedNames();
     // remove current product name from used list
     // if (this.props.gear.productName)
@@ -82,10 +86,11 @@ class GearEditModal extends Component {
         isKit: props.gear.isKit,
         accessories: props.gear.accessories.map((item, key) => ({id: Date.now()+key, value: item, type: 1})),
         numberOfUserImage: props.gear.numberOfUserImage,
-        city: props.gear.city,
-        region: props.gear.product_region,
-        address: props.gear.address,
-        postalCode: props.gear.postalCode,
+        city: props.gear.location.city,
+        region: props.gear.location.region,
+        address: props.gear.location.address,
+        postalCode: props.gear.location.postalCode,
+        globalPos: props.gear.location.globalPos,
         replacementValue: props.gear.replacementValue,
         pricePerDay: props.gear.pricePerDay,
         productName: props.gear.productName ? props.gear.productName : '',
@@ -96,6 +101,10 @@ class GearEditModal extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+  
   // autoGenerateSuggestions = () => {
   //   let suggestions = this.suggestions;
   //   let namesFromCategories = this.props.categories.map((item) => item.categoryName);
@@ -152,6 +161,7 @@ class GearEditModal extends Component {
       city,
       region,
       address,
+      globalPos,
       postalCode,
       replacementValue,
       pricePerDay,
@@ -177,13 +187,10 @@ class GearEditModal extends Component {
       numberOfUserImage,
       numberOfUserImageRemoved,
       numberOfUserImageNew,
-      city,
-      product_region: region,
-      address,
-      postalCode,
       replacementValue,
       pricePerDay,
-      productName: productName,
+      productName,
+      location: {postalCode, address, region, city, globalPos},
       recommendedList: recommendedList.map(item => item.gearid)
     };
 
@@ -288,6 +295,39 @@ class GearEditModal extends Component {
     recommendedList = recommendedList.filter(item => item.productName !== val);
     this.setState({recommendedList});
   };
+  
+  async handlePlaceChange(val, field) {
+    let location = false;
+    if (field === 'address') {
+      location = await new Promise((resolve) => this.placesService.getDetails({placeId: val.place_id}, async (location, status) => {
+        if (status === 'OK') {
+          let lat = await location.geometry.location.lat();
+          let lng = await location.geometry.location.lng();
+          resolve({lat, lng});
+        } else {
+          resolve(false);
+        }
+      }));
+      this.setState({
+        globalPos: location
+      });
+    }
+    if (this._isMounted) {
+      this.setState({
+        [field]: val.terms[0].value,
+      });
+    }
+  };
+  
+  handlePlaceKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      // this.handleSearch();
+    } else {
+      this._mounted && this.setState({
+        searchLocationValue: e.target.value || ''
+      });
+    }
+  };
 
   renderInfo() {
     let {brand, model, categoryName, productName} = this.state;
@@ -384,53 +424,60 @@ class GearEditModal extends Component {
 
   renderAddress() {
     const {city, region, address, postalCode} = this.state;
-    const {gear} = this.props;
-
-    if (city === '')
-      this.setState({
-        city: gear.city,
-        region: gear.product_region,
-        address: gear.address,
-        postalCode: gear.postalCode
-      });
 
     return (
       <Form className="theme-form add-gear-address">
         <p className="type_title_css">Address</p>
         <div className='address-wrapper'>
-          <TextField
-            id="standard-with-placeholder4"
-            className="custom-beautiful-textfield"
-            label='City'
-            type="text"
-            value={city}
-            onChange={(e) => this.setState({city: (e && e.target && e.target.value) || ''})}
+          {/*<TextField*/}
+            {/*id="standard-with-placeholder4"*/}
+            {/*className="custom-beautiful-textfield"*/}
+            {/*label='City'*/}
+            {/*type="text"*/}
+            {/*value={city}*/}
+            {/*onChange={(e) => this.setState({city: (e && e.target && e.target.value) || ''})}*/}
+          {/*/>*/}
+          <GooglePlaceAutocomplete
+            onPlaceChange={(val) => this.handlePlaceChange(val, 'city')}
+            onPlaceKeyDown={this.handlePlaceKeyDown}
+            restriction={{country: ['IS']}}
+            types={['(cities)']}
+            initialValue={city}
+            showIcon={false}
+            placeholder='City'
+            customClass='white-model'
           />
-          <TextField
-            id="standard-with-placeholder5"
-            className="custom-beautiful-textfield"
-            label='Region'
-            type="text"
-            value={region}
-            onChange={(e) => this.setState({region: (e && e.target && e.target.value) || ''})}
+          <GooglePlaceAutocomplete
+            onPlaceChange={(val) => this.handlePlaceChange(val, 'region')}
+            onPlaceKeyDown={this.handlePlaceKeyDown}
+            restriction={{country: ['IS']}}
+            types={['(regions)']}
+            initialValue={region}
+            showIcon={false}
+            placeholder='Region'
+            customClass='white-model'
           />
         </div>
         <div className='address-wrapper'>
-          <TextField
-            id="standard-with-placeholder5"
-            className="custom-beautiful-textfield"
-            label='Address'
-            type="text"
-            value={address}
-            onChange={(e) => this.setState({address: (e && e.target && e.target.value) || ''})}
+          <GooglePlaceAutocomplete
+            onPlaceChange={(val) => this.handlePlaceChange(val, 'address')}
+            onPlaceKeyDown={this.handlePlaceKeyDown}
+            restriction={{country: ['IS']}}
+            types={['address']}
+            initialValue={address}
+            showIcon={false}
+            placeholder='Address'
+            customClass='white-model'
           />
-          <TextField
-            id="standard-with-placeholder6"
-            className="custom-beautiful-textfield"
-            label='Postal Code'
-            type="text"
-            value={postalCode}
-            onChange={(e) => this.setState({postalCode: (e && e.target && e.target.value) || ''})}
+          <GooglePlaceAutocomplete
+            onPlaceChange={(val) => this.handlePlaceChange(val, 'postalCode')}
+            onPlaceKeyDown={this.handlePlaceKeyDown}
+            restriction={{country: ['IS']}}
+            types={['(regions)']}
+            initialValue={postalCode}
+            showIcon={false}
+            placeholder='Postal Code'
+            customClass='white-model'
           />
         </div>
       </Form>
