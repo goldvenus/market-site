@@ -46,47 +46,51 @@ const tokenAxiosConfig = () => {
 };
 
 const get = async (url) => {
-  return await axios.get(getAPIUrl(url), axiosConfig()).then((res) => {
-    if (res.data && res.data.status === 'fail' && res.data.errorMessage === 'Access Token has expired') {
-      console.log(url);
-      console.log("Access Token has expired, logging out");
-      logout();
-    } else {
-      if (res.data.errorMessage)
-        console.log(res.data.errorMessage);
-      return res;
-    }
-  }).catch ((error) => {
-    if (!error.response) {
-      // network error
-      handleError("Network Connection Error");
-    } else {
-      handleError(error.response.data.message);
-    }
-    return false;
-  });
+  return await axios.get(getAPIUrl(url), axiosConfig())
+    .then((res) => {
+      if (res.data && res.data.status === 'fail' && res.data.errorMessage === 'Access Token has expired') {
+        console.log(url);
+        console.log("Access Token has expired, logging out");
+        logout();
+      } else {
+        if (res.data.errorMessage)
+          console.log(res.data.errorMessage);
+        return res;
+      }
+    })
+    .catch ((error) => {
+      if (!error.response) {
+        // network error
+        handleError("Network Connection Error");
+      } else {
+        handleError(error.response.data.message);
+      }
+      return false;
+    });
 };
 
 const post = async (url, data) => {
-  return axios.post(getAPIUrl(url), data, axiosConfig()).then((res) => {
-    if (res.data && res.data.status === 'fail' && res.data.errorMessage === 'Access Token has expired') {
-      console.log(url);
-      console.log("Access Token has expired, logging out");
-      logout();
-    } else {
-      if (res.data.errorMessage)
-        console.log(res.data.errorMessage);
-      return res;
-    }
-  }).catch ((error) => {
-    if (!error.response) {
-      // network error
-      handleError("Network Connection Error");
-    } else {
-      handleError(error.response.data.message);
-    }
-    return false;
-  });
+  return axios.post(getAPIUrl(url), data, axiosConfig())
+    .then((res) => {
+      if (res.data && res.data.status === 'fail' && res.data.errorMessage === 'Access Token has expired') {
+        console.log(url);
+        console.log("Access Token has expired, logging out");
+        logout();
+      } else {
+        if (res.data.errorMessage)
+          console.log(res.data.errorMessage);
+        return res;
+      }
+    })
+    .catch ((error) => {
+      if (!error.response) {
+        // network error
+        handleError("Network Connection Error");
+      } else {
+        handleError(error.response.data.message);
+      }
+      return false;
+    });
 };
 
 // export default {

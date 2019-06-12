@@ -196,62 +196,10 @@
             flex: 1;
             margin: 0 0 22px;
           }
-
           .material-input-with-dropdown {
             width: 100%;
           }
-
-          .search-addon {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: flex-start;
-            flex-wrap: wrap;
-            overflow: auto;
-
-            & > div {
-              width: 100%;
-
-              .search-category-item {
-                display: flex;
-                align-items: center;
-                margin: 0;
-                border: none;
-                padding: 5px 15px;
-                height: 35px;
-                width: 50%;
-                float: left;
-
-                span {
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  margin: 0;
-                  border: none;
-                  border-bottom: 1px solid $primary-light-color;
-                  padding: 2px;
-                  color: $primary-color;
-                  font-size: 12px;
-                }
-              }
-              .search-product-item {
-                width: 100%;
-                color: #252525;
-                padding: 5px 15px;
-                font-size: 16px;
-                line-height: 27px;
-                cursor: pointer;
-              }
-              .material-input-dropdown-item:hover {
-                background-color: #e2e3e5;
-              }
-            }
-            .search-brand-category-wrapper {
-              border-bottom: solid 1px #F2F2F2;
-            }
-          }
         }
-
         .location-search-wrapper {
           position: relative;
           flex: 224;
@@ -260,6 +208,7 @@
           justify-content: stretch;
           margin: 0;
           width: 100%;
+          margin-top: 3px;
 
           @include media-breakpoint-down(sm) {
             flex: 1;
@@ -268,6 +217,14 @@
 
           .material-input-with-dropdown {
             width: 100%;
+          }
+          .google-places-input-wrapper {
+            width: 100%;
+            padding-bottom: 1px;
+
+            input {
+              width: 100%;
+            }
           }
         }
       }

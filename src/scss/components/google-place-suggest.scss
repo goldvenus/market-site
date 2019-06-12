@@ -1,0 +1,22 @@
+.google-places-input-wrapper {
+  display: inline-flex;
+  border-bottom: solid 1px white;
+  align-items: center;
+
+  .google-places-input {
+    background-color: #f82462;
+    border: none;
+    color: white;
+    padding: 0 0 6px 15px;
+    outline: none;
+  }
+  img {
+    width: 14px;
+    height: 19px;
+    margin-left: 13px;
+  }
+  .google-place-loader {
+    position: absolute;
+    right: 0;
+  }
+}

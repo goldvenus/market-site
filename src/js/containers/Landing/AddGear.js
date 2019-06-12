@@ -20,6 +20,7 @@ import {fetchCategories} from "../../core/actions/category.action";
 import {CloseIcon} from "../../components/common/IconComponent";
 import imageCompression from "browser-image-compression";
 import CustomAutoComplete from "../../components/common/CustomAutoComplete";
+import GooglePlaceAutocomplete from "../../components/common/GooglePlaceAutocomplete";
 
 class AddGear extends Component {
   constructor(props) {
@@ -209,6 +210,18 @@ class AddGear extends Component {
     let {recommendedList} = this.state;
     recommendedList = recommendedList.filter(item => item.productName !== val);
     this.setState({recommendedList});
+  };
+  
+  handlePlaceChange(val, field) {
+    console.log(val.terms[0].value, field);
+    if (this._isMounted) {
+      console.log({
+        [field]: val.terms[0].value
+      });
+      this.setState({
+        [field]: val.terms[0].value
+      });
+    }
   };
   
   renderProgress() {
@@ -406,51 +419,53 @@ class AddGear extends Component {
   
   renderAddress() {
     const {city, region, address, postalCode} = this.state;
+    console.log(city, region, address, postalCode);
     
     return (
       <div className="theme-form add-gear-address">
         <div className="theme-form-field text-wrapper">
-          <TextField
-            id="standard-with-placeholder1"
-            className="custom-beautiful-textfield"
-            label="City"
-            type="text"
-            value={city}
-            maxLength='50'
-            onChange={(e) => this.setState({city: (e && e.target && e.target.value) || ''})}
+          <GooglePlaceAutocomplete
+            onPlaceChange={(val) => this.handlePlaceChange(val, 'country')}
+            restriction={{country: ['IS']}}
+            types={['(cities)']}
+            initialValue={city}
+            showIcon={false}
           />
         </div>
         <div className="theme-form-field text-wrapper">
-          <TextField
-            id="standard-with-placeholder2"
-            className="custom-beautiful-textfield"
-            label="Region"
-            type="text"
-            value={region}
-            maxLength='50'
-            onChange={(e) => this.setState({region: (e && e.target && e.target.value) || ''})}
+          {/*<TextField*/}
+            {/*id="standard-with-placeholder2"*/}
+            {/*className="custom-beautiful-textfield"*/}
+            {/*label="Region"*/}
+            {/*type="text"*/}
+            {/*value={region}*/}
+            {/*maxLength='50'*/}
+            {/*onChange={(e) => this.setState({region: (e && e.target && e.target.value) || ''})}*/}
+          {/*/>*/}
+          <GooglePlaceAutocomplete
+            onPlaceChange={(val) => this.handlePlaceChange(val, 'city')}
+            restriction={{country: ['IS']}}
+            types={['(regions)']}
+            initialValue={region}
+            showIcon={false}
           />
         </div>
         <div className="theme-form-field text-wrapper">
-          <TextField
-            id="standard-with-placeholder3"
-            className="custom-beautiful-textfield"
-            label="Address"
-            type="text"
-            value={address}
-            maxLength='50'
-            onChange={(e) => this.setState({address: (e && e.target && e.target.value) || ''})}
+          <GooglePlaceAutocomplete
+            onPlaceChange={(val) => this.handlePlaceChange(val, 'address')}
+            restriction={{country: ['IS']}}
+            types={['address']}
+            initialValue={address}
+            showIcon={false}
           />
         </div>
         <div className="theme-form-field text-wrapper">
-          <TextField
-            id="standard-with-placeholder4"
-            className="custom-beautiful-textfield"
-            label="Postal Code"
-            type="text"
-            value={postalCode}
-            maxLength='50'
-            onChange={(e) => this.setState({postalCode: (e && e.target && e.target.value) || ''})}
+          <GooglePlaceAutocomplete
+            onPlaceChange={(val) => this.handlePlaceChange(val, 'postalCode')}
+            restriction={{country: ['IS']}}
+            types={['(regions)']}
+            initialValue={postalCode}
+            showIcon={false}
           />
         </div>
       </div>
@@ -599,6 +614,7 @@ class AddGear extends Component {
   }
   
   validate() {
+    console.log(this.state);
     switch (this.state.progressStep) {
       case 0:
         const {categoryName, brand, model, description, selectedType, productName, accessories, isKit} = this.state;
@@ -645,7 +661,7 @@ class AddGear extends Component {
       const imageFile = event.target.files[0];
       let options = {
         maxSizeMB: 10,
-        maxWidthOrHeight: 1920,
+        maxWidthOrHeight: 400,
         useWebWorker: true
       };
       

@@ -15,6 +15,7 @@ import {handleError} from "../../core/actions/common.action";
 import CustomSpinner from "../common/CustomSpinner";
 import TextField from "@material-ui/core/TextField/TextField";
 import Sidebar from "./RG_sidebar";
+import stringSimilarity from 'string-similarity';
 
 class Main extends Component {
   constructor(props) {
@@ -160,7 +161,7 @@ class Main extends Component {
     
     product_list = product_list.filter(item =>
       ((item.productName && item.productName.toLowerCase().indexOf(key1) !== -1) || item.categoryName.toLowerCase().indexOf(key1) !== -1 || item.brand.toLowerCase().indexOf(key1) !== -1) &&
-      ((item.city + ', ' + item.address + ' ' + item.product_region).toLowerCase().indexOf(key2) !== -1));
+      (stringSimilarity.compareTwoStrings((item.address + ', ' + item.city).toLowerCase(), key2) >= 0.7));
     
     return product_list;
   };

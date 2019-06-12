@@ -49,6 +49,7 @@
     "react-dom": "^16.8.6",
     "react-dropdown-select": "^3.0.0",
     "react-flickity-component": "^3.2.0",
+    "react-google-places-autocomplete": "^1.4.1",
     "react-helmet": "^5.2.0",
     "react-intl": "^2.8.0",
     "react-isolated-scroll": "^0.1.1",
@@ -78,6 +79,7 @@
     "reactstrap": "^6.5.0",
     "redux": "^4.0.1",
     "redux-promise": "^0.6.0",
+    "string-similarity": "^3.0.0",
     "styled-components": "^4.2.0",
     "talkjs": "^0.9.0"
   },

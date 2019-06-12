@@ -13,6 +13,7 @@ import {
 } from './images/index';
 import $ from 'jquery';
 import {getGearsBriefInfo} from "../../core/actions/gear.action";
+import GooglePlaceAutocomplete from "../../components/common/GooglePlaceAutocomplete";
 
 class Home extends React.Component {
   constructor(props) {
@@ -32,9 +33,18 @@ class Home extends React.Component {
     this.categoryList = [];
     this.locationList = [];
     this.timer = null;
+    this.autocompleteService = null;
   }
   
+  initPlaceAutoComplete = () => {
+    this.placesService = new window.google.maps.places.PlacesService(document.createElement('div'));
+    this.autocompleteService = new window.google.maps.places.AutocompleteService();
+    this.PlacesServiceStatus = window.google.maps.places.PlacesServiceStatus;
+  };
+  
   async componentDidMount() {
+    // this.initPlaceAutoComplete();
+    
     this._mounted = true;
     let $animation_elements = $('.animation-element');
     let $window = $(window);
@@ -92,7 +102,7 @@ class Home extends React.Component {
     this._mounted = false;
   }
   
-  performSearch = () => {
+  performSearch = async () => {
     this.productList = this.categoryList = this.locationList = [];
     let key1 = this.state.searchValue.toLowerCase();
     let key2 = this.state.searchLocationValue.toLowerCase();
@@ -103,17 +113,23 @@ class Home extends React.Component {
       (item.productName && item.productName.toLowerCase().indexOf(key1) === 0));
 
     // let gearList2 = (this.gearList || []).filter(item =>
-    //   ((item.city.toLowerCase().indexOf(key2) === 0 || item.address.toLowerCase().indexOf(key2) === 0) || item.product_region.toLowerCase().indexOf(key2) === 0));
-    let gearList2 = (this.gearList || []).filter(item =>
-      ((item.city.toLowerCase().indexOf(key2) === 0 || item.address.toLowerCase().indexOf(key2) === 0)));
+    //   ((item.city.toLowerCase().indexOf(key2) === 0 || item.address.toLowerCase().indexOf(key2) === 0)));
   
     gearList1.forEach((item) => {
       this.productList = [...this.productList, item.productName];
       // this.categoryList = [...this.categoryList, item.categoryName];
     });
-    gearList2.forEach((item) => {
-      this.locationList = [...this.locationList, item.city + ', ' + item.address];
-    });
+    // gearList2.forEach((item) => {
+    //   this.locationList = [...this.locationList, item.city + ', ' + item.address];
+    // });
+    
+    // this.initPlaceAutoComplete();
+    //
+    // this.autocompleteService.getPlacePredictions({ input: 'paris' }, (predictions, status) => {
+    //   if (status !== this.PlacesServiceStatus.OK) return
+    //   // this.setState({ options: predictions })
+    //   console.log(predictions);
+    // })
     
     this._mounted && this.forceUpdate();
   };
@@ -126,14 +142,23 @@ class Home extends React.Component {
     clearTimeout(this.timer);
     this.timer = this.performSearch();
   };
-
-  handleChangeSearchLocation = (e) => {
-    this._mounted && this.setState({
-      searchLocationValue: (e && e.target && e.target.value) || ''
-    });
   
-    clearTimeout(this.timer);
-    this.timer = this.performSearch();
+  handlePlaceChange = (val) => {
+    // get rid of country
+    let address = val.terms.slice(0, val.terms.length-1).map(item => item.value);
+    this._mounted && this.setState({
+      searchLocationValue: address.join(', ')
+    });
+  };
+  
+  handlePlaceKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      this.handleSearch();
+    } else {
+      this._mounted && this.setState({
+        searchLocationValue: e.target.value || ''
+      });
+    }
   };
   
   handleSearch = () => {
@@ -146,26 +171,11 @@ class Home extends React.Component {
     }
     this.props.history.push('/rent-gear?type=all');
   };
-  
-  // renderSearchAddOn = () => {
-  //   return (
-  //     <div className="search-addon">
-  //       <div className="search-brand-category-wrapper">
-  //         {
-  //           this.categoryList.length > 0 && this.categoryList.map((item, key) => (
-  //             <div className="search-category-item" key={key}>
-  //               <span>{this.state.searchValue} in {item} ></span>
-  //             </div>))
-  //         }
-  //       </div>
-  //     </div>
-  //   )
-  // };
 
   render() {
     const {
       searchValue,
-      searchLocationValue,
+      // searchLocationValue,
     } = this.state;
 
     return (
@@ -223,13 +233,21 @@ class Home extends React.Component {
                       />
                     </div>
 
-                    <div className="location-search-wrapper search-wrapper">
-                      <MaterialInputWithDropdown
-                        label="Location"
-                        value={searchLocationValue}
-                        dropdownItems={this.locationList || []}
-                        onHandleChange={this.handleChangeSearchLocation}
-                        onSearch={this.handleSearch}
+                    <div className="location-search-wrapper search-wrapper" id='google-place'>
+                      {/*<MaterialInputWithDropdown*/}
+                        {/*id='google-place-input'*/}
+                        {/*label="Location"*/}
+                        {/*value={searchLocationValue}*/}
+                        {/*dropdownItems={this.locationList || []}*/}
+                        {/*onHandleChange={this.handleChangeSearchLocation}*/}
+                        {/*onSearch={this.handleSearch}*/}
+                      {/*/>*/}
+                      <GooglePlaceAutocomplete
+                        onPlaceChange={this.handlePlaceChange}
+                        onPlaceKeyDown={this.handlePlaceKeyDown}
+                        restriction={{country: ['IS']}}
+                        types={['address']}
+                        showIcon={true}
                       />
                     </div>
                   </div>
