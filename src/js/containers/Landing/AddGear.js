@@ -607,6 +607,9 @@ class AddGear extends Component {
         if (isKit && accessories.length === 0) {
           handleError('Please add at least one accessory');
           return false;
+        } else if (emptyCount.length > 0) {
+          handleError('Please add edited accessory');
+          return false;
         }
         
         if (isSetAccessorise && categoryName && categoryName !== 'Select Category' && brand && model && description && selectedType && productName) {

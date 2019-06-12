@@ -284,6 +284,11 @@
     margin-bottom: 15px;
     border-bottom: 1px solid lightgray;
     align-items: baseline;
+
+    & > div {
+      width: 49%;
+      margin: 0 !important;
+    }
   }
 
   .gear-middle-container {
@@ -292,6 +297,9 @@
     .div_description {
       white-space: pre-line;
       word-break: break-all;
+    }
+    .theme-text-small {
+      margin-bottom: 5px;
     }
   }
 
