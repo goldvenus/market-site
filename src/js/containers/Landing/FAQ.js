@@ -12,6 +12,7 @@ import TextField from "@material-ui/core/TextField/TextField";
 import Textarea from "muicss/lib/react/textarea";
 import {handleError, sendEmail} from "../../core/actions/common.action";
 import CustomSpinner from "../../components/common/CustomSpinner";
+import {data} from './dummydata'
 
 class FAQ extends Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class FAQ extends Component {
       phone: "",
       email: "",
       question: "",
-      curFAQ: 0
+      curFAQ: -1
     };
   }
   
@@ -68,43 +69,17 @@ class FAQ extends Component {
             <Row>
               <Col>
                 <Accordion>
-                  <AccordionItem onClick={() => this.handleAccordionSelect(1)}>
-                    <AccordionItemTitle>
-                      <h3 style={curFAQ === 1 ? {'color': '#F82462'} : {'color': '#555555'}}>HOW TO PAY?</h3>
-                      {/*<DownArrow/>*/}
-                    </AccordionItemTitle>
-                    <AccordionItemBody>
-                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur, sequi at. Ipsum deserunt
-                        quos
-                        ipsa neque? Magni earum repellat molestiae sapiente voluptatem, laboriosam eligendi vero maiores
-                        non
-                        iure quam minima?</p>
-                    </AccordionItemBody>
-                  </AccordionItem>
-                  <AccordionItem onClick={() => this.handleAccordionSelect(2)}>
-                    <AccordionItemTitle>
-                      <h3 style={curFAQ === 2 ? {'color': '#F82462'} : {'color': '#555555'}}>WHAT BRANDS OF THE EQUIPMENT ARE AVAIABLE?</h3>
-                    </AccordionItemTitle>
-                    <AccordionItemBody>
-                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur, sequi at. Ipsum deserunt
-                        quos
-                        ipsa neque? Magni earum repellat molestiae sapiente voluptatem, laboriosam eligendi vero maiores
-                        non
-                        iure quam minima?</p>
-                    </AccordionItemBody>
-                  </AccordionItem>
-                  <AccordionItem onClick={() => this.handleAccordionSelect(3)}>
-                    <AccordionItemTitle>
-                      <h3 style={curFAQ === 3 ? {'color': '#F82462'} : {'color': '#555555'}}>HOW TO EXTEND RENTED GEAR ?</h3>
-                    </AccordionItemTitle>
-                    <AccordionItemBody>
-                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur, sequi at. Ipsum deserunt
-                        quos
-                        ipsa neque? Magni earum repellat molestiae sapiente voluptatem, laboriosam eligendi vero maiores
-                        non
-                        iure quam minima?</p>
-                    </AccordionItemBody>
-                  </AccordionItem>
+                  {data.faqs.map((item, key) => (
+                    <AccordionItem onClick={() => this.handleAccordionSelect(key)} key={key}>
+                      <AccordionItemTitle>
+                        <h3 style={curFAQ === key ? {'color': '#F82462'} : {'color': '#555555'}}>{item.title}</h3>
+                        {/*<DownArrow/>*/}
+                      </AccordionItemTitle>
+                      <AccordionItemBody>
+                        <p>{item.content}</p>
+                      </AccordionItemBody>
+                    </AccordionItem>
+                  ))}
                 </Accordion>
                 <Row className="faq-form-wrapper">
                   <Row>
