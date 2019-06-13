@@ -1,8 +1,5 @@
 import React from 'react';
 import $ from 'jquery';
-import Input from '@material-ui/core/Input';
-import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
-import {IconSearch} from "../../../containers/Home/images";
 import CustomInputWithIcon from "../StyledComponent/CustomInputWithIcon";
 
 class MaterialInputWithDropdown extends React.Component {
