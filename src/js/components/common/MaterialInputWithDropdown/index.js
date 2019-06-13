@@ -3,6 +3,7 @@ import $ from 'jquery';
 import Input from '@material-ui/core/Input';
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import {IconSearch} from "../../../containers/Home/images";
+import CustomInputWithIcon from "../StyledComponent/CustomInputWithIcon";
 
 class MaterialInputWithDropdown extends React.Component {
   state = {
@@ -163,26 +164,34 @@ class MaterialInputWithDropdown extends React.Component {
       ...props
       // dropdownAddons,
     } = this.props;
-
+    
     return (
       <div className="material-input-with-dropdown" ref={ref => {this.wrapperRef = ref}}>
-        <Input
-          className='custom-beautiful-textfield custom-beautiful-input'
-          id="adornment-amount"
+        {/*<Input*/}
+          {/*className={classes.root}*/}
+          {/*id="adornment-amount"*/}
+          {/*value={value}*/}
+          {/*onChange={(e) => this.handleChange(e)}*/}
+          {/*onFocus={this.handleFocus}*/}
+          {/*onBlur={this.handleBlur}*/}
+          {/*onKeyDown={this.handleKeyDown}*/}
+          {/*startAdornment={*/}
+            {/*<InputAdornment position="start">*/}
+              {/*{label === 'Search' ?*/}
+                {/*<IconSearch/> :*/}
+                {/*<img src='/images/Icons/marker/marker-input.svg' alt=''/>*/}
+              {/*}*/}
+            {/*</InputAdornment>*/}
+          {/*}*/}
+          {/*{...props}*/}
+        {/*/>*/}
+        <CustomInputWithIcon
           value={value}
-          onChange={(e) => this.handleChange(e)}
-          onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
-          onKeyDown={this.handleKeyDown}
-          startAdornment={
-            <InputAdornment position="start">
-              {label === 'Search' ?
-                <IconSearch/> :
-                <img src='/images/Icons/marker/marker-input.svg' alt=''/>
-              }
-            </InputAdornment>
-          }
-          {...props}
+          handleChange={(e) => this.handleChange(e)}
+          handleFocus={this.handleFocus}
+          handleBlur={this.handleBlur}
+          handleKeyDown={this.handleKeyDown}
+          label={label}
         />
 
         {isDropdownOpen &&

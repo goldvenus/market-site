@@ -22,11 +22,10 @@ const CardView = ({ gear_detail: { numberOfUserImage, categoryName, brand, produ
             <div>
               <CardSubtitle>
                 <span className="stars">
-                  {
-                    [1,2,3,4,5].map((i)=>{
-                      return <i className="fa fa-star" key={i}/>
-                    })
-                  }
+                {[1,2,3,4,5].map((i)=>{
+                    return <i className="fa fa-star" key={i}/>
+                  })
+                }
                 </span> &nbsp;
                 <span>
                   5,0&nbsp;

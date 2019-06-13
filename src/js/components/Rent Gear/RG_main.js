@@ -160,10 +160,10 @@ class Main extends Component {
     let key2 = this.state.locationText.toLowerCase();
   
     productList = productList.filter(item =>
-      ((item.productName && item.productName.toLowerCase().indexOf(key1) !== -1) || item.categoryName.toLowerCase().indexOf(key1) !== -1 || item.brand.toLowerCase().indexOf(key1) !== -1) &&
+      ((item.brand + ' ' + item.productName).toLowerCase().indexOf(key1) !== -1) &&
       ((item.location.address + ', ' + item.location.region + ', ' + item.location.city).toLowerCase().indexOf(key2) >= 0));
     
-    // sort
+    // sort by (lat, lng)
     for ( let i = 0; i < productList.length; i++) {
       productList[i]["distance"] = calcDistance(1*localStorage.lat, 1*localStorage.lng, 1*productList[i]["location"]["globalPos"]["lat"], 1*productList[i]["location"]["globalPos"]["lng"], "K");
     }
@@ -222,7 +222,6 @@ class Main extends Component {
         />
       </div>
     }
-    // this.initProductList(category);
     
     product_list = this.doSearch();
     const is_empty = product_list.length < 1;

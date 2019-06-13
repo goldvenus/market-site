@@ -6,18 +6,15 @@ import NavbarDropdown from './NavbarDropdown';
 
 const NavbarRight = ({ isAuthenticated }) => (
   <ul className="navbar-right theme-text-small">
-    {
-      isAuthenticated ?
-        <React.Fragment>
-          <li>
-            <Link to="/rent-gear?type=all">Rent Gear</Link>
-          </li>
-          <li>
-            <Link to="/add-gear">Add Gear</Link>
-          </li>
-        </React.Fragment>
-        : null
-    }
+      <React.Fragment>
+        <li>
+          <Link to="/rent-gear?type=all">Rent Gear</Link>
+        </li>
+        {isAuthenticated &&
+        <li>
+          <Link to="/add-gear">Add Gear</Link>
+        </li>}
+      </React.Fragment>
     <NavbarDropdown/>
   </ul>
 )
