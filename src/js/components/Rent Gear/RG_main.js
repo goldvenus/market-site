@@ -16,6 +16,7 @@ import CustomSpinner from "../common/CustomSpinner";
 import TextField from "@material-ui/core/TextField/TextField";
 import Sidebar from "./RG_sidebar";
 import {calcDistance} from "../../core/helper/location.helper";
+import {redirectToSignIn} from "../../core/actions/user.action";
 
 class Main extends Component {
   constructor(props) {
@@ -96,7 +97,7 @@ class Main extends Component {
   onOpenModal = gearid => {
     const {carts, user} = this.props;
     if (!user) {
-      handleError('Please sign in');
+      redirectToSignIn(this.props.history);
       return;
     }
     

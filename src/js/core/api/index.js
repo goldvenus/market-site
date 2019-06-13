@@ -51,8 +51,9 @@ const get = async (url) => {
       if (res.data && res.data.status === 'fail' && res.data.errorMessage === 'Access Token has expired') {
         console.log(url);
         console.log("Access Token has expired, logging out");
+        let redirect = window.location.pathname + window.location.search;
         logout();
-        window.location.href = `/login?redirect=${window.location.pathname + window.location.search}`;
+        window.location.href = `/login?redirect=${redirect}`;
       } else {
         if (res.data.errorMessage)
           console.log(res.data.errorMessage);
@@ -76,8 +77,9 @@ const post = async (url, data) => {
       if (res.data && res.data.status === 'fail' && res.data.errorMessage === 'Access Token has expired') {
         console.log(url);
         console.log("Access Token has expired, logging out");
+        let redirect = window.location.pathname + window.location.search;
         logout();
-        window.location.href = `/login?redirect=${window.location.pathname + window.location.search}`;
+        window.location.href = `/login?redirect=${redirect}`;
       } else {
         if (res.data.errorMessage)
           console.log(res.data.errorMessage);

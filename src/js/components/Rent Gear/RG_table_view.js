@@ -6,7 +6,7 @@ import {
 } from 'reactstrap';
 import {withRouter} from 'react-router-dom';
 import { addFavourites, deleteFavourite } from '../../core/actions/favourite.action';
-import {handleError} from "../../core/actions/common.action";
+import {redirectToSignIn} from "../../core/actions/user.action";
 
 const TableView = ({ gear_detail: { numberOfUserImage, brand, productName, location: {city}, rating, pricePerDay, gearid, categoryName},
     history, favored, carted, onOpenModal, user }) => {
@@ -52,7 +52,7 @@ const TableView = ({ gear_detail: { numberOfUserImage, brand, productName, locat
               <div className="fav" onClick={(e) => {
                 e.stopPropagation();
                 if (!user) {
-                  handleError('Please sign in');
+                  redirectToSignIn(history);
                   return;
                 }
                   favored>0 ? deleteFavourite({ gearid }) : addFavourites({ gearid })

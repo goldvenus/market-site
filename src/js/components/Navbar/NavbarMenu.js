@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import withSizes from 'react-sizes'
 import Transition from 'react-transition-group/Transition';
-
 import { Container, Row, Col } from 'reactstrap';
-
 import { addEndListener } from '../../utils/animation';
 import {
   animateMenuIn,

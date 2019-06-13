@@ -14,10 +14,10 @@ class RentGear extends React.Component {
   }
   
   render() {
-    let {categories, isLoading, location} = this.props;
+    let {categories, isLoading, location, history} = this.props;
     let category = queryString.parse(location.search).type;
     if (!category) {
-      this.props.history.push('/rent-gear/?type=all');
+      history.push('/rent-gear/?type=all');
     }
     if (isLoading || !categories) {
       return <CustomLoaderLogo/>;
@@ -49,7 +49,7 @@ class RentGear extends React.Component {
               <Sidebar category={category} categories={categories}/>
             </Col>
             <Col md="18" className="cardz-2">
-              <Main category={category} categories={categories}/>
+              <Main category={category} categories={categories} history={history}/>
             </Col>
           </Row>
         </Container>

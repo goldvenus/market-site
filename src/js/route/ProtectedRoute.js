@@ -10,7 +10,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
       )}/>
     );
   } else {
-    handleInfo('Please sign in to Creative Market');
+    handleInfo('Please sign in');
     return <Redirect to='/'/>;
   }
 };

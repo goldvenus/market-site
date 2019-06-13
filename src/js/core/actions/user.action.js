@@ -43,18 +43,16 @@ const login = async (data) => {
 
   let res = await post('signin', data);
   if (!!res && res.data.status === 'success') {
-    dispatch({
-      type: constants.LOGIN_SUCCESS,
-      payload: res.data.data.userAttributes
-    });
-    // handleInfo("Welcome to Creative Market!");
     // store the token
     const { accessToken, idToken, refreshToken } = res.data.data.tokens;
     localStorage.accessToken = accessToken;
     localStorage.idToken = idToken;
     localStorage.refreshToken = refreshToken;
     localStorage.userId = res.data.data.userAttributes.userid;
-
+    dispatch({
+      type: constants.LOGIN_SUCCESS,
+      payload: res.data.data.userAttributes
+    });
     getCarts();
     getFavourites();
   } else {
@@ -108,6 +106,10 @@ const updateUser = async (data) => {
       reject(error);
     }
   });
+};
+
+const redirectToSignIn = (history) => {
+  history.push(`/login?redirect=${window.location.pathname + window.location.search}`);
 };
 
 const updatePassword = async (data) => {
@@ -294,6 +296,7 @@ const confirmUser = async (username, confirmationCode, fullName) => {
 export {
   login,
   logout,
+  redirectToSignIn,
   getUser,
   getUserByID,
   updateUser,

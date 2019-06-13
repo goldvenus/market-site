@@ -10,6 +10,7 @@ import CustomSpinner from "../../components/common/CustomSpinner";
 import TextField from "@material-ui/core/TextField/TextField";
 import Navbar from "../../components/Navbar/Navbar";
 import {handleError} from "../../core/actions/common.action";
+import queryString from "query-string";
 
 class Login extends Component {
   constructor(props) {
@@ -39,7 +40,12 @@ class Login extends Component {
   
   componentWillReceiveProps(nextProps) {
     if (nextProps.isAuthenticated && !this.props.isAuthenticated) {
-      this.props.history.push('/');
+      let redirectPath = queryString.parse(window.location.search).redirect;
+      if (redirectPath) {
+        this.props.history.push(redirectPath);
+      } else {
+        this.props.history.push('/');
+      }
     }
   }
   
@@ -143,7 +149,7 @@ class Login extends Component {
               
               </form>
             </div>
-            <div className="login-or-divider"></div>
+            <div className="login-or-divider"/>
             <div className="flex-row signup-link">
               <span>Don't have an account?</span>
               <button className="theme-btn theme-btn-filled-white theme-btn-link"><Link to="/register">Get Started <i

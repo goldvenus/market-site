@@ -22,6 +22,7 @@ import {calcDaysDiff, getDateStr} from "../../core/helper";
 import {Inline} from '@zendeskgarden/react-loaders'
 import CustomSpinner from "../../components/common/CustomSpinner";
 import CustomLoaderLogo from "../../components/common/CustomLoaderLogo";
+import {redirectToSignIn} from "../../core/actions/user.action";
 
 const flickityOptions = {
   contain: true,
@@ -153,9 +154,9 @@ class RentGearDetail extends Component {
   
   onOpenModal = async (gearid) => {
     try {
-      const {carts, user, gear} = this.props;
+      const {carts, user, gear, history} = this.props;
       if (!user) {
-        handleError('Please sign in');
+        redirectToSignIn(history);
         return;
       }
       const cart = gearid && carts && carts.length > 0 ?
@@ -426,7 +427,7 @@ class RentGearDetail extends Component {
                 </button>
                 <button className="theme-btn theme-btn-secondery btn-favor" onClick={() => {
                   if (!user) {
-                    handleError('Please sign in');
+                    redirectToSignIn(this.props.history);
                     return;
                   }
                   favored > 0 ? deleteFavourite({gearid}) : addFavourites({gearid})
@@ -601,7 +602,7 @@ class RentGearDetail extends Component {
                       </button>
                       <button className="theme-btn theme-btn-secondery btn-favor" onClick={() => {
                         if (!user) {
-                          handleError('Please sign in');
+                          redirectToSignIn(this.props.history);
                           return;
                         }
                         favored > 0 ? deleteFavourite({gearid}) : addFavourites({gearid})
@@ -633,7 +634,7 @@ class RentGearDetail extends Component {
               <i className="fa fa-shopping-cart icon-cart" onClick={() => this.onOpenModal(gearid)}/>
               <i className={`icon-heart ${favored ? 'fas' : 'far'} fa-heart`} onClick={() => {
                 if (!user) {
-                  handleError('Please sign in');
+                  redirectToSignIn(this.props.history);
                   return;
                 }
                 favored > 0 ? deleteFavourite({gearid}) : addFavourites({gearid})
