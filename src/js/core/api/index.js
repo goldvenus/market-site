@@ -52,6 +52,7 @@ const get = async (url) => {
         console.log(url);
         console.log("Access Token has expired, logging out");
         logout();
+        window.location.href = `/login?redirect=${window.location.pathname + window.location.search}`;
       } else {
         if (res.data.errorMessage)
           console.log(res.data.errorMessage);
@@ -76,6 +77,7 @@ const post = async (url, data) => {
         console.log(url);
         console.log("Access Token has expired, logging out");
         logout();
+        window.location.href = `/login?redirect=${window.location.pathname + window.location.search}`;
       } else {
         if (res.data.errorMessage)
           console.log(res.data.errorMessage);

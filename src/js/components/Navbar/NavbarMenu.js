@@ -154,7 +154,6 @@ class NavbarMenu extends React.Component {
                     <path d="M61.4556 4.69542H56.2764V29.3732H61.4556V4.69542Z" fill="#F82462"/>
                     <path d="M45.9714 17.6538V26.7595L32.7207 4.69542H38.336L45.9714 17.6538Z" fill="#F82462"/>
                   </svg>
-                  {/*<img className="navbar-sm__logo" src="/images/logo-small.svg" alt="CreativeMarket"/>*/}
                 </li></Link>
 
                 {output}
@@ -173,24 +172,21 @@ class NavbarMenu extends React.Component {
             <Row>
               <Col xs={24} lg={12}>
                 <ul className="menu-links-wrapper">
-                  {/*{isAuthenticated ?*/}
-                  <React.Fragment>
-                    <li className="animated-menu-item menu-item-sm">
-                      <Link to="/rent-gear?type=all">
-                        <h2 onClick={this.toggleNavbar} >
-                          Rent Gear
-                        </h2>
-                      </Link>
-                    </li>
-                    <li className="animated-menu-item menu-item-sm with-mb">
-                      <Link to="/add-gear">
-                        <h2 onClick={this.toggleNavbar} >
-                          Add Gear
-                        </h2>
-                      </Link>
-                    </li>
-                  </React.Fragment>
-                  {/*: null}*/}
+                  <li className="animated-menu-item menu-item-sm">
+                    <Link to="/rent-gear?type=all">
+                      <h2 onClick={this.toggleNavbar} >
+                        Rent Gear
+                      </h2>
+                    </Link>
+                  </li>
+                  {isAuthenticated &&
+                  <li className="animated-menu-item menu-item-sm with-mb">
+                    <Link to="/add-gear">
+                      <h2 onClick={this.toggleNavbar} >
+                        Add Gear
+                      </h2>
+                    </Link>
+                  </li>}
   
                   <li className="animated-menu-item menu-item-lg">
                     <Link to="/rent-gear?type=all" onClick={this.toggleNavbar} >
@@ -198,12 +194,13 @@ class NavbarMenu extends React.Component {
                       Rent Gear
                     </Link>
                   </li>
+                  {isAuthenticated &&
                   <li className="animated-menu-item menu-item-lg">
                     <Link to="/add-gear" onClick={this.toggleNavbar} >
                       <span className="dash"/>
                       Add Gear
                     </Link>
-                  </li>
+                  </li>}
                   
                   <li className="animated-menu-item">
                     <Link to="/about-us" onClick={this.toggleNavbar} >

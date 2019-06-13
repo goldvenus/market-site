@@ -78,7 +78,6 @@ const logout = () => {
     type: constants.USER_LOGOUT,
     payload: null
   });
-  window.location.href = "/login";
 };
 
 const updateUser = async (data) => {
