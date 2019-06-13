@@ -167,7 +167,7 @@ class MaterialInputWithDropdown extends React.Component {
     return (
       <div className="material-input-with-dropdown" ref={ref => {this.wrapperRef = ref}}>
         <Input
-          className='custom-beautiful-input'
+          className='custom-beautiful-textfield custom-beautiful-input'
           id="adornment-amount"
           value={value}
           onChange={(e) => this.handleChange(e)}

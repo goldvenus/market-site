@@ -120,7 +120,6 @@ class Home extends React.Component {
   };
   
   handlePlaceChange = (val) => {
-    console.log(val);
     // get rid of country
     let address = val.terms.slice(0, val.terms.length-1).map(item => item.value);
     this._mounted && this.setState({
