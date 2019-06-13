@@ -216,6 +216,7 @@ $p-v: 11px;
     background: white;
     z-index: $zindex-popover;
     scroll-behavior: smooth;
+    border-radius: 0 0 5px 5px;
 
     .material-input-dropdown-addon {
       flex: 0;

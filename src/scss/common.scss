@@ -293,6 +293,19 @@ img {
   }
 }
 
+::-webkit-scrollbar {
+  width: 0.6em;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #CFCECF;
+  outline: 1px solid slategrey;
+}
+
 @media (max-width: 1077px) {
   .notification-container {
     width: 100vw;

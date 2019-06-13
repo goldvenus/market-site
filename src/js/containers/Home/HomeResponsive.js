@@ -97,14 +97,17 @@ class Home extends React.Component {
     this.productList = this.categoryList = this.locationList = [];
     let key1 = this.state.searchValue.toLowerCase();
     let key2 = this.state.searchLocationValue.toLowerCase();
-
+    
     if (!key1 && !key2) return;
-
     let gearList1 = (this.gearList || []).filter(item =>
-      (item.productName && item.productName.toLowerCase().indexOf(key1) === 0));
+      ((item.brand || '') + ' ' + item.productName).toLowerCase().indexOf(key1) >= 0);
     
     gearList1.forEach((item) => {
-      this.productList = [...this.productList, item.productName];
+      let showName = (item.brand) + ' ' + item.productName;
+      if (showName.length > 35) {
+        showName = showName.substr(0, 35) + '...';
+      }
+      this.productList = [...this.productList, showName];
     });
     
     this._mounted && this.forceUpdate();
@@ -113,10 +116,7 @@ class Home extends React.Component {
   handleChangeSearchValue = (e) => {
     this._mounted && this.setState({
       searchValue: (e && e.target && e.target.value) || ''
-    });
-    
-    clearTimeout(this.timer);
-    this.timer = this.performSearch();
+    }, this.performSearch);
   };
   
   handlePlaceChange = (val) => {

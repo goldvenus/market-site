@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import {handleInfo} from "../core/actions/common.action";
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
   if (localStorage.userId) {
@@ -10,8 +9,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
       )}/>
     );
   } else {
-    handleInfo('Please sign in');
-    return <Redirect to='/'/>;
+    return <Redirect to='/login'/>;
   }
 };
 

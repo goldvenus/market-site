@@ -13,7 +13,6 @@ class MaterialInputWithDropdown extends React.Component {
   itemsRef = [];
   wrapperRef = null;
   dropdownWrapperRef = null;
-  // addonWrapperRef = null;
   itemWrapperRef = null;
   curPos = 100;
 
@@ -78,8 +77,6 @@ class MaterialInputWithDropdown extends React.Component {
   
   handleKeyDown = async e => {
     let keyCode = e.keyCode;
-    // let addOnHeight = (this.addonWrapperRef && this.addonWrapperRef.offsetHeight) || 0;
-    let addOnHeight = 0;
     
     if (e.keyCode !== 38 && e.keyCode !== 40 && e.keyCode !== 13) {
       return;
@@ -99,16 +96,12 @@ class MaterialInputWithDropdown extends React.Component {
     let {dropdownItems} = this.props;
     let curItem = this.itemsRef[activeIndex];
     
-    if (this.curPos < addOnHeight) {
-      this.curPos = addOnHeight;
-    }
-    
     if (keyCode === 38) {
       activeIndex --;
       
       if (activeIndex < 0) {
         activeIndex = dropdownItems.length - 1;
-        this.curPos = addOnHeight + this.itemWrapperRef.offsetHeight - curItem.offsetHeight - 30;
+        this.curPos = this.itemWrapperRef.offsetHeight - curItem.offsetHeight - 30;
       } else {
         this.curPos -= curItem.offsetHeight;
       }
@@ -117,7 +110,7 @@ class MaterialInputWithDropdown extends React.Component {
       
       if (activeIndex >= dropdownItems.length) {
         activeIndex = 0;
-        this.curPos = addOnHeight;
+        this.curPos = 0;
       } else {
         this.curPos += curItem.offsetHeight;
       }
@@ -160,24 +153,6 @@ class MaterialInputWithDropdown extends React.Component {
     
     return (
       <div className="material-input-with-dropdown" ref={ref => {this.wrapperRef = ref}}>
-        {/*<Input*/}
-          {/*className={classes.root}*/}
-          {/*id="adornment-amount"*/}
-          {/*value={value}*/}
-          {/*onChange={(e) => this.handleChange(e)}*/}
-          {/*onFocus={this.handleFocus}*/}
-          {/*onBlur={this.handleBlur}*/}
-          {/*onKeyDown={this.handleKeyDown}*/}
-          {/*startAdornment={*/}
-            {/*<InputAdornment position="start">*/}
-              {/*{label === 'Search' ?*/}
-                {/*<IconSearch/> :*/}
-                {/*<img src='/images/Icons/marker/marker-input.svg' alt=''/>*/}
-              {/*}*/}
-            {/*</InputAdornment>*/}
-          {/*}*/}
-          {/*{...props}*/}
-        {/*/>*/}
         <CustomInputWithIcon
           value={value}
           handleChange={(e) => this.handleChange(e)}
@@ -189,11 +164,6 @@ class MaterialInputWithDropdown extends React.Component {
 
         {isDropdownOpen &&
         <div className="material-input-dropdown" id='dropdown-wrapper' ref={ref => this.dropdownWrapperRef = ref}>
-          {/*{!!dropdownAddons &&*/}
-          {/*<div className="material-input-dropdown-addon" ref={ref => this.addonWrapperRef = ref}>*/}
-            {/*{dropdownAddons}*/}
-          {/*</div>*/}
-          {/*}*/}
           {!!(dropdownItems && dropdownItems.length) &&
           <div className="material-input-dropdown-list" ref={ref => this.itemWrapperRef = ref}>
             {dropdownItems.map((val, key) => (
