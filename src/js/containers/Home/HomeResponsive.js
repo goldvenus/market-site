@@ -12,7 +12,7 @@ import {
 } from './images/index';
 import $ from 'jquery';
 import {getGearsBriefInfo} from "../../core/actions/gear.action";
-import GooglePlaceAutocomplete from "../../components/common/GooglePlaceAutocomplete";
+import GooglePlaceAutocompleteWithIcon from "../../components/common/GooglePlaceAutocompleteWithIcon";
 
 class Home extends React.Component {
   constructor(props) {
@@ -104,9 +104,6 @@ class Home extends React.Component {
     
     gearList1.forEach((item) => {
       let showName = (item.brand) + ' ' + item.productName;
-      if (showName.length > 35) {
-        showName = showName.substr(0, 35) + '...';
-      }
       this.productList = [...this.productList, showName];
     });
     
@@ -204,13 +201,12 @@ class Home extends React.Component {
                         label="Search"
                         value={searchValue}
                         dropdownItems={this.productList || []}
-                        // dropdownAddons={this.renderSearchAddOn()}
                         onHandleChange={this.handleChangeSearchValue}
                       />
                     </div>
 
                     <div className="location-search-wrapper search-wrapper" id='google-place'>
-                      <GooglePlaceAutocomplete
+                      <GooglePlaceAutocompleteWithIcon
                         placeholder="Location"
                         onPlaceChange={this.handlePlaceChange}
                         onPlaceKeyDown={this.handlePlaceKeyDown}

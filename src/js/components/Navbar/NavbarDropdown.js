@@ -67,10 +67,10 @@ class NavbarDropdown extends React.PureComponent {
             </li>
           ) : (
             <li className="navbar-drop-menu">
-              {isBorderBtn &&
-              <button className="theme-btn theme-btn-filled-white-color-black ml-3 theme-btn-link theme-nav__btn">
-                <Link to="/rent-gear?type=all">Rent Gear</Link>
-              </button>}
+              {/*{isBorderBtn &&*/}
+              {/*<button className="theme-btn theme-btn-filled-white-color-black ml-3 theme-btn-link theme-nav__btn">*/}
+                {/*<Link to="/rent-gear?type=all">Rent Gear</Link>*/}
+              {/*</button>}*/}
               <button className="theme-btn ml-3 theme-btn-outline-pink theme-btn-link theme-nav__btn">
                 <Link to="/login">Login</Link>
               </button>

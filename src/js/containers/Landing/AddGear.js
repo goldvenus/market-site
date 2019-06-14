@@ -20,7 +20,7 @@ import {fetchCategories} from "../../core/actions/category.action";
 import {CloseIcon} from "../../components/common/IconComponent";
 import imageCompression from "browser-image-compression";
 import CustomAutoComplete from "../../components/common/CustomAutoComplete";
-import GooglePlaceAutocomplete from "../../components/common/GooglePlaceAutocomplete";
+import GooglePlaceAutocompleteNormal from "../../components/common/GooglePlaceAutocompleteNormal";
 
 class AddGear extends Component {
   constructor(props) {
@@ -80,47 +80,6 @@ class AddGear extends Component {
       this.setState({gearsList});
     }
   }
-  
-  autoGenerateSuggestions = () => {
-    let suggestions = this.suggestions;
-    let {categories} = this.props;
-    if (!categories)
-      categories = [];
-    let namesFromCategories = categories.map((item) => item.categoryName);
-    suggestions = [...suggestions, ...namesFromCategories];
-    this.suggestions = [...new Set(suggestions)];
-    if (categories && categories.length > 0 && this._isMounted) {
-      this.setState({categoryName: categories[0].categoryName});
-    } else {
-      this.forceUpdate();
-    }
-  };
-  
-  addSuggestions = () => {
-    let {categoryName, brand, model} = this.state;
-    let suggestions = this.suggestions;
-    
-    if (categoryName !== '' && brand !== '' && model !== '')
-      suggestions = [categoryName + ' ' + brand + ' ' + model, ...suggestions];
-    if (categoryName !== '' && brand !== '')
-      suggestions = [categoryName + ' ' + brand, ...suggestions];
-    if (categoryName !== '' && model !== '')
-      suggestions = [categoryName + ' ' + model, ...suggestions];
-    if (brand !== '' && model !== '')
-      suggestions = [brand + ' ' + model, ...suggestions];
-    if (brand !== '')
-      suggestions = [brand, ...suggestions];
-    if (model !== '')
-      suggestions = [model, ...suggestions];
-    
-    this.suggestions = [...new Set(suggestions)];
-    this.forceUpdate();
-  };
-  
-  // handleChangeProductName = (newValue) => {
-  //   let isDoubled = this.usedNames.indexOf(newValue) >= 0;
-  //   this.setState({productName: newValue, isDoubled});
-  // };
   
   onTypeChange(e) {
     this.setState({
@@ -433,7 +392,7 @@ class AddGear extends Component {
     return (
       <div className="theme-form add-gear-address">
         <div className="theme-form-field text-wrapper">
-          <GooglePlaceAutocomplete
+          <GooglePlaceAutocompleteNormal
             onPlaceChange={(val) => this.handlePlaceChange(val, 'city')}
             onPlaceKeyDown={this.handlePlaceKeyDown}
             restriction={{country: ['IS']}}
@@ -454,7 +413,7 @@ class AddGear extends Component {
             {/*maxLength='50'*/}
             {/*onChange={(e) => this.setState({region: (e && e.target && e.target.value) || ''})}*/}
           {/*/>*/}
-          <GooglePlaceAutocomplete
+          <GooglePlaceAutocompleteNormal
             onPlaceChange={(val) => this.handlePlaceChange(val, 'region')}
             onPlaceKeyDown={this.handlePlaceKeyDown}
             restriction={{country: ['IS']}}
@@ -466,7 +425,7 @@ class AddGear extends Component {
           />
         </div>
         <div className="theme-form-field text-wrapper">
-          <GooglePlaceAutocomplete
+          <GooglePlaceAutocompleteNormal
             onPlaceChange={(val) => this.handlePlaceChange(val, 'address')}
             onPlaceKeyDown={this.handlePlaceKeyDown}
             restriction={{country: ['IS']}}
@@ -478,7 +437,7 @@ class AddGear extends Component {
           />
         </div>
         <div className="theme-form-field text-wrapper">
-          <GooglePlaceAutocomplete
+          <GooglePlaceAutocompleteNormal
             onPlaceChange={(val) => this.handlePlaceChange(val, 'postalCode')}
             onPlaceKeyDown={this.handlePlaceKeyDown}
             restriction={{country: ['IS']}}

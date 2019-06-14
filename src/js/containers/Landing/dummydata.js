@@ -1,4 +1,6 @@
- export const data = {
+import React from 'react'
+
+export const data = {
   faqs: [
     {
       title: 'Getting started',
@@ -6,7 +8,7 @@
     },
     {
       title: 'How do I rent gear?',
-      content: `To rent gear, you simply head over to <a href="/rent-gear">“RENT GEAR”</a>, and search for what you’re looking for. Once you find it, select your rental period and add the gear to your cart. After you proceed to checkout, we will ask you to create a project name, in case you might be renting more than one item from more than one owner at once. After that, we will require a full payment, which will be securely held in escrow and only released to the gear owner once both parties have confirmed that the gear has been picked up.`
+      content: <span>To rent gear, you simply head over to <a href="/rent-gear" style={{textDecoration: 'underline'}}>“RENT GEAR”</a>, and search for what you’re looking for. Once you find it, select your rental period and add the gear to your cart. After you proceed to checkout, we will ask you to create a project name, in case you might be renting more than one item from more than one owner at once. After that, we will require a full payment, which will be securely held in escrow and only released to the gear owner once both parties have confirmed that the gear has been picked up.</span>
     },
     {
       title: 'How do I list my own gear for rent?',

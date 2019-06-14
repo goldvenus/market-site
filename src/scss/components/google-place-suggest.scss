@@ -50,17 +50,41 @@
       &:hover, &.active {
         background-color: #eceaea;
       }
-      &:last-child:hover {
+      &:last-child {
         border-radius: 0 0 5px 5px;
       }
+      &.cur-pos {
+        background-color: #CFCECF;
+
+        svg {
+          path {
+            stroke-width: 2px;
+            stroke: #f82462;
+          }
+        }
+      }
       svg {
-        margin-left: 10px;
+        margin-left: 5px;
         width: 5%;
       }
       .suggestion {
-        margin-left: 20px;
+        margin-left: 10px;
         width: 95%;
       }
     }
+  }
+  #google-places-suggestions-container {
+    & > div {
+      cursor: pointer;
+
+      &:hover {
+        background-color: #eceaea;
+      }
+    }
+  }
+  i.fas {
+    margin-top: 7px;
+    margin-left: -25px;
+    color: white;
   }
 }

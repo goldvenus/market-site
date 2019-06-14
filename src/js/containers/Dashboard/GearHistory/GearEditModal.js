@@ -16,7 +16,7 @@ import CustomInputWithButton from "../../../components/common/CustomInputWithBut
 import imageCompression from "browser-image-compression";
 import CustomAutoComplete from "../../../components/common/CustomAutoComplete";
 import {CloseIcon} from "../../../components/common/IconComponent";
-import GooglePlaceAutocomplete from "../../../components/common/GooglePlaceAutocomplete";
+import GooglePlaceAutocompleteNormal from "../../../components/common/GooglePlaceAutocompleteNormal";
 
 class GearEditModal extends Component {
   constructor(props) {
@@ -62,12 +62,6 @@ class GearEditModal extends Component {
     this._isMounted = true;
     await getGear(this.gearid);
     this.placesService = new window.google.maps.places.PlacesService(document.createElement('div'));
-    // this.usedNames = await getUsedNames();
-    // remove current product name from used list
-    // if (this.props.gear.productName)
-    //   this.usedNames = this.usedNames.filter(item => item !== this.props.gear.productName);
-    //
-    // this.autoGenerateSuggestions();
   }
 
   componentWillReceiveProps(props) {
@@ -96,7 +90,7 @@ class GearEditModal extends Component {
         productName: props.gear.productName ? props.gear.productName : '',
         recommendedList,
         gearsList
-      }, this.addSuggestions);
+      });
       
     }
   }
@@ -104,42 +98,6 @@ class GearEditModal extends Component {
   componentWillUnmount() {
     this._isMounted = false;
   }
-  
-  // autoGenerateSuggestions = () => {
-  //   let suggestions = this.suggestions;
-  //   let namesFromCategories = this.props.categories.map((item) => item.categoryName);
-  //   suggestions = [...suggestions, ...namesFromCategories];
-  //   if (this.props.gear.productName)
-  //     suggestions = [this.props.gear.productName, ...suggestions];
-  //   this.suggestions = [...new Set(suggestions)];
-  //   this.forceUpdate();
-  // };
-
-  addSuggestions = () => {
-    let {categoryName, brand, model} = this.state;
-    let suggestions = this.suggestions;
-
-    if (categoryName !== '' && brand !== '' && model !== '')
-      suggestions = [categoryName + ' ' + brand + ' ' + model, ...suggestions];
-    if (categoryName !== '' && brand !== '')
-      suggestions = [categoryName + ' ' + brand, ...suggestions];
-    if (categoryName !== '' && model !== '')
-      suggestions = [categoryName + ' ' + model, ...suggestions];
-    if (brand !== '' && model !== '')
-      suggestions = [brand + ' ' + model, ...suggestions];
-    if (brand !== '')
-      suggestions = [brand, ...suggestions];
-    if (model !== '')
-      suggestions = [model, ...suggestions];
-
-    this.suggestions = [...new Set(suggestions)];
-    this.forceUpdate();
-  };
-
-  // handleChangeProductName = (newValue) => {
-  //   let isDoubled = this.usedNames.indexOf(newValue) >= 0;
-  //   this.setState({productName: newValue, isDoubled});
-  // };
 
   dataSave = async () => {
     if (this.state.isDoubled) {
@@ -437,7 +395,7 @@ class GearEditModal extends Component {
             {/*value={city}*/}
             {/*onChange={(e) => this.setState({city: (e && e.target && e.target.value) || ''})}*/}
           {/*/>*/}
-          <GooglePlaceAutocomplete
+          <GooglePlaceAutocompleteNormal
             onPlaceChange={(val) => this.handlePlaceChange(val, 'city')}
             onPlaceKeyDown={this.handlePlaceKeyDown}
             restriction={{country: ['IS']}}
@@ -447,7 +405,7 @@ class GearEditModal extends Component {
             placeholder='City'
             customClass='white-model'
           />
-          <GooglePlaceAutocomplete
+          <GooglePlaceAutocompleteNormal
             onPlaceChange={(val) => this.handlePlaceChange(val, 'region')}
             onPlaceKeyDown={this.handlePlaceKeyDown}
             restriction={{country: ['IS']}}
@@ -459,7 +417,7 @@ class GearEditModal extends Component {
           />
         </div>
         <div className='address-wrapper'>
-          <GooglePlaceAutocomplete
+          <GooglePlaceAutocompleteNormal
             onPlaceChange={(val) => this.handlePlaceChange(val, 'address')}
             onPlaceKeyDown={this.handlePlaceKeyDown}
             restriction={{country: ['IS']}}
@@ -469,7 +427,7 @@ class GearEditModal extends Component {
             placeholder='Address'
             customClass='white-model'
           />
-          <GooglePlaceAutocomplete
+          <GooglePlaceAutocompleteNormal
             onPlaceChange={(val) => this.handlePlaceChange(val, 'postalCode')}
             onPlaceKeyDown={this.handlePlaceKeyDown}
             restriction={{country: ['IS']}}

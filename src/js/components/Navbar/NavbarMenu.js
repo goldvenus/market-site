@@ -170,22 +170,24 @@ class NavbarMenu extends React.Component {
             <Row>
               <Col xs={24} lg={12}>
                 <ul className="menu-links-wrapper">
-                  <li className="animated-menu-item menu-item-sm">
-                    <Link to="/rent-gear?type=all">
-                      <h2 onClick={this.toggleNavbar} >
-                        Rent Gear
-                      </h2>
-                    </Link>
-                  </li>
-                  {isAuthenticated &&
-                  <li className="animated-menu-item menu-item-sm with-mb">
-                    <Link to="/add-gear">
-                      <h2 onClick={this.toggleNavbar} >
-                        Add Gear
-                      </h2>
-                    </Link>
-                  </li>}
-  
+                {isAuthenticated &&
+                  <React.Fragment>
+                    <li className="animated-menu-item menu-item-sm">
+                      <Link to="/rent-gear?type=all">
+                        <h2 onClick={this.toggleNavbar} >
+                          Rent Gear
+                        </h2>
+                      </Link>
+                    </li>
+                    <li className="animated-menu-item menu-item-sm with-mb">
+                      <Link to="/add-gear">
+                        <h2 onClick={this.toggleNavbar} >
+                          Add Gear
+                        </h2>
+                      </Link>
+                    </li>
+                  </React.Fragment>
+                }
                   <li className="animated-menu-item menu-item-lg">
                     <Link to="/rent-gear?type=all" onClick={this.toggleNavbar} >
                       <span className="dash"/>

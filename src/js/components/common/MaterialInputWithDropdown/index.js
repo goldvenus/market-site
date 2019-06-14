@@ -173,7 +173,7 @@ class MaterialInputWithDropdown extends React.Component {
                 onClick={() => this.handleSelectItem(val)}
                 ref={ref => this.itemsRef[key] = ref}
               >
-                {val}
+                {val.length > 35 ? val.substr(0, 35) + '...' : val}
               </div>
             ))}
           </div>

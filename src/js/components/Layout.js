@@ -11,7 +11,7 @@ import {getUser} from "../core/actions/user.action";
 import {getCarts} from "../core/actions/cart.action";
 import {getFavourites} from "../core/actions/favourite.action";
 import {getGearsBriefInfo} from "../core/actions/gear.action";
-import {detectLocation, ipLookUp} from "../core/helper/location.helper";
+import {detectLocation, getAddress, ipLookUp} from "../core/helper/location.helper";
 
 class Layout extends Component {
   constructor(props) {
@@ -33,7 +33,16 @@ class Layout extends Component {
     }
     localStorage.setItem("lat", location.latitude);
     localStorage.setItem("lng", location.longitude);
-    // let address = location && await getAddress(location.latitude, location.longitude);
+    let address = location && await getAddress(location.latitude, location.longitude);
+    // get only city + country
+    let formattedAddr = '';
+    address.results.forEach(item => {
+      if (item.types.indexOf('locality') >= 0) {
+        formattedAddr = item.formatted_address;
+      }
+    });
+    // address.plus_code.compound_code
+    address && localStorage.setItem("addr", formattedAddr);
   }
   
   render() {
