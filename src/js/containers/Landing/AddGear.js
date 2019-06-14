@@ -648,6 +648,7 @@ class AddGear extends Component {
         this.setState({busy: true});
         const compressedFile = await imageCompression(imageFile, options);
         let image = await readFileData(compressedFile);
+        console.log(image);
         let {numberOfUserImage} = this.state;
         numberOfUserImage.push(image);
         if (this._isMounted) {

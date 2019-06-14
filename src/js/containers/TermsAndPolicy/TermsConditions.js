@@ -11,7 +11,6 @@ class TermsConditions extends Component {
   
   render() {
     let path = this.props.location.pathname;
-    console.log(path);
     return (
       <div className="cart_view centered-content privacy-policy-container">
         <div className="privacy-policy-head">

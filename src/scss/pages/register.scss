@@ -205,6 +205,12 @@
   padding: 0;
 }
 
+.verification-code-input-wrapper {
+  .custom-beautiful-textfield {
+    width: 100%;
+  }
+}
+
 @media(max-width: 1077px) {
   .login.success-message {
     height: 70vh;
@@ -375,7 +381,7 @@
   .navigation-buttons {
     button {
       width: 48% !important;
-      padding: 2px 0px !important;
+      padding: 2px 0 !important;
       font-weight: 600;
       min-width: 100px !important;
       margin: 0 !important;
