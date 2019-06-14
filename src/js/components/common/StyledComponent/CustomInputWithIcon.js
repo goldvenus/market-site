@@ -31,6 +31,7 @@ const CustomInputWithIcon = ({value, handleChange, handleFocus, handleBlur, hand
       onFocus={handleFocus}
       onBlur={handleBlur}
       onKeyDown={handleKeyDown}
+      placeholder={label}
       startAdornment={
         <InputAdornment position="start">
           {label === 'Search' ?

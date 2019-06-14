@@ -119,12 +119,12 @@ class Home extends React.Component {
     }, this.performSearch);
   };
   
-  handlePlaceChange = (val) => {
+  handlePlaceChange = (val, doSearch) => {
     // get rid of country
-    let address = val.terms.slice(0, val.terms.length-1).map(item => item.value);
+    let address = val && val.terms.slice(0, val.terms.length-1).map(item => item.value);
     this._mounted && this.setState({
-      searchLocationValue: address.join(', ')
-    });
+      searchLocationValue: (address && address.join(', ')) || ''
+    }, () => doSearch && this.handleSearch());
   };
   
   handlePlaceKeyDown = (e) => {
@@ -210,18 +210,11 @@ class Home extends React.Component {
                     </div>
 
                     <div className="location-search-wrapper search-wrapper" id='google-place'>
-                      {/*<MaterialInputWithDropdown*/}
-                        {/*id='google-place-input'*/}
-                        {/*label="Location"*/}
-                        {/*value={searchLocationValue}*/}
-                        {/*dropdownItems={this.locationList || []}*/}
-                        {/*onHandleChange={this.handleChangeSearchLocation}*/}
-                        {/*onSearch={this.handleSearch}*/}
-                      {/*/>*/}
                       <GooglePlaceAutocomplete
+                        placeholder="Location"
                         onPlaceChange={this.handlePlaceChange}
                         onPlaceKeyDown={this.handlePlaceKeyDown}
-                        restriction={{country: ['IS']}}
+                        restriction={{country: ''}}
                         types={['(cities)']}
                         showIcon={true}
                       />

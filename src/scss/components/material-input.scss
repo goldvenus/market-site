@@ -196,6 +196,10 @@ $p-v: 11px;
 
   input {
     margin-left: 5px !important;
+
+    &::placeholder {
+      font-size: 16px;
+    }
   }
 
   .material-input-dropdown {

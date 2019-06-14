@@ -47,8 +47,8 @@ class Main extends Component {
     await this.loadProductList(this.props.category);
     
     if (this._isMounted && (localStorage.searchValue || localStorage.searchLocationValue)) {
-      let searchText = localStorage.searchValue;
-      let locationText = localStorage.searchLocationValue;
+      let searchText = localStorage.searchValue.replace('...', '');
+      let locationText = localStorage.searchLocationValue.replace('...', '');
       delete localStorage.searchValue;
       delete localStorage.searchLocationValue;
       this.setState({searchText: searchText, locationText: locationText});
