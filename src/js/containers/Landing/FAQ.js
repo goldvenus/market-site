@@ -12,7 +12,7 @@ import TextField from "@material-ui/core/TextField/TextField";
 import Textarea from "muicss/lib/react/textarea";
 import {handleError, sendEmail} from "../../core/actions/common.action";
 import CustomSpinner from "../../components/common/CustomSpinner";
-import {data} from './dummydata'
+import {faqs} from './dummydata';
 
 class FAQ extends Component {
   constructor(props) {
@@ -69,7 +69,7 @@ class FAQ extends Component {
             <Row>
               <Col>
                 <Accordion>
-                  {data.faqs.map((item, key) => (
+                  {faqs.map((item, key) => (
                     <AccordionItem onClick={() => this.handleAccordionSelect(key)} key={key}>
                       <AccordionItemTitle>
                         <h3 style={curFAQ === key ? {'color': '#F82462'} : {'color': '#555555'}}>{item.title}</h3>

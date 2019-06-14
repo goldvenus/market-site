@@ -23,6 +23,15 @@ import {Inline} from '@zendeskgarden/react-loaders'
 import CustomSpinner from "../../components/common/CustomSpinner";
 import CustomLoaderLogo from "../../components/common/CustomLoaderLogo";
 import {redirectToSignIn} from "../../core/actions/user.action";
+import {
+  LinkedinIcon,
+  FacebookIcon,
+  TwitterIcon,
+  FacebookShareButton,
+  TwitterShareButton,
+  LinkedinShareButton,
+} from "react-share";
+import { Twitter, Facebook, Google, Linkedin  } from 'react-social-sharing'
 
 const flickityOptions = {
   contain: true,
@@ -615,6 +624,59 @@ class RentGearDetail extends Component {
               </div>
             </div>
           </div>
+  
+          <div className='row'>
+            <div className='col-sm-20 col-xs-0'/>
+            <div className='col-sm-4 col-xs-24 social-sharing-container'>
+              <Twitter
+                text='Rent Creative Gear'
+                label='Rent Creative Gear'
+                hashtags={['RentGear', 'renting']}
+                link={`https://creative.market${this.props.location.pathname}`}
+              />
+              <Facebook
+                link={`https://creative.market${this.props.location.pathname}`}
+              />
+              <Google
+                link={`https://creative.market${this.props.location.pathname}`}
+              />
+              <Linkedin
+                title='Rent Creative Gear'
+                link={`https://creative.market${this.props.location.pathname}`}
+              />
+              
+              <TwitterShareButton
+                url={`https://creative.market${this.props.location.pathname}`}
+                title='Rent Creative Gear'
+                via={'creative market'}
+                hashtags={['RentGear', 'renting']}
+              >
+                <TwitterIcon
+                  size={32}
+                  round={true}
+                />
+              </TwitterShareButton>
+              <FacebookShareButton
+                url={`https://creative.market${this.props.location.pathname}`}
+                quote={'Rent Creative Gear'}
+                hashtags={['RentGear', 'renting']}
+              >
+                <FacebookIcon
+                  size={32}
+                  round={true}
+                />
+              </FacebookShareButton>
+              <LinkedinShareButton
+                url={`https://creative.market${this.props.location.pathname}`}
+              >
+                <LinkedinIcon
+                  size={32}
+                  round={true}
+                />
+              </LinkedinShareButton>
+            </div>
+          </div>
+          
           {listGears.length > 0 ?
           <div className='d-none d-lg-block d-xl-block recommend-container'>
             <div className='recommend-heading'>

@@ -30,7 +30,6 @@ class Step1 extends Component {
     }
   
     let info = extractBIC(swiftCode);
-    console.log(info);
     if (!info.valid) {
       handleError('Swift code is invalid!');
       return;

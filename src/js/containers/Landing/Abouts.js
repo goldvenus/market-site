@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import {Link} from "react-router-dom";
+import {MetaTags} from "react-meta-tags";
+import {metas} from "./dummydata";
 
 const team = [
   { name: 'Joe Stapleton', job_title: 'Co-founder', img: '/images/aboutus/1.png' },
@@ -14,10 +16,18 @@ const team = [
 ];
 
 class About extends Component {
-  
   render() {
+    let path = this.props.location.pathname;
     return (
       <div className="about-us">
+        <MetaTags>
+          <title>{metas[path].title}</title>
+          <meta id="meta-description" name="description" content={metas[path]['description']} />
+          <meta id="keywords" name="keywords" content={metas[path]['keywords']} />
+          <meta property="og:title" content={metas[path]['og:title']} />
+          <meta property="og:image" content={metas[path]['og:image']} />
+          <meta property="og:url" content={`https://creative.market${path}`} />
+        </MetaTags>
         <div className="about-us-body">
           <Container className='aboutus-container'>
             <Row className='home-subsection'>

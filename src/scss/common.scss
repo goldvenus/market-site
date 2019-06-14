@@ -124,6 +124,31 @@ input::-webkit-input-placeholder {
   background-color: #f82462;
 }
 
+.social-sharing-container {
+  display: flex;
+  justify-content: flex-end;
+
+  & > a > div {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+
+    svg {
+      margin: 0 !important;
+    }
+    span {
+      display: none;
+    }
+  }
+  & > div {
+    margin: 10px;
+    cursor: pointer;
+    outline: none;
+  }
+}
+
 .social-buttons {
   display: flex;
 
