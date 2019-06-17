@@ -16,7 +16,7 @@ class RentGear extends React.Component {
   render() {
     let {categories, isLoading, location, history} = this.props;
     let category = queryString.parse(location.search).type;
-    console.log("======", category);
+
     if (!category || category === undefined) {
       history.push('/rent-gear?type=all');
       return;

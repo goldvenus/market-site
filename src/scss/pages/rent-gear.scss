@@ -164,7 +164,6 @@
           flex-direction: column;
 
           .fa:first-child {
-            padding-top: 8px;
             line-height: 0;
           }
         }
@@ -199,7 +198,7 @@
         cursor: pointer;
 
         &:hover {
-          box-shadow: 0 2px 22px -2px rgba(173, 173, 173, 0.8);
+          box-shadow: 0 6px 10px 0 rgba(173, 173, 173, 0.3);
           transition: all 0.2s ease-in-out;
         }
         .address {
@@ -347,7 +346,7 @@
         cursor: pointer;
 
         &:hover {
-          box-shadow: 0 2px 22px -2px rgba(173, 173, 173, 0.8);
+          box-shadow: 0 6px 10px 0 rgba(173, 173, 173, 0.3);
         }
         .card-img {
           flex-basis: 15%;
@@ -504,7 +503,7 @@
   cursor: pointer;
 
   &:hover {
-    box-shadow: 0 2px 22px -2px rgba(173, 173, 173, 0.8);
+    box-shadow: 0 6px 10px 0 rgba(173, 173, 173, 0.3);
   }
   a {
     overflow: hidden;

@@ -20,7 +20,6 @@ class GooglePlaceAutocompleteWithIcon extends Component {
     place && this.props.onPlaceChange(place);
     this.items = places;
     this.activeIndex = -1;
-    console.log(place);
     this.setState({
       initialValue: place && place.terms.map(item => item.value).join(', '),
     });

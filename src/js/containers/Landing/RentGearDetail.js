@@ -23,14 +23,6 @@ import {Inline} from '@zendeskgarden/react-loaders'
 import CustomSpinner from "../../components/common/CustomSpinner";
 import CustomLoaderLogo from "../../components/common/CustomLoaderLogo";
 import {redirectToSignIn} from "../../core/actions/user.action";
-import {
-  LinkedinIcon,
-  FacebookIcon,
-  TwitterIcon,
-  FacebookShareButton,
-  TwitterShareButton,
-  LinkedinShareButton,
-} from "react-share";
 import { Twitter, Facebook, Google, Linkedin  } from 'react-social-sharing'
 
 const flickityOptions = {
@@ -644,36 +636,6 @@ class RentGearDetail extends Component {
                 title='Rent Creative Gear'
                 link={`https://creative.market${this.props.location.pathname}`}
               />
-              
-              <TwitterShareButton
-                url={`https://creative.market${this.props.location.pathname}`}
-                title='Rent Creative Gear'
-                via={'creative market'}
-                hashtags={['RentGear', 'renting']}
-              >
-                <TwitterIcon
-                  size={32}
-                  round={true}
-                />
-              </TwitterShareButton>
-              <FacebookShareButton
-                url={`https://creative.market${this.props.location.pathname}`}
-                quote={'Rent Creative Gear'}
-                hashtags={['RentGear', 'renting']}
-              >
-                <FacebookIcon
-                  size={32}
-                  round={true}
-                />
-              </FacebookShareButton>
-              <LinkedinShareButton
-                url={`https://creative.market${this.props.location.pathname}`}
-              >
-                <LinkedinIcon
-                  size={32}
-                  round={true}
-                />
-              </LinkedinShareButton>
             </div>
           </div>
           

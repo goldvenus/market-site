@@ -2,9 +2,12 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 const metas = {
+  '/': {
+    title: 'Creative Market',
+  },
   '/about-us': {
     title: 'About Us',
-    keywords: 'rent creative gear camera musical instrument light',
+    keywords: 'rent,creative,gear,renting,market,camera',
     description: 'Cameras, Musical Instruments, Lights and anything else that comes to mind, Creative Market is the place to find it.',
     'og:title': 'Rent creative gear from the people around you. Rent and share gear with creative market.',
     'og:description': 'With Creative Market, you can rent any gear you might need from other creatives around you. Allow others to rent from you at the same time.',
@@ -16,7 +19,7 @@ const metas = {
   },
   '/faq': {
     title: 'Frequently Asked Questions',
-    keywords: 'rent creative gear list share',
+    keywords: 'rent,creative,gear,renting,market,camera',
     description: 'Cameras, Musical Instruments, Lights and anything else that comes to mind, Creative Market is the place to find it.',
     'og:title': 'og:description',
     'og:description': '',
@@ -28,8 +31,8 @@ const metas = {
   },
   '/rent-gear': {
     title: 'Rent Creative Gear',
-    keywords: 'rent creative gear',
-    description: 'Cameras, Musical Instruments, Lights and anything else that comes to mind, Creative Market is the place to find it.',
+    keywords: 'rent,creative,gear,renting,market,camera',
+    description: 'Rent creative gear from the people around you. Rent and share gear with creative market.',
     'og:title': 'og:description',
     'og:description': '',
     'og:type': 'website',
@@ -40,34 +43,10 @@ const metas = {
   },
   '/gear/detail': {
     title: 'Gear Information',
-    keywords: '',
+    keywords: 'rent,creative,gear,renting,market,camera',
     description: 'Cameras, Musical Instruments, Lights and anything else that comes to mind, Creative Market is the place to find it.',
     'twitter:card': 'summary',
     'twitter:site': '@creativemarket',
-    'og:title': 'og:description',
-    'og:description': '',
-    'og:type': 'website',
-    'og:image': '',
-    'og:locale': 'en-us',
-    'og:url': '',
-    'og:site_name': 'creative.market',
-  },
-  '/cart': {
-    title: 'Gears in Cart',
-    keywords: '',
-    description: 'Cameras, Musical Instruments, Lights and anything else that comes to mind, Creative Market is the place to find it.',
-    'og:title': 'og:description',
-    'og:description': '',
-    'og:type': 'website',
-    'og:image': '',
-    'og:locale': 'en-us',
-    'og:url': '',
-    'og:site_name': 'creative.market',
-  },
-  '/favourite': {
-    title: 'Favourite Gears',
-    keywords: '',
-    description: 'Cameras, Musical Instruments, Lights and anything else that comes to mind, Creative Market is the place to find it.',
     'og:title': 'og:description',
     'og:description': '',
     'og:type': 'website',

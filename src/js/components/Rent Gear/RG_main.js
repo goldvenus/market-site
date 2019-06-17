@@ -280,7 +280,7 @@ class Main extends Component {
                     }}
                   >
                     <div className="list-view">
-                      <i className="fa fa-list"/>
+                      <i className="fa fa-th-list"/>
                     </div>
                   </NavLink>
                 </NavItem>
@@ -292,7 +292,7 @@ class Main extends Component {
                     }}
                   >
                     <div className="table-view ">
-                      <i className="fas fa-bars"/>
+                      <i className="fa fa-align-justify"/>
                     </div>
                   </NavLink>
                 </NavItem>

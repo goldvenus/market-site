@@ -12,6 +12,7 @@ import {getCarts} from "../core/actions/cart.action";
 import {getFavourites} from "../core/actions/favourite.action";
 import {getGearsBriefInfo} from "../core/actions/gear.action";
 import {detectLocation, getAddress, ipLookUp} from "../core/helper/location.helper";
+import CustomMetaTag from "../containers/Landing/CustomMetaTag";
 
 class Layout extends Component {
   constructor(props) {
@@ -36,7 +37,7 @@ class Layout extends Component {
     let address = location && await getAddress(location.latitude, location.longitude);
     // get only city + country
     let formattedAddr = '';
-    address.results.forEach(item => {
+    address.results && address.results.forEach(item => {
       if (item.types.indexOf('locality') >= 0) {
         formattedAddr = item.formatted_address;
       }
@@ -84,6 +85,7 @@ class Layout extends Component {
 
     return (
       <React.Fragment>
+        <CustomMetaTag path={window.location.pathname} query={window.location.search}/>
         <div className='back-header'/>
 
         {output}
