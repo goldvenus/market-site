@@ -280,7 +280,7 @@ class OrderConfirmModal extends Component {
                   <div className="bill-left">
                     <p className="text-gray">Total </p>
                     <p className="text-gray">Tax (21%) </p>
-                    <p className="text-gray">Fee (15%) </p>
+                    <p className="text-gray">Fee (6%) </p>
                   </div>
                   <div className="bill-right">
                     <p>$ {parseFloat(info.Total).toFixed(2)}</p>
@@ -496,7 +496,7 @@ class OrderConfirmModal extends Component {
                     <div>
                       <span className="text-gray">Total </span>
                       <span className="text-gray">Tax (21%) </span>
-                      <span className="text-gray">Fee (15%) </span>
+                      <span className="text-gray">Fee (6%) </span>
                     </div>
                     <div>
                       <span> $ {parseFloat(info.Total).toFixed(2)}</span>

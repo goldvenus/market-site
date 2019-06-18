@@ -126,7 +126,7 @@ class OrderDetail extends Component {
               <div className="checkout-total">
                 <div><span className="text-gray">Total </span> $ {info.Total}</div>
                 <div><span className="text-gray">Tax (21%) </span> $ {info.Tax}</div>
-                <div><span className="text-gray">Fee (15%) </span> $ {info.Fee}</div>
+                <div><span className="text-gray">Fee (6%) </span> $ {info.Fee}</div>
               </div>
               <div className="checkout-amount">
                 <div><span className="text-gray">Amount </span>

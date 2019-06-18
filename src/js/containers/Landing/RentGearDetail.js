@@ -271,7 +271,7 @@ class RentGearDetail extends Component {
     const busy = this.state.busy;
     let total = pricePerDay * duration;
     let tax = total * 0.21;
-    let fee = total * 0.15;
+    let fee = total * 0.06;
     let amount = parseFloat(total + tax + fee).toFixed(2);
     let actualPrice = parseFloat(amount / duration).toFixed(2);
     let carouselItems = numberOfUserImage.map((item, index) => ({src: item, altText: `Slide ${index}`, caption: `Slide ${index}`}));

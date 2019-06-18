@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Label} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import formSerialize from "form-serialize";
-import AuthSideMenu from '../../components/AuthSideMenu';
+import AuthSideMenu from './AuthSideMenu';
 import {login} from '../../core/actions/user.action';
 import {FACEBOOK_LOGIN_URL} from '../../core/constants';
 import CustomSpinner from "../../components/common/CustomSpinner";

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Form, Label} from 'reactstrap';
 import {Link} from 'react-router-dom';
-import AuthSideMenu from '../../components/AuthSideMenu';
+import AuthSideMenu from './AuthSideMenu';
 import {handleError} from "../../core/actions/common.action";
 import {register} from '../../core/actions/user.action';
 import {bindActionCreators, compose} from "redux";

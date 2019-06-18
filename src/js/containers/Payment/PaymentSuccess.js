@@ -202,7 +202,7 @@ class Payment extends Component {
               <div className="bill-left">
                 <p className="text-gray">Total </p>
                 <p className="text-gray">Tax (21%) </p>
-                <p className="text-gray">Fee (15%) </p>
+                <p className="text-gray">Fee (6%) </p>
               </div>
               <div className="bill-right">
                 <p>$ {parseFloat(total).toFixed(2)}</p>

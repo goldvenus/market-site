@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Form } from 'reactstrap';
-import AuthSideMenu from '../../components/AuthSideMenu';
+import AuthSideMenu from './AuthSideMenu';
 import { handleError } from '../../core/actions/common.action';
 import { confirmUser } from '../../core/actions/user.action';
 import TextField from "@material-ui/core/TextField/TextField";

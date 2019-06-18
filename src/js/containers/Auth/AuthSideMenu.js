@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Navbar from './Navbar/Navbar';
+import Navbar from '../../components/Navbar/Navbar';
 
 class AuthSideMenu extends Component {
   render() {

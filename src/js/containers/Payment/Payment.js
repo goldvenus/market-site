@@ -236,7 +236,7 @@ class Payment extends Component {
       sold_items.push({...listItem, PickStatus: 0, ReturnStatus: 0});
     });
     let tax = total * 0.21;
-    let fee = total * 0.15;
+    let fee = total * 0.06;
     let amount = total + tax + fee;
     let checkout_id = this.props.match.params.id;
     let expiration_date = expiration_month.toString() + expiration_year.toString();
@@ -389,7 +389,7 @@ class Payment extends Component {
       total += d * listItem.pricePerDay;
     });
     let tax = total * 0.21;
-    let fee = total * 0.15;
+    let fee = total * 0.06;
     let amount = total + tax + fee;
     let cards = getUniqueObjectArray(this.state.cards);
 
@@ -526,7 +526,7 @@ class Payment extends Component {
                   <div className="checkout-total">
                     <div><span className="text-gray">Total </span> <b>${parseFloat(total).toFixed(2)}</b></div>
                     <div><span className="text-gray">Tax (21%) </span> <b>${parseFloat(tax).toFixed(2)}</b></div>
-                    <div><span className="text-gray">Fee (15%) </span> <b>${parseFloat(fee).toFixed(2)}</b></div>
+                    <div><span className="text-gray">Fee (6%) </span> <b>${parseFloat(fee).toFixed(2)}</b></div>
                   </div>
 
                   <div className="checkout-amount">

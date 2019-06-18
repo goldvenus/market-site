@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Form} from 'reactstrap';
 import {Link} from 'react-router-dom';
-import AuthSideMenu from '../../components/AuthSideMenu';
+import AuthSideMenu from './AuthSideMenu';
 import {sendResetPasswordEmail, confirmResetPassword} from '../../core/actions/user.action';
 import TextField from "@material-ui/core/TextField/TextField";
 import Navbar from "../../components/Navbar/Navbar";

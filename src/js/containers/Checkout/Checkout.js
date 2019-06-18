@@ -139,7 +139,7 @@ class Checkout extends Component {
       total += d * listItem.pricePerDay;
     });
     let tax = total * 0.21;
-    let fee = total * 0.15;
+    let fee = total * 0.06;
     let amount = total + tax + fee;
     let {firstName, lastName, addr, city, zip, saveAddr, productRegion, addrList, projectName, company} = this.state;
     let addrList_temp = getUniqueObjectArray(addrList);
@@ -293,7 +293,7 @@ class Checkout extends Component {
                   <div className="checkout-total">
                     <div><span className="text-gray">Total </span> <b>${parseFloat(total).toFixed(2)}</b></div>
                     <div><span className="text-gray">Tax (21%) </span> <b>${parseFloat(tax).toFixed(2)}</b></div>
-                    <div><span className="text-gray">Fee (15%) </span> <b>${parseFloat(fee).toFixed(2)}</b></div>
+                    <div><span className="text-gray">Fee (6%) </span> <b>${parseFloat(fee).toFixed(2)}</b></div>
                   </div>
                   <div className="checkout-amount">
                     <div><span className="text-gray">Amount </span> <b

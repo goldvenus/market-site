@@ -13,6 +13,7 @@ import {getFavourites} from "../core/actions/favourite.action";
 import {getGearsBriefInfo} from "../core/actions/gear.action";
 import {detectLocation, getAddress, ipLookUp} from "../core/helper/location.helper";
 import CustomMetaTag from "../containers/Landing/CustomMetaTag";
+import CookieConsent from "react-cookie-consent";
 
 class Layout extends Component {
   constructor(props) {
@@ -97,6 +98,16 @@ class Layout extends Component {
         {showHeader && <Footer location={this.props.location}/>}
 
         <ToastContainer />
+  
+        <CookieConsent
+          location="bottom"
+          buttonText="I agree"
+          style={{ background: "#d2003d", textAlign: "center" }}
+          buttonStyle={{ background: "white", color: "#f82462", fontSize: "15px", fontWeight: "600", padding: "5px 15px" }}
+          onAccept={() => {}}
+        >
+          Before using this site you must agree to the privacy and cookie policy.
+        </CookieConsent>
       </React.Fragment>
     );
   }
