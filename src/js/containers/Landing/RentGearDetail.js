@@ -24,6 +24,7 @@ import CustomSpinner from "../../components/common/CustomSpinner";
 import CustomLoaderLogo from "../../components/common/CustomLoaderLogo";
 import {redirectToSignIn} from "../../core/actions/user.action";
 import { Twitter, Facebook, Google, Linkedin  } from 'react-social-sharing'
+import {Helmet} from "react-helmet";
 
 const flickityOptions = {
   contain: true,
@@ -74,7 +75,6 @@ class RentGearDetail extends Component {
     try {
       const {gear} = this.state;
       if (startDate && endDate && this._mounted) {
-        console.log("sd", startDate, endDate);
         await addCart({
           gearid: gear.gearid,
           userid: gear.userid,
@@ -257,8 +257,8 @@ class RentGearDetail extends Component {
     // description
     const is_first_enter = this.state.descp.length === 0;
     const is_view_more = description.length > 250;
-    let descp = is_first_enter ? (is_view_more ? `${description.substr(0, 250)} ...` : description) :
-      this.state.show_view_more ? `${description.substr(0, 250)} ...` : description;
+    let descp = is_first_enter ? (is_view_more ? `${description.substr(0, 325)} ...` : description) :
+      this.state.show_view_more ? `${description.substr(0, 325)} ...` : description;
     const listGears = gearRecommendedList;
     const selectionRange = {
       startDate: this.state.startDate,
@@ -275,11 +275,21 @@ class RentGearDetail extends Component {
     let amount = parseFloat(total + tax + fee).toFixed(2);
     let actualPrice = parseFloat(amount / duration).toFixed(2);
     let carouselItems = numberOfUserImage.map((item, index) => ({src: item, altText: `Slide ${index}`, caption: `Slide ${index}`}));
-   
+    let path = window.location.pathname;
+    
     return (
       <React.Fragment>
         {isChangingFavor && <CustomSpinner/>}
         <div className="detail-container container">
+          <Helmet>
+            <title>Gear Detail</title>
+            <meta name="keywords" content={`rent,creative,gear,renting,market,gadget,${brand},${categoryName}`} />
+            <meta property="og:title" content={name} />
+            <meta property="og:description" content={descp} />
+            <meta property="og:image" content={numberOfUserImage[0]} />
+            <meta property="og:url" content={`https://creative.market${path}`} />
+          </Helmet>
+          
           <h3 className='add-method-heading go-back-btn' onClick={() => this.props.history.push(`/rent-gear?type=${categoryName}`)}>
             <i className='fa fa-arrow-left'/>
             &nbsp;Rent Gear
