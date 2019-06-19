@@ -97,9 +97,7 @@ class RentGearDetail extends Component {
       const carted_item = gearid && carts && carts.length > 0 ?
         carts.filter(item => item.gearid === gearid) : 0;
       const carted = carted_item ? carted_item.length : false;
-      // const favored = gearid && favourites && favourites.length > 0 ?
-      //   favourites.filter(item => item.gearid === gearid).length : 0;
-      pricePerDay *= 1.36;
+      pricePerDay *= 1 + 0.21 + 0.06;
       
       return (
         <Col md="6" className="cardz" key={i}>

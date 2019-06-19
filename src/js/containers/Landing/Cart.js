@@ -112,7 +112,7 @@ class Cart extends Component {
         let duration = calcDaysDiff(new Date(listItem.startDate), new Date(listItem.endDate)) + 1;
         let total = listItem.pricePerDay * duration;
         let tax = total * 0.21;
-        let fee = total * 0.15;
+        let fee = total * 0.06;
         let amount = parseFloat(total + tax + fee).toFixed(2);
         let actualPrice = parseFloat(amount/duration).toFixed(2);
 

@@ -47,7 +47,7 @@ const ListView = ({ gear_detail: { numberOfUserImage, brand, productName, locati
           </div>
           <div className="card-right">
             <CardText>
-              <span className="price"> ${parseFloat(pricePerDay*(1+0.15+0.21)).toFixed(2)} </span>
+              <span className="price"> ${parseFloat(pricePerDay*(1+0.06+0.21)).toFixed(2)} </span>
               <span className="theme-text-small text-gray"> / per day</span>
             </CardText>
             <div className="buttons">
