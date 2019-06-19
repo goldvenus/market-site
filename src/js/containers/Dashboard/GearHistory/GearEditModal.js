@@ -177,24 +177,31 @@ class GearEditModal extends Component {
   async addImage(event) {
     try {
       const imageFile = event.target.files[0];
+      if (imageFile.type.indexOf('image') === -1) {
+        handleError('Only images are allowed');
+        return;
+      }
       let options = {
         maxSizeMB: 10,
-        maxWidthOrHeight: 1920,
+        maxWidthOrHeight: 400,
         useWebWorker: true
-      }
+      };
       try {
+        this.setState({busy: true});
         const compressedFile = await imageCompression(imageFile, options);
         let image = await readFileData(compressedFile);
         let {numberOfUserImageNew} = this.state;
         numberOfUserImageNew.push(image);
-        this.setState({
-          numberOfUserImageNew
+        this._isMounted && this.setState({
+          numberOfUserImageNew,
+          busy: false
         });
       } catch (error) {
-        console.log(error);
+        handleError('Please upload a valid image');
+        this.setState({busy: false});
       }
     } catch {
-      handleError('Please upload a valid1 image');
+      handleError('Please upload a valid image');
     }
   }
 

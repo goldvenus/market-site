@@ -58,7 +58,7 @@ export default function ({dashboard}) {
             <Col>
               <div className="avaiable">
                 <h2>{dashboard.available}</h2>
-                <p className="theme-text-small-bold">Avaiable</p>
+                <p className="theme-text-small-bold">Available</p>
               </div>
             </Col>
           </Row>
