@@ -502,6 +502,16 @@
       }
     }
   }
+  .react-numeric-input {
+    width: 100%;
+
+    .quantity-input {
+      font-size: 16px;
+      width: 100%;
+      outline: none;
+      height: 45px;
+    }
+  }
 }
 
 .empty_page_addgear{

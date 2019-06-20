@@ -29,13 +29,11 @@ class Home extends React.Component {
       searchLocationValue: '',
       searchLocationResult: [],
     };
-    
-    getGearsBriefInfo();
   }
   
   async componentDidMount() {
     this._mounted = true;
-    
+    getGearsBriefInfo();
     // let $animation_elements = $('.animation-element');
     // let $window = $(window);
     //

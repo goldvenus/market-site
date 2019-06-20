@@ -62,6 +62,7 @@
     "react-meta-tags": "^0.7.4",
     "react-notifications": "^1.4.3",
     "react-notifications-component": "^1.1.1",
+    "react-numeric-input": "^2.2.3",
     "react-owl-carousel": "^2.3.1",
     "react-owl-carousel2": "^0.3.0",
     "react-redux": "^5.1.1",

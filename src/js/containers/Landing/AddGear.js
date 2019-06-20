@@ -21,6 +21,7 @@ import {CloseIcon} from "../../components/common/IconComponent";
 import imageCompression from "browser-image-compression";
 import CustomAutoComplete from "../../components/common/CustomAutoComplete";
 import GooglePlaceAutocompleteNormal from "../../components/common/GooglePlaceAutocompleteNormal";
+import NumericInput from 'react-numeric-input';
 
 class AddGear extends Component {
   constructor(props) {
@@ -40,6 +41,7 @@ class AddGear extends Component {
       brand: '',
       model: '',
       description: '',
+      quantity: 1,
       isKit: false,
       isSelected: false,
       accessories: [],
@@ -64,9 +66,9 @@ class AddGear extends Component {
   }
   
   async componentDidMount() {
+    this._isMounted = true;
     await fetchCategories();
     getGearsBriefInfo();
-    this._isMounted = true;
     this.placesService = new window.google.maps.places.PlacesService(document.createElement('div'))
   }
   
@@ -136,6 +138,7 @@ class AddGear extends Component {
       categoryName: 'Select Category',
       brand: '',
       model: '',
+      quantity: 1,
       description: '',
       isKit: false,
       accessories: [],
@@ -180,23 +183,19 @@ class AddGear extends Component {
           resolve(false);
         }
       }));
-      this.setState({
+      this._isMounted && this.setState({
         globalPos: location
       });
     }
-    if (this._isMounted) {
-      this.setState({
-        [field]: val.terms[0].value,
-      });
-    }
+    this._isMounted && this.setState({
+      [field]: val.terms[0].value
+    });
   };
   
-  handlePlaceKeyDown = (e) => {
-    if (e.keyCode === 13) {
-      // this.handleSearch();
-    } else {
-      this._mounted && this.setState({
-        searchLocationValue: e.target.value || ''
+  handlePlaceKeyDown = (e, field) => {
+    if (e.keyCode !== 13 && this.state[field] !== e.target.value) {
+      this._isMounted && this.setState({
+        [field]: e.target.value || ''
       });
     }
   };
@@ -225,7 +224,7 @@ class AddGear extends Component {
   }
   
   renderInfo() {
-    let {selectedType, brand, model, isKit, categoryName, accessories, dropdownOpen, productName, description, gearsList} = this.state;
+    let {selectedType, brand, model, isKit, quantity, categoryName, accessories, dropdownOpen, productName, description, gearsList} = this.state;
     let {categories} = this.props;
     
     return (
@@ -343,12 +342,16 @@ class AddGear extends Component {
                 {gearsList.length > 0 ?
                 <CustomAutoComplete
                   gears={gearsList}
-                  floatingLabel='Search Gear'
+                  floatingLabel='Type Gear Name'
                   handleGearChange={this.handleGearChange}
                   handleGearDelete={this.handleGearDelete}
                   initialSelectedItem={[]}
                 /> : null}
               </div>
+            </div>
+            <div className='recommended-container'>
+              <div className="theme-text-small">Quantity</div>
+              <NumericInput min={1} max={100} value={quantity} className='quantity-input' onChange={(val) => this.setState({'quantity': val})}/>
             </div>
           </div>
         </div>
@@ -394,7 +397,7 @@ class AddGear extends Component {
         <div className="theme-form-field text-wrapper">
           <GooglePlaceAutocompleteNormal
             onPlaceChange={(val) => this.handlePlaceChange(val, 'city')}
-            onPlaceKeyDown={this.handlePlaceKeyDown}
+            onPlaceKeyDown={(e) => this.handlePlaceKeyDown(e, 'city')}
             restriction={{country: ['IS']}}
             types={['(cities)']}
             initialValue={city}
@@ -404,18 +407,9 @@ class AddGear extends Component {
           />
         </div>
         <div className="theme-form-field text-wrapper">
-          {/*<TextField*/}
-            {/*id="standard-with-placeholder2"*/}
-            {/*className="custom-beautiful-textfield"*/}
-            {/*label="Region"*/}
-            {/*type="text"*/}
-            {/*value={region}*/}
-            {/*maxLength='50'*/}
-            {/*onChange={(e) => this.setState({region: (e && e.target && e.target.value) || ''})}*/}
-          {/*/>*/}
           <GooglePlaceAutocompleteNormal
             onPlaceChange={(val) => this.handlePlaceChange(val, 'region')}
-            onPlaceKeyDown={this.handlePlaceKeyDown}
+            onPlaceKeyDown={(e) => this.handlePlaceKeyDown(e, 'region')}
             restriction={{country: ['IS']}}
             types={['(regions)']}
             initialValue={region}
@@ -427,7 +421,7 @@ class AddGear extends Component {
         <div className="theme-form-field text-wrapper">
           <GooglePlaceAutocompleteNormal
             onPlaceChange={(val) => this.handlePlaceChange(val, 'address')}
-            onPlaceKeyDown={this.handlePlaceKeyDown}
+            onPlaceKeyDown={(e) => this.handlePlaceKeyDown(e, 'address')}
             restriction={{country: ['IS']}}
             types={['address']}
             initialValue={address}
@@ -439,7 +433,7 @@ class AddGear extends Component {
         <div className="theme-form-field text-wrapper">
           <GooglePlaceAutocompleteNormal
             onPlaceChange={(val) => this.handlePlaceChange(val, 'postalCode')}
-            onPlaceKeyDown={this.handlePlaceKeyDown}
+            onPlaceKeyDown={(e) => this.handlePlaceKeyDown(e, 'postalCode')}
             restriction={{country: ['IS']}}
             types={['(regions)']}
             initialValue={postalCode}
@@ -596,7 +590,7 @@ class AddGear extends Component {
   validate() {
     switch (this.state.progressStep) {
       case 0:
-        const {categoryName, brand, model, description, selectedType, productName, accessories, isKit} = this.state;
+        const {categoryName, brand, model, quantity, description, selectedType, productName, accessories, isKit} = this.state;
         let emptyCount = accessories.filter(item => item.value === '');
         let isSetAccessorise = (!isKit || (isKit && emptyCount.length === 0));
         if (isKit && accessories.length === 0) {
@@ -607,7 +601,7 @@ class AddGear extends Component {
           return false;
         }
         
-        if (isSetAccessorise && categoryName && categoryName !== 'Select Category' && brand && model && description && selectedType && productName) {
+        if (isSetAccessorise && categoryName && categoryName !== 'Select Category' && brand && model && quantity && description && selectedType && productName) {
           return true;
         }
         break;
@@ -674,6 +668,7 @@ class AddGear extends Component {
         brand,
         model,
         description,
+        quantity,
         selectedType,
         isKit,
         isSelected,
@@ -696,6 +691,7 @@ class AddGear extends Component {
         categoryName: categoryName.replace(' ', ''),
         brand,
         model,
+        quantity,
         description,
         type: selectedType,
         isKit,
@@ -708,8 +704,8 @@ class AddGear extends Component {
         recommendedList: recommendedList.map(item => item.gearid)
       };
       
-      if (!categoryName || !brand || !model || !description || !selectedType
-        || (isKit && !accessories.length) || !productName || !numberOfUserImage || !city || !region ||
+      if (!categoryName || !brand || !model || !description || !selectedType || !quantity ||
+        (isKit && !accessories.length) || !productName || !numberOfUserImage || !city || !region ||
         !address || !postalCode || !replacementValue || !pricePerDay) {
         handleError("Please provide required details!");
         return;
@@ -798,11 +794,6 @@ class AddGear extends Component {
     return (
       <div className="add-gear">
         {this.state.busy ? <CustomSpinner/> : null}
-        {/*<Breadcrumb>*/}
-          {/*<BreadCrumbActive name="Home"/>*/}
-          {/*<span className="space_slash_span">/</span>*/}
-          {/*<BreadcrumbItem active>Add Gear</BreadcrumbItem>*/}
-        {/*</Breadcrumb>*/}
         <h3 className="header">Add Gear</h3>
         <div className="add-gear-progress">
           {this.renderProgress()}
@@ -818,11 +809,9 @@ class AddGear extends Component {
                       onClick={this.previousStep.bind(this)}>
                 <span className="fa fa-angle-left"/> Back
               </button> : null}
-              {/*{user.nummusVendorId ?*/}
               <button className="theme-btn theme-btn-primary theme-continue-btn"
                       onClick={this.nextStep.bind(this)}>Continue <span
                 className="fa fa-angle-right"/></button>
-              {/*<button className="theme-btn theme-btn-primary"><Link to='/dashboard'>Create Vendor Account</Link></button>}*/}
             </div>
           </div>) : null
         }
@@ -836,14 +825,6 @@ class AddGear extends Component {
               <RentalTermsComponent/>
             </div>
           </Modal> : null
-        // !user.nummusVendorId ?
-        //   <ConfirmModal
-        //     heading='Create your vendor account!'
-        //     onConfirm={() => this.props.history.push('/dashboard/method-add/2')}
-        //     onClose={() => this.setState({modalOpenState: 0})}
-        //     oneButtonMode={true}
-        //   /> :
-        //   null
         }
       </div>);
   }

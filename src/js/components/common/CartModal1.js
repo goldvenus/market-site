@@ -6,7 +6,7 @@ import {calcDaysDiff, getDateStr} from "../../core/helper";
 
 /**
  *   Modal Interface for CART_CONFIRM and CART_DONE (Rend Gear Detail Page)
- */
+ **/
 class CartModal1 extends Component {
   constructor(props) {
     super(props);

@@ -17,6 +17,7 @@ import imageCompression from "browser-image-compression";
 import CustomAutoComplete from "../../../components/common/CustomAutoComplete";
 import {CloseIcon} from "../../../components/common/IconComponent";
 import GooglePlaceAutocompleteNormal from "../../../components/common/GooglePlaceAutocompleteNormal";
+import NumericInput from "react-numeric-input";
 
 class GearEditModal extends Component {
   constructor(props) {
@@ -33,6 +34,8 @@ class GearEditModal extends Component {
       categoryName: 'Category',
       brand: '',
       model: '',
+      quantity: 1,
+      quantityTemp: 1,
       description: '',
       isKit: false,
       accessories: [],
@@ -75,6 +78,8 @@ class GearEditModal extends Component {
         categoryName: props.gear.categoryName,
         brand: props.gear.brand,
         model: props.gear.model,
+        quantity: props.gear.quantity,
+        quantityTemp: props.gear.quantityTemp,
         description: props.gear.description,
         selectedType: props.gear.type,
         isKit: props.gear.isKit,
@@ -109,6 +114,8 @@ class GearEditModal extends Component {
       brand,
       model,
       isKit,
+      quantity,
+      quantityTemp,
       productName,
       description,
       selectedType,
@@ -127,9 +134,9 @@ class GearEditModal extends Component {
     } = this.state;
   
     let emptyCount = accessories.filter(item => item.value === '');
-    if (emptyCount.length > 0 || categoryName === '' || brand === '' || model === '' || productName === '' || description === '' ||
-      selectedType === '' || city === '' || region === '' || address === '' || postalCode === '' ||
-      replacementValue === '' || pricePerDay === '') {
+    if (emptyCount.length > 0 || !categoryName || !brand || !model ||
+      !productName || !description || !quantity || !quantityTemp ||
+      !selectedType || !city || !region || !address || !postalCode || !replacementValue || !pricePerDay) {
       handleError("Please input required information");
       return;
     }
@@ -139,6 +146,8 @@ class GearEditModal extends Component {
       brand,
       model,
       isKit,
+      quantity,
+      quantityTemp,
       description,
       type: selectedType,
       accessories: accessories.map(item => item.value),
@@ -159,7 +168,7 @@ class GearEditModal extends Component {
   };
 
   changeCategory = (e) => {
-    this.setState({categoryName: e.target.textContent}, () => this.addSuggestions());
+    this.setState({categoryName: e.target.textContent});
   };
 
   onTypeChange = (e) => {
@@ -284,12 +293,10 @@ class GearEditModal extends Component {
     }
   };
   
-  handlePlaceKeyDown = (e) => {
-    if (e.keyCode === 13) {
-      // this.handleSearch();
-    } else {
-      this._mounted && this.setState({
-        searchLocationValue: e.target.value || ''
+  handlePlaceKeyDown = (e, field) => {
+    if (e.keyCode !== 13 && this.state[field] !== e.target.value) {
+      this._isMounted && this.setState({
+        [field]: e.target.value || ''
       });
     }
   };
@@ -311,8 +318,10 @@ class GearEditModal extends Component {
               <DropdownMenu right>
                 {
                   categories.map((ele, index) => {
-                    return <DropdownItem key={index}
-                                         onClick={this.changeCategory.bind(this)}>{ele.categoryName}</DropdownItem>;
+                    return <DropdownItem
+                      key={index}
+                      onClick={this.changeCategory.bind(this)}>{ele.categoryName}
+                    </DropdownItem>;
                   })
                 }
               </DropdownMenu>
@@ -404,7 +413,7 @@ class GearEditModal extends Component {
           {/*/>*/}
           <GooglePlaceAutocompleteNormal
             onPlaceChange={(val) => this.handlePlaceChange(val, 'city')}
-            onPlaceKeyDown={this.handlePlaceKeyDown}
+            onPlaceKeyDown={(e) => this.handlePlaceKeyDown(e, 'city')}
             restriction={{country: ['IS']}}
             types={['(cities)']}
             initialValue={city}
@@ -414,7 +423,7 @@ class GearEditModal extends Component {
           />
           <GooglePlaceAutocompleteNormal
             onPlaceChange={(val) => this.handlePlaceChange(val, 'region')}
-            onPlaceKeyDown={this.handlePlaceKeyDown}
+            onPlaceKeyDown={(e) => this.handlePlaceKeyDown(e, 'region')}
             restriction={{country: ['IS']}}
             types={['(regions)']}
             initialValue={region}
@@ -426,7 +435,7 @@ class GearEditModal extends Component {
         <div className='address-wrapper'>
           <GooglePlaceAutocompleteNormal
             onPlaceChange={(val) => this.handlePlaceChange(val, 'address')}
-            onPlaceKeyDown={this.handlePlaceKeyDown}
+            onPlaceKeyDown={(e) => this.handlePlaceKeyDown(e, 'address')}
             restriction={{country: ['IS']}}
             types={['address']}
             initialValue={address}
@@ -436,7 +445,7 @@ class GearEditModal extends Component {
           />
           <GooglePlaceAutocompleteNormal
             onPlaceChange={(val) => this.handlePlaceChange(val, 'postalCode')}
-            onPlaceKeyDown={this.handlePlaceKeyDown}
+            onPlaceKeyDown={(e) => this.handlePlaceKeyDown(e, 'postalCode')}
             restriction={{country: ['IS']}}
             types={['(regions)']}
             initialValue={postalCode}
@@ -457,7 +466,7 @@ class GearEditModal extends Component {
       return <CustomSpinner/>;
     }
     
-    const {selectedType, replacementValue, pricePerDay, accessories, isKit, description} = this.state;
+    const {selectedType, replacementValue, pricePerDay, accessories, isKit, description, quantity, quantityTemp} = this.state;
     const selectedItems = recommendedList.map(item => item.productName);
     
     return (
@@ -545,12 +554,20 @@ class GearEditModal extends Component {
                       {gearsList.length > 0 ?
                         <CustomAutoComplete
                           gears={gearsList}
-                          floatingLabel='Search Gear'
+                          floatingLabel='Type Gear Name'
                           handleGearChange={this.handleGearChange}
                           handleGearDelete={this.handleGearDelete}
                           initialSelectedItem={selectedItems}
                         /> : null}
                     </div>
+                  </div>
+                  <div className='recommended-container'>
+                    <div className="theme-text-small">Total Quantity</div>
+                    <NumericInput min={1} max={100} value={quantity} className='quantity-input' onChange={(val) => this.setState({'quantity': val})}/>
+                  </div>
+                  <div className='recommended-container'>
+                    <div className="theme-text-small">Left Quantity</div>
+                    <NumericInput min={1} max={quantity} value={quantityTemp} className='quantity-input' onChange={(val) => this.setState({'quantityTemp': val})}/>
                   </div>
                 </div>
               </div>

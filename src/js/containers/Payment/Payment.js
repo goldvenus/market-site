@@ -260,7 +260,7 @@ class Payment extends Component {
       await getCarts();
       this.props.history.push(`/payment/${checkout_id}/${response}`);
     }
-  
+
     this.setState({
       loading: false
     });
