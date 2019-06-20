@@ -106,7 +106,7 @@ class Layout extends Component {
           buttonStyle={{ background: "white", color: "#f82462", fontSize: "15px", fontWeight: "600", padding: "5px 15px" }}
           onAccept={() => {}}
         >
-          Before using this site you must agree to the privacy and cookie policy.
+          Before using this site you must agree to the <span style={{textDecoration: 'underline'}}><Link to='/privacy'>privacy and cookie policy</Link></span>.
         </CookieConsent>
       </React.Fragment>
     );
