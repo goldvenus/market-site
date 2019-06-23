@@ -25,6 +25,8 @@ import CustomLoaderLogo from "../../components/common/CustomLoaderLogo";
 import {redirectToSignIn} from "../../core/actions/user.action";
 import { Twitter, Facebook, Google, Linkedin  } from 'react-social-sharing'
 import {Helmet} from "react-helmet";
+import {CheckIcon} from "../../components/common/IconComponent";
+import VerificationConfirmModal from "../Auth/IdentityVerification/VerificationConfirmModal";
 
 const flickityOptions = {
   contain: true,
@@ -35,7 +37,6 @@ const flickityOptions = {
 class RentGearDetail extends Component {
   constructor(props) {
     super(props);
-    
     this._mounted = false;
     this.gearid = props.match.params.id;
     this.state = {
@@ -52,7 +53,6 @@ class RentGearDetail extends Component {
       gear: {},
       busy: false
     };
-    
     getGear(this.gearid);
   }
   
@@ -87,69 +87,6 @@ class RentGearDetail extends Component {
       handleError('Gear was not added to cart');
     }
   };
-  
-  renderRecommendedProducts({listGears}) {
-    const {carts, gear} = this.props;
-    listGears = listGears.filter(item => item.gearid !== gear.gearid);
-    
-    return listGears.map((item, i) => {
-      let {numberOfUserImage, gearid, brand, rating, location: {city}, pricePerDay, productName, categoryName} = item;
-      const carted_item = gearid && carts && carts.length > 0 ?
-        carts.filter(item => item.gearid === gearid) : 0;
-      const carted = carted_item ? carted_item.length : false;
-      pricePerDay *= 1 + 0.21 + 0.06;
-      
-      return (
-        <Col md="6" className="cardz" key={i}>
-          <Link to={{pathname: `/gear/detail/${gearid}`, state: {categoryName}}}>
-            <Card className="gear_card_view">
-              <CardImg top width="100%" src={numberOfUserImage ? numberOfUserImage[0] :[]} alt="Card image cap"/>
-              {carted > 0 && <div className="card-checked"><i className="fas fa-check-circle"/></div>}
-              <CardBody>
-                <div className='card-title-wrapper'>
-                  <CardTitle>{brand}<br/>{productName}</CardTitle>
-                </div>
-                <div>
-                  <CardSubtitle>
-                    <span className="stars">
-                      {
-                        [1,2,3,4,5].map((i)=>{
-                          return <i className="fa fa-star" key={i}/>
-                        })
-                      }
-                    </span> &nbsp;
-                    <span>
-                      5,0&nbsp;
-                    </span>
-                      <span className="total">
-                      ({rating ? rating : 0})
-                    </span>&nbsp;  &nbsp;
-                    <span className="address">
-                      <i className="fa fa-map-marker" aria-hidden="true"/>&nbsp;
-                      {city}
-                    </span>
-                  </CardSubtitle>
-                  <CardText>
-                    <span className="price"> ${parseFloat(pricePerDay).toFixed(2)} </span>
-                    <span className="theme-text-small text-gray"> /per day</span>
-                  </CardText>
-                  {/*<div className="buttons">*/}
-                    {/*<Button className='cart' onClick={() => this.onOpenModal(gearid)}>Add to Cart</Button>*/}
-                    {/*<Button className="fav" onClick={() => {*/}
-                      {/*if (!user) {*/}
-                        {/*handleError('Please sign in');*/}
-                        {/*return;*/}
-                      {/*}*/}
-                      {/*favored>0 ? deleteFavourite({ gearid }) : addFavourites({ gearid })*/}
-                    {/*}}><i className={favored ? "fas fa-heart" : "far fa-heart"}/></Button>*/}
-                  {/*</div>*/}
-                </div>
-              </CardBody>
-            </Card>
-          </Link>
-        </Col>)
-    });
-  }
   
   onOpenModal = async (gearid) => {
     try {
@@ -189,6 +126,12 @@ class RentGearDetail extends Component {
   onCloseModal = () => {
     this._mounted && this.setState({
       modal_open_st: 0
+    });
+  };
+  
+  onOpenVerificationModal = () => {
+    this._mounted && this.setState({
+      modal_open_st: 3
     });
   };
   
@@ -235,6 +178,69 @@ class RentGearDetail extends Component {
       });
     }
   };
+  
+  renderRecommendedProducts({listGears}) {
+    const {carts, gear} = this.props;
+    listGears = listGears.filter(item => item.gearid !== gear.gearid);
+    
+    return listGears.map((item, i) => {
+      let {numberOfUserImage, gearid, brand, rating, location: {city}, pricePerDay, productName, categoryName} = item;
+      const carted_item = gearid && carts && carts.length > 0 ?
+        carts.filter(item => item.gearid === gearid) : 0;
+      const carted = carted_item ? carted_item.length : false;
+      pricePerDay *= 1 + 0.21 + 0.06;
+      
+      return (
+        <Col md="6" className="cardz" key={i}>
+          <Link to={{pathname: `/gear/detail/${gearid}`, state: {categoryName}}}>
+            <Card className="gear_card_view">
+              <CardImg top width="100%" src={numberOfUserImage ? numberOfUserImage[0] :[]} alt="Card image cap"/>
+              {carted > 0 && <div className="card-checked"><i className="fas fa-check-circle"/></div>}
+              <CardBody>
+                <div className='card-title-wrapper'>
+                  <CardTitle>{brand}<br/>{productName}</CardTitle>
+                </div>
+                <div>
+                  <CardSubtitle>
+                    <span className="stars">
+                      {
+                        [1,2,3,4,5].map((i)=>{
+                          return <i className="fa fa-star" key={i}/>
+                        })
+                      }
+                    </span> &nbsp;
+                    <span>
+                      5,0&nbsp;
+                    </span>
+                    <span className="total">
+                      ({rating ? rating : 0})
+                    </span>&nbsp;  &nbsp;
+                    <span className="address">
+                      <i className="fa fa-map-marker" aria-hidden="true"/>&nbsp;
+                      {city}
+                    </span>
+                  </CardSubtitle>
+                  <CardText>
+                    <span className="price"> ${parseFloat(pricePerDay).toFixed(2)} </span>
+                    <span className="theme-text-small text-gray"> /per day</span>
+                  </CardText>
+                  {/*<div className="buttons">*/}
+                  {/*<Button className='cart' onClick={() => this.onOpenModal(gearid)}>Add to Cart</Button>*/}
+                  {/*<Button className="fav" onClick={() => {*/}
+                  {/*if (!user) {*/}
+                  {/*handleError('Please sign in');*/}
+                  {/*return;*/}
+                  {/*}*/}
+                  {/*favored>0 ? deleteFavourite({ gearid }) : addFavourites({ gearid })*/}
+                  {/*}}><i className={favored ? "fas fa-heart" : "far fa-heart"}/></Button>*/}
+                  {/*</div>*/}
+                </div>
+              </CardBody>
+            </Card>
+          </Link>
+        </Col>)
+    });
+  }
   
   renderContent = () => {
     const {gear, user, carts, favourites, isChangingFavor, isLoadingGear, gearRecommendedList} = this.props;
@@ -472,24 +478,12 @@ class RentGearDetail extends Component {
             </div>
             <div className="right-container col-lg-15">
               <div className="right-container1 row">
-                {/*<Breadcrumb>*/}
-                  {/*<BreadCrumbActive name="Home"/>*/}
-                  {/*<span className="space_slash_span">/</span>*/}
-                  {/*<BreadCrumbActive name="Rent Gears"/>*/}
-                  {/*<span className="space_slash_span">/</span>*/}
-                  {/*<BreadCrumbActive name={categoryName}/>*/}
-                  {/*<span className="space_slash_span">/</span>*/}
-                  {/*<BreadcrumbItem active>{name}</BreadcrumbItem>*/}
-                {/*</Breadcrumb>*/}
                 <div className="gear-container row">
                   <div className="gear-info col-lg-15">
                     <div className="theme-form-small text-gray category d-none d-lg-block">{categoryName} </div>
                     <span className='category-name d-none d-lg-block'>
                       {name}
-                      {
-                        carted > 0 ?
-                          <i className="fas fa-check-circle"/> : null
-                      }
+                      {carted > 0 ? <i className="fas fa-check-circle"/> : null}
                     </span>
                     <div className="type-tabs d-none d-lg-block">
                       <input name="type" id="new" type="radio" value="new" onChange={this.onTypeChange}/>
@@ -524,6 +518,11 @@ class RentGearDetail extends Component {
                   </div>
                   <div className="gear-purchase col-lg-9">
                     <div>
+                      <div>
+                        <button className='theme-btn theme-btn-primary btn-verify-profile' onClick={this.onOpenVerificationModal}>
+                          <CheckIcon/> Verified profile
+                        </button>
+                      </div>
                       <span className='star-wrapper'>
                         {[1, 2, 3, 4, 5].map(i =>
                           <i className="fa fa-star star-selected" key={i}/>)}
@@ -693,6 +692,11 @@ class RentGearDetail extends Component {
                 open={true}
                 onClose={this.onCloseModal}
                 addToCart={this.addToCart}
+              /> :
+            this.state.modal_open_st === 3 ?
+              <VerificationConfirmModal
+                open={true}
+                onClose={this.onCloseModal}
               /> : null
           }
         </div>

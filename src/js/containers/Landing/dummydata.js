@@ -84,7 +84,7 @@ const faqs = [
   },
   {
     title: 'What if the renter fails to return gear?',
-    content: 'In the case of an unresponsive renter which fails to return the gear at the end of a rental period, Creative Market will take measures to assist owners in reclaiming their gear. Firstly, an attempt will be made to charge an additional late fee: 5% of total rental price, per day for up to 7 days, from the renter’s registered payment method. If the renter is still unresponsive after 8 days, an attempt will be made to charge the full replacement value of the gear, from the renter’s registered payment method.'
+    content: 'In the case of an unresponsive renter which fails to return gear at the end of a rental period, Creative Market will take measures to assist owners in reclaiming their gear. Firstly, an attempt will be made to charge additional rental days with 7% late fees, for up to 7 days, from the renter’s registered payment method. If the renter is still unresponsive on the 8th day, an attempt will be made to charge the full replacement value of the gear, from the renter’s registered payment method.'
   },
   {
     title: 'Damage, Safety, and Disputes',
@@ -94,6 +94,18 @@ const faqs = [
     title: 'Owner insurance and liability ',
     content: 'Apart from the case described in “What if the renter fails to return gear?”, owners are solely responsible for purchasing the proper insurance that covers theft or voluntary parting and damages to their gear. As an owner, you acknowledge and agree that Creative Market will solely act as an intermediary, and not as an insurer or contracting agency. Creative Market will never cover the Renter’s failure to return your Gear. By adding gear and accepting the terms of use, the owner acknowledges and agrees he/she may suffer a loss as a consequence of renting out the gear.'
   },
+  {
+    title: 'How much does it cost to list gear for rent?',
+    content: 'Creative Market is free to join and has no membership fees or monthly fees. It is also free to list gear. We only make money when you make money. We charge a 6% service fee to owners and 6% service fee to renters of each transaction. This helps cover payment processing, security, hosting, development and more.'
+  },
+  {
+    title: 'Do renters pay before or after the rental period?',
+    content: 'Once you’ve found the right gear, we will ask you to submit a full credit card payment to confirm the rental. Your funds will be securely held in escrow and only released to the gear owner once both parties have confirmed that the gear has been picked up.'
+  },
+  {
+    title: 'How do gear owners get paid?',
+    content: 'Owners can request to get paid at any time once funds appear in their account balance. This usually happens within 24 hours after a rental has been completed successfully. Payouts are then wire-transferred automatically to verified SWIFT/BIC accounts through our payment partner MangoPay.'
+  }
 ];
 
 export {faqs, metas};

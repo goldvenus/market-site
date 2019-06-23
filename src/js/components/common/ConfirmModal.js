@@ -2,8 +2,8 @@ import Modal from "react-responsive-modal";
 import React, {Component} from "react";
 import {Inline} from '@zendeskgarden/react-loaders'
 
-/*
-    Confirm Modal
+/**
+ * Confirm Modal
  */
 class ConfirmModal extends Component {
   constructor(props) {

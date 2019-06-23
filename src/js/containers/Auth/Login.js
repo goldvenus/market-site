@@ -25,7 +25,6 @@ class Login extends Component {
       username: '',
       saveState: false
     };
-    
   }
   
   submit = e => {
@@ -140,13 +139,10 @@ class Login extends Component {
                     <Label for="save-address" className='checkbox-label'>Remember on this device</Label>
                   </div>
                 </div>
-                {
-                  isAuthorizing ?
-                    <button type="submit" disabled className="theme-btn-submit">Sign In</button>
-                    :
-                    <button type="submit" className="theme-btn-submit">Sign In</button>
+                {isAuthorizing ?
+                  <button type="submit" disabled className="theme-btn-submit">Sign In</button>:
+                  <button type="submit" className="theme-btn-submit">Sign In</button>
                 }
-              
               </form>
             </div>
             <div className="login-or-divider"/>

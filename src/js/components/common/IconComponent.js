@@ -66,3 +66,9 @@ export const OpenIconMobile = () => (
     <rect y="20" width="40" height="3" fill="white"/>
   </svg>
 );
+
+export const CheckIcon = () => (
+  <svg width="18" height="13" viewBox="0 0 18 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M1 7L6 12L17 1" stroke="white"/>
+  </svg>
+);

@@ -7,6 +7,7 @@ import Login from './containers/Auth/Login';
 import Register from './containers/Auth/Register';
 import RegisterConfirm from './containers/Auth/RegisterConfirm';
 import ForgotPassword from './containers/Auth/ForgotPassword';
+import IdentityVerification from './containers/Auth/IdentityVerification'
 import Dashboard from './containers/Dashboard/Dashboard';
 import OrderDetail from './containers/Dashboard/OrderHistory/OrderDetail';
 import AddMethodContainer from './containers/Dashboard/Payment/AddMethodContainer';
@@ -34,6 +35,7 @@ export default (
       <Route exact path="/register" component={Register}/>
       <Route exact path='/confirm' component={RegisterConfirm}/>
       <Route exact path="/forgot-password" component={ForgotPassword}/>
+      <Route exact path="/verify-profile" component={IdentityVerification}/>
       <Route exact path='/faq' component={FAQ}/>
       <Route exact path='/privacy' component={PrivacyPolicy}/>
       <Route exact path='/terms-use' component={TermsConditions}/>

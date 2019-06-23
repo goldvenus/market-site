@@ -153,7 +153,6 @@ class NavbarMenu extends React.Component {
                     <path d="M45.9714 17.6538V26.7595L32.7207 4.69542H38.336L45.9714 17.6538Z" fill="#F82462"/>
                   </svg>
                 </li></Link>
-
                 {output}
               </React.Fragment>
             ) : isMobile ? (

@@ -1,5 +1,5 @@
 @import "../variables";
-/* for all media */
+
 .detail-container {
   width: 100%;
   padding: 33px 0 0 0;
@@ -67,7 +67,6 @@
   padding: 0 10px;
   overflow: hidden;
 }
-
 .right-container {
   padding: 0 0 0 33px;
 
@@ -77,11 +76,9 @@
     }
   }
 }
-
 .gear-container {
   width: 100%;
 }
-
 .gear-info {
   padding: 0 60px 0 0;
 
@@ -93,21 +90,18 @@
     opacity: 0.3;
     margin-top: -5px;
   }
-
   .category-name {
     font-family: Gotham Pro;
     font-size: 27px;
     line-height: 39px;
     color: #252525;
   }
-
   i {
     font-size: 18px;
     margin: -2px 0 0 5px;
     position: absolute;
     color: red;
   }
-
   .accessories {
     margin-top: 10px;
     font-family: Helvetica Neue;
@@ -116,14 +110,12 @@
     letter-spacing: 0.03em;
     color: #B1B1B1;
   }
-
   .accessories-content {
     font-family: Helvetica Neue;
     font-size: 16px;
     line-height: 27px;
     color: #252525;
   }
-
   .description {
     margin-top: 10px;
     font-family: Helvetica Neue;
@@ -132,7 +124,6 @@
     letter-spacing: 0.03em;
     color: #B1B1B1;
   }
-
   .description-content {
     font-family: Helvetica Neue, ;
     font-size: 16px;
@@ -140,7 +131,6 @@
     color: #252525;
     white-space: pre-line;
   }
-
   .view-more {
     font-family: Helvetica Neue;
     font-size: 16px;
@@ -165,7 +155,6 @@
     padding: 20px 0;
     border-bottom: 1px solid #F5F5F5;
   }
-
   .bottom-buttons {
     padding: 18px;
 
@@ -173,14 +162,12 @@
       width: auto;
       min-width: auto;
     }
-
     .disabled {
       background-color: $primary-color-disabled;
       cursor: not-allowed;
       color: $white;
       width: 70%;
     }
-
     .btn-cart {
       width: calc(100% - 58px);
       margin-right: 10px;
@@ -195,15 +182,14 @@
       }
     }
   }
-
   .cost-container {
     font-family: Gotham Pro;
     font-size: 25px;
     line-height: 25px;
     padding: 23px 0;
     font-weight: bold;
-
     color: #4F4F4F;
+
     .cost-for {
       font-family: Helvetica Neue;
       font-size: 18px;
@@ -230,7 +216,6 @@
   color: $secondary-light-color;
   font-weight: 600;
 }
-
 .price-per-day {
   font-family: Gotham Pro;
   font-size: 20px;
@@ -242,8 +227,6 @@
   color: #C2C2C2;
   font-weight: normal;
 }
-
-
 .price-per-day-text {
   font-family: Helvetica Neue;
   font-size: 12px;
@@ -253,7 +236,6 @@
   letter-spacing: 0.03em;
   color: #BEBEBE;
 }
-
 .recommend-container {
   .recommend-heading {
     font-size: 20px;
@@ -309,7 +291,6 @@
   img {
     width: 100%;
   }
-
   .kFgaDu {
     cursor: pointer;
     width: 10%;
@@ -465,6 +446,29 @@
 }
 .rating-container {
  align-items: center;
+}
+.btn-verify-profile {
+  padding: 3px 15px;
+  margin-bottom: 5px;
+  font-size: 13px;
+}
+
+.verification-modal {
+  .confirm-body {
+    padding: 150px 0;
+  }
+  h3 {
+    font-family: Gotham Pro;
+    font-size: 27px;
+    line-height: 34px;
+    margin: 40px 0 10px;
+    font-weight: 900;
+  }
+  p {
+    font-family: Helvetica Neue;
+    font-size: 16px;
+    line-height: 27px;
+  }
 }
 
 @media (max-width: 1199px) {

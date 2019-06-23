@@ -29,7 +29,7 @@ class RegisterConfirm extends Component {
   }
   
   componentWillUnmount() {
-    $("#root").css('min-height', '111.5vh');
+    $("#root").css('min-height', '111vh');
   }
 
   async confirm(e) {

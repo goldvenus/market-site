@@ -1,51 +1,10 @@
 import React, {Component} from 'react';
 import TextField from "@material-ui/core/TextField/TextField";
-import Select from 'react-select';
-import countryList from 'react-select-country-list';
-
-const customStyles = {
-  option: (provided, state) => ({
-    ...provided,
-    borderBottom: 'none',
-    backgroundColor: state.isSelected ? '#eaeaea' : state.isFocused ? 'pink' : state.isClicked ? 'pink' : 'white',
-    color: '#252525',
-    cursor: 'pointer',
-    padding: 10,
-  }),
-  container: () => ({
-    width: '60%',
-    marginTop: '30px',
-    borderBottom: 'solid 1px #eaeaea !important'
-  }),
-  control: () => ({
-    // none of react-select's styles are passed to <Control />
-    width: '100%',
-    display: 'flex'
-  }),
-  indicatorsContainer: () => ({
-    // backgroundColor: 'yellow'
-  }),
-  menu: (provided) => ({
-    ...provided,
-    position: 'relative',
-    border: 'none'
-  }),
-  menuList: (provided) => ({
-    ...provided,
-    border: 'none'
-  })
-  // singleValue: (provided, state) => {
-  //   const opacity = state.isDisabled ? 0.5 : 1;
-  //   const transition = 'opacity 300ms';
-  //
-  //   return { ...provided, opacity, transition };
-  // }
-}
+import CustomCountrySelect from "../../../../components/common/CustomCountrySelect";
 
 class Step2 extends Component {
   constructor(props) {
     super(props);
-    this.options = countryList().getData();
     let {
       IBAN,
       bankAccountHolderName,
@@ -137,13 +96,7 @@ class Step2 extends Component {
             {/*value={country}*/}
             {/*onChange={e => this.handleInputChange(e, 'country')}*/}
           {/*/>*/}
-          <Select
-            options={this.options}
-            value={country}
-            onChange={(e) => this.handleInputChange({target: {value: e}}, 'country')}
-            className='myclass'
-            styles={customStyles}
-          />
+          <CustomCountrySelect country={country} onHandleChange={this.handleInputChange}/>
           <TextField
             className='custom-beautiful-textfield'
             label='PHONE NUMBER'

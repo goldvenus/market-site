@@ -41,11 +41,11 @@ class Register extends Component {
   
   componentDidUpdate() {
     this.props.isMobile && $("#root").css('min-height', '70vh');
-    !this.props.isMobile && $("#root").css('min-height', '111.5vh');
+    !this.props.isMobile && $("#root").css('min-height', '111vh');
   }
   
   componentWillUnmount() {
-    $("#root").css('min-height', '111.5vh');
+    $("#root").css('min-height', '111vh');
   }
   
   handleSetRead = () => {
