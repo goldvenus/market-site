@@ -23,7 +23,7 @@ import {Inline} from '@zendeskgarden/react-loaders'
 import CustomSpinner from "../../components/common/CustomSpinner";
 import CustomLoaderLogo from "../../components/common/CustomLoaderLogo";
 import {redirectToSignIn} from "../../core/actions/user.action";
-import { Twitter, Facebook, Google, Linkedin  } from 'react-social-sharing'
+// import { Twitter, Facebook, Google, Linkedin  } from 'react-social-sharing'
 import {Helmet} from "react-helmet";
 import {CheckIcon} from "../../components/common/IconComponent";
 import VerificationConfirmModal from "../Auth/IdentityVerification/VerificationConfirmModal";
@@ -624,27 +624,27 @@ class RentGearDetail extends Component {
             </div>
           </div>
   
-          <div className='row'>
-            <div className='col-sm-20 col-xs-0'/>
-            <div className='col-sm-4 col-xs-24 social-sharing-container'>
-              <Twitter
-                text='Rent Creative Gear'
-                label='Rent Creative Gear'
-                hashtags={['RentGear', 'renting']}
-                link={`https://creative.market${this.props.location.pathname}`}
-              />
-              <Facebook
-                link={`https://creative.market${this.props.location.pathname}`}
-              />
-              <Google
-                link={`https://creative.market${this.props.location.pathname}`}
-              />
-              <Linkedin
-                title='Rent Creative Gear'
-                link={`https://creative.market${this.props.location.pathname}`}
-              />
-            </div>
-          </div>
+          {/*<div className='row'>*/}
+            {/*<div className='col-sm-20 col-xs-0'/>*/}
+            {/*<div className='col-sm-4 col-xs-24 social-sharing-container'>*/}
+              {/*<Twitter*/}
+                {/*text='Rent Creative Gear'*/}
+                {/*label='Rent Creative Gear'*/}
+                {/*hashtags={['RentGear', 'renting']}*/}
+                {/*link={`https://creative.market${this.props.location.pathname}`}*/}
+              {/*/>*/}
+              {/*<Facebook*/}
+                {/*link={`https://creative.market${this.props.location.pathname}`}*/}
+              {/*/>*/}
+              {/*<Google*/}
+                {/*link={`https://creative.market${this.props.location.pathname}`}*/}
+              {/*/>*/}
+              {/*<Linkedin*/}
+                {/*title='Rent Creative Gear'*/}
+                {/*link={`https://creative.market${this.props.location.pathname}`}*/}
+              {/*/>*/}
+            {/*</div>*/}
+          {/*</div>*/}
           
           {listGears.length > 0 ?
           <div className='d-none d-lg-block d-xl-block recommend-container'>

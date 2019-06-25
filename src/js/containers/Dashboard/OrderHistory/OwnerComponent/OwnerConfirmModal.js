@@ -11,6 +11,7 @@ import Rating from 'react-star-rating-lite';
 import {compose} from "redux";
 import connect from "react-redux/es/connect/connect";
 import {getOrderHistory, setRating, setReturnGearStatus} from "../../../../core/actions/dashboard.action";
+import {openConversation} from "../../../../core/actions/payment.action";
 
 class OwnerConfirmModal extends Component {
   constructor(props) {
@@ -129,6 +130,15 @@ class OwnerConfirmModal extends Component {
     return <div className='star-rating-wrapper'>{stars}</div>;
   };
   
+  handleOpenChatWindow = async (otherId) => {
+    this.setState({isOpeningConversation: true});
+    let res = openConversation({meId: localStorage.userId, otherId});
+    res.then(() => {
+      this.props.history.push(`/messages/${otherId}`);
+    }).catch((err) => {
+    });
+  };
+  
   render() {
     let {info} = this.props;
     let {returnGearStatus} = this.state;
@@ -158,7 +168,7 @@ class OwnerConfirmModal extends Component {
           </div>
           <div className="order-modal-body">
             <div className="paid-items">
-              <div className='paid-item owner-info-wrapper' style={isRatingMode ? {} : {'justifyContent': 'center'}}>
+              <div className='paid-item owner-info-wrapper'>
                 <div className='pay-info pay-info-history'>
                   <div className='buyer-info'>
                     <div className='buyer-info-left'>
@@ -167,17 +177,18 @@ class OwnerConfirmModal extends Component {
                         <img src={renter.picture} alt=""/>
                         <div>
                           <span className="duration">{renter.given_name}</span>
-                          <span className="phone-number">{renter.phone_number}</span>
+                          <span className="open-chat-window" onClick={() => this.handleOpenChatWindow(renter.userid)}>Open In chat<i className="fas fa-external-link-alt"/></span>
+                          {/*<span className="phone-number">{renter.phone_number}</span>*/}
                         </div>
                       </div>
                     </div>
-                    <div className='buyer-info-right'>
-                      <div className='grey-small-text'>Address</div>
-                      <div className='period-price'>
-                        <div>Laufacar 58,</div>
-                        <div>101 Reykjavik</div>
-                      </div>
-                    </div>
+                    {/*<div className='buyer-info-right'>*/}
+                      {/*<div className='grey-small-text'>Address</div>*/}
+                      {/*<div className='period-price'>*/}
+                        {/*<div>Laufacar 58,</div>*/}
+                        {/*<div>101 Reykjavik</div>*/}
+                      {/*</div>*/}
+                    {/*</div>*/}
                   </div>
                 </div>
                 {isRatingMode ?
