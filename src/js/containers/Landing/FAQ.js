@@ -41,7 +41,7 @@ class FAQ extends Component {
       handleError('Please input required information');
       return;
     }
-    sendEmail({fromEmail: email, name, phone, content: question});
+    sendEmail({fromEmail: email, toEmail: 'faq@creative.market', name, phone, content: question});
   };
   
   render() {

@@ -42,12 +42,12 @@ const readFileData = (event) => {
   });
 };
 
-const sendEmail = async ({fromEmail, name, phone, content}) => {
+const sendEmail = async ({fromEmail, toEmail, name, phone, content}) => {
   dispatch({
     type: constants.SEND_EMAIL_REQUEST
   });
   
-  let res = await post('sendEmail', {fromEmail, name, phone, content});
+  let res = await post('sendEmail', {fromEmail, toEmail, name, phone, content});
   if (res && res.data && res.data.status === 'success') {
     dispatch({
       type: constants.SEND_EMAIL_SUCCESS,

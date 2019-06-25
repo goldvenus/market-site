@@ -566,7 +566,7 @@ class GearEditModal extends Component {
                     <NumericInput min={1} max={100} value={quantity} className='quantity-input' onChange={(val) => this.setState({'quantity': val})}/>
                   </div>
                   <div className='recommended-container'>
-                    <div className="theme-text-small">Left Quantity</div>
+                    <div className="theme-text-small">Available</div>
                     <NumericInput min={1} max={quantity} value={quantityTemp} className='quantity-input' onChange={(val) => this.setState({'quantityTemp': val})}/>
                   </div>
                 </div>
