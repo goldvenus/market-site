@@ -183,7 +183,7 @@ class Payment extends Component {
       return <CustomLoaderLogo/>;
     }
     
-    let {card_number, expiration_year, expiration_month, card_holder, total, tax, fee, amount} = this.state;
+    let {card_number, expiration_year, expiration_month, card_holder, total, fee, amount} = this.state;
     
     return (
       <div className="payment payment-success-container centered-content">
@@ -201,12 +201,12 @@ class Payment extends Component {
             <div className="checkout-total">
               <div className="bill-left">
                 <p className="text-gray">Total </p>
-                <p className="text-gray">Tax (21%) </p>
+                {/*<p className="text-gray">Tax (21%) </p>*/}
                 <p className="text-gray">Fee (6%) </p>
               </div>
               <div className="bill-right">
                 <p>$ {parseFloat(total).toFixed(2)}</p>
-                <p>$ {parseFloat(tax).toFixed(2)}</p>
+                {/*<p>$ {parseFloat(tax).toFixed(2)}</p>*/}
                 <p>$ {parseFloat(fee).toFixed(2)}</p>
               </div>
             </div>

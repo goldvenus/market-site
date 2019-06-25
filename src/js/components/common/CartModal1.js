@@ -22,7 +22,7 @@ class CartModal1 extends Component {
     const start_date_str = getDateStr(start_date);
     const end_date_str = getDateStr(end_date);
     const total = pricePerDay * duration;
-    const tax = total * 0.21;
+    const tax = total * 0;
     const fee = total * 0.06;
     const amount = parseFloat(total + tax + fee).toFixed(2);
     const actualPrice = parseFloat(amount / duration).toFixed(2);

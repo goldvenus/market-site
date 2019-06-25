@@ -62,7 +62,7 @@ class Cart extends Component {
       carts.map((listItem, index) => {
         let duration = calcDaysDiff(new Date(listItem.startDate), new Date(listItem.endDate)) + 1;
         let total = listItem.pricePerDay * duration;
-        let tax = total * 0.21;
+        let tax = total * 0;
         let fee = total * 0.06;
         let amount = parseFloat(total + tax + fee).toFixed(2);
         let actualPrice = parseFloat(amount / duration).toFixed(2);
@@ -111,7 +111,7 @@ class Cart extends Component {
       carts.map((listItem, index) => {
         let duration = calcDaysDiff(new Date(listItem.startDate), new Date(listItem.endDate)) + 1;
         let total = listItem.pricePerDay * duration;
-        let tax = total * 0.21;
+        let tax = total * 0;
         let fee = total * 0.06;
         let amount = parseFloat(total + tax + fee).toFixed(2);
         let actualPrice = parseFloat(amount/duration).toFixed(2);

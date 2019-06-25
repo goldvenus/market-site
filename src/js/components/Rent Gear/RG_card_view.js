@@ -39,7 +39,7 @@ const CardView = ({ gear_detail: { numberOfUserImage, categoryName, brand, produ
                 </span>
               </CardSubtitle>
               <CardText>
-                <span className="price"> ${parseFloat(pricePerDay*(1+0.06+0.21)).toFixed(2)} </span>
+                <span className="price"> ${parseFloat(pricePerDay*(1+0.06)).toFixed(2)} </span>
                 <span className="theme-text-small text-gray"> /per day</span>
               </CardText>
               {/*<div className="buttons">*/}

@@ -188,7 +188,7 @@ class RentGearDetail extends Component {
       const carted_item = gearid && carts && carts.length > 0 ?
         carts.filter(item => item.gearid === gearid) : 0;
       const carted = carted_item ? carted_item.length : false;
-      pricePerDay *= 1 + 0.21 + 0.06;
+      pricePerDay *= 1 + 0.06;
       
       return (
         <Col md="6" className="cardz" key={i}>
@@ -274,7 +274,7 @@ class RentGearDetail extends Component {
     const duration = calcDaysDiff(this.state.startDate, this.state.endDate) + 1;
     const busy = this.state.busy;
     let total = pricePerDay * duration;
-    let tax = total * 0.21;
+    let tax = total * 0;
     let fee = total * 0.06;
     let amount = parseFloat(total + tax + fee).toFixed(2);
     let actualPrice = parseFloat(amount / duration).toFixed(2);
@@ -519,7 +519,7 @@ class RentGearDetail extends Component {
                   <div className="gear-purchase col-lg-9">
                     <div>
                       <div>
-                        <button className='theme-btn theme-btn-primary btn-verify-profile' onClick={this.onOpenVerificationModal}>
+                        <button className='theme-btn theme-btn-primary btn-verify-profile'>
                           <CheckIcon/> Verified profile
                         </button>
                       </div>

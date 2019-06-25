@@ -85,7 +85,7 @@ class Favourites extends Component {
     return (
       favourites.map((listItem, index) => {
         let pricePerDay = listItem.pricePerDay;
-        pricePerDay *= (1 + 0.21 + 0.06);
+        pricePerDay *= (1 + 0 + 0.06);
         let carted = this.isCarted(listItem.gearid);
         let cart_info = carted && carted.length > 0 ? carted[0] : {};
         cart_info = {...cart_info, ...listItem};
@@ -140,7 +140,7 @@ class Favourites extends Component {
     return (
       favourites.map((listItem, index) => {
         let pricePerDay = listItem.pricePerDay;
-        pricePerDay *= (1 + 0.21 + 0.06);
+        pricePerDay *= (1 + 0.06);
         let carted = this.isCarted(listItem.gearid);
         let cart_info = carted && carted.length > 0 ? carted[0] : {};
         cart_info = {...listItem, ...cart_info};
