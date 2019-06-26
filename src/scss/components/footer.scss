@@ -66,7 +66,6 @@ footer {
       color: #999 !important;
       margin-bottom: 0;
     }
-
     .copyright {
       display: flex;
       align-items: center;
@@ -75,6 +74,14 @@ footer {
     }
     ul {
       padding: 10px 0;
+    }
+    .mango-logo {
+      display: flex;
+      align-items: center;
+
+      img {
+        width: 280px;
+      }
     }
   }
 

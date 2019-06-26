@@ -33,12 +33,12 @@ class Footer extends Component {
           <div className="footer-bottom bg-gray-light">
             <Container>
               <Row>
-                <div className='col-8'>
+                <div className='col-6'>
                   <div className="copyright">
                     <p>© 2019 Creative Market - Ketchup Creative ehf.</p>
                   </div>
                 </div>
-                <div className="footer-privaci-policy col-16">
+                <div className="footer-privaci-policy col-12">
                   <ul className="nav justify-content-end d-none d-md-flex">
                     <li className="nav-item">
                       <Link className="nav-link" to='/privacy'>Privacy and Cookies</Link>
@@ -53,6 +53,11 @@ class Footer extends Component {
                       <Link className="nav-link" to='/terms-payment'>Payment Terms of Service</Link>
                     </li>
                   </ul>
+                </div>
+                <div className='col-6 mango-logo'>
+                  <div>
+                    <img src="/images/powered-by-mangopay.png"/>
+                  </div>
                 </div>
               </Row>
             </Container>
