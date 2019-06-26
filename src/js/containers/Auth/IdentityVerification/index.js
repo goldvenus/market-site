@@ -96,7 +96,7 @@ class IdentityVerification extends Component {
                       </div>
                     </div>
                     <Label for="save-address" className='checkbox-label'>
-                      I agree to the <span className='term-view-btn' onClick={() => this.setState({modalOpenState: 7})}>Terms of Use</span>
+                      I agree to the <span className='term-view-btn' onClick={() => this.setState({modalOpenState: 7})}>Terms of Service</span>
                     </Label>
                   </div>
                 </div>
@@ -126,7 +126,7 @@ class IdentityVerification extends Component {
         {modalOpenState === 7 ?
           <Modal open={true} onClose={this.onCloseModal} center classNames={{modal: "confirm-modal privacy-modal"}}>
             <div className='confirm-modal-header'>
-              <span>Terms of Use</span>
+              <span>Terms of Service</span>
             </div>
             <div className='confirm-modal-body'>
               <RentalTermsComponent/>

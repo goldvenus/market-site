@@ -535,7 +535,7 @@ class AddGear extends Component {
           </div>
           <Label for="save-address" className='checkbox-label'>
             Yes, I agree to the <br/>
-            <span className='term-view-btn' onClick={() => this.handleOpenModal(2)}>Terms of Use</span>
+            <span className='term-view-btn' onClick={() => this.handleOpenModal(2)}>Terms of Service</span>
           </Label>
         </div>
         <div className="buttons-container">
@@ -710,7 +710,7 @@ class AddGear extends Component {
         handleError("Please provide required details!");
         return;
       } else if (!isSelected) {
-        handleError("Please read Terms of Use");
+        handleError("Please read Terms of Service");
         return;
       }
       this.setState({busy: true});

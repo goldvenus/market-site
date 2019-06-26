@@ -563,7 +563,7 @@ class Payment extends Component {
             {modalOpenState ?
               <Modal open={true} onClose={this.handleCloseModal} center classNames={{modal: "confirm-modal privacy-modal"}}>
                 <div className='confirm-modal-header'>
-                  <span>Terms of Use</span>
+                  <span>Terms of Service</span>
                 </div>
                 <div className='confirm-modal-body'>
                   <RentalTermsComponent/>

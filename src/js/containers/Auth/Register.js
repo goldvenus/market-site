@@ -204,7 +204,7 @@ class Register extends Component {
                     </div>
                     <Label for="save-address" className='checkbox-label'>
                       Yes, I've read, understood and agree to the<br/>
-                      <span className='term-view-btn' onClick={() => this.handleOpenModal(1)}>Terms of Use</span> and <span className='term-view-btn' onClick={() => this.handleOpenModal(2)}>Privacy Policy</span>
+                      <span className='term-view-btn' onClick={() => this.handleOpenModal(1)}>Terms of Service</span> and <span className='term-view-btn' onClick={() => this.handleOpenModal(2)}>Privacy Policy</span>
                     </Label>
                   </div>
                   <button className="theme-btn-submit" onClick={this.submit.bind(this)} disabled={!isChecked ? 'disabled' : ''}>Sign up</button>
@@ -223,7 +223,7 @@ class Register extends Component {
         {modalOpenState ?
         <Modal open={true} onClose={this.handleCloseModal} center classNames={{modal: "confirm-modal privacy-modal"}}>
           <div className='confirm-modal-header'>
-            <span>{modalOpenState === 1 ? 'Terms of Use' : 'Privacy and Cookie Policy'}</span>
+            <span>{modalOpenState === 1 ? 'Terms of Service' : 'Privacy and Cookie Policy'}</span>
           </div>
           <div className='confirm-modal-body'>
             {modalOpenState === 1 ? <RentalTermsComponent/> : <PrivacyPolicyComponent/>}

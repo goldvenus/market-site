@@ -25,6 +25,7 @@ import PrivacyPolicy from './containers/TermsAndPolicy/PrivacyPolicy';
 import TermsConditions from './containers/TermsAndPolicy/TermsConditions';
 import NotFound from './containers/NotFound';
 import ProtectedRoute from "./route/ProtectedRoute";
+import RentalTermsComponent from "./containers/TermsAndPolicy/PaymentTermsComponent";
 
 export default (
   <div className="app-content" id="nummus-container">
@@ -40,6 +41,7 @@ export default (
       <Route exact path='/privacy' component={PrivacyPolicy}/>
       <Route exact path='/terms-use' component={TermsConditions}/>
       <Route exact path='/terms-condition' component={TermsConditions}/>
+      <Route exact path='/terms-payment' component={RentalTermsComponent}/>
       <Route exact path='/rent-gear' component={RentGear}/>
       <Route exact path="/gear/detail/:id" component={RentGearDetail}/>
 

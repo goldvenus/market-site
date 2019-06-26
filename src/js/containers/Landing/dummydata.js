@@ -60,7 +60,7 @@ const metas = {
 const faqs = [
   {
     title: 'Getting started',
-    content: 'Before you can engage in rentals on Creative Market, you must first register an account, provide the required information and accept the terms of use.'
+    content: 'Before you can engage in rentals on Creative Market, you must first register an account, provide the required information and accept the Terms of Service.'
   },
   {
     title: 'How do I rent gear?',
@@ -84,7 +84,7 @@ const faqs = [
   },
   {
     title: 'How do renters and owner communicate?',
-    content: <span>Once a rental has been confirmed by the renter’s payment, a conversation will automatically open up within <Link to="/messages" style={{textDecoration: 'underline'}}>MESSAGES</Link>. This allows both parties to easily communicate throughout the entire rental period. For safety and legal reason, we insist that all members follow our terms of use and exclusively communicate through the Creative Market platform during the rental period.</span>
+    content: <span>Once a rental has been confirmed by the renter’s payment, a conversation will automatically open up within <Link to="/messages" style={{textDecoration: 'underline'}}>MESSAGES</Link>. This allows both parties to easily communicate throughout the entire rental period. For safety and legal reason, we insist that all members follow our Terms of Service and exclusively communicate through the Creative Market platform during the rental period.</span>
   },
   {
     title: 'Where do renters pickup and return gear?',
@@ -100,11 +100,11 @@ const faqs = [
   },
   {
     title: 'Damage, Safety, and Disputes',
-    content: <span>Creative Market solely serves as a limited agent and offers a platform through which the renters and owners can digitally communicate and execute Gear rentals. As stated in the <Link to="/terms-use" style={{textDecoration: 'underline'}}>TERMS OF USE</Link>, both renters and owners agree and acknowledge that Creative Market is not offering or inspecting any gear that you rent through our platform. Therefore cannot make any warranties and representations about the quality and safety of the gear. All legal claims in relation to the renting of gear must be brought directly against the other party. We always recommend to first contact the other party through <Link to="/messages" style={{textDecoration: 'underline'}}>MESSAGES</Link> and make an attempt to resolve the dispute amicably.</span>
+    content: <span>Creative Market solely serves as a limited agent and offers a platform through which the renters and owners can digitally communicate and execute Gear rentals. As stated in the <Link to="/terms-use" style={{textDecoration: 'underline'}}>Terms of Service</Link>, both renters and owners agree and acknowledge that Creative Market is not offering or inspecting any gear that you rent through our platform. Therefore cannot make any warranties and representations about the quality and safety of the gear. All legal claims in relation to the renting of gear must be brought directly against the other party. We always recommend to first contact the other party through <Link to="/messages" style={{textDecoration: 'underline'}}>MESSAGES</Link> and make an attempt to resolve the dispute amicably.</span>
   },
   {
     title: 'Owner insurance and liability ',
-    content: 'Apart from the case described in “What if the renter fails to return gear?”, owners are solely responsible for purchasing the proper insurance that covers theft or voluntary parting and damages to their gear. As an owner, you acknowledge and agree that Creative Market will solely act as an intermediary, and not as an insurer or contracting agency. Creative Market will never cover the Renter’s failure to return your Gear. By adding gear and accepting the terms of use, the owner acknowledges and agrees he/she may suffer a loss as a consequence of renting out the gear.'
+    content: 'Apart from the case described in “What if the renter fails to return gear?”, owners are solely responsible for purchasing the proper insurance that covers theft or voluntary parting and damages to their gear. As an owner, you acknowledge and agree that Creative Market will solely act as an intermediary, and not as an insurer or contracting agency. Creative Market will never cover the Renter’s failure to return your Gear. By adding gear and accepting the Terms of Service, the owner acknowledges and agrees he/she may suffer a loss as a consequence of renting out the gear.'
   }
 ];
 

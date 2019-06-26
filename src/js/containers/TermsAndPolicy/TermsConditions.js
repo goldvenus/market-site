@@ -17,12 +17,7 @@ class TermsConditions extends Component {
           <Container>
             <Row>
               <Col>
-                {/*<Breadcrumb className="theme-text-small">*/}
-                  {/*<BreadCrumbActive name="Home Page">Home </BreadCrumbActive>*/}
-                  {/*<span className="space_slash_span">/</span>*/}
-                  {/*<BreadcrumbItem active>Terms and Conditions</BreadcrumbItem>*/}
-                {/*</Breadcrumb>*/}
-                <h2>{path === '/terms-condition' ? 'Terms & Conditions' : 'Terms of Use'}</h2>
+                <h2>{path === '/terms-condition' ? 'Website Terms of Use' : 'Terms of Use'}</h2>
               </Col>
             </Row>
           </Container>

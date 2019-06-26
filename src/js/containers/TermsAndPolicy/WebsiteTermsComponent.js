@@ -13,7 +13,7 @@ const WebsiteTermsComponent = () => (
 
         <p>1.3. Creative Market reserves the right to amend these Terms at its sole discretion. When Creative Market updates these Terms, it will use reasonable endeavors to provide you with a notification. Any changes to the Terms take immediate effect from the date they are publicized on our Website.</p>
 
-        <h4>2. Acceptance of the Website Terms of Use</h4>
+        <h4>2. Acceptance of the Website Terms of Service</h4>
         <p>2.1. You automatically accept the Terms by visiting the Website. You may also accept the Terms by clicking to accept or agree to the Terms if this option is made available to you on the Website.</p>
 
         <p>2.2. Creative Market is operating under the rules of Iceland. Laws and regulations differ from country to country, and the right to access and use the Website and Services may be restricted in certain countries. Each visitor or user is responsible to be aware

@@ -3,7 +3,7 @@ html, body, .container {
 }
 
 html {
-  overflow: hidden;
+  //overflow: hidden;
 }
 
 body {
@@ -14,7 +14,7 @@ body {
   color: $secondary-color;
   font-size: 16px;
   zoom: 0.9;
-  overflow: auto;
+  //overflow: auto;
 }
 
 a, a:hover {

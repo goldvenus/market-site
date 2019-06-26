@@ -13,7 +13,7 @@ const PrivacyPolicy = () => (
               {/*<span className="space_slash_span">/</span>*/}
               {/*<BreadcrumbItem active>Terms and Conditions</BreadcrumbItem>*/}
             {/*</Breadcrumb>*/}
-            <h2>Website Terms and conditions</h2>
+            <h2>Website Terms of Use</h2>
           </Col>
         </Row>
       </Container>
