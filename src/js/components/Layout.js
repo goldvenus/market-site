@@ -87,7 +87,7 @@ class Layout extends Component {
     return (
       <React.Fragment>
         <CustomMetaTag path={window.location.pathname} query={window.location.search}/>
-        {/*<div className='back-header'/>*/}
+        <div className='back-header'/>
 
         {output}
 
