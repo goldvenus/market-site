@@ -56,7 +56,7 @@ class Footer extends Component {
                 </div>
                 <div className='col-6 mango-logo'>
                   <div>
-                    <img src="/images/powered-by-mangopay.png"/>
+                    <img src="/images/powered-by-mangopay.png" alt=''/>
                   </div>
                 </div>
               </Row>
