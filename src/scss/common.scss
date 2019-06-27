@@ -380,6 +380,15 @@ img {
   }
 }
 
+@media (max-width: 767px) {
+  .material-input-with-dropdown input::placeholder {
+    font-size: 9px;
+  }
+  .google-places-autocomplete input::placeholder {
+    font-size: 9px;
+  }
+}
+
 @media(max-width: 500px) {
   .mt-xs {
     margin-top: 10px;
