@@ -4,59 +4,6 @@ footer {
     padding-bottom: 2rem !important;
   }
 
-  .news-letter-container {
-    background-color: #F8F8F8;
-    margin: 0 auto;
-    margin-top: 40px;
-    max-width: 100%;
-
-    .news-letter-content {
-      .text-xs-center {
-        h3 {
-          font-size: 40px;
-          line-height: 54px;
-          color: #F82462;
-        }
-        p {
-          font-size: 20px;
-          line-height: 29px;
-          color: #252525;
-        }
-      }
-      & > div {
-        &:first-child {
-          h5 {
-            letter-spacing: 0.09em;
-          }
-          p {
-            font-size: 16px;
-            line-height: 27px
-          }
-          input {
-            height: 45px;
-            &::placeholder {
-              font-size: 16px;
-              line-height: 27px;
-              color: rgba(43, 43, 77, 0.44);
-            }
-          }
-          button {
-            width: 170px;
-          }
-        }
-        &:nth-child(2) {
-          padding-left: 90px;
-        }
-        &:nth-child(3) {
-          padding-left: 100px;
-        }
-      }
-      .theme-form-group {
-        width: 85%;
-      }
-    }
-  }
-
   .footer-bottom {
     background-color: #f8f8f8;
 
@@ -66,6 +13,9 @@ footer {
       color: #999 !important;
       margin-bottom: 0;
     }
+    a {
+      padding: 0.5rem;
+    }
     .copyright {
       display: flex;
       align-items: center;
@@ -74,6 +24,7 @@ footer {
     }
     ul {
       padding: 10px 0;
+      justify-content: center;
     }
     .mango-logo {
       display: flex;
@@ -81,6 +32,15 @@ footer {
 
       img {
         width: 280px;
+        padding: 10px;
+      }
+    }
+    .container {
+      max-width: 100%;
+
+      & > div > div {
+        display: flex;
+        justify-content: center;
       }
     }
   }
@@ -244,8 +204,7 @@ footer {
     padding-top: 10px;
     text-align: center
   }
-  .footer-privaci-policy{
-    -webkit-flex-basis: inherit;
+  .footer-privacy-policy {
     flex-basis: inherit;
   }
   .news-letter {

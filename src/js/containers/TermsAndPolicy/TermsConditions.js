@@ -17,7 +17,7 @@ class TermsConditions extends Component {
           <Container>
             <Row>
               <Col>
-                <h2>{path === '/terms-condition' ? 'Website Terms of Use' : 'Terms of Use'}</h2>
+                <h2>{path === '/terms-condition' ? 'Website Terms of Use' : 'Terms of Service'}</h2>
               </Col>
             </Row>
           </Container>
