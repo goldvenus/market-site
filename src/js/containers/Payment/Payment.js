@@ -23,6 +23,7 @@ import {getUser} from "../../core/actions/user.action";
 import Modal from "react-responsive-modal";
 import RentalTermsComponent from "../TermsAndPolicy/RentalTermsComponent";
 import {getCarts} from "../../core/actions/cart.action";
+// import {getAPIUrl} from "../../core/api";
 
 class Payment extends Component {
   constructor(props) {
@@ -54,7 +55,6 @@ class Payment extends Component {
         'Authorization': ''
       }
     };
-  
     this.credentials = {
       email: "sindri@ketchupcreative.com",
       hmacChargeKey: "75750b2a-1136-41ef-a323-6a7a022e37a2",
@@ -62,7 +62,6 @@ class Payment extends Component {
       publicKey: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApQnGp86xQehNCuykMUbqmRHNxzEzG710itUWSiR/1p6c1WAhnNj7b1Eo+e1uuSvYzetTwHXD3nKk0B/BaSp/LnJET3Fj3EocapEmm8qBbGbA4C++u+Ixxg5hSINOnyuViE4bo6II+G+o1XguJuJlS9ccW56ahOXq5nfTc3biYQVL6oI8EL9sRR6x/t/wYBNg46MC8FQjqeARnve2YRF3rRJtiDTLuOtasCot0flpbvZ+qjffNdZPCJBCifcuqTfSYcoeYGvkuh2oFndWb/f+6DN86hpSkwMnUzt8GfvNHmD/qK1++H9MHmfntTMgCX8QFAjZ0zc+DUcOF7pDziiVzQIDAQAB",
       creditCardToken: null
     };
-    
     this.checkoutInfo = {
       ...this.props.checkoutInfo,
       email: this.props.user.email,
@@ -151,10 +150,7 @@ class Payment extends Component {
       return res;
     } catch (error) {
       if (error.responseJSON && error.responseJSON.Message) {
-        // network error
         console.log(error.responseJSON.Message);
-        // let errMsg = JSON.parse(error.responseJSON.Message).message[0];
-        // handleError(errMsg.description);
       } else {
         console.log(error);
         error.response && error.response.data && handleError(error.response.data.message);
@@ -209,7 +205,7 @@ class Payment extends Component {
     return false;
   };
   
-  pay = async () => {
+  payNummus = async () => {
     let { carts } = this.props;
     let { card_number, expiration_year, expiration_month, cvv, card_holder, save_card, isChecked } = this.state;
     if (!card_number || !card_holder || !expiration_year || !expiration_month || !cvv) {
@@ -267,6 +263,101 @@ class Payment extends Component {
     });
   };
   
+  /**********************\/
+  \/ ***  mango pay  *** \/
+  \/**********************/
+  payMango = async () => {
+    let { carts } = this.props;
+    let { card_number, expiration_year, expiration_month, cvv, card_holder, save_card, isChecked } = this.state;
+    if (!card_number || !card_holder || !expiration_year || !expiration_month || !cvv) {
+      handleError('Please provide required information!');
+      return false;
+    } else if (!validateCard(card_number)) {
+      handleError('Your card is invalid!');
+      return false;
+    } else if (card_holder.split(' ').length < 2) {
+      handleError('Please provide correct cardholder name');
+      return false;
+    } else if (!isChecked) {
+      handleError("Do you agree with Reltal Terms and Conditions?");
+      return false;
+    }
+    
+    this.setState({loading: true});
+    
+    let {userid, mangoAccountId, mangoWalletId} = this.props.user;
+    let total = 0;
+    let sold_items = [];
+    carts.forEach(listItem => {
+      let d = days(listItem.startDate, listItem.endDate);
+      total += d * listItem.pricePerDay;
+      sold_items.push({...listItem, PickStatus: 0, ReturnStatus: 0});
+    });
+    let tax = total * 0;
+    let fee = total * 0.06;
+    let amount = total + tax + fee;
+    let checkout_id = this.props.match.params.id;
+    let expiration_date = expiration_month.toString() + expiration_year.toString();
+    let nummus_id = this.props.user.nummusId;
+    let data = {card_number, card_holder, expiration_date, cvv, save_card, userid,
+      total, tax, amount, fee, checkout_id, sold_items, nummus_id};
+    
+    data.card_number = card_number.replace(/ /g, '');   // eat spaces
+    this.checkoutInfo.amount = amount;
+    data.card_number = card_number.substr(-4, 4);
+    data.project_name = this.checkoutInfo.projectName;
+    data.mangoWalletId = mangoWalletId;
+    data.mangoAccountId = mangoAccountId;
+    
+    // 1. Create Card Registration Object
+    let defaultCurrency = 'USD';
+    console.log("************");
+    let cardRegistrationData = await payment({mangoAccountId, defaultCurrency, step: 1});
+    console.log(cardRegistrationData);
+    
+    // 2. Send card details to Tokenization Server
+    window.mangoPay.cardRegistration.baseURL = "https://api.sandbox.mangopay.com";
+    window.mangoPay.cardRegistration.clientId = "creativemarkettst";
+    // Initialize with card register data prepared on the server
+    window.mangoPay.cardRegistration.init({
+      cardRegistrationURL: cardRegistrationData.CardRegistrationURL,
+      preregistrationData: cardRegistrationData.PreregistrationData,
+      accessKey: cardRegistrationData.AccessKey,
+      Id: cardRegistrationData.Id
+    });
+    // Card data collected from the user
+    let cardData = {
+      cardNumber: card_number.replace(/ /g, ''),
+      cardExpirationDate: expiration_date,
+      cardCvx: cvv,
+      cardType: cardRegistrationData.CardType
+    };
+    // Register card
+    let registrationData = await new Promise((resolve, reject) => {
+      window.mangoPay.cardRegistration.registerCard(
+        cardData,
+        function(res) {
+          resolve(res);
+        },
+        function(res) {
+          console.log(res);
+          resolve(false);
+        }
+      );
+    });
+    console.log(registrationData);
+    
+    // 3. Complete card registration, do pay-in direct card
+    let payInResult = await payment({registrationData, data, checkoutInfo: this.checkoutInfo, step: 2});
+    if (payInResult) {
+      // update user's cart info
+      await getCarts();
+      this.props.history.push(`/payment/${checkout_id}/${payInResult}`);
+    } else {
+      this.setState({loading: false});
+    }
+  };
+  
   getUserPaymentCards = async () => {
     let cards = await getPaymentCards();
     let cardsTemp = [];
@@ -313,18 +404,6 @@ class Payment extends Component {
       }
     }
     this.setState({[type]: value});
-  };
-
-  handleClickCardList = () => {
-    if($('.addr-dropdown').hasClass('active')){
-      $('.addr-dropdown').removeClass('active') ;
-      $('.addr-dropdown ul').css('display', 'none');
-    } else {
-      if (this.state.cards.length > 0) {
-        $('.addr-dropdown').addClass('active');
-        $('.addr-dropdown ul').css('display', 'block');
-      }
-    }
   };
   
   handleOpenModal = (val) => {
@@ -555,7 +634,7 @@ class Payment extends Component {
                 <button className="theme-btn theme-btn-secondery btn-edit-order-bottom">
                   <Link to="/checkout">Back To Checkout</Link>
                 </button>
-                <button className="theme-btn theme-btn-primary btn-payment" onClick={this.pay} disabled={!isChecked ? 'disabled' : ''}>
+                <button className="theme-btn theme-btn-primary btn-payment" onClick={this.payMango} disabled={!isChecked ? 'disabled' : ''}>
                   Pay (${parseFloat(amount).toFixed(2)})
                 </button>
               </div>

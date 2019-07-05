@@ -48,11 +48,13 @@ class Cart extends Component {
   };
 
   proceedToCheckout = () => {
-    const { carts } = this.props;
-    if (carts && carts.length > 0) {
-      this.props.history.push('/checkout');
-    } else {
+    const { carts, user } = this.props;
+    if (!carts || carts.length === 0) {
       handleError('Your cart is empty');
+    } else if (!user.mangoAccountId) {
+      handleError('You have to create MangoPay account before checkout');
+    } else {
+      this.props.history.push('/checkout');
     }
   };
 
@@ -237,6 +239,7 @@ class Cart extends Component {
 }
 
 const mapStateToProps = state => ({
+  user: state.user.user,
   carts: state.cart.carts,
   isLoading: state.cart.isLoading,
   isDeleting: state.cart.isDeleting

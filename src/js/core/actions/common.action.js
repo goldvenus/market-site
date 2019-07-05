@@ -13,7 +13,7 @@ const toastBody = ({type, info}) => (
     </div>
     <div className='toast-content-wrapper'>
       <div className='toast-heading'>{type}</div>
-      <div className='toast-content'>{info}</div>
+      <div className='toast-content' style={{whiteSpace: 'pre-line'}}>{info}</div>
     </div>
   </div>
 );
@@ -28,17 +28,13 @@ const handleError = (info) => {
 
 const readFileData = (event) => {
   return new Promise((resolve, reject) => {
-    // let input = event.target;
+    let fileReader = new FileReader();
+    fileReader.onload = (event) => {
+      resolve(event.target.result);
+    };
     
-    // if (input && input.files.length > 0) {
-      let fileReader = new FileReader();
-      fileReader.onload = (event) => {
-        resolve(event.target.result);
-      };
-      
-      fileReader.onerror = (e) => reject('error');
-      fileReader.readAsDataURL(event);
-    // }
+    fileReader.onerror = (e) => reject('error');
+    fileReader.readAsDataURL(event);
   });
 };
 

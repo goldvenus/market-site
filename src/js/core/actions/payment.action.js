@@ -14,14 +14,15 @@ const payment = data => {
     try {
       let param = data;
       param.email = localStorage.userEmail;
-      let response = await post('dopayment', param);
-      if (response && response.data && response.data.status === 'success') {
+      let res = await post('dopayment', param);
+      if (res && res.data && res.data.status === 'success') {
         dispatch({
           type: constants.DO_PAYMENT_SUCCESS
         });
-        resolve(response.data.data);
+        resolve(res.data.data);
       }
-      reject(false);
+      res && res.data && res.data.errorMessage && handleError(res.data.errorMessage);
+      resolve(false);
     } catch (error) {
       handleError(error);
       dispatch({
@@ -38,12 +39,12 @@ const getPaymentCards = () => {
       type: constants.GET_PAY_CARDS_REQUEST
     });
     try {
-      let response = await get('getPaymentMethods');
-      if (response && response.data && response.data.status === 'success') {
+      let res = await get('getPaymentMethods');
+      if (res && res.data && res.data.status === 'success') {
         dispatch({
           type: constants.GET_PAY_CARDS_SUCCESS
         });
-        resolve(response.data.data);
+        resolve(res.data.data);
       }
       reject(false);
     } catch (error) {
@@ -59,8 +60,8 @@ const getPaymentCards = () => {
 const getPaidItems = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let response = await post('getPaidItems', data);
-      resolve(response.data);
+      let res = await post('getPaidItems', data);
+      resolve(res.data);
     } catch (error) {
       handleError(error);
       reject(error);

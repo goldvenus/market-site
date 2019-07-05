@@ -332,6 +332,8 @@ img {
   }
 }
 
+::-webkit-file-upload-button { cursor:pointer; }
+
 ::-webkit-scrollbar {
   width: 0.3em;
 }

@@ -89,6 +89,7 @@
 
           &:hover {
             background-image: url('/images/Icons/cart/edit-p.svg');
+            transition: all 0.3s;
           }
         }
         .close {
