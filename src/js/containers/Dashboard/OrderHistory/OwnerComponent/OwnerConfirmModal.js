@@ -12,6 +12,7 @@ import {compose} from "redux";
 import connect from "react-redux/es/connect/connect";
 import {getOrderHistory, setRating, setReturnGearStatus} from "../../../../core/actions/dashboard.action";
 import {openConversation} from "../../../../core/actions/payment.action";
+import CustomSpinner from "../../../../components/common/CustomSpinner";
 
 class OwnerConfirmModal extends Component {
   constructor(props) {
@@ -38,6 +39,7 @@ class OwnerConfirmModal extends Component {
       modalOpenState: 0,
       returnGearStatus: gearStatus,
       isSettingStatus: emptyStatus,
+      isOpeningConversation: false,
       isRating: false
     };
   }
@@ -162,6 +164,7 @@ class OwnerConfirmModal extends Component {
     
     return (
       <Modal open={true} onClose={this.handleClose} center classNames={{modal: "order-modal"}} closeOnOverlayClick={false}>
+        {this.state.isOpeningConversation && <CustomSpinner/>}
         <div className="order-modal-desktop-tablet">
           <div className="order-modal-header">
             <span>Renter</span>

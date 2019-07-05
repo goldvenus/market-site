@@ -29,7 +29,6 @@
     "latest-version": "^4.0.0",
     "lodash": "latest",
     "mangopay-cardregistration-js-kit": "^1.2.2",
-    "mangopay-client-react": "^1.2.1",
     "marked": "^0.6.2",
     "moment": "^2.22.2",
     "muicss": "^0.9.41",
