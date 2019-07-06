@@ -6,6 +6,7 @@ import { handleError } from '../../core/actions/common.action';
 import { confirmUser } from '../../core/actions/user.action';
 import TextField from "@material-ui/core/TextField/TextField";
 import $ from "jquery";
+import CustomSpinner from "../../components/common/CustomSpinner";
 
 class RegisterConfirm extends Component {
   constructor(props) {
@@ -20,7 +21,8 @@ class RegisterConfirm extends Component {
       code: '',
       email: this.email,
       fullName: this.fullName,
-      isConfirmed: false
+      isConfirmed: false,
+      isConfirming: false
     };
   }
   
@@ -33,15 +35,15 @@ class RegisterConfirm extends Component {
   }
 
   async confirm(e) {
-    e.preventDefault()
-
+    e.preventDefault();
+    this.setState({isConfirming: true});
     const { code, email: aEmail, fullName } = this.state;
     const oEmail = this.email;
 
     if ((oEmail || aEmail) && fullName && code) {
       const response = await confirmUser(oEmail || aEmail, code, fullName);
 
-      if (response) {
+      if (response.status === 'success') {
         this.setState({
           isConfirmed: true
         });
@@ -49,11 +51,13 @@ class RegisterConfirm extends Component {
     } else {
       handleError('Please enter valid email and verification code');
     }
+    this.setState({isConfirming: false});
   }
 
   render() {
     return (
       <div className="auth-container theme-navbar">
+        {this.state.isConfirming && <CustomSpinner/>}
         <AuthSideMenu/>
         {this.state.isConfirmed
           ? (
@@ -92,7 +96,7 @@ class RegisterConfirm extends Component {
                     type="text"
                     className="custom-beautiful-textfield"
                     value={this.state.code}
-                    onChange={(value) => this.setState({ code: value })}
+                    onChange={(e) => this.setState({ code: e.target.value })}
                   />
                 </div>
                 <div className="flex-row verification-code">

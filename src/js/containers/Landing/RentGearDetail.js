@@ -387,7 +387,8 @@ class RentGearDetail extends Component {
                         className="date-range-input"
                         type="text"
                         label={'PICKUP DATE'}
-                        onFocus={() => this.setOpenState(true, false)} value={start_date_str}
+                        onFocus={() => this.setOpenState(true, false)}
+                        value={start_date_str}
                       />
                       {
                         this.state.open_date_picker1 ?
@@ -414,7 +415,8 @@ class RentGearDetail extends Component {
                         className="date-range-input"
                         type="text"
                         label={'RETURN DATE'}
-                        onFocus={() => this.setOpenState(false, true)} value={end_date_str}
+                        onFocus={() => this.setOpenState(false, true)}
+                        value={end_date_str}
                       />
                       {
                         this.state.open_date_picker2 ?

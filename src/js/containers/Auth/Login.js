@@ -59,9 +59,7 @@ class Login extends Component {
           </header>
         </div>
         <div className="auth-container">
-          {
-            isAuthorizing ? <CustomSpinner/> : null
-          }
+          {isAuthorizing ? <CustomSpinner/> : null}
           <AuthSideMenu/>
           <div className="login">
             <h2 className="header">Login</h2>

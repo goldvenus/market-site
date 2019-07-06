@@ -1,7 +1,7 @@
 import keyMirror from "keymirror";
 
 export default keyMirror({
-  // ==== login request ==== //
+  // ==== users ==== //
   LOGIN_REQUEST: null,
   LOGIN_SUCCESS: null,
   LOGIN_FAILED: null,
@@ -34,6 +34,16 @@ export default keyMirror({
   CONFIRM_USER_REQUEST: null,
   CONFIRM_USER_SUCCESS: null,
   CONFIRM_USER_FAILED: null,
+  
+  // mango-pay
+  MANGO_ACCOUNT_CREATE_REQUEST: null,
+  MANGO_ACCOUNT_CREATE_SUCCESS: null,
+  MANGO_ACCOUNT_CREATE_FAILED: null,
+  
+  // kyc validation
+  KYC_VALIDATION_REQUEST: null,
+  KYC_VALIDATION_SUCCESS: null,
+  KYC_VALIDATION_FAILED: null,
   
   // ==== gears ==== //
   LIST_GEARS_REQUEST: null,

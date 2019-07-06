@@ -6,7 +6,7 @@ const customStyles = {
   option: (provided, state) => ({
     ...provided,
     borderBottom: 'none',
-    backgroundColor: state.isSelected ? '#eaeaea' : state.isFocused ? '#F7F7F7' : state.isClicked ? '#F7F7F7' : 'white',
+    backgroundColor: state.isSelected ? '#eaeaea' : state.isFocused ? '#F5F5F5' : state.isClicked ? '#F5F5F5' : '#FAFAFA',
     color: '#252525',
     cursor: 'pointer',
     padding: 10,

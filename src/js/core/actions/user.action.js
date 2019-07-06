@@ -284,6 +284,7 @@ const confirmUser = async (username, confirmationCode, fullName) => {
     dispatch({
       type: constants.CONFIRM_USER_SUCCESS
     });
+    res && res.data && res.data.errorMessage && handleError(res.data.errorMessage);
     return res;
   } catch (error) {
     dispatch({
@@ -291,6 +292,66 @@ const confirmUser = async (username, confirmationCode, fullName) => {
     });
     handleError(error);
   }
+};
+
+const createMangoAccount = async (data) => {
+  return new Promise(async (resolve, reject) => {
+    dispatch({
+      type: constants.MANGO_ACCOUNT_CREATE_REQUEST
+    });
+    try {
+      let res = await post('doKycValidation', data);
+      if (res && res.data && res.data.status && res.data.status === 'success') {
+        dispatch({
+          type: constants.MANGO_ACCOUNT_CREATE_SUCCESS
+        });
+        resolve(res.data.data);
+      } else {
+        dispatch({
+          type: constants.MANGO_ACCOUNT_CREATE_FAILED
+        });
+        res && res.data && res.data.errorMessage && handleError(res.data.errorMessage);
+        resolve(false);
+      }
+      return res;
+    } catch (error) {
+      dispatch({
+        type: constants.MANGO_ACCOUNT_CREATE_FAILED
+      });
+      handleError(error);
+      resolve(false);
+    }
+  });
+};
+
+const doKycValidation = async (data) => {
+  return new Promise(async (resolve, reject) => {
+    dispatch({
+      type: constants.KYC_VALIDATION_REQUEST
+    });
+    try {
+      let res = await post('doKycValidation', data);
+      if (res && res.data && res.data.status && res.data.status === 'success') {
+        dispatch({
+          type: constants.KYC_VALIDATION_SUCCESS
+        });
+        resolve(true);
+      } else {
+        dispatch({
+          type: constants.KYC_VALIDATION_FAILED
+        });
+        res && res.data && res.data.errorMessage && handleError(res.data.errorMessage);
+        resolve(false);
+      }
+      return res;
+    } catch (error) {
+      dispatch({
+        type: constants.KYC_VALIDATION_FAILED
+      });
+      handleError(error);
+      resolve(false);
+    }
+  });
 };
 
 export {
@@ -307,4 +368,6 @@ export {
   socialLogin,
   confirmResetPassword,
   sendResetPasswordEmail,
+  createMangoAccount,
+  doKycValidation
 }

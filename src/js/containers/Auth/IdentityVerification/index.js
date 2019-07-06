@@ -11,29 +11,36 @@ import VerifyFailed from "./VerifyFailed";
 import Modal from "react-responsive-modal";
 import RentalTermsComponent from "../../TermsAndPolicy/RentalTermsComponent";
 import VerifyInProcess from "./VerifyInProcess";
+import {doKycValidation, createMangoAccount} from "../../../core/actions/user.action";
+import CustomSpinner from "../../../components/common/CustomSpinner";
 
 class IdentityVerification extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isChecked: false,
+      busy: false,
       modalOpenState: 0,
       step: -1     // initial: -1
     };
     this.verificationData = {
       firstName: '',
       lastName: '',
+      birthday: (new Date()).getTime() / 1000,
       email: '',
       phone: '',
+      nationality: '',
       country: '',
       proofImg: '',
       selfieImg: '',
       verificationType: 0,
-      checkResult: [0, 0, 0]
+      checkResult: [0, 0, 0],
+      mangoAccountId: 0
     }
   }
   
   handleInputChange = (e, val) => {
+    console.log(e.target.value);
     this.verificationData[val] = e.target.value;
   };
   
@@ -51,13 +58,13 @@ class IdentityVerification extends Component {
   };
   
   doValidation = (step) => {
-    let {firstName, lastName, email, phone, country, proofImg, selfieImg} = this.verificationData;
+    let {firstName, lastName, email, phone, nationality, country, proofImg, selfieImg} = this.verificationData;
     if (step === 1) {
       // return true;
       return firstName && lastName && email && phone;
     } else if (step === 2) {
       // return true;
-      return country && proofImg;
+      return nationality && country && proofImg;
     } else if (step === 3) {
       // return true;
       return selfieImg !== '';
@@ -65,20 +72,47 @@ class IdentityVerification extends Component {
     return true;
   };
   
-  handleNextStep = (step) => {
+  handleNextStep = async (step) => {
     if (!this.doValidation(step)) {
       handleError('Please input requried information');
       return;
     }
     console.log(this.verificationData);
+    if (this.state.step === 1) {
+      console.log('create account...');
+      let {firstName, lastName, email, phone, nationality, country, birthday} = this.verificationData;
+      let data = {firstName, lastName, email, phone, nationality: nationality.value, country: country.value, birthday: Math.floor(birthday)};
+      this.setState({busy: true});
+      let tempMangoAccountId = await createMangoAccount({step: 1, data});
+      this.setState({busy: false});
+      console.log("*****************", tempMangoAccountId);
+      if (tempMangoAccountId) {
+        this.verificationData.mangoAccountId = tempMangoAccountId;
+      } else {
+        return;
+      }
+    } else if (this.state.step === 2) {
+      console.log('do kyc validation...');
+      let {firstName, lastName, email, phone, nationality, country, proofImg, selfieImg, verificationType, mangoAccountId} = this.verificationData;
+      let data = {firstName, lastName, email, phone, nationality: nationality.value, country: country.value, proofImg, selfieImg, verificationType, mangoAccountId};
+      this.setState({step});
+      let validationResult = await doKycValidation({step: 2, data});
+      if (validationResult) {
+        this.setState({step: 4});
+      } else {
+        this.setState({step: 5});
+      }
+      return;
+    }
     this.setState({step});
   };
   
   render() {
     // const {isVerifying} = this.props;
-    const {isChecked, step, modalOpenState} = this.state;
+    const {isChecked, step, modalOpenState, busy} = this.state;
     return (
       <div className="verify-container">
+        {busy && <CustomSpinner/>}
         {step === -1 &&
           <div className="verify-initial-step">
             <h2 className="header">Identity Verification</h2>

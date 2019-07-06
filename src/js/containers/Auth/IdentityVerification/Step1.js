@@ -1,8 +1,29 @@
 import React, {Component} from 'react';
 import TextField from "@material-ui/core/TextField/TextField";
+import {DateRange} from "react-date-range";
+import {getDateStr} from "../../../core/helper";
 
 class Step1 extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      birthday: (new Date()).toLocaleString(),
+      openDatePicker: false
+    }
+  }
+  
+  onSelectDate = (e) => {
+    let unixTime = e.selection.startDate.getTime() / 1000;
+    this.setState({birthday: e.selection.startDate, openDatePicker: false});
+    this.props.onInputChange({target: {value: unixTime}}, 'birthday');
+  };
+  
   render() {
+    const selectionRange = {
+      startDate: this.props.birthday,
+      endDate: this.props.birthday,
+      key: 'selection',
+    };
     return (
       <div className='verify-inner-wrapper'>
         <h2 className="header">1. Applicant Data</h2>
@@ -27,6 +48,25 @@ class Step1 extends Component {
                 maxLength='50'
                 onChange={(e) => this.props.onInputChange(e || '', 'lastName')}
               />
+            </div>
+            <div className="theme-form-field auth-input-wrapper">
+              <TextField
+                id="date-range-input1"
+                className="date-range-input"
+                type="text"
+                label={'PICKUP DATE'}
+                value={getDateStr(this.state.birthday)}
+                onFocus={() => this.setState({openDatePicker: true})}
+              />
+              {this.state.openDatePicker &&
+                <DateRange
+                  className={'date-range-wrapper'}
+                  ranges={[selectionRange]}
+                  onChange={this.onSelectDate}
+                  rangeColors={['#F74377']}
+                  showDateDisplay={false}
+                  dateDisplayFormat={'DD.MM.YYYY'}
+                />}
             </div>
             <div className="theme-form-field auth-input-wrapper">
               <TextField

@@ -44,15 +44,32 @@
       margin: 0 auto;
       width: 60%;
 
+      .verify-input-wrapper-1 {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
       .verify-input-wrapper {
         margin-bottom: 59px;
 
         .auth-input-wrapper {
           width: 50%;
           margin: 0 auto;
+
+          .date-range-input {
+            border-bottom: solid 1px #eaeaea;
+
+            input {
+              margin-left: 0;
+              padding-left: 0;
+            }
+            label {
+              padding-left: 0;
+            }
+          }
         }
         .country-selector {
-          margin: 0 auto;
+          margin: 0 0 0 15px;
         }
       }
     }
