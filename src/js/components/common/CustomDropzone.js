@@ -9,12 +9,10 @@ function CustomDropzone(props) {
     reader.onerror = () => console.log('file reading has failed');
     reader.onload = () => {
       // Do whatever you want with the file contents
-      const binaryStr = reader.result;
-      console.log(binaryStr)
       props.onHandleLoad(reader.result);
     };
     
-    acceptedFiles.forEach(file => reader.readAsBinaryString(file))
+    acceptedFiles.forEach(file => reader.readAsDataURL(file))
   }, []);
   
   const {acceptedFiles, getRootProps, getInputProps} = useDropzone({

@@ -232,7 +232,14 @@ img {
   background-color: #d2003d;
   opacity: 1;
   border: none;
-
+  span {
+    background-color: #e61552;
+  }
+}
+.toast-warning {
+  background-color: #d2003d;
+  opacity: 1;
+  border: none;
   span {
     background-color: #e61552;
   }
@@ -241,7 +248,6 @@ img {
   background-color: #f82462;
   opacity: 0.9;
   border: none;
-
   span {
     background-color: #ff608f;
   }
@@ -272,6 +278,9 @@ img {
 
     .toast-heading {
       font-weight: 600;
+    }
+    .toast-content {
+      white-space: pre-line;
     }
   }
 }

@@ -7,8 +7,8 @@
   width: 65vw;
   margin: 60px auto 0;
 
-  button {
-    width: 230px;
+  button.theme-btn {
+    width: 55%;
     font-weight: 600;
   }
   .step-container {
@@ -48,13 +48,20 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        width: 90%;
+
+        & > div:first-child {
+          width: 40%;
+          text-align: right;
+        }
       }
       .verify-input-wrapper {
         margin-bottom: 59px;
 
         .auth-input-wrapper {
-          width: 50%;
+          width: 55%;
           margin: 0 auto;
+          position: relative;
 
           .date-range-input {
             border-bottom: solid 1px #eaeaea;

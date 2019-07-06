@@ -13,7 +13,7 @@ const toastBody = ({type, info}) => (
     </div>
     <div className='toast-content-wrapper'>
       <div className='toast-heading'>{type}</div>
-      <div className='toast-content' style={{whiteSpace: 'pre-line'}}>{info}</div>
+      <div className='toast-content'>{info}</div>
     </div>
   </div>
 );
@@ -22,11 +22,15 @@ const handleInfo = (info) => {
   toast.info(toastBody({type: 'INFO', info}), {containerId: 'A', position: toast.POSITION.BOTTOM_RIGHT, className: 'toast-info', autoClose: 10000});
 };
 
+const handleWarning = (info) => {
+  toast.warn(toastBody({type: 'WARN', info}), {containerId: 'C', position: toast.POSITION.TOP_RIGHT, className: 'toast-warning', autoClose: false, draggable: false, closeOnClick: false});
+};
+
 const handleError = (info) => {
   toast.error(toastBody({type: 'ERROR', info}), {containerId: 'B', position: toast.POSITION.BOTTOM_RIGHT, className: 'toast-error', autoClose: 10000});
 };
 
-const readFileData = (event) => {
+const readFileData = (file) => {
   return new Promise((resolve, reject) => {
     let fileReader = new FileReader();
     fileReader.onload = (event) => {
@@ -34,7 +38,7 @@ const readFileData = (event) => {
     };
     
     fileReader.onerror = (e) => reject('error');
-    fileReader.readAsDataURL(event);
+    fileReader.readAsDataURL(file);
   });
 };
 
@@ -58,5 +62,5 @@ const sendEmail = async ({fromEmail, toEmail, name, phone, content}) => {
 };
 
 export {
-  handleError, readFileData, handleInfo, sendEmail
+  handleError, handleWarning, handleInfo, sendEmail, readFileData
 }

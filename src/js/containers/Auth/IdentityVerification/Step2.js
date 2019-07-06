@@ -17,10 +17,12 @@ class Step2 extends Component {
         <h2 className="header">2. Proof of identity</h2>
         <div className="verify-form-wrapper">
           <div className="verify-input-wrapper verify-input-wrapper-1">
-            <span>Nationality: </span><CustomCountrySelect onHandleChange={(e) => this.props.onInputChange(e, 'nationality')} />
+            <div><span>Nationality: </span></div>
+            <CustomCountrySelect onHandleChange={(e) => this.props.onInputChange(e, 'nationality')} />
           </div>
           <div className="verify-input-wrapper verify-input-wrapper-1">
-            <span>Country of Residence: </span><CustomCountrySelect onHandleChange={(e) => this.props.onInputChange(e, 'country')} />
+            <div><span>Country of Residence: </span></div>
+            <CustomCountrySelect onHandleChange={(e) => this.props.onInputChange(e, 'country')} />
           </div>
           <div className="theme-form-field verify-main-wrapper">
             <p className='verify-type-title'>Choose your ID type</p>

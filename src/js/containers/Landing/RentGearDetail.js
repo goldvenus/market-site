@@ -74,6 +74,10 @@ class RentGearDetail extends Component {
   addToCart = async ({startDate, endDate}) => {
     try {
       const {gear} = this.state;
+      if (gear.ownerUserid === this.props.userid) {
+        handleError('You cannot rent your gear');
+        return;
+      }
       if (startDate && endDate && this._mounted) {
         await addCart({
           gearid: gear.gearid,
@@ -521,9 +525,10 @@ class RentGearDetail extends Component {
                   <div className="gear-purchase col-lg-9">
                     <div>
                       <div>
+                        {user.kycValidated ?
                         <button className='theme-btn theme-btn-primary btn-verify-profile'>
-                          <CheckIcon/> Verified profile
-                        </button>
+                          <CheckIcon/> Verified Profile
+                        </button> : <span className='warning-span'>Not Verified</span>}
                       </div>
                       <span className='star-wrapper'>
                         {[1, 2, 3, 4, 5].map(i =>

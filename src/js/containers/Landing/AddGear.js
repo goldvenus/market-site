@@ -7,7 +7,7 @@ import {
 } from 'reactstrap';
 import CustomInput from '../../components/CustomInput';
 import CustomCarousel from '../../components/CustomCarousel';
-import {handleError, readFileData} from '../../core/actions/common.action';
+import {handleError, handleWarning, readFileData} from '../../core/actions/common.action';
 import {addGear, getGearsBriefInfo} from '../../core/actions/gear.action';
 import Textarea from "muicss/lib/react/textarea";
 import CustomSpinner from "../../components/common/CustomSpinner";
@@ -66,6 +66,9 @@ class AddGear extends Component {
   }
   
   async componentDidMount() {
+    if (this.props.user && !this.props.user.kycValidated) {
+      handleWarning('You have to verify your identity');
+    }
     this._isMounted = true;
     await fetchCategories();
     getGearsBriefInfo();
@@ -80,6 +83,9 @@ class AddGear extends Component {
     if (nextProps && this.props && this.props.briefGearList !== nextProps.briefGearList) {
       let gearsList = nextProps.briefGearList.map(item => ({label: item.productName || ''}));
       this.setState({gearsList});
+    }
+    if (nextProps.user && this.props.user !== nextProps.user && !nextProps.user.kycValidated) {
+      handleWarning('You have to verify your identity');
     }
   }
   
@@ -542,9 +548,13 @@ class AddGear extends Component {
           <button className="theme-btn theme-btn-secondery" onClick={this.previousStep.bind(this)}><span
             className="fa fa-angle-left d-sm-none d-md-none d-lg-block"/><span
             className="d-sm-none d-lg-none d-md-block">Back</span></button>
-          <button className="theme-btn theme-btn-primary" onClick={this.addGearDetails.bind(this)} disabled={!isSelected ? 'disabled' : ''}>Submit <span
+          <button className="theme-btn theme-btn-primary" onClick={this.addGearDetails.bind(this)} disabled={!isSelected || !this.props.user.kycValidated ? 'disabled' : ''}>Submit <span
             className="fa fa-angle-right"/></button>
         </div>
+        {!this.props.user.kycValidated &&
+        <div className="buttons-container">
+          <Link to='/verify-profile' className="theme-btn theme-btn-primary">Verify Identity</Link>
+        </div>}
       </div>
     </div>;
   }
@@ -625,7 +635,7 @@ class AddGear extends Component {
         break;
       default:
     }
-    handleError('Please provide required details!');
+    handleError('Please provide required information');
     return false;
   }
   
@@ -727,7 +737,6 @@ class AddGear extends Component {
         });
       }
     } catch (e) {
-    
     }
   }
   

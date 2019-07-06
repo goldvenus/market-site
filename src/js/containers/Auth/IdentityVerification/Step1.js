@@ -7,21 +7,20 @@ class Step1 extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      birthday: (new Date()).toLocaleString(),
+      birthday: new Date(),
       openDatePicker: false
     }
   }
   
   onSelectDate = (e) => {
-    let unixTime = e.selection.startDate.getTime() / 1000;
     this.setState({birthday: e.selection.startDate, openDatePicker: false});
-    this.props.onInputChange({target: {value: unixTime}}, 'birthday');
+    this.props.onInputChange({target: {value: e.selection.startDate}}, 'birthday');
   };
   
   render() {
     const selectionRange = {
-      startDate: this.props.birthday,
-      endDate: this.props.birthday,
+      startDate: this.state.birthday,
+      endDate: this.state.birthday,
       key: 'selection',
     };
     return (

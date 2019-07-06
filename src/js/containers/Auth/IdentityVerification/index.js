@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Label} from 'reactstrap';
-import {handleError} from "../../../core/actions/common.action";
+import {handleError, handleInfo} from "../../../core/actions/common.action";
 import CustomStepBar from "../../../components/common/CustomStepBar";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
@@ -26,7 +26,7 @@ class IdentityVerification extends Component {
     this.verificationData = {
       firstName: '',
       lastName: '',
-      birthday: (new Date()).getTime() / 1000,
+      birthday: new Date(),
       email: '',
       phone: '',
       nationality: '',
@@ -36,6 +36,23 @@ class IdentityVerification extends Component {
       verificationType: 0,
       checkResult: [0, 0, 0],
       mangoAccountId: 0
+    };
+    
+    if (this.props.user && !this.props.user.kycValidated) {
+      console.log(this.props.user);
+      handleInfo('You are not verified');
+    } else if (this.props.user && this.props.user.kycValidated) {
+      handleInfo('You are already verified');
+    }
+  }
+  
+  componentWillReceiveProps(nextProps) {
+    if (this.props.user !== nextProps.user) {
+      if (nextProps.user.kycValidated) {
+        handleInfo('You are already verified');
+      } else {
+        handleInfo('You are not verified');
+      }
     }
   }
   
@@ -49,7 +66,6 @@ class IdentityVerification extends Component {
   };
   
   handleSelectImg = (v, field) => {
-    console.log("img selected: ", v);
     this.verificationData[field] = v;
   };
   
@@ -74,16 +90,18 @@ class IdentityVerification extends Component {
   
   handleNextStep = async (step) => {
     if (!this.doValidation(step)) {
-      handleError('Please input requried information');
+      handleError('Please input required information');
       return;
     }
-    console.log(this.verificationData);
     if (this.state.step === 1) {
       console.log('create account...');
       let {firstName, lastName, email, phone, nationality, country, birthday} = this.verificationData;
-      let data = {firstName, lastName, email, phone, nationality: nationality.value, country: country.value, birthday: Math.floor(birthday)};
+      let data = {firstName, lastName, email, phone, nationality: nationality.value, country: country.value, birthday: Math.floor(birthday.getTime()/1000)};
       this.setState({busy: true});
-      let tempMangoAccountId = await createMangoAccount({step: 1, data});
+      let tempMangoAccountId = this.props.user.mangoAccountId;
+      if (this.props.user && !this.props.user.kycValidated) {
+        tempMangoAccountId = await createMangoAccount({step: 1, data});
+      }
       this.setState({busy: false});
       console.log("*****************", tempMangoAccountId);
       if (tempMangoAccountId) {
@@ -94,6 +112,15 @@ class IdentityVerification extends Component {
     } else if (this.state.step === 2) {
       console.log('do kyc validation...');
       let {firstName, lastName, email, phone, nationality, country, proofImg, selfieImg, verificationType, mangoAccountId} = this.verificationData;
+      selfieImg = selfieImg.replace('data:image/png;base64,', '');
+      proofImg = proofImg.replace('data:image/png;base64,', '');
+      selfieImg = selfieImg.replace('data:image/jpeg;base64,', '');
+      proofImg = proofImg.replace('data:image/jpeg;base64,', '');
+      selfieImg = selfieImg.replace('data:image/jpg;base64,', '');
+      proofImg = proofImg.replace('data:image/jpg;base64,', '');
+      selfieImg = selfieImg.replace('data:image/gif;base64,', '');
+      proofImg = proofImg.replace('data:image/gif;base64,', '');
+      console.log(selfieImg);
       let data = {firstName, lastName, email, phone, nationality: nationality.value, country: country.value, proofImg, selfieImg, verificationType, mangoAccountId};
       this.setState({step});
       let validationResult = await doKycValidation({step: 2, data});
@@ -108,8 +135,8 @@ class IdentityVerification extends Component {
   };
   
   render() {
-    // const {isVerifying} = this.props;
     const {isChecked, step, modalOpenState, busy} = this.state;
+    const {birthday} = this.verificationData;
     return (
       <div className="verify-container">
         {busy && <CustomSpinner/>}
@@ -145,7 +172,7 @@ class IdentityVerification extends Component {
             <CustomStepBar curStep={step} totalStep={3} result={this.verificationData.checkResult} />
           </div>}
         {step === 0 ?
-          <Step1 onNextStep={this.handleNextStep} onInputChange={this.handleInputChange} /> :
+          <Step1 onNextStep={this.handleNextStep} onInputChange={this.handleInputChange} birthday={birthday} /> :
         step === 1 ?
           <Step2 onNextStep={this.handleNextStep} onInputChange={this.handleInputChange} onSelectType={this.handleSelectType} onSelectImg={this.handleSelectImg} /> :
         step === 2 ?
@@ -172,8 +199,7 @@ class IdentityVerification extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  isVerifying: state.user.isVerifying,
-  isVerified: state.user.isVerified
+  user: state.user.user
 });
 
 export default connect(mapStateToProps, null)(IdentityVerification);

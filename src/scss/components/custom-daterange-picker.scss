@@ -12,6 +12,13 @@
 }
 .rdrMonthAndYearPickers {
   position: absolute;
+
+  & > span > select {
+    option:hover {
+      background-color: #f82462;
+      color: white;
+    }
+  }
 }
 .rdrMonthAndYearWrapper {
   padding: 0;
@@ -38,7 +45,7 @@
   }
 }
 .rdrYearPicker {
-  margin-left: -40px;
+
 }
 .rdrDayNumber:hover {
   background-color: #fcccd5 !important;
