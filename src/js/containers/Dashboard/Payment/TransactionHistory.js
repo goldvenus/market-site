@@ -37,7 +37,7 @@ class TransactionHistory extends Component {
     let data = transactions.map((item) => {
       let transDate = new Date(item.RecordCreated);
       let type = item.TransType;
-      let contract = item.TransactionId.substr(0, 8);
+      let contract = item.Contract;
       let client = item.Client;
       let amount = item.Amount;
       let invoice = item.Invoice;

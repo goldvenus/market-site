@@ -7,7 +7,7 @@ import {
 } from 'reactstrap';
 import CustomInput from '../../components/CustomInput';
 import CustomCarousel from '../../components/CustomCarousel';
-import {handleError, handleWarning, readFileData} from '../../core/actions/common.action';
+import {handleError, readFileData} from '../../core/actions/common.action';
 import {addGear, getGearsBriefInfo} from '../../core/actions/gear.action';
 import Textarea from "muicss/lib/react/textarea";
 import CustomSpinner from "../../components/common/CustomSpinner";
@@ -66,9 +66,6 @@ class AddGear extends Component {
   }
   
   async componentDidMount() {
-    if (this.props.user && !this.props.user.kycValidated) {
-      handleWarning('You have to verify your identity');
-    }
     this._isMounted = true;
     await fetchCategories();
     getGearsBriefInfo();
@@ -84,9 +81,9 @@ class AddGear extends Component {
       let gearsList = nextProps.briefGearList.map(item => ({label: item.productName || ''}));
       this.setState({gearsList});
     }
-    if (nextProps.user && this.props.user !== nextProps.user && !nextProps.user.kycValidated) {
-      handleWarning('You have to verify your identity');
-    }
+    // if (nextProps.user && this.props.user !== nextProps.user && !nextProps.user.kycValidated) {
+    //   handleWarning('You have to verify your identity');
+    // }
   }
   
   onTypeChange(e) {
@@ -397,7 +394,6 @@ class AddGear extends Component {
   
   renderAddress() {
     const {city, region, address, postalCode} = this.state;
-    
     return (
       <div className="theme-form add-gear-address">
         <div className="theme-form-field text-wrapper">
@@ -770,9 +766,9 @@ class AddGear extends Component {
     
     if (isGearAdded) {
       return <div className="add-gear">
+        
         <h1><i className="fa fa-check-circle primary-color"/></h1>
         <h3 className="success_gear_htag">Gear Added Successfully</h3>
-        
         <div className="success-message">
           <div className="theme-text-small success_gear_categoryName">{categoryName}</div>
           <h6 className="success_gear_brand_modal">{brand + ' ' + productName}</h6>

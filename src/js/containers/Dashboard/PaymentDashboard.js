@@ -57,14 +57,13 @@ class PaymentDetail extends Component {
   render() {
     let {paymentMethods, isLoadingMethod, isChanging, user} = this.props;
     let {modalOpenState} = this.state;
-  
     if (isLoadingMethod) {
       return <BarLoader color="#F82462" height="5"/>;
     }
     
     let payInMethods = paymentMethods.filter(item => item.type === 1);
     let payOutMethods = paymentMethods.filter(item => item.type === 2);
-    let addPayoutMethodPossible = payOutMethods.length === 0;
+    let addPayoutMethodPossible = true; // payOutMethods.length === 0;
     let balance = user.balance;
 
     return (
@@ -76,12 +75,16 @@ class PaymentDetail extends Component {
             <div className='balance-wrapper'>
               <div className='balance-left'>
                 <p>Balance</p>
-                <p>${balance}</p>
+                <p>${balance.toFixed(2)}</p>
               </div>
               <div className='balance-right'>
+                {/*<button*/}
+                  {/*className={`theme-btn theme-btn-filled-white ${!user.nummusVendorId || !balance ? 'disabled' : ''}`}*/}
+                  {/*onClick={() => user.nummusVendorId && this.handleWithdrawal(balance)}*/}
+                {/*>Get Paid</button>*/}
                 <button
-                  className={`theme-btn theme-btn-filled-white ${!user.nummusVendorId || !balance ? 'disabled' : ''}`}
-                  onClick={() => user.nummusVendorId && this.handleWithdrawal(balance)}
+                  className={`theme-btn theme-btn-filled-white ${!user.bankAccountId || !balance ? 'disabled' : ''}`}
+                  onClick={() => user.bankAccountId && this.handleWithdrawal(balance)}
                 >Get Paid</button>
               </div>
             </div>
@@ -122,7 +125,7 @@ class PaymentDetail extends Component {
                     return <SwiftModel
                       key={index}
                       info={item}
-                      selected={item.methodId === user.selectedMethod}
+                      selected={item.bankAccountId === user.bankAccountId}
                       onDelete={this.handleDeleteMethod}
                     />;
                 })}

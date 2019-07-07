@@ -350,10 +350,12 @@ class Payment extends Component {
     // 3. Complete card registration, do pay-in direct card
     let payInResult = await payment({registrationData, data, checkoutInfo: this.checkoutInfo, step: 2});
     if (payInResult) {
+      window.location.href = payInResult.redirectUrl;
       // update user's cart info
-      await getCarts();
-      this.props.history.push(`/payment/${checkout_id}/${payInResult}`);
+      // await getCarts();
+      // this.props.history.push(`/payment/${checkout_id}/${payInResult.redirectUrl}`);
     } else {
+      console.log("fail............");
       this.setState({loading: false});
     }
   };

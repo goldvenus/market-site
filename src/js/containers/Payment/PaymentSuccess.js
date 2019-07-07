@@ -8,6 +8,7 @@ import '@trendmicro/react-buttons/dist/react-buttons.css';
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import ItemsCarousel from "react-items-carousel";
 import CustomLoaderLogo from "../../components/common/CustomLoaderLogo";
+import queryString from "query-string";
 
 class Payment extends Component {
   constructor(props) {
@@ -29,8 +30,11 @@ class Payment extends Component {
     
     let checkout_id = this.props.match.params.id;
     let payment_id = this.props.match.params.tid;
-    
-    this.getUserPaidItems({checkout_id, payment_id});
+    let transaction_id = queryString.parse(window.location.search).transactionId;
+    if (!(checkout_id && payment_id && transaction_id)) {
+      this.props.history.push('/');
+    }
+    this.getUserPaidItems({checkout_id, payment_id, transaction_id});
   }
   
   getUserPaidItems = async (param) => {

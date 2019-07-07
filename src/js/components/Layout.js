@@ -18,7 +18,7 @@ import CookieConsent from "react-cookie-consent";
 class Layout extends Component {
   constructor(props) {
     super(props);
-
+    this.state = {showKycWarning: false};
     const curPath = this.props.location.pathname;
     if (curPath !== '/login' && curPath !== '/register') {
       getUser();
@@ -47,10 +47,17 @@ class Layout extends Component {
     address && localStorage.setItem("addr", formattedAddr);
   }
   
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.user && !nextProps.user.kycValidated) {
+      this.setState({showKycWarning: true});
+    }
+  }
+  
   render() {
     const { location, carts, favourites, isAuthenticated } = this.props;
     const showHeader = ['/login', '/register', '/forgot-password', '/confirm'].indexOf(location.pathname) === -1;
     let output = null;
+    let {showKycWarning} = this.state;
 
     if (isAuthenticated) {
       output = <React.Fragment>
@@ -92,12 +99,17 @@ class Layout extends Component {
         {output}
 
         {showHeader && <Header/>}
-
+        
+        {showHeader && showKycWarning && isAuthenticated && location.pathname !== '/' &&
+        <div className='kyc-warning-wrapper'>
+          <span>You have to verify your identity to rent and list gears. Click <Link to='/verify-profile'>here</Link>.</span>
+        </div>}
+        
         {routes}
 
         {showHeader && <Footer location={this.props.location}/>}
 
-        <ToastContainer />
+        <ToastContainer/>
   
         <CookieConsent
           location="bottom"
@@ -114,6 +126,7 @@ class Layout extends Component {
 }
 
 const mapStateToProps = store => ({
+  user: store.user.user,
   carts: store.cart.carts,
   favourites: store.favourite.favourites,
   isAuthenticated: store.user.isAuthenticated

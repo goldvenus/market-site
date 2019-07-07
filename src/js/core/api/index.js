@@ -91,6 +91,7 @@ const post = async (url, data) => {
         // network error
         handleError("Network Connection Error");
       } else {
+        console.log(error.response.data);
         handleError(error.response.data.message);
       }
       return false;

@@ -48,12 +48,10 @@ class NavbarDropdown extends React.PureComponent {
                     <RightArrow/>
                     <Link to="/dashboard" onClick={onCloseMenu}>My Account</Link>
                   </DropdownItem>
-
                   <DropdownItem>
                     <RightArrow/>
                     <Link to="/messages" onClick={onCloseMenu}>Messages</Link>
                   </DropdownItem>
-
                   <DropdownItem onClick={() => {
                     logout();
                     this.props.history.push('/');

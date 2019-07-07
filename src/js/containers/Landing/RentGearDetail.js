@@ -73,8 +73,8 @@ class RentGearDetail extends Component {
   
   addToCart = async ({startDate, endDate}) => {
     try {
-      const {gear} = this.state;
-      if (gear.ownerUserid === this.props.userid) {
+      const {gear} = this.props;
+      if (gear.userid === localStorage.userId) {
         handleError('You cannot rent your gear');
         return;
       }
@@ -108,7 +108,6 @@ class RentGearDetail extends Component {
       if (carted) {
         startDate = new Date(cart[0].startDate);
         endDate = new Date(cart[0].endDate);
-        console.log(startDate, endDate);
       } else {
         startDate = this.state.startDate;
         endDate = this.state.endDate;

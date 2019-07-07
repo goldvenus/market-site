@@ -1,8 +1,10 @@
 import Modal from "react-responsive-modal";
 import React, {Component} from "react";
-import {getUTCDateFormat} from "../../../core/helper";
+import {getUTCDateFormat, getYearMonthStr} from "../../../core/helper";
 import {getOrderHistory, setPickupState} from "../../../core/actions/dashboard.action";
 import {Inline} from '@zendeskgarden/react-loaders'
+import {getTransHistory} from "../../../core/actions/payment.action";
+import {getUser} from "../../../core/actions/user.action";
 
 /**
  *  Pickup Confirm Modal
@@ -32,6 +34,10 @@ class ConfirmModal extends Component {
     let gearId = this.props.info.gearid;
     await setPickupState({paymentId, gearId, pickedTime: this.utc_time.join(' '), isRenter: this.props.isRenter});
     await getOrderHistory();
+    if (this.props.isRenter) {
+      getTransHistory(getYearMonthStr(new Date()));
+      getUser();
+    }
     this.setState({busy: false});
     this.props.onSuccess();
   };

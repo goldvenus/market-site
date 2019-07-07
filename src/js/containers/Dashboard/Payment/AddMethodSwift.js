@@ -47,6 +47,7 @@ class AddMethodSwift extends Component {
       billingAddress1,
       bankAccountHolderName,
       IBAN,
+      postalCode,
       swiftCode,
       city
       // bankBranchCity,
@@ -55,10 +56,9 @@ class AddMethodSwift extends Component {
       // routingNumber
     } = this.state;
     
-    if (!country || !billingAddress1 || !city || !IBAN || !swiftCode || !bankAccountHolderName) {
+    if (!country || !billingAddress1 || !city || !IBAN || !swiftCode || !postalCode || !bankAccountHolderName) {
       return false;
     }
-    
     return true;
   };
   
@@ -70,7 +70,6 @@ class AddMethodSwift extends Component {
           delete data[key];
       });
       data.country = data.country.value;
-      console.log(data.country);
       console.log(data);
       this.props.onSaveMethod(data);
     } else {

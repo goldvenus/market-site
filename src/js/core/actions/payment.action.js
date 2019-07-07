@@ -16,13 +16,14 @@ const payment = data => {
       param.email = localStorage.userEmail;
       let res = await post('dopayment', param);
       if (res && res.data && res.data.status === 'success') {
-        dispatch({
-          type: constants.DO_PAYMENT_SUCCESS
-        });
         resolve(res.data.data);
+      } else {
+        dispatch({
+          type: constants.DO_PAYMENT_FAILED
+        });
+        res && res.data && res.data.errorMessage && handleError(res.data.errorMessage);
+        resolve(false);
       }
-      res && res.data && res.data.errorMessage && handleError(res.data.errorMessage);
-      resolve(false);
     } catch (error) {
       handleError(error);
       dispatch({

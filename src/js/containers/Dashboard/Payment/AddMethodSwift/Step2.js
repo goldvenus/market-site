@@ -12,6 +12,7 @@ class Step2 extends Component {
       city,
       state,
       country,
+      postalCode,
       phoneNumber
     } = this.props;
     
@@ -22,6 +23,7 @@ class Step2 extends Component {
       city,
       state,
       country,
+      postalCode,
       phoneNumber
     };
   }
@@ -41,8 +43,9 @@ class Step2 extends Component {
       bankAccountHolderName,
       billingAddress1,
       city,
-      state,
+      // state,
       country,
+      postalCode,
       phoneNumber
     } = this.state;
     
@@ -68,7 +71,7 @@ class Step2 extends Component {
           <TextField
             className='custom-beautiful-textfield'
             label='ADDRESS'
-            placeholder='Add 8 or 11 character code'
+            placeholder='Billing Address'
             type="text"
             value={billingAddress1}
             onChange={e => this.handleInputChange(e, 'billingAddress1')}
@@ -80,23 +83,23 @@ class Step2 extends Component {
             value={city}
             onChange={e => this.handleInputChange(e, 'city')}
           />
-          <TextField
-            className='custom-beautiful-textfield'
-            label='State'
-            placeholder='City, state'
-            type="text"
-            value={state}
-            onChange={e => this.handleInputChange(e, 'state')}
-          />
           {/*<TextField*/}
             {/*className='custom-beautiful-textfield'*/}
-            {/*label='COUNTRY'*/}
-            {/*placeholder='Type to search'*/}
+            {/*label='State'*/}
+            {/*placeholder='City, state'*/}
             {/*type="text"*/}
-            {/*value={country}*/}
-            {/*onChange={e => this.handleInputChange(e, 'country')}*/}
+            {/*value={state}*/}
+            {/*onChange={e => this.handleInputChange(e, 'state')}*/}
           {/*/>*/}
           <CustomCountrySelect country={country} onHandleChange={this.handleInputChange}/>
+          <TextField
+            className='custom-beautiful-textfield'
+            label='Postal Code'
+            placeholder='Postal Code'
+            type="text"
+            value={postalCode}
+            onChange={e => this.handleInputChange(e, 'postalCode')}
+          />
           <TextField
             className='custom-beautiful-textfield'
             label='PHONE NUMBER'
