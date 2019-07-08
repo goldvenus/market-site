@@ -76,7 +76,7 @@ const getListGears = async () => {
     type: constants.LIST_GEARS_REQUEST
   });
   try {
-    let res = await get('viewUserGearList');
+    let res = await get('viewUserGearList', true);
     if (res && res.data && res.data.status === 'success') {
       dispatch({
         type: constants.LIST_GEARS_SUCCESS,
@@ -109,7 +109,7 @@ const getGearsBriefInfo = async () => {
     type: constants.GET_GEARS_BRIEF_INFO_REQUEST
   });
   try {
-    let res = await get('getGearsBriefInfo');
+    let res = await get('getGearsBriefInfo', true);
     if (res && res.data && res.data.status === 'success') {
       dispatch({
         type: constants.GET_GEARS_BRIEF_INFO_SUCCESS,
@@ -178,7 +178,7 @@ const deleteGear = async (data) => {
   });
   return new Promise(async (resolve) => {
     try {
-      let res = await post('deleteUserGear', data);
+      let res = await post('deleteUserGear', data, true);
       if (res && res.data && res.data.status === 'success') {
         dispatch({
           type: constants.DELETE_GEAR_SUCCESS,

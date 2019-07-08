@@ -11,7 +11,7 @@ const viewUserDashboard = async () => {
     type: constants.GET_USER_DASHBOARD_REQUEST,
   });
   try {
-    let response = await get('viewUserDashboard');
+    let response = await get('viewUserDashboard', true);
     if (response && response.data && response.data.status === 'success') {
       dispatch({
         type: constants.GET_USER_DASHBOARD_SUCCESS,

@@ -9,7 +9,7 @@ const fetchCategories = async () => {
     type: constants.GET_CATEGORIES_REQUEST,
   });
   try {
-    let response = await get('getAllProductsCategory');
+    let response = await get('getAllProductsCategory', true);
     if (response && response.data && response.data.status === 'success') {
       dispatch({
         type: constants.GET_CATEGORIES_SUCCESS,

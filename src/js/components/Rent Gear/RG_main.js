@@ -136,6 +136,10 @@ class Main extends Component {
   
   addToCart = async ({gearid, userid, startDate, endDate}) => {
     try {
+      if (userid === localStorage.userId) {
+        handleError('You cannot rent your gear');
+        return;
+      }
       if (startDate && endDate) {
         await addCart({
           gearid: gearid,

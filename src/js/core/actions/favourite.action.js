@@ -57,7 +57,7 @@ const deleteFavourite = async (data) => {
     type: constants.DELETE_FAVOURITE_REQUEST,
   });
   try {
-    let response = await post('deleteUserFavouriteGear', data);
+    let response = await post('deleteUserFavouriteGear', data, true);
     if (response.data.status === 'success') {
       dispatch({
         type: constants.DELETE_FAVOURITE_SUCCESS,
