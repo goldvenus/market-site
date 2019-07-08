@@ -10,7 +10,7 @@ const addFavourites = async (data) => {
     type: constants.ADD_FAVOURITE_REQUEST,
   });
   try {
-    let response = await post('addUserFavouriteGear', data);
+    let response = await post('addUserFavouriteGear', data, true);
     if (response.data.status === 'success') {
       dispatch({
         type: constants.ADD_FAVOURITE_SUCCESS,
@@ -37,7 +37,7 @@ const getFavourites = async () => {
     type: constants.GET_FAVOURITES_REQUEST
   });
   try {
-    let response = await get('viewUserFavouriteGear');
+    let response = await get('viewUserFavouriteGear', true);
     if (response && response.data && response.data.status && response.data.status === 'success') {
       dispatch({
         type: constants.GET_FAVOURITES_SUCCESS,

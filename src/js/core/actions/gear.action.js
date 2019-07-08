@@ -130,7 +130,7 @@ const rentGearProductList = async (catDetail) => {
   });
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await post('showRentGearProductsList', catDetail);
+      let res = await post('showRentGearProductsList', catDetail, true);
       if (res && res.data && res.data.status === 'success') {
         dispatch({
           type: constants.SEARCH_PRODUCTS_SUCCESS,

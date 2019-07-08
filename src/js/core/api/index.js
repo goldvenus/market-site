@@ -1,9 +1,10 @@
 import axios from "axios";
-import {API_URL} from '../constants';
+import {API_URL, API_URL1} from '../constants';
 import {logout} from "../actions/user.action";
 import {handleError} from "../actions/common.action";
 
 const getAPIUrl = (url) => API_URL + url;
+const getAPIUrl1 = (url) => API_URL1 + url;
 
 const axiosConfig = () => {
   let config = {
@@ -45,8 +46,8 @@ const tokenAxiosConfig = () => {
   return config;
 };
 
-const get = async (url) => {
-  return await axios.get(getAPIUrl(url), axiosConfig())
+const get = async (url, urlNew) => {
+  return await axios.get(urlNew ? getAPIUrl1(url) : getAPIUrl(url), axiosConfig())
     .then((res) => {
       if (res.data && res.data.status === 'fail' && res.data.errorMessage === 'Access Token has expired') {
         console.log(url);
@@ -71,8 +72,8 @@ const get = async (url) => {
     });
 };
 
-const post = async (url, data) => {
-  return axios.post(getAPIUrl(url), data, axiosConfig())
+const post = async (url, data, urlNew) => {
+  return axios.post(urlNew ? getAPIUrl1(url) : getAPIUrl(url), data, axiosConfig())
     .then((res) => {
       if (res.data && res.data.status === 'fail' && res.data.errorMessage === 'Access Token has expired') {
         console.log(url);
