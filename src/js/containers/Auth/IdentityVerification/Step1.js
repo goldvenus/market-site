@@ -53,7 +53,7 @@ class Step1 extends Component {
                 id="date-range-input1"
                 className="date-range-input"
                 type="text"
-                label={'PICKUP DATE'}
+                label={'Birthday'}
                 value={getDateStr(this.state.birthday)}
                 onFocus={() => this.setState({openDatePicker: true})}
               />

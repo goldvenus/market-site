@@ -11,7 +11,7 @@ import VerifyFailed from "./VerifyFailed";
 import Modal from "react-responsive-modal";
 import RentalTermsComponent from "../../TermsAndPolicy/RentalTermsComponent";
 import VerifyInProcess from "./VerifyInProcess";
-import {doKycValidation, createMangoAccount} from "../../../core/actions/user.action";
+import {doKycValidation, createMangoAccount, getUser} from "../../../core/actions/user.action";
 import CustomSpinner from "../../../components/common/CustomSpinner";
 
 class IdentityVerification extends Component {
@@ -125,6 +125,7 @@ class IdentityVerification extends Component {
       this.setState({step});
       let validationResult = await doKycValidation({step: 2, data});
       if (validationResult) {
+        await getUser();
         this.setState({step: 4});
       } else {
         this.setState({step: 5});

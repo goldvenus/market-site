@@ -36,7 +36,6 @@ export default (
       <Route exact path="/register" component={Register}/>
       <Route exact path='/confirm' component={RegisterConfirm}/>
       <Route exact path="/forgot-password" component={ForgotPassword}/>
-      <Route exact path="/verify-profile" component={IdentityVerification}/>
       <Route exact path='/faq' component={FAQ}/>
       <Route exact path='/privacy' component={PrivacyPolicy}/>
       <Route exact path='/terms-use' component={TermsConditions}/>
@@ -56,7 +55,8 @@ export default (
       <ProtectedRoute exact path="/payment/:id/:tid" component={PaymentSuccess}/>
       <ProtectedRoute exact path='/search' component={SearchResults}/>
       <ProtectedRoute exact path='/favourites' component={Favourites}/>
-      
+      <ProtectedRoute exact path="/verify-profile" component={IdentityVerification}/>
+  
       <Route component={NotFound}/>
     </Switch>
   </div>

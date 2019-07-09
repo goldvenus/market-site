@@ -44,7 +44,6 @@ class Messages extends Component {
       me: me,
       signature: this.me.signature
     });
-  
     let conversation = null;
   
     if (this.props.match.params && this.props.match.params.id1) {
