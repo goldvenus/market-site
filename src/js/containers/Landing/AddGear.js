@@ -81,9 +81,6 @@ class AddGear extends Component {
       let gearsList = nextProps.briefGearList.map(item => ({label: item.productName || ''}));
       this.setState({gearsList});
     }
-    // if (nextProps.user && this.props.user !== nextProps.user && !nextProps.user.kycValidated) {
-    //   handleWarning('You have to verify your identity');
-    // }
   }
   
   onTypeChange(e) {
@@ -547,7 +544,7 @@ class AddGear extends Component {
           <button className="theme-btn theme-btn-primary" onClick={this.addGearDetails.bind(this)} disabled={!isSelected || !this.props.user.kycValidated ? 'disabled' : ''}>Submit <span
             className="fa fa-angle-right"/></button>
         </div>
-        {!this.props.user.kycValidated &&
+        {this.props.user && !this.props.user.kycValidated &&
         <div className="buttons-container">
           <Link to='/verify-profile' className="theme-btn theme-btn-primary">Verify Identity</Link>
         </div>}

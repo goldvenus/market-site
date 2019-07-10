@@ -58,7 +58,8 @@ class Favourites extends Component {
 
   addToCart = async ({ gearid, userid, startDate, endDate }) => {
     try {
-      if (userid === localStorage.userId) {
+      console.log(this.state.gear, userid, localStorage.userId);
+      if (this.state.gear.ownerUserid === localStorage.userId) {
         handleError('You cannot rent your gear');
         return;
       }

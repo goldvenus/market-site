@@ -524,7 +524,7 @@ class RentGearDetail extends Component {
                   <div className="gear-purchase col-lg-9">
                     <div>
                       <div>
-                        {user.kycValidated ?
+                        {user && user.kycValidated ?
                         <button className='theme-btn theme-btn-primary btn-verify-profile'>
                           <CheckIcon/> Verified Profile
                         </button> : <span className='warning-span'>Not Verified</span>}

@@ -39,7 +39,6 @@ class IdentityVerification extends Component {
     };
     
     if (this.props.user && !this.props.user.kycValidated) {
-      console.log(this.props.user);
       handleInfo('You are not verified');
     } else if (this.props.user && this.props.user.kycValidated) {
       handleInfo('You are already verified');
@@ -47,7 +46,7 @@ class IdentityVerification extends Component {
   }
   
   componentWillReceiveProps(nextProps) {
-    if (this.props.user !== nextProps.user) {
+    if (nextProps.user && this.props.user !== nextProps.user) {
       if (nextProps.user.kycValidated) {
         handleInfo('You are already verified');
       } else {
