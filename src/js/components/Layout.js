@@ -48,8 +48,12 @@ class Layout extends Component {
   }
   
   componentWillReceiveProps(nextProps) {
-    if (nextProps.user && !nextProps.user.kycValidated) {
-      this.setState({showKycWarning: true});
+    if (nextProps.user && this.props.user !== nextProps.user) {
+      if (nextProps.user.kycValidated) {
+        this.setState({showKycWarning: false});
+      } else {
+        this.setState({showKycWarning: true});
+      }
     }
   }
   

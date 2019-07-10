@@ -48,10 +48,10 @@ class Step1 extends Component {
                 onChange={(e) => this.props.onInputChange(e || '', 'lastName')}
               />
             </div>
-            <div className="theme-form-field auth-input-wrapper">
+            <div className="theme-form-field auth-input-wrapper birthday-input-wrapper">
               <TextField
-                id="date-range-input1"
-                className="date-range-input"
+                id="date-range-input2"
+                className="custom-beautiful-textfield"
                 type="text"
                 label={'Birthday'}
                 value={getDateStr(this.state.birthday)}

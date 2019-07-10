@@ -21,7 +21,7 @@ class IdentityVerification extends Component {
       isChecked: false,
       busy: false,
       modalOpenState: 0,
-      step: -1     // initial: -1
+      step: 5     // initial: -1
     };
     this.verificationData = {
       firstName: '',

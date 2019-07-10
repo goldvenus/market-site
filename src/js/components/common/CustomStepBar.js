@@ -9,7 +9,6 @@ class CustomStepBar extends Component {
       <div key={i} className={index <= curStep ? 'step-item active' : 'step-item'}>
         {
           function () {
-            console.log(result[index]);
             if (result && result[index] === 1) {
               return <i className='fas fa-check-circle' style={{color: '#1CDB74'}} aria-hidden="true"/>;
             } else if (result && result[index] === -1) {
