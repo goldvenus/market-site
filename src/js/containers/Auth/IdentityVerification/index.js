@@ -37,11 +37,24 @@ class IdentityVerification extends Component {
       checkResult: [0, 0, 0],
       mangoAccountId: 0
     };
-    
-    if (this.props.user && !this.props.user.kycValidated) {
-      handleInfo('You are not verified');
-    } else if (this.props.user && this.props.user.kycValidated) {
+  }
+  
+  componentDidMount() {
+    if (!this.props.user) {
+      return;
+    }
+    let kycValidated = this.props.user.kycValidated;
+    if (kycValidated) {
       handleInfo('You are already verified');
+      this.setState({step: 4});
+    } else if (kycValidated === 0) {
+      handleInfo('The system is now verifying your identity');
+      this.setState({step: 3});
+    } else if (kycValidated === false) {
+      handleError('Identity Verification was failed, please try again');
+      this.setState({step: 5});
+    } else {
+      handleInfo('You are not verified');
     }
   }
   
@@ -102,11 +115,11 @@ class IdentityVerification extends Component {
       let data = {firstName, lastName, email, phone, nationality: nationality.value, country: country.value, birthday: Math.floor(birthday.getTime()/1000)};
       this.setState({busy: true});
       let tempMangoAccountId = this.props.user.mangoAccountId;
-      if (this.props.user && !tempMangoAccountId) {
+      if (this.props.user && tempMangoAccountId) {
+        console.log('account exists');
+      } else {
         console.log('no mangopay account, create account ...');
         tempMangoAccountId = await createMangoAccount({step: 1, data});
-      } else {
-        console.log('account exists');
       }
       this.setState({busy: false});
       console.log("mangopay account id: ", tempMangoAccountId);
@@ -131,7 +144,6 @@ class IdentityVerification extends Component {
       let validationResult = await doKycValidation({step: 2, data});
       if (validationResult) {
         await getUser();
-        this.setState({step: 4});
       } else {
         this.setState({step: 5});
       }

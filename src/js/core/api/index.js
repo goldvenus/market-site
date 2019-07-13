@@ -52,9 +52,7 @@ const get = async (url, urlNew) => {
       if (res.data && res.data.status === 'fail' && res.data.errorMessage === 'Access Token has expired') {
         console.log(url);
         console.log("Access Token has expired, logging out");
-        let redirect = window.location.pathname + window.location.search;
-        logout();
-        window.location.href = `/login?redirect=${redirect}`;
+        redirectToLogin();
       } else {
         if (res.data.errorMessage)
           console.log(res.data.errorMessage);
@@ -78,9 +76,7 @@ const post = async (url, data, urlNew) => {
       if (res.data && res.data.status === 'fail' && res.data.errorMessage === 'Access Token has expired') {
         console.log(url);
         console.log("Access Token has expired, logging out");
-        let redirect = window.location.pathname + window.location.search;
-        logout();
-        window.location.href = `/login?redirect=${redirect}`;
+        redirectToLogin();
       } else {
         if (res.data.errorMessage)
           console.log(res.data.errorMessage);
@@ -99,12 +95,16 @@ const post = async (url, data, urlNew) => {
     });
 };
 
-// export default {
-//     user: {
-//         login: async (credentials) => axios.post(API_URL + 'signin', credentials),
-//         register: user => axios.post(API_URL + 'signup', user)
-//     }
-// }
+const redirectToLogin = () => {
+  let redirect = window.location.pathname + window.location.search;
+  logout();
+  if (window.location.search.indexOf('login') < 0
+    && window.location.search.indexOf('register') < 0) {
+      window.location.href = `/login?redirect=${redirect}`;
+  } else {
+    window.location.href = '/login';
+  }
+};
 
 export {
   getAPIUrl, axiosConfig, tokenAxiosConfig, get, post

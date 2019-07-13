@@ -40,16 +40,20 @@ class TransactionHistory extends Component {
       let contract = item.Contract;
       let client = item.Client;
       let amount = item.Amount;
+      let total = item.Total;
+      let status = item.Status;
       let invoice = item.Invoice;
       let options = {month: 'long', day: 'numeric', year: 'numeric'};
       transDate = transDate.toLocaleDateString("en-US", options);
   
       if (type === 'Refung' || type === 'Withdrawal') {
         amount = '-$' + parseFloat(amount).toFixed(2);
+        total = '-$' + parseFloat(total).toFixed(2);
       } else {
         amount = '$' + parseFloat(amount).toFixed(2);
+        total = '$' + parseFloat(total).toFixed(2);
       }
-      return {transDate, type, contract, client, invoice, amount};
+      return {transDate, type, contract, client, invoice, amount, total, status};
     });
     
     return (
@@ -77,6 +81,8 @@ class TransactionHistory extends Component {
                 <th>Contract</th>
                 <th>Client</th>
                 <th>Amount</th>
+                <th>Total</th>
+                <th>Status</th>
                 <th>Invoice</th>
               </tr>
             </thead>
@@ -89,6 +95,8 @@ class TransactionHistory extends Component {
                   <td>{item.contract}</td>
                   <td>{item.client}</td>
                   <td className='amount'>{item.amount}</td>
+                  <td className='amount'>{item.total}</td>
+                  <td>{item.status}</td>
                   <td className='invoice'>{item.invoice}</td>
                 </tr>)
               )

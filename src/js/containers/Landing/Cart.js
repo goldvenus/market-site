@@ -51,9 +51,8 @@ class Cart extends Component {
     const { carts, user } = this.props;
     if (!carts || carts.length === 0) {
       handleError('Your cart is empty');
-    } else if (!user.mangoAccountId) {
-      handleError('You have to create MangoPay account before checkout');
-      this.props.history.push('/checkout');
+    } else if (!user.mangoAccountId || !user.kycValidated || user.kycValidated < 1) {
+      handleError('You have to create MangoPay account and verify your profile before checkout');
     } else {
       this.props.history.push('/checkout');
     }

@@ -63,7 +63,7 @@ class PaymentDetail extends Component {
     
     let payInMethods = paymentMethods.filter(item => item.type === 1);
     let payOutMethods = paymentMethods.filter(item => item.type === 2);
-    let addPayoutMethodPossible = true; // payOutMethods.length === 0;
+    let addPayoutMethodPossible = payOutMethods.length === 0;
     let balance = user.balance;
 
     return (
