@@ -21,7 +21,7 @@ class IdentityVerification extends Component {
       isChecked: false,
       busy: false,
       modalOpenState: 0,
-      step: 5     // initial: -1
+      step: -1     // initial: -1
     };
     this.verificationData = {
       firstName: '',
@@ -47,8 +47,14 @@ class IdentityVerification extends Component {
   
   componentWillReceiveProps(nextProps) {
     if (nextProps.user && this.props.user !== nextProps.user) {
-      if (nextProps.user.kycValidated) {
+      let kycValidated = nextProps.user.kycValidated;
+      if (kycValidated) {
         handleInfo('You are already verified');
+      } else if (kycValidated === 0) {
+        handleInfo('The system is now verifying your identity');
+        this.setState({step: 3});
+      } else if (kycValidated === false) {
+        handleError('Identity Verification was failed, please try again');
       } else {
         handleInfo('You are not verified');
       }
@@ -56,7 +62,6 @@ class IdentityVerification extends Component {
   }
   
   handleInputChange = (e, val) => {
-    console.log(e.target.value);
     this.verificationData[val] = e.target.value;
   };
   
@@ -93,16 +98,18 @@ class IdentityVerification extends Component {
       return;
     }
     if (this.state.step === 1) {
-      console.log('create account...');
       let {firstName, lastName, email, phone, nationality, country, birthday} = this.verificationData;
       let data = {firstName, lastName, email, phone, nationality: nationality.value, country: country.value, birthday: Math.floor(birthday.getTime()/1000)};
       this.setState({busy: true});
       let tempMangoAccountId = this.props.user.mangoAccountId;
-      if (this.props.user && !this.props.user.kycValidated) {
+      if (this.props.user && !tempMangoAccountId) {
+        console.log('no mangopay account, create account ...');
         tempMangoAccountId = await createMangoAccount({step: 1, data});
+      } else {
+        console.log('account exists');
       }
       this.setState({busy: false});
-      console.log("*****************", tempMangoAccountId);
+      console.log("mangopay account id: ", tempMangoAccountId);
       if (tempMangoAccountId) {
         this.verificationData.mangoAccountId = tempMangoAccountId;
       } else {
@@ -119,7 +126,6 @@ class IdentityVerification extends Component {
       proofImg = proofImg.replace('data:image/jpg;base64,', '');
       selfieImg = selfieImg.replace('data:image/gif;base64,', '');
       proofImg = proofImg.replace('data:image/gif;base64,', '');
-      console.log(selfieImg);
       let data = {firstName, lastName, email, phone, nationality: nationality.value, country: country.value, proofImg, selfieImg, verificationType, mangoAccountId};
       this.setState({step});
       let validationResult = await doKycValidation({step: 2, data});

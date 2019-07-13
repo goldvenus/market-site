@@ -23,7 +23,6 @@ import {getUser} from "../../core/actions/user.action";
 import Modal from "react-responsive-modal";
 import RentalTermsComponent from "../TermsAndPolicy/RentalTermsComponent";
 import {getCarts} from "../../core/actions/cart.action";
-// import {getAPIUrl} from "../../core/api";
 
 class Payment extends Component {
   constructor(props) {

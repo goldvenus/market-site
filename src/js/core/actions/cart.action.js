@@ -109,6 +109,12 @@ const getCarts = async () => {
         type: constants.GET_CARTS_SUCCESS,
         payload: response.data.data
       });
+      if (response.data.favourites) {
+        dispatch({
+          type: constants.GET_FAVOURITES_SUCCESS,
+          payload: response.data.favourites
+        });
+      }
     }
   } catch (error) {
     dispatch({
