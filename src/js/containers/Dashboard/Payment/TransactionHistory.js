@@ -46,7 +46,7 @@ class TransactionHistory extends Component {
       let options = {month: 'long', day: 'numeric', year: 'numeric'};
       transDate = transDate.toLocaleDateString("en-US", options);
   
-      if (type === 'Refung' || type === 'Withdrawal') {
+      if (type === 'Transfer Out' || type === 'Withdrawal') {
         amount = '-$' + parseFloat(amount).toFixed(2);
         total = '-$' + parseFloat(total).toFixed(2);
       } else {
