@@ -310,9 +310,7 @@ class Payment extends Component {
     
     // 1. Create Card Registration Object
     let defaultCurrency = 'USD';
-    console.log("************");
     let cardRegistrationData = await payment({mangoAccountId, defaultCurrency, step: 1});
-    console.log(cardRegistrationData);
     
     // 2. Send card details to Tokenization Server
     window.mangoPay.cardRegistration.baseURL = "https://api.sandbox.mangopay.com";
@@ -339,22 +337,21 @@ class Payment extends Component {
           resolve(res);
         },
         function(res) {
-          console.log(res);
+          handleError(res.ResultMessage);
           resolve(false);
         }
       );
     });
-    console.log(registrationData);
+    if (!registrationData) {
+      this.setState({loading: false});
+      return;
+    }
     
     // 3. Complete card registration, do pay-in direct card
     let payInResult = await payment({registrationData, data, checkoutInfo: this.checkoutInfo, step: 2});
     if (payInResult) {
       window.location.href = payInResult.redirectUrl;
-      // update user's cart info
-      // await getCarts();
-      // this.props.history.push(`/payment/${checkout_id}/${payInResult.redirectUrl}`);
     } else {
-      console.log("fail............");
       this.setState({loading: false});
     }
   };
@@ -400,7 +397,7 @@ class Payment extends Component {
       if (checkDigitSpace(value)) {
         value = cc_format(value);
       } else {
-        handleError("Please input right number");
+        handleError("Please input valid card number");
         value = this.state.card_number;
       }
     }
