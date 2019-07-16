@@ -25,9 +25,7 @@ export const ipLookUp = async () => {
       function success(response) {
         resolve({latitude: response.lat, longitude: response.lon, ...response});
       },
-      
       function fail(data, status) {
-        console.log('failed', status);
         resolve(false);
       }
     ));

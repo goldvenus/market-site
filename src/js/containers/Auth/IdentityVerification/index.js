@@ -13,6 +13,7 @@ import RentalTermsComponent from "../../TermsAndPolicy/RentalTermsComponent";
 import VerifyInProcess from "./VerifyInProcess";
 import {doKycValidation, createMangoAccount, getUser} from "../../../core/actions/user.action";
 import CustomSpinner from "../../../components/common/CustomSpinner";
+import {validateEmail} from "../../../core/helper";
 
 class IdentityVerification extends Component {
   constructor(props) {
@@ -106,6 +107,10 @@ class IdentityVerification extends Component {
   };
   
   handleNextStep = async (step) => {
+    if (step === 1 && !validateEmail(this.verificationData.email)) {
+      handleError('Please input valid email');
+      return;
+    }
     if (!this.doValidation(step)) {
       handleError('Please input required information');
       return;

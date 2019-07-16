@@ -41,6 +41,7 @@ class TransactionHistory extends Component {
       let client = item.Client;
       let amount = item.Amount;
       let total = item.Total;
+      let fee = item.Fee;
       let status = item.Status;
       let invoice = item.Invoice;
       let options = {month: 'long', day: 'numeric', year: 'numeric'};
@@ -53,7 +54,7 @@ class TransactionHistory extends Component {
         amount = '$' + parseFloat(amount).toFixed(2);
         total = '$' + parseFloat(total).toFixed(2);
       }
-      return {transDate, type, contract, client, invoice, amount, total, status};
+      return {transDate, type, contract, client, invoice, amount, total, fee, status};
     });
     
     return (
@@ -82,6 +83,7 @@ class TransactionHistory extends Component {
                 <th>Client</th>
                 <th>Amount</th>
                 <th>Total</th>
+                <th>Fee</th>
                 <th>Status</th>
                 <th>Invoice</th>
               </tr>
@@ -96,6 +98,7 @@ class TransactionHistory extends Component {
                   <td>{item.client}</td>
                   <td className='amount'>{item.amount}</td>
                   <td className='amount'>{item.total}</td>
+                  <td className='amount'>{item.fee}</td>
                   <td>{item.status}</td>
                   <td className='invoice'>{item.invoice}</td>
                 </tr>)

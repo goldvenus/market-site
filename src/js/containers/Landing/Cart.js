@@ -52,7 +52,7 @@ class Cart extends Component {
     if (!carts || carts.length === 0) {
       handleError('Your cart is empty');
     } else if (!user.mangoAccountId || !user.kycValidated || user.kycValidated < 1) {
-      handleError('You have to create MangoPay account and verify your profile before checkout');
+      handleError('You have to verify your profile before checkout');
     } else {
       this.props.history.push('/checkout');
     }

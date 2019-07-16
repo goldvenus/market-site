@@ -72,7 +72,7 @@ class Step1 extends Component {
                 id="standard-with-placeholder"
                 className="custom-beautiful-textfield"
                 label="Email"
-                type="text"
+                type="email"
                 maxLength='50'
                 onChange={(e) => this.props.onInputChange(e || '', 'email')}
               />

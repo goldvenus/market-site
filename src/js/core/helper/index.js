@@ -113,7 +113,14 @@ const sortCompare = (field) => {
   }
 };
 
+const validateEmail = (mail) => {
+  if (/^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+    return true
+  }
+  return false;
+};
+
 export {
   calcDaysDiff, getDateStr, formatDate, days, getUTCDateFormat, getYearMonthStr,
-  getUniqueObjectArray, validateCard, cc_format, checkDigitSpace, sortCompare
+  getUniqueObjectArray, validateCard, cc_format, checkDigitSpace, sortCompare, validateEmail
 }

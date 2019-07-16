@@ -11,7 +11,7 @@ class Step2 extends Component {
   }
   
   render() {
-    let {type} = this.state;
+    // let {type} = this.state;
     return (
       <div className='verify-inner-wrapper'>
         <h2 className="header">2. Proof of identity</h2>
@@ -26,11 +26,11 @@ class Step2 extends Component {
           </div>
           <div className="theme-form-field verify-main-wrapper">
             <p className='verify-type-title'>Choose your ID type</p>
-            <div className='verify-type-btn-container'>
-              <div className={`type-btn ${type === 0 && 'active'}`} onClick={() => {this.props.onSelectType(0);this.setState({type: 0})}}>ID Card</div>
-              <div className={`type-btn ${type === 1 && 'active'}`} onClick={() => {this.props.onSelectType(1);this.setState({type: 1})}}>Passport</div>
-              <div className={`type-btn ${type === 2 && 'active'}`} onClick={() => {this.props.onSelectType(2);this.setState({type: 2})}}>Driving License</div>
-            </div>
+            {/*<div className='verify-type-btn-container'>*/}
+              {/*<div className={`type-btn ${type === 0 && 'active'}`} onClick={() => {this.props.onSelectType(0);this.setState({type: 0})}}>ID Card</div>*/}
+              {/*<div className={`type-btn ${type === 1 && 'active'}`} onClick={() => {this.props.onSelectType(1);this.setState({type: 1})}}>Passport</div>*/}
+              {/*<div className={`type-btn ${type === 2 && 'active'}`} onClick={() => {this.props.onSelectType(2);this.setState({type: 2})}}>Driving License</div>*/}
+            {/*</div>*/}
             <div className='upload-photo-container'>
               <CustomDropzone
                 heading='UPLOAD SELFIE WITH THE PROOF'
