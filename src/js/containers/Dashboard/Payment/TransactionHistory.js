@@ -54,6 +54,7 @@ class TransactionHistory extends Component {
         amount = '$' + parseFloat(amount).toFixed(2);
         total = '$' + parseFloat(total).toFixed(2);
       }
+      fee = '$' + parseFloat(fee).toFixed(2);
       return {transDate, type, contract, client, invoice, amount, total, fee, status};
     });
     

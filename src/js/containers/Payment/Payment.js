@@ -23,6 +23,7 @@ import {getUser} from "../../core/actions/user.action";
 import Modal from "react-responsive-modal";
 import RentalTermsComponent from "../TermsAndPolicy/RentalTermsComponent";
 import {getCarts} from "../../core/actions/cart.action";
+import {MANGOPAY_CLIENT_ID} from "../../core/constants"
 
 class Payment extends Component {
   constructor(props) {
@@ -314,7 +315,7 @@ class Payment extends Component {
     
     // 2. Send card details to Tokenization Server
     window.mangoPay.cardRegistration.baseURL = "https://api.sandbox.mangopay.com";
-    window.mangoPay.cardRegistration.clientId = "creativemarkettst";
+    window.mangoPay.cardRegistration.clientId = MANGOPAY_CLIENT_ID;
     // Initialize with card register data prepared on the server
     window.mangoPay.cardRegistration.init({
       cardRegistrationURL: cardRegistrationData.CardRegistrationURL,

@@ -89,7 +89,8 @@
     "redux": "^4.0.1",
     "redux-promise": "^0.6.0",
     "styled-components": "^4.2.0",
-    "talkjs": "^0.9.0"
+    "talkjs": "^0.9.0",
+    "universal-cookie": "^4.0.2"
   },
   "scripts": {
     "build-css-watch": "node-sass-chokidar src/scss/index.scss src/index.css --watch",
