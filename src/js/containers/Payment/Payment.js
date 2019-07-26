@@ -312,6 +312,10 @@ class Payment extends Component {
     // 1. Create Card Registration Object
     let defaultCurrency = 'USD';
     let cardRegistrationData = await payment({mangoAccountId, defaultCurrency, step: 1});
+    if (!cardRegistrationData) {
+      this.setState({loading: false});
+      return;
+    }
     
     // 2. Send card details to Tokenization Server
     window.mangoPay.cardRegistration.baseURL = "https://api.sandbox.mangopay.com";
