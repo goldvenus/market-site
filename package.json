@@ -29,7 +29,7 @@
     "latest-version": "^4.0.0",
     "lodash": "latest",
     "mangopay-cardregistration-js-kit": "^1.2.2",
-    "marked": "^0.6.2",
+    "marked": "^1.1.1",
     "moment": "^2.22.2",
     "muicss": "^0.9.41",
     "owl.carousel2": "^2.2.1",
